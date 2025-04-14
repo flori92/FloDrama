@@ -2,46 +2,59 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" href="/logo.svg" type="image/svg+xml" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#3b82f6" />
   <meta name="description" content="FloDrama - Votre plateforme de streaming dédiée aux dramas et films asiatiques" />
-  <link rel="apple-touch-icon" href="/logo.svg" />
   <title>FloDrama - Streaming de Dramas et Films Asiatiques</title>
   <style>
+    @font-face {
+      font-family: 'SF Pro Display';
+      src: local('SF Pro Display'), url('https://cdn.jsdelivr.net/npm/@fontsource/sf-pro-display@4.5.0/files/sf-pro-display-400.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    
     body, html {
       margin: 0;
       padding: 0;
       height: 100%;
-      font-family: Arial, sans-serif;
+      font-family: 'SF Pro Display', Arial, sans-serif;
     }
+    
     #root {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      background-color: #111827;
-      color: #f3f4f6;
       background: linear-gradient(135deg, #121118 0%, #1A1926 100%);
+      color: #f3f4f6;
     }
+    
     .logo {
       width: 180px;
       margin-bottom: 20px;
     }
+    
     h1 {
       background: linear-gradient(to right, #3b82f6, #d946ef);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 16px;
       font-size: 2.5rem;
+      font-weight: 700;
     }
+    
     p {
       font-size: 1.2rem;
       margin-bottom: 24px;
       text-align: center;
       max-width: 500px;
+      line-height: 1.5;
     }
+    
     .spinner {
       width: 50px;
       height: 50px;
@@ -50,24 +63,78 @@
       border-radius: 50%;
       animation: spin 1s linear infinite;
     }
+    
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+    
     .btn {
       background: linear-gradient(to right, #3b82f6, #d946ef);
       color: white;
       border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
+      padding: 12px 24px;
+      border-radius: 8px;
       font-size: 1rem;
+      font-weight: 600;
       cursor: pointer;
       margin-top: 20px;
       transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
+    
     .btn:hover {
       opacity: 0.9;
       transform: translateY(-2px);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    }
+    
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+      max-width: 800px;
+    }
+    
+    .feature {
+      background: rgba(26, 25, 38, 0.6);
+      padding: 15px;
+      border-radius: 8px;
+      width: 200px;
+      text-align: center;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      transition: all 0.3s ease;
+    }
+    
+    .feature:hover {
+      transform: translateY(-5px);
+      border-color: #3b82f6;
+    }
+    
+    .feature h3 {
+      color: #d946ef;
+      margin-bottom: 10px;
+    }
+    
+    .feature p {
+      font-size: 0.9rem;
+      margin-bottom: 0;
+    }
+    
+    .message {
+      background: rgba(59, 130, 246, 0.1);
+      border-left: 4px solid #3b82f6;
+      padding: 10px 15px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+      max-width: 600px;
+      text-align: left;
+    }
+    
+    .message strong {
+      color: #d946ef;
     }
   </style>
 </head>
@@ -84,26 +151,54 @@
         </linearGradient>
       </defs>
     </svg>
+    
     <h1>FloDrama</h1>
     <p>Votre plateforme de streaming dédiée aux dramas et films asiatiques</p>
+    
+    <div class="message">
+      <p>Notre site est en cours de maintenance. Nous travaillons à améliorer notre <strong>système de recommandations IA</strong> pour vous offrir une expérience encore plus personnalisée.</p>
+    </div>
+    
+    <div class="features">
+      <div class="feature">
+        <h3>Recommandations Contextuelles</h3>
+        <p>Suggestions adaptées à l'heure de la journée, votre appareil et la saison</p>
+      </div>
+      <div class="feature">
+        <h3>Analyse Comportementale</h3>
+        <p>Identification de vos genres préférés et habitudes de visionnage</p>
+      </div>
+      <div class="feature">
+        <h3>Scoring Intelligent</h3>
+        <p>Système de pondération avancé pour des recommandations pertinentes</p>
+      </div>
+    </div>
+    
     <div class="spinner"></div>
-    <button class="btn" onclick="window.location.reload()">Actualiser</button>
+    <button class="btn" onclick="window.location.reload()">Actualiser la page</button>
   </div>
   
-  <!-- Script d'initialisation -->
   <script>
-    // Attendre que la page soit complètement chargée
-    window.addEventListener('load', function() {
-      // Vérifier si nous sommes déjà en mode enhanced pour éviter une boucle
-      const params = new URLSearchParams(window.location.search);
-      if (!params.has('enhanced')) {
-        // Rediriger une seule fois
-        if (!sessionStorage.getItem('redirected')) {
-          sessionStorage.setItem('redirected', 'true');
-          window.location.href = "/?enhanced=true";
+    // Fonction pour vérifier si le site est prêt
+    function checkSiteStatus() {
+      fetch('/api/status', { 
+        method: 'GET',
+        headers: { 'Accept': 'application/json' },
+        mode: 'no-cors'
+      })
+      .then(response => {
+        if (response.ok) {
+          window.location.href = "/?ready=true";
         }
-      }
-    });
+      })
+      .catch(error => {
+        console.log("Site en maintenance, nouvelle vérification dans 30 secondes");
+        setTimeout(checkSiteStatus, 30000);
+      });
+    }
+    
+    // Vérifier le statut toutes les 30 secondes
+    setTimeout(checkSiteStatus, 30000);
   </script>
 </body>
 </html>
