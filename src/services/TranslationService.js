@@ -3,7 +3,20 @@
  * Utilise Google Translate comme solution principale et MyMemory Translation API comme solution de secours
  */
 
-import { translate as googleTranslate } from '@vitalets/google-translate-api';
+// Importation conditionnelle pour éviter les problèmes de build
+let googleTranslate;
+try {
+  // Essayer d'importer google-translate-api de manière dynamique
+  if (typeof window !== 'undefined') {
+    const module = require('@vitalets/google-translate-api');
+    googleTranslate = module.translate;
+  }
+} catch (error) {
+  console.warn('Module de traduction Google non disponible, fonctionnalités de traduction limitées');
+  // Créer un mock pour éviter les erreurs
+  googleTranslate = async (text) => ({ text });
+}
+
 import axios from 'axios';
 let redis;
 

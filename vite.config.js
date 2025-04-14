@@ -45,8 +45,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
       },
-      // Ajouter socket.io-client aux modules externes
-      external: ['socket.io-client'],
+      // Ajouter les modules externes qui posent problème lors du build
+      external: ['socket.io-client', '@vitalets/google-translate-api', 'ioredis'],
       output: {
         manualChunks: (id) => {
           // Regrouper les modules React
