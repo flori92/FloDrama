@@ -2,12 +2,11 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" href="/favicon.ico" />
+  <link rel="icon" href="/logo.svg" type="image/svg+xml" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#3b82f6" />
   <meta name="description" content="FloDrama - Votre plateforme de streaming dédiée aux dramas et films asiatiques" />
-  <link rel="apple-touch-icon" href="/logo192.png" />
-  <link rel="manifest" href="/manifest.json" />
+  <link rel="apple-touch-icon" href="/logo.svg" />
   <title>FloDrama - Streaming de Dramas et Films Asiatiques</title>
   <style>
     body, html {
@@ -24,13 +23,16 @@
       height: 100vh;
       background-color: #111827;
       color: #f3f4f6;
+      background: linear-gradient(135deg, #121118 0%, #1A1926 100%);
     }
     .logo {
       width: 180px;
       margin-bottom: 20px;
     }
     h1 {
-      color: #3b82f6;
+      background: linear-gradient(to right, #3b82f6, #d946ef);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       margin-bottom: 16px;
       font-size: 2.5rem;
     }
@@ -52,23 +54,56 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+    .btn {
+      background: linear-gradient(to right, #3b82f6, #d946ef);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
   </style>
 </head>
 <body>
   <div id="root">
-    <img src="/logo.svg" alt="FloDrama Logo" class="logo" />
+    <svg width="180" height="180" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo">
+      <rect width="512" height="512" rx="128" fill="#121118"/>
+      <path d="M128 128h256v256H128z" fill="url(#paint0_linear)"/>
+      <path d="M192 224c0-17.7 14.3-32 32-32h64c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32h-64c-17.7 0-32-14.3-32-32v-64z" fill="#121118"/>
+      <defs>
+        <linearGradient id="paint0_linear" x1="128" y1="128" x2="384" y2="384" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#3b82f6"/>
+          <stop offset="1" stop-color="#d946ef"/>
+        </linearGradient>
+      </defs>
+    </svg>
     <h1>FloDrama</h1>
-    <p>Chargement de l'interface enrichie...</p>
+    <p>Votre plateforme de streaming dédiée aux dramas et films asiatiques</p>
     <div class="spinner"></div>
+    <button class="btn" onclick="window.location.reload()">Actualiser</button>
   </div>
   
   <!-- Script d'initialisation -->
   <script>
-    // Vérifier si nous sommes déjà en mode enhanced pour éviter une boucle
-    if (!window.location.href.includes('enhanced=true') && !sessionStorage.getItem('redirected')) {
-      sessionStorage.setItem('redirected', 'true');
-      window.location.href = "/?enhanced=true";
-    }
+    // Attendre que la page soit complètement chargée
+    window.addEventListener('load', function() {
+      // Vérifier si nous sommes déjà en mode enhanced pour éviter une boucle
+      const params = new URLSearchParams(window.location.search);
+      if (!params.has('enhanced')) {
+        // Rediriger une seule fois
+        if (!sessionStorage.getItem('redirected')) {
+          sessionStorage.setItem('redirected', 'true');
+          window.location.href = "/?enhanced=true";
+        }
+      }
+    });
   </script>
 </body>
 </html>
