@@ -1,10 +1,58 @@
 // Fichier de gestion PWA pour FloDrama
-import { registerSW } from 'virtual:pwa-register';
+// Version simplifiée sans dépendance à virtual:pwa-register
+
+// Fonction de remplacement pour registerSW
+const mockRegisterSW = (options: { onNeedRefresh?: () => void, onOfflineReady?: () => void }) => {
+  // En environnement de production, on utiliserait le vrai service worker
+  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+    // Enregistrement du service worker
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/FloDrama/sw.js')
+        .then(registration => {
+          console.log('Service Worker enregistré avec succès:', registration);
+          
+          // Vérifier les mises à jour
+          registration.addEventListener('updatefound', () => {
+            const newWorker = registration.installing;
+            if (newWorker) {
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  // Nouvelle version disponible
+                  if (options.onNeedRefresh) {
+                    options.onNeedRefresh();
+                  }
+                } else if (newWorker.state === 'activated' && !navigator.onLine) {
+                  // Prêt pour le mode hors ligne
+                  if (options.onOfflineReady) {
+                    options.onOfflineReady();
+                  }
+                }
+              });
+            }
+          });
+        })
+        .catch(error => {
+          console.error('Erreur lors de l\'enregistrement du Service Worker:', error);
+        });
+    });
+  }
+  
+  // Fonction de mise à jour
+  return () => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistration().then(registration => {
+        if (registration) {
+          registration.update();
+        }
+      });
+    }
+  };
+};
 
 // Fonction pour mettre à jour le service worker
 export function registerServiceWorker() {
   // Fonction de rechargement périodique pour les mises à jour
-  const updateSW = registerSW({
+  const updateSW = mockRegisterSW({
     onNeedRefresh() {
       // Afficher une notification stylisée avec l'identité visuelle FloDrama
       const notification = document.createElement('div');
@@ -116,18 +164,12 @@ export function registerServiceWorker() {
           cursor: pointer;
           transition: all 0.3s ease;
         }
-        
-        .flodrama-btn-secondary:hover {
-          background: rgba(255, 255, 255, 0.1);
-        }
       `;
       document.head.appendChild(style);
       
-      // Ajouter les événements
+      // Ajouter les écouteurs d'événements
       document.getElementById('pwa-update-accept')?.addEventListener('click', () => {
-        updateSW(true);
-        notification.remove();
-        style.remove();
+        window.location.reload();
       });
       
       document.getElementById('pwa-update-reject')?.addEventListener('click', () => {
@@ -136,21 +178,19 @@ export function registerServiceWorker() {
       });
     },
     onOfflineReady() {
-      console.log('FloDrama est prêt pour une utilisation hors ligne');
-      
-      // Notification discrète pour le mode hors ligne
+      // Notification pour le mode hors ligne
       const offlineToast = document.createElement('div');
       offlineToast.className = 'flodrama-offline-toast';
       offlineToast.innerHTML = `
         <div class="flodrama-offline-toast-content">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM17 11H7V13H17V11Z" fill="#3b82f6" />
+            <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" fill="#d946ef" />
+            <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" fill="#3b82f6" />
           </svg>
-          <span>FloDrama est disponible hors ligne</span>
+          <span>FloDrama est prêt pour une utilisation hors ligne</span>
         </div>
       `;
       
-      // Ajouter la notification au DOM
       document.body.appendChild(offlineToast);
       
       // Ajouter les styles
@@ -285,7 +325,12 @@ export function setupNetworkDetection() {
 
 // Initialiser la PWA
 export function initPWA() {
-  registerServiceWorker();
+  // Vérifier si le navigateur prend en charge les fonctionnalités PWA
+  if ('serviceWorker' in navigator) {
+    registerServiceWorker();
+  }
+  
+  // La détection réseau fonctionne sur tous les navigateurs modernes
   setupNetworkDetection();
 }
 
