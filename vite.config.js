@@ -45,6 +45,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
       },
+      // Ajouter socket.io-client aux modules externes
+      external: ['socket.io-client'],
       output: {
         manualChunks: (id) => {
           // Regrouper les modules React

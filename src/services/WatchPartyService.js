@@ -3,7 +3,24 @@
  * Gère les connexions WebSocket et les interactions en temps réel
  */
 
-import io from 'socket.io-client';
+// Importation conditionnelle pour éviter les problèmes de build
+let io;
+try {
+  // Essayer d'importer socket.io-client de manière dynamique
+  if (typeof window !== 'undefined') {
+    io = require('socket.io-client');
+  }
+} catch (error) {
+  console.warn('Socket.io-client non disponible, fonctionnalités Watch Party désactivées');
+  // Créer un mock pour éviter les erreurs
+  io = () => ({
+    on: () => {},
+    emit: () => {},
+    disconnect: () => {},
+    connected: false
+  });
+}
+
 import { API_BASE_URL } from '../config/api';
 import AuthService from './AuthService';
 
