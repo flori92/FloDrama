@@ -56,15 +56,19 @@
 </head>
 <body>
   <div id="root">
-    <img src="/flodrama-logo.svg" alt="FloDrama Logo" class="logo" />
+    <img src="/logo.svg" alt="FloDrama Logo" class="logo" />
     <h1>FloDrama</h1>
     <p>Chargement de l'interface enrichie...</p>
     <div class="spinner"></div>
   </div>
   
-  <!-- Redirection automatique vers l'interface enrichie -->
+  <!-- Script d'initialisation -->
   <script>
-    window.location.href = "/?enhanced=true";
+    // Vérifier si nous sommes déjà en mode enhanced pour éviter une boucle
+    if (!window.location.href.includes('enhanced=true') && !sessionStorage.getItem('redirected')) {
+      sessionStorage.setItem('redirected', 'true');
+      window.location.href = "/?enhanced=true";
+    }
   </script>
 </body>
 </html>
