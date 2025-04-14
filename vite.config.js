@@ -35,8 +35,8 @@ export default defineConfig({
     },
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json']
   },
-  // Configuration pour GitHub Pages
-  base: '/FloDrama/',
+  // Configuration conditionnelle pour GitHub Pages en production et développement local
+  base: process.env.NODE_ENV === 'production' ? '/FloDrama/' : '/',
   build: {
     // Augmenter la limite d'avertissement pour les chunks
     chunkSizeWarningLimit: 600,
@@ -98,7 +98,7 @@ export default defineConfig({
     port: 3000,
     open: true,
     cors: true,
-    strictPort: true,
+    strictPort: false, // Permettre de changer de port si 3000 est occupé
     hmr: {
       overlay: true,
     },

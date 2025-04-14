@@ -5,6 +5,7 @@ import './styles/globals.css';
 import AppErrorBoundary from './components/AppErrorBoundary';
 import localImageFallback from './utils/localImageFallback';
 import cacheManager from './utils/cacheManager';
+import { initPWA } from './pwa';
 
 /**
  * Fonction pour vérifier si React est correctement chargé
@@ -23,6 +24,7 @@ function isReactAvailable() {
  * Initialise les utilitaires de l'application
  * - Crée les placeholders pour les images
  * - Nettoie le cache si nécessaire
+ * - Initialise la PWA
  */
 function initializeUtilities() {
   console.log('Initialisation des utilitaires FloDrama...');
@@ -46,6 +48,14 @@ function initializeUtilities() {
     }
   } catch (error) {
     console.warn('Erreur lors de la vérification du cache:', error);
+  }
+  
+  // Initialiser la PWA
+  try {
+    initPWA();
+    console.log('PWA initialisée avec succès');
+  } catch (error) {
+    console.warn('Erreur lors de l\'initialisation de la PWA:', error);
   }
   
   // Ajouter un timestamp aux logs pour le débogage

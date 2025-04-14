@@ -65,18 +65,6 @@
       100% { transform: rotate(360deg); }
     }
   </style>
-  <script>
-    // Fonction pour rediriger vers l'application principale
-    window.addEventListener('DOMContentLoaded', function() {
-      // Rediriger vers l'application React si ce n'est pas déjà fait
-      if (!window.location.pathname.includes('/app')) {
-        console.log("Redirection vers l'application principale...");
-        setTimeout(function() {
-          window.location.href = "/app";
-        }, 1000);
-      }
-    });
-  </script>
 </head>
 <body>
   <div id="root">
@@ -98,5 +86,6 @@
       <div class="loading-spinner"></div>
     </div>
   </div>
+  <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>

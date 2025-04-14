@@ -7,6 +7,7 @@ import AppErrorBoundary from './components/AppErrorBoundary';
 import { unifiedImageService } from './services';
 
 // Chargement paresseux des pages pour optimiser les performances
+const MainInterface = lazyLoad(() => import('./pages/MainInterface'));
 const OptimizedHomePage = lazyLoad(() => import('./pages/OptimizedHomePage'));
 const LazyHomePage = lazyLoad(() => import('./pages/HomePage'));
 const LazyDetailPage = lazyLoad(() => import('./pages/DetailPage'));
@@ -150,12 +151,12 @@ function App() {
                 {/* Redirection en fonction du mode d'interface */}
                 <Route 
                   path="/" 
-                  element={isEnhanced ? <OptimizedHomePage /> : <LazyLandingPage />} 
+                  element={isEnhanced ? <MainInterface /> : <LazyLandingPage />} 
                 />
                 
                 {/* Routes principales */}
-                <Route path="/app" element={<OptimizedHomePage />} />
-                <Route path="/home" element={<OptimizedHomePage />} />
+                <Route path="/app" element={<MainInterface />} />
+                <Route path="/home" element={<MainInterface />} />
                 <Route path="/classic" element={<LazyHomePage />} />
                 <Route path="/search" element={<LazySearchPage />} />
                 <Route path="/watchlist" element={<LazyWatchlistPage />} />
