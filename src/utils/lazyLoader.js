@@ -35,12 +35,24 @@ const DefaultLoadingFallback = ({ height = '200px', width = '100%' }) => (
         left: 0
       }}
     />
-    <style jsx="true">{`
-      @keyframes shimmer {
-        0% { background-position: -200% 0; }
-        100% { background-position: 200% 0; }
-      }
-    `}</style>
+    <div
+      style={{
+        position: 'absolute',
+        width: 0,
+        height: 0,
+        overflow: 'hidden'
+      }}
+      dangerouslySetInnerHTML={{
+        __html: `
+          <style>
+            @keyframes shimmer {
+              0% { background-position: -200% 0; }
+              100% { background-position: 200% 0; }
+            }
+          </style>
+        `
+      }}
+    />
   </div>
 );
 
