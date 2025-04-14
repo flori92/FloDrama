@@ -9,52 +9,52 @@ import React, { Suspense } from 'react';
  * Composant de fallback pendant le chargement
  * Respecte l'identité visuelle de FloDrama
  */
-const DefaultLoadingFallback = ({ height = '200px', width = '100%' }) => (
-  <div 
-    style={{
-      height,
-      width,
-      background: '#1A1926',
-      borderRadius: '8px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      overflow: 'hidden',
-      position: 'relative'
-    }}
-  >
+const DefaultLoadingFallback = ({ height = '200px', width = '100%' }) => {
+  // Définir l'animation en CSS
+  React.useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
+
+  return (
     <div 
       style={{
-        width: '100%',
-        height: '100%',
-        background: 'linear-gradient(90deg, #1A1926 0%, #2a293a 50%, #1A1926 100%)',
-        backgroundSize: '200% 100%',
-        animation: 'shimmer 1.5s infinite',
-        position: 'absolute',
-        top: 0,
-        left: 0
+        height,
+        width,
+        background: '#1A1926',
+        borderRadius: '8px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        position: 'relative'
       }}
-    />
-    <div
-      style={{
-        position: 'absolute',
-        width: 0,
-        height: 0,
-        overflow: 'hidden'
-      }}
-      dangerouslySetInnerHTML={{
-        __html: `
-          <style>
-            @keyframes shimmer {
-              0% { background-position: -200% 0; }
-              100% { background-position: 200% 0; }
-            }
-          </style>
-        `
-      }}
-    />
-  </div>
-);
+    >
+      <div 
+        style={{
+          width: '100%',
+          height: '100%',
+          background: 'linear-gradient(90deg, #1A1926 0%, #2a293a 50%, #1A1926 100%)',
+          backgroundSize: '200% 100%',
+          animation: 'shimmer 1.5s infinite',
+          position: 'absolute',
+          top: 0,
+          left: 0
+        }}
+      />
+    </div>
+  );
+};
 
 /**
  * Composant de fallback pour les erreurs de chargement
@@ -172,17 +172,6 @@ export const lazyLoad = (importFunc, {
     return (
       <React.Fragment>
         {children}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.addEventListener('error', function(e) {
-                if (e.target.tagName && e.target.tagName.toLowerCase() === 'script') {
-                  ${handleCatch.toString()}(new Error('Erreur de chargement du script: ' + e.target.src));
-                }
-              }, true);
-            `
-          }}
-        />
       </React.Fragment>
     );
   };
