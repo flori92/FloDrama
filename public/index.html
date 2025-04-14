@@ -7,37 +7,33 @@
   <meta name="description" content="FloDrama - Votre plateforme de streaming dédiée aux dramas et films asiatiques" />
   <title>FloDrama - Streaming de Dramas et Films Asiatiques</title>
   <style>
-    @font-face {
-      font-family: 'SF Pro Display';
-      src: local('SF Pro Display'), url('https://cdn.jsdelivr.net/npm/@fontsource/sf-pro-display@4.5.0/files/sf-pro-display-400.woff2') format('woff2');
-      font-weight: 400;
-      font-style: normal;
-      font-display: swap;
-    }
-    
     body, html {
       margin: 0;
       padding: 0;
       height: 100%;
-      font-family: 'SF Pro Display', Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
     
     #root {
+      height: 100%;
+    }
+    
+    .loading-container {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
       background: linear-gradient(135deg, #121118 0%, #1A1926 100%);
-      color: #f3f4f6;
+      color: #f3b4f6;
     }
     
-    .logo {
+    .loading-logo {
       width: 180px;
       margin-bottom: 20px;
     }
     
-    h1 {
+    .loading-title {
       background: linear-gradient(to right, #3b82f6, #d946ef);
       -webkit-background-clip: text;
       background-clip: text;
@@ -47,7 +43,7 @@
       font-weight: 700;
     }
     
-    p {
+    .loading-text {
       font-size: 1.2rem;
       margin-bottom: 24px;
       text-align: center;
@@ -55,7 +51,7 @@
       line-height: 1.5;
     }
     
-    .spinner {
+    .loading-spinner {
       width: 50px;
       height: 50px;
       border: 5px solid rgba(59, 130, 246, 0.2);
@@ -68,137 +64,39 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-    
-    .btn {
-      background: linear-gradient(to right, #3b82f6, #d946ef);
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 20px;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    
-    .btn:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-    }
-    
-    .features {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 30px;
-      max-width: 800px;
-    }
-    
-    .feature {
-      background: rgba(26, 25, 38, 0.6);
-      padding: 15px;
-      border-radius: 8px;
-      width: 200px;
-      text-align: center;
-      border: 1px solid rgba(59, 130, 246, 0.2);
-      transition: all 0.3s ease;
-    }
-    
-    .feature:hover {
-      transform: translateY(-5px);
-      border-color: #3b82f6;
-    }
-    
-    .feature h3 {
-      color: #d946ef;
-      margin-bottom: 10px;
-    }
-    
-    .feature p {
-      font-size: 0.9rem;
-      margin-bottom: 0;
-    }
-    
-    .message {
-      background: rgba(59, 130, 246, 0.1);
-      border-left: 4px solid #3b82f6;
-      padding: 10px 15px;
-      margin: 20px 0;
-      border-radius: 0 8px 8px 0;
-      max-width: 600px;
-      text-align: left;
-    }
-    
-    .message strong {
-      color: #d946ef;
-    }
   </style>
+  <script>
+    // Fonction pour rediriger vers l'application principale
+    window.addEventListener('DOMContentLoaded', function() {
+      // Rediriger vers l'application React si ce n'est pas déjà fait
+      if (!window.location.pathname.includes('/app')) {
+        console.log("Redirection vers l'application principale...");
+        setTimeout(function() {
+          window.location.href = "/app";
+        }, 1000);
+      }
+    });
+  </script>
 </head>
 <body>
   <div id="root">
-    <svg width="180" height="180" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo">
-      <rect width="512" height="512" rx="128" fill="#121118"/>
-      <path d="M128 128h256v256H128z" fill="url(#paint0_linear)"/>
-      <path d="M192 224c0-17.7 14.3-32 32-32h64c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32h-64c-17.7 0-32-14.3-32-32v-64z" fill="#121118"/>
-      <defs>
-        <linearGradient id="paint0_linear" x1="128" y1="128" x2="384" y2="384" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#3b82f6"/>
-          <stop offset="1" stop-color="#d946ef"/>
-        </linearGradient>
-      </defs>
-    </svg>
-    
-    <h1>FloDrama</h1>
-    <p>Votre plateforme de streaming dédiée aux dramas et films asiatiques</p>
-    
-    <div class="message">
-      <p>Notre site est en cours de maintenance. Nous travaillons à améliorer notre <strong>système de recommandations IA</strong> pour vous offrir une expérience encore plus personnalisée.</p>
+    <div class="loading-container">
+      <svg width="180" height="180" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" class="loading-logo">
+        <rect width="512" height="512" rx="128" fill="#121118"/>
+        <path d="M128 128h256v256H128z" fill="url(#paint0_linear)"/>
+        <path d="M192 224c0-17.7 14.3-32 32-32h64c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32h-64c-17.7 0-32-14.3-32-32v-64z" fill="#121118"/>
+        <defs>
+          <linearGradient id="paint0_linear" x1="128" y1="128" x2="384" y2="384" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#3b82f6"/>
+            <stop offset="1" stop-color="#d946ef"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      
+      <h1 class="loading-title">FloDrama</h1>
+      <p class="loading-text">Chargement de votre expérience personnalisée...</p>
+      <div class="loading-spinner"></div>
     </div>
-    
-    <div class="features">
-      <div class="feature">
-        <h3>Recommandations Contextuelles</h3>
-        <p>Suggestions adaptées à l'heure de la journée, votre appareil et la saison</p>
-      </div>
-      <div class="feature">
-        <h3>Analyse Comportementale</h3>
-        <p>Identification de vos genres préférés et habitudes de visionnage</p>
-      </div>
-      <div class="feature">
-        <h3>Scoring Intelligent</h3>
-        <p>Système de pondération avancé pour des recommandations pertinentes</p>
-      </div>
-    </div>
-    
-    <div class="spinner"></div>
-    <button class="btn" onclick="window.location.reload()">Actualiser la page</button>
   </div>
-  
-  <script>
-    // Fonction pour vérifier si le site est prêt
-    function checkSiteStatus() {
-      fetch('/api/status', { 
-        method: 'GET',
-        headers: { 'Accept': 'application/json' },
-        mode: 'no-cors'
-      })
-      .then(response => {
-        if (response.ok) {
-          window.location.href = "/?ready=true";
-        }
-      })
-      .catch(error => {
-        console.log("Site en maintenance, nouvelle vérification dans 30 secondes");
-        setTimeout(checkSiteStatus, 30000);
-      });
-    }
-    
-    // Vérifier le statut toutes les 30 secondes
-    setTimeout(checkSiteStatus, 30000);
-  </script>
 </body>
 </html>
