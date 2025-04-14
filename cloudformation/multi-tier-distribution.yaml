@@ -1,0 +1,399 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Architecture de distribution multi-niveaux pour FloDrama'
+
+Parameters:
+  Environment:
+    Type: String
+    Default: production
+    AllowedValues:
+      - development
+      - staging
+      - production
+    Description: Environnement de déploiement
+
+  DomainName:
+    Type: String
+    Default: flodrama.com
+    Description: Nom de domaine principal
+
+  GitHubPagesURL:
+    Type: String
+    Default: flori92.github.io/FloDrama
+    Description: URL GitHub Pages
+
+  MongoDBAtlasURI:
+    Type: String
+    NoEcho: true
+    Description: URI de connexion MongoDB Atlas
+
+Resources:
+  # CloudFront Distribution pour la distribution de contenu
+  FloDramaCloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        Comment: !Sub "Distribution FloDrama pour ${Environment}"
+        DefaultRootObject: index.html
+        PriceClass: PriceClass_100
+        HttpVersion: http2
+        ViewerCertificate:
+          AcmCertificateArn: !Ref FloDramaCertificate
+          SslSupportMethod: sni-only
+          MinimumProtocolVersion: TLSv1.2_2021
+        Origins:
+          - Id: GitHubPagesOrigin
+            DomainName: !Ref GitHubPagesURL
+            CustomOriginConfig:
+              HTTPPort: 80
+              HTTPSPort: 443
+              OriginProtocolPolicy: https-only
+              OriginSSLProtocols:
+                - TLSv1.2
+          - Id: APIGatewayOrigin
+            DomainName: !Sub "${FloDramaAPIGateway}.execute-api.${AWS::Region}.amazonaws.com"
+            OriginPath: !Sub "/${Environment}"
+            CustomOriginConfig:
+              HTTPPort: 80
+              HTTPSPort: 443
+              OriginProtocolPolicy: https-only
+              OriginSSLProtocols:
+                - TLSv1.2
+        DefaultCacheBehavior:
+          TargetOriginId: GitHubPagesOrigin
+          ViewerProtocolPolicy: redirect-to-https
+          Compress: true
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6 # CachingOptimized
+          OriginRequestPolicyId: 88a5eaf4-2fd4-4709-b370-b4c650ea3fcf # CORS-S3Origin
+          ResponseHeadersPolicyId: 67f7725c-6f97-4210-82d7-5512b31e9d03 # SecurityHeadersPolicy
+          LambdaFunctionAssociations:
+            - EventType: viewer-request
+              LambdaFunctionARN: !GetAtt FloDramaSecurityHeadersFunction.Version
+            - EventType: origin-response
+              LambdaFunctionARN: !GetAtt FloDramaCSSHandlerFunction.Version
+        CacheBehaviors:
+          - PathPattern: /api/*
+            TargetOriginId: APIGatewayOrigin
+            ViewerProtocolPolicy: https-only
+            AllowedMethods:
+              - GET
+              - HEAD
+              - OPTIONS
+              - PUT
+              - POST
+              - PATCH
+              - DELETE
+            CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad # CachingDisabled
+            OriginRequestPolicyId: b689b0a8-53d0-40ab-baf2-68738e2966ac # AllViewerExceptHostHeader
+          - PathPattern: /images/*
+            TargetOriginId: GitHubPagesOrigin
+            ViewerProtocolPolicy: redirect-to-https
+            Compress: true
+            CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6 # CachingOptimized
+            LambdaFunctionAssociations:
+              - EventType: origin-response
+                LambdaFunctionARN: !GetAtt FloDramaImageProcessorFunction.Version
+        CustomErrorResponses:
+          - ErrorCode: 404
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+            ErrorCachingMinTTL: 10
+          - ErrorCode: 403
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+            ErrorCachingMinTTL: 10
+
+  # Certificat SSL pour le domaine
+  FloDramaCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: !Ref DomainName
+      SubjectAlternativeNames:
+        - !Sub "www.${DomainName}"
+        - !Sub "api.${DomainName}"
+        - !Sub "cdn.${DomainName}"
+      ValidationMethod: DNS
+
+  # API Gateway pour les services backend
+  FloDramaAPIGateway:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: !Sub "flodrama-api-${Environment}"
+      Description: API Gateway pour FloDrama
+      EndpointConfiguration:
+        Types:
+          - REGIONAL
+      ApiKeySourceType: HEADER
+      BinaryMediaTypes:
+        - image/jpeg
+        - image/png
+        - application/octet-stream
+
+  # Plan d'utilisation pour l'API Gateway
+  FloDramaAPIUsagePlan:
+    Type: AWS::ApiGateway::UsagePlan
+    Properties:
+      ApiStages:
+        - ApiId: !Ref FloDramaAPIGateway
+          Stage: !Ref Environment
+      Description: Plan d'utilisation pour l'API FloDrama
+      Quota:
+        Limit: 10000
+        Period: DAY
+      Throttle:
+        BurstLimit: 100
+        RateLimit: 50
+
+  # Fonction Lambda pour le traitement des images
+  FloDramaImageProcessorFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub "flodrama-image-processor-${Environment}"
+      Handler: index.handler
+      Role: !GetAtt FloDramaLambdaExecutionRole.Arn
+      Runtime: nodejs16.x
+      MemorySize: 256
+      Timeout: 10
+      Code:
+        ZipFile: |
+          const AWS = require('aws-sdk');
+          
+          // Couleurs de l'identité visuelle FloDrama
+          const FLODRAMA_BLUE = '#3b82f6';
+          const FLODRAMA_FUCHSIA = '#d946ef';
+          const CORNER_RADIUS = '8px';
+          
+          exports.handler = async (event, context) => {
+            const response = event.Records[0].cf.response;
+            const request = event.Records[0].cf.request;
+            
+            // Vérifier si c'est une image
+            if (response.status === '200') {
+              const contentType = response.headers['content-type'] && response.headers['content-type'][0].value;
+              
+              if (contentType && (contentType.startsWith('image/') || request.uri.match(/\.(jpg|jpeg|png|gif|webp)$/i))) {
+                // Ajouter des en-têtes pour l'optimisation des images
+                response.headers['cache-control'] = [{
+                  key: 'Cache-Control',
+                  value: 'public, max-age=31536000, immutable'
+                }];
+                
+                // Ajouter des en-têtes pour le style FloDrama
+                response.headers['x-flodrama-style'] = [{
+                  key: 'X-FloDrama-Style',
+                  value: `gradient=${FLODRAMA_BLUE}-${FLODRAMA_FUCHSIA};corner-radius=${CORNER_RADIUS}`
+                }];
+              }
+            }
+            
+            return response;
+          };
+
+  # Fonction Lambda pour les en-têtes de sécurité
+  FloDramaSecurityHeadersFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub "flodrama-security-headers-${Environment}"
+      Handler: index.handler
+      Role: !GetAtt FloDramaLambdaExecutionRole.Arn
+      Runtime: nodejs16.x
+      MemorySize: 128
+      Timeout: 5
+      Code:
+        ZipFile: |
+          exports.handler = async (event, context) => {
+            const request = event.Records[0].cf.request;
+            
+            // Ajouter des en-têtes de sécurité pour les requêtes
+            request.headers['x-content-type-options'] = [{
+              key: 'X-Content-Type-Options',
+              value: 'nosniff'
+            }];
+            
+            request.headers['x-frame-options'] = [{
+              key: 'X-Frame-Options',
+              value: 'DENY'
+            }];
+            
+            request.headers['x-xss-protection'] = [{
+              key: 'X-XSS-Protection',
+              value: '1; mode=block'
+            }];
+            
+            return request;
+          };
+
+  # Fonction Lambda pour le traitement CSS
+  FloDramaCSSHandlerFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub "flodrama-css-handler-${Environment}"
+      Handler: index.handler
+      Role: !GetAtt FloDramaLambdaExecutionRole.Arn
+      Runtime: nodejs16.x
+      MemorySize: 128
+      Timeout: 5
+      Code:
+        ZipFile: |
+          exports.handler = async (event, context) => {
+            const response = event.Records[0].cf.response;
+            const request = event.Records[0].cf.request;
+            
+            // Vérifier si c'est un fichier CSS
+            if (response.status === '200' && request.uri.endsWith('.css')) {
+              const contentType = response.headers['content-type'] && response.headers['content-type'][0].value;
+              
+              if (contentType && contentType.includes('text/css')) {
+                // Ajouter des en-têtes pour l'optimisation CSS
+                response.headers['cache-control'] = [{
+                  key: 'Cache-Control',
+                  value: 'public, max-age=31536000, immutable'
+                }];
+                
+                // Injecter les variables CSS de FloDrama
+                if (response.body) {
+                  let body = Buffer.from(response.body.toString('base64'), 'base64').toString('utf8');
+                  
+                  // Ajouter les variables CSS de FloDrama si elles ne sont pas déjà présentes
+                  if (!body.includes('--flodrama-blue')) {
+                    const flodramaCSSVars = `
+                      :root {
+                        --flodrama-blue: #3b82f6;
+                        --flodrama-fuchsia: #d946ef;
+                        --flodrama-bg-dark: #121118;
+                        --flodrama-bg-secondary: #1A1926;
+                        --flodrama-gradient: linear-gradient(to right, var(--flodrama-blue), var(--flodrama-fuchsia));
+                        --flodrama-corner-radius: 8px;
+                        --flodrama-transition: 0.3s ease;
+                      }
+                    `;
+                    
+                    body = flodramaCSSVars + body;
+                    response.body = Buffer.from(body).toString('base64');
+                    response.bodyEncoding = 'base64';
+                  }
+                }
+              }
+            }
+            
+            return response;
+          };
+
+  # Rôle d'exécution Lambda
+  FloDramaLambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+                - edgelambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+  # Fonction Lambda pour le routage intelligent API
+  FloDramaIntelligentRoutingFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub "flodrama-intelligent-routing-${Environment}"
+      Handler: index.handler
+      Role: !GetAtt FloDramaLambdaExecutionRole.Arn
+      Runtime: nodejs16.x
+      MemorySize: 256
+      Timeout: 10
+      Environment:
+        Variables:
+          MONGODB_ATLAS_URI: !Ref MongoDBAtlasURI
+      Code:
+        ZipFile: |
+          const AWS = require('aws-sdk');
+          const MongoClient = require('mongodb').MongoClient;
+          
+          // Connexion MongoDB
+          let cachedDb = null;
+          
+          async function connectToDatabase() {
+            if (cachedDb) {
+              return cachedDb;
+            }
+            
+            const client = await MongoClient.connect(process.env.MONGODB_ATLAS_URI);
+            const db = client.db('flodrama');
+            cachedDb = db;
+            return db;
+          }
+          
+          exports.handler = async (event, context) => {
+            context.callbackWaitsForEmptyEventLoop = false;
+            
+            try {
+              const db = await connectToDatabase();
+              
+              // Extraction des informations de la requête
+              const path = event.path || '';
+              const queryParams = event.queryStringParameters || {};
+              const headers = event.headers || {};
+              const userAgent = headers['User-Agent'] || headers['user-agent'] || '';
+              
+              // Détection du type d'appareil
+              const isMobile = /mobile|android|iphone|ipad|ipod/i.test(userAgent);
+              const deviceType = isMobile ? 'mobile' : 'desktop';
+              
+              // Journalisation de la requête pour analyse ultérieure
+              await db.collection('request_logs').insertOne({
+                path,
+                queryParams,
+                deviceType,
+                timestamp: new Date(),
+                userAgent
+              });
+              
+              // Logique de routage intelligent
+              let targetService = 'default';
+              
+              if (path.startsWith('/api/content')) {
+                targetService = 'content-service';
+              } else if (path.startsWith('/api/auth')) {
+                targetService = 'auth-service';
+              } else if (path.startsWith('/api/search')) {
+                targetService = 'search-service';
+              }
+              
+              // Retourner les informations de routage
+              return {
+                statusCode: 200,
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  targetService,
+                  deviceType,
+                  timestamp: new Date().toISOString()
+                })
+              };
+            } catch (err) {
+              console.error('Erreur:', err);
+              return {
+                statusCode: 500,
+                body: JSON.stringify({ error: 'Erreur de routage' })
+              };
+            }
+          };
+
+Outputs:
+  CloudFrontDistributionId:
+    Description: ID de la distribution CloudFront
+    Value: !Ref FloDramaCloudFrontDistribution
+    
+  CloudFrontDomainName:
+    Description: Nom de domaine CloudFront
+    Value: !GetAtt FloDramaCloudFrontDistribution.DomainName
+    
+  APIGatewayURL:
+    Description: URL de l'API Gateway
+    Value: !Sub "https://${FloDramaAPIGateway}.execute-api.${AWS::Region}.amazonaws.com/${Environment}"

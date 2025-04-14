@@ -1,0 +1,66 @@
+/* Styles pour le lecteur vidéo */
+.lecteur-video-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--background-dark);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.video-title {
+  padding: 1rem;
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.sous-titres-controls {
+  position: absolute;
+  bottom: 60px;
+  right: 20px;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.sous-titres-controls select {
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* Variables CSS personnalisées */
+:root {
+  --background-dark: #1a1a1a;
+  --text-primary: #ffffff;
+  --accent-color: #ff4081;
+  
+  /* Mode clair */
+  --background-light: #f5f5f5;
+  --text-primary-light: #333333;
+}
+
+/* Support du mode sombre */
+@media (prefers-color-scheme: dark) {
+  .lecteur-video-container {
+    background: var(--background-dark);
+  }
+}
+
+/* Support du mode clair */
+@media (prefers-color-scheme: light) {
+  .lecteur-video-container {
+    background: var(--background-light);
+  }
+  
+  .video-title {
+    color: var(--text-primary-light);
+  }
+}

@@ -1,0 +1,5 @@
+/*
+  Content-Security-Policy: default-src 'self' *.flodrama.com d1323ouxr1qbdp.cloudfront.net d1pbqs2b6em4ha.cloudfront.net; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.flodrama.com d1323ouxr1qbdp.cloudfront.net d1pbqs2b6em4ha.cloudfront.net; style-src 'self' 'unsafe-inline' *.flodrama.com d1323ouxr1qbdp.cloudfront.net d1pbqs2b6em4ha.cloudfront.net; img-src 'self' data: *.flodrama.com d1323ouxr1qbdp.cloudfront.net d1pbqs2b6em4ha.cloudfront.net; font-src 'self' data: *.flodrama.com d1323ouxr1qbdp.cloudfront.net d1pbqs2b6em4ha.cloudfront.net; connect-src 'self' *.flodrama.com d1323ouxr1qbdp.cloudfront.net d1pbqs2b6em4ha.cloudfront.net;
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin

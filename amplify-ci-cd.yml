@@ -1,0 +1,54 @@
+version: 1
+env:
+  variables:
+    NODE_ENV: production
+    
+backend:
+  phases:
+    build:
+      commands:
+        - amplifyPush --simple
+
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+        - echo "Installation des dépendances terminée"
+    build:
+      commands:
+        - echo "Début de la construction..."
+        - NODE_ENV=production npm run build
+        - echo "Construction terminée"
+    postBuild:
+      commands:
+        - echo "Phase post-build - Vérification des fichiers générés"
+        - ls -la build/
+  artifacts:
+    baseDirectory: build
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      
+test:
+  phases:
+    preTest:
+      commands:
+        - npm ci
+        - npm install -g jest
+    test:
+      commands:
+        - npm run test
+  artifacts:
+    baseDirectory: coverage
+    files:
+      - '**/*'
+      
+deploy:
+  phases:
+    deploy:
+      commands:
+        - echo "Déploiement vers flodrama.com"
+        - aws cloudfront create-invalidation --distribution-id $(aws cloudfront list-distributions --query "DistributionList.Items[?Aliases.Items[?contains(@, 'flodrama.com')]].Id" --output text) --paths "/*"

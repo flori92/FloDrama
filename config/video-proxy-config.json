@@ -1,0 +1,38 @@
+{
+  "apiUrl": "https://yqek2f5uph.execute-api.us-east-1.amazonaws.com/prod",
+  "apiGateway": {
+    "url": "https://oap57blam8.execute-api.us-east-1.amazonaws.com/prod",
+    "id": "oap57blam8",
+    "stage": "prod"
+  },
+  "cloudfrontDomain": "dyba0cgavum1j.cloudfront.net",
+  "region": "us-east-1",
+  "s3Bucket": "flodrama-video-cache",
+  "dynamoTable": "flodrama-streaming-metadata",
+  "lambdaFunction": "flodrama-stream-proxy",
+  "apiGatewayName": "flodrama-streaming-api",
+  "cacheDuration": 3600,
+  "tokenExpirationSeconds": 7200,
+  "qualityLevels": [
+    "240p",
+    "360p",
+    "480p",
+    "720p",
+    "1080p"
+  ],
+  "defaultQuality": "720p",
+  "geoRestrictions": {
+    "enabled": true,
+    "allowedCountries": [
+      "FR",
+      "BE",
+      "CH",
+      "CA"
+    ]
+  },
+  "hotlinkProtection": true,
+  "logging": {
+    "enabled": true,
+    "retentionDays": 30
+  }
+}

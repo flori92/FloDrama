@@ -1,0 +1,261 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-03-14T18:30:00Z",
+  "dramas": [
+    {
+      "id": "crash-landing-on-you",
+      "title": "Crash Landing on You",
+      "originalTitle": "사랑의 불시착",
+      "type": "drama",
+      "country": "Corée du Sud",
+      "year": 2019,
+      "rating": 9.2,
+      "genres": ["Romance", "Comédie", "Drame"],
+      "synopsis": "Une héritière sud-coréenne atterrit accidentellement en Corée du Nord après un accident de parapente. Elle y rencontre un officier nord-coréen qui décide de l'aider à retourner chez elle.",
+      "description": "Une héritière sud-coréenne atterrit accidentellement en Corée du Nord après un accident de parapente.",
+      "poster": "/assets/posters/crash-landing-on-you.jpg",
+      "backdrop": "/assets/backdrops/crash-landing-on-you.jpg",
+      "trailer": "/assets/trailers/crash-landing-on-you.mp4",
+      "seasons": 1,
+      "episodes": 16,
+      "episodeList": [
+        {
+          "season": 1,
+          "episode": 1,
+          "title": "Épisode 1",
+          "runtime": 70,
+          "synopsis": "Yoon Se-ri, héritière d'un grand conglomérat sud-coréen, se retrouve en Corée du Nord après un accident de parapente causé par une tempête soudaine.",
+          "thumbnail": "/assets/thumbnails/crash-landing-on-you-s01e01.jpg",
+          "videoId": "cloy-s01e01"
+        }
+      ]
+    },
+    {
+      "id": "itaewon-class",
+      "title": "Itaewon Class",
+      "originalTitle": "이태원 클라쓰",
+      "type": "drama",
+      "country": "Corée du Sud",
+      "year": 2020,
+      "rating": 8.9,
+      "genres": ["Drame", "Business", "Vengeance"],
+      "synopsis": "Un ex-détenu et ses amis luttent pour réussir dans le quartier animé d'Itaewon, tout en poursuivant le puissant PDG qui a détruit sa vie.",
+      "description": "Un ex-détenu et ses amis luttent pour réussir dans le quartier animé d'Itaewon.",
+      "poster": "/assets/posters/itaewon-class.jpg",
+      "backdrop": "/assets/backdrops/itaewon-class.jpg",
+      "trailer": "/assets/trailers/itaewon-class.mp4",
+      "seasons": 1,
+      "episodes": 16,
+      "episodeList": [
+        {
+          "season": 1,
+          "episode": 1,
+          "title": "Épisode 1",
+          "runtime": 65,
+          "synopsis": "Park Sae-ro-yi voit sa vie basculer après un incident avec le fils d'un puissant PDG. Après avoir purgé sa peine de prison, il décide d'ouvrir un bar-restaurant à Itaewon.",
+          "thumbnail": "/assets/thumbnails/itaewon-class-s01e01.jpg",
+          "videoId": "itaewon-s01e01"
+        }
+      ]
+    },
+    {
+      "id": "goblin",
+      "title": "Guardian: The Lonely and Great God",
+      "originalTitle": "도깨비",
+      "type": "drama",
+      "country": "Corée du Sud",
+      "year": 2016,
+      "rating": 9.5,
+      "genres": ["Fantastique", "Romance", "Drame"],
+      "synopsis": "Un gobelin immortel cherche sa fiancée pour mettre fin à sa vie éternelle. Il rencontre une jeune femme joyeuse qui peut voir le glaive invisible planté dans sa poitrine.",
+      "description": "Un gobelin immortel cherche sa fiancée pour mettre fin à sa vie éternelle.",
+      "poster": "/assets/posters/goblin.jpg",
+      "backdrop": "/assets/backdrops/goblin.jpg",
+      "trailer": "/assets/trailers/goblin.mp4",
+      "seasons": 1,
+      "episodes": 16,
+      "episodeList": [
+        {
+          "season": 1,
+          "episode": 1,
+          "title": "Épisode 1",
+          "runtime": 72,
+          "synopsis": "Kim Shin, un général de l'ère Goryeo, est maudit à vivre éternellement comme un gobelin. De nos jours, il rencontre Ji Eun-tak, une lycéenne qui prétend être sa fiancée.",
+          "thumbnail": "/assets/thumbnails/goblin-s01e01.jpg",
+          "videoId": "goblin-s01e01"
+        }
+      ]
+    },
+    {
+      "id": "descendants-of-the-sun",
+      "title": "Descendants of the Sun",
+      "originalTitle": "태양의 후예",
+      "type": "drama",
+      "country": "Corée du Sud",
+      "year": 2016,
+      "rating": 9.0,
+      "genres": ["Romance", "Action", "Médical"],
+      "synopsis": "Un capitaine des forces spéciales rencontre une chirurgienne et tombe amoureux d'elle. Ils se retrouvent dans un pays fictif en guerre où leur relation est mise à l'épreuve.",
+      "description": "Un capitaine des forces spéciales et une chirurgienne tombent amoureux dans un pays en guerre.",
+      "poster": "/assets/posters/descendants-of-the-sun.jpg",
+      "backdrop": "/assets/backdrops/descendants-of-the-sun.jpg",
+      "trailer": "/assets/trailers/descendants-of-the-sun.mp4",
+      "seasons": 1,
+      "episodes": 16,
+      "episodeList": [
+        {
+          "season": 1,
+          "episode": 1,
+          "title": "Épisode 1",
+          "runtime": 68,
+          "synopsis": "Le capitaine Yoo Shi-jin et son ami, le sergent Seo Dae-young, rencontrent la docteure Kang Mo-yeon à l'hôpital après avoir appréhendé un voleur.",
+          "thumbnail": "/assets/thumbnails/descendants-of-the-sun-s01e01.jpg",
+          "videoId": "dots-s01e01"
+        }
+      ]
+    }
+  ],
+  "movies": [
+    {
+      "id": "parasite",
+      "title": "Parasite",
+      "originalTitle": "기생충",
+      "type": "movie",
+      "country": "Corée du Sud",
+      "year": 2019,
+      "rating": 9.6,
+      "genres": ["Thriller", "Drame", "Comédie noire"],
+      "synopsis": "Une famille pauvre s'immisce subtilement dans le quotidien d'une famille riche, avant que les événements ne prennent une tournure inattendue.",
+      "description": "Une famille pauvre s'immisce dans le quotidien d'une famille riche.",
+      "poster": "/assets/posters/parasite.jpg",
+      "backdrop": "/assets/backdrops/parasite.jpg",
+      "trailer": "/assets/trailers/parasite.mp4",
+      "duration": 132,
+      "videoId": "parasite-movie"
+    },
+    {
+      "id": "train-to-busan",
+      "title": "Train to Busan",
+      "originalTitle": "부산행",
+      "type": "movie",
+      "country": "Corée du Sud",
+      "year": 2016,
+      "rating": 8.8,
+      "genres": ["Horreur", "Action", "Thriller"],
+      "synopsis": "Alors qu'un virus zombie se propage en Corée du Sud, des passagers luttent pour leur survie à bord d'un train à grande vitesse en direction de Busan, la seule ville encore sûre du pays.",
+      "description": "Des passagers luttent pour leur survie contre des zombies à bord d'un train.",
+      "poster": "/assets/posters/train-to-busan.jpg",
+      "backdrop": "/assets/backdrops/train-to-busan.jpg",
+      "trailer": "/assets/trailers/train-to-busan.mp4",
+      "duration": 118,
+      "videoId": "ttb-movie"
+    },
+    {
+      "id": "oldboy",
+      "title": "Oldboy",
+      "originalTitle": "올드보이",
+      "type": "movie",
+      "country": "Corée du Sud",
+      "year": 2003,
+      "rating": 8.7,
+      "genres": ["Thriller", "Mystère", "Action"],
+      "synopsis": "Après avoir été kidnappé et emprisonné pendant 15 ans, Oh Dae-Su est libéré sans explication. Il cherche alors à se venger et à découvrir pourquoi il a été puni.",
+      "description": "Un homme cherche à se venger après avoir été emprisonné pendant 15 ans sans explication.",
+      "poster": "/assets/posters/oldboy.jpg",
+      "backdrop": "/assets/backdrops/oldboy.jpg",
+      "trailer": "/assets/trailers/oldboy.mp4",
+      "duration": 120,
+      "videoId": "oldboy-movie"
+    },
+    {
+      "id": "the-handmaiden",
+      "title": "The Handmaiden",
+      "originalTitle": "아가씨",
+      "type": "movie",
+      "country": "Corée du Sud",
+      "year": 2016,
+      "rating": 8.9,
+      "genres": ["Drame", "Romance", "Thriller"],
+      "synopsis": "Dans la Corée des années 1930, sous occupation japonaise, une jeune domestique est engagée pour servir une riche héritière japonaise, mais elle cache un secret.",
+      "description": "Une jeune domestique est engagée pour servir une riche héritière, mais elle cache un secret.",
+      "poster": "/assets/posters/the-handmaiden.jpg",
+      "backdrop": "/assets/backdrops/the-handmaiden.jpg",
+      "trailer": "/assets/trailers/the-handmaiden.mp4",
+      "duration": 145,
+      "videoId": "handmaiden-movie"
+    }
+  ],
+  "anime": [
+    {
+      "id": "your-name",
+      "title": "Your Name",
+      "originalTitle": "君の名は",
+      "type": "anime",
+      "country": "Japon",
+      "year": 2016,
+      "rating": 9.3,
+      "genres": ["Romance", "Fantastique", "Drame"],
+      "synopsis": "Deux adolescents que tout oppose se découvrent liés par un phénomène étrange : ils échangent leurs corps pendant leur sommeil.",
+      "description": "Deux adolescents échangent leurs corps pendant leur sommeil.",
+      "poster": "/assets/posters/your-name.jpg",
+      "backdrop": "/assets/backdrops/your-name.jpg",
+      "trailer": "/assets/trailers/your-name.mp4",
+      "duration": 107,
+      "videoId": "your-name-movie"
+    }
+  ],
+  "bollywood": [
+    {
+      "id": "3-idiots",
+      "title": "3 Idiots",
+      "originalTitle": "थ्री इडियट्स",
+      "type": "bollywood",
+      "country": "Inde",
+      "year": 2009,
+      "rating": 9.1,
+      "genres": ["Comédie", "Drame"],
+      "synopsis": "Deux amis partent à la recherche de leur camarade d'université disparu, ce qui les amène à se remémorer leurs années d'études et à remettre en question le système éducatif indien.",
+      "description": "Deux amis partent à la recherche de leur camarade d'université disparu.",
+      "poster": "/assets/posters/3-idiots.jpg",
+      "backdrop": "/assets/backdrops/3-idiots.jpg",
+      "trailer": "/assets/trailers/3-idiots.mp4",
+      "duration": 170,
+      "videoId": "3idiots-movie"
+    }
+  ],
+  "categories": [
+    "Action",
+    "Comédie",
+    "Drame",
+    "Fantastique",
+    "Horreur",
+    "Médical",
+    "Mystère",
+    "Romance",
+    "Thriller",
+    "Vengeance"
+  ],
+  "featured": [
+    "crash-landing-on-you",
+    "parasite",
+    "goblin",
+    "your-name"
+  ],
+  "trending": [
+    "itaewon-class",
+    "train-to-busan",
+    "descendants-of-the-sun",
+    "3-idiots"
+  ],
+  "recommended": [
+    "the-handmaiden",
+    "oldboy",
+    "goblin",
+    "crash-landing-on-you"
+  ],
+  "_metadata": {
+    "version": "1.0.0",
+    "timestamp": "2025-03-14T18:30:00Z",
+    "source": "flodrama-api"
+  }
+}

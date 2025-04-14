@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FloDrama - Films, Séries, Animés et Productions Asiatiques</title>
+  <style>
+    /* Variables */
+    :root {
+      --primary-blue: #3b82f6;
+      --accent-fuchsia: #d946ef;
+      --background-dark: #121118;
+      --background-secondary: #1A1926;
+      --text-primary: #FFFFFF;
+      --text-secondary: rgba(255, 255, 255, 0.7);
+      --spacing-xs: 0.25rem;
+      --spacing-sm: 0.5rem;
+      --spacing-md: 1rem;
+      --spacing-lg: 1.5rem;
+      --spacing-xl: 2rem;
+      --spacing-xxl: 3rem;
+      --border-radius: 8px;
+      --transition-default: 0.3s ease;
+      --color-text-primary: #FFFFFF;
+      --color-text-secondary: rgba(255, 255, 255, 0.7);
+      --color-text-tertiary: rgba(255, 255, 255, 0.5);
+      --color-background-tertiary: rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--background-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    /* Layout */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-md);
+    }
+    
+    .section {
+      margin: var(--spacing-xxl) 0;
+    }
+    
+    /* Header */
+    .header {
+      background-color: var(--background-secondary);
+      padding: var(--spacing-md) 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      background: linear-gradient(to right, var(--primary-blue), var(--accent-fuchsia));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .header-nav {
+      display: flex;
+      gap: var(--spacing-lg);
+    }
+    
+    .header-nav-item {
+      position: relative;
+      padding: var(--spacing-xs) 0;
+      transition: var(--transition-default);
+    }
+    
+    .header-nav-item:hover, .header-nav-item.active {
+      color: var(--accent-fuchsia);
+    }
+    
+    .header-nav-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(to right, var(--primary-blue), var(--accent-fuchsia));
+    }
+    
+    .header-actions {
+      display: flex;
+      gap: var(--spacing-md);
+    }
+    
+    .btn-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.1);
+      transition: var(--transition-default);
+    }
+    
+    .btn-icon:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    /* Carousel */
+    .carousel {
+      position: relative;
+      margin-bottom: var(--spacing-xxl);
+      height: 70vh;
+      max-height: 700px;
+      overflow: hidden;
+    }
+    
+    .carousel-inner {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .carousel-item {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .carousel-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .carousel-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: var(--spacing-xxl) 10%;
+      background: linear-gradient(to top, rgba(18, 17, 24, 1) 0%, rgba(18, 17, 24, 0.8) 50%, rgba(18, 17, 24, 0) 100%);
+    }
+    
+    .carousel-title {
+      font-size: 3rem;
+      margin-bottom: var(--spacing-md);
+      background: linear-gradient(to right, var(--primary-blue), var(--accent-fuchsia));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .carousel-description {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin-bottom: var(--spacing-lg);
+      color: var(--text-secondary);
+    }
+    
+    .carousel-buttons {
+      display: flex;
+      gap: var(--spacing-md);
+    }
+    
+    .btn {
+      padding: var(--spacing-sm) var(--spacing-lg);
+      border-radius: var(--border-radius);
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      transition: var(--transition-default);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(to right, var(--primary-blue), var(--accent-fuchsia));
+      color: white;
+    }
+    
+    .btn-secondary {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .carousel-nav {
+      position: absolute;
+      bottom: var(--spacing-lg);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: var(--spacing-sm);
+    }
+    
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: var(--transition-default);
+    }
+    
+    .carousel-dot.active {
+      background-color: var(--accent-fuchsia);
+    }
+    
+    /* Category Headers */
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .category-title {
+      font-size: 1.5rem;
+      background: linear-gradient(to right, var(--primary-blue), var(--accent-fuchsia));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .category-link {
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      transition: var(--transition-default);
+    }
+    
+    .category-link:hover {
+      color: var(--accent-fuchsia);
+    }
+    
+    /* Grid and Cards */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: var(--spacing-lg);
+    }
+    
+    .card {
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      background-color: var(--background-secondary);
+      transition: var(--transition-default);
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .card-image {
+      position: relative;
+      height: 300px;
+      overflow: hidden;
+    }
+    
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition-default);
+    }
+    
+    .card:hover .card-image img {
+      transform: scale(1.05);
+    }
+    
+    .card-actions {
+      position: absolute;
+      top: var(--spacing-sm);
+      right: var(--spacing-sm);
+      display: flex;
+      gap: var(--spacing-xs);
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: var(--transition-default);
+    }
+    
+    .card:hover .card-actions {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .card-action-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-default);
+    }
+    
+    .card-action-btn:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: scale(1.1);
+    }
+    
+    .card-action-btn:hover .fa-thumbs-up {
+      color: var(--primary-blue);
+    }
+    
+    .card-action-btn:hover .fa-thumbs-down {
+      color: var(--accent-fuchsia);
+    }
+    
+    .card-content {
+      padding: var(--spacing-md);
+    }
+    
+    .card-title {
+      font-size: 1rem;
+      margin-bottom: var(--spacing-xs);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .card-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    
+    /* Splash Screen */
+    #splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #111827;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease-out;
+    }
+    
+    #splash-logo {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 2rem;
+      animation: pulse 2s infinite;
+    }
+    
+    #splash-title {
+      color: #FF00FF;
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    
+    #splash-loading {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .splash-dot {
+      width: 0.75rem;
+      height: 0.75rem;
+      background-color: #F1601D;
+      border-radius: 50%;
+      opacity: 0.7;
+    }
+    
+    .splash-dot:nth-child(1) {
+      animation: bounce 1s infinite 0s;
+    }
+    
+    .splash-dot:nth-child(2) {
+      animation: bounce 1s infinite 0.2s;
+    }
+    
+    .splash-dot:nth-child(3) {
+      animation: bounce 1s infinite 0.4s;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.5); opacity: 1; }
+    }
+    
+    /* Masquer le splash screen quand le contenu est chargé */
+    #root:not(:empty) + #splash-screen {
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    /* Search Bar */
+    .search-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(18, 17, 24, 0.95);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition-default);
+    }
+    
+    .search-container.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    .search-inner {
+      width: 80%;
+      max-width: 800px;
+    }
+    
+    .search-form {
+      position: relative;
+      margin-bottom: var(--spacing-xl);
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: var(--spacing-md);
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--border-radius);
+      color: var(--text-primary);
+      font-size: 1.2rem;
+      transition: var(--transition-default);
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: var(--accent-fuchsia);
+      box-shadow: 0 0 10px rgba(217, 70, 239, 0.5);
+    }
+    
+    .search-close {
+      position: absolute;
+      top: 50%;
+      right: var(--spacing-md);
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: var(--transition-default);
+    }
+    
+    .search-close:hover {
+      color: var(--accent-fuchsia);
+    }
+    
+    .search-results {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: var(--spacing-md);
+    }
+    
+    /* Login Modal */
+    .login-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(18, 17, 24, 0.95);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition-default);
+    }
+    
+    .login-container.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    .login-inner {
+      width: 90%;
+      max-width: 400px;
+      background-color: var(--background-secondary);
+      border-radius: var(--border-radius);
+      padding: var(--spacing-xl);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    .login-header {
+      text-align: center;
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .login-title {
+      font-size: 1.8rem;
+      margin-bottom: var(--spacing-sm);
+      background: linear-gradient(to right, var(--primary-blue), var(--accent-fuchsia));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .login-subtitle {
+      color: var(--text-secondary);
+    }
+    
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+    
+    .form-group {
+      position: relative;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: var(--spacing-md);
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--border-radius);
+      color: var(--text-primary);
+      transition: var(--transition-default);
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent-fuchsia);
+      box-shadow: 0 0 10px rgba(217, 70, 239, 0.3);
+    }
+    
+    .form-label {
+      position: absolute;
+      top: 50%;
+      left: var(--spacing-md);
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+      pointer-events: none;
+      transition: var(--transition-default);
+    }
+    
+    .form-input:focus ~ .form-label,
+    .form-input:not(:placeholder-shown) ~ .form-label {
+      top: 0;
+      left: var(--spacing-sm);
+      transform: translateY(-50%);
+      background-color: var(--background-secondary);
+      padding: 0 var(--spacing-xs);
+      font-size: 0.8rem;
+      color: var(--accent-fuchsia);
+    }
+    
+    .login-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: var(--spacing-md);
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    
+    .forgot-password {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      transition: var(--transition-default);
+    }
+    
+    .forgot-password:hover {
+      color: var(--accent-fuchsia);
+    }
+    
+    .login-btn {
+      width: 100%;
+      padding: var(--spacing-md);
+      background: linear-gradient(to right, var(--primary-blue), var(--accent-fuchsia));
+      border: none;
+      border-radius: var(--border-radius);
+      color: var(--text-primary);
+      font-weight: bold;
+      cursor: pointer;
+      transition: var(--transition-default);
+    }
+    
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+    }
+    
+    .login-footer {
+      text-align: center;
+      margin-top: var(--spacing-lg);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    
+    .login-signup {
+      color: var(--accent-fuchsia);
+      font-weight: bold;
+      transition: var(--transition-default);
+    }
+    
+    .login-signup:hover {
+      text-decoration: underline;
+    }
+    
+    .login-close {
+      position: absolute;
+      top: var(--spacing-md);
+      right: var(--spacing-md);
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: var(--transition-default);
+    }
+    
+    .login-close:hover {
+      color: var(--accent-fuchsia);
+    }
+    
+    /* Download Section */
+    .download-section {
+      background-color: var(--background-secondary);
+      padding: var(--spacing-xxl) 0;
+      border-radius: var(--border-radius);
+      margin-bottom: var(--spacing-xxl);
+    }
+    
+    .download-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .download-title {
+      font-size: 2rem;
+      margin-bottom: var(--spacing-md);
+      background: linear-gradient(to right, var(--primary-blue), var(--accent-fuchsia));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .download-description {
+      max-width: 600px;
+      margin-bottom: var(--spacing-xl);
+      color: var(--text-secondary);
+    }
+    
+    .download-buttons {
+      display: flex;
+      gap: var(--spacing-lg);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .download-btn {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-md) var(--spacing-lg);
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--border-radius);
+      color: var(--text-primary);
+      transition: var(--transition-default);
+    }
+    
+    .download-btn:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .download-btn i {
+      font-size: 1.5rem;
+    }
+    
+    .download-btn-content {
+      text-align: left;
+    }
+    
+    .download-btn-label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    
+    .download-btn-text {
+      font-weight: bold;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header-nav {
+        display: none;
+      }
+      
+      .carousel-title {
+        font-size: 2rem;
+      }
+      
+      .grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+      
+      .card-image {
+        height: 225px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="#" class="logo">FloDrama</a>
+        <nav class="header-nav">
+          <a href="#" class="header-nav-item active">Accueil</a>
+          <a href="#" class="header-nav-item">Films</a>
+          <a href="#" class="header-nav-item">Séries</a>
+          <a href="#" class="header-nav-item">Dramas</a>
+          <a href="#" class="header-nav-item">Animés</a>
+          <a href="#" class="header-nav-item">Bollywood</a>
+          <a href="#" class="header-nav-item">Download</a>
+        </nav>
+        <div class="header-actions">
+          <a href="#" class="btn-icon" id="search-btn"><i class="fas fa-search"></i></a>
+          <a href="#" class="btn-icon"><i class="fas fa-bell"></i></a>
+          <a href="#" class="btn-icon" id="login-btn"><i class="fas fa-user"></i></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Carousel -->
+  <section class="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="https://via.placeholder.com/1920x820/121118/3b82f6?text=Film+en+Vedette" alt="Film en vedette">
+        <div class="carousel-overlay">
+          <h1 class="carousel-title">Le Dernier Samouraï</h1>
+          <p class="carousel-description">Un ancien capitaine américain est engagé pour former l'armée japonaise et se retrouve à embrasser le mode de vie samouraï qu'il est censé détruire.</p>
+          <div class="carousel-buttons">
+            <a href="#" class="btn btn-primary"><i class="fas fa-play"></i> Regarder</a>
+            <a href="#" class="btn btn-secondary"><i class="fas fa-plus"></i> Ma Liste</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-nav">
+      <div class="carousel-dot active"></div>
+      <div class="carousel-dot"></div>
+      <div class="carousel-dot"></div>
+      <div class="carousel-dot"></div>
+      <div class="carousel-dot"></div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Tendances -->
+    <section class="section">
+      <div class="category-header">
+        <h2 class="category-title">Tendances</h2>
+        <a href="#" class="category-link">Voir tout <i class="fas fa-chevron-right"></i></a>
+      </div>
+      <div class="grid">
+        <!-- Carte 1 -->
+        <div class="card">
+          <div class="card-image">
+            <img src="https://via.placeholder.com/300x450/121118/3b82f6?text=Film+1" alt="Film 1">
+            <div class="card-actions">
+              <a href="#" class="card-action-btn"><i class="fas fa-play"></i></a>
+              <a href="#" class="card-action-btn"><i class="fas fa-plus"></i></a>
+              <a href="#" class="card-action-btn"><i class="fas fa-thumbs-up"></i></a>
+              <a href="#" class="card-action-btn"><i class="fas fa-thumbs-down"></i></a>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Parasite</h3>
+            <div class="card-subtitle">2019 • Drame • 2h12m</div>
+            <div class="card-meta">
+              <span><i class="fas fa-star"></i> 9.2</span>
+              <span><i class="fas fa-heart"></i> 95%</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Carte 2 -->
+        <div class="card">
+          <div class="card-image">
+            <img src="https://via.placeholder.com/300x450/121118/d946ef?text=Film+2" alt="Film 2">
+            <div class="card-actions">
+              <a href="#" class="card-action-btn"><i class="fas fa-play"></i></a>
+              <a href="#" class="card-action-btn"><i class="fas fa-plus"></i></a>
+              <a href="#" class="card-action-btn"><i class="fas fa-thumbs-up"></i></a>
+              <a href="#" class="card-action-btn"><i class="fas fa-thumbs-down"></i></a>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Your Name</h3>
+            <div class="card-subtitle">2016 • Animation • 1h46m</div>
+            <div class="card-meta">
+              <span><i class="fas fa-star"></i> 8.9</span>
+              <span><i class="fas fa-heart"></i> 92%</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Carte 3 -->
+        <div class="card">
+          <div class="card-image">
+            <img src="https://via.placeholder.com/300x450/121118/3b82f6?text=Film+3" alt="Film 3">
+            <div class="card-actions">
+              <a href="#" class="card-action-btn"><i class="fas fa-play"></i></a>
+              <a href="#" class="card-action-btn"><i class="fas fa-plus"></i></a>
+              <a href="#" class="card-action-btn"><i class="fas fa-thumbs-up"></i></a>
+              <a href="#" class="card-action-btn"><i class="fas fa-thumbs-down"></i></a>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Train to Busan</h3>
+            <div class="card-subtitle">2016 • Horreur • 1h58m</div>
+            <div class="card-meta">
+              <span><i class="fas fa-star"></i> 8.5</span>
+              <span><i class="fas fa-heart"></i> 91%</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Carte 4 -->
+        <div class="card">
+          <div class="card-image">
+            <img src="https://via.placeholder.com/300x450/121118/d946ef?text=Film+4" alt="Film 4">
+            <div class="card-actions">
+              <a href="#" class="card-action-btn"><i class="fas fa-play"></i></a>
+              <a href="#" class="card-action-btn"><i class="fas fa-plus"></i></a>
+              <a href="#" class="card-action-btn"><i class="fas fa-thumbs-up"></i></a>
+              <a href="#" class="card-action-btn"><i class="fas fa-thumbs-down"></i></a>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Oldboy</h3>
+            <div class="card-subtitle">2003 • Thriller • 2h</div>
+            <div class="card-meta">
+              <span><i class="fas fa-star"></i> 8.7</span>
+              <span><i class="fas fa-heart"></i> 93%</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Carte 5 -->
+        <div class="card">
+          <div class="card-image">
+            <img src="https://via.placeholder.com/300x450/121118/3b82f6?text=Film+5" alt="Film 5">
+            <div class="card-actions">
+              <a href="#" class="card-action-btn"><i class="fas fa-play"></i></a>
+              <a href="#" class="card-action-btn"><i class="fas fa-plus"></i></a>
+              <a href="#" class="card-action-btn"><i class="fas fa-thumbs-up"></i></a>
+              <a href="#" class="card-action-btn"><i class="fas fa-thumbs-down"></i></a>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Spirited Away</h3>
+            <div class="card-subtitle">2001 • Animation • 2h5m</div>
+            <div class="card-meta">
+              <span><i class="fas fa-star"></i> 8.6</span>
+              <span><i class="fas fa-heart"></i> 90%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Séries Populaires -->
+    <section class="section">
+      <div class="category-header">
+        <h2 class="category-title">Séries Populaires</h2>
+        <a href="#" class="category-link">Voir tout <i class="fas fa-chevron-right"></i></a>
+      </div>
+      <div class="grid">
+        <!-- Série 1 -->
+        <div class="card">
+          <div class="card-image">
+            <img src="https://via.placeholder.com/300x450/121118/3b82f6?text=Série+1" alt="Série 1">
+            <div class="card-actions">
+              <a href="#" class="card-action-btn"><i class="fas fa-play"></i></a>
+              <a href="#" class="card-action-btn"><i class="fas fa-plus"></i></a>
+              <a href="#" class="card-action-btn"><i class="fas fa-thumbs-up"></i></a>
+              <a href="#" class="card-action-btn"><i class="fas fa-thumbs-down"></i></a>
+            </div>
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Squid Game</h3>
+            <div class="card-subtitle">2021 • Thriller • 1 Saison</div>
+            <div class="card-meta">
+              <span><i class="fas fa-star"></i> 8.8</span>
+              <span><i class="fas fa-heart"></i> 92%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Section de téléchargement -->
+  <section class="download-section">
+    <div class="container">
+      <div class="download-inner">
+        <h2 class="download-title">Téléchargez FloDrama</h2>
+        <p class="download-description">Profitez de vos films et séries préférés même hors connexion. Téléchargez notre application pour Android et accédez à tout moment à votre contenu.</p>
+        <div class="download-buttons">
+          <a href="#" class="download-btn">
+            <i class="fab fa-android"></i>
+            <div class="download-btn-content">
+              <div class="download-btn-label">Disponible sur</div>
+              <div class="download-btn-text">Google Play</div>
+            </div>
+          </a>
+          <a href="#" class="download-btn">
+            <i class="fas fa-download"></i>
+            <div class="download-btn-content">
+              <div class="download-btn-label">Téléchargement direct</div>
+              <div class="download-btn-text">APK Android</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Barre de recherche -->
+  <div class="search-container" id="search-container">
+    <div class="search-inner">
+      <form class="search-form">
+        <input type="text" class="search-input" placeholder="Rechercher des films, séries, acteurs...">
+        <button type="button" class="search-close" id="search-close"><i class="fas fa-times"></i></button>
+      </form>
+      <div class="search-results">
+        <!-- Les résultats de recherche s'afficheront ici dynamiquement -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de connexion -->
+  <div class="login-container" id="login-container">
+    <div class="login-inner">
+      <button type="button" class="login-close" id="login-close"><i class="fas fa-times"></i></button>
+      <div class="login-header">
+        <h2 class="login-title">Connexion</h2>
+        <p class="login-subtitle">Connectez-vous pour accéder à votre compte</p>
+      </div>
+      <form class="login-form">
+        <div class="form-group">
+          <input type="email" class="form-input" id="email" placeholder=" " required>
+          <label for="email" class="form-label">Email</label>
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-input" id="password" placeholder=" " required>
+          <label for="password" class="form-label">Mot de passe</label>
+        </div>
+        <div class="login-actions">
+          <div class="remember-me">
+            <input type="checkbox" id="remember">
+            <label for="remember">Se souvenir de moi</label>
+          </div>
+          <a href="#" class="forgot-password">Mot de passe oublié?</a>
+        </div>
+        <button type="submit" class="login-btn">Se connecter</button>
+      </form>
+      <div class="login-footer">
+        Pas encore de compte? <a href="#" class="login-signup">S'inscrire</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Splash screen initial (affiché avant que le contenu ne soit chargé) -->
+  <div id="splash-screen">
+    <svg id="splash-logo" width="120" height="120" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <!-- Définition du dégradé -->
+      <defs>
+        <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.2"/>
+          <stop offset="100%" style="stop-color:#d946ef;stop-opacity:0.1"/>
+        </linearGradient>
+      </defs>
+      
+      <!-- Fond avec dégradé -->
+      <rect x="10" y="10" width="180" height="180" rx="20" fill="url(#bgGradient)"/>
+      
+      <!-- Cadre de l'écran -->
+      <rect x="20" y="40" width="160" height="120" 
+            rx="10" 
+            fill="none" 
+            stroke="#3b82f6" 
+            stroke-width="3"/>
+            
+      <!-- Vagues de streaming -->
+      <path d="M30 80 Q50 80 70 80" 
+            stroke="#d946ef" 
+            stroke-width="3" 
+            fill="none"/>
+      <path d="M30 100 Q50 100 70 100" 
+            stroke="#d946ef" 
+            stroke-width="3" 
+            fill="none"/>
+      <path d="M30 120 Q50 120 70 120" 
+            stroke="#d946ef" 
+            stroke-width="3" 
+            fill="none"/>
+      
+      <!-- Bouton de lecture (triangle) -->
+      <path d="M80 60 L140 100 L80 140 Z" 
+            fill="#d946ef"/>
+    </svg>
+    <div id="splash-title">FloDrama</div>
+    <div id="splash-loading">
+      <div class="splash-dot"></div>
+      <div class="splash-dot"></div>
+      <div class="splash-dot"></div>
+    </div>
+  </div>
+
+  <!-- Script pour masquer le splash screen -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Splash screen
+      setTimeout(function() {
+        const splashScreen = document.getElementById('splash-screen');
+        if (splashScreen) {
+          splashScreen.style.opacity = '0';
+          setTimeout(function() {
+            splashScreen.style.display = 'none';
+          }, 500);
+        }
+      }, 1000);
+      
+      // Barre de recherche
+      const searchBtn = document.getElementById('search-btn');
+      const searchContainer = document.getElementById('search-container');
+      const searchClose = document.getElementById('search-close');
+      
+      searchBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        searchContainer.classList.add('active');
+        setTimeout(() => {
+          document.querySelector('.search-input').focus();
+        }, 300);
+      });
+      
+      searchClose.addEventListener('click', function() {
+        searchContainer.classList.remove('active');
+      });
+      
+      // Modal de connexion
+      const loginBtn = document.getElementById('login-btn');
+      const loginContainer = document.getElementById('login-container');
+      const loginClose = document.getElementById('login-close');
+      
+      loginBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        loginContainer.classList.add('active');
+      });
+      
+      loginClose.addEventListener('click', function() {
+        loginContainer.classList.remove('active');
+      });
+      
+      // Fermer les modals en cliquant en dehors
+      window.addEventListener('click', function(e) {
+        if (e.target === searchContainer) {
+          searchContainer.classList.remove('active');
+        }
+        if (e.target === loginContainer) {
+          loginContainer.classList.remove('active');
+        }
+      });
+    });
+  </script>
+  
+  <!-- Font Awesome pour les icônes -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

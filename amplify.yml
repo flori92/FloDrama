@@ -1,0 +1,85 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - nvm install
+        - nvm use
+        - node -v
+        - npm -v
+        - npm ci
+        - echo "Installation des dépendances terminée"
+    build:
+      commands:
+        - npm run build
+        - echo "Build terminé"
+    postBuild:
+      commands:
+        - echo "Phase post-build - Vérification des fichiers générés"
+        - ls -la dist/
+        - echo "Vérification des fichiers CSS et JS"
+        - ls -la dist/assets/ || echo "Aucun dossier assets trouvé"
+        - echo "Renommage des fichiers CSS et JS pour compatibilité"
+        - cp -f dist/assets/index-*.css dist/assets/index.css || echo "Fichier index.css non trouvé"
+        - cp -f dist/theme.css dist/assets/theme.css || echo "Fichier theme.css non trouvé"
+        - cp -f dist/assets/index-*.js dist/assets/index.js || echo "Fichier index.js non trouvé"
+        - echo "Contenu final du répertoire assets:"
+        - ls -la dist/assets/
+  artifacts:
+    baseDirectory: dist
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+  customHeaders:
+    - pattern: '**/*.html'
+      headers:
+        - key: 'Cache-Control'
+          value: 'max-age=0, no-cache, no-store, must-revalidate'
+        - key: 'X-Frame-Options'
+          value: 'SAMEORIGIN'
+        - key: 'X-XSS-Protection'
+          value: '1; mode=block'
+        - key: 'X-Content-Type-Options'
+          value: 'nosniff'
+    - pattern: '**/*.css'
+      headers:
+        - key: 'Cache-Control'
+          value: 'max-age=31536000, immutable'
+        - key: 'Content-Type'
+          value: 'text/css'
+    - pattern: '**/*.js'
+      headers:
+        - key: 'Cache-Control'
+          value: 'max-age=31536000, immutable'
+        - key: 'Content-Type'
+          value: 'application/javascript'
+    - pattern: '**/*.jpg'
+      headers:
+        - key: 'Cache-Control'
+          value: 'max-age=31536000, immutable'
+    - pattern: '**/*.png'
+      headers:
+        - key: 'Cache-Control'
+          value: 'max-age=31536000, immutable'
+    - pattern: '**/*.svg'
+      headers:
+        - key: 'Cache-Control'
+          value: 'max-age=31536000, immutable'
+    - pattern: '**/*.json'
+      headers:
+        - key: 'Content-Type'
+          value: 'application/json'
+    - pattern: '**/*'
+      headers:
+        - key: 'Access-Control-Allow-Origin'
+          value: '*'
+        - key: 'Access-Control-Allow-Headers'
+          value: 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Cache-Control'
+        - key: 'Access-Control-Allow-Methods'
+          value: 'GET, POST, OPTIONS, PUT, DELETE'
+        - key: 'Access-Control-Expose-Headers'
+          value: 'Content-Length, Content-Range'
+        - key: 'Referrer-Policy'
+          value: 'strict-origin-when-cross-origin'

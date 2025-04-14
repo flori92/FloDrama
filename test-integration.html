@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test d'intégration FloDrama</title>
+    <style>
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #121118;
+            color: white;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 {
+            background: linear-gradient(to right, #3b82f6, #d946ef);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+        }
+        .card {
+            background-color: #1A1926;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        button {
+            background: linear-gradient(to right, #3b82f6, #d946ef);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 10px;
+            transition: opacity 0.3s ease;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        pre {
+            background-color: #2a293a;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .error {
+            color: #f87171;
+        }
+        .success {
+            color: #34d399;
+        }
+        .video-container {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-color: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .quality-selector {
+            padding: 8px 12px;
+            background-color: #2a293a;
+            border: 1px solid #3b82f6;
+            color: white;
+            border-radius: 4px;
+        }
+        .url-display {
+            word-break: break-all;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .config-form {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .config-form input {
+            padding: 8px 12px;
+            background-color: #2a293a;
+            border: 1px solid #3b82f6;
+            color: white;
+            border-radius: 4px;
+            width: 100%;
+        }
+        .config-form label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .config-form .form-group {
+            margin-bottom: 10px;
+        }
+        .debug-info {
+            font-size: 0.8em;
+            color: #9ca3af;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test d'intégration FloDrama</h1>
+    
+    <div class="card">
+        <h2>Configuration</h2>
+        <div class="config-form">
+            <div class="form-group">
+                <label for="apiEndpoint">API Gateway Endpoint</label>
+                <input type="text" id="apiEndpoint" value="http://localhost:3000/api/stream">
+                <div class="debug-info">Endpoint de l'API Gateway pour les requêtes d'URL pré-signées</div>
+            </div>
+            <div class="form-group">
+                <label for="cloudFrontDomain">CloudFront Domain</label>
+                <input type="text" id="cloudFrontDomain" value="dyba0cgavum1j.cloudfront.net">
+                <div class="debug-info">Domaine CloudFront pour la distribution des vidéos</div>
+            </div>
+            <div class="form-group">
+                <label for="contentId">Content ID</label>
+                <input type="text" id="contentId" value="test">
+                <div class="debug-info">Identifiant du contenu vidéo à tester</div>
+            </div>
+            <button id="saveConfig">Sauvegarder la configuration</button>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2>Test de l'API Gateway</h2>
+        <button id="testApi">Tester l'API</button>
+        <pre id="apiResult">Résultat apparaîtra ici...</pre>
+    </div>
+    
+    <div class="card">
+        <h2>Test de CloudFront</h2>
+        <button id="testCloudFront">Tester CloudFront</button>
+        <pre id="cloudFrontResult">Résultat apparaîtra ici...</pre>
+    </div>
+
+    <div class="card">
+        <h2>Test du lecteur vidéo avec URL pré-signée</h2>
+        
+        <div class="controls">
+            <select id="videoQuality" class="quality-selector">
+                <option value="240p">240p</option>
+                <option value="360p">360p</option>
+                <option value="480p">480p</option>
+                <option value="720p" selected>720p</option>
+                <option value="1080p">1080p</option>
+            </select>
+            <button id="getPresignedUrl">Générer URL pré-signée</button>
+            <button id="loadVideo" disabled>Charger la vidéo</button>
+        </div>
+        
+        <div class="video-container">
+            <video id="videoPlayer" controls crossorigin="anonymous"></video>
+        </div>
+        
+        <div>
+            <h3>URL pré-signée:</h3>
+            <div id="presignedUrlDisplay" class="url-display">Aucune URL générée</div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let presignedUrl = '';
+        let availableQualities = [];
+        
+        // Configuration par défaut
+        let config = {
+            apiEndpoint: 'http://localhost:3000/api/stream',
+            cloudFrontDomain: 'dyba0cgavum1j.cloudfront.net',
+            contentId: 'test',
+            simulationMode: true // Activer le mode simulation pour les tests
+        };
+        
+        // Éléments DOM
+        const videoPlayer = document.getElementById('videoPlayer');
+        const qualitySelector = document.getElementById('videoQuality');
+        const getUrlButton = document.getElementById('getPresignedUrl');
+        const loadVideoButton = document.getElementById('loadVideo');
+        const urlDisplay = document.getElementById('presignedUrlDisplay');
+        const apiEndpointInput = document.getElementById('apiEndpoint');
+        const cloudFrontDomainInput = document.getElementById('cloudFrontDomain');
+        const contentIdInput = document.getElementById('contentId');
+        const saveConfigButton = document.getElementById('saveConfig');
+        
+        // Initialiser la configuration depuis le localStorage
+        function initConfig() {
+            const savedConfig = localStorage.getItem('flodrama_test_config');
+            if (savedConfig) {
+                try {
+                    config = JSON.parse(savedConfig);
+                    apiEndpointInput.value = config.apiEndpoint;
+                    cloudFrontDomainInput.value = config.cloudFrontDomain;
+                    contentIdInput.value = config.contentId;
+                } catch (e) {
+                    console.error('Erreur lors du chargement de la configuration:', e);
+                }
+            }
+        }
+        
+        // Sauvegarder la configuration
+        saveConfigButton.addEventListener('click', () => {
+            config.apiEndpoint = apiEndpointInput.value.trim();
+            config.cloudFrontDomain = cloudFrontDomainInput.value.trim();
+            config.contentId = contentIdInput.value.trim();
+            
+            localStorage.setItem('flodrama_test_config', JSON.stringify(config));
+            alert('Configuration sauvegardée!');
+        });
+        
+        // Test de l'API Gateway
+        document.getElementById('testApi').addEventListener('click', async () => {
+            const resultElement = document.getElementById('apiResult');
+            resultElement.textContent = 'Test en cours...';
+            
+            try {
+                // Si le mode simulation est activé, simuler une réponse
+                if (config.simulationMode) {
+                    setTimeout(() => {
+                        const simulatedResponse = {
+                            url: `https://${config.cloudFrontDomain}/test/test-video-720p.mp4?Signature=SIMULATED_SIGNATURE&Key-Pair-Id=SIMULATED_KEY_PAIR_ID&Expires=1712345678`,
+                            quality: "720p",
+                            expiresAt: new Date(Date.now() + 7200 * 1000).toISOString(),
+                            availableQualities: ["240p", "360p", "480p", "720p", "1080p"],
+                            metadata: {
+                                title: "Vidéo de test",
+                                duration: 120,
+                                contentType: "video/mp4"
+                            }
+                        };
+                        
+                        resultElement.innerHTML = '<span class="success">✅ Succès! (Mode Simulation)</span>\n\n' + JSON.stringify(simulatedResponse, null, 2);
+                        presignedUrl = simulatedResponse.url;
+                        
+                        // Mettre à jour les qualités disponibles
+                        if (simulatedResponse.availableQualities) {
+                            updateQualityOptions(simulatedResponse.availableQualities);
+                        }
+                        
+                        urlDisplay.innerHTML = `<span class="success">✅ URL générée avec succès! (Simulée)</span><br>${presignedUrl}`;
+                        loadVideoButton.disabled = false;
+                    }, 500);
+                    return;
+                }
+                
+                // Ajouter un timestamp pour éviter le cache
+                const timestamp = new Date().getTime();
+                const url = `${config.apiEndpoint}?contentId=${config.contentId}&quality=${qualitySelector.value}&_=${timestamp}`;
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': window.location.origin
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error + (data.message ? ': ' + data.message : ''));
+                }
+                
+                resultElement.innerHTML = '<span class="success">✅ Succès!</span>\n\n' + JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultElement.innerHTML = '<span class="error">❌ Erreur!</span>\n\n' + error.message;
+            }
+        });
+        
+        // Test de CloudFront
+        document.getElementById('testCloudFront').addEventListener('click', async () => {
+            const resultElement = document.getElementById('cloudFrontResult');
+            resultElement.textContent = 'Test en cours...';
+            
+            try {
+                // Construire l'URL CloudFront correctement (sans https:// dans la configuration)
+                const cloudfrontUrl = `https://${config.cloudFrontDomain}/test-video.mp4`;
+                
+                console.log('Test CloudFront URL:', cloudfrontUrl);
+                
+                const response = await fetch(cloudfrontUrl, {
+                    method: 'HEAD',
+                    mode: 'cors',
+                    headers: {
+                        'Origin': window.location.origin
+                    }
+                });
+                
+                resultElement.innerHTML = '<span class="success">✅ Succès!</span>\n\nStatut: ' + response.status + ' ' + response.statusText;
+            } catch (error) {
+                resultElement.innerHTML = '<span class="error">❌ Erreur!</span>\n\n' + error.message + 
+                    '\n\nNote: Cette erreur peut être normale si les vidéos de test n\'ont pas encore été téléversées vers S3.';
+            }
+        });
+        
+        // Génération d'URL pré-signée
+        getUrlButton.addEventListener('click', async () => {
+            const quality = qualitySelector.value;
+            urlDisplay.innerHTML = 'Génération de l\'URL en cours... <div class="loading"></div>';
+            loadVideoButton.disabled = true;
+            
+            try {
+                // Si le mode simulation est activé, simuler une réponse
+                if (config.simulationMode) {
+                    setTimeout(() => {
+                        const simulatedResponse = {
+                            url: `https://${config.cloudFrontDomain}/test/test-video-${quality}.mp4?Signature=SIMULATED_SIGNATURE&Key-Pair-Id=SIMULATED_KEY_PAIR_ID&Expires=1712345678`,
+                            quality: quality,
+                            expiresAt: new Date(Date.now() + 7200 * 1000).toISOString(),
+                            availableQualities: ["240p", "360p", "480p", "720p", "1080p"],
+                            metadata: {
+                                title: "Vidéo de test",
+                                duration: 120,
+                                contentType: "video/mp4"
+                            }
+                        };
+                        
+                        urlDisplay.innerHTML = `<span class="success">✅ URL générée avec succès! (Simulée)</span><br>${simulatedResponse.url}`;
+                        presignedUrl = simulatedResponse.url;
+                        
+                        // Mettre à jour les qualités disponibles
+                        if (simulatedResponse.availableQualities) {
+                            updateQualityOptions(simulatedResponse.availableQualities);
+                        }
+                        
+                        loadVideoButton.disabled = false;
+                    }, 500);
+                    return;
+                }
+                
+                // Ajouter un timestamp pour éviter le cache
+                const timestamp = new Date().getTime();
+                const url = `${config.apiEndpoint}?contentId=${config.contentId}&quality=${quality}&_=${timestamp}`;
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Origin': window.location.origin
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error + (data.message ? ': ' + data.message : ''));
+                }
+                
+                presignedUrl = data.url;
+                urlDisplay.innerHTML = `<span class="success">✅ URL générée avec succès!</span><br>${presignedUrl}`;
+                loadVideoButton.disabled = false;
+                
+                // Mettre à jour les qualités disponibles
+                if (data.availableQualities) {
+                    updateQualityOptions(data.availableQualities);
+                }
+            } catch (error) {
+                urlDisplay.innerHTML = `<span class="error">❌ Erreur lors de la génération de l'URL:</span><br>${error.message}`;
+            }
+        });
+        
+        // Chargement de la vidéo
+        loadVideoButton.addEventListener('click', () => {
+            if (presignedUrl) {
+                // En mode simulation, utiliser une vidéo de démonstration
+                if (config.simulationMode) {
+                    // Utiliser une vidéo de démonstration de Big Buck Bunny (licence libre)
+                    const demoVideo = 'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+                    videoPlayer.src = demoVideo;
+                    videoPlayer.load();
+                    videoPlayer.play().catch(err => {
+                        console.error('Erreur lors de la lecture:', err);
+                    });
+                    return;
+                }
+                
+                videoPlayer.src = presignedUrl;
+                videoPlayer.load();
+                videoPlayer.play().catch(err => {
+                    console.error('Erreur lors de la lecture:', err);
+                });
+            }
+        });
+        
+        // Mise à jour des options de qualité
+        function updateQualityOptions(qualities) {
+            // Sauvegarder la qualité actuellement sélectionnée
+            const currentQuality = qualitySelector.value;
+            
+            // Vider le sélecteur
+            qualitySelector.innerHTML = '';
+            
+            // Ajouter les nouvelles options
+            qualities.forEach(quality => {
+                const option = document.createElement('option');
+                option.value = quality;
+                option.textContent = quality;
+                option.selected = quality === currentQuality;
+                qualitySelector.appendChild(option);
+            });
+            
+            // Si la qualité actuelle n'existe plus, sélectionner la première
+            if (!qualities.includes(currentQuality) && qualities.length > 0) {
+                qualitySelector.value = qualities[0];
+            }
+        }
+        
+        // Gestion des erreurs de lecture vidéo
+        videoPlayer.addEventListener('error', (e) => {
+            console.error('Erreur de lecture vidéo:', e);
+            urlDisplay.innerHTML += `<br><span class="error">❌ Erreur de lecture: ${videoPlayer.error ? videoPlayer.error.message : 'Erreur inconnue'}</span>`;
+        });
+        
+        // Initialiser la configuration au chargement
+        initConfig();
+    </script>
+</body>
+</html>

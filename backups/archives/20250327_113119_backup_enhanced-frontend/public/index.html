@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="alternate icon" href="%PUBLIC_URL%/favicon.ico" type="image/png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#FF00FF" />
+    <meta
+      name="description"
+      content="FloDrama - Votre plateforme de streaming dédiée aux dramas et films asiatiques"
+    />
+    <meta property="og:title" content="FloDrama" />
+    <meta property="og:description" content="Découvrez les meilleurs dramas et films asiatiques en streaming" />
+    <meta property="og:image" content="%PUBLIC_URL%/og-image.jpg" />
+    <meta property="og:url" content="https://flodrama.com" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>FloDrama - Streaming de Dramas et Films Asiatiques</title>
+    <style>
+      /* Styles pour le splash screen initial */
+      #splash-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #111827;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease-out;
+      }
+      
+      #splash-logo {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 2rem;
+        animation: pulse 2s infinite;
+      }
+      
+      #splash-title {
+        color: #FF00FF;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+      
+      #splash-loading {
+        display: flex;
+        gap: 0.5rem;
+      }
+      
+      .splash-dot {
+        width: 0.75rem;
+        height: 0.75rem;
+        background-color: #F1601D;
+        border-radius: 50%;
+        opacity: 0.7;
+      }
+      
+      .splash-dot:nth-child(1) {
+        animation: bounce 1s infinite 0s;
+      }
+      
+      .splash-dot:nth-child(2) {
+        animation: bounce 1s infinite 0.2s;
+      }
+      
+      .splash-dot:nth-child(3) {
+        animation: bounce 1s infinite 0.4s;
+      }
+      
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+      }
+      
+      @keyframes bounce {
+        0%, 100% { transform: scale(1); opacity: 0.7; }
+        50% { transform: scale(1.5); opacity: 1; }
+      }
+      
+      /* Styles de base pour le corps */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+          'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #111827;
+        color: white;
+      }
+      
+      /* Masquer le splash screen quand React est chargé */
+      #root:not(:empty) + #splash-screen {
+        opacity: 0;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>Vous devez activer JavaScript pour exécuter cette application.</noscript>
+    <div id="root"></div>
+    
+    <!-- Splash screen initial (affiché avant que React ne soit chargé) -->
+    <div id="splash-screen">
+      <svg id="splash-logo" width="120" height="120" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- Définition du dégradé -->
+        <defs>
+          <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#0066CC;stop-opacity:0.2"/>
+            <stop offset="100%" style="stop-color:#0066CC;stop-opacity:0.1"/>
+          </linearGradient>
+        </defs>
+        
+        <!-- Fond avec dégradé -->
+        <rect x="10" y="10" width="180" height="180" rx="20" fill="url(#bgGradient)"/>
+        
+        <!-- Cadre de l'écran -->
+        <rect x="20" y="40" width="160" height="120" 
+              rx="10" 
+              fill="none" 
+              stroke="#0066CC" 
+              stroke-width="3"/>
+              
+        <!-- Vagues de streaming -->
+        <path d="M30 80 Q50 80 70 80" 
+              stroke="#F1601D" 
+              stroke-width="3" 
+              fill="none"/>
+        <path d="M30 100 Q50 100 70 100" 
+              stroke="#F1601D" 
+              stroke-width="3" 
+              fill="none"/>
+        <path d="M30 120 Q50 120 70 120" 
+              stroke="#F1601D" 
+              stroke-width="3" 
+              fill="none"/>
+        
+        <!-- Bouton de lecture (triangle) -->
+        <path d="M80 60 L140 100 L80 140 Z" 
+              fill="#F1601D"/>
+      </svg>
+      <div id="splash-title">FloDrama</div>
+      <div id="splash-loading">
+        <div class="splash-dot"></div>
+        <div class="splash-dot"></div>
+        <div class="splash-dot"></div>
+      </div>
+    </div>
+  </body>
+</html>

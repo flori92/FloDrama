@@ -1,0 +1,38 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0066CC;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#0066CC;stop-opacity:0.1"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect x="10" y="10" width="180" height="180" rx="20" fill="url(#bgGradient)"/>
+  
+  <!-- Play button triangle -->
+  <path d="M80 60 L140 100 L80 140 Z" 
+        fill="#F1601D" 
+        stroke="none"/>
+  
+  <!-- Decorative streaming waves -->
+  <path d="M30 80 Q50 80 70 80" 
+        stroke="#F1601D" 
+        stroke-width="3" 
+        fill="none"/>
+  <path d="M30 100 Q50 100 70 100" 
+        stroke="#F1601D" 
+        stroke-width="3" 
+        fill="none"/>
+  <path d="M30 120 Q50 120 70 120" 
+        stroke="#F1601D" 
+        stroke-width="3" 
+        fill="none"/>
+        
+  <!-- Screen frame -->
+  <rect x="20" y="40" width="160" height="120" 
+        rx="10" 
+        fill="none" 
+        stroke="#0066CC" 
+        stroke-width="3"/>
+</svg>

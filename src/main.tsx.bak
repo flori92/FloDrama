@@ -1,0 +1,25 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import './styles/globals.css';
+
+// Récupérer l'élément racine avec vérification de nullité
+const rootElement = document.getElementById('root');
+
+// Vérifier si l'élément existe avant de créer la racine React
+if (rootElement) {
+  const root = ReactDOM.createRoot(rootElement);
+  
+  // Utiliser une assertion de type pour éviter l'erreur TypeScript
+  const StrictMode = React.StrictMode as React.ComponentType<{children?: React.ReactNode}>;
+  
+  root.render(
+    <StrictMode>
+      <div className="theme-dark">
+        <App />
+      </div>
+    </StrictMode>
+  );
+} else {
+  console.error("Élément racine 'root' non trouvé dans le DOM");
+}

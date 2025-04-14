@@ -1,0 +1,22 @@
+{
+  "name": "@flodrama/api",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "license": "MIT",
+  "files": ["dist/**"],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean --tsconfig tsconfig.json",
+    "dev": "tsup src/index.ts --format esm,cjs --watch --dts --clean --tsconfig tsconfig.json",
+    "lint": "eslint \"src/**/*.ts*\"",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "tsup": "^8.0.0",
+    "eslint": "^8.0.0"
+  }
+}

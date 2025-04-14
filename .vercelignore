@@ -1,0 +1,9 @@
+# Fichiers et dossiers à ignorer lors du déploiement Vercel
+.git
+node_modules
+amplify.yml
+scripts/migrer-vers-amplify.sh
+scripts/nettoyer-et-migrer-amplify.sh
+backups
+*.log
+.env.local

@@ -1,0 +1,70 @@
+{
+  "version": 2,
+  "public": true,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "framework": "vite",
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    },
+    {
+      "source": "/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/_next/static/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "env": {
+    "REACT_APP_VIDEO_PROXY_API": "https://yqek2f5uph.execute-api.us-east-1.amazonaws.com/prod/stream",
+    "REACT_APP_CLOUDFRONT_DOMAIN": "https://dyba0cgavum1j.cloudfront.net"
+  },
+  "build": {
+    "env": {
+      "REACT_APP_VIDEO_PROXY_API": "https://yqek2f5uph.execute-api.us-east-1.amazonaws.com/prod/stream",
+      "REACT_APP_CLOUDFRONT_DOMAIN": "https://dyba0cgavum1j.cloudfront.net"
+    }
+  }
+}

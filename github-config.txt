@@ -1,0 +1,18 @@
+# Configuration pour GitHub
+
+Si vous ne pouvez pas utiliser CodeCommit en raison de restrictions de permissions,
+suivez ces étapes pour configurer un repository GitHub à la place:
+
+1. Créez un nouveau repository sur GitHub
+2. Configurez les secrets GitHub pour AWS:
+   - AWS_ACCESS_KEY_ID
+   - AWS_SECRET_ACCESS_KEY
+   - AWS_REGION
+
+3. Créez un workflow GitHub Actions (.github/workflows/deploy.yml):
+
+
+
+4. Poussez votre code vers GitHub:
+   git remote add origin https://github.com/votre-utilisateur/flodrama-monorepo.git
+   git push -u origin main

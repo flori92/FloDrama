@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test d'intégration FloDrama - Amélioré</title>
+    <style>
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #121118;
+            color: white;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            background: linear-gradient(to right, #3b82f6, #d946ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+        }
+        .card {
+            background-color: #1A1926;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        button {
+            background: linear-gradient(to right, #3b82f6, #d946ef);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        pre {
+            background-color: #2a293a;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            color: #e2e8f0;
+        }
+        .error {
+            color: #f87171;
+        }
+        .success {
+            color: #34d399;
+        }
+        .video-container {
+            width: 100%;
+            margin-top: 20px;
+        }
+        video {
+            width: 100%;
+            border-radius: 8px;
+            background-color: #000;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #a0aec0;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            background-color: #2a293a;
+            border: 1px solid #4a5568;
+            color: white;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test d'intégration FloDrama - Amélioré</h1>
+    
+    <div class="card">
+        <h2>Configuration</h2>
+        <div class="form-group">
+            <label for="apiUrl">URL de l'API Gateway</label>
+            <input type="text" id="apiUrl" value="https://yqek2f5uph.execute-api.us-east-1.amazonaws.com/prod">
+        </div>
+        <div class="form-group">
+            <label for="contentId">ID du contenu</label>
+            <input type="text" id="contentId" value="test">
+        </div>
+        <div class="form-group">
+            <label for="quality">Qualité</label>
+            <select id="quality">
+                <option value="240p">240p</option>
+                <option value="360p">360p</option>
+                <option value="480p">480p</option>
+                <option value="720p" selected>720p</option>
+                <option value="1080p">1080p</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2>Test de l'API Gateway</h2>
+        <div class="actions">
+            <button id="testApi">Tester l'API</button>
+            <button id="clearApiResult">Effacer</button>
+        </div>
+        <pre id="apiResult">Résultat apparaîtra ici...</pre>
+    </div>
+    
+    <div class="card">
+        <h2>Test du lecteur vidéo</h2>
+        <button id="loadVideo">Charger la vidéo</button>
+        <div class="video-container">
+            <video id="videoPlayer" controls></video>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2>Informations de débogage</h2>
+        <pre id="debugInfo">Informations de débogage apparaîtront ici...</pre>
+    </div>
+
+    <script>
+        // Éléments DOM
+        const apiUrlInput = document.getElementById('apiUrl');
+        const contentIdInput = document.getElementById('contentId');
+        const qualitySelect = document.getElementById('quality');
+        const testApiButton = document.getElementById('testApi');
+        const clearApiResultButton = document.getElementById('clearApiResult');
+        const apiResultElement = document.getElementById('apiResult');
+        const loadVideoButton = document.getElementById('loadVideo');
+        const videoPlayer = document.getElementById('videoPlayer');
+        const debugInfoElement = document.getElementById('debugInfo');
+        
+        // Variables globales
+        let streamUrl = null;
+        
+        // Fonctions
+        function logDebug(message) {
+            const timestamp = new Date().toISOString();
+            debugInfoElement.textContent += `[${timestamp}] ${message}\n`;
+            debugInfoElement.scrollTop = debugInfoElement.scrollHeight;
+        }
+        
+        async function testApi() {
+            const apiUrl = apiUrlInput.value;
+            const contentId = contentIdInput.value;
+            const quality = qualitySelect.value;
+            
+            apiResultElement.textContent = 'Test en cours...';
+            logDebug(`Appel API: ${apiUrl}?contentId=${contentId}&quality=${quality}`);
+            
+            try {
+                const response = await fetch(`${apiUrl}?contentId=${contentId}&quality=${quality}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                apiResultElement.innerHTML = '<span class="success">✅ Succès!</span>\n\n' + JSON.stringify(data, null, 2);
+                logDebug('Réponse API reçue avec succès');
+                
+                // Stocker l'URL de streaming
+                if (data.url) {
+                    streamUrl = data.url;
+                    logDebug(`URL de streaming récupérée: ${streamUrl}`);
+                }
+            } catch (error) {
+                apiResultElement.innerHTML = '<span class="error">❌ Erreur!</span>\n\n' + error.message;
+                logDebug(`Erreur lors de l'appel API: ${error.message}`);
+            }
+        }
+        
+        function loadVideo() {
+            if (!streamUrl) {
+                logDebug('Aucune URL de streaming disponible. Veuillez d\'abord tester l\'API.');
+                return;
+            }
+            
+            logDebug(`Chargement de la vidéo depuis: ${streamUrl}`);
+            videoPlayer.src = streamUrl;
+            videoPlayer.load();
+            
+            // Écouter les événements du lecteur vidéo
+            videoPlayer.onloadstart = () => logDebug('Événement: loadstart');
+            videoPlayer.onloadedmetadata = () => logDebug('Événement: loadedmetadata');
+            videoPlayer.oncanplay = () => logDebug('Événement: canplay');
+            videoPlayer.onplay = () => logDebug('Événement: play');
+            videoPlayer.onpause = () => logDebug('Événement: pause');
+            videoPlayer.onerror = (e) => logDebug(`Événement: error - ${videoPlayer.error?.message || 'Erreur inconnue'}`);
+        }
+        
+        // Événements
+        testApiButton.addEventListener('click', testApi);
+        clearApiResultButton.addEventListener('click', () => {
+            apiResultElement.textContent = 'Résultat apparaîtra ici...';
+        });
+        loadVideoButton.addEventListener('click', loadVideo);
+        
+        // Initialisation
+        logDebug('Page de test initialisée');
+    </script>
+</body>
+</html>

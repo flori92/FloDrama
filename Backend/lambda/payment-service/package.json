@@ -1,0 +1,36 @@
+{
+  "name": "flodrama-payment-service",
+  "version": "1.0.0",
+  "description": "Service de paiement unifié pour FloDrama",
+  "main": "index.js",
+  "scripts": {
+    "start": "./start-local.sh",
+    "setup": "./setup-local.sh",
+    "deploy": "./deploy.sh",
+    "deploy:dev": "./deploy.sh dev",
+    "deploy:staging": "./deploy.sh staging",
+    "deploy:prod": "./deploy.sh prod",
+    "test": "node test-local.js",
+    "mock": "node mock-server.js"
+  },
+  "dependencies": {
+    "@middy/core": "^3.6.2",
+    "@middy/http-cors": "^3.6.2",
+    "@middy/http-error-handler": "^3.6.2",
+    "@middy/http-json-body-parser": "^3.6.2",
+    "aws-sdk": "^2.1332.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "serverless": "^3.28.1",
+    "serverless-dynamodb-local": "^0.2.40",
+    "serverless-offline": "^12.0.4"
+  },
+  "author": "FloDrama Team",
+  "license": "UNLICENSED",
+  "private": true
+}

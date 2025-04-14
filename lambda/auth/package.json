@@ -1,0 +1,11 @@
+{
+  "name": "flodrama-auth-lambda",
+  "version": "1.0.0",
+  "description": "Fonction Lambda d'authentification pour FloDrama",
+  "main": "index.js",
+  "dependencies": {
+    "mongodb": "^6.15.0",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^3.0.2"
+  }
+}

@@ -1,0 +1,368 @@
+/* Styles pour la page de profil */
+.profile-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.back-button {
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  margin-right: 20px;
+}
+
+.back-button:hover {
+  color: #FF00FF;
+}
+
+.profile-header h1 {
+  font-size: 28px;
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.profile-content {
+  flex-grow: 1;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  background-color: rgba(31, 41, 55, 0.5);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.avatar-container {
+  position: relative;
+  margin-right: 30px;
+}
+
+.user-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #FF00FF;
+}
+
+.edit-avatar-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #FF00FF;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.edit-avatar-btn:hover {
+  background-color: #cc00cc;
+}
+
+.user-details {
+  flex-grow: 1;
+}
+
+.user-details h2 {
+  font-size: 24px;
+  margin: 0 0 5px 0;
+}
+
+.user-details p {
+  color: #9ca3af;
+  margin: 0 0 15px 0;
+}
+
+.edit-profile-btn {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid #FF00FF;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.edit-profile-btn:hover {
+  background-color: #FF00FF;
+  color: white;
+}
+
+.profile-sections {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+.profile-sections section {
+  background-color: rgba(31, 41, 55, 0.5);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.profile-sections h3 {
+  font-size: 20px;
+  margin: 0 0 20px 0;
+  color: #FF00FF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.content-card {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.content-card:hover {
+  transform: scale(1.05);
+}
+
+.content-card img {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+}
+
+.content-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  padding: 10px;
+}
+
+.content-info h4 {
+  margin: 0 0 5px 0;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.content-type {
+  font-size: 12px;
+  color: #9ca3af;
+  text-transform: capitalize;
+}
+
+.progress-bar {
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: #FF00FF;
+}
+
+.empty-message {
+  color: #9ca3af;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.view-all-link, .settings-link {
+  display: block;
+  text-align: center;
+  color: #FF00FF;
+  text-decoration: none;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.view-all-link:hover, .settings-link:hover {
+  text-decoration: underline;
+}
+
+.preferences-list {
+  display: grid;
+  gap: 15px;
+}
+
+.preference-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.preference-item:last-child {
+  border-bottom: none;
+}
+
+.preference-item select {
+  background-color: #1f2937;
+  color: white;
+  border: 1px solid #374151;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+
+/* Toggle switch */
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #374151;
+  transition: .4s;
+  border-radius: 24px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+  background-color: #FF00FF;
+}
+
+input:checked + .toggle-slider:before {
+  transform: translateX(26px);
+}
+
+.profile-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-link {
+  color: #9ca3af;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 14px;
+}
+
+.footer-link:hover {
+  color: #FF00FF;
+}
+
+.logout-btn {
+  background-color: transparent;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 15px;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #ef4444;
+  color: white;
+}
+
+.profile-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 0, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #FF00FF;
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive design */
+@media (min-width: 768px) {
+  .profile-sections {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .preferences-section {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 767px) {
+  .profile-info {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .avatar-container {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+  
+  .content-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+}

@@ -1,0 +1,569 @@
+{
+  "updated": [
+    {
+      "id": "drama-001",
+      "title": "Le Secret du Palais",
+      "poster": "https://d2ra390ol17u3n.cloudfront.net/assets/poster1.jpg",
+      "episodes": 16,
+      "latest_episode": 16,
+      "rating": 4.8,
+      "year": 2025,
+      "categories": ["Romance", "Historique"],
+      "description": "Dans la Corée du 18ème siècle, une jeune servante entre au service de la famille royale et découvre les intrigues du palais.",
+      "stream_url": "https://videos.flodrama.com/dramas/le-secret-du-palais/",
+      "trailer_url": "https://videos.flodrama.com/trailers/le-secret-du-palais.mp4",
+      "actors": ["Kim Min-ji", "Park Jae-sung", "Lee Hye-ri"],
+      "director": "Cho Yoon-sung",
+      "language": "Coréen",
+      "subtitles": ["Français", "Anglais"],
+      "country": "Corée du Sud",
+      "episodes_list": [
+        {
+          "episode": 1,
+          "title": "L'arrivée au palais",
+          "duration": 65,
+          "stream_url": "https://videos.flodrama.com/dramas/le-secret-du-palais/ep1.mp4"
+        },
+        {
+          "episode": 2,
+          "title": "Premières rencontres",
+          "duration": 63,
+          "stream_url": "https://videos.flodrama.com/dramas/le-secret-du-palais/ep2.mp4"
+        },
+        {
+          "episode": 3,
+          "title": "Le complot",
+          "duration": 64,
+          "stream_url": "https://videos.flodrama.com/dramas/le-secret-du-palais/ep3.mp4"
+        }
+      ]
+    },
+    {
+      "id": "drama-002",
+      "title": "Médecin de Nuit",
+      "poster": "https://d2ra390ol17u3n.cloudfront.net/assets/poster2.jpg",
+      "episodes": 12,
+      "latest_episode": 8,
+      "rating": 4.6,
+      "year": 2025,
+      "categories": ["Médical", "Romance"],
+      "description": "Un brillant chirurgien travaille dans un hôpital de garde et doit jongler entre sa vie professionnelle exigeante et sa vie personnelle compliquée.",
+      "stream_url": "https://videos.flodrama.com/dramas/medecin-de-nuit/",
+      "trailer_url": "https://videos.flodrama.com/trailers/medecin-de-nuit.mp4",
+      "actors": ["Choi Ji-woo", "Hyun Bin", "Son Ye-jin"],
+      "director": "Kim Eun-sook",
+      "language": "Coréen",
+      "subtitles": ["Français", "Anglais"],
+      "country": "Corée du Sud",
+      "episodes_list": [
+        {
+          "episode": 1,
+          "title": "Première garde",
+          "duration": 60,
+          "stream_url": "https://videos.flodrama.com/dramas/medecin-de-nuit/ep1.mp4"
+        },
+        {
+          "episode": 2,
+          "title": "Urgence cardiaque",
+          "duration": 59,
+          "stream_url": "https://videos.flodrama.com/dramas/medecin-de-nuit/ep2.mp4"
+        },
+        {
+          "episode": 3,
+          "title": "Dilemme éthique",
+          "duration": 61,
+          "stream_url": "https://videos.flodrama.com/dramas/medecin-de-nuit/ep3.mp4"
+        }
+      ]
+    }
+  ],
+  "dramas": [
+    {
+      "id": "drama-004",
+      "title": "Fleurs de Cerisier",
+      "poster": "https://d2ra390ol17u3n.cloudfront.net/assets/poster4.jpg",
+      "episodes": 24,
+      "latest_episode": 24,
+      "rating": 4.9,
+      "year": 2024,
+      "categories": ["Romance", "Comédie"],
+      "description": "Deux âmes sœurs se rencontrent chaque printemps sous les cerisiers en fleurs, mais le destin semble toujours les séparer.",
+      "stream_url": "https://videos.flodrama.com/dramas/fleurs-de-cerisier/",
+      "trailer_url": "https://videos.flodrama.com/trailers/fleurs-de-cerisier.mp4",
+      "actors": ["Park Shin-hye", "Lee Min-ho", "Kim Go-eun"],
+      "director": "Hong Sisters",
+      "language": "Coréen",
+      "subtitles": ["Français", "Anglais"],
+      "country": "Corée du Sud",
+      "episodes_list": [
+        {
+          "episode": 1,
+          "title": "Première rencontre",
+          "duration": 70,
+          "stream_url": "https://videos.flodrama.com/dramas/fleurs-de-cerisier/ep1.mp4"
+        },
+        {
+          "episode": 2,
+          "title": "Souvenirs d'enfance",
+          "duration": 68,
+          "stream_url": "https://videos.flodrama.com/dramas/fleurs-de-cerisier/ep2.mp4"
+        }
+      ]
+    },
+    {
+      "id": "drama-005",
+      "title": "Le Dernier Samouraï",
+      "poster": "https://d2ra390ol17u3n.cloudfront.net/assets/poster5.jpg",
+      "episodes": 16,
+      "latest_episode": 16,
+      "rating": 4.8,
+      "year": 2023,
+      "categories": ["Historique", "Action"],
+      "description": "À la fin de l'ère Edo, un samouraï loyal doit choisir entre son honneur et sa famille alors que le Japon se modernise.",
+      "stream_url": "https://videos.flodrama.com/dramas/le-dernier-samourai/",
+      "trailer_url": "https://videos.flodrama.com/trailers/le-dernier-samourai.mp4",
+      "actors": ["Takuya Kimura", "Haruka Ayase", "Yutaka Takenouchi"],
+      "director": "Takashi Miike",
+      "language": "Japonais",
+      "subtitles": ["Français", "Anglais"],
+      "country": "Japon",
+      "episodes_list": [
+        {
+          "episode": 1,
+          "title": "L'ère nouvelle",
+          "duration": 55,
+          "stream_url": "https://videos.flodrama.com/dramas/le-dernier-samourai/ep1.mp4"
+        },
+        {
+          "episode": 2,
+          "title": "Le code du bushido",
+          "duration": 54,
+          "stream_url": "https://videos.flodrama.com/dramas/le-dernier-samourai/ep2.mp4"
+        }
+      ]
+    }
+  ],
+  "movies": [
+    {
+      "id": "movie-001",
+      "title": "Amour d'Été",
+      "poster": "https://d2ra390ol17u3n.cloudfront.net/assets/movie1.jpg",
+      "duration": 125,
+      "rating": 4.5,
+      "year": 2025,
+      "categories": ["Romance", "Comédie"],
+      "description": "Pendant les vacances d'été, deux jeunes adultes se rencontrent sur une plage et vivent une histoire d'amour intense.",
+      "stream_url": "https://videos.flodrama.com/movies/amour-d-ete.mp4",
+      "trailer_url": "https://videos.flodrama.com/trailers/amour-d-ete.mp4",
+      "actors": ["Song Joong-ki", "IU", "Gong Yoo"],
+      "director": "Bong Joon-ho",
+      "language": "Coréen",
+      "subtitles": ["Français", "Anglais"],
+      "country": "Corée du Sud"
+    },
+    {
+      "id": "movie-002",
+      "title": "La Vengeance",
+      "poster": "https://d2ra390ol17u3n.cloudfront.net/assets/movie2.jpg",
+      "duration": 140,
+      "rating": 4.7,
+      "year": 2024,
+      "categories": ["Action", "Thriller"],
+      "description": "Un ancien agent secret sort de sa retraite pour venger la mort de sa famille et affronter son ancien mentor.",
+      "stream_url": "https://videos.flodrama.com/movies/la-vengeance.mp4",
+      "trailer_url": "https://videos.flodrama.com/trailers/la-vengeance.mp4",
+      "actors": ["Lee Byung-hun", "Jung Woo-sung", "Jeon Do-yeon"],
+      "director": "Park Chan-wook",
+      "language": "Coréen",
+      "subtitles": ["Français", "Anglais"],
+      "country": "Corée du Sud"
+    }
+  ],
+  "bollywood": [
+    {
+      "id": "bollywood-001",
+      "title": "Amour Éternel",
+      "poster": "https://d2ra390ol17u3n.cloudfront.net/assets/bollywood1.jpg",
+      "duration": 165,
+      "rating": 4.6,
+      "year": 2024,
+      "categories": ["Romance", "Musical"],
+      "description": "Une histoire d'amour qui transcende les barrières sociales et culturelles dans l'Inde moderne.",
+      "stream_url": "https://videos.flodrama.com/bollywood/amour-eternel.mp4",
+      "trailer_url": "https://videos.flodrama.com/trailers/amour-eternel.mp4",
+      "actors": ["Shah Rukh Khan", "Deepika Padukone", "Ranveer Singh"],
+      "director": "Karan Johar",
+      "language": "Hindi",
+      "subtitles": ["Français", "Anglais"],
+      "country": "Inde"
+    },
+    {
+      "id": "bollywood-002",
+      "title": "Danse Bollywood",
+      "poster": "https://d2ra390ol17u3n.cloudfront.net/assets/bollywood2.jpg",
+      "duration": 155,
+      "rating": 4.5,
+      "year": 2025,
+      "categories": ["Musical", "Comédie"],
+      "description": "Un jeune danseur talentueux mais pauvre rêve de participer à un grand concours de danse national.",
+      "stream_url": "https://videos.flodrama.com/bollywood/danse-bollywood.mp4",
+      "trailer_url": "https://videos.flodrama.com/trailers/danse-bollywood.mp4",
+      "actors": ["Hrithik Roshan", "Alia Bhatt", "Varun Dhawan"],
+      "director": "Farah Khan",
+      "language": "Hindi",
+      "subtitles": ["Français", "Anglais"],
+      "country": "Inde"
+    },
+    {
+      "id": "bollywood-003",
+      "title": "Le Roi de Mumbai",
+      "poster": "https://d2ra390ol17u3n.cloudfront.net/assets/bollywood3.jpg",
+      "duration": 170,
+      "rating": 4.8,
+      "year": 2023,
+      "categories": ["Action", "Drame"],
+      "description": "L'ascension et la chute d'un homme ordinaire qui devient le roi du crime organisé à Mumbai.",
+      "stream_url": "https://videos.flodrama.com/bollywood/le-roi-de-mumbai.mp4",
+      "trailer_url": "https://videos.flodrama.com/trailers/le-roi-de-mumbai.mp4",
+      "actors": ["Amitabh Bachchan", "Nawazuddin Siddiqui", "Tabu"],
+      "director": "Anurag Kashyap",
+      "language": "Hindi",
+      "subtitles": ["Français", "Anglais"],
+      "country": "Inde"
+    }
+  ],
+  "anime": [
+    {
+      "id": "anime-001",
+      "title": "Samouraï Légendaire",
+      "poster": "https://d2ra390ol17u3n.cloudfront.net/assets/anime1.jpg",
+      "episodes": 24,
+      "latest_episode": 24,
+      "rating": 4.9,
+      "year": 2024,
+      "categories": ["Action", "Aventure"],
+      "description": "Dans un Japon féodal fantastique, un samouraï errant aux pouvoirs mystiques combat pour protéger les innocents.",
+      "stream_url": "https://videos.flodrama.com/anime/samourai-legendaire/",
+      "trailer_url": "https://videos.flodrama.com/trailers/samourai-legendaire.mp4",
+      "director": "Shinichiro Watanabe",
+      "language": "Japonais",
+      "subtitles": ["Français", "Anglais"],
+      "country": "Japon",
+      "episodes_list": [
+        {
+          "episode": 1,
+          "title": "Le samouraï errant",
+          "duration": 24,
+          "stream_url": "https://videos.flodrama.com/anime/samourai-legendaire/ep1.mp4"
+        },
+        {
+          "episode": 2,
+          "title": "L'épée maudite",
+          "duration": 24,
+          "stream_url": "https://videos.flodrama.com/anime/samourai-legendaire/ep2.mp4"
+        }
+      ]
+    },
+    {
+      "id": "anime-002",
+      "title": "Académie des Magiciens",
+      "poster": "https://d2ra390ol17u3n.cloudfront.net/assets/anime2.jpg",
+      "episodes": 12,
+      "latest_episode": 12,
+      "rating": 4.7,
+      "year": 2025,
+      "categories": ["Fantaisie", "École"],
+      "description": "Un jeune garçon sans talent magique est admis dans la prestigieuse Académie des Magiciens et découvre un pouvoir unique.",
+      "stream_url": "https://videos.flodrama.com/anime/academie-des-magiciens/",
+      "trailer_url": "https://videos.flodrama.com/trailers/academie-des-magiciens.mp4",
+      "director": "Makoto Shinkai",
+      "language": "Japonais",
+      "subtitles": ["Français", "Anglais"],
+      "country": "Japon",
+      "episodes_list": [
+        {
+          "episode": 1,
+          "title": "L'admission",
+          "duration": 25,
+          "stream_url": "https://videos.flodrama.com/anime/academie-des-magiciens/ep1.mp4"
+        },
+        {
+          "episode": 2,
+          "title": "Premier sort",
+          "duration": 25,
+          "stream_url": "https://videos.flodrama.com/anime/academie-des-magiciens/ep2.mp4"
+        }
+      ]
+    }
+  ],
+  "carousel": [
+    {
+      "id": "carousel-001",
+      "title": "Nouveautés",
+      "items": ["drama-001", "drama-007", "drama-008", "movie-001", "movie-003"]
+    },
+    {
+      "id": "carousel-002",
+      "title": "Tendances",
+      "items": ["drama-002", "drama-004", "drama-010", "movie-002", "movie-004"]
+    },
+    {
+      "id": "carousel-003",
+      "title": "Historiques",
+      "items": ["drama-001", "drama-005", "drama-009"]
+    },
+    {
+      "id": "carousel-004",
+      "title": "Romances",
+      "items": ["drama-001", "drama-002", "drama-004", "drama-007", "movie-001", "movie-005"]
+    },
+    {
+      "id": "carousel-005",
+      "title": "Bollywood",
+      "items": ["bollywood-001", "bollywood-002", "bollywood-003"]
+    },
+    {
+      "id": "carousel-006",
+      "title": "Anime",
+      "items": ["anime-001", "anime-002"]
+    }
+  ],
+  "sections": [
+    {
+      "id": "section-001",
+      "title": "K-Dramas Populaires",
+      "type": "drama",
+      "items": ["drama-001", "drama-002", "drama-004"]
+    },
+    {
+      "id": "section-002",
+      "title": "Films Coréens",
+      "type": "movie",
+      "items": ["movie-001", "movie-002", "movie-003"]
+    },
+    {
+      "id": "section-003",
+      "title": "Spécial Bollywood",
+      "type": "bollywood",
+      "items": ["bollywood-001", "bollywood-002", "bollywood-003"]
+    },
+    {
+      "id": "section-004",
+      "title": "Anime Japonais",
+      "type": "anime",
+      "items": ["anime-001", "anime-002"]
+    },
+    {
+      "id": "section-005",
+      "title": "Drames Historiques",
+      "type": "mixed",
+      "items": ["drama-001", "drama-005", "drama-009"]
+    }
+  ],
+  "recommendations": [
+    {
+      "id": "rec-001",
+      "title": "Parce que vous avez regardé Le Secret du Palais",
+      "source_id": "drama-001",
+      "items": ["drama-005", "drama-009", "bollywood-003"]
+    },
+    {
+      "id": "rec-002",
+      "title": "Parce que vous aimez les romances",
+      "source_category": "Romance",
+      "items": ["drama-001", "drama-004", "movie-001", "bollywood-001"]
+    },
+    {
+      "id": "rec-003",
+      "title": "Parce que vous aimez l'action",
+      "source_category": "Action",
+      "items": ["drama-005", "movie-002", "bollywood-003", "anime-001"]
+    }
+  ],
+  "widgets": [
+    {
+      "id": "widget-001",
+      "type": "featured",
+      "title": "À ne pas manquer",
+      "content": {
+        "id": "drama-008",
+        "description": "Le Royaume des Ombres - Une aventure épique dans un monde fantastique où la magie et l'action se rencontrent. Suivez l'histoire de héros ordinaires face à des forces extraordinaires."
+      }
+    },
+    {
+      "id": "widget-002",
+      "type": "collection",
+      "title": "Sélection du mois",
+      "content": {
+        "items": ["drama-003", "drama-006", "movie-003"]
+      }
+    },
+    {
+      "id": "widget-003",
+      "type": "category",
+      "title": "Comédies Romantiques",
+      "content": {
+        "items": ["drama-004", "movie-001"]
+      }
+    },
+    {
+      "id": "widget-004",
+      "type": "spotlight",
+      "title": "Découverte Bollywood",
+      "content": {
+        "id": "bollywood-001",
+        "description": "Plongez dans l'univers coloré et musical du cinéma indien avec notre sélection de films Bollywood."
+      }
+    },
+    {
+      "id": "widget-005",
+      "type": "spotlight",
+      "title": "Anime du moment",
+      "content": {
+        "id": "anime-001",
+        "description": "Découvrez les meilleures séries d'animation japonaise, avec des histoires captivantes et des personnages inoubliables."
+      }
+    }
+  ],
+  "categories": [
+    {
+      "id": "cat-001",
+      "name": "Romance",
+      "count": 8
+    },
+    {
+      "id": "cat-002",
+      "name": "Action",
+      "count": 6
+    },
+    {
+      "id": "cat-003",
+      "name": "Historique",
+      "count": 4
+    },
+    {
+      "id": "cat-004",
+      "name": "Comédie",
+      "count": 4
+    },
+    {
+      "id": "cat-005",
+      "name": "Thriller",
+      "count": 3
+    },
+    {
+      "id": "cat-006",
+      "name": "Médical",
+      "count": 1
+    },
+    {
+      "id": "cat-007",
+      "name": "Juridique",
+      "count": 1
+    },
+    {
+      "id": "cat-008",
+      "name": "Musique",
+      "count": 1
+    },
+    {
+      "id": "cat-009",
+      "name": "Fantastique",
+      "count": 1
+    },
+    {
+      "id": "cat-010",
+      "name": "Policier",
+      "count": 1
+    },
+    {
+      "id": "cat-011",
+      "name": "Mystère",
+      "count": 2
+    },
+    {
+      "id": "cat-012",
+      "name": "Cuisine",
+      "count": 1
+    },
+    {
+      "id": "cat-013",
+      "name": "Business",
+      "count": 1
+    },
+    {
+      "id": "cat-014",
+      "name": "Science-Fiction",
+      "count": 1
+    },
+    {
+      "id": "cat-015",
+      "name": "Aventure",
+      "count": 2
+    },
+    {
+      "id": "cat-016",
+      "name": "Drame",
+      "count": 1
+    },
+    {
+      "id": "cat-017",
+      "name": "Musical",
+      "count": 2
+    },
+    {
+      "id": "cat-018",
+      "name": "Fantaisie",
+      "count": 1
+    },
+    {
+      "id": "cat-019",
+      "name": "École",
+      "count": 1
+    }
+  ],
+  "languages": [
+    {
+      "id": "lang-001",
+      "name": "Coréen",
+      "count": 10
+    },
+    {
+      "id": "lang-002",
+      "name": "Japonais",
+      "count": 4
+    },
+    {
+      "id": "lang-003",
+      "name": "Hindi",
+      "count": 3
+    },
+    {
+      "id": "lang-004",
+      "name": "Chinois",
+      "count": 1
+    }
+  ],
+  "countries": [
+    {
+      "id": "country-001",
+      "name": "Corée du Sud",
+      "count": 10
+    },
+    {
+      "id": "country-002",
+      "name": "Japon",
+      "count": 4
+    },
+    {
+      "id": "country-003",
+      "name": "Inde",
+      "count": 3
+    },
+    {
+      "id": "country-004",
+      "name": "Chine",
+      "count": 1
+    }
+  ]
+}

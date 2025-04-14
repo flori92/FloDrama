@@ -1,0 +1,16 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import './styles/globals.css';
+
+// Création du point d'entrée React
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+// Rendu de l'application avec un thème sombre par défaut
+root.render(
+  <React.StrictMode>
+    <div className="theme-dark">
+      <App />
+    </div>
+  </React.StrictMode>
+);

@@ -1,0 +1,47 @@
+[
+  {
+    "id": "drama-1",
+    "title": "My Love From The Star",
+    "alternativeTitles": [
+      "별에서 온 그대",
+      "You Who Came From the Stars",
+      "Man From the Stars"
+    ],
+    "link": "https://voirdrama.org/drama/my-love-from-the-star/",
+    "image": "https://voirdrama.org/assets/images/dramas/my-love-from-the-star.jpg",
+    "source": "VoirDrama",
+    "type": "drama",
+    "year": 2013,
+    "country": "Corée du Sud"
+  },
+  {
+    "id": "drama-2",
+    "title": "Crash Landing on You",
+    "alternativeTitles": [
+      "사랑의 불시착",
+      "Love's Emergency Landing",
+      "Emergency Love Landing"
+    ],
+    "link": "https://voirdrama.org/drama/crash-landing-on-you/",
+    "image": "https://voirdrama.org/assets/images/dramas/crash-landing-on-you.jpg",
+    "source": "VoirDrama",
+    "type": "drama",
+    "year": 2019,
+    "country": "Corée du Sud"
+  },
+  {
+    "id": "drama-3",
+    "title": "Goblin",
+    "alternativeTitles": [
+      "도깨비",
+      "Guardian: The Lonely and Great God",
+      "The Lonely and Great God"
+    ],
+    "link": "https://voirdrama.org/drama/goblin/",
+    "image": "https://voirdrama.org/assets/images/dramas/goblin.jpg",
+    "source": "VoirDrama",
+    "type": "drama",
+    "year": 2016,
+    "country": "Corée du Sud"
+  }
+]

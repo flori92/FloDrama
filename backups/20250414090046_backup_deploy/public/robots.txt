@@ -1,0 +1,6 @@
+# Permet l'indexation par tous les robots
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://flodrama.vercel.app/sitemap.xml
