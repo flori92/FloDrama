@@ -1,0 +1,12 @@
+<svg width="300" height="450" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d946ef;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="#1A1926" rx="8" ry="8" />
+  <rect width="100%" height="100%" fill="url(#grad)" opacity="0.3" rx="8" ry="8" />
+  <text x="50%" y="50%" font-family="SF Pro Display, sans-serif" font-size="24" fill="white" text-anchor="middle" dominant-baseline="middle">It's Okay to Not Be Okay</text>
+  <text x="50%" y="65%" font-family="SF Pro Display, sans-serif" font-size="18" fill="white" opacity="0.7" text-anchor="middle" dominant-baseline="middle">2020 • Drame, Romance</text>
+</svg>
