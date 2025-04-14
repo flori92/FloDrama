@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#121118" />
+  <link rel="icon" type="image/svg+xml" href="/FloDrama/logo.svg" />
+  <link rel="apple-touch-icon" href="/FloDrama/logo192.png" />
+  
+  <!-- Manifest avec gestion d'erreur -->
+  <script>
+    // Fonction pour charger le manifest avec gestion d'erreur
+    function loadManifest() {
+      const manifestLink = document.createElement('link');
+      manifestLink.rel = 'manifest';
+      manifestLink.href = '/FloDrama/manifest.json';
+      manifestLink.onerror = function(e) {
+        console.error('Erreur de chargement du manifest.json:', e);
+        // Créer un manifest de secours en cas d'erreur
+        const fallbackManifest = {
+          "short_name": "FloDrama",
+          "name": "FloDrama - Streaming asiatique",
+          "icons": [
+            {
+              "src": "/FloDrama/logo192.png",
+              "type": "image/png",
+              "sizes": "192x192"
+            }
+          ],
+          "start_url": "/FloDrama/",
+          "display": "standalone",
+          "theme_color": "#121118",
+          "background_color": "#121118"
+        };
+        
+        // Créer un blob URL pour le manifest de secours
+        const blob = new Blob([JSON.stringify(fallbackManifest)], {type: 'application/json'});
+        const fallbackManifestUrl = URL.createObjectURL(blob);
+        
+        // Remplacer le lien par le manifest de secours
+        manifestLink.href = fallbackManifestUrl;
+      };
+      document.head.appendChild(manifestLink);
+    }
+    
+    // Charger le manifest
+    loadManifest();
+  </script>
+  
+  <!-- Préchargement des polices -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Métadonnées -->
+  <title>FloDrama - Streaming de dramas et films asiatiques</title>
+  <meta name="description" content="Découvrez FloDrama, votre plateforme de streaming dédiée aux dramas coréens, films asiatiques et animés japonais. Profitez d'un catalogue riche et varié de contenus asiatiques en streaming." />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://flodrama.com/" />
+  <meta property="og:title" content="FloDrama - Streaming de dramas et films asiatiques" />
+  <meta property="og:description" content="Découvrez FloDrama, votre plateforme de streaming dédiée aux dramas coréens, films asiatiques et animés japonais." />
+  <meta property="og:image" content="https://flodrama.com/og-image.jpg" />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://flodrama.com/" />
+  <meta property="twitter:title" content="FloDrama - Streaming de dramas et films asiatiques" />
+  <meta property="twitter:description" content="Découvrez FloDrama, votre plateforme de streaming dédiée aux dramas coréens, films asiatiques et animés japonais." />
+  <meta property="twitter:image" content="https://flodrama.com/og-image.jpg" />
+  
+  <!-- CDN React pour garantir que React est disponible avant le chargement du bundle -->
+  <script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.production.min.js" onerror="handleScriptError(this)"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js" onerror="handleScriptError(this)"></script>
+  
+  <!-- Fallback pour les CDN -->
+  <script>
+    function handleScriptError(script) {
+      console.error('Erreur de chargement du script:', script.src);
+      
+      // Créer un nouveau script avec une source alternative
+      const fallbackScript = document.createElement('script');
+      fallbackScript.crossOrigin = 'anonymous';
+      
+      // Remplacer unpkg par un CDN alternatif
+      if (script.src.includes('unpkg.com')) {
+        const newSrc = script.src.replace('unpkg.com', 'cdn.jsdelivr.net/npm');
+        fallbackScript.src = newSrc;
+        console.log('Tentative de chargement depuis source alternative:', newSrc);
+        document.head.appendChild(fallbackScript);
+      }
+    }
+    
+    // Vérifier si React est disponible après le chargement des scripts
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        if (typeof React === 'undefined' || typeof ReactDOM === 'undefined') {
+          console.error('React ou ReactDOM non disponible après chargement des scripts');
+          // Afficher un message d'erreur
+          const rootElement = document.getElementById('root');
+          if (rootElement) {
+            rootElement.innerHTML = `
+              <div style="
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                color: white;
+                background-color: #121118;
+                padding: 20px;
+                border-radius: 8px;
+                margin: 50px auto;
+                max-width: 500px;
+                text-align: center;
+              ">
+                <h2 style="color: #d946ef;">Erreur de chargement</h2>
+                <p>Impossible de charger les bibliothèques nécessaires pour FloDrama.</p>
+                <p>Veuillez vérifier votre connexion internet et rafraîchir la page.</p>
+                <button onclick="window.location.reload()" style="
+                  background: linear-gradient(to right, #3b82f6, #d946ef);
+                  border: none;
+                  color: white;
+                  padding: 10px 20px;
+                  border-radius: 20px;
+                  cursor: pointer;
+                  font-weight: bold;
+                  margin-top: 20px;
+                ">
+                  Rafraîchir la page
+                </button>
+              </div>
+            `;
+          }
+        }
+      }, 2000); // Vérifier après 2 secondes
+    });
+  </script>
+  
+  <!-- Styles pour le préchargeur -->
+  <style>
+    .preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #121118;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+    
+    .preloader__logo {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, #3b82f6, #d946ef);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulse 2s infinite;
+    }
+    
+    .preloader__logo-text {
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .preloader__text {
+      color: white;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      margin-top: 16px;
+    }
+    
+    .preloader__spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      border-top-color: #d946ef;
+      animation: spin 1s ease-in-out infinite;
+      margin-top: 20px;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Styles pour l'écran d'erreur */
+    .error-screen {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: white;
+      background-color: #121118;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 50px auto;
+      max-width: 500px;
+      text-align: center;
+    }
+    
+    .error-screen h2 {
+      color: #d946ef;
+      margin-bottom: 20px;
+    }
+    
+    .error-screen button {
+      background: linear-gradient(to right, #3b82f6, #d946ef);
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+  
+  <!-- Script de préchargement -->
+  <script>
+    // Définition globale de la variable React pour éviter les erreurs
+    window.React = window.React || {};
+    
+    // Fonction pour supprimer le préchargeur
+    function removePreloader() {
+      const preloader = document.querySelector('.preloader');
+      if (preloader) {
+        preloader.style.opacity = '0';
+        setTimeout(() => {
+          try {
+            preloader.remove();
+          } catch (e) {
+            console.warn('Erreur lors de la suppression du preloader:', e);
+          }
+        }, 500);
+      }
+    }
+    
+    // Rendre la fonction accessible globalement
+    window.removePreloader = removePreloader;
+    
+    // Détecter si l'interface améliorée est demandée
+    function shouldUseEnhancedUI() {
+      // Vérifier les paramètres d'URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const enhancedParam = urlParams.get('enhanced');
+      
+      // Vérifier le domaine
+      const hostname = window.location.hostname;
+      const isVercelApp = hostname.includes('vercel.app');
+      
+      // Par défaut, utiliser l'interface améliorée sur tous les domaines
+      return true;
+    }
+    
+    // Initialiser l'application
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('FloDrama initialisation:', new Date().toISOString());
+      
+      // Fallback: supprimer le préchargeur après 8 secondes si l'application ne se charge pas
+      setTimeout(function() {
+        const root = document.getElementById('root');
+        if (root && (!root.children || root.children.length === 0)) {
+          console.warn('L\'application n\'a pas réussi à se charger dans le délai imparti');
+          removePreloader();
+          
+          // Afficher un message d'erreur
+          root.innerHTML = `
+            <div class="error-screen">
+              <h2>Problème de chargement</h2>
+              <p>FloDrama n'a pas pu se charger correctement.</p>
+              <p>Cela peut être dû à une connexion internet lente ou à un problème temporaire.</p>
+              <button onclick="window.location.reload()">Réessayer</button>
+            </div>
+          `;
+        }
+      }, 8000);
+    });
+  </script>
+</head>
+<body>
+  <!-- Préchargeur -->
+  <div class="preloader">
+    <div class="preloader__logo">
+      <span class="preloader__logo-text">FloDrama</span>
+    </div>
+    <div class="preloader__text">Chargement en cours...</div>
+    <div class="preloader__spinner"></div>
+  </div>
+  
+  <!-- Racine de l'application -->
+  <div id="root"></div>
+  
+  <!-- Script principal -->
+  <script src="/FloDrama/src/main-fixed.js"></script>
+</body>
+</html>
