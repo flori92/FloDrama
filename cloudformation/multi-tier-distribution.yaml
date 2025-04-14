@@ -36,11 +36,13 @@ Resources:
         Comment: !Sub "Distribution FloDrama pour ${Environment}"
         DefaultRootObject: index.html
         PriceClass: PriceClass_100
-        HttpVersion: http2
+        HttpVersion: http3
+        IPV6Enabled: true
         ViewerCertificate:
           AcmCertificateArn: !Ref FloDramaCertificate
           SslSupportMethod: sni-only
           MinimumProtocolVersion: TLSv1.2_2021
+          SecurityPolicy: TLSv1.2_2021
         Origins:
           - Id: GitHubPagesOrigin
             DomainName: !Ref GitHubPagesURL
@@ -50,6 +52,7 @@ Resources:
               OriginProtocolPolicy: https-only
               OriginSSLProtocols:
                 - TLSv1.2
+                - TLSv1.3
           - Id: APIGatewayOrigin
             DomainName: !Sub "${FloDramaAPIGateway}.execute-api.${AWS::Region}.amazonaws.com"
             OriginPath: !Sub "/${Environment}"
@@ -59,6 +62,7 @@ Resources:
               OriginProtocolPolicy: https-only
               OriginSSLProtocols:
                 - TLSv1.2
+                - TLSv1.3
         DefaultCacheBehavior:
           TargetOriginId: GitHubPagesOrigin
           ViewerProtocolPolicy: redirect-to-https
@@ -113,6 +117,8 @@ Resources:
         - !Sub "api.${DomainName}"
         - !Sub "cdn.${DomainName}"
       ValidationMethod: DNS
+      CertificateTransparencyLoggingPreference: ENABLED
+      KeyAlgorithm: RSA_2048
 
   # API Gateway pour les services backend
   FloDramaAPIGateway:
