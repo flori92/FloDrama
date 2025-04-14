@@ -1,0 +1,175 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Infrastructure AWS pour FloDrama'
+
+Parameters:
+  APIName:
+    Type: String
+    Description: "Nom de l'API Gateway"
+    Default: "flodrama-api"
+  
+  LambdaAuthName:
+    Type: String
+    Description: "Nom de la fonction Lambda d'authentification"
+    Default: "flodrama-auth"
+  
+  DeploymentBucket:
+    Type: String
+    Description: "Nom du bucket S3 pour le déploiement"
+    Default: "flodrama-deployment"
+  
+  S3BucketName:
+    Type: String
+    Description: "Nom du bucket S3 pour les assets"
+    Default: "flodrama-assets"
+  
+  MongoDBURI:
+    Type: String
+    Description: "URI de connexion à MongoDB Atlas"
+    NoEcho: true
+  
+  JWTSecret:
+    Type: String
+    Description: "Clé secrète pour les tokens JWT"
+    NoEcho: true
+  
+  JWTExpiresIn:
+    Type: String
+    Description: "Durée de validité des tokens JWT"
+    Default: "7d"
+
+Resources:
+  # Rôle IAM pour les fonctions Lambda
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+  # Fonction Lambda d'authentification
+  AuthLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Ref LambdaAuthName
+      Handler: index.handler
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Runtime: nodejs18.x
+      Timeout: 30
+      MemorySize: 256
+      Environment:
+        Variables:
+          MONGODB_URI: !Ref MongoDBURI
+          JWT_SECRET: !Ref JWTSecret
+          JWT_EXPIRES_IN: !Ref JWTExpiresIn
+      Code:
+        S3Bucket: !Ref DeploymentBucket
+        S3Key: !Sub "${LambdaAuthName}.zip"
+
+  # API Gateway
+  FloDramaAPI:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: !Ref APIName
+      Description: API pour FloDrama
+      EndpointConfiguration:
+        Types:
+          - REGIONAL
+
+  # Ressource API pour l'authentification
+  AuthResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref FloDramaAPI
+      ParentId: !GetAtt FloDramaAPI.RootResourceId
+      PathPart: 'auth'
+
+  # Ressource API pour l'inscription
+  RegisterResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref FloDramaAPI
+      ParentId: !Ref AuthResource
+      PathPart: 'register'
+
+  # Méthode POST pour l'inscription
+  RegisterMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      RestApiId: !Ref FloDramaAPI
+      ResourceId: !Ref RegisterResource
+      HttpMethod: POST
+      AuthorizationType: NONE
+      Integration:
+        Type: AWS_PROXY
+        IntegrationHttpMethod: POST
+        Uri: !Sub "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${AuthLambdaFunction.Arn}/invocations"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: true
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Methods: true
+
+  # Ressource API pour la connexion
+  LoginResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId: !Ref FloDramaAPI
+      ParentId: !Ref AuthResource
+      PathPart: 'login'
+
+  # Méthode POST pour la connexion
+  LoginMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      RestApiId: !Ref FloDramaAPI
+      ResourceId: !Ref LoginResource
+      HttpMethod: POST
+      AuthorizationType: NONE
+      Integration:
+        Type: AWS_PROXY
+        IntegrationHttpMethod: POST
+        Uri: !Sub "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${AuthLambdaFunction.Arn}/invocations"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: true
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Methods: true
+
+  # Déploiement de l'API
+  ApiDeployment:
+    Type: AWS::ApiGateway::Deployment
+    DependsOn:
+      - RegisterMethod
+      - LoginMethod
+    Properties:
+      RestApiId: !Ref FloDramaAPI
+      StageName: 'prod'
+
+  # Permission Lambda pour l'API Gateway
+  LambdaPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref AuthLambdaFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${FloDramaAPI}/*/POST/auth/*"
+
+Outputs:
+  ApiEndpoint:
+    Description: URL de l'API FloDrama
+    Value: !Sub "https://${FloDramaAPI}.execute-api.${AWS::Region}.amazonaws.com/prod"
+  S3BucketName:
+    Description: Nom du bucket S3 pour les assets
+    Value: !Ref S3BucketName

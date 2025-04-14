@@ -1,0 +1,36 @@
+name: Déploiement FloDrama
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Configuration de Node.js 🔧
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Installation des dépendances 📦
+        run: npm ci
+
+      - name: Construction du projet 🏗️
+        run: npm run build
+        env:
+          # Utilisation d'une URL d'API fixe pour éviter les problèmes de contexte
+          VITE_API_URL: "https://api.flodrama.com"
+          VITE_APP_ENV: production
+
+      - name: Déploiement sur GitHub Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
+          branch: gh-pages
+          clean: true

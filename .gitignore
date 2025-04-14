@@ -1,0 +1,77 @@
+# Dépendances
+node_modules
+.pnp
+.pnp.js
+
+# Production
+dist
+build
+
+# Fichiers de test
+coverage
+
+# Fichiers d'environnement
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+Backend/.env*
+Frontend/.env*
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Éditeur
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Vercel
+.vercel
+.turbo
+
+# Fichiers temporaires
+.temp
+.tmp
+
+# Fichiers de sauvegarde volumineux
+backups/*.zip
+backups/*.tar.gz
+backups/**/*.zip
+backups/**/*.tar.gz
+*.zip
+*.tar.gz
+
+# Dossiers spécifiques à exclure
+deploy_build/
+node_modules/
+dist/
+.cache/
+.vercel/
+.netlify/
+
+# Fichiers générés automatiquement
+.netlify
+windsurf_deployment.yaml
+
+# Fichiers de données de test
+__mocks__
+__tests__
+*.test.js
+*.spec.js
