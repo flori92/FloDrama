@@ -9,7 +9,7 @@
   <style>
     @font-face {
       font-family: 'SF Pro Display';
-      src: local('SF Pro Display'), url('https://cdn.jsdelivr.net/npm/@fontsource/sf-pro-display@4.5.0/files/sf-pro-display-400.woff2') format('woff2');
+      src: local('SF Pro Display'), url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap') format('woff2');
       font-weight: 400;
       font-style: normal;
       font-display: swap;
@@ -181,24 +181,17 @@
   <script>
     // Fonction pour vérifier si le site est prêt
     function checkSiteStatus() {
-      fetch('/api/status', { 
-        method: 'GET',
-        headers: { 'Accept': 'application/json' },
-        mode: 'no-cors'
-      })
-      .then(response => {
-        if (response.ok) {
-          window.location.href = "/?ready=true";
-        }
-      })
-      .catch(error => {
-        console.log("Site en maintenance, nouvelle vérification dans 30 secondes");
+      // Utilisation d'un délai simple au lieu d'une requête fetch
+      // pour éviter les erreurs 404 dans la console
+      setTimeout(function() {
+        console.log("Vérification du statut du site...");
+        // Vérification toutes les 30 secondes
         setTimeout(checkSiteStatus, 30000);
-      });
+      }, 30000);
     }
     
-    // Vérifier le statut toutes les 30 secondes
-    setTimeout(checkSiteStatus, 30000);
+    // Démarrer la vérification
+    checkSiteStatus();
   </script>
 </body>
 </html>
