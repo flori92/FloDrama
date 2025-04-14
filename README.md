@@ -158,3 +158,33 @@ git push origin main
 - [Documentation GitHub Pages](https://docs.github.com/fr/pages)
 - [Documentation AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
 - [Documentation MongoDB Atlas](https://docs.atlas.mongodb.com/)
+
+## Migration DNS de CloudFront vers GitHub Pages
+
+Pour migrer le domaine flodrama.com de CloudFront vers GitHub Pages, suivez ces étapes :
+
+### 1. Préparation
+
+- Assurez-vous que le fichier CNAME est présent dans le dépôt GitHub
+- Vérifiez que GitHub Pages est configuré pour utiliser le domaine personnalisé
+
+### 2. Configuration DNS chez Namecheap
+
+Modifiez les enregistrements DNS pour pointer vers GitHub Pages :
+
+- **Enregistrement A** pour `flodrama.com` :
+  - Adresses IP : `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+
+- **Enregistrement CNAME** pour `www.flodrama.com` :
+  - Valeur : `flori92.github.io`
+
+### 3. Désactivation progressive de CloudFront
+
+- Surveillez le trafic pour vous assurer que la transition se déroule correctement
+- Une fois confirmé, désactivez la distribution CloudFront
+
+### 4. Vérification
+
+- Testez l'accès à flodrama.com et www.flodrama.com
+- Vérifiez que HTTPS fonctionne correctement
+- Testez les fonctionnalités principales de l'application
