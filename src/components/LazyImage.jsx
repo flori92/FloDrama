@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useLazyLoading } from '../hooks/useLazyLoading';
+import { useLazyLoading } from '../hooks/useLazyLoading.jsx';
 import cacheManager from '../utils/cacheManager';
 
 /**

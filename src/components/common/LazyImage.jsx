@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { LazyImage as LazyImageComponent } from '../../hooks/useLazyLoading';
+import { LazyImage as LazyImageComponent } from '../../hooks/useLazyLoading.jsx';
 import { handleImageError } from '../../utils/localImageFallback';
 
 /**
