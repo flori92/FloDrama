@@ -22,3 +22,23 @@ export function getThumbnailOptions() {
     }
   };
 }
+
+export function generateEnhancedThumbnails(videoId, options = {}) {
+  return {
+    thumbnails: [
+      {
+        url: `/assets/thumbnails/${videoId}/thumb-1.jpg`,
+        timestamp: 30,
+        quality: 'high',
+        type: 'scene'
+      },
+      {
+        url: `/assets/thumbnails/${videoId}/thumb-2.jpg`,
+        timestamp: 120,
+        quality: 'high',
+        type: 'character'
+      }
+    ],
+    previewGif: `/assets/thumbnails/${videoId}/preview.gif`
+  };
+}

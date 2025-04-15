@@ -65,3 +65,12 @@ export function checkStorageSpace() {
     available: 3800000000 // 3.8 GB
   });
 }
+
+// Mock minimal de storageService.js pour débloquer le build
+export function uploadToStorage() {
+  return Promise.resolve('mock-upload-url');
+}
+
+export function getImageUrl() {
+  return 'mock-image-url';
+}

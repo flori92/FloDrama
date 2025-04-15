@@ -144,6 +144,15 @@ export const lazyLoad = (importFunc, options = {}) => {
   };
 };
 
+// Mock minimal pour débloquer le build
+export function lazyLoader() {
+  return {
+    load: (src) => Promise.resolve(src),
+    preload: (src) => Promise.resolve(src),
+    cancel: () => {}
+  };
+}
+
 export default {
   lazyLoad
 };

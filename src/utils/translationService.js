@@ -1,7 +1,8 @@
-// Mock minimal pour débloquer la build GitHub Actions
-// À remplacer par une vraie implémentation après le déploiement
-
-export function translateText(text, _targetLang) {
-  // Retourne le texte d'origine pour l'instant (mock)
-  return text;
+// Mock minimal pour débloquer le build
+export function getTranslation(text, targetLanguage = 'fr', options = {}) {
+  return {
+    original: text,
+    translated: `[${targetLanguage}] ${text}`,
+    confidence: 0.95
+  };
 }

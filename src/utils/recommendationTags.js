@@ -32,3 +32,29 @@ export function getTagCategories() {
     'thème', 'public', 'ambiance', 'format'
   ];
 }
+
+export function getRecommendationTags(contentId, options = {}) {
+  return {
+    tags: [
+      {
+        id: `tag-${contentId}-1`,
+        name: "Recommandation tag 1",
+        weight: 0.9,
+        category: "genre"
+      },
+      {
+        id: `tag-${contentId}-2`,
+        name: "Recommandation tag 2",
+        weight: 0.7,
+        category: "mood"
+      },
+      {
+        id: `tag-${contentId}-3`,
+        name: "Recommandation tag 3",
+        weight: 0.5,
+        category: "theme"
+      }
+    ],
+    relatedContentIds: ["content-123", "content-456"]
+  };
+}

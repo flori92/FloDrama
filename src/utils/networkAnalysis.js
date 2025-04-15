@@ -28,3 +28,7 @@ export function shouldPreload() {
   // Détermine si le préchargement est recommandé dans les conditions actuelles
   return true;
 }
+
+export function getNetworkConditions() {
+  return { type: 'mock', speed: 'mock', effectiveType: 'mock' };
+}

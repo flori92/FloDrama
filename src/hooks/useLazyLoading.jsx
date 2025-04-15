@@ -1,9 +1,9 @@
+import React, { useEffect, useRef, useState, useMemo } from 'react';
+
 /**
  * Hook personnalisé pour implémenter le lazy loading des images
  * Utilise l'API Intersection Observer pour charger les images uniquement lorsqu'elles sont visibles
  */
-
-import React, { useEffect, useRef, useState, useMemo } from 'react';
 
 /**
  * Hook pour le lazy loading des images

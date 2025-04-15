@@ -33,3 +33,8 @@ export function getOptimalResolution() {
     height: 720
   };
 }
+
+// Mock minimal de deviceDetection.js pour débloquer le build
+export function getDeviceSpecs() {
+  return { device: 'mock', os: 'mock', browser: 'mock' };
+}

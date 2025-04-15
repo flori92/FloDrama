@@ -282,9 +282,19 @@ export const createPlaceholders = () => {
   }
 };
 
+// Mock minimal pour débloquer le build
+export function localImageFallback(src, options = {}) {
+  return {
+    fallbackSrc: `/assets/fallback/${options.type || 'default'}.jpg`,
+    useFallback: () => Promise.resolve(true),
+    resetFallback: () => {}
+  };
+}
+
 export default {
   handleImageError,
   createPlaceholders,
   preloadAndCacheImage,
-  generateCacheKey
+  generateCacheKey,
+  localImageFallback
 };

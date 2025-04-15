@@ -1,7 +1,9 @@
-// Mock minimal pour débloquer la build GitHub Actions
-// À remplacer par une vraie implémentation après le déploiement
-
-export function getPronunciationGuide(_text, _lang) {
-  // Retourne un guide de prononciation fictif
-  return null;
+// Mock minimal pour débloquer le build
+export function getPronunciationGuide(text, language = 'ja') {
+  return {
+    ipa: '[mock IPA]',
+    simplified: text.split('').join('-'),
+    audioUrl: null,
+    language
+  };
 }

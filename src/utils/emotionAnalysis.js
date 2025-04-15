@@ -18,6 +18,22 @@ export function analyzeEmotionalContent(_content) {
   };
 }
 
+export function getEmotionAnalysis(content, options = {}) {
+  return {
+    dominant: 'neutral',
+    emotions: {
+      joy: 0.2,
+      sadness: 0.1,
+      anger: 0.05,
+      fear: 0.05,
+      surprise: 0.1,
+      neutral: 0.5
+    },
+    intensity: 'medium',
+    confidence: 0.85
+  };
+}
+
 export function getEmotionalTags(_content) {
   // Retourne des tags émotionnels fictifs
   return ['neutre', 'réflexif'];

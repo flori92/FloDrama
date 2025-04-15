@@ -6,9 +6,14 @@
  */
 
 import { FloDramaImageProcessor } from '../utils/FloDramaImageProcessor';
-import { lazyLoader } from '../utils/lazyLoader';
-import { localImageFallback } from '../utils/localImageFallback';
-import { logError, logInfo } from '../utils/logger';
+import lazyLoaderDefault from '../utils/lazyLoader';
+import localImageFallbackDefault from '../utils/localImageFallback';
+import loggerDefault from '../utils/logger';
+
+// Création des alias pour compatibilité
+const lazyLoader = lazyLoaderDefault.lazyLoad || lazyLoaderDefault;
+const localImageFallback = localImageFallbackDefault.localImageFallback || localImageFallbackDefault;
+const { logError, logInfo } = loggerDefault;
 
 // Configuration de l'identité visuelle FloDrama
 const FLODRAMA_STYLE = {

@@ -1,16 +1,16 @@
-// Mock minimal pour débloquer la build GitHub Actions
-// À remplacer par une vraie implémentation après le déploiement
-
-export function getCulturalContext(_contentId, _region) {
-  // Retourne un contexte culturel fictif pour le contenu
+// Mock minimal pour débloquer le build
+export function getCulturalContext(content, region = 'asia', options = {}) {
   return {
-    region: 'asie',
-    specificities: [
-      { type: 'tradition', name: 'Nouvel An lunaire', description: 'Célébration importante en Asie' },
-      { type: 'concept', name: 'Respect des aînés', description: 'Valeur fondamentale dans la culture asiatique' }
+    region,
+    culturalElements: [
+      {
+        type: 'reference',
+        name: 'Référence culturelle (mock)',
+        description: 'Description de la référence culturelle',
+        importance: 'medium'
+      }
     ],
-    relevance: 0.8, // 0-1
-    references: []
+    relevance: 0.8
   };
 }
 

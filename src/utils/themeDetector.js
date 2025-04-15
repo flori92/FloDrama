@@ -1,34 +1,22 @@
-// Mock minimal pour débloquer la build GitHub Actions
-// À remplacer par une vraie implémentation après le déploiement
-
-export function detectThemes(_contentId) {
-  // Retourne des thèmes fictifs détectés dans le contenu
-  return [
-    {
-      id: 'romance',
-      name: 'Romance',
-      confidence: 0.85,
-      keywords: ['amour', 'relation', 'couple']
-    },
-    {
-      id: 'aventure',
-      name: 'Aventure',
-      confidence: 0.72,
-      keywords: ['voyage', 'découverte', 'exploration']
-    },
-    {
-      id: 'drame',
-      name: 'Drame',
-      confidence: 0.91,
-      keywords: ['conflit', 'émotion', 'tension']
-    }
-  ];
-}
-
-export function getPopularThemes() {
-  // Retourne les thèmes populaires fictifs
-  return [
-    'romance', 'aventure', 'drame', 'comédie', 
-    'action', 'fantaisie', 'science-fiction', 'historique'
-  ];
+// Mock minimal pour débloquer le build
+export function detectThemes(contentId, options = {}) {
+  return {
+    mainThemes: [
+      {
+        id: `theme-${contentId}-1`,
+        name: "Thème principal (mock)",
+        confidence: 0.95,
+        keywords: ["mot-clé1", "mot-clé2", "mot-clé3"]
+      }
+    ],
+    secondaryThemes: [
+      {
+        id: `theme-${contentId}-2`,
+        name: "Thème secondaire (mock)",
+        confidence: 0.75,
+        keywords: ["mot-clé4", "mot-clé5"]
+      }
+    ],
+    relatedGenres: ["Drama", "Romance"]
+  };
 }

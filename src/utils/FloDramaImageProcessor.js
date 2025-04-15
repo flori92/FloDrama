@@ -492,4 +492,5 @@ class FloDramaImageProcessor {
   }
 }
 
+export { FloDramaImageProcessor };
 export default FloDramaImageProcessor;
