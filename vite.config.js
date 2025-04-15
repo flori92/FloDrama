@@ -26,7 +26,11 @@ const cspPlugin = () => ({
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    react(),
+    react({
+      // Configuration explicite pour traiter les fichiers .js comme JSX
+      include: ['**/*.jsx', '**/*.js'],
+      jsxRuntime: 'automatic'
+    }),
     cspPlugin()
   ],
   resolve: {
@@ -49,79 +53,31 @@ export default defineConfig({
       external: ['socket.io-client', '@vitalets/google-translate-api', 'ioredis'],
       output: {
         manualChunks: (id) => {
-          // Regrouper les modules React
+          // Regrouper les dépendances React dans un seul chunk
           if (id.includes('node_modules/react') || 
               id.includes('node_modules/react-dom') || 
-              id.includes('node_modules/react-router-dom')) {
+              id.includes('node_modules/scheduler')) {
             return 'react-vendor';
           }
-          // Regrouper les modules d'UI
-          if (id.includes('node_modules/@mui') || 
-              id.includes('node_modules/@emotion')) {
-            return 'ui-vendor';
-          }
-          // Autres modules tiers
-          if (id.includes('node_modules/')) {
+          // Regrouper les autres dépendances communes
+          if (id.includes('node_modules')) {
             return 'vendor';
           }
         }
       }
     },
-    // Optimisation pour la production
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-    },
+    // Améliorer la compatibilité avec les navigateurs
+    target: 'es2015',
+    // Désactiver la minification pour le débogage en production si nécessaire
+    minify: process.env.DEBUG ? false : 'esbuild'
   },
-  // Désactiver les vérifications TypeScript strictes pour le build
-  esbuild: {
-    logOverride: { 'this-is-undefined-in-esm': 'silent' },
-    // Ignorer les erreurs TypeScript pour permettre le build
-    tsconfigRaw: {
-      compilerOptions: {
-        skipLibCheck: true,
-        noEmit: true,
-        allowJs: true,
-        checkJs: false,
-        jsx: 'react-jsx',
-        esModuleInterop: true,
-        allowSyntheticDefaultImports: true,
-        forceConsistentCasingInFileNames: true,
-        moduleResolution: 'node',
-        isolatedModules: true
-      }
-    }
+  // Optimisations pour le développement
+  optimizeDeps: {
+    include: ['react', 'react-dom']
   },
-  // Configuration pour le serveur de développement
+  // Configuration du serveur de développement
   server: {
     port: 3000,
-    open: true,
-    cors: true,
-    strictPort: false, // Permettre de changer de port si 3000 est occupé
-    hmr: {
-      overlay: true,
-    },
-    // Proxy pour les appels API vers AWS
-    proxy: {
-      '/api': {
-        target: process.env.VITE_API_URL || 'https://api.flodrama.com',
-        changeOrigin: true,
-        secure: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      }
-    }
-  },
-  // Configuration pour les tests
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: './src/test/setup.js',
-  },
-  // Optimisation des performances
-  optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom'],
-  },
+    open: true
+  }
 });
