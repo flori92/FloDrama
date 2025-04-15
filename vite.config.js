@@ -23,13 +23,33 @@ const cspPlugin = () => ({
   }
 });
 
+// Plugin pour assurer que les fichiers JSX sont servis avec le bon MIME type
+const jsxMimeTypePlugin = () => ({
+  name: 'vite-plugin-jsx-mime-type',
+  configureServer(server) {
+    server.middlewares.use((req, res, next) => {
+      // Intercepter les réponses pour les fichiers JSX
+      const _end = res.end;
+      res.end = function(chunk, ...args) {
+        if (req.url && req.url.endsWith('.jsx')) {
+          // Définir le bon type MIME pour les fichiers JSX
+          res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+        }
+        return _end.call(this, chunk, ...args);
+      };
+      next();
+    });
+  }
+});
+
 export default defineConfig({
   plugins: [
     react({
       include: ['**/*.jsx', '**/*.js'],
       jsxRuntime: 'automatic'
     }),
-    cspPlugin()
+    cspPlugin(),
+    jsxMimeTypePlugin()
   ],
   resolve: {
     alias: {
@@ -50,6 +70,10 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
       },
       output: {
+        // Assurer que tous les fichiers JSX sont transformés en JS standard
+        entryFileNames: 'assets/[name].[hash].js',
+        chunkFileNames: 'assets/[name].[hash].js',
+        assetFileNames: 'assets/[name].[hash].[ext]',
         manualChunks: (id) => {
           // Regrouper les dépendances React
           if (id.includes('node_modules/react') || 
