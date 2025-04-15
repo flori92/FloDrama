@@ -73,15 +73,7 @@ export default defineConfig({
   plugins: [
     react({
       include: ['**/*.jsx', '**/*.js'],
-      jsxRuntime: 'automatic',
-      babel: {
-        plugins: [
-          // Ajouter des plugins Babel si nécessaire
-        ],
-        presets: [
-          ['@babel/preset-react', { runtime: 'automatic' }]
-        ]
-      }
+      jsxRuntime: 'automatic'
     }),
     cspPlugin(),
     jsxMimeTypePlugin(),
