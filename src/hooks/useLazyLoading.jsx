@@ -3,7 +3,7 @@
  * Utilise l'API Intersection Observer pour charger les images uniquement lorsqu'elles sont visibles
  */
 
-import { useEffect, useRef, useState, useMemo } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 
 /**
  * Hook pour le lazy loading des images

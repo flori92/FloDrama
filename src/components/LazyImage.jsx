@@ -27,7 +27,7 @@ const LazyImage = ({
   
   // États pour suivre le chargement et les erreurs
   const [isLoaded, setIsLoaded] = useState(false);
-  const [hasError, setHasError] = useState(false);
+  const [_hasError, setHasError] = useState(false);
   const [imageSrc, setImageSrc] = useState(src);
   
   // Vérifier si l'image est en cache
