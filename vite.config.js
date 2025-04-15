@@ -35,10 +35,38 @@ const jsxMimeTypePlugin = () => ({
           // Définir le bon type MIME pour les fichiers JSX
           res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
         }
+        next();
         return _end.call(this, chunk, ...args);
       };
       next();
     });
+  }
+});
+
+// Plugin pour transformer tous les imports .jsx en .js
+const transformJsxImportsPlugin = () => ({
+  name: 'vite-plugin-transform-jsx-imports',
+  transform(code, id) {
+    // Ne pas transformer les fichiers node_modules
+    if (id.includes('node_modules')) {
+      return null;
+    }
+    
+    // Transformer les imports .jsx en .js
+    if (id.endsWith('.js') || id.endsWith('.jsx')) {
+      // Remplacer les imports de fichiers .jsx par .js
+      const transformedCode = code.replace(/from\s+['"]([^'"]+)\.jsx['"]/g, "from '$1.js'");
+      
+      // Si le code a été modifié, le retourner
+      if (transformedCode !== code) {
+        return {
+          code: transformedCode,
+          map: null
+        };
+      }
+    }
+    
+    return null;
   }
 });
 
@@ -49,7 +77,8 @@ export default defineConfig({
       jsxRuntime: 'automatic'
     }),
     cspPlugin(),
-    jsxMimeTypePlugin()
+    jsxMimeTypePlugin(),
+    transformJsxImportsPlugin()
   ],
   resolve: {
     alias: {
@@ -104,5 +133,11 @@ export default defineConfig({
     'process.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || 'https://api.flodrama.com'),
     'process.env.VITE_APP_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     'process.env.VITE_APP_BASE_URL': JSON.stringify(process.env.NODE_ENV === 'production' ? '/FloDrama/' : '/')
+  },
+  esbuild: {
+    loader: {
+      '.js': 'jsx',
+      '.jsx': 'jsx'
+    }
   }
 });
