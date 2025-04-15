@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useLazyLoading } from '../hooks/useLazyLoading.jsx';
 import cacheManager from '../utils/cacheManager';
-import { getAssetUrl } from '../utils/assetUtils';
+import { getImageUrl } from '../utils/assetUtils';
 
 /**
  * Composant LazyImage optimisé pour FloDrama
@@ -34,7 +34,7 @@ const LazyImage = ({
   // Résoudre les URLs des images
   useEffect(() => {
     // Résoudre l'URL de l'image principale
-    const resolvedSrc = src.startsWith('http') ? src : getAssetUrl(src);
+    const resolvedSrc = src.startsWith('http') ? src : getImageUrl(src);
     setImageSrc(resolvedSrc);
     
     // Vérifier si l'image est en cache
@@ -67,7 +67,7 @@ const LazyImage = ({
     
     // Utiliser l'image de secours
     if (fallbackSrc) {
-      const resolvedFallback = fallbackSrc.startsWith('http') ? fallbackSrc : getAssetUrl(fallbackSrc);
+      const resolvedFallback = fallbackSrc.startsWith('http') ? fallbackSrc : getImageUrl(fallbackSrc);
       setImageSrc(resolvedFallback);
     }
     
@@ -114,7 +114,7 @@ const LazyImage = ({
       <div className="lazy-image-placeholder" style={placeholderStyle}>
         {placeholderSrc && !isLoaded && (
           <img 
-            src={placeholderSrc.startsWith('http') ? placeholderSrc : getAssetUrl(placeholderSrc)} 
+            src={placeholderSrc.startsWith('http') ? placeholderSrc : getImageUrl(placeholderSrc)} 
             alt="" 
             className="placeholder-image" 
             style={{ maxWidth: '100%', maxHeight: '100%', opacity: 0.7 }}
