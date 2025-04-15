@@ -4,8 +4,8 @@
  * Ce module gère les appels API pour l'authentification avec le backend MongoDB Atlas via AWS API Gateway
  */
 
-// URL de base de l'API - sera remplacée par l'URL AWS API Gateway en production
-const API_URL = process.env.NODE_ENV === 'production' 
+// URL de base de l'API - utilise import.meta.env qui est disponible dans Vite/navigateur
+const API_URL = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_URL)
   ? import.meta.env.VITE_API_URL + '/auth'
   : '/api/auth';
 
