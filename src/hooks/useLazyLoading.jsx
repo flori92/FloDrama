@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 
 /**
  * Hook personnalisé pour implémenter le lazy loading des images
@@ -47,56 +47,6 @@ export const useLazyLoading = (options = {}) => {
   }, [defaultOptions]); // Inclure defaultOptions comme dépendance
 
   return { elementRef, isVisible };
-};
-
-/**
- * Composant pour le lazy loading des images
- * @param {Object} props - Propriétés du composant
- * @param {string} props.src - URL de l'image
- * @param {string} props.alt - Texte alternatif de l'image
- * @param {string} props.placeholderSrc - URL de l'image de placeholder (optionnel)
- * @param {Object} props.style - Styles CSS pour l'image
- * @param {string} props.className - Classes CSS pour l'image
- * @returns {JSX.Element} - Élément image avec lazy loading
- */
-export const LazyImage = ({ src, alt, placeholderSrc, style, className, ...props }) => {
-  const { elementRef, isVisible } = useLazyLoading();
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [error, setError] = useState(false);
-
-  const handleLoad = () => {
-    setIsLoaded(true);
-  };
-
-  const handleError = () => {
-    setError(true);
-  };
-
-  return (
-    <div
-      ref={elementRef}
-      className={`lazy-image-container ${className || ''}`}
-      style={{
-        position: 'relative',
-        overflow: 'hidden',
-        ...style
-      }}
-    >
-      {isVisible ? (
-        <img
-          src={error && placeholderSrc ? placeholderSrc : src}
-          alt={alt}
-          onLoad={handleLoad}
-          onError={handleError}
-          className={`lazy-image ${isLoaded ? 'loaded' : ''}`}
-          loading="lazy"
-          {...props}
-        />
-      ) : (
-        <div className="lazy-image-placeholder" />
-      )}
-    </div>
-  );
 };
 
 export default useLazyLoading;

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useLazyLoading } from '../hooks/useLazyLoading.jsx';
 import cacheManager from '../utils/cacheManager';
+import { getAssetUrl } from '../utils/assetUtils';
 
 /**
  * Composant LazyImage optimisé pour FloDrama
@@ -13,7 +14,7 @@ const LazyImage = ({
   src,
   alt,
   placeholderSrc,
-  fallbackSrc,
+  fallbackSrc = '/assets/images/placeholders/image-placeholder.jpg',
   className,
   style,
   cacheKey,
@@ -27,39 +28,47 @@ const LazyImage = ({
   
   // États pour suivre le chargement et les erreurs
   const [isLoaded, setIsLoaded] = useState(false);
-  const [imageSrc, setImageSrc] = useState(src);
+  const [hasError, setHasError] = useState(false);
+  const [imageSrc, setImageSrc] = useState('');
   
-  // Vérifier si l'image est en cache
-  const getCachedImage = () => {
-    if (!cacheKey) return null;
-    return cacheManager.getCache(cacheKey, cacheType);
-  };
+  // Résoudre les URLs des images
+  useEffect(() => {
+    // Résoudre l'URL de l'image principale
+    const resolvedSrc = src.startsWith('http') ? src : getAssetUrl(src);
+    setImageSrc(resolvedSrc);
+    
+    // Vérifier si l'image est en cache
+    if (cacheKey) {
+      const cachedImage = cacheManager.getCache(cacheKey, cacheType);
+      if (cachedImage) {
+        setImageSrc(cachedImage);
+      }
+    }
+  }, [src, cacheKey, cacheType]);
   
   // Mettre l'image en cache
   const cacheImage = () => {
     if (!cacheKey || !isLoaded) return;
-    cacheManager.setCache(cacheKey, src, cacheType);
+    cacheManager.setCache(cacheKey, imageSrc, cacheType);
   };
   
   // Gérer le chargement réussi
   const handleLoad = (e) => {
     setIsLoaded(true);
+    setHasError(false);
     cacheImage();
     if (onLoad) onLoad(e);
   };
   
   // Gérer les erreurs de chargement
   const handleError = (e) => {
-    console.warn(`Erreur de chargement de l'image: ${src}`);
+    console.warn(`Erreur de chargement de l'image: ${imageSrc}`);
+    setHasError(true);
     
-    // Essayer d'utiliser l'image en cache si disponible
-    const cachedSrc = getCachedImage();
-    if (cachedSrc && cachedSrc !== src) {
-      console.log(`Utilisation de l'image en cache: ${cachedSrc}`);
-      setImageSrc(cachedSrc);
-    } else if (fallbackSrc) {
-      // Sinon utiliser l'image de secours
-      setImageSrc(fallbackSrc);
+    // Utiliser l'image de secours
+    if (fallbackSrc) {
+      const resolvedFallback = fallbackSrc.startsWith('http') ? fallbackSrc : getAssetUrl(fallbackSrc);
+      setImageSrc(resolvedFallback);
     }
     
     if (onError) onError(e);
@@ -70,6 +79,8 @@ const LazyImage = ({
     position: 'relative',
     overflow: 'hidden',
     backgroundColor: '#1A1926', // Couleur de fond conforme à l'identité visuelle
+    width: '100%',
+    height: '100%',
     ...style
   };
   
@@ -80,8 +91,8 @@ const LazyImage = ({
     left: 0,
     width: '100%',
     height: '100%',
-    background: 'linear-gradient(45deg, #3b82f6, #d946ef)', // Dégradé signature
-    opacity: isLoaded ? 0 : 0.3,
+    background: 'linear-gradient(to bottom, #d946ef, #8b5cf6, #3b82f6)', // Dégradé signature FloDrama
+    opacity: isLoaded ? 0 : 1,
     transition: 'opacity 0.3s ease', // Animation fluide
     display: 'flex',
     alignItems: 'center',
@@ -89,7 +100,7 @@ const LazyImage = ({
   };
   
   // Classes CSS pour l'image
-  const imageClasses = `lazy-image ${isLoaded ? 'loaded' : ''} ${className || ''}`;
+  const imageClasses = `lazy-image ${isLoaded ? 'loaded' : ''} ${hasError ? 'error' : ''} ${className || ''}`;
   
   return (
     <div
@@ -97,16 +108,38 @@ const LazyImage = ({
       className="lazy-image-container"
       style={containerStyle}
       data-testid="lazy-image-container"
+      data-error={hasError ? 'true' : 'false'}
     >
       {/* Placeholder avec dégradé signature */}
       <div className="lazy-image-placeholder" style={placeholderStyle}>
         {placeholderSrc && !isLoaded && (
           <img 
-            src={placeholderSrc} 
+            src={placeholderSrc.startsWith('http') ? placeholderSrc : getAssetUrl(placeholderSrc)} 
             alt="" 
             className="placeholder-image" 
             style={{ maxWidth: '100%', maxHeight: '100%', opacity: 0.7 }}
           />
+        )}
+        
+        {/* Icône d'erreur si le chargement a échoué */}
+        {hasError && (
+          <div className="error-icon" style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            color: '#ffffff',
+            borderRadius: '50%',
+            width: '40px',
+            height: '40px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '20px'
+          }}>
+            !
+          </div>
         )}
       </div>
       
@@ -126,7 +159,8 @@ const LazyImage = ({
             opacity: isLoaded ? 1 : 0,
             transition: 'opacity 0.3s ease', // Animation fluide
             position: 'relative',
-            zIndex: 1
+            zIndex: 1,
+            filter: hasError ? 'grayscale(50%) brightness(0.8)' : 'none'
           }}
           {...props}
         />
