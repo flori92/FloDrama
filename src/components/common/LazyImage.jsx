@@ -1,139 +1,143 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { LazyImage as LazyImageComponent } from '../../hooks/useLazyLoading.jsx';
-import { handleImageError } from '../../utils/localImageFallback';
+import { getStaticUrl } from '../../utils/assetUtils';
 
 /**
- * Composant d'image avec chargement paresseux et gestion d'erreur
- * Optimisé pour les performances de FloDrama
+ * Composant LazyImage optimisé pour le chargement paresseux des images
+ * Avec support pour les placeholders et gestion des erreurs
  */
 const LazyImage = ({
   src,
   alt,
-  className = '',
+  className,
+  placeholderSrc,
+  onLoad,
+  onError,
   width,
   height,
-  style = {},
-  placeholderSrc,
-  aspectRatio = '2/3',
-  objectFit = 'cover',
-  onClick,
-  onLoad,
-  priority = false
+  style,
+  loading = 'lazy',
+  decoding = 'async',
+  imageType = 'poster',
+  ...props
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const imgRef = useRef(null);
+  const observerRef = useRef(null);
 
-  // Déterminer le type d'image pour le placeholder
+  // Fonction pour déterminer le type d'image pour le placeholder
   const getImageType = () => {
-    if (src.includes('posters')) return 'poster';
-    if (src.includes('backdrops')) return 'backdrop';
-    if (src.includes('thumbnails')) return 'thumbnail';
-    return 'generic';
+    const types = ['poster', 'backdrop', 'profile', 'still', 'logo'];
+    return types.includes(imageType) ? imageType : 'poster';
   };
 
-  // Gérer le chargement de l'image
-  const handleLoad = (e) => {
-    setIsLoaded(true);
-    if (onLoad) onLoad(e);
+  // Fonction pour obtenir le placeholder par défaut
+  const getDefaultPlaceholder = () => {
+    return getStaticUrl(`placeholders/${getImageType()}-placeholder.jpg`);
   };
 
-  // Gérer les erreurs de chargement
-  const handleError = (e) => {
-    setHasError(true);
-    handleImageError(e);
-  };
+  useEffect(() => {
+    // Réinitialiser l'état si la source change
+    setIsLoaded(false);
+    setHasError(false);
+    
+    // Fonction pour charger l'image
+    const loadImage = () => {
+      if (!imgRef.current) return;
+      
+      // Nettoyer l'observateur existant si présent
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+      
+      // Créer un nouvel observateur d'intersection
+      observerRef.current = new IntersectionObserver((entries) => {
+        const [entry] = entries;
+        
+        if (entry.isIntersecting) {
+          // L'image est visible, charger l'image
+          const img = imgRef.current;
+          if (img) {
+            // Définir les gestionnaires d'événements
+            img.onload = () => {
+              setIsLoaded(true);
+              if (onLoad) onLoad();
+            };
+            
+            img.onerror = () => {
+              setHasError(true);
+              if (onError) onError();
+            };
+            
+            // Déclencher le chargement en définissant la source
+            if (img.src !== src) {
+              img.src = src;
+            }
+          }
+          
+          // Arrêter d'observer une fois chargé
+          observerRef.current.disconnect();
+        }
+      });
+      
+      // Commencer à observer l'élément image
+      observerRef.current.observe(imgRef.current);
+    };
+    
+    loadImage();
+    
+    // Nettoyage lors du démontage
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, [src, onLoad, onError]);
 
-  // Styles pour le conteneur
-  const containerStyle = {
-    position: 'relative',
-    overflow: 'hidden',
-    aspectRatio,
-    width: width || '100%',
-    height: height || 'auto',
-    backgroundColor: '#1a1a1a',
-    borderRadius: '4px',
-    ...style
-  };
-
-  // Styles pour l'image
-  const imageStyle = {
-    width: '100%',
-    height: '100%',
-    objectFit,
-    opacity: isLoaded ? 1 : 0,
-    transition: 'opacity 0.3s ease-in-out'
-  };
-
-  // Styles pour le placeholder
-  const placeholderStyle = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#2a2a2a',
-    color: '#888',
-    fontSize: '0.8rem',
-    opacity: isLoaded ? 0 : 1,
-    transition: 'opacity 0.3s ease-in-out'
-  };
-
-  // Si l'image est prioritaire, la charger immédiatement
-  if (priority) {
-    return (
-      <div 
-        className={`lazy-image-container ${className}`} 
-        style={containerStyle}
-        onClick={onClick}
-      >
-        <img
-          src={hasError && placeholderSrc ? placeholderSrc : src}
-          alt={alt}
-          style={imageStyle}
-          onLoad={handleLoad}
-          onError={handleError}
-          className={`lazy-image ${isLoaded ? 'loaded' : ''}`}
-        />
-        {!isLoaded && (
-          <div style={placeholderStyle}>
-            <span>Chargement...</span>
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  // Sinon, utiliser le composant de lazy loading
   return (
-    <LazyImageComponent
-      src={src}
-      alt={alt}
-      placeholderSrc={placeholderSrc || `/assets/static/placeholders/${getImageType()}-placeholder.jpg`}
-      className={className}
-      style={containerStyle}
-      onLoad={handleLoad}
-      onClick={onClick}
-    />
+    <div className={`lazy-image-container ${className || ''}`} style={style}>
+      {!isLoaded && (
+        <div className="lazy-image-placeholder">
+          <img
+            ref={imgRef}
+            src={hasError && placeholderSrc ? placeholderSrc : (placeholderSrc || getDefaultPlaceholder())}
+            alt={alt || "Image en cours de chargement"}
+            className="placeholder-img"
+            width={width}
+            height={height}
+          />
+        </div>
+      )}
+      
+      <img
+        ref={imgRef}
+        src={hasError && placeholderSrc ? placeholderSrc : src}
+        alt={alt || ""}
+        className={`lazy-image ${isLoaded ? 'loaded' : 'loading'}`}
+        width={width}
+        height={height}
+        loading={loading}
+        decoding={decoding}
+        {...props}
+      />
+    </div>
   );
 };
 
 LazyImage.propTypes = {
   src: PropTypes.string.isRequired,
-  alt: PropTypes.string.isRequired,
+  alt: PropTypes.string,
   className: PropTypes.string,
+  placeholderSrc: PropTypes.string,
+  onLoad: PropTypes.func,
+  onError: PropTypes.func,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   style: PropTypes.object,
-  placeholderSrc: PropTypes.string,
-  aspectRatio: PropTypes.string,
-  objectFit: PropTypes.string,
-  onClick: PropTypes.func,
-  onLoad: PropTypes.func,
-  priority: PropTypes.bool
+  loading: PropTypes.string,
+  decoding: PropTypes.string,
+  imageType: PropTypes.oneOf(['poster', 'backdrop', 'profile', 'still', 'logo'])
 };
 
 export default LazyImage;

@@ -6,7 +6,8 @@ import { resolve } from 'path';
 const cspPlugin = () => ({
   name: 'vite-plugin-csp',
   transformIndexHtml(html) {
-    const cspContent = `default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self' https://api.flodrama.com;`;
+    // CSP plus permissive pour permettre les animations, transitions et ressources externes
+    const cspContent = `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://api.flodrama.com; media-src 'self' blob: https:; worker-src 'self' blob:; frame-src 'self';`;
     
     if (html.includes('Content-Security-Policy')) {
       return html.replace(
@@ -73,7 +74,7 @@ export default defineConfig({
     minify: process.env.DEBUG ? false : 'esbuild'
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom']
+    include: ['react', 'react-dom', 'react-router-dom', 'framer-motion']
   },
   define: {
     'process.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || 'https://api.flodrama.com'),

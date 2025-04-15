@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './styles/globals.css';
+import './styles/animations.css'; // Import des animations
 import AppErrorBoundary from './components/AppErrorBoundary';
 import localImageFallback from './utils/localImageFallback';
 import cacheManager from './utils/cacheManager';
