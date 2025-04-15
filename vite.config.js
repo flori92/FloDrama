@@ -35,7 +35,6 @@ const jsxMimeTypePlugin = () => ({
           // Définir le bon type MIME pour les fichiers JSX
           res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
         }
-        next();
         return _end.call(this, chunk, ...args);
       };
       next();
@@ -74,7 +73,15 @@ export default defineConfig({
   plugins: [
     react({
       include: ['**/*.jsx', '**/*.js'],
-      jsxRuntime: 'automatic'
+      jsxRuntime: 'automatic',
+      babel: {
+        plugins: [
+          // Ajouter des plugins Babel si nécessaire
+        ],
+        presets: [
+          ['@babel/preset-react', { runtime: 'automatic' }]
+        ]
+      }
     }),
     cspPlugin(),
     jsxMimeTypePlugin(),
@@ -138,6 +145,8 @@ export default defineConfig({
     loader: {
       '.js': 'jsx',
       '.jsx': 'jsx'
-    }
+    },
+    jsxFactory: 'React.createElement',
+    jsxFragment: 'React.Fragment'
   }
 });

@@ -96,11 +96,15 @@ function initializeApp() {
     
     // Rendu de l'application avec ErrorBoundary
     root.render(
-      <React.StrictMode>
-        <AppErrorBoundary>
-          <App />
-        </AppErrorBoundary>
-      </React.StrictMode>
+      React.createElement(
+        React.StrictMode,
+        null,
+        React.createElement(
+          AppErrorBoundary,
+          null,
+          React.createElement(App, null)
+        )
+      )
     );
     
     // Signaler que l'application est chargée pour masquer le preloader
