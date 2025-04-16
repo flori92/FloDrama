@@ -85,6 +85,18 @@
       <div class="loading-spinner"></div>
     </div>
   </div>
+  
+  <!-- Importation explicite de React et ReactDOM avant le script principal -->
+  <script type="importmap">
+  {
+    "imports": {
+      "react": "https://esm.sh/react@18.2.0",
+      "react-dom": "https://esm.sh/react-dom@18.2.0",
+      "react-dom/client": "https://esm.sh/react-dom@18.2.0/client"
+    }
+  }
+  </script>
+  
   <!-- Utilisation d'un fichier JS au lieu de JSX directement -->
   <script type="module" src="/src/main.js"></script>
 </body></html>
