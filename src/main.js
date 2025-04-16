@@ -4,15 +4,36 @@
  * sur GitHub Pages et autres plateformes de déploiement
  */
 
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-// Suppression des imports CSS qui causent des erreurs MIME
-// Les styles seront chargés via des balises link dans index.html
-import AppErrorBoundary from './components/AppErrorBoundary';
-import localImageFallback from './utils/localImageFallback';
-import cacheManager from './utils/cacheManager';
-import { initPWA } from './pwa';
+// Importations dynamiques pour éviter les problèmes de résolution de chemins
+let React, ReactDOM, App, AppErrorBoundary, localImageFallback, cacheManager, initPWA;
+
+// Fonction pour résoudre les chemins relatifs
+function resolveModulePath(path) {
+  // Si nous sommes dans un navigateur et que la fonction resolveAssetPath est disponible
+  if (typeof window !== 'undefined' && typeof window.resolveAssetPath === 'function') {
+    return window.resolveAssetPath(path);
+  }
+  
+  // Fallback simple
+  const isGitHubPages = typeof window !== 'undefined' && 
+    window.location.hostname !== 'localhost' && 
+    window.location.hostname !== '127.0.0.1';
+  
+  const baseUrl = isGitHubPages ? '/FloDrama/' : '/';
+  
+  // Si le chemin commence déjà par la base URL, ne pas l'ajouter à nouveau
+  if (path.startsWith(baseUrl)) {
+    return path;
+  }
+  
+  // Si le chemin commence par '/', le traiter comme relatif à la racine
+  if (path.startsWith('/')) {
+    return baseUrl + path.substring(1);
+  }
+  
+  // Sinon, traiter comme relatif au répertoire courant
+  return path;
+}
 
 /**
  * Fonction pour vérifier si React est correctement chargé
@@ -38,14 +59,7 @@ function initializeUtilities() {
   
   // Définir la fonction de résolution des chemins d'assets si elle n'existe pas déjà
   if (typeof window.resolveAssetPath !== 'function') {
-    window.resolveAssetPath = (path) => {
-      // Fallback simple si la fonction n'est pas définie dans index.html
-      const baseUrl = window.BASE_URL || '/';
-      if (path.startsWith('/')) {
-        return baseUrl + path.substring(1);
-      }
-      return path;
-    };
+    window.resolveAssetPath = resolveModulePath;
   }
   
   // Initialiser les placeholders pour les images
@@ -144,7 +158,7 @@ function initializeApp() {
   } catch (error) {
     console.error('Erreur critique lors de l\'initialisation de FloDrama:', error);
     
-    // Afficher un message d'erreur visible pour l'utilisateur
+    // Afficher un message d'erreur convivial
     const rootElement = document.getElementById('root');
     if (rootElement) {
       rootElement.innerHTML = `
@@ -179,8 +193,8 @@ function initializeApp() {
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-          ">Erreur de chargement</h2>
-          <p>Impossible de charger l'application FloDrama.</p>
+          ">Erreur d'initialisation</h2>
+          <p>Une erreur est survenue lors de l'initialisation de FloDrama.</p>
           <p style="
             font-family: monospace;
             background: rgba(0,0,0,0.2);
@@ -208,19 +222,12 @@ function initializeApp() {
           </button>
         </div>
       `;
-    }
-    
-    // Essayer de supprimer le preloader en cas d'erreur
-    const preloader = document.querySelector('.preloader');
-    if (preloader) {
-      preloader.style.opacity = '0';
-      setTimeout(() => {
-        try {
-          preloader.remove();
-        } catch (e) {
-          console.warn('Erreur lors de la suppression du preloader:', e);
-        }
-      }, 500);
+      
+      // Masquer le preloader si présent
+      const preloader = document.querySelector('.preloader');
+      if (preloader) {
+        preloader.style.display = 'none';
+      }
     }
   }
 }
@@ -250,23 +257,51 @@ function preloadImportantImages() {
   }
 }
 
-// Vérification explicite de la disponibilité de React
-if (!isReactAvailable()) {
-  console.error('React n\'est pas disponible. Tentative de chargement dynamique...');
-  
-  // Tentative de chargement dynamique de React
-  Promise.all([
-    import('react'),
-    import('react-dom/client')
-  ]).then(([reactModule, reactDomModule]) => {
-    window.React = reactModule.default;
-    window.ReactDOM = reactDomModule.default;
-    console.log('React et ReactDOM chargés dynamiquement');
-    initializeApp();
-  }).catch(error => {
-    console.error('Échec du chargement dynamique de React:', error);
+// Chargement dynamique des modules
+async function loadModules() {
+  try {
+    console.log('Chargement des modules FloDrama...');
     
-    // Afficher un message d'erreur visible pour l'utilisateur
+    // Importer React et ReactDOM depuis l'importmap
+    React = await import('react').then(m => m.default);
+    ReactDOM = await import('react-dom/client').then(m => m.default);
+    
+    // Importer les modules locaux avec résolution de chemin
+    const appPath = resolveModulePath('./App.js');
+    console.log('Chargement de App depuis:', appPath);
+    App = await import(appPath).then(m => m.default);
+    
+    const errorBoundaryPath = resolveModulePath('./components/AppErrorBoundary.js');
+    console.log('Chargement de AppErrorBoundary depuis:', errorBoundaryPath);
+    AppErrorBoundary = await import(errorBoundaryPath).then(m => m.default);
+    
+    const localImageFallbackPath = resolveModulePath('./utils/localImageFallback.js');
+    console.log('Chargement de localImageFallback depuis:', localImageFallbackPath);
+    localImageFallback = await import(localImageFallbackPath).then(m => m.default);
+    
+    const cacheManagerPath = resolveModulePath('./utils/cacheManager.js');
+    console.log('Chargement de cacheManager depuis:', cacheManagerPath);
+    cacheManager = await import(cacheManagerPath).then(m => m.default);
+    
+    const pwaPath = resolveModulePath('./pwa.js');
+    console.log('Chargement de pwa depuis:', pwaPath);
+    const pwaModule = await import(pwaPath);
+    initPWA = pwaModule.initPWA;
+    
+    console.log('Tous les modules ont été chargés avec succès');
+    
+    // Vérification de la disponibilité de React
+    if (isReactAvailable()) {
+      console.log('React détecté, initialisation normale');
+      initializeApp();
+    } else {
+      console.error('React n\'est pas disponible après le chargement dynamique');
+      throw new Error('React n\'est pas disponible après le chargement dynamique');
+    }
+  } catch (error) {
+    console.error('Erreur lors du chargement des modules:', error);
+    
+    // Afficher un message d'erreur convivial
     const rootElement = document.getElementById('root');
     if (rootElement) {
       rootElement.innerHTML = `
@@ -302,7 +337,7 @@ if (!isReactAvailable()) {
             -webkit-text-fill-color: transparent;
             background-clip: text;
           ">Erreur de chargement</h2>
-          <p>Impossible de charger les bibliothèques nécessaires pour FloDrama.</p>
+          <p>Impossible de charger les modules nécessaires pour FloDrama.</p>
           <p style="
             font-family: monospace;
             background: rgba(0,0,0,0.2);
@@ -331,8 +366,8 @@ if (!isReactAvailable()) {
         </div>
       `;
     }
-  });
-} else {
-  console.log('React détecté, initialisation normale');
-  initializeApp();
+  }
 }
+
+// Démarrer le chargement des modules
+loadModules();

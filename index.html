@@ -6,6 +6,9 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>FloDrama - Streaming de Dramas et Films Asiatiques</title>
   
+  <!-- Base URL pour les ressources statiques -->
+  <base href="./">
+  
   <!-- Chargement des styles CSS via des balises link -->
   <link rel="stylesheet" href="./src/styles/globals.css">
   <link rel="stylesheet" href="./src/styles/animations.css">
@@ -93,23 +96,41 @@
   
   <!-- Configuration de base pour les chemins -->
   <script>
+    // Détection de l'environnement
+    const isGitHubPages = window.location.hostname !== 'localhost' && 
+                         window.location.hostname !== '127.0.0.1';
+    
     // Définir la base URL pour les imports en fonction de l'environnement
-    const isGitHubPages = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
     window.BASE_URL = isGitHubPages ? '/FloDrama/' : '/';
     
     // Fonction pour résoudre les chemins relatifs
     window.resolveAssetPath = function(path) {
+      console.log('Résolution du chemin:', path);
+      
       // Si le chemin commence déjà par la base URL, ne pas l'ajouter à nouveau
       if (path.startsWith(window.BASE_URL)) {
         return path;
       }
+      
       // Si le chemin commence par '/', le traiter comme relatif à la racine
       if (path.startsWith('/')) {
         return window.BASE_URL + path.substring(1);
       }
+      
+      // Si le chemin commence par './', le traiter comme relatif au répertoire courant
+      if (path.startsWith('./')) {
+        return window.BASE_URL + path.substring(2);
+      }
+      
       // Sinon, traiter comme relatif au répertoire courant
-      return path;
+      return window.BASE_URL + path;
     };
+    
+    // Afficher des informations de débogage
+    console.log('Environnement:', isGitHubPages ? 'GitHub Pages' : 'Développement local');
+    console.log('BASE_URL:', window.BASE_URL);
+    console.log('Hostname:', window.location.hostname);
+    console.log('Origin:', window.location.origin);
   </script>
   
   <!-- Importation explicite de React et ReactDOM avant le script principal -->
@@ -125,10 +146,11 @@
   
   <!-- Utilisation d'un fichier JS au lieu de JSX directement -->
   <script type="module">
-    // Import dynamique pour éviter les problèmes de résolution de chemin
+    // Résoudre le chemin du module principal
     const mainPath = window.resolveAssetPath('./src/main.js');
     console.log('Chargement du module principal depuis:', mainPath);
     
+    // Import dynamique du module principal
     import(mainPath)
       .catch(error => {
         console.error('Erreur lors du chargement du module principal:', error);
