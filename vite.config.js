@@ -7,7 +7,7 @@ const cspPlugin = () => ({
   name: 'vite-plugin-csp',
   transformIndexHtml(html) {
     // CSP plus permissive pour permettre les animations, transitions et ressources externes
-    const cspContent = `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://api.flodrama.com; media-src 'self' blob: https:; worker-src 'self' blob:; frame-src 'self';`;
+    const cspContent = `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://esm.sh; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://api.flodrama.com https://esm.sh; media-src 'self' blob: https:; worker-src 'self' blob:; frame-src 'self';`;
     
     if (html.includes('Content-Security-Policy')) {
       return html.replace(
@@ -69,6 +69,24 @@ const transformJsxImportsPlugin = () => ({
   }
 });
 
+// Plugin pour assurer que les fichiers CSS sont servis avec le bon type MIME
+const cssMimeTypePlugin = () => ({
+  name: 'vite-plugin-css-mime-type',
+  configureServer(server) {
+    server.middlewares.use((req, res, next) => {
+      const _end = res.end;
+      res.end = function(chunk, ...args) {
+        if (req.url && req.url.endsWith('.css')) {
+          // Définir le bon type MIME pour les fichiers CSS
+          res.setHeader('Content-Type', 'text/css; charset=utf-8');
+        }
+        return _end.call(this, chunk, ...args);
+      };
+      next();
+    });
+  }
+});
+
 export default defineConfig({
   plugins: [
     react({
@@ -77,13 +95,14 @@ export default defineConfig({
     }),
     cspPlugin(),
     jsxMimeTypePlugin(),
-    transformJsxImportsPlugin()
+    transformJsxImportsPlugin(),
+    cssMimeTypePlugin()
   ],
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
     },
-    extensions: ['.js', '.jsx', '.json']
+    extensions: ['.js', '.jsx', '.json', '.css']
   },
   // Configuration conditionnelle pour GitHub Pages en production et développement local
   base: process.env.NODE_ENV === 'production' ? '/FloDrama/' : '/',

@@ -7,8 +7,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import './styles/globals.css';
-import './styles/animations.css'; // Import des animations
+// Suppression des imports CSS qui causent des erreurs MIME
+// Les styles seront chargés via des balises link dans index.html
 import AppErrorBoundary from './components/AppErrorBoundary';
 import localImageFallback from './utils/localImageFallback';
 import cacheManager from './utils/cacheManager';

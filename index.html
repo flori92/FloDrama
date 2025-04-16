@@ -5,6 +5,11 @@
   <meta name="description" content="FloDrama - Votre plateforme de streaming dédiée aux dramas et films asiatiques">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>FloDrama - Streaming de Dramas et Films Asiatiques</title>
+  
+  <!-- Chargement des styles CSS via des balises link -->
+  <link rel="stylesheet" href="/src/styles/globals.css">
+  <link rel="stylesheet" href="/src/styles/animations.css">
+  
   <style>
     body, html {
       margin: 0;
@@ -86,6 +91,12 @@
     </div>
   </div>
   
+  <!-- Configuration de base pour les chemins -->
+  <script>
+    // Définir la base URL pour les imports
+    document.baseURI = window.location.origin + '/';
+  </script>
+  
   <!-- Importation explicite de React et ReactDOM avant le script principal -->
   <script type="importmap">
   {
@@ -98,5 +109,59 @@
   </script>
   
   <!-- Utilisation d'un fichier JS au lieu de JSX directement -->
-  <script type="module" src="/src/main.js"></script>
+  <script type="module">
+    // Import dynamique pour éviter les problèmes de résolution de chemin
+    import('./src/main.js')
+      .catch(error => {
+        console.error('Erreur lors du chargement du module principal:', error);
+        document.getElementById('root').innerHTML = `
+          <div style="
+            font-family: 'SF Pro Display', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: white;
+            background-color: #121118;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 50px auto;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+          ">
+            <h2 style="
+              margin-top: 0;
+              font-size: 28px;
+              background: linear-gradient(to right, #3b82f6, #d946ef);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+            ">Erreur de chargement</h2>
+            <p>Impossible de charger l'application FloDrama.</p>
+            <p style="
+              font-family: monospace;
+              background: rgba(0,0,0,0.2);
+              padding: 10px;
+              border-radius: 4px;
+              text-align: left;
+              overflow-wrap: break-word;
+            ">
+              ${error.message}
+            </p>
+            <p>Veuillez vérifier votre connexion internet et rafraîchir la page.</p>
+            <button onclick="window.location.reload()" style="
+              background: linear-gradient(to right, #3b82f6, #d946ef);
+              border: none;
+              color: white;
+              padding: 12px 24px;
+              border-radius: 24px;
+              cursor: pointer;
+              font-weight: bold;
+              margin-top: 20px;
+              transition: transform 0.3s ease, box-shadow 0.3s ease;
+            " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 15px rgba(217, 70, 239, 0.4)';" 
+               onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+              Rafraîchir la page
+            </button>
+          </div>
+        `;
+      });
+  </script>
 </body></html>
