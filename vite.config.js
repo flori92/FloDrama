@@ -134,11 +134,8 @@ export default defineConfig({
     'process.env.VITE_APP_BASE_URL': JSON.stringify(process.env.NODE_ENV === 'production' ? '/FloDrama/' : '/')
   },
   esbuild: {
-    loader: {
-      '.js': 'jsx',
-      '.jsx': 'jsx'
-    },
-    jsxFactory: 'React.createElement',
-    jsxFragment: 'React.Fragment'
+    loader: 'jsx',
+    include: /\.[jt]sx?$/,
+    exclude: /node_modules/
   }
 });

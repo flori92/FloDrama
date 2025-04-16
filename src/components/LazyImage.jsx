@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useLazyLoading } from '../hooks/useLazyLoading.jsx';
+import { useLazyLoading } from '../hooks/useLazyLoading';
 import cacheManager from '../utils/cacheManager';
 import { getImageUrl } from '../utils/assetUtils';
 
