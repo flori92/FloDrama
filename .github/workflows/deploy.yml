@@ -27,13 +27,9 @@ jobs:
       - name: Installation des dépendances 📦
         run: npm ci
 
-      - name: Copie des variables d'environnement 🔐
-        run: cp .env.github-pages .env.production
-
       - name: Construction du projet 🏗️
         run: npm run build
         env:
-          VITE_API_URL: "https://bijwwhvch9.execute-api.eu-west-3.amazonaws.com/prod"
           VITE_APP_ENV: production
           VITE_APP_BASE_URL: /FloDrama/
 
@@ -43,3 +39,8 @@ jobs:
           folder: dist
           branch: gh-pages
           clean: true
+
+      - name: Vérification du déploiement ✅
+        run: |
+          echo "✅ Déploiement terminé avec succès!"
+          echo "🔗 Site disponible à l'adresse: https://[username].github.io/FloDrama/"

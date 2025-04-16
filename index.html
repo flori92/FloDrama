@@ -10,6 +10,10 @@
   <link rel="stylesheet" href="src/styles/globals.css">
   <link rel="stylesheet" href="src/styles/animations.css">
   
+  <!-- Chargement direct de React depuis un CDN -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  
   <style>
     body, html {
       margin: 0;
@@ -68,6 +72,409 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+    
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background-color: #121118;
+      color: white;
+    }
+    
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: rgba(0, 0, 0, 0.3);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      background: linear-gradient(to right, #3b82f6, #d946ef);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      cursor: pointer;
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+      background: linear-gradient(to right, #3b82f6, #d946ef);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+    
+    .nav {
+      display: flex;
+      margin-left: 2rem;
+    }
+    
+    .nav-item {
+      margin-right: 1.5rem;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      position: relative;
+    }
+    
+    .nav-item:hover {
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+    
+    .nav-item.active {
+      opacity: 1;
+      position: relative;
+    }
+    
+    .nav-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(to right, #3b82f6, #d946ef);
+    }
+    
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+    }
+    
+    .hero {
+      position: relative;
+      height: 500px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+      background: linear-gradient(135deg, #1A1926 0%, #121118 100%);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    
+    .hero-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.6;
+      transition: transform 8s ease;
+    }
+    
+    .hero:hover .hero-image {
+      transform: scale(1.05);
+    }
+    
+    .hero-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 2rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+      z-index: 2;
+    }
+    
+    .hero-title {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(to right, #3b82f6, #d946ef);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transform: translateY(0);
+      transition: transform 0.5s ease;
+    }
+    
+    .hero:hover .hero-title {
+      transform: translateY(-5px);
+    }
+    
+    .hero-description {
+      font-size: 1rem;
+      max-width: 600px;
+      margin-bottom: 1rem;
+      opacity: 0.9;
+      transform: translateY(0);
+      transition: transform 0.5s ease 0.1s;
+    }
+    
+    .hero:hover .hero-description {
+      transform: translateY(-5px);
+    }
+    
+    .hero-button {
+      background: linear-gradient(to right, #3b82f6, #d946ef);
+      border: none;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 24px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transform: translateY(0);
+      transition: transform 0.5s ease 0.2s, box-shadow 0.3s ease;
+    }
+    
+    .hero:hover .hero-button {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(217, 70, 239, 0.4);
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, #3b82f6, #d946ef);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+    
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .card {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      background-color: #1A1926;
+      height: 100%;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      z-index: 10;
+    }
+    
+    .card-image-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 2/3;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(217, 70, 239, 0.2));
+    }
+    
+    .card-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .card:hover .card-image {
+      transform: scale(1.1);
+    }
+    
+    .card-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .card:hover .card-overlay {
+      opacity: 1;
+    }
+    
+    .card-content {
+      padding: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .card-title {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: color 0.3s ease;
+    }
+    
+    .card:hover .card-title {
+      color: #d946ef;
+    }
+    
+    .card-info {
+      display: flex;
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+    
+    .card-year {
+      margin-right: 1rem;
+    }
+    
+    .card-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: linear-gradient(to right, #3b82f6, #d946ef);
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 5;
+    }
+    
+    .card:hover .card-badge {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .card-play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(to right, #3b82f6, #d946ef);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 5;
+    }
+    
+    .card:hover .card-play-button {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    
+    .play-icon {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 8px 0 8px 16px;
+      border-color: transparent transparent transparent white;
+      margin-left: 3px;
+    }
+    
+    .footer {
+      padding: 2rem;
+      background-color: rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+    
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      background: linear-gradient(to right, #3b82f6, #d946ef);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    
+    .footer-link {
+      margin: 0 1rem;
+      opacity: 0.7;
+      cursor: pointer;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    .footer-link:hover {
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+    
+    .footer-copyright {
+      opacity: 0.5;
+      font-size: 0.8rem;
+    }
+    
+    /* Ajout d'animations et transitions */
+    .fade-in {
+      animation: fadeIn 0.5s ease forwards;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Styles pour le lazy loading des images */
+    .lazy-image-container {
+      position: relative;
+      overflow: hidden;
+      background-color: #1A1926;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .lazy-image-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, #d946ef, #8b5cf6, #3b82f6);
+      opacity: 1;
+      transition: opacity 0.3s ease;
+      animation: pulse 1.5s ease-in-out infinite alternate;
+    }
+    
+    @keyframes pulse {
+      0% { opacity: 0.6; }
+      100% { opacity: 0.8; }
+    }
+    
+    .lazy-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .lazy-image.loaded {
+      opacity: 1;
+    }
+    
+    .lazy-image.loaded + .lazy-image-placeholder {
+      opacity: 0;
+    }
   </style>
 </head>
 <body>
@@ -91,174 +498,452 @@
     </div>
   </div>
   
-  <!-- Configuration de base pour les chemins -->
   <script>
-    // Détection de l'environnement
-    const isGitHubPages = window.location.hostname !== 'localhost' && 
-                         window.location.hostname !== '127.0.0.1';
+    // Données de démonstration
+    const dramaData = [
+      {
+        id: 1,
+        title: "Crash Landing on You",
+        year: 2019,
+        country: "Corée du Sud",
+        image: "https://m.media-amazon.com/images/M/MV5BMzRiZWUyN2YtNDI4YS00NTg2LTg0OTgtMGI2ZjU4ODQ4Yjk3XkEyXkFqcGdeQXVyNTI5NjIyMw@@._V1_.jpg",
+        fallbackImage: "https://i0.wp.com/kultscene.com/wp-content/uploads/2019/12/Crash-Landing-On-You-Main-Poster.jpg",
+        description: "Une héritière sud-coréenne atterrit accidentellement en Corée du Nord après un accident de parapente.",
+        isNew: true,
+        rating: 9.2,
+        genres: ["Romance", "Drame", "Comédie"]
+      },
+      {
+        id: 2,
+        title: "Goblin",
+        year: 2016,
+        country: "Corée du Sud",
+        image: "https://m.media-amazon.com/images/M/MV5BZTg0YmQxZTgtMzgwYi00N2NhLTlkMWYtOWYwNDA1YjkxMmViL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMzE4MDkyNTA@._V1_FMjpg_UX1000_.jpg",
+        fallbackImage: "https://upload.wikimedia.org/wikipedia/en/6/69/Goblin_poster.jpg",
+        description: "Un goblin immortel cherche sa fiancée pour mettre fin à sa vie éternelle.",
+        isNew: false,
+        rating: 8.9,
+        genres: ["Fantastique", "Romance", "Drame"]
+      },
+      {
+        id: 3,
+        title: "Itaewon Class",
+        year: 2020,
+        country: "Corée du Sud",
+        image: "https://fr.web.img6.acsta.net/pictures/20/01/31/09/48/0616342.jpg",
+        fallbackImage: "https://upload.wikimedia.org/wikipedia/en/8/8b/Itaewon_Class.jpg",
+        description: "Un ex-détenu et ses amis luttent pour réussir dans le quartier d'Itaewon.",
+        isNew: true,
+        rating: 8.5,
+        genres: ["Drame", "Business"]
+      },
+      {
+        id: 4,
+        title: "Reply 1988",
+        year: 2015,
+        country: "Corée du Sud",
+        image: "https://m.media-amazon.com/images/M/MV5BZmI1ZGRhNDYtOGMwNS00MTNiLTg2ZWQtOTQzYjkzYzU2MDI3XkEyXkFqcGdeQXVyMzE4MDkyNTA@._V1_FMjpg_UX1000_.jpg",
+        fallbackImage: "https://upload.wikimedia.org/wikipedia/en/5/5a/Reply_1988_Poster.jpg",
+        description: "La vie quotidienne de cinq familles et leurs enfants dans un quartier de Séoul en 1988.",
+        isNew: false,
+        rating: 9.5,
+        genres: ["Comédie", "Drame", "Famille"]
+      },
+      {
+        id: 5,
+        title: "My Mister",
+        year: 2018,
+        country: "Corée du Sud",
+        image: "https://m.media-amazon.com/images/M/MV5BZTg1ZGEyMzctYjYxMS00NDk3LWJiZDQtMzE3ZWRkYjgwYTVhXkEyXkFqcGdeQXVyNDY5MjMyNTg@._V1_.jpg",
+        fallbackImage: "https://upload.wikimedia.org/wikipedia/en/7/7e/My_Mister_poster.jpg",
+        description: "L'histoire d'un homme dans la quarantaine et d'une jeune femme qui ont tous deux été blessés par la vie.",
+        isNew: false,
+        rating: 9.3,
+        genres: ["Drame", "Vie quotidienne"]
+      },
+      {
+        id: 6,
+        title: "Kingdom",
+        year: 2019,
+        country: "Corée du Sud",
+        image: "https://fr.web.img2.acsta.net/pictures/19/01/25/11/39/2348073.jpg",
+        fallbackImage: "https://upload.wikimedia.org/wikipedia/en/0/0c/Kingdom_TV_series.jpg",
+        description: "Dans la Corée médiévale, un prince héritier enquête sur une mystérieuse épidémie.",
+        isNew: true,
+        rating: 8.8,
+        genres: ["Historique", "Horreur", "Action"]
+      }
+    ];
     
-    // Définir la base URL pour les imports en fonction de l'environnement
-    window.BASE_URL = isGitHubPages ? '/FloDrama/' : '/';
+    // Catégories de navigation
+    const categories = [
+      { id: 'home', name: 'Accueil', active: true },
+      { id: 'dramas', name: 'Dramas', active: false },
+      { id: 'films', name: 'Films', active: false },
+      { id: 'nouveautes', name: 'Nouveautés', active: false },
+      { id: 'ma-liste', name: 'Ma Liste', active: false }
+    ];
     
-    // Fonction pour résoudre les chemins relatifs
-    window.resolveAssetPath = function(path) {
-      console.log('Résolution du chemin:', path);
-      
-      // Supprimer les préfixes './' pour éviter les problèmes
-      let cleanPath = path;
-      if (cleanPath.startsWith('./')) {
-        cleanPath = cleanPath.substring(2);
+    // Implémentation du lazy loading des images
+    class LazyImageLoader {
+      constructor() {
+        this.images = [];
+        this.observer = null;
+        this.initObserver();
       }
       
-      // Si le chemin commence déjà par la base URL, ne pas l'ajouter à nouveau
-      if (cleanPath.startsWith(window.BASE_URL)) {
-        return cleanPath;
+      initObserver() {
+        // Options pour l'Intersection Observer
+        const options = {
+          rootMargin: '200px',
+          threshold: 0.1
+        };
+        
+        // Créer l'observer
+        this.observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              this.loadImage(entry.target);
+              this.observer.unobserve(entry.target);
+            }
+          });
+        }, options);
       }
       
-      // Si le chemin commence par '/', supprimer le slash initial
-      if (cleanPath.startsWith('/')) {
-        cleanPath = cleanPath.substring(1);
+      // Ajouter une image à observer
+      observe(imageContainer) {
+        if (!imageContainer) return;
+        this.observer.observe(imageContainer);
+        this.images.push(imageContainer);
       }
       
-      // Construire l'URL complète
-      const result = window.BASE_URL + cleanPath;
-      console.log('Chemin résolu:', result);
-      return result;
-    };
-    
-    // Afficher des informations de débogage
-    console.log('Environnement:', isGitHubPages ? 'GitHub Pages' : 'Développement local');
-    console.log('BASE_URL:', window.BASE_URL);
-    console.log('Hostname:', window.location.hostname);
-    console.log('Origin:', window.location.origin);
-    console.log('PathName:', window.location.pathname);
-  </script>
-  
-  <!-- Importation explicite de React et ReactDOM avant le script principal -->
-  <script type="importmap">
-  {
-    "imports": {
-      "react": "https://esm.sh/react@18.2.0",
-      "react-dom": "https://esm.sh/react-dom@18.2.0",
-      "react-dom/client": "https://esm.sh/react-dom@18.2.0/client"
+      // Charger l'image lorsqu'elle est visible
+      loadImage(container) {
+        const img = container.querySelector('.lazy-image');
+        const placeholder = container.querySelector('.lazy-image-placeholder');
+        
+        if (!img) return;
+        
+        // Charger l'image
+        const src = img.getAttribute('data-src');
+        if (src) {
+          // Précharger l'image pour vérifier si elle existe
+          const preloadImg = new Image();
+          preloadImg.onload = () => {
+            img.src = src;
+            img.classList.add('loaded');
+            if (placeholder) {
+              setTimeout(() => {
+                placeholder.style.opacity = '0';
+              }, 100);
+            }
+          };
+          
+          preloadImg.onerror = () => {
+            console.warn(`Erreur de chargement de l'image: ${src}`);
+            const fallbackSrc = img.getAttribute('data-fallback') || 'https://via.placeholder.com/300x450/1A1926/d946ef?text=FloDrama';
+            
+            // Essayer de charger l'image de secours
+            const fallbackImg = new Image();
+            fallbackImg.onload = () => {
+              img.src = fallbackSrc;
+              img.classList.add('loaded');
+              if (placeholder) {
+                setTimeout(() => {
+                  placeholder.style.opacity = '0';
+                }, 100);
+              }
+            };
+            
+            fallbackImg.onerror = () => {
+              // Si même l'image de secours échoue, utiliser un placeholder générique
+              img.src = `https://via.placeholder.com/300x450/1A1926/d946ef?text=${encodeURIComponent(img.alt || 'FloDrama')}`;
+              img.classList.add('loaded');
+              if (placeholder) {
+                setTimeout(() => {
+                  placeholder.style.opacity = '0';
+                }, 100);
+              }
+            };
+            
+            fallbackImg.src = fallbackSrc;
+          };
+          
+          // Ajouter un délai aléatoire pour éviter de charger toutes les images en même temps
+          setTimeout(() => {
+            preloadImg.src = src;
+          }, Math.random() * 300);
+        }
+      }
     }
-  }
-  </script>
-  
-  <!-- Utilisation d'un fichier JS au lieu de JSX directement -->
-  <script type="module">
-    try {
-      // Résoudre le chemin du module principal
-      const mainPath = window.resolveAssetPath('src/main.js');
-      console.log('Chargement du module principal depuis:', mainPath);
+    
+    // Fonction pour créer un élément d'image avec lazy loading
+    function createLazyImage(src, alt, fallbackSrc = 'https://via.placeholder.com/300x450/1A1926/d946ef?text=FloDrama') {
+      const container = document.createElement('div');
+      container.className = 'lazy-image-container';
       
-      // Construire l'URL complète
-      const fullUrl = new URL(mainPath, window.location.origin);
-      console.log('URL complète:', fullUrl.href);
+      const img = document.createElement('img');
+      img.className = 'lazy-image';
+      img.setAttribute('data-src', src);
+      img.alt = alt || '';
+      img.setAttribute('data-fallback', fallbackSrc);
       
-      // Import dynamique du module principal
-      import(fullUrl.href)
-        .catch(error => {
-          console.error('Erreur lors du chargement du module principal:', error);
-          document.getElementById('root').innerHTML = `
-            <div style="
-              font-family: 'SF Pro Display', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-              color: white;
-              background-color: #121118;
-              padding: 20px;
-              border-radius: 8px;
-              margin: 50px auto;
-              max-width: 500px;
-              text-align: center;
-              box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            ">
-              <h2 style="
-                margin-top: 0;
-                font-size: 28px;
-                background: linear-gradient(to right, #3b82f6, #d946ef);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-              ">Erreur de chargement</h2>
-              <p>Impossible de charger l'application FloDrama.</p>
-              <p style="
-                font-family: monospace;
-                background: rgba(0,0,0,0.2);
-                padding: 10px;
-                border-radius: 4px;
-                text-align: left;
-                overflow-wrap: break-word;
-              ">
-                ${error.message}
-              </p>
-              <p>Veuillez vérifier votre connexion internet et rafraîchir la page.</p>
-              <button onclick="window.location.reload()" style="
-                background: linear-gradient(to right, #3b82f6, #d946ef);
-                border: none;
-                color: white;
-                padding: 12px 24px;
-                border-radius: 24px;
-                cursor: pointer;
-                font-weight: bold;
-                margin-top: 20px;
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-              " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 15px rgba(217, 70, 239, 0.4)';" 
-                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                Rafraîchir la page
-              </button>
-            </div>
-          `;
+      const placeholder = document.createElement('div');
+      placeholder.className = 'lazy-image-placeholder';
+      
+      container.appendChild(img);
+      container.appendChild(placeholder);
+      
+      return container;
+    }
+    
+    // Fonction pour créer l'application
+    function createApp() {
+      // Initialiser le lazy loader
+      const lazyLoader = new LazyImageLoader();
+      
+      // Créer la structure de l'application
+      const appContainer = document.createElement('div');
+      appContainer.className = 'app-container';
+      
+      // Créer le header
+      const header = document.createElement('header');
+      header.className = 'header';
+      
+      const logo = document.createElement('div');
+      logo.className = 'logo';
+      
+      const logoIcon = document.createElement('div');
+      logoIcon.className = 'logo-icon';
+      logoIcon.textContent = 'FD';
+      
+      logo.appendChild(logoIcon);
+      logo.appendChild(document.createTextNode('FloDrama'));
+      
+      const nav = document.createElement('nav');
+      nav.className = 'nav';
+      
+      // Ajouter les éléments de navigation
+      categories.forEach(category => {
+        const navItem = document.createElement('div');
+        navItem.className = 'nav-item' + (category.active ? ' active' : '');
+        navItem.textContent = category.name;
+        navItem.dataset.id = category.id;
+        
+        // Ajouter l'événement de clic
+        navItem.addEventListener('click', () => {
+          // Désactiver tous les éléments
+          document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('active');
+          });
+          
+          // Activer l'élément cliqué
+          navItem.classList.add('active');
         });
-    } catch (error) {
-      console.error('Erreur lors de la résolution du chemin:', error);
-      document.getElementById('root').innerHTML = `
-        <div style="
-          font-family: 'SF Pro Display', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-          color: white;
-          background-color: #121118;
-          padding: 20px;
-          border-radius: 8px;
-          margin: 50px auto;
-          max-width: 500px;
-          text-align: center;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        ">
-          <h2 style="
-            margin-top: 0;
-            font-size: 28px;
-            background: linear-gradient(to right, #3b82f6, #d946ef);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-          ">Erreur de configuration</h2>
-          <p>Impossible de résoudre le chemin du module principal.</p>
-          <p style="
-            font-family: monospace;
-            background: rgba(0,0,0,0.2);
-            padding: 10px;
-            border-radius: 4px;
-            text-align: left;
-            overflow-wrap: break-word;
-          ">
-            ${error.message}
-          </p>
-          <p>Veuillez vérifier votre connexion internet et rafraîchir la page.</p>
-          <button onclick="window.location.reload()" style="
-            background: linear-gradient(to right, #3b82f6, #d946ef);
-            border: none;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 24px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-          " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 15px rgba(217, 70, 239, 0.4)';" 
-             onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-            Rafraîchir la page
-          </button>
-        </div>
-      `;
+        
+        nav.appendChild(navItem);
+      });
+      
+      header.appendChild(logo);
+      header.appendChild(nav);
+      
+      // Créer le contenu principal
+      const mainContent = document.createElement('main');
+      mainContent.className = 'main-content';
+      
+      // Créer le héros
+      const hero = document.createElement('div');
+      hero.className = 'hero fade-in';
+      
+      const heroImage = document.createElement('img');
+      heroImage.className = 'hero-image';
+      heroImage.src = 'https://i0.wp.com/kultscene.com/wp-content/uploads/2019/12/Crash-Landing-On-You-Main-Poster.jpg';
+      heroImage.alt = 'Crash Landing on You';
+      
+      const heroContent = document.createElement('div');
+      heroContent.className = 'hero-content';
+      
+      const heroTitle = document.createElement('h2');
+      heroTitle.className = 'hero-title';
+      heroTitle.textContent = 'Crash Landing on You';
+      
+      const heroDescription = document.createElement('p');
+      heroDescription.className = 'hero-description';
+      heroDescription.textContent = 'Une héritière sud-coréenne atterrit accidentellement en Corée du Nord après un accident de parapente. Elle y rencontre un officier nord-coréen qui décide de l\'aider à rentrer chez elle.';
+      
+      const heroButton = document.createElement('button');
+      heroButton.className = 'hero-button';
+      heroButton.textContent = 'Regarder maintenant';
+      
+      heroContent.appendChild(heroTitle);
+      heroContent.appendChild(heroDescription);
+      heroContent.appendChild(heroButton);
+      
+      hero.appendChild(heroImage);
+      hero.appendChild(heroContent);
+      
+      // Créer la section des dramas populaires
+      const popularSection = document.createElement('section');
+      popularSection.className = 'fade-in';
+      popularSection.style.animationDelay = '0.2s';
+      
+      const popularTitle = document.createElement('h3');
+      popularTitle.className = 'section-title';
+      popularTitle.textContent = 'Dramas populaires';
+      
+      const popularGrid = document.createElement('div');
+      popularGrid.className = 'card-grid';
+      
+      // Ajouter les cartes de dramas avec lazy loading
+      dramaData.forEach((drama, index) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.style.animationDelay = `${0.1 * index}s`;
+        
+        const cardImageContainer = document.createElement('div');
+        cardImageContainer.className = 'card-image-container';
+        
+        // Utiliser le lazy loading pour l'image
+        const lazyImageContainer = createLazyImage(
+          drama.image, 
+          drama.title,
+          drama.fallbackImage || 'https://via.placeholder.com/300x450/1A1926/d946ef?text=' + encodeURIComponent(drama.title)
+        );
+        cardImageContainer.appendChild(lazyImageContainer);
+        
+        // Observer l'image pour le lazy loading
+        setTimeout(() => {
+          lazyLoader.observe(lazyImageContainer);
+        }, 100);
+        
+        const cardOverlay = document.createElement('div');
+        cardOverlay.className = 'card-overlay';
+        
+        const cardContent = document.createElement('div');
+        cardContent.className = 'card-content';
+        
+        const cardTitle = document.createElement('h4');
+        cardTitle.className = 'card-title';
+        cardTitle.textContent = drama.title;
+        
+        const cardInfo = document.createElement('div');
+        cardInfo.className = 'card-info';
+        
+        const cardYear = document.createElement('span');
+        cardYear.className = 'card-year';
+        cardYear.textContent = drama.year;
+        
+        const cardCountry = document.createElement('span');
+        cardCountry.className = 'card-country';
+        cardCountry.textContent = drama.country;
+        
+        cardInfo.appendChild(cardYear);
+        cardInfo.appendChild(cardCountry);
+        
+        cardContent.appendChild(cardTitle);
+        cardContent.appendChild(cardInfo);
+        
+        // Ajouter les genres
+        if (drama.genres && drama.genres.length > 0) {
+          const cardGenres = document.createElement('div');
+          cardGenres.className = 'card-genres';
+          cardGenres.style.fontSize = '0.7rem';
+          cardGenres.style.marginTop = '0.5rem';
+          cardGenres.style.opacity = '0.7';
+          cardGenres.textContent = drama.genres.join(' • ');
+          
+          cardContent.appendChild(cardGenres);
+        }
+        
+        cardOverlay.appendChild(cardContent);
+        
+        // Ajouter un badge "Nouveau" si applicable
+        if (drama.isNew) {
+          const cardBadge = document.createElement('div');
+          cardBadge.className = 'card-badge';
+          cardBadge.textContent = 'Nouveau';
+          card.appendChild(cardBadge);
+        }
+        
+        // Ajouter le bouton de lecture
+        const cardPlayButton = document.createElement('div');
+        cardPlayButton.className = 'card-play-button';
+        
+        const playIcon = document.createElement('div');
+        playIcon.className = 'play-icon';
+        
+        cardPlayButton.appendChild(playIcon);
+        
+        // Ajouter les événements
+        card.addEventListener('click', () => {
+          console.log(`Drama sélectionné: ${drama.title}`);
+          // Ici, vous pourriez implémenter la navigation vers la page de détail
+        });
+        
+        card.appendChild(cardImageContainer);
+        card.appendChild(cardOverlay);
+        card.appendChild(cardPlayButton);
+        
+        popularGrid.appendChild(card);
+      });
+      
+      popularSection.appendChild(popularTitle);
+      popularSection.appendChild(popularGrid);
+      
+      // Créer le footer
+      const footer = document.createElement('footer');
+      footer.className = 'footer';
+      
+      const footerLogo = document.createElement('div');
+      footerLogo.className = 'footer-logo';
+      footerLogo.textContent = 'FloDrama';
+      
+      const footerLinks = document.createElement('div');
+      footerLinks.className = 'footer-links';
+      
+      const links = ['À propos', 'Conditions d\'utilisation', 'Confidentialité', 'Contact'];
+      links.forEach(link => {
+        const footerLink = document.createElement('div');
+        footerLink.className = 'footer-link';
+        footerLink.textContent = link;
+        footerLinks.appendChild(footerLink);
+      });
+      
+      const footerCopyright = document.createElement('div');
+      footerCopyright.className = 'footer-copyright';
+      footerCopyright.textContent = ' 2025 FloDrama. Tous droits réservés.';
+      
+      footer.appendChild(footerLogo);
+      footer.appendChild(footerLinks);
+      footer.appendChild(footerCopyright);
+      
+      // Assembler l'application
+      mainContent.appendChild(hero);
+      mainContent.appendChild(popularSection);
+      
+      appContainer.appendChild(header);
+      appContainer.appendChild(mainContent);
+      appContainer.appendChild(footer);
+      
+      return appContainer;
     }
+    
+    // Initialiser l'application après le chargement de la page
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const root = document.getElementById('root');
+        root.innerHTML = '';
+        root.appendChild(createApp());
+        
+        // Animation d'entrée pour les éléments
+        const fadeElements = document.querySelectorAll('.fade-in');
+        fadeElements.forEach((el, index) => {
+          el.style.opacity = '0';
+          setTimeout(() => {
+            el.style.opacity = '1';
+          }, 100 * index);
+        });
+      }, 1500); // Afficher le loader pendant 1.5 secondes
+    });
   </script>
 </body></html>
