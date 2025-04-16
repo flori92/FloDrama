@@ -2,7 +2,7 @@ name: Déploiement FloDrama
 
 on:
   push:
-    branches: [ main, master, github-pages-clean ]
+    branches: [ main, master ]
   workflow_dispatch:
 
 # Définition explicite des permissions
@@ -15,32 +15,41 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
+      - name: Checkout 
         uses: actions/checkout@v3
 
-      - name: Configuration de Node.js 🔧
+      - name: Configuration de Node.js 
         uses: actions/setup-node@v3
         with:
           node-version: '18'
           cache: 'npm'
 
-      - name: Installation des dépendances 📦
+      - name: Installation des dépendances 
         run: npm ci
 
-      - name: Construction du projet 🏗️
+      - name: Configuration des API keys 
+        run: |
+          echo "// Configuration des API keys pour l'environnement de production" > ./src/config/env.js
+          echo "window.ENV_OMDB_API_KEY=\"${{ secrets.OMDB_API_KEY || '8e4b0c73' }}\";" >> ./src/config/env.js
+          echo "window.ENV_TMDB_API_KEY=\"${{ secrets.TMDB_API_KEY || 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YTNjMTY4ZWM0MjA0N2Y0OGIzMTQzOGViOTY3ZDgyZCIsInN1YiI6IjY1ZjU2YzRkZWVjNWI3MDE3ZGI0MThhYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.PdVsby38hILmx4JNfm9nkNZ-0ShHGVh9uHpSKBxx6xE' }}\";" >> ./src/config/env.js
+          echo "window.ENV_JIKAN_API_BASE_URL=\"https://api.jikan.moe/v4\";" >> ./src/config/env.js
+          echo "window.ENV_TVMAZE_API_BASE_URL=\"https://api.tvmaze.com\";" >> ./src/config/env.js
+          echo "Fichier de configuration des API keys créé avec succès"
+
+      - name: Construction du projet 
         run: npm run build
         env:
           VITE_APP_ENV: production
           VITE_APP_BASE_URL: /FloDrama/
 
-      - name: Déploiement sur GitHub Pages 🚀
+      - name: Déploiement sur GitHub Pages 
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: dist
           branch: gh-pages
           clean: true
 
-      - name: Vérification du déploiement ✅
+      - name: Vérification du déploiement 
         run: |
-          echo "✅ Déploiement terminé avec succès!"
-          echo "🔗 Site disponible à l'adresse: https://[username].github.io/FloDrama/"
+          echo " Déploiement terminé avec succès!"
+          echo " Site disponible à l'adresse: https://flori92.github.io/FloDrama/"

@@ -14,147 +14,129 @@
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   
-  <!-- Système optimisé d'images pour FloDrama -->
+  <!-- Script de gestion des images avec fallback -->
   <script>
-    // Mapping des images pour garantir le chargement
-    const POSTER_MAPPING = {
-      'goblin': 'https://image.tmdb.org/t/p/w500/jMh7903oTJktQAZKdK6dl7EDFsK.jpg',
-      'crash-landing-on-you': 'https://image.tmdb.org/t/p/w500/iFFXSsvl4dZkdUKpf88Kp2Rkm7S.jpg',
-      'itaewon-class': 'https://image.tmdb.org/t/p/w500/yQUyayLdVhRKQh33P9rDAavjJDl.jpg',
-      'squid-game': 'https://image.tmdb.org/t/p/w500/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg',
-      'train-to-busan': 'https://image.tmdb.org/t/p/w500/2mFR7ncAUgICQRYL98yLK9qEYA3.jpg',
-      'oldboy': 'https://image.tmdb.org/t/p/w500/jB7ol6ry8dlqMp6kKlKHLfPke4e.jpg',
-      'the-handmaiden': 'https://image.tmdb.org/t/p/w500/wvzfK5QR6dGLwND8MCzWjsQWG4Q.jpg',
-      'minari': 'https://image.tmdb.org/t/p/w500/9Bb6K6HINl3vEKCu8WXEZyHvvpq.jpg',
-      'mother': 'https://image.tmdb.org/t/p/w500/fgce3DHrMZDQTJkALT5hVxvbGPf.jpg',
-      'parasite': 'https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg',
-      'burning': 'https://image.tmdb.org/t/p/w500/8n5ZKh97Wz2C1YpsZxVjARe85gF.jpg',
-      'my-love-from-the-star': 'https://image.tmdb.org/t/p/w500/oVOnxvr6xLBdcfZcteA4diE0CQQ.jpg',
-      'vincenzo': 'https://image.tmdb.org/t/p/w500/8ToIjpLKSRRR3TT22n2ZceSiNkq.jpg',
-      'attack-on-titan': 'https://image.tmdb.org/t/p/w500/aiy35Evcofzl7hNzFdoEZ2xmEb3.jpg',
-      'demon-slayer': 'https://image.tmdb.org/t/p/w500/wrCVHdkBlBWdJUZPvnJWcBRuhSY.jpg',
-      'jujutsu-kaisen': 'https://image.tmdb.org/t/p/w500/g1rK2nRXSidcMwNliWDIroWWGTn.jpg',
-      'your-name': 'https://image.tmdb.org/t/p/w500/q719jXXEzOoYaps6babgKnONONX.jpg',
-      'solo-leveling': 'https://image.tmdb.org/t/p/w500/waBWGjsksNAopCgqKQGGGQXnKlp.jpg'
+    // Configuration du CDN dans votre application
+    const cdnConfig = {
+      // Utiliser CloudFront comme CDN principal
+      baseUrl: 'https://d2ajqn0zkhdqop.cloudfront.net/',
+      // Fallback vers votre bucket S3 si CloudFront est indisponible
+      fallbackUrl: 'https://flodrama-assets.s3.eu-west-3.amazonaws.com/',
+      // Domaine GitHub Pages comme solution de secours finale
+      githubUrl: 'https://votrecompte.github.io/flodrama/images/'
     };
+
+    // Mapping des URLs problématiques vers des images locales
+    const problematicUrlPatterns = [
+      // Amazon Media
+      { pattern: /m\.media-amazon\.com\/images\/M\//, replacement: '/assets/posters/' },
+      // Allocine
+      { pattern: /fr\.web\.img[0-9]\.acsta\.net\/pictures\//, replacement: '/assets/posters/' },
+      // Placeholder.com
+      { pattern: /via\.placeholder\.com\/[0-9]+x[0-9]+\//, replacement: '/assets/posters/' },
+      // KultScene
+      { pattern: /kultscene\.com\/wp-content\/uploads\//, replacement: '/assets/posters/' },
+      // Fallback général pour toute URL externe
+      { pattern: /^https?:\/\//, replacement: '/assets/posters/' }
+    ];
+
+    // Liste des posters locaux disponibles pour le fallback
+    const localPosters = [
+      'parasite.jpg',
+      'squid-game.jpg',
+      'minari.jpg',
+      'burning.jpg',
+      'train-to-busan.jpg',
+      'oldboy.jpg',
+      'the-handmaiden.jpg',
+      'snowpiercer.jpg',
+      'memories-of-murder.jpg',
+      'mother.jpg'
+    ];
     
-    // Fonction pour obtenir l'URL optimisée d'une image
-    function getOptimizedImageUrl(imagePath) {
-      if (!imagePath) return '';
+    // Fonction pour vérifier si une URL est problématique et la remplacer si nécessaire
+    function checkAndReplaceProblematicUrl(url) {
+      if (!url) return url;
       
-      // Extraire le nom de base sans extension
-      const baseName = imagePath.split('/').pop().split('.')[0];
-      
-      // Vérifier si nous avons une correspondance dans notre mapping
-      if (POSTER_MAPPING[baseName]) {
-        return POSTER_MAPPING[baseName];
+      // Vérifier si l'URL correspond à un pattern problématique
+      for (const { pattern, replacement } of problematicUrlPatterns) {
+        if (pattern.test(url)) {
+          // Si c'est un placeholder avec text=, extraire le titre
+          if (url.includes('placeholder.com') && url.includes('text=')) {
+            const textMatch = url.match(/text=([^&]+)/);
+            if (textMatch && textMatch[1]) {
+              const title = decodeURIComponent(textMatch[1]).toLowerCase().replace(/\s+/g, '-');
+              return `${replacement}${title}.jpg`;
+            }
+          }
+          
+          // Sélectionner une image locale aléatoire
+          const randomIndex = Math.floor(Math.random() * localPosters.length);
+          return `${replacement}${localPosters[randomIndex]}`;
+        }
       }
       
-      // Fallback sur Unsplash avec le nom comme requête
-      return `https://source.unsplash.com/300x450/?movie,${baseName.replace(/-/g, ',')}`;
+      return url;
     }
     
-    // Fonction optimisée de chargement d'image
-    function loadImage(src, callback) {
-      const preloadImg = new Image();
-      const fallbackSrc = getOptimizedImageUrl(src);
+    // Fonction pour charger une image avec gestion des erreurs
+    function loadImage(url, imgElement, alt = '') {
+      if (!url || !imgElement) return;
       
+      // Vérifier si l'URL est problématique et la remplacer si nécessaire
+      const checkedUrl = checkAndReplaceProblematicUrl(url);
+      
+      // Précharger l'image pour vérifier si elle est accessible
+      const preloadImg = new Image();
       preloadImg.onload = function() {
-        if (callback) callback(this.src);
+        // L'image a été chargée avec succès
+        imgElement.src = checkedUrl;
+        imgElement.alt = alt;
+        imgElement.classList.add('loaded');
       };
       
       preloadImg.onerror = function() {
-        console.log("Utilisation de l'image de fallback pour:", src);
-        this.src = fallbackSrc;
-        if (callback) callback(fallbackSrc);
+        console.error(`Erreur de chargement de l'image: ${checkedUrl}`);
+        
+        // Essayer avec un fallback local
+        const fallbackImg = new Image();
+        fallbackImg.onload = function() {
+          imgElement.src = fallbackImg.src;
+          imgElement.alt = alt;
+          imgElement.classList.add('loaded');
+          imgElement.classList.add('fallback');
+        };
+        
+        fallbackImg.onerror = function() {
+          // Si le fallback échoue aussi, utiliser un dégradé CSS
+          imgElement.style.background = 'linear-gradient(135deg, #3b82f6, #d946ef)';
+          imgElement.alt = alt;
+          imgElement.classList.add('fallback');
+          imgElement.classList.add('gradient-fallback');
+        };
+        
+        // Essayer avec une image locale aléatoire
+        const randomIndex = Math.floor(Math.random() * localPosters.length);
+        fallbackImg.src = `/assets/posters/${localPosters[randomIndex]}`;
       };
       
-      // Essayer d'abord la source originale, mais avec un timeout court
-      setTimeout(() => {
-        if (!preloadImg.complete) {
-          console.log("Timeout pour l'image:", src);
-          preloadImg.src = fallbackSrc;
-        }
-      }, 2000);
-      
-      preloadImg.src = src;
-      return preloadImg;
+      // Démarrer le chargement
+      preloadImg.src = checkedUrl;
     }
     
-    // Données locales pour garantir le contenu
-    const LOCAL_CONTENT = {
-      featuredContent: [
-        {
-          id: "parasite",
-          title: "Parasite",
-          description: "Une famille pauvre s'immisce subtilement dans le quotidien d'une famille riche, jusqu'à ce qu'un incident imprévisible ne complique les choses.",
-          image: "https://image.tmdb.org/t/p/w1280/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
-          rating: 4.8,
-          year: 2019,
-          genre: "Thriller, Drame",
-          country: "Corée du Sud"
-        },
-        {
-          id: "crash-landing-on-you",
-          title: "Crash Landing on You",
-          description: "Une héritière sud-coréenne atterrit accidentellement en Corée du Nord après un accident de parapente. Elle y rencontre un officier qui décide de l'aider.",
-          image: "https://image.tmdb.org/t/p/w1280/iFFXSsvl4dZkdUKpf88Kp2Rkm7S.jpg",
-          rating: 4.9,
-          year: 2019,
-          genre: "Romance, Drame",
-          country: "Corée du Sud"
-        }
-      ],
-      dramasList: [
-        {
-          id: "crash-landing-on-you",
-          title: "Crash Landing on You",
-          image: "https://image.tmdb.org/t/p/w500/iFFXSsvl4dZkdUKpf88Kp2Rkm7S.jpg",
-          rating: 4.9,
-          year: 2019
-        },
-        {
-          id: "goblin",
-          title: "Guardian: The Lonely and Great God",
-          image: "https://image.tmdb.org/t/p/w500/jMh7903oTJktQAZKdK6dl7EDFsK.jpg",
-          rating: 4.8,
-          year: 2016
-        },
-        {
-          id: "itaewon-class",
-          title: "Itaewon Class",
-          image: "https://image.tmdb.org/t/p/w500/yQUyayLdVhRKQh33P9rDAavjJDl.jpg",
-          rating: 4.7,
-          year: 2020
-        }
-      ],
-      moviesList: [
-        {
-          id: "oldboy",
-          title: "Oldboy",
-          image: "https://image.tmdb.org/t/p/w500/jB7ol6ry8dlqMp6kKlKHLfPke4e.jpg",
-          rating: 4.6,
-          year: 2003
-        },
-        {
-          id: "train-to-busan",
-          title: "Train to Busan",
-          image: "https://image.tmdb.org/t/p/w500/2mFR7ncAUgICQRYL98yLK9qEYA3.jpg",
-          rating: 4.5,
-          year: 2016
-        },
-        {
-          id: "the-handmaiden",
-          title: "The Handmaiden",
-          image: "https://image.tmdb.org/t/p/w500/wvzfK5QR6dGLwND8MCzWjsQWG4Q.jpg",
-          rating: 4.7,
-          year: 2016
-        }
-      ]
-    };
+    // Fonction pour résoudre les chemins d'accès aux ressources
+    function resolveAssetPath(path) {
+      // Nettoyer le chemin d'entrée
+      const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+      return cleanPath;
+    }
+    
+    // Exposer les fonctions pour qu'elles soient accessibles globalement
+    window.resolveAssetPath = resolveAssetPath;
+    window.loadImage = loadImage;
+    window.checkAndReplaceProblematicUrl = checkAndReplaceProblematicUrl;
   </script>
-
-  <!-- Styles spécifiques pour l'application -->
+  
   <style>
     body, html {
       margin: 0;
@@ -186,7 +168,7 @@
       background: linear-gradient(to right, #3b82f6, #d946ef);
       -webkit-background-clip: text;
       background-clip: text;
-      color: transparent;
+      -webkit-text-fill-color: transparent;
       margin-bottom: 16px;
       font-size: 2.5rem;
       font-weight: 700;
@@ -241,7 +223,7 @@
       background: linear-gradient(to right, #3b82f6, #d946ef);
       -webkit-background-clip: text;
       background-clip: text;
-      color: transparent;
+      -webkit-text-fill-color: transparent;
       cursor: pointer;
     }
     
@@ -337,7 +319,7 @@
       background: linear-gradient(to right, #3b82f6, #d946ef);
       -webkit-background-clip: text;
       background-clip: text;
-      color: transparent;
+      -webkit-text-fill-color: transparent;
       transform: translateY(0);
       transition: transform 0.5s ease;
     }
@@ -383,7 +365,7 @@
       background: linear-gradient(to right, #3b82f6, #d946ef);
       -webkit-background-clip: text;
       background-clip: text;
-      color: transparent;
+      -webkit-text-fill-color: transparent;
       display: inline-block;
     }
     
@@ -537,7 +519,7 @@
       background: linear-gradient(to right, #3b82f6, #d946ef);
       -webkit-background-clip: text;
       background-clip: text;
-      color: transparent;
+      -webkit-text-fill-color: transparent;
       margin-bottom: 1rem;
       display: inline-block;
     }
@@ -623,91 +605,113 @@
 </head>
 <body>
   <div id="root">
-    <!-- Écran de chargement initial -->
-    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #121118; flex-direction: column;">
-      <h1 style="color: white; font-size: 2rem; margin-bottom: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: linear-gradient(to right, #3b82f6, #d946ef); -webkit-background-clip: text; background-clip: text; color: transparent;">
-        FloDrama
-      </h1>
+    <div class="loading-container">
+      <svg width="180" height="180" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" class="loading-logo">
+        <rect width="512" height="512" rx="128" fill="#121118"></rect>
+        <path d="M128 128h256v256H128z" fill="url(#paint0_linear)"></path>
+        <path d="M192 224c0-17.7 14.3-32 32-32h64c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32h-64c-17.7 0-32-14.3-32-32v-64z" fill="#121118"></path>
+        <defs>
+          <linearGradient id="paint0_linear" x1="128" y1="128" x2="384" y2="384" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#3b82f6"></stop>
+            <stop offset="1" stop-color="#d946ef"></stop>
+          </linearGradient>
+        </defs>
+      </svg>
+      
+      <h1 class="loading-title">FloDrama</h1>
+      <p class="loading-text">Chargement de votre expérience personnalisée...</p>
       <div class="loading-spinner"></div>
     </div>
   </div>
-
-  <!-- Script principal de l'application -->
-  <script type="module" src="src/main.js"></script>
   
-  <!-- Script d'initialisation du mode hybride -->
   <script>
-    // Attendre le chargement complet du DOM
-    document.addEventListener('DOMContentLoaded', function() {
-      // Vérifier si la page d'accueil dynamique doit être utilisée par défaut
-      const useHybridMode = true; // Par défaut, utiliser le mode hybride
-      
-      // Vérifier si le système hybride est disponible
-      const checkHybridSystem = () => {
-        if (window.FloDrama && window.FloDrama.hybridContentService) {
-          console.log('Système hybride détecté - activation du mode dynamique');
-          initHybridMode();
-        } else {
-          console.log('Système hybride non disponible - nouvelle tentative dans 1 seconde');
-          setTimeout(checkHybridSystem, 1000);
-        }
-      };
-      
-      // Initialiser le mode hybride
-      const initHybridMode = () => {
-        try {
-          // Masquer l'écran de chargement
-          const root = document.getElementById('root');
-          if (!root) return;
-          
-          // Vérifier si React est disponible
-          if (!window.React || !window.ReactDOM) {
-            console.error('React n\'est pas disponible - Utilisation du mode standard');
-            root.innerHTML = '';
-            root.appendChild(createApp());
-            return;
-          }
-          
-          // Créer une racine React
-          const reactRoot = ReactDOM.createRoot(root);
-          
-          // Rendre la page d'accueil hybride
-          reactRoot.render(
-            React.createElement(window.FloDrama.HybridHomePage)
-          );
-          
-          console.log('Page d\'accueil hybride FloDrama initialisée avec succès');
-        } catch (error) {
-          console.error('Erreur lors de l\'initialisation du mode hybride:', error);
-          // Fallback sur le mode standard
-          const root = document.getElementById('root');
-          root.innerHTML = '';
-          root.appendChild(createApp());
-        }
-      };
-      
-      // Vérifier si le système hybride est disponible
-      if (useHybridMode) {
-        checkHybridSystem();
-      } else {
-        // Utiliser l'interface standard
-        setTimeout(() => {
-          const root = document.getElementById('root');
-          root.innerHTML = '';
-          root.appendChild(createApp());
-        }, 1500);
+    // Données de démonstration
+    const dramaData = [
+      {
+        id: 1,
+        title: "Crash Landing on You",
+        year: 2019,
+        country: "Corée du Sud",
+        image: "images/posters/crash-landing-on-you.jpg",
+        fallbackImage: "images/posters/crash-landing-on-you-alt.jpg",
+        description: "Une héritière sud-coréenne atterrit accidentellement en Corée du Nord après un accident de parapente.",
+        isNew: true,
+        rating: 9.2,
+        genres: ["Romance", "Drame", "Comédie"]
+      },
+      {
+        id: 2,
+        title: "Goblin",
+        year: 2016,
+        country: "Corée du Sud",
+        image: "https://m.media-amazon.com/images/M/MV5BZTg0YmQxZTgtMzgwYi00N2NhLTlkMWYtOWYwNDA1YjkxMmViL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMzE4MDkyNTA@._V1_FMjpg_UX1000_.jpg",
+        fallbackImage: "https://upload.wikimedia.org/wikipedia/en/6/69/Goblin_poster.jpg",
+        description: "Un goblin immortel cherche sa fiancée pour mettre fin à sa vie éternelle.",
+        isNew: false,
+        rating: 8.9,
+        genres: ["Fantastique", "Romance", "Drame"]
+      },
+      {
+        id: 3,
+        title: "Itaewon Class",
+        year: 2020,
+        country: "Corée du Sud",
+        image: "https://fr.web.img6.acsta.net/pictures/20/01/31/09/48/0616342.jpg",
+        fallbackImage: "https://upload.wikimedia.org/wikipedia/en/8/8b/Itaewon_Class.jpg",
+        description: "Un ex-détenu et ses amis luttent pour réussir dans le quartier d'Itaewon.",
+        isNew: true,
+        rating: 8.5,
+        genres: ["Drame", "Business"]
+      },
+      {
+        id: 4,
+        title: "Reply 1988",
+        year: 2015,
+        country: "Corée du Sud",
+        image: "https://m.media-amazon.com/images/M/MV5BZmI1ZGRhNDYtOGMwNS00MTNiLTg2ZWQtOTQzYjkzYzU2MDI3XkEyXkFqcGdeQXVyMzE4MDkyNTA@._V1_FMjpg_UX1000_.jpg",
+        fallbackImage: "https://upload.wikimedia.org/wikipedia/en/5/5a/Reply_1988_Poster.jpg",
+        description: "La vie quotidienne de cinq familles et leurs enfants dans un quartier de Séoul en 1988.",
+        isNew: false,
+        rating: 9.5,
+        genres: ["Comédie", "Drame", "Famille"]
+      },
+      {
+        id: 5,
+        title: "My Mister",
+        year: 2018,
+        country: "Corée du Sud",
+        image: "https://m.media-amazon.com/images/M/MV5BZTg1ZGEyMzctYjYxMS00NDk3LWJiZDQtMzE3ZWRkYjgwYTVhXkEyXkFqcGdeQXVyNDY5MjMyNTg@._V1_.jpg",
+        fallbackImage: "https://upload.wikimedia.org/wikipedia/en/7/7e/My_Mister_poster.jpg",
+        description: "L'histoire d'un homme dans la quarantaine et d'une jeune femme qui ont tous deux été blessés par la vie.",
+        isNew: false,
+        rating: 9.3,
+        genres: ["Drame", "Vie quotidienne"]
+      },
+      {
+        id: 6,
+        title: "Kingdom",
+        year: 2019,
+        country: "Corée du Sud",
+        image: "https://fr.web.img2.acsta.net/pictures/19/01/25/11/39/2348073.jpg",
+        fallbackImage: "https://upload.wikimedia.org/wikipedia/en/0/0c/Kingdom_TV_series.jpg",
+        description: "Dans la Corée médiévale, un prince héritier enquête sur une mystérieuse épidémie.",
+        isNew: true,
+        rating: 8.8,
+        genres: ["Historique", "Horreur", "Action"]
       }
-    });
-  </script>
-
-  <!-- Script de l'application standard (fallback) -->
-  <script>
+    ];
+    
+    // Catégories de navigation
+    const categories = [
+      { id: 'home', name: 'Accueil', active: true },
+      { id: 'dramas', name: 'Dramas', active: false },
+      { id: 'films', name: 'Films', active: false },
+      { id: 'nouveautes', name: 'Nouveautés', active: false },
+      { id: 'ma-liste', name: 'Ma Liste', active: false }
+    ];
+    
+    // Fonction pour créer l'application
     function createApp() {
-      // Utiliser les données locales au lieu d'essayer de charger depuis des APIs
-      const featuredContent = LOCAL_CONTENT.featuredContent;
-      const dramasList = LOCAL_CONTENT.dramasList;
-      const moviesList = LOCAL_CONTENT.moviesList;
-      
       // Créer la structure de l'application
       const appContainer = document.createElement('div');
       appContainer.className = 'app-container';
@@ -801,7 +805,7 @@
       popularGrid.className = 'card-grid';
       
       // Créer une carte pour chaque drama
-      dramasList.forEach(drama => {
+      dramaData.forEach(drama => {
         const card = document.createElement('div');
         card.className = 'card fade-in';
         
@@ -810,8 +814,11 @@
         
         const cardImage = document.createElement('img');
         cardImage.className = 'card-image';
-        cardImage.src = drama.image || getOptimizedImageUrl(`images/posters/${drama.id}.jpg`);
+        cardImage.setAttribute('data-original-src', drama.image);
         cardImage.alt = drama.title;
+        
+        // Utiliser notre système de gestion d'images avec fallback
+        loadImage(drama.image, cardImage, drama.title);
         
         cardImageContainer.appendChild(cardImage);
         
@@ -841,6 +848,18 @@
         
         cardContent.appendChild(cardTitle);
         cardContent.appendChild(cardInfo);
+        
+        // Ajouter les genres
+        if (drama.genres && drama.genres.length > 0) {
+          const cardGenres = document.createElement('div');
+          cardGenres.className = 'card-genres';
+          cardGenres.style.fontSize = '0.7rem';
+          cardGenres.style.marginTop = '0.5rem';
+          cardGenres.style.opacity = '0.7';
+          cardGenres.textContent = drama.genres.join(' • ');
+          
+          cardContent.appendChild(cardGenres);
+        }
         
         cardOverlay.appendChild(cardContent);
         
@@ -915,6 +934,22 @@
       return appContainer;
     }
     
-    // Ne pas initialiser l'application ici, car elle sera initialisée par le script ci-dessus
+    // Initialiser l'application après le chargement de la page
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const root = document.getElementById('root');
+        root.innerHTML = '';
+        root.appendChild(createApp());
+        
+        // Animation d'entrée pour les éléments
+        const fadeElements = document.querySelectorAll('.fade-in');
+        fadeElements.forEach((el, index) => {
+          el.style.opacity = '0';
+          setTimeout(() => {
+            el.style.opacity = '1';
+          }, 100 * index);
+        });
+      }, 1500); // Afficher le loader pendant 1.5 secondes
+    });
   </script>
 </body></html>

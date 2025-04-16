@@ -4,36 +4,11 @@
  * sur GitHub Pages et autres plateformes de déploiement
  */
 
-// Importations dynamiques pour éviter les problèmes de résolution de chemins
-let React, ReactDOM, App, AppErrorBoundary, localImageFallback, cacheManager, initPWA;
+// Importation du système centralisé de gestion des modules
+import { initializeModules, resolveModulePath } from './config/moduleImports.js';
 
-// Fonction pour résoudre les chemins relatifs
-function resolveModulePath(path) {
-  // Si nous sommes dans un navigateur et que la fonction resolveAssetPath est disponible
-  if (typeof window !== 'undefined' && typeof window.resolveAssetPath === 'function') {
-    return window.resolveAssetPath(path);
-  }
-  
-  // Fallback simple
-  const isGitHubPages = typeof window !== 'undefined' && 
-    window.location.hostname !== 'localhost' && 
-    window.location.hostname !== '127.0.0.1';
-  
-  const baseUrl = isGitHubPages ? '/FloDrama/' : '/';
-  
-  // Si le chemin commence déjà par la base URL, ne pas l'ajouter à nouveau
-  if (path.startsWith(baseUrl)) {
-    return path;
-  }
-  
-  // Si le chemin commence par '/', le traiter comme relatif à la racine
-  if (path.startsWith('/')) {
-    return baseUrl + path.substring(1);
-  }
-  
-  // Sinon, traiter comme relatif au répertoire courant
-  return path;
-}
+// Déclaration des variables globales pour les modules
+let React, ReactDOM;
 
 /**
  * Fonction pour vérifier si React est correctement chargé
@@ -54,7 +29,7 @@ function isReactAvailable() {
  * - Nettoie le cache si nécessaire
  * - Initialise la PWA
  */
-function initializeUtilities() {
+async function initializeUtilities() {
   console.log('Initialisation des utilitaires FloDrama...');
   
   // Définir la fonction de résolution des chemins d'assets si elle n'existe pas déjà
@@ -62,22 +37,34 @@ function initializeUtilities() {
     window.resolveAssetPath = resolveModulePath;
   }
   
+  // Récupération des modules nécessaires depuis l'objet global
+  const { 
+    LocalImageFallback, 
+    CacheManager, 
+    PWAInit,
+    HybridContentService 
+  } = window.FloDrama || {};
+  
   // Initialiser les placeholders pour les images
   try {
-    localImageFallback.createPlaceholders();
-    console.log('Placeholders d\'images initialisés');
+    if (LocalImageFallback && typeof LocalImageFallback.createPlaceholders === 'function') {
+      LocalImageFallback.createPlaceholders();
+      console.log('Placeholders d\'images initialisés');
+    }
   } catch (error) {
     console.warn('Erreur lors de l\'initialisation des placeholders d\'images:', error);
   }
   
   // Vérifier et nettoyer le cache si nécessaire
   try {
-    const cacheSize = localStorage.length;
-    console.log(`Taille actuelle du cache: ${cacheSize} entrées`);
-    if (cacheSize > 100) {
-      console.log('Nettoyage du cache...');
-      cacheManager.cleanCache();
-      console.log('Cache nettoyé avec succès');
+    if (CacheManager && typeof CacheManager.cleanCache === 'function') {
+      const cacheSize = localStorage.length;
+      console.log(`Taille actuelle du cache: ${cacheSize} entrées`);
+      if (cacheSize > 100) {
+        console.log('Nettoyage du cache...');
+        CacheManager.cleanCache();
+        console.log('Cache nettoyé avec succès');
+      }
     }
   } catch (error) {
     console.warn('Erreur lors de la vérification du cache:', error);
@@ -85,10 +72,29 @@ function initializeUtilities() {
   
   // Initialiser la PWA
   try {
-    initPWA();
-    console.log('PWA initialisée avec succès');
+    if (PWAInit && typeof PWAInit === 'function') {
+      PWAInit();
+      console.log('PWA initialisée avec succès');
+    }
   } catch (error) {
     console.warn('Erreur lors de l\'initialisation de la PWA:', error);
+  }
+  
+  // Initialiser le service de contenu hybride
+  try {
+    if (HybridContentService && typeof HybridContentService.getPopularContent === 'function') {
+      console.log('Initialisation du service de contenu hybride...');
+      // Précharger certaines données populaires pour accélérer l'affichage initial
+      HybridContentService.getPopularContent()
+        .then(content => {
+          console.log(`Service hybride initialisé - ${content.length} éléments préchargés`);
+        })
+        .catch(error => {
+          console.warn('Erreur lors du préchargement des contenus:', error);
+        });
+    }
+  } catch (error) {
+    console.warn('Erreur lors de l\'initialisation du service hybride:', error);
   }
   
   // Ajouter un timestamp aux logs pour le débogage
@@ -106,129 +112,80 @@ function initializeApp() {
     // Initialiser les utilitaires
     initializeUtilities();
     
-    // Vérification de l'élément racine
-    const rootElement = document.getElementById('root');
-    if (!rootElement) {
-      throw new Error("Élément racine 'root' non trouvé dans le DOM");
-    }
-    
-    // Vérification de ReactDOM
-    if (typeof ReactDOM === 'undefined' || !ReactDOM.createRoot) {
-      throw new Error("ReactDOM n'est pas disponible ou ne contient pas createRoot");
-    }
-    
-    // Création de la racine React
-    const root = ReactDOM.createRoot(rootElement);
-    
-    // Rendu de l'application avec ErrorBoundary
-    root.render(
-      React.createElement(
-        React.StrictMode,
-        null,
-        React.createElement(
-          AppErrorBoundary,
-          null,
-          React.createElement(App, null)
-        )
-      )
-    );
-    
-    // Signaler que l'application est chargée pour masquer le preloader
-    if (typeof window.removePreloader === 'function') {
-      window.removePreloader();
-    } else {
-      // Fallback si la fonction n'est pas disponible
-      const preloader = document.querySelector('.preloader');
-      if (preloader) {
-        preloader.style.opacity = '0';
-        setTimeout(() => {
-          try {
-            preloader.remove();
-          } catch (e) {
-            console.warn('Erreur lors de la suppression du preloader:', e);
-          }
-        }, 500);
-      }
-    }
-    
     // Précharger les images importantes
     preloadImportantImages();
     
-    console.log('FloDrama initialisé avec succès');
-  } catch (error) {
-    console.error('Erreur critique lors de l\'initialisation de FloDrama:', error);
-    
-    // Afficher un message d'erreur convivial
-    const rootElement = document.getElementById('root');
-    if (rootElement) {
-      rootElement.innerHTML = `
-        <div style="
-          font-family: 'SF Pro Display', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-          color: white;
-          background-color: #121118;
-          padding: 20px;
-          border-radius: 8px;
-          margin: 50px auto;
-          max-width: 500px;
-          text-align: center;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        ">
-          <div style="
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            background: linear-gradient(to right, #3b82f6, #d946ef);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-          ">FD</div>
-          <h2 style="
-            margin-top: 0;
-            font-size: 28px;
-            background: linear-gradient(to right, #3b82f6, #d946ef);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-          ">Erreur d'initialisation</h2>
-          <p>Une erreur est survenue lors de l'initialisation de FloDrama.</p>
-          <p style="
-            font-family: monospace;
-            background: rgba(0,0,0,0.2);
-            padding: 10px;
-            border-radius: 4px;
-            text-align: left;
-            overflow-wrap: break-word;
-          ">
-            ${error.message}
-          </p>
-          <p>Veuillez vérifier votre connexion internet et rafraîchir la page.</p>
-          <button onclick="window.location.reload()" style="
-            background: linear-gradient(to right, #3b82f6, #d946ef);
-            border: none;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 24px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-          " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 15px rgba(217, 70, 239, 0.4)';" 
-             onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-            Rafraîchir la page
-          </button>
-        </div>
-      `;
-      
-      // Masquer le preloader si présent
-      const preloader = document.querySelector('.preloader');
-      if (preloader) {
-        preloader.style.display = 'none';
-      }
+    // Si nous ne sommes pas dans un environnement avec React, ne pas essayer le rendu
+    if (!isReactAvailable()) {
+      console.log('React n\'est pas disponible, FloDrama fonctionnera en mode compatible HTML');
+      return;
     }
+    
+    console.log('React détecté, initialisation du rendu React');
+    
+    // Trouver l'élément racine
+    const rootElement = document.getElementById('root');
+    if (!rootElement) {
+      console.error('Élément racine `root` introuvable dans le DOM');
+      return;
+    }
+    
+    // Vérifier si ReactDOM a la méthode createRoot (React 18+)
+    if (typeof ReactDOM.createRoot === 'function') {
+      console.log('Utilisation de ReactDOM.createRoot (React 18+)');
+      
+      // Créer la racine React et rendre l'application
+      const root = ReactDOM.createRoot(rootElement);
+      
+      // Utiliser AppErrorBoundary si disponible
+      if (window.FloDrama && window.FloDrama.AppErrorBoundary) {
+        root.render(
+          React.createElement(
+            window.FloDrama.AppErrorBoundary,
+            null,
+            React.createElement(window.FloDrama.HybridHomePage || window.FloDrama.App)
+          )
+        );
+      } else {
+        // Fallback direct sur HybridHomePage ou App
+        const MainComponent = window.FloDrama && (window.FloDrama.HybridHomePage || window.FloDrama.App);
+        if (MainComponent) {
+          root.render(React.createElement(MainComponent));
+        } else {
+          console.error('Aucun composant principal trouvé pour le rendu');
+        }
+      }
+    } else if (typeof ReactDOM.render === 'function') {
+      // Fallback pour React 17 et versions antérieures
+      console.log('Fallback sur ReactDOM.render (React < 18)');
+      
+      // Utiliser AppErrorBoundary si disponible
+      if (window.FloDrama && window.FloDrama.AppErrorBoundary) {
+        ReactDOM.render(
+          React.createElement(
+            window.FloDrama.AppErrorBoundary,
+            null,
+            React.createElement(window.FloDrama.HybridHomePage || window.FloDrama.App)
+          ),
+          rootElement
+        );
+      } else {
+        // Fallback direct sur HybridHomePage ou App
+        const MainComponent = window.FloDrama && (window.FloDrama.HybridHomePage || window.FloDrama.App);
+        if (MainComponent) {
+          ReactDOM.render(React.createElement(MainComponent), rootElement);
+        } else {
+          console.error('Aucun composant principal trouvé pour le rendu');
+        }
+      }
+    } else {
+      console.error('ReactDOM ne possède pas de méthode de rendu compatible');
+    }
+    
+    console.log('Rendu React initialisé avec succès');
+  } catch (error) {
+    console.error('Erreur lors de l\'initialisation de l\'application:', error);
+    displayErrorScreen(error);
   }
 }
 
@@ -236,138 +193,194 @@ function initializeApp() {
  * Précharge les images importantes pour améliorer l'expérience utilisateur
  */
 function preloadImportantImages() {
-  try {
-    // Liste des images importantes à précharger
-    const importantImages = [
-      '/assets/images/logo.png',
-      '/assets/images/background.jpg',
-      '/assets/icons/play.svg',
-      '/assets/icons/pause.svg',
-      '/assets/icons/fullscreen.svg'
-    ];
+  // Liste des images importantes à précharger
+  const importantImages = [
+    'assets/images/posters/solo-leveling.svg',
+    'assets/images/posters/queen-of-tears.svg',
+    'assets/images/posters/parasite.svg',
+    'assets/images/posters/crash-landing-on-you.svg',
+    'assets/images/posters/itaewon-class.svg',
+    'assets/images/posters/goblin.svg'
+  ];
+  
+  console.log(`Préchargement de ${importantImages.length} images importantes...`);
+  
+  // Précharger chaque image
+  importantImages.forEach(imagePath => {
+    const img = new Image();
+    img.src = resolveModulePath(imagePath);
     
-    // Précharger chaque image
-    importantImages.forEach(imageUrl => {
-      cacheManager.preloadImage(imageUrl)
-        .then(() => console.log(`Image préchargée avec succès: ${imageUrl}`))
-        .catch(error => console.warn(`Échec du préchargement de l'image: ${imageUrl}`, error));
-    });
-  } catch (error) {
-    console.warn('Erreur lors du préchargement des images:', error);
-  }
+    // Ajouter des gestionnaires d'événements
+    img.onload = () => {
+      console.log(`Image préchargée avec succès: ${imagePath}`);
+    };
+    
+    img.onerror = () => {
+      console.warn(`Erreur lors du préchargement de l'image: ${imagePath}`);
+    };
+  });
 }
 
-// Chargement dynamique des modules
-async function loadModules() {
-  try {
-    console.log('Chargement des modules FloDrama...');
-    
-    // Importer React et ReactDOM depuis l'importmap
-    React = await import('react').then(m => m.default);
-    ReactDOM = await import('react-dom/client').then(m => m.default);
-    
-    // Importer les modules locaux avec résolution de chemin
-    const appPath = resolveModulePath('./App.js');
-    console.log('Chargement de App depuis:', appPath);
-    App = await import(appPath).then(m => m.default);
-    
-    const errorBoundaryPath = resolveModulePath('./components/AppErrorBoundary.js');
-    console.log('Chargement de AppErrorBoundary depuis:', errorBoundaryPath);
-    AppErrorBoundary = await import(errorBoundaryPath).then(m => m.default);
-    
-    const localImageFallbackPath = resolveModulePath('./utils/localImageFallback.js');
-    console.log('Chargement de localImageFallback depuis:', localImageFallbackPath);
-    localImageFallback = await import(localImageFallbackPath).then(m => m.default);
-    
-    const cacheManagerPath = resolveModulePath('./utils/cacheManager.js');
-    console.log('Chargement de cacheManager depuis:', cacheManagerPath);
-    cacheManager = await import(cacheManagerPath).then(m => m.default);
-    
-    const pwaPath = resolveModulePath('./pwa.js');
-    console.log('Chargement de pwa depuis:', pwaPath);
-    const pwaModule = await import(pwaPath);
-    initPWA = pwaModule.initPWA;
-    
-    console.log('Tous les modules ont été chargés avec succès');
-    
-    // Vérification de la disponibilité de React
-    if (isReactAvailable()) {
-      console.log('React détecté, initialisation normale');
-      initializeApp();
-    } else {
-      console.error('React n\'est pas disponible après le chargement dynamique');
-      throw new Error('React n\'est pas disponible après le chargement dynamique');
-    }
-  } catch (error) {
-    console.error('Erreur lors du chargement des modules:', error);
-    
-    // Afficher un message d'erreur convivial
-    const rootElement = document.getElementById('root');
-    if (rootElement) {
-      rootElement.innerHTML = `
+/**
+ * Affiche un écran d'erreur personnalisé
+ * @param {Error} error - L'erreur à afficher
+ */
+function displayErrorScreen(error) {
+  const rootElement = document.getElementById('root');
+  if (rootElement) {
+    rootElement.innerHTML = `
+      <div style="
+        font-family: 'SF Pro Display', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        color: white;
+        background-color: #121118;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 50px auto;
+        max-width: 500px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      ">
         <div style="
-          font-family: 'SF Pro Display', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-          color: white;
-          background-color: #121118;
-          padding: 20px;
+          width: 80px;
+          height: 80px;
+          margin: 0 auto 20px;
+          background: linear-gradient(to right, #3b82f6, #d946ef);
           border-radius: 8px;
-          margin: 50px auto;
-          max-width: 500px;
-          text-align: center;
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 24px;
+          font-weight: bold;
+          color: white;
+        ">FD</div>
+        <h2 style="
+          margin-top: 0;
+          font-size: 28px;
+          background: linear-gradient(to right, #3b82f6, #d946ef);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        ">Erreur de chargement</h2>
+        <p>Impossible de charger les modules nécessaires pour FloDrama.</p>
+        <p style="
+          font-family: monospace;
+          background: rgba(0,0,0,0.2);
+          padding: 10px;
+          border-radius: 4px;
+          text-align: left;
+          overflow-wrap: break-word;
         ">
-          <div style="
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            background: linear-gradient(to right, #3b82f6, #d946ef);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-          ">FD</div>
-          <h2 style="
-            margin-top: 0;
-            font-size: 28px;
-            background: linear-gradient(to right, #3b82f6, #d946ef);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-          ">Erreur de chargement</h2>
-          <p>Impossible de charger les modules nécessaires pour FloDrama.</p>
-          <p style="
-            font-family: monospace;
-            background: rgba(0,0,0,0.2);
-            padding: 10px;
-            border-radius: 4px;
-            text-align: left;
-            overflow-wrap: break-word;
-          ">
-            ${error.message}
-          </p>
-          <p>Veuillez vérifier votre connexion internet et rafraîchir la page.</p>
-          <button onclick="window.location.reload()" style="
-            background: linear-gradient(to right, #3b82f6, #d946ef);
-            border: none;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 24px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-          " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 15px rgba(217, 70, 239, 0.4)';" 
-             onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-            Rafraîchir la page
-          </button>
-        </div>
-      `;
+          ${error.message}
+        </p>
+        <p>Veuillez vérifier votre connexion internet et rafraîchir la page.</p>
+        <button onclick="window.location.reload()" style="
+          background: linear-gradient(to right, #3b82f6, #d946ef);
+          border: none;
+          color: white;
+          padding: 12px 24px;
+          border-radius: 24px;
+          cursor: pointer;
+          font-weight: bold;
+          margin-top: 20px;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 15px rgba(217, 70, 239, 0.4)';" 
+           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+          Rafraîchir la page
+        </button>
+      </div>
+    `;
+  }
+}
+
+/**
+ * Charge les modules React depuis un CDN ou en local
+ */
+async function loadReactModules() {
+  console.log('Chargement des modules React...');
+  
+  // Essayer de charger React depuis des CDN
+  const cdnUrls = {
+    react: 'https://unpkg.com/react@18/umd/react.production.min.js',
+    reactDOM: 'https://unpkg.com/react-dom@18/umd/react-dom.production.min.js'
+  };
+  
+  // Fonction pour charger un script
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.async = true;
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error(`Impossible de charger le script: ${src}`));
+      document.head.appendChild(script);
+    });
+  }
+  
+  try {
+    // Charger React et ReactDOM depuis les CDN
+    await Promise.all([
+      loadScript(cdnUrls.react),
+      loadScript(cdnUrls.reactDOM)
+    ]);
+    
+    // Vérifier si React est maintenant disponible
+    if (typeof window.React !== 'undefined' && typeof window.ReactDOM !== 'undefined') {
+      React = window.React;
+      ReactDOM = window.ReactDOM;
+      console.log('React chargé avec succès depuis les CDN');
+      return true;
+    } else {
+      throw new Error('React n\'est pas disponible après le chargement des CDN');
+    }
+  } catch (error) {
+    console.warn('Erreur lors du chargement de React depuis les CDN:', error);
+    console.log('Tentative de chargement de React depuis les modules locaux...');
+    
+    try {
+      // Essayer de charger React depuis les modules locaux
+      const reactModule = await import('react');
+      const reactDOMModule = await import('react-dom');
+      
+      React = reactModule.default || reactModule;
+      ReactDOM = reactDOMModule.default || reactDOMModule;
+      
+      console.log('React chargé avec succès depuis les modules locaux');
+      return true;
+    } catch (moduleError) {
+      console.error('Impossible de charger React:', moduleError);
+      return false;
     }
   }
 }
 
-// Démarrer le chargement des modules
-loadModules();
+/**
+ * Initialisation de l'application
+ */
+async function startApplication() {
+  try {
+    console.log('Démarrage de FloDrama...');
+    
+    // Étape 1: Charger React
+    const reactLoaded = await loadReactModules();
+    if (!reactLoaded) {
+      throw new Error('Impossible de charger React. Veuillez vérifier votre connexion internet.');
+    }
+    
+    // Étape 2: Initialiser les modules de l'application
+    const modulesInitialized = await initializeModules();
+    if (!modulesInitialized) {
+      throw new Error('Erreur lors de l\'initialisation des modules FloDrama.');
+    }
+    
+    // Étape 3: Initialiser l'application
+    initializeApp();
+    
+    console.log('FloDrama démarré avec succès');
+  } catch (error) {
+    console.error('Erreur lors du démarrage de FloDrama:', error);
+    displayErrorScreen(error);
+  }
+}
+
+// Démarrer l'application
+startApplication();
