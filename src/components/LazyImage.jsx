@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useLazyLoading } from '../hooks/useLazyLoading';
 import cacheManager from '../utils/cacheManager';
 import { getImageUrl } from '../utils/assetUtils';
+import localImageFallback from '../utils/localImageFallback';
 
 /**
  * Composant LazyImage optimisé pour FloDrama
@@ -33,9 +34,15 @@ const LazyImage = ({
   
   // Résoudre les URLs des images
   useEffect(() => {
-    // Résoudre l'URL de l'image principale
-    const resolvedSrc = src.startsWith('http') ? src : getImageUrl(src);
-    setImageSrc(resolvedSrc);
+    // Vérifier si l'URL est problématique et la remplacer si nécessaire
+    if (src.startsWith('http')) {
+      const { src: checkedSrc } = localImageFallback.localImageFallback(src, { type: 'poster' });
+      setImageSrc(checkedSrc);
+    } else {
+      // Résoudre l'URL de l'image principale
+      const resolvedSrc = getImageUrl(src);
+      setImageSrc(resolvedSrc);
+    }
     
     // Vérifier si l'image est en cache
     if (cacheKey) {
@@ -65,7 +72,15 @@ const LazyImage = ({
     console.warn(`Erreur de chargement de l'image: ${imageSrc}`);
     setHasError(true);
     
-    // Utiliser l'image de secours
+    // Utiliser le système de fallback amélioré
+    const localImage = localImageFallback.findLocalImageForUrl(imageSrc);
+    if (localImage) {
+      console.log(`Utilisation de l'image locale pour: ${imageSrc} -> ${localImage}`);
+      setImageSrc(localImage);
+      return;
+    }
+    
+    // Sinon, utiliser l'image de secours standard
     if (fallbackSrc) {
       const resolvedFallback = fallbackSrc.startsWith('http') ? fallbackSrc : getImageUrl(fallbackSrc);
       setImageSrc(resolvedFallback);
@@ -152,6 +167,7 @@ const LazyImage = ({
           onLoad={handleLoad}
           onError={handleError}
           loading="lazy"
+          data-original-src={src} // Stocker l'URL originale pour le fallback
           style={{
             width: '100%',
             height: '100%',

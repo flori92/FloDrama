@@ -14,6 +14,129 @@
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   
+  <!-- Script de gestion des images avec fallback -->
+  <script>
+    // Configuration du CDN dans votre application
+    const cdnConfig = {
+      // Utiliser CloudFront comme CDN principal
+      baseUrl: 'https://d2ajqn0zkhdqop.cloudfront.net/',
+      // Fallback vers votre bucket S3 si CloudFront est indisponible
+      fallbackUrl: 'https://flodrama-assets.s3.eu-west-3.amazonaws.com/',
+      // Domaine GitHub Pages comme solution de secours finale
+      githubUrl: 'https://votrecompte.github.io/flodrama/images/'
+    };
+
+    // Mapping des URLs problématiques vers des images locales
+    const problematicUrlPatterns = [
+      // Amazon Media
+      { pattern: /m\.media-amazon\.com\/images\/M\//, replacement: '/assets/posters/' },
+      // Allocine
+      { pattern: /fr\.web\.img[0-9]\.acsta\.net\/pictures\//, replacement: '/assets/posters/' },
+      // Placeholder.com
+      { pattern: /via\.placeholder\.com\/[0-9]+x[0-9]+\//, replacement: '/assets/posters/' },
+      // KultScene
+      { pattern: /kultscene\.com\/wp-content\/uploads\//, replacement: '/assets/posters/' },
+      // Fallback général pour toute URL externe
+      { pattern: /^https?:\/\//, replacement: '/assets/posters/' }
+    ];
+
+    // Liste des posters locaux disponibles pour le fallback
+    const localPosters = [
+      'parasite.jpg',
+      'squid-game.jpg',
+      'minari.jpg',
+      'burning.jpg',
+      'train-to-busan.jpg',
+      'oldboy.jpg',
+      'the-handmaiden.jpg',
+      'snowpiercer.jpg',
+      'memories-of-murder.jpg',
+      'mother.jpg'
+    ];
+    
+    // Fonction pour vérifier si une URL est problématique et la remplacer si nécessaire
+    function checkAndReplaceProblematicUrl(url) {
+      if (!url) return url;
+      
+      // Vérifier si l'URL correspond à un pattern problématique
+      for (const { pattern, replacement } of problematicUrlPatterns) {
+        if (pattern.test(url)) {
+          // Si c'est un placeholder avec text=, extraire le titre
+          if (url.includes('placeholder.com') && url.includes('text=')) {
+            const textMatch = url.match(/text=([^&]+)/);
+            if (textMatch && textMatch[1]) {
+              const title = decodeURIComponent(textMatch[1]).toLowerCase().replace(/\s+/g, '-');
+              return `${replacement}${title}.jpg`;
+            }
+          }
+          
+          // Sélectionner une image locale aléatoire
+          const randomIndex = Math.floor(Math.random() * localPosters.length);
+          return `${replacement}${localPosters[randomIndex]}`;
+        }
+      }
+      
+      return url;
+    }
+    
+    // Fonction pour charger une image avec gestion des erreurs
+    function loadImage(url, imgElement, alt = '') {
+      if (!url || !imgElement) return;
+      
+      // Vérifier si l'URL est problématique et la remplacer si nécessaire
+      const checkedUrl = checkAndReplaceProblematicUrl(url);
+      
+      // Précharger l'image pour vérifier si elle est accessible
+      const preloadImg = new Image();
+      preloadImg.onload = function() {
+        // L'image a été chargée avec succès
+        imgElement.src = checkedUrl;
+        imgElement.alt = alt;
+        imgElement.classList.add('loaded');
+      };
+      
+      preloadImg.onerror = function() {
+        console.error(`Erreur de chargement de l'image: ${checkedUrl}`);
+        
+        // Essayer avec un fallback local
+        const fallbackImg = new Image();
+        fallbackImg.onload = function() {
+          imgElement.src = fallbackImg.src;
+          imgElement.alt = alt;
+          imgElement.classList.add('loaded');
+          imgElement.classList.add('fallback');
+        };
+        
+        fallbackImg.onerror = function() {
+          // Si le fallback échoue aussi, utiliser un dégradé CSS
+          imgElement.style.background = 'linear-gradient(135deg, #3b82f6, #d946ef)';
+          imgElement.alt = alt;
+          imgElement.classList.add('fallback');
+          imgElement.classList.add('gradient-fallback');
+        };
+        
+        // Essayer avec une image locale aléatoire
+        const randomIndex = Math.floor(Math.random() * localPosters.length);
+        fallbackImg.src = `/assets/posters/${localPosters[randomIndex]}`;
+      };
+      
+      // Démarrer le chargement
+      preloadImg.src = checkedUrl;
+    }
+    
+    // Fonction pour résoudre les chemins d'accès aux ressources
+    function resolveAssetPath(path) {
+      // Nettoyer le chemin d'entrée
+      const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+      return cleanPath;
+    }
+    
+    // Exposer les fonctions pour qu'elles soient accessibles globalement
+    window.resolveAssetPath = resolveAssetPath;
+    window.loadImage = loadImage;
+    window.checkAndReplaceProblematicUrl = checkAndReplaceProblematicUrl;
+  </script>
+  
   <style>
     body, html {
       margin: 0;
@@ -476,6 +599,9 @@
       opacity: 0;
     }
   </style>
+  <link rel="preload" href="images/posters/crash-landing-on-you.jpg" as="image">
+  <link rel="preload" href="images/posters/goblin.jpg" as="image">
+  <link rel="preload" href="images/posters/itaewon-class.jpg" as="image">
 </head>
 <body>
   <div id="root">
@@ -506,8 +632,8 @@
         title: "Crash Landing on You",
         year: 2019,
         country: "Corée du Sud",
-        image: "https://m.media-amazon.com/images/M/MV5BMzRiZWUyN2YtNDI4YS00NTg2LTg0OTgtMGI2ZjU4ODQ4Yjk3XkEyXkFqcGdeQXVyNTI5NjIyMw@@._V1_.jpg",
-        fallbackImage: "https://i0.wp.com/kultscene.com/wp-content/uploads/2019/12/Crash-Landing-On-You-Main-Poster.jpg",
+        image: "images/posters/crash-landing-on-you.jpg",
+        fallbackImage: "images/posters/crash-landing-on-you-alt.jpg",
         description: "Une héritière sud-coréenne atterrit accidentellement en Corée du Nord après un accident de parapente.",
         isNew: true,
         rating: 9.2,
@@ -584,124 +710,8 @@
       { id: 'ma-liste', name: 'Ma Liste', active: false }
     ];
     
-    // Implémentation du lazy loading des images
-    class LazyImageLoader {
-      constructor() {
-        this.images = [];
-        this.observer = null;
-        this.initObserver();
-      }
-      
-      initObserver() {
-        // Options pour l'Intersection Observer
-        const options = {
-          rootMargin: '200px',
-          threshold: 0.1
-        };
-        
-        // Créer l'observer
-        this.observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              this.loadImage(entry.target);
-              this.observer.unobserve(entry.target);
-            }
-          });
-        }, options);
-      }
-      
-      // Ajouter une image à observer
-      observe(imageContainer) {
-        if (!imageContainer) return;
-        this.observer.observe(imageContainer);
-        this.images.push(imageContainer);
-      }
-      
-      // Charger l'image lorsqu'elle est visible
-      loadImage(container) {
-        const img = container.querySelector('.lazy-image');
-        const placeholder = container.querySelector('.lazy-image-placeholder');
-        
-        if (!img) return;
-        
-        // Charger l'image
-        const src = img.getAttribute('data-src');
-        if (src) {
-          // Précharger l'image pour vérifier si elle existe
-          const preloadImg = new Image();
-          preloadImg.onload = () => {
-            img.src = src;
-            img.classList.add('loaded');
-            if (placeholder) {
-              setTimeout(() => {
-                placeholder.style.opacity = '0';
-              }, 100);
-            }
-          };
-          
-          preloadImg.onerror = () => {
-            console.warn(`Erreur de chargement de l'image: ${src}`);
-            const fallbackSrc = img.getAttribute('data-fallback') || 'https://via.placeholder.com/300x450/1A1926/d946ef?text=FloDrama';
-            
-            // Essayer de charger l'image de secours
-            const fallbackImg = new Image();
-            fallbackImg.onload = () => {
-              img.src = fallbackSrc;
-              img.classList.add('loaded');
-              if (placeholder) {
-                setTimeout(() => {
-                  placeholder.style.opacity = '0';
-                }, 100);
-              }
-            };
-            
-            fallbackImg.onerror = () => {
-              // Si même l'image de secours échoue, utiliser un placeholder générique
-              img.src = `https://via.placeholder.com/300x450/1A1926/d946ef?text=${encodeURIComponent(img.alt || 'FloDrama')}`;
-              img.classList.add('loaded');
-              if (placeholder) {
-                setTimeout(() => {
-                  placeholder.style.opacity = '0';
-                }, 100);
-              }
-            };
-            
-            fallbackImg.src = fallbackSrc;
-          };
-          
-          // Ajouter un délai aléatoire pour éviter de charger toutes les images en même temps
-          setTimeout(() => {
-            preloadImg.src = src;
-          }, Math.random() * 300);
-        }
-      }
-    }
-    
-    // Fonction pour créer un élément d'image avec lazy loading
-    function createLazyImage(src, alt, fallbackSrc = 'https://via.placeholder.com/300x450/1A1926/d946ef?text=FloDrama') {
-      const container = document.createElement('div');
-      container.className = 'lazy-image-container';
-      
-      const img = document.createElement('img');
-      img.className = 'lazy-image';
-      img.setAttribute('data-src', src);
-      img.alt = alt || '';
-      img.setAttribute('data-fallback', fallbackSrc);
-      
-      const placeholder = document.createElement('div');
-      placeholder.className = 'lazy-image-placeholder';
-      
-      container.appendChild(img);
-      container.appendChild(placeholder);
-      
-      return container;
-    }
-    
     // Fonction pour créer l'application
     function createApp() {
-      // Initialiser le lazy loader
-      const lazyLoader = new LazyImageLoader();
-      
       // Créer la structure de l'application
       const appContainer = document.createElement('div');
       appContainer.className = 'app-container';
@@ -757,7 +767,7 @@
       
       const heroImage = document.createElement('img');
       heroImage.className = 'hero-image';
-      heroImage.src = 'https://i0.wp.com/kultscene.com/wp-content/uploads/2019/12/Crash-Landing-On-You-Main-Poster.jpg';
+      heroImage.src = 'images/crash-landing-on-you.jpg';
       heroImage.alt = 'Crash Landing on You';
       
       const heroContent = document.createElement('div');
@@ -794,27 +804,23 @@
       const popularGrid = document.createElement('div');
       popularGrid.className = 'card-grid';
       
-      // Ajouter les cartes de dramas avec lazy loading
-      dramaData.forEach((drama, index) => {
+      // Créer une carte pour chaque drama
+      dramaData.forEach(drama => {
         const card = document.createElement('div');
-        card.className = 'card';
-        card.style.animationDelay = `${0.1 * index}s`;
+        card.className = 'card fade-in';
         
         const cardImageContainer = document.createElement('div');
         cardImageContainer.className = 'card-image-container';
         
-        // Utiliser le lazy loading pour l'image
-        const lazyImageContainer = createLazyImage(
-          drama.image, 
-          drama.title,
-          drama.fallbackImage || 'https://via.placeholder.com/300x450/1A1926/d946ef?text=' + encodeURIComponent(drama.title)
-        );
-        cardImageContainer.appendChild(lazyImageContainer);
+        const cardImage = document.createElement('img');
+        cardImage.className = 'card-image';
+        cardImage.setAttribute('data-original-src', drama.image);
+        cardImage.alt = drama.title;
         
-        // Observer l'image pour le lazy loading
-        setTimeout(() => {
-          lazyLoader.observe(lazyImageContainer);
-        }, 100);
+        // Utiliser notre système de gestion d'images avec fallback
+        loadImage(drama.image, cardImage, drama.title);
+        
+        cardImageContainer.appendChild(cardImage);
         
         const cardOverlay = document.createElement('div');
         cardOverlay.className = 'card-overlay';
@@ -822,7 +828,7 @@
         const cardContent = document.createElement('div');
         cardContent.className = 'card-content';
         
-        const cardTitle = document.createElement('h4');
+        const cardTitle = document.createElement('div');
         cardTitle.className = 'card-title';
         cardTitle.textContent = drama.title;
         
