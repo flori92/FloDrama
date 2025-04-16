@@ -11,16 +11,10 @@ build
 coverage
 
 # Fichiers d'environnement
-.env
 .env.local
-.env.development
 .env.development.local
-.env.test
 .env.test.local
-.env.production
 .env.production.local
-Backend/.env*
-Frontend/.env*
 
 # Logs
 logs
@@ -49,29 +43,18 @@ lerna-debug.log*
 # Fichiers temporaires
 .temp
 .tmp
+.env*.local
 
 # Fichiers de sauvegarde volumineux
-backups/*.zip
-backups/*.tar.gz
-backups/**/*.zip
-backups/**/*.tar.gz
-*.zip
 *.tar.gz
+*.zip
+backups/
 
-# Dossiers spécifiques à exclure
-deploy_build/
+# Dossiers de build et dépendances
 node_modules/
+build/
 dist/
+coverage/
 .cache/
-.vercel/
-.netlify/
 
-# Fichiers générés automatiquement
-.netlify
-windsurf_deployment.yaml
-
-# Fichiers de données de test
-__mocks__
-__tests__
-*.test.js
-*.spec.js
+# Fichiers d'environnement

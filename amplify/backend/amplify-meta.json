@@ -1,0 +1,29 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-flodrama-dev-5ea7b-authRole",
+      "UnauthRoleArn": "arn:aws:iam::108782079729:role/amplify-flodrama-dev-5ea7b-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::108782079729:role/amplify-flodrama-dev-5ea7b-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-flodrama-dev-5ea7b-deployment",
+      "UnauthRoleName": "amplify-flodrama-dev-5ea7b-unauthRole",
+      "StackName": "amplify-flodrama-dev-5ea7b",
+      "StackId": "arn:aws:cloudformation:us-east-1:108782079729:stack/amplify-flodrama-dev-5ea7b/20479fd0-137d-11f0-86ed-1271428e233b",
+      "AmplifyAppId": "d3v3iochmt8wu6"
+    }
+  },
+  "hosting": {
+    "amplifyhosting": {
+      "service": "amplifyhosting",
+      "providerPlugin": "awscloudformation",
+      "type": "manual",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-flodrama-dev-5ea7b-deployment/amplify-cfn-templates/hosting/amplifyhosting-template.json",
+        "logicalId": "hostingamplifyhosting"
+      },
+      "lastPushTimeStamp": "2025-04-07T07:12:04.266Z",
+      "output": {},
+      "lastPushDirHash": "HKxJZMbuAN68FaCnW10bnroIqSc="
+    }
+  }
+}

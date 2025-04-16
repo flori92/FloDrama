@@ -1,5 +1,0 @@
-# Redirections pour FloDrama
-http://flodrama.com/* https://flodrama.com/:splat 301!
-http://www.flodrama.com/* https://flodrama.com/:splat 301!
-https://www.flodrama.com/* https://flodrama.com/:splat 301!
-/* /index.html 200
