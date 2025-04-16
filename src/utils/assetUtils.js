@@ -9,8 +9,17 @@
  * @returns {string} - URL complète de la ressource
  */
 export const getAssetPath = (path) => {
-  // Récupérer la base URL depuis les variables d'environnement
-  const baseUrl = import.meta.env.BASE_URL || '/';
+  // Utiliser la fonction resolveAssetPath définie dans index.html si disponible
+  if (typeof window !== 'undefined' && typeof window.resolveAssetPath === 'function') {
+    return window.resolveAssetPath(path);
+  }
+  
+  // Fallback si la fonction n'est pas disponible
+  const baseUrl = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.BASE_URL) 
+    ? import.meta.env.BASE_URL 
+    : (typeof window !== 'undefined' && window.BASE_URL) 
+      ? window.BASE_URL 
+      : '/';
   
   // Nettoyer le chemin d'entrée
   const cleanPath = path.startsWith('/') ? path.substring(1) : path;

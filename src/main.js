@@ -36,6 +36,18 @@ function isReactAvailable() {
 function initializeUtilities() {
   console.log('Initialisation des utilitaires FloDrama...');
   
+  // Définir la fonction de résolution des chemins d'assets si elle n'existe pas déjà
+  if (typeof window.resolveAssetPath !== 'function') {
+    window.resolveAssetPath = (path) => {
+      // Fallback simple si la fonction n'est pas définie dans index.html
+      const baseUrl = window.BASE_URL || '/';
+      if (path.startsWith('/')) {
+        return baseUrl + path.substring(1);
+      }
+      return path;
+    };
+  }
+  
   // Initialiser les placeholders pour les images
   try {
     localImageFallback.createPlaceholders();

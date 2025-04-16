@@ -7,8 +7,8 @@
   <title>FloDrama - Streaming de Dramas et Films Asiatiques</title>
   
   <!-- Chargement des styles CSS via des balises link -->
-  <link rel="stylesheet" href="/src/styles/globals.css">
-  <link rel="stylesheet" href="/src/styles/animations.css">
+  <link rel="stylesheet" href="./src/styles/globals.css">
+  <link rel="stylesheet" href="./src/styles/animations.css">
   
   <style>
     body, html {
@@ -93,8 +93,23 @@
   
   <!-- Configuration de base pour les chemins -->
   <script>
-    // Définir la base URL pour les imports
-    document.baseURI = window.location.origin + '/';
+    // Définir la base URL pour les imports en fonction de l'environnement
+    const isGitHubPages = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+    window.BASE_URL = isGitHubPages ? '/FloDrama/' : '/';
+    
+    // Fonction pour résoudre les chemins relatifs
+    window.resolveAssetPath = function(path) {
+      // Si le chemin commence déjà par la base URL, ne pas l'ajouter à nouveau
+      if (path.startsWith(window.BASE_URL)) {
+        return path;
+      }
+      // Si le chemin commence par '/', le traiter comme relatif à la racine
+      if (path.startsWith('/')) {
+        return window.BASE_URL + path.substring(1);
+      }
+      // Sinon, traiter comme relatif au répertoire courant
+      return path;
+    };
   </script>
   
   <!-- Importation explicite de React et ReactDOM avant le script principal -->
@@ -111,7 +126,10 @@
   <!-- Utilisation d'un fichier JS au lieu de JSX directement -->
   <script type="module">
     // Import dynamique pour éviter les problèmes de résolution de chemin
-    import('./src/main.js')
+    const mainPath = window.resolveAssetPath('./src/main.js');
+    console.log('Chargement du module principal depuis:', mainPath);
+    
+    import(mainPath)
       .catch(error => {
         console.error('Erreur lors du chargement du module principal:', error);
         document.getElementById('root').innerHTML = `
