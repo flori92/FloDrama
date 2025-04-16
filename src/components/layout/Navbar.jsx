@@ -31,12 +31,13 @@ const Navbar = () => {
   
   // Liens de navigation avec icônes
   const navLinks = [
-    { name: 'Accueil', path: '/home', icon: <Home size={16} /> },
-    { name: 'Dramas', path: '/category/dramas', icon: <Tv size={16} /> },
-    { name: 'Films', path: '/category/movies', icon: <Film size={16} /> },
-    { name: 'Anime', path: '/category/animes', icon: <Tv size={16} /> },
-    { name: 'Explorer', path: '/search', icon: <Search size={16} /> },
-    { name: 'Ma Liste', path: '/watchlist', icon: <Bookmark size={16} /> }
+    { name: 'Accueil', path: '/', icon: <Home size={16} /> },
+    { name: 'Dramas', path: '/dramas', icon: <Tv size={16} /> },
+    { name: 'Films', path: '/movies', icon: <Film size={16} /> },
+    { name: 'Bollywood', path: '/bollywood', icon: <Film size={16} /> },
+    { name: 'Anime', path: '/anime', icon: <Tv size={16} /> },
+    { name: 'Catégories', path: '/categories', icon: <Bookmark size={16} /> },
+    { name: 'App', path: '/app', icon: <Smartphone size={16} /> }
   ];
 
   // Liens du menu support

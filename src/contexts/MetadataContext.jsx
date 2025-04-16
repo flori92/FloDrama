@@ -1,5 +1,4 @@
-import React from 'react';
-const { createContext, useState, useContext, useEffect } = React;
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import { fetchAllItems, fetchPopularItems, fetchRecentItems, fetchItemsByType } from '../api/enhanced-metadata';
 
 /**

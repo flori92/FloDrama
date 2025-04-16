@@ -1,5 +1,4 @@
 {
-  "Comment": "Mise à jour des configurations DNS pour la migration vers GitHub Pages",
   "Changes": [
     {
       "Action": "DELETE",
@@ -14,9 +13,9 @@
       }
     },
     {
-      "Action": "DELETE",
+      "Action": "CREATE",
       "ResourceRecordSet": {
-        "Name": "dev.flodrama.com.",
+        "Name": "www.flodrama.com.",
         "Type": "CNAME",
         "TTL": 300,
         "ResourceRecords": [
@@ -27,15 +26,16 @@
       }
     },
     {
-      "Action": "DELETE",
+      "Action": "UPSERT",
       "ResourceRecordSet": {
-        "Name": "flodrama.com.",
-        "Type": "A",
-        "AliasTarget": {
-          "HostedZoneId": "Z2FDTNDATAQYW2",
-          "DNSName": "d1pbqs2b6em4ha.cloudfront.net.",
-          "EvaluateTargetHealth": false
-        }
+        "Name": "dev.flodrama.com",
+        "Type": "CNAME",
+        "TTL": 300,
+        "ResourceRecords": [
+          {
+            "Value": "d2r16mhe8i26v2.cloudfront.net"
+          }
+        ]
       }
     }
   ]

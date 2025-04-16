@@ -8,19 +8,8 @@ import { motion } from 'framer-motion';
  * @param {string} title - Titre du carousel
  * @param {Array} items - Liste des éléments à afficher
  * @param {string} size - Taille des cartes ('sm', 'md', 'lg')
- * @param {function} onItemClick - Fonction appelée lors du clic sur un élément
- * @param {function} onPlayClick - Fonction appelée lors du clic sur le bouton de lecture
- * @param {function} onTitleClick - Fonction appelée lors du clic sur le titre
  */
-const ContentCarousel = ({ 
-  title, 
-  items = [], 
-  size = 'md', 
-  subtitle = '',
-  onItemClick = () => {},
-  onPlayClick = () => {},
-  onTitleClick = () => {}
-}) => {
+const ContentCarousel = ({ title, items = [], size = 'md', subtitle = '' }) => {
   const carouselRef = useRef(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
@@ -74,13 +63,11 @@ const ContentCarousel = ({
       <div className="flex justify-between items-center mb-5">
         <div>
           <motion.h2 
-            className="text-2xl font-bold cursor-pointer"
+            className="text-2xl font-bold"
             style={{ color: 'var(--color-text-primary)' }}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            onClick={onTitleClick}
-            whileHover={{ color: 'var(--color-accent)' }}
           >
             {title}
           </motion.h2>
@@ -109,7 +96,6 @@ const ContentCarousel = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            onClick={onTitleClick}
           >
             Voir tout
           </motion.button>
@@ -147,13 +133,7 @@ const ContentCarousel = ({
           <div className="flex space-x-5">
             {validItems.map((item, index) => (
               <div key={item.id || Math.random().toString(36).substring(7)} className="flex-shrink-0">
-                <AppleStyleCard 
-                  item={item} 
-                  size={size} 
-                  index={index} 
-                  onClick={() => onItemClick(item)}
-                  onPlayClick={() => onPlayClick(item)}
-                />
+                <AppleStyleCard item={item} size={size} index={index} />
               </div>
             ))}
           </div>

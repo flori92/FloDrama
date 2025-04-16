@@ -1,52 +1,38 @@
 {
   "version": 2,
-  "buildCommand": null,
-  "outputDirectory": ".",
-  "framework": null,
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index-optimise.html" }
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "routes": [
+    { "src": "/app", "dest": "/" },
+    { "src": "/enhanced", "dest": "/" },
+    { "src": "/direct-enhanced", "dest": "/" },
+    { 
+      "src": "/data/status.json", 
+      "headers": { "Cache-Control": "s-maxage=1, stale-while-revalidate=59" },
+      "continue": true
+    },
+    { 
+      "src": "/assets/(.*)", 
+      "headers": { "Cache-Control": "public, max-age=31536000, immutable" },
+      "continue": true
+    },
+    { 
+      "src": "/(.*)\\.(js|css|svg|png|jpg|jpeg|gif|ico|json|woff|woff2|ttf|otf)$", 
+      "headers": { "Cache-Control": "public, max-age=31536000, immutable" },
+      "continue": true
+    },
+    { "handle": "filesystem" },
+    { "src": "/api/(.*)", "dest": "/api/$1" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ],
   "env": {
-    "FLODRAMA_MAINTENANCE_MODE": "false",
-    "FLODRAMA_ENABLE_ENHANCED_UI": "true",
-    "FLODRAMA_DEFAULT_INTERFACE": "enhanced"
+    "VITE_MAINTENANCE_MODE": "false",
+    "VITE_ENABLE_ENHANCED_UI": "true",
+    "VITE_DEFAULT_INTERFACE": "enhanced"
   },
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=0, must-revalidate"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        },
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        }
-      ]
-    },
-    {
-      "source": "/public/assets/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    }
-  ],
-  "trailingSlash": false,
-  "cleanUrls": true
+  "github": {
+    "silent": true,
+    "autoJobCancelation": true
+  }
 }

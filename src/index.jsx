@@ -8,9 +8,6 @@ import './styles/index.css';
 import './styles/theme.css'; // Import du nouveau thème
 import App from './App';
 
-// Services unifiés
-import { unifiedScrapingService, unifiedImageService } from './services';
-
 // Vérifier si nous sommes dans un environnement de production
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -28,10 +25,11 @@ root.render(
 // liées aux modules Node.js dans l'environnement navigateur
 if (!isProduction) {
   try {
-    // Utilisation du service unifié de scraping
-    unifiedScrapingService.initialize().then(() => {
+    // Import dynamique pour éviter les erreurs en production
+    import('./services/SmartScrapingService.js').then(module => {
+      const smartScrapingService = module.default;
       // Démarrage du scraping quotidien en arrière-plan pour alimenter FloDrama en métadonnées
-      const backgroundScrapingController = unifiedScrapingService.startDailyBackgroundScraping();
+      const backgroundScrapingController = smartScrapingService.startDailyBackgroundScraping();
 
       // Ajouter un gestionnaire d'événements pour arrêter le scraping lors de la fermeture de l'application
       window.addEventListener('beforeunload', () => {
@@ -44,24 +42,10 @@ if (!isProduction) {
         // Vous pouvez ajouter ici une notification ou une mise à jour de l'interface utilisateur
       });
     }).catch(error => {
-      console.warn('Le service de scraping n\'a pas pu être initialisé:', error.message);
-    });
-    
-    // Initialisation du service d'images unifié
-    unifiedImageService.initialize().then(() => {
-      // Initialiser le chargement paresseux des images
-      unifiedImageService.initLazyLoading('.lazy-image');
-      
-      // Précharger les images importantes (logo, images de fond, etc.)
-      unifiedImageService.preloadImportantImages([
-        '/images/logo.svg',
-        '/images/backdrop-5.jpg'
-      ]);
-    }).catch(error => {
-      console.warn('Le service d\'images n\'a pas pu être initialisé:', error.message);
+      console.warn('Le service de scraping n\'a pas pu être chargé:', error.message);
     });
   } catch (error) {
-    console.warn('Erreur lors du chargement des services unifiés:', error.message);
+    console.warn('Erreur lors du chargement du service de scraping:', error.message);
   }
 } else {
   console.log('Mode production: service de scraping désactivé pour éviter les erreurs de compatibilité navigateur');

@@ -1,14 +1,12 @@
 #!/bin/bash
-# Script de configuration DNS et SSL pour FloDrama sur AWS et GitHub Pages
-# Mis à jour le 14-04-2025
+# Script de configuration DNS et SSL pour FloDrama sur AWS
+# Créé le 29-03-2025
 
 # Configuration
 REGION="us-east-1"
-DOMAINS=("flodrama.com" "www.flodrama.com" "api.flodrama.com" "dev.flodrama.com")
+DOMAINS=("flodrama.com" "www.flodrama.com" "flodrama.org" "flodrama.net" "flodrama.info")
 DISTRIBUTION_ID="E1MU6L4S4UVUSS"
 CERTIFICATE_ARN="arn:aws:acm:us-east-1:108782079729:certificate/19fa1966-523e-44f3-84bb-7e43aedc0af9"
-GITHUB_USERNAME="flori92"
-GITHUB_REPO="FloDrama"
 
 # Couleurs pour les messages
 ROUGE='\033[0;31m'
@@ -57,98 +55,27 @@ create_hosted_zone() {
   fi
 }
 
-# Fonction pour ajouter des enregistrements pour GitHub Pages
-create_github_pages_records() {
+# Fonction pour ajouter des enregistrements A vers CloudFront
+create_cloudfront_record() {
   local domain=$1
   local zone_id=$2
   
-  log "Configuration des enregistrements DNS pour GitHub Pages pour $domain..."
+  log "Ajout d'un enregistrement A pour $domain vers CloudFront..."
   
   # Créer le fichier de changement
-  if [ "$domain" = "flodrama.com" ]; then
-    # Pour le domaine apex (racine)
-    cat > github-pages-changes.json << EOF
+  cat > change-batch.json << EOF
 {
   "Changes": [
     {
       "Action": "UPSERT",
       "ResourceRecordSet": {
-        "Name": "$domain.",
+        "Name": "$domain",
         "Type": "A",
-        "TTL": 3600,
-        "ResourceRecords": [
-          { "Value": "185.199.108.153" },
-          { "Value": "185.199.109.153" },
-          { "Value": "185.199.110.153" },
-          { "Value": "185.199.111.153" }
-        ]
-      }
-    },
-    {
-      "Action": "UPSERT",
-      "ResourceRecordSet": {
-        "Name": "_github-pages-challenge-$GITHUB_USERNAME.$domain.",
-        "Type": "TXT",
-        "TTL": 3600,
-        "ResourceRecords": [
-          { "Value": "\"$(aws ssm get-parameter --name "/flodrama/github-pages-challenge-code" --with-decryption --query "Parameter.Value" --output text || echo "challenge-code-not-found")\"" }
-        ]
-      }
-    }
-  ]
-}
-EOF
-  else
-    # Pour les sous-domaines
-    cat > github-pages-changes.json << EOF
-{
-  "Changes": [
-    {
-      "Action": "UPSERT",
-      "ResourceRecordSet": {
-        "Name": "$domain.",
-        "Type": "CNAME",
-        "TTL": 3600,
-        "ResourceRecords": [
-          { "Value": "$GITHUB_USERNAME.github.io." }
-        ]
-      }
-    }
-  ]
-}
-EOF
-  fi
-  
-  # Appliquer le changement
-  aws route53 change-resource-record-sets --hosted-zone-id "$zone_id" --change-batch file://github-pages-changes.json
-  local result=$?
-  
-  # Nettoyer
-  rm -f github-pages-changes.json
-  
-  return $result
-}
-
-# Fonction pour configurer l'API
-configure_api_dns() {
-  local domain="api.flodrama.com"
-  local zone_id=$1
-  
-  log "Configuration de l'enregistrement DNS pour l'API..."
-  
-  # Créer le fichier de changement
-  cat > api-changes.json << EOF
-{
-  "Changes": [
-    {
-      "Action": "UPSERT",
-      "ResourceRecordSet": {
-        "Name": "$domain.",
-        "Type": "CNAME",
-        "TTL": 3600,
-        "ResourceRecords": [
-          { "Value": "flodrama-api.herokuapp.com." }
-        ]
+        "AliasTarget": {
+          "HostedZoneId": "Z2FDTNDATAQYW2",
+          "DNSName": "d1pbqs2b6em4ha.cloudfront.net",
+          "EvaluateTargetHealth": false
+        }
       }
     }
   ]
@@ -156,170 +83,96 @@ configure_api_dns() {
 EOF
   
   # Appliquer le changement
-  aws route53 change-resource-record-sets --hosted-zone-id "$zone_id" --change-batch file://api-changes.json
+  aws route53 change-resource-record-sets --hosted-zone-id "$zone_id" --change-batch file://change-batch.json
   local result=$?
   
   # Nettoyer
-  rm -f api-changes.json
+  rm -f change-batch.json
   
   return $result
 }
 
-# Fonction pour mettre à jour le certificat ACM
-update_acm_certificate() {
-  log "Vérification du certificat ACM..."
+# Fonction pour ajouter le certificat ACM à la distribution CloudFront
+update_cloudfront_certificate() {
+  # Obtenir la configuration actuelle
+  log "Récupération de la configuration CloudFront..."
+  aws cloudfront get-distribution-config --id "$DISTRIBUTION_ID" > cf-config.json
   
-  # Vérifier si le certificat existe et sa date d'expiration
-  local cert_expiry=$(aws acm describe-certificate --certificate-arn "$CERTIFICATE_ARN" --query "Certificate.NotAfter" --output text 2>/dev/null)
-  
-  if [ -z "$cert_expiry" ]; then
-    attention "Le certificat ACM n'existe pas ou n'est pas accessible. Création d'un nouveau certificat..."
-    
-    # Créer un nouveau certificat
-    local new_cert_arn=$(aws acm request-certificate \
-      --domain-name "flodrama.com" \
-      --subject-alternative-names "*.flodrama.com" \
-      --validation-method DNS \
-      --query "CertificateArn" \
-      --output text)
-    
-    if [ -z "$new_cert_arn" ]; then
-      erreur "Échec de la création du certificat ACM"
-      return 1
-    fi
-    
-    log "Nouveau certificat ACM créé: $new_cert_arn"
-    CERTIFICATE_ARN="$new_cert_arn"
-    
-    # Mettre à jour le paramètre SSM
-    aws ssm put-parameter \
-      --name "/flodrama/ssl-certificate-arn" \
-      --value "$CERTIFICATE_ARN" \
-      --type "String" \
-      --overwrite
-  else
-    # Convertir la date d'expiration en timestamp Unix
-    local expiry_timestamp=$(date -j -f "%Y-%m-%dT%H:%M:%S" "${cert_expiry%.*}" +%s)
-    local current_timestamp=$(date +%s)
-    local days_remaining=$(( (expiry_timestamp - current_timestamp) / 86400 ))
-    
-    if [ "$days_remaining" -lt 30 ]; then
-      attention "Le certificat ACM expire dans $days_remaining jours. Renouvellement recommandé."
-    else
-      info "Le certificat ACM est valide pour encore $days_remaining jours."
-    fi
+  if [ $? -ne 0 ]; then
+    erreur "Impossible de récupérer la configuration CloudFront"
+    return 1
   fi
   
-  return 0
-}
-
-# Fonction pour configurer GitHub Pages avec HTTPS
-configure_github_pages_https() {
-  log "Configuration de GitHub Pages pour utiliser HTTPS..."
+  # Extraire l'ETag
+  ETAG=$(grep -o '"ETag": "[^"]*"' cf-config.json | cut -d'"' -f4)
   
-  # Vérifier si le fichier CNAME existe
-  if [ ! -f "../CNAME" ]; then
-    log "Création du fichier CNAME..."
-    echo "flodrama.com" > "../CNAME"
-  else
-    info "Le fichier CNAME existe déjà."
+  if [ -z "$ETAG" ]; then
+    erreur "ETag non trouvé dans la configuration CloudFront"
+    return 1
   fi
   
-  # Vérifier si le répertoire public existe
-  if [ ! -d "../public" ]; then
-    log "Création du répertoire public..."
-    mkdir -p "../public"
-  fi
+  log "ETag récupéré: $ETAG"
   
-  # Créer le fichier _headers pour les en-têtes de sécurité
-  log "Création du fichier _headers pour les en-têtes de sécurité..."
-  cat > "../public/_headers" << EOF
-/*
-  Strict-Transport-Security: max-age=63072000; includeSubdomains; preload
-  X-Content-Type-Options: nosniff
-  X-Frame-Options: DENY
-  X-XSS-Protection: 1; mode=block
-  Referrer-Policy: strict-origin-when-cross-origin
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://*.cloudfront.net https://*.bunnycdn.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.flodrama.com https://api.flodrama.com; frame-ancestors 'none'; upgrade-insecure-requests;
-
-/assets/*
-  Cache-Control: public, max-age=31536000, immutable
-
-/*.css
-  Content-Type: text/css
-  Cache-Control: public, max-age=31536000, immutable
-
-/*.js
-  Content-Type: application/javascript
-  Cache-Control: public, max-age=31536000, immutable
-
-/api/*
-  Access-Control-Allow-Origin: *
-  Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE
-  Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization, Cache-Control
-  Access-Control-Expose-Headers: Content-Length, Content-Range
-EOF
+  # Modifier le fichier de configuration pour ajouter le certificat et les alias
+  jq --arg cert "$CERTIFICATE_ARN" --arg dom1 "${DOMAINS[0]}" --arg dom2 "${DOMAINS[1]}" '.DistributionConfig.ViewerCertificate.ACMCertificateArn = $cert | .DistributionConfig.ViewerCertificate.CertificateSource = "acm" | .DistributionConfig.ViewerCertificate.SSLSupportMethod = "sni-only" | .DistributionConfig.ViewerCertificate.MinimumProtocolVersion = "TLSv1.2_2021" | .DistributionConfig.Aliases.Quantity = 2 | .DistributionConfig.Aliases.Items = [$dom1, $dom2]' cf-config.json > cf-config-new.json
   
-  return 0
+  # Mettre à jour la configuration
+  log "Mise à jour de la configuration CloudFront avec le certificat SSL..."
+  aws cloudfront update-distribution --id "$DISTRIBUTION_ID" --distribution-config file://cf-config-new.json --if-match "$ETAG"
+  local result=$?
+  
+  # Nettoyer
+  rm -f cf-config.json cf-config-new.json
+  
+  return $result
 }
 
 # Fonction principale
 main() {
-  log "Début de la configuration DNS et SSL pour FloDrama sur AWS et GitHub Pages..."
+  log "Début de la configuration DNS et SSL pour FloDrama sur AWS..."
   
-  # Mettre à jour le certificat ACM
-  update_acm_certificate
-  if [ $? -ne 0 ]; then
-    attention "Problème avec la mise à jour du certificat ACM"
-  fi
-  
-  # Configurer GitHub Pages pour HTTPS
-  configure_github_pages_https
-  if [ $? -ne 0 ]; then
-    attention "Problème avec la configuration HTTPS de GitHub Pages"
-  fi
-  
-  # Pour le domaine principal
-  local main_domain="flodrama.com"
-  create_hosted_zone "$main_domain"
-  if [ $? -ne 0 ]; then
-    attention "Échec de la création de la zone hébergée pour $main_domain"
-  else
+  # Pour chaque domaine
+  for domain in "${DOMAINS[@]}"; do
+    # Créer une zone hébergée si nécessaire
+    create_hosted_zone "$domain"
+    if [ $? -ne 0 ]; then
+      attention "Échec de la création de la zone hébergée pour $domain"
+      continue
+    fi
+    
     # Obtenir l'ID de la zone
-    local zone_id=$(aws route53 list-hosted-zones-by-name --dns-name "$main_domain." --max-items 1 --query "HostedZones[?Name=='$main_domain.'].Id" --output text | cut -d'/' -f3)
+    zone_id=$(aws route53 list-hosted-zones-by-name --dns-name "$domain." --max-items 1 --query "HostedZones[?Name=='$domain.'].Id" --output text | cut -d'/' -f3)
     
     if [ -z "$zone_id" ]; then
-      attention "Impossible de trouver l'ID de la zone pour $main_domain"
-    else
-      # Configurer les enregistrements pour GitHub Pages
-      create_github_pages_records "$main_domain" "$zone_id"
-      if [ $? -ne 0 ]; then
-        attention "Échec de la configuration des enregistrements GitHub Pages pour $main_domain"
-      else
-        log "Enregistrements GitHub Pages pour $main_domain configurés avec succès"
-      fi
-      
-      # Configurer les sous-domaines
-      for domain in "${DOMAINS[@]}"; do
-        if [ "$domain" != "$main_domain" ]; then
-          if [[ "$domain" == "api.flodrama.com" ]]; then
-            configure_api_dns "$zone_id"
-            if [ $? -ne 0 ]; then
-              attention "Échec de la configuration de l'API DNS pour $domain"
-            else
-              log "API DNS pour $domain configuré avec succès"
-            fi
-          else
-            create_github_pages_records "$domain" "$zone_id"
-            if [ $? -ne 0 ]; then
-              attention "Échec de la configuration des enregistrements GitHub Pages pour $domain"
-            else
-              log "Enregistrements GitHub Pages pour $domain configurés avec succès"
-            fi
-          fi
-        fi
-      done
+      attention "Impossible de trouver l'ID de la zone pour $domain"
+      continue
     fi
+    
+    # Ajouter l'enregistrement A vers CloudFront
+    create_cloudfront_record "$domain" "$zone_id"
+    if [ $? -ne 0 ]; then
+      attention "Échec de la création de l'enregistrement CloudFront pour $domain"
+    else
+      log "Enregistrement CloudFront pour $domain créé avec succès"
+    fi
+    
+    # Ajouter également un enregistrement pour www si ce n'est pas déjà un sous-domaine
+    if [[ "$domain" != www.* ]]; then
+      create_cloudfront_record "www.$domain" "$zone_id"
+      if [ $? -ne 0 ]; then
+        attention "Échec de la création de l'enregistrement CloudFront pour www.$domain"
+      else
+        log "Enregistrement CloudFront pour www.$domain créé avec succès"
+      fi
+    fi
+  done
+  
+  # Mettre à jour le certificat de la distribution CloudFront
+  update_cloudfront_certificate
+  if [ $? -ne 0 ]; then
+    attention "Échec de la mise à jour du certificat CloudFront"
+  else
+    log "Certificat CloudFront mis à jour avec succès"
   fi
   
   log "Configuration DNS et SSL terminée!"

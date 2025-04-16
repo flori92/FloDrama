@@ -3,7 +3,7 @@
  * Utilise des données locales et implémente un système de cache local
  */
 
-import { getPosterUrl, getBackdropUrl } from '../config/aws-config';
+import AWS_CONFIG, { getPosterUrl, getBackdropUrl, getMetadataUrl } from '../config/aws-config';
 import mockData from './mock-data';
 
 // Cache local pour éviter des appels répétés
@@ -12,26 +12,6 @@ const localCache = {
   timestamp: Date.now(),
   ttl: 15 * 60 * 1000 // 15 minutes
 };
-
-// Initialiser le cache avec les données mockées au chargement du module
-(function initializeCache() {
-  try {
-    console.log('Initialisation du cache avec les données mockées');
-    const processedItems = mockData.items.map(item => ({
-      ...item,
-      posterUrl: item.posterUrl || getPosterUrl(item.id),
-      backdropUrl: item.backdropUrl || getBackdropUrl(item.id)
-    }));
-    
-    processedItems.forEach(item => {
-      localCache.items.set(item.id, item);
-    });
-    
-    console.log(`Cache initialisé avec ${processedItems.length} éléments`);
-  } catch (error) {
-    console.error('Erreur lors de l\'initialisation du cache:', error);
-  }
-})();
 
 /**
  * Récupère tous les éléments
@@ -47,8 +27,20 @@ export const fetchAllItems = async () => {
   console.log('Récupération des métadonnées...');
   
   try {
-    // TOUJOURS utiliser les données mockées pour éviter les erreurs
-    const items = mockData.items;
+    let items = [];
+    
+    if (AWS_CONFIG.useLocalMode) {
+      // Utiliser les données mockées en mode local
+      items = mockData.items;
+    } else {
+      // Récupérer les données depuis l'API
+      const response = await fetch(getMetadataUrl());
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP: ${response.status}`);
+      }
+      const data = await response.json();
+      items = data.items || [];
+    }
     
     // Traiter les résultats
     const processedItems = items.map(item => {
@@ -140,19 +132,49 @@ export const fetchItemsByType = async (type, limit = 20) => {
  * @returns {Promise<Array>} Liste des éléments en cours de visionnage
  */
 export const fetchContinueWatching = async (userId, limit = 10) => {
-  // Toujours utiliser des données mockées
-  const allItems = await fetchAllItems();
+  // En mode local, utiliser des données mockées
+  if (AWS_CONFIG.useLocalMode) {
+    const allItems = await fetchAllItems();
+    
+    // Simuler des éléments en cours de visionnage (prendre quelques éléments aléatoires)
+    const randomItems = allItems
+      .sort(() => 0.5 - Math.random())
+      .slice(0, limit);
+    
+    return randomItems.map(item => ({
+      ...item,
+      progress: Math.floor(Math.random() * 80) + 10, // Progrès entre 10% et 90%
+      lastWatched: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString() // Dans les 7 derniers jours
+    }));
+  }
   
-  // Simuler des éléments en cours de visionnage (prendre quelques éléments aléatoires)
-  const randomItems = allItems
-    .sort(() => 0.5 - Math.random())
-    .slice(0, limit);
-  
-  return randomItems.map(item => ({
-    ...item,
-    progress: Math.floor(Math.random() * 80) + 10, // Progrès entre 10% et 90%
-    lastWatched: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString() // Dans les 7 derniers jours
-  }));
+  // En mode production, récupérer depuis l'API
+  try {
+    const response = await fetch(`${AWS_CONFIG.apiGateway.baseUrl}${AWS_CONFIG.apiGateway.endpoints.history}/${userId}`);
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    const historyItems = data.items || [];
+    
+    // Récupérer les détails complets pour chaque élément
+    const allItems = await fetchAllItems();
+    const itemsMap = new Map(allItems.map(item => [item.id, item]));
+    
+    return historyItems
+      .filter(historyItem => itemsMap.has(historyItem.itemId))
+      .map(historyItem => ({
+        ...itemsMap.get(historyItem.itemId),
+        progress: historyItem.progress,
+        lastWatched: historyItem.timestamp
+      }))
+      .sort((a, b) => new Date(b.lastWatched) - new Date(a.lastWatched))
+      .slice(0, limit);
+  } catch (error) {
+    console.error('Erreur lors de la récupération de l\'historique:', error);
+    return [];
+  }
 };
 
 /**

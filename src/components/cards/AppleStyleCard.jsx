@@ -13,17 +13,8 @@ import { MicroAnimations } from '../animations';
  * @param {Object} item - Élément à afficher
  * @param {boolean} showInfo - Afficher les informations supplémentaires
  * @param {number} index - Index pour l'animation
- * @param {function} onClick - Fonction appelée lors du clic sur la carte
- * @param {function} onPlayClick - Fonction appelée lors du clic sur le bouton de lecture
  */
-const AppleStyleCard = ({ 
-  item, 
-  showInfo = true, 
-  index = 0,
-  onClick = null,
-  onPlayClick = null,
-  size = 'md'
-}) => {
+const AppleStyleCard = ({ item, showInfo = true, index = 0 }) => {
   const [showOverlay, setShowOverlay] = useState(false);
   const [imageError, setImageError] = useState(false);
   const { isInWatchlist, toggleWatchlist } = useWatchlist();
@@ -113,24 +104,6 @@ const AppleStyleCard = ({
     setShowOverlay(false);
     setShowTooltip('');
   };
-  
-  // Gérer le clic sur la carte
-  const handleCardClick = (e) => {
-    if (onClick) {
-      e.preventDefault();
-      onClick(item);
-    }
-  };
-  
-  // Gérer le clic sur le bouton de lecture
-  const handlePlayClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    if (onPlayClick) {
-      onPlayClick(item);
-    }
-  };
 
   // Animations pour la carte
   const cardVariants = {
@@ -147,21 +120,6 @@ const AppleStyleCard = ({
     }
   };
 
-  // Déterminer les dimensions en fonction de la taille
-  const getCardDimensions = () => {
-    switch (size) {
-      case 'sm':
-        return { width: '120px', height: '180px' };
-      case 'lg':
-        return { width: '220px', height: '330px' };
-      case 'md':
-      default:
-        return { width: '180px', height: '270px' };
-    }
-  };
-
-  const dimensions = getCardDimensions();
-
   return (
     <motion.div
       ref={cardRef}
@@ -172,136 +130,134 @@ const AppleStyleCard = ({
       variants={cardVariants}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      style={dimensions}
     >
-      <div className="block h-full cursor-pointer" onClick={handleCardClick}>
-        <div 
-          className="relative overflow-hidden rounded-lg h-full"
-          style={{ backgroundColor: 'var(--color-card-bg)' }}
-        >
+      <Link to={`/detail/${item.id}`} className="block h-full">
+        <div className="relative overflow-hidden rounded-lg bg-gray-800 h-full">
           {/* Image principale */}
-          <img 
-            src={imageError ? getPosterUrl(item.title) : (item.image || getPosterUrl(item.title))}
-            alt={item.title}
-            className="w-full h-full object-cover"
-            onError={() => setImageError(true)}
-          />
+          <div className="relative aspect-[2/3]">
+            <img
+              src={item.image || getPosterUrl(item.id)}
+              alt={item.title}
+              className="w-full h-full object-cover"
+              onError={() => setImageError(true)}
+              style={{ opacity: imageError ? 0.5 : 1 }}
+            />
+            
+            {/* Overlay au survol */}
+            <AnimatePresence>
+              {showOverlay && (
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent flex flex-col justify-between p-3"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {/* Boutons d'action en haut */}
+                  <div className="flex justify-end space-x-1">
+                    {/* Bouton Like */}
+                    <MicroAnimations 
+                      type="tooltip" 
+                      tooltipText="J'aime" 
+                      isVisible={showTooltip === 'like'}
+                    >
+                      <motion.button 
+                        className={`p-1.5 rounded-full ${liked ? 'bg-blue-500' : 'bg-black/60 hover:bg-black/80'}`}
+                        onClick={handleLike}
+                        aria-label="J'aime"
+                        onMouseEnter={() => setShowTooltip('like')}
+                        onMouseLeave={() => setShowTooltip('')}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <ThumbsUp size={14} />
+                      </motion.button>
+                    </MicroAnimations>
+                    
+                    {/* Bouton Dislike */}
+                    <MicroAnimations 
+                      type="tooltip" 
+                      tooltipText="Je n'aime pas" 
+                      isVisible={showTooltip === 'dislike'}
+                    >
+                      <motion.button 
+                        className={`p-1.5 rounded-full ${disliked ? 'bg-red-500' : 'bg-black/60 hover:bg-black/80'}`}
+                        onClick={handleDislike}
+                        aria-label="Je n'aime pas"
+                        onMouseEnter={() => setShowTooltip('dislike')}
+                        onMouseLeave={() => setShowTooltip('')}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <ThumbsDown size={14} />
+                      </motion.button>
+                    </MicroAnimations>
+                    
+                    {/* Bouton Ma liste */}
+                    <MicroAnimations 
+                      type="tooltip" 
+                      tooltipText={isInList ? "Retirer de ma liste" : "Ajouter à ma liste"} 
+                      isVisible={showTooltip === 'list'}
+                    >
+                      <motion.button 
+                        className={`p-1.5 rounded-full ${isInList ? 'bg-green-500' : 'bg-black/60 hover:bg-black/80'}`}
+                        onClick={handleWatchlistToggle}
+                        aria-label={isInList ? "Retirer de ma liste" : "Ajouter à ma liste"}
+                        onMouseEnter={() => setShowTooltip('list')}
+                        onMouseLeave={() => setShowTooltip('')}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        {isInList ? <Check size={14} /> : <Plus size={14} />}
+                      </motion.button>
+                    </MicroAnimations>
+                  </div>
+                  
+                  {/* Bouton de lecture */}
+                  <div className="flex justify-center items-center">
+                    <motion.button
+                      className="bg-white text-black rounded-full p-2 flex items-center justify-center"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      aria-label="Lire"
+                    >
+                      <Play size={20} fill="black" />
+                    </motion.button>
+                  </div>
+                  
+                  {/* Informations en bas */}
+                  <div className="text-xs">
+                    {item.year && <span className="mr-2">{item.year}</span>}
+                    {item.duration && <span className="mr-2">{item.duration}</span>}
+                    {item.rating && (
+                      <span className="flex items-center">
+                        <Star size={12} className="mr-1" /> {item.rating}
+                      </span>
+                    )}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
           
-          {/* Overlay au survol */}
-          <AnimatePresence>
-            {showOverlay && (
-              <motion.div 
-                className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30 flex flex-col justify-between p-3"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                {/* Boutons en haut */}
-                <div className="flex justify-end space-x-1">
-                  {/* Bouton Like */}
-                  <MicroAnimations 
-                    type="tooltip" 
-                    tooltipText={liked ? "Ne plus aimer" : "J'aime"} 
-                    isVisible={showTooltip === 'like'}
-                  >
-                    <motion.button 
-                      className={`p-1.5 rounded-full ${liked ? 'bg-blue-500' : 'bg-black/60 hover:bg-black/80'}`}
-                      onClick={handleLike}
-                      aria-label={liked ? "Ne plus aimer" : "J'aime"}
-                      onMouseEnter={() => setShowTooltip('like')}
-                      onMouseLeave={() => setShowTooltip('')}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <ThumbsUp size={14} />
-                    </motion.button>
-                  </MicroAnimations>
-                  
-                  {/* Bouton Dislike */}
-                  <MicroAnimations 
-                    type="tooltip" 
-                    tooltipText={disliked ? "Ne plus ne pas aimer" : "Je n'aime pas"} 
-                    isVisible={showTooltip === 'dislike'}
-                  >
-                    <motion.button 
-                      className={`p-1.5 rounded-full ${disliked ? 'bg-red-500' : 'bg-black/60 hover:bg-black/80'}`}
-                      onClick={handleDislike}
-                      aria-label={disliked ? "Ne plus ne pas aimer" : "Je n'aime pas"}
-                      onMouseEnter={() => setShowTooltip('dislike')}
-                      onMouseLeave={() => setShowTooltip('')}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <ThumbsDown size={14} />
-                    </motion.button>
-                  </MicroAnimations>
-                  
-                  {/* Bouton Ma liste */}
-                  <MicroAnimations 
-                    type="tooltip" 
-                    tooltipText={isInList ? "Retirer de ma liste" : "Ajouter à ma liste"} 
-                    isVisible={showTooltip === 'list'}
-                  >
-                    <motion.button 
-                      className={`p-1.5 rounded-full ${isInList ? 'bg-green-500' : 'bg-black/60 hover:bg-black/80'}`}
-                      onClick={handleWatchlistToggle}
-                      aria-label={isInList ? "Retirer de ma liste" : "Ajouter à ma liste"}
-                      onMouseEnter={() => setShowTooltip('list')}
-                      onMouseLeave={() => setShowTooltip('')}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {isInList ? <Check size={14} /> : <Plus size={14} />}
-                    </motion.button>
-                  </MicroAnimations>
-                </div>
-                
-                {/* Bouton de lecture */}
-                <div className="flex justify-center items-center">
-                  <motion.button
-                    className="bg-white text-black rounded-full p-2 flex items-center justify-center"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    aria-label="Lire"
-                    onClick={handlePlayClick}
-                  >
-                    <Play size={20} fill="black" />
-                  </motion.button>
-                </div>
-                
-                {/* Informations en bas */}
-                <div className="text-xs">
-                  {item.year && <span className="mr-2">{item.year}</span>}
-                  {item.duration && <span className="mr-2">{item.duration}</span>}
-                  {item.rating && (
-                    <span className="flex items-center">
-                      <Star size={12} className="mr-1" /> {item.rating}
-                    </span>
-                  )}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Informations sous l'image */}
+          {showInfo && (
+            <div className="p-2">
+              <h3 className="text-sm font-medium truncate">{item.title}</h3>
+              {item.categories && item.categories.origin && (
+                <p className="text-xs text-gray-400">{item.categories.origin}</p>
+              )}
+            </div>
+          )}
+          
+          {/* Indicateur discret si dans la liste */}
+          {isInList && !showOverlay && (
+            <div className="absolute bottom-0 right-0 m-1">
+              <div className="bg-green-500 w-2 h-2 rounded-full"></div>
+            </div>
+          )}
         </div>
-        
-        {/* Informations sous l'image */}
-        {showInfo && (
-          <div className="p-2">
-            <h3 className="text-sm font-medium truncate">{item.title}</h3>
-            {item.categories && item.categories.origin && (
-              <p className="text-xs text-gray-400">{item.categories.origin}</p>
-            )}
-          </div>
-        )}
-        
-        {/* Indicateur discret si dans la liste */}
-        {isInList && !showOverlay && (
-          <div className="absolute bottom-0 right-0 m-1">
-            <div className="bg-green-500 w-2 h-2 rounded-full"></div>
-          </div>
-        )}
-      </div>
+      </Link>
       
       {/* Animations de feedback */}
       <AnimatePresence>

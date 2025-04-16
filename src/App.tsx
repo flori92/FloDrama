@@ -1,92 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HybridComponent } from './adapters/hybrid-component';
+import { ComponentName } from './adapters/component-registry';
 
-// Importation des types pour les props des composants
-interface NavigationProps {
-  items: Array<{
-    label: string;
-    route: string;
-    icon?: string;
-  }>;
-  className?: string;
-}
+// Chargement paresseux des composants principaux
+// Ces imports sont utilisés via React.createElement plus bas
+const LecteurVideo = React.lazy(() => import('./components/player/LecteurVideo'));
+const CarouselRecommandations = React.lazy(() => import('./components/features/CarouselRecommandations'));
+const LandingPage = React.lazy(() => import('./pages/LandingPage'));
 
-interface LecteurVideoProps {
-  url: string;
-  titre: string;
-}
-
-interface CarouselRecommandationsProps {
-  userId: string;
-}
-
+// Interface pour les props de la landing page
 interface LandingPageProps {
   onEnter: () => void;
 }
 
-// Composants de chargement
-const LoadingIndicator = () => <div className="loading-container">Chargement de FloDrama...</div>;
-const PlayerLoadingIndicator = () => <div>Chargement du lecteur...</div>;
-const RecommendationsLoadingIndicator = () => <div>Chargement des recommandations...</div>;
-
-// Composants paresseux avec gestion manuelle de la suspension
-const LazyLecteurVideo = () => {
-  const LecteurVideo = React.lazy(() => import('./components/player/LecteurVideo'));
-  return (
-    <React.Suspense fallback={<PlayerLoadingIndicator />}>
-      {/* @ts-ignore - Contournement du problème de typage */}
-      <LecteurVideo url="" titre="Bienvenue sur FloDrama" />
-    </React.Suspense>
-  );
-};
-
-const LazyCarouselRecommandations = () => {
-  const CarouselRecommandations = React.lazy(() => import('./components/features/CarouselRecommandations'));
-  return (
-    <React.Suspense fallback={<RecommendationsLoadingIndicator />}>
-      {/* @ts-ignore - Contournement du problème de typage */}
-      <CarouselRecommandations userId="user123" />
-    </React.Suspense>
-  );
-};
-
-const LazyNavigation = (props: { items: NavigationProps['items'] }) => {
-  const Navigation = React.lazy(() => import('./components/navigation/Navigation'));
-  return (
-    <React.Suspense fallback={<LoadingIndicator />}>
-      {/* @ts-ignore - Contournement du problème de typage */}
-      <Navigation items={props.items} />
-    </React.Suspense>
-  );
-};
-
-const LazyLandingPage = (props: { onEnter: LandingPageProps['onEnter'] }) => {
-  const LandingPage = React.lazy(() => import('./pages/LandingPage'));
-  return (
-    <React.Suspense fallback={<LoadingIndicator />}>
-      {/* @ts-ignore - Contournement du problème de typage */}
-      <LandingPage onEnter={props.onEnter} />
-    </React.Suspense>
-  );
-};
-
 /**
  * Composant principal de FloDrama
- * Architecture React pure pour Vercel
+ * Utilise l'architecture hybride Lynx/React
  */
 const App: React.FC = () => {
   // État pour déterminer si l'utilisateur est sur la landing page ou l'interface principale
   const [showLanding, setShowLanding] = useState(true);
 
-  // Vérifier si l'utilisateur a déjà visité l'application ou si un paramètre d'URL est présent
+  // Vérifier si l'utilisateur a déjà visité l'application
   useEffect(() => {
     const hasVisited = localStorage.getItem('flodrama_visited');
     const urlParams = new URLSearchParams(window.location.search);
-    const skipLanding = urlParams.get('skipLanding') === 'true' || 
-                        urlParams.get('enhanced') === 'true' || 
-                        window.location.pathname === '/app' ||
-                        window.location.pathname === '/enhanced' ||
-                        window.location.pathname === '/direct-enhanced';
+    const skipLanding = urlParams.get('skipLanding') === 'true';
     
     if (hasVisited || skipLanding) {
       setShowLanding(false);
@@ -107,42 +47,50 @@ const App: React.FC = () => {
     { label: 'Profil', route: '/profil' }
   ];
 
-  // Interface principale de l'application
-  const MainInterface = () => (
-    <div className="app-container">
-      <LazyNavigation items={navigationItems} />
-      <main className="main-content">
-        <LazyLecteurVideo />
-        <LazyCarouselRecommandations />
-      </main>
-    </div>
-  );
+  // Fallback pour les composants en cours de chargement
+  const loadingFallback = <div>Chargement...</div>;
 
   return (
     <BrowserRouter>
       <Routes>
-        {/* Route principale qui affiche soit la landing page, soit l'interface principale */}
-        <Route 
-          path="/" 
-          element={showLanding ? (
-            <LazyLandingPage onEnter={handleEnterApp} />
+        <Route path="/" element={
+          showLanding ? (
+            <div className="landing-container">
+              {React.createElement(React.Suspense, { fallback: loadingFallback },
+                React.createElement(LandingPage, { onEnter: handleEnterApp } as LandingPageProps)
+              )}
+            </div>
           ) : (
-            <MainInterface />
-          )} 
-        />
+            <Navigate to="/home" replace />
+          )
+        } />
         
-        {/* Routes directes vers l'interface principale */}
-        <Route path="/app" element={<MainInterface />} />
-        <Route path="/enhanced" element={<MainInterface />} />
-        <Route path="/direct-enhanced" element={<MainInterface />} />
-        <Route path="/home" element={<MainInterface />} />
+        <Route path="/home" element={
+          <div className="app-container">
+            {React.createElement(React.Suspense, { fallback: loadingFallback },
+              <>
+                {/* Navigation principale */}
+                <HybridComponent<ComponentName>
+                  componentName="Navigation"
+                  componentProps={{ items: navigationItems }}
+                />
+
+                {/* Contenu principal */}
+                <main className="main-content">
+                  {React.createElement(React.Suspense, { fallback: <div>Chargement du lecteur...</div> },
+                    React.createElement(LecteurVideo, { url: "", titre: "Bienvenue sur FloDrama" })
+                  )}
+
+                  {React.createElement(React.Suspense, { fallback: <div>Chargement des recommandations...</div> },
+                    React.createElement(CarouselRecommandations, { userId: "user123" })
+                  )}
+                </main>
+              </>
+            )}
+          </div>
+        } />
         
-        {/* Routes spécifiques de l'application */}
-        <Route path="/decouvrir" element={<MainInterface />} />
-        <Route path="/favoris" element={<MainInterface />} />
-        <Route path="/profil" element={<MainInterface />} />
-        
-        {/* Redirection vers la route principale pour les routes non définies */}
+        {/* Redirection vers la landing page pour les routes non définies */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

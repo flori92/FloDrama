@@ -1,504 +1,77 @@
-<!DOCTYPE html><html lang="fr"><head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#3b82f6">
-  <meta name="description" content="FloDrama - Votre plateforme de streaming dédiée aux dramas et films asiatiques">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>FloDrama - Streaming de Dramas et Films Asiatiques</title>
-  
-  <!-- Chargement des styles CSS via des balises link -->
-  <link rel="stylesheet" href="src/styles/globals.css">
-  <link rel="stylesheet" href="src/styles/animations.css">
-  
-  <!-- Chargement direct de React depuis un CDN -->
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="image-fallback.js"></script>
-  
-  <!-- Système optimisé d'images pour FloDrama -->
-
-  <!-- Styles spécifiques pour l'application -->
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    }
-    
-    #root {
-      height: 100%;
-    }
-    
-    .loading-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      background: linear-gradient(135deg, #121118 0%, #1A1926 100%);
-      color: #f3b4f6;
-    }
-    
-    .loading-logo {
-      width: 180px;
-      margin-bottom: 20px;
-    }
-    
-    .loading-title {
-      background: linear-gradient(to right, #3b82f6, #d946ef);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 16px;
-      font-size: 2.5rem;
-      font-weight: 700;
-    }
-    
-    .loading-text {
-      font-size: 1.2rem;
-      margin-bottom: 24px;
-      text-align: center;
-      max-width: 500px;
-      line-height: 1.5;
-    }
-    
-    .loading-spinner {
-      width: 50px;
-      height: 50px;
-      border: 5px solid rgba(59, 130, 246, 0.2);
-      border-top: 5px solid #3b82f6;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    
-    .app-container {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      background-color: #121118;
-      color: white;
-    }
-    
-    .header {
-      display: flex;
-      align-items: center;
-      padding: 1rem 2rem;
-      background-color: rgba(0, 0, 0, 0.3);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    
-    .logo {
-      display: flex;
-      align-items: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-      background: linear-gradient(to right, #3b82f6, #d946ef);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      cursor: pointer;
-    }
-    
-    .logo-icon {
-      width: 40px;
-      height: 40px;
-      margin-right: 10px;
-      background: linear-gradient(to right, #3b82f6, #d946ef);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: bold;
-    }
-    
-    .nav {
-      display: flex;
-      margin-left: 2rem;
-    }
-    
-    .nav-item {
-      margin-right: 1.5rem;
-      cursor: pointer;
-      opacity: 0.7;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      position: relative;
-    }
-    
-    .nav-item:hover {
-      opacity: 1;
-      transform: translateY(-2px);
-    }
-    
-    .nav-item.active {
-      opacity: 1;
-      position: relative;
-    }
-    
-    .nav-item.active::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(to right, #3b82f6, #d946ef);
-    }
-    
-    .main-content {
-      flex: 1;
-      padding: 2rem;
-    }
-    
-    .hero {
-      position: relative;
-      height: 500px;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 2rem;
-      background: linear-gradient(135deg, #1A1926 0%, #121118 100%);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-    
-    .hero-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.6;
-      transition: transform 8s ease;
-    }
-    
-    .hero:hover .hero-image {
-      transform: scale(1.05);
-    }
-    
-    .hero-content {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      padding: 2rem;
-      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
-      z-index: 2;
-    }
-    
-    .hero-title {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(to right, #3b82f6, #d946ef);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      transform: translateY(0);
-      transition: transform 0.5s ease;
-    }
-    
-    .hero:hover .hero-title {
-      transform: translateY(-5px);
-    }
-    
-    .hero-description {
-      font-size: 1rem;
-      max-width: 600px;
-      margin-bottom: 1rem;
-      opacity: 0.9;
-      transform: translateY(0);
-      transition: transform 0.5s ease 0.1s;
-    }
-    
-    .hero:hover .hero-description {
-      transform: translateY(-5px);
-    }
-    
-    .hero-button {
-      background: linear-gradient(to right, #3b82f6, #d946ef);
-      border: none;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 24px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      transform: translateY(0);
-      transition: transform 0.5s ease 0.2s, box-shadow 0.3s ease;
-    }
-    
-    .hero:hover .hero-button {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(217, 70, 239, 0.4);
-    }
-    
-    .section-title {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      background: linear-gradient(to right, #3b82f6, #d946ef);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      display: inline-block;
-    }
-    
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-    
-    .card {
-      position: relative;
-      border-radius: 8px;
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-      background-color: #1A1926;
-      height: 100%;
-    }
-    
-    .card:hover {
-      transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-      z-index: 10;
-    }
-    
-    .card-image-container {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 2/3;
-      overflow: hidden;
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(217, 70, 239, 0.2));
-    }
-    
-    .card-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    
-    .card:hover .card-image {
-      transform: scale(1.1);
-    }
-    
-    .card-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 70%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
-    .card:hover .card-overlay {
-      opacity: 1;
-    }
-    
-    .card-content {
-      padding: 1rem;
-      position: relative;
-      z-index: 2;
-    }
-    
-    .card-title {
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      transition: color 0.3s ease;
-    }
-    
-    .card:hover .card-title {
-      color: #d946ef;
-    }
-    
-    .card-info {
-      display: flex;
-      font-size: 0.8rem;
-      opacity: 0.7;
-    }
-    
-    .card-year {
-      margin-right: 1rem;
-    }
-    
-    .card-badge {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: linear-gradient(to right, #3b82f6, #d946ef);
-      color: white;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.7rem;
-      font-weight: bold;
-      opacity: 0;
-      transform: translateY(-10px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      z-index: 5;
-    }
-    
-    .card:hover .card-badge {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .card-play-button {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.8);
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(to right, #3b82f6, #d946ef);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      z-index: 5;
-    }
-    
-    .card:hover .card-play-button {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-    
-    .play-icon {
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 8px 0 8px 16px;
-      border-color: transparent transparent transparent white;
-      margin-left: 3px;
-    }
-    
-    .footer {
-      padding: 2rem;
-      background-color: rgba(0, 0, 0, 0.3);
-      text-align: center;
-    }
-    
-    .footer-logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      background: linear-gradient(to right, #3b82f6, #d946ef);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 1rem;
-      display: inline-block;
-    }
-    
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 1rem;
-    }
-    
-    .footer-link {
-      margin: 0 1rem;
-      opacity: 0.7;
-      cursor: pointer;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-    
-    .footer-link:hover {
-      opacity: 1;
-      transform: translateY(-2px);
-    }
-    
-    .footer-copyright {
-      opacity: 0.5;
-      font-size: 0.8rem;
-    }
-    
-    /* Ajout d'animations et transitions */
-    .fade-in {
-      animation: fadeIn 0.5s ease forwards;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    /* Styles pour le lazy loading des images */
-    .lazy-image-container {
-      position: relative;
-      overflow: hidden;
-      background-color: #1A1926;
-      width: 100%;
-      height: 100%;
-    }
-    
-    .lazy-image-placeholder {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to bottom, #d946ef, #8b5cf6, #3b82f6);
-      opacity: 1;
-      transition: opacity 0.3s ease;
-      animation: pulse 1.5s ease-in-out infinite alternate;
-    }
-    
-    @keyframes pulse {
-      0% { opacity: 0.6; }
-      100% { opacity: 0.8; }
-    }
-    
-    .lazy-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
-    .lazy-image.loaded {
-      opacity: 1;
-    }
-    
-    .lazy-image.loaded + .lazy-image-placeholder {
-      opacity: 0;
-    }
-  </style>
-  <link rel="preload" href="images/posters/crash-landing-on-you.jpg" as="image">
-  <link rel="preload" href="images/posters/goblin.jpg" as="image">
-  <link rel="preload" href="images/posters/itaewon-class.jpg" as="image">
-</head>
-<body>
-  <div id="root">
-    <!-- Écran de chargement initial -->
-    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #121118; flex-direction: column;">
-      <h1 style="color: white; font-size: 2rem; margin-bottom: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: linear-gradient(to right, #3b82f6, #d946ef); -webkit-background-clip: text; background-clip: text; color: transparent;">
-        FloDrama
-      </h1>
-      <div class="loading-spinner"></div>
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/src/assets/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="FloDrama - Votre plateforme de streaming dédiée aux dramas et films asiatiques" />
+    <meta name="theme-color" content="#FF4B4B" />
+    <title>FloDrama</title>
+    <style>
+      /* Styles de préchargement pour éviter le FOUC */
+      body {
+        background-color: #1A1A1A;
+        color: #FFFFFF;
+        font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #1A1A1A;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+      
+      .preloader-logo {
+        width: 120px;
+        height: 120px;
+        animation: pulse 2s infinite ease-in-out;
+      }
+      
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="preloader">
+        <img src="/src/assets/logo.svg" alt="FloDrama Logo" class="preloader-logo" />
+      </div>
     </div>
-  </div>
-
-  <!-- Script principal de l'application -->
-  <script type="module" src="src/main.js"></script>
-  
-  <!-- Script d'initialisation du mode hybride -->
-
-  <!-- Script de l'application standard (fallback) -->
-</body></html>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Script pour forcer le rafraîchissement du cache
+      (function() {
+        // Générer un timestamp unique
+        const timestamp = new Date().getTime();
+        
+        // Ajouter le timestamp comme paramètre à toutes les requêtes
+        const originalFetch = window.fetch;
+        window.fetch = function(url, options) {
+          if (typeof url === 'string') {
+            url = url + (url.includes('?') ? '&' : '?') + '_t=' + timestamp;
+          }
+          return originalFetch(url, options);
+        };
+        
+        // Forcer le rechargement de la page si elle a été mise en cache
+        if (window.performance && window.performance.navigation.type === 2) {
+          window.location.reload(true);
+        }
+        
+        console.log('Cache refresh script initialized with timestamp: ' + timestamp);
+      })();
+    </script>
+  </body>
+</html>

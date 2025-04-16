@@ -4,87 +4,34 @@ import { Check, X, CreditCard, Calendar, Smartphone, Tv, Monitor, Tablet } from 
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import PageTransition from '../components/animations/PageTransition';
-import SubscriptionCard from '../components/subscription/SubscriptionCard';
-import unifiedPaymentService, { SUBSCRIPTION_PLANS, SUBSCRIPTION_STATUS } from '../services/UnifiedPaymentService';
+import { useSubscription } from '../services/SubscriptionService';
+import { SUBSCRIPTION_PLANS, SUBSCRIPTION_STATUS } from '../services/SubscriptionService';
+import PayPalButton from '../components/payment/PayPalButton';
+import SubscriptionStatus from '../components/payment/SubscriptionStatus';
 
 /**
  * Page d'abonnement et tarifs de FloDrama
- * Version optimisée avec le service de paiement unifié
  */
 const SubscriptionPage = () => {
   const [billingPeriod, setBillingPeriod] = useState('monthly');
   const [showSuccess, setShowSuccess] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [showPaymentOptions, setShowPaymentOptions] = useState(false);
-  const [subscriptionData, setSubscriptionData] = useState(null);
-  const [loading, setLoading] = useState(true);
   
-  // Initialiser le service de paiement et récupérer les données d'abonnement
+  const { 
+    subscriptionData, 
+    startInitialTrial, 
+    isInInitialTrial,
+    hasActiveSubscription,
+  } = useSubscription();
+  
+  // Démarrer automatiquement la période d'essai si l'utilisateur n'a pas d'abonnement
   useEffect(() => {
-    const initializePayment = async () => {
-      try {
-        setLoading(true);
-        await unifiedPaymentService.initialize();
-        const data = unifiedPaymentService.getSubscriptionData();
-        setSubscriptionData(data);
-        setLoading(false);
-      } catch (err) {
-        console.error('Erreur lors de l\'initialisation du service de paiement:', err);
-        setLoading(false);
-      }
-    };
-
-    initializePayment();
-  }, []);
-  
-  // Vérifier si l'abonnement a expiré
-  useEffect(() => {
-    const checkExpiration = async () => {
-      if (subscriptionData) {
-        await unifiedPaymentService.checkSubscriptionExpiration();
-        // Mettre à jour les données après vérification
-        setSubscriptionData(unifiedPaymentService.getSubscriptionData());
-      }
-    };
-    
-    checkExpiration();
-  }, [subscriptionData]);
-  
-  // Fonctions utilitaires pour vérifier l'état de l'abonnement
-  const isInInitialTrial = () => unifiedPaymentService.isInInitialTrial();
-  const hasActiveSubscription = () => unifiedPaymentService.hasActiveSubscription();
-  
-  // Démarrer la période d'essai
-  const handleStartTrial = async () => {
-    try {
-      const updatedData = await unifiedPaymentService.startInitialTrial();
-      setSubscriptionData(updatedData);
-      setShowSuccess(true);
-      setTimeout(() => setShowSuccess(false), 3000);
-    } catch (error) {
-      console.error('Erreur lors du démarrage de la période d\'essai:', error);
+    if (subscriptionData && subscriptionData.status === SUBSCRIPTION_STATUS.INACTIVE) {
+      // Ici, on pourrait vérifier si l'utilisateur est connecté avant de démarrer la période d'essai
+      // Pour l'instant, on démarre automatiquement la période d'essai
     }
-  };
-  
-  const handleSelectPlan = (plan) => {
-    setSelectedPlan(plan);
-    setShowPaymentOptions(true);
-    
-    // Scroll to payment options
-    setTimeout(() => {
-      document.getElementById('payment-options')?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
-  };
-  
-  const handlePaymentSuccess = (details) => {
-    setShowSuccess(true);
-    setShowPaymentOptions(false);
-    
-    // Scroll to success message
-    setTimeout(() => {
-      document.getElementById('success-message')?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
-  };
+  }, [subscriptionData]);
   
   const plans = [
     {
@@ -167,6 +114,30 @@ const SubscriptionPage = () => {
     }
   ];
   
+  const handleStartTrial = () => {
+    startInitialTrial();
+  };
+  
+  const handleSelectPlan = (plan) => {
+    setSelectedPlan(plan);
+    setShowPaymentOptions(true);
+    
+    // Scroll to payment options
+    setTimeout(() => {
+      document.getElementById('payment-options')?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
+  
+  const handlePaymentSuccess = (details) => {
+    setShowSuccess(true);
+    setShowPaymentOptions(false);
+    
+    // Scroll to success message
+    setTimeout(() => {
+      document.getElementById('success-message')?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
+  
   return (
     <PageTransition type="fade">
       <div className="bg-gray-900 text-white min-h-screen">
@@ -180,7 +151,7 @@ const SubscriptionPage = () => {
             className="max-w-6xl mx-auto"
           >
             {/* Statut de l'abonnement */}
-            <SubscriptionCard className="mb-12" />
+            <SubscriptionStatus className="mb-12" />
             
             {showSuccess && (
               <motion.div
@@ -349,7 +320,7 @@ const SubscriptionPage = () => {
                     </p>
                   </div>
                   
-                  <unifiedPaymentService.PaymentButton 
+                  <PayPalButton 
                     planId={selectedPlan.id}
                     billingPeriod={billingPeriod}
                     onSuccess={handlePaymentSuccess}

@@ -1,300 +1,239 @@
 /**
- * Composant de paramètres pour la Watch Party
- * Permet de configurer les options de la session
+ * Composant de paramètres pour la fonctionnalité Watch Party
+ * Permet de configurer l'affichage et les options de la session
  */
 
-import React, { useState, useCallback } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Switch, ScrollView, Image } from '../../adapters/react-native-adapter';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Switch, ScrollView } from '../../adapters/react-native-adapter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faUserShield, faUsers, faVolumeMute, faVolumeUp, faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faDesktop, faComments } from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from '../../hooks/useTheme';
-import { useWatchParty } from '../../hooks/useWatchParty';
-import { useAuth } from '../../hooks/useAuth';
 
 /**
- * Composant de paramètres pour la Watch Party
+ * Composant de paramètres pour Watch Party
  * @param {Object} props - Propriétés du composant
- * @param {string} props.layout - Mise en page actuelle
- * @param {Function} props.onLayoutChange - Fonction appelée lors du changement de mise en page
- * @param {Function} props.onClose - Fonction appelée pour fermer le panneau
+ * @param {string} props.layout - Disposition actuelle ('side-by-side', 'video-focus', 'chat-focus')
+ * @param {Function} props.onLayoutChange - Fonction appelée lors du changement de disposition
+ * @param {Function} props.onClose - Fonction appelée à la fermeture du panneau
  * @returns {JSX.Element} - Composant React
  */
 const WatchPartySettings = ({ layout, onLayoutChange, onClose }) => {
   const { colors } = useTheme();
-  const { user } = useAuth();
-  const { 
-    partyInfo, 
-    participants, 
-    isHost, 
-    updatePartySettings, 
-    kickParticipant, 
-    banParticipant, 
-    muteParticipant 
-  } = useWatchParty();
   
   // États locaux pour les paramètres
-  const [isPrivate, setIsPrivate] = useState(partyInfo?.isPrivate || false);
-  const [requireApproval, setRequireApproval] = useState(partyInfo?.requireApproval || false);
-  const [chatEnabled, setChatEnabled] = useState(partyInfo?.chatEnabled !== false); // Activé par défaut
-  const [showModeration, setShowModeration] = useState(false);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [autoSync, setAutoSync] = useState(true);
+  const [showTimestamps, setShowTimestamps] = useState(true);
   
-  // Mettre à jour les paramètres de la Watch Party
-  const handleUpdateSettings = useCallback(() => {
-    updatePartySettings({
-      isPrivate,
-      requireApproval,
-      chatEnabled
-    });
-  }, [isPrivate, requireApproval, chatEnabled, updatePartySettings]);
-  
-  // Gérer l'expulsion d'un participant
-  const handleKickParticipant = useCallback((participantId) => {
-    kickParticipant(participantId);
-  }, [kickParticipant]);
-  
-  // Gérer le bannissement d'un participant
-  const handleBanParticipant = useCallback((participantId) => {
-    banParticipant(participantId);
-  }, [banParticipant]);
-  
-  // Gérer la mise en sourdine d'un participant
-  const handleMuteParticipant = useCallback((participantId, isMuted) => {
-    muteParticipant(participantId, isMuted);
-  }, [muteParticipant]);
-  
+  // Fonction pour gérer les changements de disposition
+  const handleLayoutChange = (newLayout) => {
+    onLayoutChange(newLayout);
+  };
+
   return (
-    <View style={[styles.container, { backgroundColor: colors.background2 }]}>
-      <View style={styles.header}>
-        <Text style={[styles.title, { color: colors.text }]}>Paramètres</Text>
-        <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-          <FontAwesomeIcon icon={faTimes} color={colors.icon} size={20} />
-        </TouchableOpacity>
-      </View>
-      
-      <ScrollView style={styles.content}>
-        {/* Section de mise en page */}
-        <View style={styles.section}>
-          <Text style={[styles.sectionTitle, { color: colors.text }]}>Mise en page</Text>
+    <View style={[styles.overlay, { backgroundColor: 'rgba(0, 0, 0, 0.5)' }]}>
+      <View style={[styles.container, { backgroundColor: colors.background }]}>
+        <View style={styles.header}>
+          <Text style={[styles.title, { color: colors.text }]}>
+            Paramètres de la Watch Party
+          </Text>
           
-          <View style={styles.layoutOptions}>
-            <TouchableOpacity 
-              style={[
-                styles.layoutOption,
-                layout === 'side-by-side' && { backgroundColor: colors.primary + '30' },
-                { borderColor: colors.border }
-              ]}
-              onPress={() => onLayoutChange('side-by-side')}
-            >
-              <View style={styles.layoutPreview}>
-                <View style={[styles.layoutPreviewVideo, { backgroundColor: colors.primary + '50' }]} />
-                <View style={[styles.layoutPreviewChat, { backgroundColor: colors.secondary + '50' }]} />
-              </View>
-              <Text style={[styles.layoutOptionText, { color: colors.text }]}>Côte à côte</Text>
-            </TouchableOpacity>
-            
-            <TouchableOpacity 
-              style={[
-                styles.layoutOption,
-                layout === 'video-focus' && { backgroundColor: colors.primary + '30' },
-                { borderColor: colors.border }
-              ]}
-              onPress={() => onLayoutChange('video-focus')}
-            >
-              <View style={styles.layoutPreview}>
-                <View style={[styles.layoutPreviewVideoFocus, { backgroundColor: colors.primary + '50' }]} />
-                <View style={[styles.layoutPreviewChatSmall, { backgroundColor: colors.secondary + '50' }]} />
-              </View>
-              <Text style={[styles.layoutOptionText, { color: colors.text }]}>Focus vidéo</Text>
-            </TouchableOpacity>
-            
-            <TouchableOpacity 
-              style={[
-                styles.layoutOption,
-                layout === 'chat-focus' && { backgroundColor: colors.primary + '30' },
-                { borderColor: colors.border }
-              ]}
-              onPress={() => onLayoutChange('chat-focus')}
-            >
-              <View style={styles.layoutPreview}>
-                <View style={[styles.layoutPreviewVideoSmall, { backgroundColor: colors.primary + '50' }]} />
-                <View style={[styles.layoutPreviewChatFocus, { backgroundColor: colors.secondary + '50' }]} />
-              </View>
-              <Text style={[styles.layoutOptionText, { color: colors.text }]}>Focus chat</Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+            <FontAwesomeIcon icon={faTimes} color={colors.text} size={18} />
+          </TouchableOpacity>
         </View>
         
-        {/* Section des paramètres de la Watch Party (uniquement pour l'hôte) */}
-        {isHost && (
+        <ScrollView style={styles.content}>
+          {/* Section: Disposition */}
           <View style={styles.section}>
-            <Text style={[styles.sectionTitle, { color: colors.text }]}>Paramètres de la Watch Party</Text>
+            <Text style={[styles.sectionTitle, { color: colors.text }]}>
+              Disposition
+            </Text>
             
-            <View style={styles.settingRow}>
-              <View style={styles.settingInfo}>
+            <View style={styles.layoutOptions}>
+              <TouchableOpacity
+                style={[
+                  styles.layoutOption,
+                  layout === 'side-by-side' && [styles.selectedOption, { borderColor: colors.primary }]
+                ]}
+                onPress={() => handleLayoutChange('side-by-side')}
+              >
                 <FontAwesomeIcon 
-                  icon={isPrivate ? faLock : faLockOpen} 
-                  color={isPrivate ? colors.primary : colors.icon} 
-                  size={18} 
+                  icon={faDesktop} 
+                  color={layout === 'side-by-side' ? colors.primary : colors.icon} 
+                  size={20} 
                 />
-                <Text style={[styles.settingText, { color: colors.text }]}>
-                  Watch Party privée
+                <Text style={[
+                  styles.layoutText,
+                  { color: layout === 'side-by-side' ? colors.primary : colors.text }
+                ]}>
+                  Côte à côte
                 </Text>
-              </View>
-              <Switch
-                value={isPrivate}
-                onValueChange={(value) => {
-                  setIsPrivate(value);
-                  handleUpdateSettings();
-                }}
-                trackColor={{ false: colors.border, true: colors.primary + '80' }}
-                thumbColor={isPrivate ? colors.primary : colors.textSecondary}
-              />
-            </View>
-            
-            <View style={styles.settingRow}>
-              <View style={styles.settingInfo}>
+              </TouchableOpacity>
+              
+              <TouchableOpacity
+                style={[
+                  styles.layoutOption,
+                  layout === 'video-focus' && [styles.selectedOption, { borderColor: colors.primary }]
+                ]}
+                onPress={() => handleLayoutChange('video-focus')}
+              >
                 <FontAwesomeIcon 
-                  icon={faUsers} 
-                  color={requireApproval ? colors.primary : colors.icon} 
-                  size={18} 
+                  icon={faDesktop} 
+                  color={layout === 'video-focus' ? colors.primary : colors.icon} 
+                  size={24} 
                 />
-                <Text style={[styles.settingText, { color: colors.text }]}>
-                  Approbation requise pour rejoindre
+                <Text style={[
+                  styles.layoutText,
+                  { color: layout === 'video-focus' ? colors.primary : colors.text }
+                ]}>
+                  Focus vidéo
                 </Text>
-              </View>
-              <Switch
-                value={requireApproval}
-                onValueChange={(value) => {
-                  setRequireApproval(value);
-                  handleUpdateSettings();
-                }}
-                trackColor={{ false: colors.border, true: colors.primary + '80' }}
-                thumbColor={requireApproval ? colors.primary : colors.textSecondary}
-              />
-            </View>
-            
-            <View style={styles.settingRow}>
-              <View style={styles.settingInfo}>
+              </TouchableOpacity>
+              
+              <TouchableOpacity
+                style={[
+                  styles.layoutOption,
+                  layout === 'chat-focus' && [styles.selectedOption, { borderColor: colors.primary }]
+                ]}
+                onPress={() => handleLayoutChange('chat-focus')}
+              >
                 <FontAwesomeIcon 
-                  icon={chatEnabled ? faVolumeUp : faVolumeMute} 
-                  color={chatEnabled ? colors.primary : colors.error} 
-                  size={18} 
+                  icon={faComments} 
+                  color={layout === 'chat-focus' ? colors.primary : colors.icon} 
+                  size={20} 
                 />
-                <Text style={[styles.settingText, { color: colors.text }]}>
-                  Chat activé
+                <Text style={[
+                  styles.layoutText,
+                  { color: layout === 'chat-focus' ? colors.primary : colors.text }
+                ]}>
+                  Focus chat
                 </Text>
-              </View>
-              <Switch
-                value={chatEnabled}
-                onValueChange={(value) => {
-                  setChatEnabled(value);
-                  handleUpdateSettings();
-                }}
-                trackColor={{ false: colors.border, true: colors.primary + '80' }}
-                thumbColor={chatEnabled ? colors.primary : colors.textSecondary}
-              />
+              </TouchableOpacity>
             </View>
-            
-            <TouchableOpacity 
-              style={[styles.moderationButton, { backgroundColor: colors.primary + '20' }]}
-              onPress={() => setShowModeration(!showModeration)}
-            >
-              <FontAwesomeIcon icon={faUserShield} color={colors.primary} size={18} />
-              <Text style={[styles.moderationButtonText, { color: colors.primary }]}>
-                {showModeration ? 'Masquer la modération' : 'Afficher la modération'}
-              </Text>
-            </TouchableOpacity>
           </View>
-        )}
+          
+          {/* Section: Notifications */}
+          <View style={styles.section}>
+            <Text style={[styles.sectionTitle, { color: colors.text }]}>
+              Notifications
+            </Text>
+            
+            <View style={styles.settingItem}>
+              <View style={styles.settingInfo}>
+                <Text style={[styles.settingLabel, { color: colors.text }]}>
+                  Notifications de messages
+                </Text>
+                <Text style={[styles.settingDescription, { color: colors.textSecondary }]}>
+                  Afficher une notification lorsque vous recevez un message
+                </Text>
+              </View>
+              <Switch
+                value={notificationsEnabled}
+                onValueChange={setNotificationsEnabled}
+                trackColor={{ false: colors.switchTrackOff, true: colors.primary }}
+                thumbColor={colors.switchThumb}
+              />
+            </View>
+            
+            <View style={styles.settingItem}>
+              <View style={styles.settingInfo}>
+                <Text style={[styles.settingLabel, { color: colors.text }]}>
+                  Sons de notification
+                </Text>
+                <Text style={[styles.settingDescription, { color: colors.textSecondary }]}>
+                  Jouer un son lors de la réception d'un message
+                </Text>
+              </View>
+              <Switch
+                value={soundEnabled}
+                onValueChange={setSoundEnabled}
+                trackColor={{ false: colors.switchTrackOff, true: colors.primary }}
+                thumbColor={colors.switchThumb}
+              />
+            </View>
+          </View>
+          
+          {/* Section: Synchronisation */}
+          <View style={styles.section}>
+            <Text style={[styles.sectionTitle, { color: colors.text }]}>
+              Synchronisation
+            </Text>
+            
+            <View style={styles.settingItem}>
+              <View style={styles.settingInfo}>
+                <Text style={[styles.settingLabel, { color: colors.text }]}>
+                  Synchronisation automatique
+                </Text>
+                <Text style={[styles.settingDescription, { color: colors.textSecondary }]}>
+                  Synchroniser automatiquement avec les autres participants
+                </Text>
+              </View>
+              <Switch
+                value={autoSync}
+                onValueChange={setAutoSync}
+                trackColor={{ false: colors.switchTrackOff, true: colors.primary }}
+                thumbColor={colors.switchThumb}
+              />
+            </View>
+            
+            <View style={styles.settingItem}>
+              <View style={styles.settingInfo}>
+                <Text style={[styles.settingLabel, { color: colors.text }]}>
+                  Afficher les timestamps
+                </Text>
+                <Text style={[styles.settingDescription, { color: colors.textSecondary }]}>
+                  Afficher les timestamps cliquables dans les messages
+                </Text>
+              </View>
+              <Switch
+                value={showTimestamps}
+                onValueChange={setShowTimestamps}
+                trackColor={{ false: colors.switchTrackOff, true: colors.primary }}
+                thumbColor={colors.switchThumb}
+              />
+            </View>
+          </View>
+        </ScrollView>
         
-        {/* Section de modération (uniquement pour l'hôte et si activée) */}
-        {isHost && showModeration && (
-          <View style={styles.section}>
-            <Text style={[styles.sectionTitle, { color: colors.text }]}>Modération des participants</Text>
-            
-            {participants.length === 0 ? (
-              <Text style={[styles.emptyText, { color: colors.textSecondary }]}>
-                Aucun participant dans la Watch Party
-              </Text>
-            ) : (
-              participants
-                .filter(p => p.id !== user?.id) // Exclure l'hôte
-                .map(participant => (
-                  <View key={participant.id} style={[styles.participantRow, { borderBottomColor: colors.border }]}>
-                    <View style={styles.participantInfo}>
-                      {participant.profilePicture ? (
-                        <Image 
-                          source={{ uri: participant.profilePicture }} 
-                          style={styles.participantAvatar} 
-                        />
-                      ) : (
-                        <View style={[styles.participantAvatarPlaceholder, { backgroundColor: colors.primary + '50' }]}>
-                          <Text style={[styles.avatarInitial, { color: colors.primary }]}>
-                            {participant.name.charAt(0).toUpperCase()}
-                          </Text>
-                        </View>
-                      )}
-                      <Text style={[styles.participantName, { color: colors.text }]}>
-                        {participant.name}
-                      </Text>
-                      {participant.isMuted && (
-                        <FontAwesomeIcon icon={faVolumeMute} color={colors.error} size={14} style={styles.statusIcon} />
-                      )}
-                    </View>
-                    
-                    <View style={styles.participantActions}>
-                      <TouchableOpacity 
-                        style={[styles.actionButton, { backgroundColor: colors.warning + '20' }]}
-                        onPress={() => handleMuteParticipant(participant.id, !participant.isMuted)}
-                      >
-                        <FontAwesomeIcon 
-                          icon={participant.isMuted ? faVolumeUp : faVolumeMute} 
-                          color={participant.isMuted ? colors.success : colors.warning} 
-                          size={14} 
-                        />
-                        <Text style={[styles.actionText, { color: participant.isMuted ? colors.success : colors.warning }]}>
-                          {participant.isMuted ? 'Réactiver' : 'Muter'}
-                        </Text>
-                      </TouchableOpacity>
-                      
-                      <TouchableOpacity 
-                        style={[styles.actionButton, { backgroundColor: colors.error + '20' }]}
-                        onPress={() => handleKickParticipant(participant.id)}
-                      >
-                        <Text style={[styles.actionText, { color: colors.error }]}>
-                          Exclure
-                        </Text>
-                      </TouchableOpacity>
-                      
-                      <TouchableOpacity 
-                        style={[styles.actionButton, { backgroundColor: colors.error + '20' }]}
-                        onPress={() => handleBanParticipant(participant.id)}
-                      >
-                        <Text style={[styles.actionText, { color: colors.error }]}>
-                          Bannir
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                ))
-            )}
-          </View>
-        )}
-      </ScrollView>
+        <View style={[styles.footer, { borderTopColor: colors.border }]}>
+          <TouchableOpacity
+            style={[styles.button, { backgroundColor: colors.primary }]}
+            onPress={onClose}
+          >
+            <Text style={[styles.buttonText, { color: colors.textOnPrimary }]}>
+              Appliquer
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  overlay: {
     position: 'absolute',
     top: 0,
+    left: 0,
     right: 0,
-    width: 350,
-    height: '100%',
-    zIndex: 100,
-    borderLeftWidth: 1,
-    borderLeftColor: 'rgba(0, 0, 0, 0.1)',
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1000,
+  },
+  container: {
+    width: '80%',
+    maxWidth: 500,
+    maxHeight: '80%',
+    borderRadius: 10,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   header: {
     flexDirection: 'row',
@@ -312,7 +251,6 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   content: {
-    flex: 1,
     padding: 15,
   },
   section: {
@@ -330,153 +268,53 @@ const styles = StyleSheet.create({
   },
   layoutOption: {
     width: '30%',
-    borderWidth: 1,
+    padding: 15,
     borderRadius: 8,
-    padding: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  layoutPreview: {
-    width: 60,
-    height: 60,
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    borderRadius: 4,
-    marginBottom: 5,
-    position: 'relative',
+  selectedOption: {
+    borderWidth: 2,
   },
-  layoutPreviewVideo: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    width: '50%',
-    height: '100%',
-    borderRadius: 2,
+  layoutText: {
+    marginTop: 8,
+    fontSize: 14,
+    textAlign: 'center',
   },
-  layoutPreviewChat: {
-    position: 'absolute',
-    right: 0,
-    top: 0,
-    width: '50%',
-    height: '100%',
-    borderRadius: 2,
-  },
-  layoutPreviewVideoFocus: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    width: '100%',
-    height: '70%',
-    borderRadius: 2,
-  },
-  layoutPreviewChatSmall: {
-    position: 'absolute',
-    left: 0,
-    bottom: 0,
-    width: '100%',
-    height: '30%',
-    borderRadius: 2,
-  },
-  layoutPreviewVideoSmall: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    width: '100%',
-    height: '30%',
-    borderRadius: 2,
-  },
-  layoutPreviewChatFocus: {
-    position: 'absolute',
-    left: 0,
-    bottom: 0,
-    width: '100%',
-    height: '70%',
-    borderRadius: 2,
-  },
-  layoutOptionText: {
-    fontSize: 12,
-    marginTop: 5,
-  },
-  settingRow: {
+  settingItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 12,
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(0, 0, 0, 0.05)',
   },
   settingInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  settingText: {
-    marginLeft: 10,
-    fontSize: 14,
-  },
-  moderationButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 12,
-    borderRadius: 8,
-    marginTop: 15,
-  },
-  moderationButtonText: {
-    marginLeft: 8,
-    fontWeight: '500',
-  },
-  participantRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-  },
-  participantInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
     flex: 1,
+    marginRight: 10,
   },
-  participantAvatar: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
+  settingLabel: {
+    fontSize: 16,
+    marginBottom: 4,
   },
-  participantAvatarPlaceholder: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  avatarInitial: {
-    fontSize: 14,
-    fontWeight: 'bold',
-  },
-  participantName: {
-    marginLeft: 10,
-    fontSize: 14,
-  },
-  statusIcon: {
-    marginLeft: 5,
-  },
-  participantActions: {
-    flexDirection: 'row',
-  },
-  actionButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 4,
-    marginLeft: 5,
-  },
-  actionText: {
+  settingDescription: {
     fontSize: 12,
-    marginLeft: 3,
   },
-  emptyText: {
-    fontStyle: 'italic',
-    textAlign: 'center',
-    padding: 10,
+  footer: {
+    padding: 15,
+    borderTopWidth: 1,
+    alignItems: 'flex-end',
+  },
+  button: {
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+  },
+  buttonText: {
+    fontSize: 14,
+    fontWeight: '500',
   },
 });
 

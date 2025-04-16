@@ -1,32 +1,54 @@
 /**
- * Configuration unifiée pour FloDrama
- * Ce fichier centralise toutes les configurations liées aux ressources
- * Adapté pour le déploiement sur Vercel
+ * Configuration AWS unifiée pour FloDrama
+ * Ce fichier centralise toutes les configurations liées à AWS
  */
 
-const VERCEL_CONFIG = {
-  // Configuration des ressources
-  resources: {
-    // URL de base (sera remplacée par l'URL Vercel après déploiement)
-    baseUrl: typeof window !== 'undefined' ? window.location.origin : 'https://flodrama.vercel.app',
+const AWS_CONFIG = {
+  // Configuration CloudFront
+  cloudFront: {
+    // URL unique pour toutes les ressources CloudFront
+    URL: '/assets/data',
+    // Domaines pour différents types de ressources
+    domains: {
+      media: '/assets/media',
+      static: '/assets/static',
+      data: '/assets/data'
+    },
     // Chemins pour différents types de ressources
     paths: {
-      media: '/media',
-      static: '/static',
-      data: '/data',
-      posters: '/media/posters',
-      backdrops: '/media/backdrops',
-      thumbnails: '/media/thumbnails',
-      episodes: '/media/episodes',
-      metadata: '/data/metadata.json',
-      subtitles: '/media/subtitles'
+      posters: '/posters',
+      backdrops: '/backdrops',
+      thumbnails: '/thumbnails',
+      episodes: '/episodes',
+      metadata: '/metadata',
+      subtitles: '/subtitles'
     }
   },
   
-  // Configuration API
-  api: {
-    // L'API sera servie directement par Vercel Functions
-    baseUrl: typeof window !== 'undefined' ? `${window.location.origin}/api` : 'https://flodrama.vercel.app/api',
+  // Configuration S3
+  s3: {
+    buckets: {
+      media: 'flodrama-media',
+      static: 'flodrama-static',
+      cache: 'flodrama-cache'
+    },
+    region: 'us-east-1'
+  },
+  
+  // Configuration DynamoDB
+  dynamoDB: {
+    tables: {
+      cache: 'FloDrama-Cache-production',
+      users: 'FloDrama-Users-production',
+      watchlist: 'FloDrama-Watchlist-production',
+      history: 'FloDrama-History-production'
+    },
+    region: 'us-east-1'
+  },
+  
+  // Configuration API Gateway
+  apiGateway: {
+    baseUrl: '/api',
     endpoints: {
       metadata: '/metadata',
       users: '/users',
@@ -35,15 +57,8 @@ const VERCEL_CONFIG = {
     }
   },
   
-  // Mode local pour le développement
-  useLocalMode: process.env.NODE_ENV === 'development',
-  
-  // Mode de développement
-  isDev: process.env.NODE_ENV === 'development' || 
-         (typeof window !== 'undefined' && 
-          (window.location.hostname === 'localhost' || 
-           window.location.hostname.includes('vercel-dev') || 
-           window.location.hostname.includes('preview')))
+  // Mode local (sans AWS) - TOUJOURS activé pour éviter les erreurs
+  useLocalMode: true
 };
 
 /**
@@ -52,11 +67,8 @@ const VERCEL_CONFIG = {
  * @returns {string} URL de l'affiche
  */
 export const getPosterUrl = (id) => {
-  if (VERCEL_CONFIG.useLocalMode) {
-    return `/assets/media/posters/${id}.jpg`;
-  } else {
-    return `${VERCEL_CONFIG.resources.baseUrl}${VERCEL_CONFIG.resources.paths.posters}/${id}.jpg`;
-  }
+  // Toujours utiliser le mode local pour éviter les erreurs de connexion
+  return `/assets/media/posters/${id}.jpg`;
 };
 
 /**
@@ -65,11 +77,8 @@ export const getPosterUrl = (id) => {
  * @returns {string} URL de l'image d'arrière-plan
  */
 export const getBackdropUrl = (id) => {
-  if (VERCEL_CONFIG.useLocalMode) {
-    return `/assets/media/backdrops/${id}.jpg`;
-  } else {
-    return `${VERCEL_CONFIG.resources.baseUrl}${VERCEL_CONFIG.resources.paths.backdrops}/${id}.jpg`;
-  }
+  // Toujours utiliser le mode local pour éviter les erreurs de connexion
+  return `/assets/media/backdrops/${id}.jpg`;
 };
 
 /**
@@ -78,11 +87,8 @@ export const getBackdropUrl = (id) => {
  * @returns {string} URL de la miniature
  */
 export const getThumbnailUrl = (id) => {
-  if (VERCEL_CONFIG.useLocalMode) {
-    return `/assets/media/thumbnails/${id}.jpg`;
-  } else {
-    return `${VERCEL_CONFIG.resources.baseUrl}${VERCEL_CONFIG.resources.paths.thumbnails}/${id}.jpg`;
-  }
+  // Toujours utiliser le mode local pour éviter les erreurs de connexion
+  return `/assets/media/thumbnails/${id}.jpg`;
 };
 
 /**
@@ -90,20 +96,8 @@ export const getThumbnailUrl = (id) => {
  * @returns {string} URL des métadonnées
  */
 export const getMetadataUrl = () => {
-  if (VERCEL_CONFIG.useLocalMode) {
-    return `/assets/data/metadata.json`;
-  } else {
-    return `${VERCEL_CONFIG.resources.baseUrl}${VERCEL_CONFIG.resources.paths.metadata}`;
-  }
+  // Toujours utiliser le mode local pour éviter les erreurs de connexion
+  return `/assets/data/metadata.json`;
 };
 
-/**
- * Obtient l'URL de l'API
- * @param {string} endpoint Point de terminaison de l'API
- * @returns {string} URL de l'API
- */
-export const getApiUrl = (endpoint) => {
-  return `${VERCEL_CONFIG.api.baseUrl}${endpoint}`;
-};
-
-export default VERCEL_CONFIG;
+export default AWS_CONFIG;

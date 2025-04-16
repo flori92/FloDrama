@@ -6,14 +6,13 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUsers, faShareAlt, faCog, faTimes, faPoll } from '@fortawesome/free-solid-svg-icons';
+import { faUsers, faShareAlt, faCog, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { View, StyleSheet, Text, TouchableOpacity, Alert } from '../../adapters/react-native-adapter';
 
-import EnhancedVideoPlayer from '../video/EnhancedVideoPlayer';
+import VideoPlayer from '../video/VideoPlayer';
 import WatchPartyChat from './WatchPartyChat';
 import WatchPartyParticipants from './WatchPartyParticipants';
 import WatchPartySettings from './WatchPartySettings';
-import WatchPartyPoll from './WatchPartyPoll';
 import { useWatchParty } from '../../hooks/useWatchParty';
 import { useTheme } from '../../hooks/useTheme';
 import { useSubscription } from '../../hooks/useSubscription';
@@ -30,47 +29,43 @@ const WatchPartyContainer = () => {
   const { colors } = useTheme();
   const { hasActiveSubscription, currentPlan } = useSubscription();
   
+  const [videoUrl, setVideoUrl] = useState('');
   const [dramaInfo, setDramaInfo] = useState(null);
   const [videoTimestamp, setVideoTimestamp] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showParticipants, setShowParticipants] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const [showPollPanel, setShowPollPanel] = useState(false);
   const [layout, setLayout] = useState('side-by-side'); // 'side-by-side', 'video-focus', 'chat-focus'
   
   const videoPlayerRef = useRef(null);
   
-  const { status, participants, videoSync, syncVideoPosition, activePoll } = useWatchParty(partyId);
+  const { status, participants, videoSync, syncVideoPosition } = useWatchParty(partyId);
 
   // Charger les informations du drama
   useEffect(() => {
     const fetchDramaInfo = async () => {
       try {
         // Appel API pour récupérer les informations du drama
-        const response = await fetch(`/api/dramas/${dramaId}`);
-        if (!response.ok) {
-          throw new Error('Erreur lors de la récupération des informations du drama');
-        }
+        // const response = await api.get(`/dramas/${dramaId}`);
+        // setDramaInfo(response.data);
+        // setVideoUrl(response.data.videoUrl);
         
-        const data = await response.json();
-        setDramaInfo(data);
+        // Simulation pour le développement
+        setDramaInfo({
+          id: dramaId,
+          title: 'Drama Test',
+          episode: 1,
+          season: 1,
+          thumbnail: 'https://via.placeholder.com/300x150',
+          description: 'Description du drama pour la Watch Party',
+        });
+        
+        // URL de test - à remplacer par l'URL réelle du drama
+        setVideoUrl('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4');
       } catch (error) {
         console.error('Erreur lors du chargement des informations du drama:', error);
-        
-        // En mode développement, utiliser des données de test
-        if (process.env.NODE_ENV === 'development') {
-          setDramaInfo({
-            id: dramaId,
-            title: 'Drama Test',
-            episode: 1,
-            season: 1,
-            thumbnail: 'https://via.placeholder.com/300x150',
-            description: 'Description du drama pour la Watch Party',
-          });
-        } else {
-          Alert.alert('Erreur', 'Impossible de charger la vidéo. Veuillez réessayer.');
-          navigate('/browse');
-        }
+        Alert.alert('Erreur', 'Impossible de charger la vidéo. Veuillez réessayer.');
+        navigate('/browse');
       }
     };
     
@@ -106,79 +101,56 @@ const WatchPartyContainer = () => {
   // Gérer le changement d'état de lecture
   const handlePlayStateChange = useCallback((playing) => {
     setIsPlaying(playing);
-  }, []);
+    
+    // Synchroniser avec les autres participants
+    syncVideoPosition(videoTimestamp, playing);
+  }, [videoTimestamp, syncVideoPosition]);
 
-  // Synchroniser la position vidéo avec les autres participants
-  useEffect(() => {
-    if (isPlaying) {
-      const syncInterval = setInterval(() => {
-        syncVideoPosition(videoTimestamp, isPlaying);
-      }, 5000); // Synchroniser toutes les 5 secondes
+  // Naviguer à un timestamp spécifique
+  const handleSeekTo = useCallback((timestamp) => {
+    if (videoPlayerRef.current) {
+      videoPlayerRef.current.seekTo(timestamp);
       
-      return () => clearInterval(syncInterval);
+      // Synchroniser avec les autres participants
+      syncVideoPosition(timestamp, isPlaying);
     }
-  }, [videoTimestamp, isPlaying, syncVideoPosition]);
+  }, [isPlaying, syncVideoPosition]);
 
-  // Gérer l'envoi de message
-  const handleSendMessage = useCallback((message) => {
-    // Ajouter le timestamp vidéo si nécessaire
-    if (message.type === 'timestamp') {
-      message.videoTimestamp = videoTimestamp;
-    }
-    
-    // Envoyer le message via le hook useWatchParty
-  }, [videoTimestamp]);
-
-  // Gérer le partage de la Watch Party
+  // Partager le lien de la Watch Party
   const handleShareParty = useCallback(() => {
-    const shareUrl = `${window.location.origin}/watch-party/${partyId}`;
+    const shareUrl = `${window.location.origin}/watch-party/${partyId}/${dramaId}`;
     copyToClipboard(shareUrl);
-    
     Alert.alert(
-      'Lien copié',
-      'Le lien de la Watch Party a été copié dans le presse-papiers.',
-      [{ text: 'OK' }]
+      'Lien copié !',
+      'Le lien de la Watch Party a été copié dans le presse-papiers. Partagez-le avec vos amis pour qu\'ils puissent vous rejoindre.'
     );
-  }, [partyId]);
+  }, [partyId, dramaId]);
 
-  // Gérer le départ de la Watch Party
+  // Quitter la Watch Party
   const handleLeaveParty = useCallback(() => {
-    Alert.alert(
-      'Quitter la Watch Party',
-      'Êtes-vous sûr de vouloir quitter cette Watch Party ?',
-      [
-        { text: 'Annuler', style: 'cancel' },
-        { 
-          text: 'Quitter', 
-          style: 'destructive',
-          onPress: () => {
-            // Quitter la Watch Party et rediriger
-            navigate('/browse');
-          }
-        }
-      ]
-    );
-  }, [navigate]);
+    navigate(`/watch/${dramaId}`);
+  }, [dramaId, navigate]);
 
-  // Vérifier si l'utilisateur a un abonnement actif
-  if (!hasActiveSubscription || (currentPlan && currentPlan.id !== 'ultimate')) {
+  // Vérifier si l'utilisateur a accès à cette fonctionnalité
+  if (!hasActiveSubscription && currentPlan !== 'ultimate') {
     return (
-      <View style={[styles.subscriptionRequired, { backgroundColor: colors.background }]}>
-        <Text style={[styles.subscriptionTitle, { color: colors.text }]}>
-          Abonnement Ultimate requis
-        </Text>
-        <Text style={[styles.subscriptionText, { color: colors.textSecondary }]}>
-          La fonctionnalité Watch Party est disponible uniquement avec l'abonnement Ultimate.
-          Passez à l'abonnement Ultimate pour profiter de cette fonctionnalité exclusive.
-        </Text>
-        <TouchableOpacity 
-          style={[styles.subscriptionButton, { backgroundColor: colors.primary }]}
-          onPress={() => navigate('/subscription')}
-        >
-          <Text style={[styles.buttonText, { color: colors.textOnPrimary }]}>
-            Voir les abonnements
+      <View style={[styles.container, { backgroundColor: colors.background }]}>
+        <View style={styles.subscriptionRequired}>
+          <Text style={[styles.subscriptionTitle, { color: colors.text }]}>
+            Fonctionnalité Premium
           </Text>
-        </TouchableOpacity>
+          <Text style={[styles.subscriptionText, { color: colors.textSecondary }]}>
+            La Watch Party est disponible uniquement pour les abonnements Ultimate.
+          </Text>
+          <TouchableOpacity
+            style={[styles.subscriptionButton, { backgroundColor: colors.primary }]}
+            onPress={() => navigate('/subscription')}
+          >
+            <Text style={[styles.buttonText, { color: colors.textOnPrimary }]}>
+              Découvrir les abonnements
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -188,13 +160,15 @@ const WatchPartyContainer = () => {
       {/* En-tête */}
       <View style={[styles.header, { backgroundColor: colors.background2 }]}>
         <View style={styles.dramaInfo}>
-          <Text style={[styles.dramaTitle, { color: colors.text }]}>
-            {dramaInfo?.title || 'Chargement...'}
-          </Text>
           {dramaInfo && (
-            <Text style={[styles.dramaEpisode, { color: colors.textSecondary }]}>
-              Saison {dramaInfo.season}, Épisode {dramaInfo.episode}
-            </Text>
+            <>
+              <Text style={[styles.dramaTitle, { color: colors.text }]}>
+                {dramaInfo.title}
+              </Text>
+              <Text style={[styles.dramaEpisode, { color: colors.textSecondary }]}>
+                Saison {dramaInfo.season}, Épisode {dramaInfo.episode}
+              </Text>
+            </>
           )}
         </View>
         
@@ -204,7 +178,7 @@ const WatchPartyContainer = () => {
             onPress={() => setShowParticipants(!showParticipants)}
           >
             <FontAwesomeIcon icon={faUsers} color={colors.icon} size={18} />
-            <Text style={[styles.headerButtonText, { color: colors.text }]}>
+            <Text style={[styles.headerButtonText, { color: colors.textSecondary }]}>
               {participants.length}
             </Text>
           </TouchableOpacity>
@@ -221,16 +195,6 @@ const WatchPartyContainer = () => {
             onPress={() => setShowSettings(!showSettings)}
           >
             <FontAwesomeIcon icon={faCog} color={colors.icon} size={18} />
-          </TouchableOpacity>
-          
-          <TouchableOpacity 
-            style={styles.headerButton}
-            onPress={() => setShowPollPanel(!showPollPanel)}
-          >
-            <FontAwesomeIcon icon={faPoll} color={colors.icon} size={18} />
-            {activePoll && (
-              <View style={[styles.notificationBadge, { backgroundColor: colors.primary }]} />
-            )}
           </TouchableOpacity>
           
           <TouchableOpacity 
@@ -256,72 +220,67 @@ const WatchPartyContainer = () => {
           layout === 'video-focus' && styles.videoContainerFocus,
           layout === 'chat-focus' && styles.videoContainerMinimized,
         ]}>
-          <EnhancedVideoPlayer
-            ref={videoPlayerRef}
-            contentId={dramaId}
-            title={dramaInfo?.title}
-            poster={dramaInfo?.thumbnail}
-            onTimeUpdate={handleTimeUpdate}
-            onPlayStateChange={handlePlayStateChange}
-            style={styles.videoPlayer}
-          />
+          {videoUrl ? (
+            <VideoPlayer
+              ref={videoPlayerRef}
+              source={videoUrl}
+              poster={dramaInfo?.thumbnail}
+              onTimeUpdate={handleTimeUpdate}
+              onPlayStateChange={handlePlayStateChange}
+              style={styles.videoPlayer}
+            />
+          ) : (
+            <View style={[styles.loadingContainer, { backgroundColor: colors.background2 }]}>
+              <Text style={[styles.loadingText, { color: colors.textSecondary }]}>
+                Chargement de la vidéo...
+              </Text>
+            </View>
+          )}
           
           {/* Indicateur de synchronisation */}
-          {videoSync && Math.abs(videoTimestamp - videoSync.timestamp) <= 3 && (
-            <View style={[styles.syncIndicator, { backgroundColor: colors.success + '80' }]}>
-              <Text style={[styles.syncText, { color: colors.textOnPrimary }]}>
-                Synchronisé
+          {status.connected && (
+            <View style={[styles.syncIndicator, { backgroundColor: colors.background2 }]}>
+              <Text style={[styles.syncText, { color: colors.textSecondary }]}>
+                {isPlaying ? 'Lecture synchronisée' : 'Pause synchronisée'} • {formatTimestamp(videoTimestamp)}
               </Text>
             </View>
           )}
         </View>
         
-        {/* Section chat */}
+        {/* Chat */}
         <View style={[
           styles.chatContainer,
           layout === 'side-by-side' && styles.chatContainerSideBySide,
           layout === 'video-focus' && styles.chatContainerMinimized,
           layout === 'chat-focus' && styles.chatContainerFocus,
         ]}>
-          {showPollPanel && (
-            <View style={styles.pollContainer}>
-              <WatchPartyPoll />
-              
-              {!activePoll && (
-                <TouchableOpacity 
-                  style={[styles.closePollButton, { backgroundColor: colors.background2 }]}
-                  onPress={() => setShowPollPanel(false)}
-                >
-                  <FontAwesomeIcon icon={faTimes} color={colors.icon} size={16} />
-                </TouchableOpacity>
-              )}
-            </View>
-          )}
-          
           <WatchPartyChat
             partyId={partyId}
             videoTimestamp={videoTimestamp}
-            onSendMessage={handleSendMessage}
+            onSeekTo={handleSeekTo}
+            isPlaying={isPlaying}
           />
         </View>
       </View>
       
-      {/* Panneaux latéraux */}
-      {showSettings && (
-        <WatchPartySettings
-          layout={layout}
-          onLayoutChange={(newLayout) => setLayout(newLayout)}
-          onClose={() => setShowSettings(false)}
-        />
-      )}
-      
+      {/* Panneau des participants (conditionnel) */}
       {showParticipants && (
         <WatchPartyParticipants
+          participants={participants}
           onClose={() => setShowParticipants(false)}
         />
       )}
       
-      {/* Contrôles de mise en page pour mobile */}
+      {/* Panneau des paramètres (conditionnel) */}
+      {showSettings && (
+        <WatchPartySettings
+          layout={layout}
+          onLayoutChange={setLayout}
+          onClose={() => setShowSettings(false)}
+        />
+      )}
+      
+      {/* Contrôles de mise en page (mobile uniquement) */}
       <View style={[styles.layoutControls, { backgroundColor: colors.background2 }]}>
         <TouchableOpacity
           style={[
@@ -456,6 +415,14 @@ const styles = StyleSheet.create({
   chatContainerMinimized: {
     flex: 1,
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    fontSize: 16,
+  },
   syncIndicator: {
     position: 'absolute',
     bottom: 10,
@@ -466,29 +433,6 @@ const styles = StyleSheet.create({
   },
   syncText: {
     fontSize: 12,
-  },
-  notificationBadge: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-  },
-  pollContainer: {
-    position: 'relative',
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(0, 0, 0, 0.1)',
-  },
-  closePollButton: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   layoutControls: {
     flexDirection: 'row',

@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Apple, Download, Smartphone, Tablet, Laptop, CheckCircle, Home, Search, Bookmark, User } from 'lucide-react';
-import './AppDownload.css';
+import { Apple, Download, Smartphone, Tablet, Laptop, CheckCircle } from 'lucide-react';
 
 /**
  * Page de téléchargement des applications mobiles FloDrama
@@ -31,195 +30,191 @@ const AppDownload = () => {
   // Fonctionnalités des applications
   const appFeatures = [
     { 
-      icon: <Smartphone size={24} />, 
-      title: "Streaming HD sur mobile et tablette", 
-      description: "Profitez de vos contenus en haute définition sur tous vos appareils." 
-    },
-    { 
       icon: <Download size={24} />, 
-      title: "Téléchargement pour visionnage hors ligne", 
+      title: "Téléchargement hors-ligne", 
       description: "Téléchargez vos dramas préférés pour les regarder sans connexion internet." 
     },
     { 
-      icon: <CheckCircle size={24} />, 
-      title: "Synchronisation de votre liste entre tous vos appareils", 
-      description: "Retrouvez votre liste de visionnage sur tous vos appareils automatiquement." 
+      icon: <Smartphone size={24} />, 
+      title: "Interface optimisée", 
+      description: "Une expérience utilisateur fluide et intuitive sur tous les appareils." 
     },
     { 
       icon: <CheckCircle size={24} />, 
-      title: "Notifications pour les nouveaux épisodes", 
-      description: "Soyez alerté dès qu'un nouvel épisode de vos séries préférées est disponible." 
-    },
-    { 
-      icon: <CheckCircle size={24} />, 
-      title: "Interface optimisée pour le mobile", 
-      description: "Une expérience utilisateur fluide et intuitive spécialement conçue pour les appareils mobiles." 
+      title: "Qualité HD & 4K", 
+      description: "Profitez de vos contenus en haute définition selon votre abonnement." 
     }
   ];
 
-  // Contenu du smartphone (correspondant à l'image)
-  const phoneContent = [
-    {
-      id: 'crash-landing',
-      title: 'Crash Landing on You',
-      image: 'https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=1935&auto=format&fit=crop',
-      year: 2020,
-      rating: 9.2
-    },
-    {
-      id: 'solo-leveling',
-      title: 'Solo Leveling',
-      image: 'https://images.unsplash.com/photo-1578632292335-df3abbb0d586?q=80&w=1887&auto=format&fit=crop',
-      year: 2023,
-      rating: 8.9
-    },
-    {
-      id: 'queen-of-tears',
-      title: 'Queen of Tears',
-      image: 'https://images.unsplash.com/photo-1581338834647-b0fb40704e21?q=80&w=1887&auto=format&fit=crop',
-      year: 2024,
-      rating: 9.1
-    },
-    {
-      id: 'parasite',
-      title: 'Parasite',
-      image: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1925&auto=format&fit=crop',
-      year: 2019,
-      rating: 9.5
-    }
+  // Appareils compatibles
+  const compatibleDevices = [
+    { icon: <Smartphone size={24} />, name: "Smartphones" },
+    { icon: <Tablet size={24} />, name: "Tablettes" },
+    { icon: <Laptop size={24} />, name: "Smart TV" }
   ];
 
   return (
-    <div className="app-download-page">
-      <div className="app-container">
+    <motion.div 
+      className="pt-24 pb-16 bg-gray-900 min-h-screen"
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+    >
+      <div className="container mx-auto px-4">
         {/* En-tête */}
         <motion.div 
-          className="app-header"
+          className="text-center mb-16"
           variants={itemVariants}
-          initial="initial"
-          animate="animate"
         >
-          <h1 className="app-title">Application Mobile</h1>
-          <p className="app-description">
-            Profitez de FloDrama partout où vous allez avec notre application mobile.
-            Regardez vos dramas, films et animés préférés sur votre smartphone ou
-            tablette, même hors connexion grâce au téléchargement.
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            FloDrama <span className="text-pink-500">Mobile</span>
+          </h1>
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+            Emportez vos dramas préférés partout avec vous grâce à nos applications mobiles pour iOS et Android.
           </p>
         </motion.div>
 
-        {/* Section principale avec smartphone et fonctionnalités */}
-        <div className="app-main-section">
-          {/* Colonne de gauche - Fonctionnalités */}
+        {/* Section de téléchargement */}
+        <motion.div 
+          className="flex flex-col md:flex-row justify-center items-center gap-8 mb-20"
+          variants={itemVariants}
+        >
+          {/* iOS */}
           <motion.div 
-            className="app-features"
-            variants={pageVariants}
-            initial="initial"
-            animate="animate"
+            className="bg-gray-800 rounded-xl p-8 w-full md:w-1/2 max-w-md flex flex-col items-center text-center"
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
           >
-            <h2 className="features-title">Fonctionnalités</h2>
-            <ul className="features-list">
-              {appFeatures.map((feature, index) => (
-                <motion.li 
-                  key={index}
-                  className="feature-item"
-                  variants={itemVariants}
-                >
-                  <div className="feature-icon">
-                    <span className="icon-wrapper">{feature.icon}</span>
-                  </div>
-                  <div className="feature-content">
-                    <h3 className="feature-title">{feature.title}</h3>
-                    <p className="feature-description">{feature.description}</p>
-                  </div>
-                </motion.li>
-              ))}
-            </ul>
-
-            {/* Boutons de téléchargement */}
-            <motion.div 
-              className="download-buttons"
-              variants={itemVariants}
-            >
-              <a href="#" className="download-button app-store">
-                <div className="button-icon">
-                  <Apple size={24} />
-                </div>
-                <div className="button-text">
-                  <span className="button-label">Télécharger sur</span>
-                  <span className="button-store">App Store</span>
-                </div>
-              </a>
-              <a href="#" className="download-button google-play">
-                <div className="button-icon">
-                  <Smartphone size={24} />
-                </div>
-                <div className="button-text">
-                  <span className="button-label">Télécharger sur</span>
-                  <span className="button-store">Google Play</span>
-                </div>
-              </a>
-            </motion.div>
-          </motion.div>
-
-          {/* Colonne de droite - Smartphone */}
-          <motion.div 
-            className="app-smartphone"
-            variants={itemVariants}
-            initial="initial"
-            animate="animate"
-          >
-            <div className="smartphone-container">
-              <div className="smartphone-frame">
-                <div className="smartphone-header">
-                  <div className="smartphone-notch"></div>
-                </div>
-                <div className="smartphone-content">
-                  {/* Header du smartphone */}
-                  <div className="phone-app-header">
-                    <h3 className="phone-app-title">FloDrama</h3>
-                  </div>
-                  
-                  {/* Section Tendances */}
-                  <div className="phone-section">
-                    <h4 className="phone-section-title">Tendances</h4>
-                    <div className="phone-grid">
-                      {phoneContent.map((item, index) => (
-                        <div key={index} className="phone-card">
-                          <div className="phone-card-image" style={{ backgroundImage: `url(${item.image})` }}>
-                            <div className="phone-card-overlay"></div>
-                          </div>
-                          <div className="phone-card-title">{item.title}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  {/* Navigation du smartphone */}
-                  <div className="phone-navigation">
-                    <div className="nav-item active">
-                      <Home size={20} />
-                      <span>Accueil</span>
-                    </div>
-                    <div className="nav-item">
-                      <Search size={20} />
-                      <span>Recherche</span>
-                    </div>
-                    <div className="nav-item">
-                      <Bookmark size={20} />
-                      <span>Ma Liste</span>
-                    </div>
-                    <div className="nav-item">
-                      <User size={20} />
-                      <span>Profil</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div className="bg-black w-20 h-20 rounded-full flex items-center justify-center mb-6">
+              <Apple size={40} className="text-white" />
             </div>
+            <h2 className="text-2xl font-bold text-white mb-2">iOS</h2>
+            <p className="text-gray-400 mb-6">
+              Disponible sur iPhone et iPad
+            </p>
+            <a 
+              href="https://apps.apple.com/fr/app/flodrama" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center"
+            >
+              <Apple size={20} className="mr-2" />
+              Télécharger sur l'App Store
+            </a>
+            <p className="text-gray-500 text-sm mt-4">
+              Compatible iOS 14.0 ou supérieur
+            </p>
           </motion.div>
-        </div>
+
+          {/* Android */}
+          <motion.div 
+            className="bg-gray-900 p-8 rounded-xl shadow-2xl"
+            variants={itemVariants}
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+          >
+            <div className="bg-black w-20 h-20 rounded-full flex items-center justify-center mb-6">
+              <Smartphone size={40} className="text-green-500" />
+            </div>
+            <h2 className="text-2xl font-bold text-white mb-2">Android</h2>
+            <p className="text-gray-400 mb-6">
+              Profitez de FloDrama sur votre appareil Android
+            </p>
+            <a 
+              href="https://play.google.com/store/apps/details?id=com.flodrama.app" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center"
+            >
+              <Smartphone size={20} className="mr-2" />
+              Télécharger sur Google Play
+            </a>
+          </motion.div>
+        </motion.div>
+
+        {/* Fonctionnalités */}
+        <motion.div 
+          className="mb-20"
+          variants={itemVariants}
+        >
+          <h2 className="text-3xl font-bold text-white text-center mb-10">
+            Fonctionnalités exclusives
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {appFeatures.map((feature, index) => (
+              <motion.div 
+                key={index}
+                className="bg-gray-800 rounded-lg p-6"
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              >
+                <div className="text-pink-500 mb-4">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-2">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-400">
+                  {feature.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Appareils compatibles */}
+        <motion.div 
+          className="text-center"
+          variants={itemVariants}
+        >
+          <h2 className="text-3xl font-bold text-white mb-10">
+            Appareils compatibles
+          </h2>
+          <div className="flex flex-wrap justify-center gap-8">
+            {compatibleDevices.map((device, index) => (
+              <div key={index} className="flex flex-col items-center">
+                <div className="bg-gray-800 w-16 h-16 rounded-full flex items-center justify-center mb-3">
+                  <div className="text-pink-500">
+                    {device.icon}
+                  </div>
+                </div>
+                <p className="text-white">{device.name}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div 
+          className="mt-20 text-center"
+          variants={itemVariants}
+        >
+          <h2 className="text-2xl font-bold text-white mb-6">
+            Prêt à emporter FloDrama partout avec vous ?
+          </h2>
+          <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
+            Téléchargez notre application dès maintenant et profitez de votre premier mois d'abonnement Ultimate offert.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <a 
+              href="https://apps.apple.com/fr/app/flodrama" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center"
+            >
+              <Apple size={20} className="mr-2" />
+              App Store
+            </a>
+            <a 
+              href="https://play.google.com/store/apps/details?id=com.flodrama.app" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center"
+            >
+              <Smartphone size={20} className="mr-2" />
+              Google Play
+            </a>
+          </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

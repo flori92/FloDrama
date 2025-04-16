@@ -2,8 +2,7 @@
  * FloDrama - Interface utilisateur pour l'authentification
  * 
  * Ce module gère les composants d'interface utilisateur pour l'authentification,
- * y compris les modales de connexion, d'inscription et de profil utilisateur.
- * Intégré avec MongoDB Atlas et stockage local de secours.
+ * y compris les modales de connexion et d'inscription.
  */
 
 import auth from './auth.js';
@@ -525,43 +524,6 @@ class AuthUI {
           font-size: 20px;
         }
       }
-      
-      /* Toast */
-      .auth-toast {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: #3b82f6;
-        color: white;
-        padding: 15px 20px;
-        border-radius: 6px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        animation: fadeIn 0.3s ease forwards;
-        transform: translateY(100%);
-      }
-      
-      .auth-toast-hide {
-        animation: fadeOut 0.3s ease forwards;
-      }
-      
-      @keyframes fadeOut {
-        from { opacity: 1; transform: translateY(0); }
-        to { opacity: 0; transform: translateY(100%); }
-      }
-      
-      .auth-toast-content {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      
-      .auth-toast-icon {
-        font-size: 24px;
-      }
-      
-      .auth-toast-message {
-        font-size: 16px;
-      }
     `;
     
     document.head.appendChild(styleElement);
@@ -834,45 +796,15 @@ class AuthUI {
       return;
     }
     
-    // Afficher un indicateur de chargement
-    const submitButton = loginForm.querySelector('button[type="submit"]');
-    const originalText = submitButton.textContent;
-    submitButton.disabled = true;
-    submitButton.textContent = 'Connexion en cours...';
-    
     // Tentative de connexion
     auth.login(email, password)
       .then(user => {
         // Connexion réussie
         this.hideAllModals();
-        
-        // Afficher un message de bienvenue
-        const welcomeToast = document.createElement('div');
-        welcomeToast.className = 'auth-toast';
-        welcomeToast.innerHTML = `
-          <div class="auth-toast-content">
-            <div class="auth-toast-icon">✓</div>
-            <div class="auth-toast-message">Bienvenue, ${user.name} !</div>
-          </div>
-        `;
-        document.body.appendChild(welcomeToast);
-        
-        // Supprimer le toast après 3 secondes
-        setTimeout(() => {
-          welcomeToast.classList.add('auth-toast-hide');
-          setTimeout(() => {
-            welcomeToast.remove();
-          }, 300);
-        }, 3000);
       })
       .catch(error => {
         // Erreur de connexion
         errorElement.textContent = error.message || 'Erreur de connexion. Veuillez réessayer.';
-      })
-      .finally(() => {
-        // Restaurer le bouton
-        submitButton.disabled = false;
-        submitButton.textContent = originalText;
       });
   }
   
@@ -919,48 +851,15 @@ class AuthUI {
       return;
     }
     
-    // Afficher un indicateur de chargement
-    const submitButton = registerForm.querySelector('button[type="submit"]');
-    const originalText = submitButton.textContent;
-    submitButton.disabled = true;
-    submitButton.textContent = 'Inscription en cours...';
-    
     // Tentative d'inscription
     auth.register({ name, email, password })
       .then(user => {
         // Inscription réussie
         this.hideAllModals();
-        
-        // Afficher un message de bienvenue
-        const welcomeToast = document.createElement('div');
-        welcomeToast.className = 'auth-toast auth-toast-success';
-        welcomeToast.innerHTML = `
-          <div class="auth-toast-content">
-            <div class="auth-toast-icon">✓</div>
-            <div class="auth-toast-message">
-              <strong>Bienvenue sur FloDrama, ${user.name} !</strong>
-              <p>Votre compte a été créé avec succès.</p>
-            </div>
-          </div>
-        `;
-        document.body.appendChild(welcomeToast);
-        
-        // Supprimer le toast après 5 secondes
-        setTimeout(() => {
-          welcomeToast.classList.add('auth-toast-hide');
-          setTimeout(() => {
-            welcomeToast.remove();
-          }, 300);
-        }, 5000);
       })
       .catch(error => {
         // Erreur d'inscription
         errorElement.textContent = error.message || 'Erreur d\'inscription. Veuillez réessayer.';
-      })
-      .finally(() => {
-        // Restaurer le bouton
-        submitButton.disabled = false;
-        submitButton.textContent = originalText;
       });
   }
   

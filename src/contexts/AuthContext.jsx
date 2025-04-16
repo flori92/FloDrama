@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 // Création du contexte d'authentification
 const AuthContext = createContext();
@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
 
   // Fonction de connexion
-  const login = async (email, _password) => {
+  const login = async (email, password) => {
     try {
       // Simulation d'une connexion réussie
       const user = { id: '123', email, name: 'Utilisateur Test', role: 'user' };
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Fonction d'inscription
-  const signup = async (email, _password, name) => {
+  const signup = async (email, password, name) => {
     try {
       // Simulation d'une inscription réussie
       const user = { id: '123', email, name, role: 'user' };

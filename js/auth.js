@@ -1,344 +1,296 @@
 /**
- * Module d'authentification principal pour FloDrama
+ * FloDrama - Module d'authentification
  * 
- * Ce module gère l'authentification des utilisateurs avec MongoDB Atlas
- * et fournit un fallback vers le stockage local en cas d'indisponibilité de l'API
+ * Ce module gère l'authentification des utilisateurs, y compris l'inscription,
+ * la connexion, la déconnexion et la gestion de session.
  */
 
 import authStorage from './auth-storage.js';
-import authApi from './auth-api.js';
 
 class Auth {
   constructor() {
     this.currentUser = null;
-    this.authStateListeners = [];
-    this.isInitialized = false;
+    this.listeners = [];
     
-    // Initialiser l'état d'authentification
+    // Initialiser l'état de l'utilisateur au chargement
     this.init();
   }
   
   /**
    * Initialise le module d'authentification
    */
-  async init() {
-    if (this.isInitialized) return;
+  init() {
+    // Vérifier si un utilisateur est déjà connecté (session persistante)
+    this.currentUser = authStorage.getUser();
     
-    try {
-      // Tenter de récupérer l'utilisateur depuis l'API
-      const user = await authApi.getCurrentUser();
-      
-      if (user) {
-        this.currentUser = user;
-        this.notifyAuthStateChanged(user);
-      } else {
-        // Fallback: récupérer l'utilisateur depuis le stockage local
-        const localUser = authStorage.getUser();
-        
-        if (localUser) {
-          this.currentUser = localUser;
-          this.notifyAuthStateChanged(localUser);
-        }
-      }
-    } catch (error) {
-      console.warn('Erreur lors de l\'initialisation de l\'authentification avec l\'API, utilisation du stockage local', error);
-      
-      // Fallback: récupérer l'utilisateur depuis le stockage local
-      const localUser = authStorage.getUser();
-      
-      if (localUser) {
-        this.currentUser = localUser;
-        this.notifyAuthStateChanged(localUser);
-      }
-    } finally {
-      this.isInitialized = true;
+    // Si un utilisateur est connecté, notifier les écouteurs
+    if (this.currentUser) {
+      this.notifyListeners();
     }
   }
   
   /**
-   * Enregistre un nouvel utilisateur
-   * @param {Object} userData - Données de l'utilisateur (nom, email, mot de passe)
-   * @returns {Promise<Object>} Utilisateur enregistré
+   * Inscrit un nouvel utilisateur
+   * @param {Object} userData - Données du nouvel utilisateur
+   * @returns {Promise} Promesse résolue avec les données utilisateur ou rejetée avec une erreur
    */
-  async register(userData) {
-    try {
-      // Tenter d'enregistrer l'utilisateur via l'API
-      const result = await authApi.register(userData);
+  register(userData) {
+    return new Promise((resolve, reject) => {
+      // Vérifier si l'email est déjà utilisé
+      // Dans une implémentation réelle, cela serait vérifié côté serveur
+      const existingUsers = this.getRegisteredUsers();
+      const userExists = existingUsers.some(user => user.email === userData.email);
       
-      if (result && result.user) {
-        this.currentUser = result.user;
-        authStorage.saveUser(result.user);
-        this.notifyAuthStateChanged(result.user);
-        return result.user;
+      if (userExists) {
+        return reject(new Error('Cet email est déjà utilisé.'));
       }
-    } catch (error) {
-      console.warn('Erreur lors de l\'enregistrement avec l\'API, utilisation du stockage local', error);
       
-      // Fallback: enregistrer l'utilisateur localement
-      try {
-        const user = authStorage.registerUser(userData);
-        this.currentUser = user;
-        this.notifyAuthStateChanged(user);
-        return user;
-      } catch (localError) {
-        throw localError;
+      // Valider les données utilisateur
+      if (!this.validateUserData(userData)) {
+        return reject(new Error('Données utilisateur invalides.'));
       }
-    }
+      
+      // Générer un ID utilisateur unique
+      userData.id = Date.now().toString();
+      userData.createdAt = new Date().toISOString();
+      
+      // Enregistrer l'utilisateur
+      existingUsers.push(userData);
+      localStorage.setItem('flodrama_registered_users', JSON.stringify(existingUsers));
+      
+      // Connecter automatiquement l'utilisateur après l'inscription
+      this.login(userData.email, userData.password)
+        .then(user => resolve(user))
+        .catch(error => reject(error));
+    });
   }
   
   /**
    * Connecte un utilisateur existant
    * @param {string} email - Email de l'utilisateur
    * @param {string} password - Mot de passe de l'utilisateur
-   * @returns {Promise<Object>} Utilisateur connecté
+   * @returns {Promise} Promesse résolue avec les données utilisateur ou rejetée avec une erreur
    */
-  async login(email, password) {
-    try {
-      // Tenter de connecter l'utilisateur via l'API
-      const result = await authApi.login({ email, password });
+  login(email, password) {
+    return new Promise((resolve, reject) => {
+      // Dans une implémentation réelle, l'authentification serait gérée côté serveur
+      const existingUsers = this.getRegisteredUsers();
+      const user = existingUsers.find(user => user.email === email);
       
-      if (result && result.user) {
-        this.currentUser = result.user;
-        authStorage.saveUser(result.user);
-        this.notifyAuthStateChanged(result.user);
-        return result.user;
+      if (!user) {
+        return reject(new Error('Utilisateur non trouvé.'));
       }
-    } catch (error) {
-      console.warn('Erreur lors de la connexion avec l\'API, utilisation du stockage local', error);
       
-      // Fallback: connecter l'utilisateur localement
-      try {
-        const user = authStorage.loginUser(email, password);
-        this.currentUser = user;
-        this.notifyAuthStateChanged(user);
-        return user;
-      } catch (localError) {
-        throw localError;
+      // Vérifier le mot de passe
+      const hashedPassword = authStorage.simpleHash(password);
+      if (user.hashedPassword && user.hashedPassword !== hashedPassword) {
+        return reject(new Error('Mot de passe incorrect.'));
       }
-    }
+      
+      // Mettre à jour les informations de connexion
+      user.lastLogin = new Date().toISOString();
+      
+      // Sauvegarder l'utilisateur dans le stockage local
+      this.currentUser = authStorage.saveUser(user);
+      
+      // Notifier les écouteurs du changement d'état
+      this.notifyListeners();
+      
+      resolve(this.currentUser);
+    });
   }
   
   /**
    * Déconnecte l'utilisateur actuel
    */
-  async logout() {
-    try {
-      // Tenter de déconnecter l'utilisateur via l'API
-      await authApi.logout();
-    } catch (error) {
-      console.warn('Erreur lors de la déconnexion avec l\'API', error);
-    } finally {
-      // Toujours effacer les données locales
-      authStorage.clearUser();
-      this.currentUser = null;
-      this.notifyAuthStateChanged(null);
-    }
+  logout() {
+    // Supprimer les données utilisateur du stockage local
+    authStorage.removeUser();
+    
+    // Réinitialiser l'état de l'utilisateur
+    this.currentUser = null;
+    
+    // Notifier les écouteurs du changement d'état
+    this.notifyListeners();
   }
   
   /**
-   * Récupère l'utilisateur actuellement connecté
-   * @returns {Object|null} Utilisateur connecté ou null
+   * Vérifie si un utilisateur est actuellement connecté
+   * @returns {boolean} True si un utilisateur est connecté, sinon false
+   */
+  isLoggedIn() {
+    return !!this.currentUser;
+  }
+  
+  /**
+   * Récupère les données de l'utilisateur actuellement connecté
+   * @returns {Object|null} Données utilisateur ou null si non connecté
    */
   getCurrentUser() {
     return this.currentUser;
   }
   
   /**
-   * Met à jour le profil de l'utilisateur
-   * @param {Object} profileData - Données du profil à mettre à jour
-   * @returns {Promise<Object>} Profil mis à jour
+   * Met à jour les données de l'utilisateur actuellement connecté
+   * @param {Object} userData - Nouvelles données utilisateur
+   * @returns {Object} Données utilisateur mises à jour
    */
-  async updateProfile(profileData) {
-    if (!this.currentUser) {
-      throw new Error('Aucun utilisateur connecté');
+  updateCurrentUser(userData) {
+    if (!this.isLoggedIn()) {
+      throw new Error('Aucun utilisateur connecté.');
     }
     
-    try {
-      // Tenter de mettre à jour le profil via l'API
-      const updatedUser = await authApi.updateProfile(profileData);
-      
-      if (updatedUser) {
-        this.currentUser = { ...this.currentUser, ...updatedUser };
-        authStorage.updateUser(this.currentUser);
-        this.notifyAuthStateChanged(this.currentUser);
-        return this.currentUser;
-      }
-    } catch (error) {
-      console.warn('Erreur lors de la mise à jour du profil avec l\'API, utilisation du stockage local', error);
-      
-      // Fallback: mettre à jour le profil localement
-      const updatedUser = authStorage.updateUser({ ...this.currentUser, ...profileData });
-      this.currentUser = updatedUser;
-      this.notifyAuthStateChanged(updatedUser);
-      return updatedUser;
-    }
-  }
-  
-  /**
-   * Met à jour le mot de passe de l'utilisateur
-   * @param {string} currentPassword - Mot de passe actuel
-   * @param {string} newPassword - Nouveau mot de passe
-   * @returns {Promise<boolean>} True si la mise à jour a réussi
-   */
-  async updatePassword(currentPassword, newPassword) {
-    if (!this.currentUser) {
-      throw new Error('Aucun utilisateur connecté');
+    // Fusionner les données existantes avec les nouvelles données
+    const updatedUser = { ...this.currentUser, ...userData };
+    
+    // Sauvegarder les données mises à jour
+    this.currentUser = authStorage.saveUser(updatedUser);
+    
+    // Mettre à jour l'utilisateur dans la liste des utilisateurs enregistrés
+    const existingUsers = this.getRegisteredUsers();
+    const userIndex = existingUsers.findIndex(user => user.id === this.currentUser.id);
+    
+    if (userIndex !== -1) {
+      existingUsers[userIndex] = { ...existingUsers[userIndex], ...userData };
+      localStorage.setItem('flodrama_registered_users', JSON.stringify(existingUsers));
     }
     
-    try {
-      // Tenter de mettre à jour le mot de passe via l'API
-      const result = await authApi.updatePassword({
-        currentPassword,
-        newPassword
-      });
-      
-      return !!result;
-    } catch (error) {
-      console.warn('Erreur lors de la mise à jour du mot de passe avec l\'API, utilisation du stockage local', error);
-      
-      // Fallback: mettre à jour le mot de passe localement
-      return authStorage.updatePassword(currentPassword, newPassword);
-    }
-  }
-  
-  /**
-   * Met à jour les préférences de l'utilisateur
-   * @param {Object} preferences - Préférences à mettre à jour
-   * @returns {Promise<Object>} Préférences mises à jour
-   */
-  async updatePreferences(preferences) {
-    if (!this.currentUser) {
-      throw new Error('Aucun utilisateur connecté');
-    }
+    // Notifier les écouteurs du changement d'état
+    this.notifyListeners();
     
-    // Mettre à jour les préférences dans le profil
-    return this.updateProfile({ preferences });
-  }
-  
-  /**
-   * Ajoute un contenu aux favoris
-   * @param {string|number} contentId - ID du contenu à ajouter
-   * @returns {Promise<Array>} Liste des favoris mise à jour
-   */
-  async addToFavorites(contentId) {
-    if (!this.currentUser) {
-      throw new Error('Aucun utilisateur connecté');
-    }
-    
-    try {
-      // Tenter d'ajouter aux favoris via l'API
-      const favorites = await authApi.manageFavorites(contentId, 'add');
-      
-      if (favorites) {
-        this.currentUser.favorites = favorites;
-        authStorage.updateUser(this.currentUser);
-        this.notifyAuthStateChanged(this.currentUser);
-        return favorites;
-      }
-    } catch (error) {
-      console.warn('Erreur lors de l\'ajout aux favoris avec l\'API, utilisation du stockage local', error);
-      
-      // Fallback: ajouter aux favoris localement
-      const favorites = authStorage.addToFavorites(contentId);
-      this.currentUser.favorites = favorites;
-      this.notifyAuthStateChanged(this.currentUser);
-      return favorites;
-    }
-  }
-  
-  /**
-   * Supprime un contenu des favoris
-   * @param {string|number} contentId - ID du contenu à supprimer
-   * @returns {Promise<Array>} Liste des favoris mise à jour
-   */
-  async removeFromFavorites(contentId) {
-    if (!this.currentUser) {
-      throw new Error('Aucun utilisateur connecté');
-    }
-    
-    try {
-      // Tenter de supprimer des favoris via l'API
-      const favorites = await authApi.manageFavorites(contentId, 'remove');
-      
-      if (favorites) {
-        this.currentUser.favorites = favorites;
-        authStorage.updateUser(this.currentUser);
-        this.notifyAuthStateChanged(this.currentUser);
-        return favorites;
-      }
-    } catch (error) {
-      console.warn('Erreur lors de la suppression des favoris avec l\'API, utilisation du stockage local', error);
-      
-      // Fallback: supprimer des favoris localement
-      const favorites = authStorage.removeFromFavorites(contentId);
-      this.currentUser.favorites = favorites;
-      this.notifyAuthStateChanged(this.currentUser);
-      return favorites;
-    }
-  }
-  
-  /**
-   * Met à jour l'historique de visionnage
-   * @param {string|number} contentId - ID du contenu
-   * @param {number} progress - Progression du visionnage (0-100)
-   * @returns {Promise<Array>} Historique de visionnage mis à jour
-   */
-  async updateWatchHistory(contentId, progress) {
-    if (!this.currentUser) {
-      throw new Error('Aucun utilisateur connecté');
-    }
-    
-    try {
-      // Tenter de mettre à jour l'historique via l'API
-      const watchHistory = await authApi.updateWatchHistory(contentId, progress);
-      
-      if (watchHistory) {
-        this.currentUser.watchHistory = watchHistory;
-        authStorage.updateUser(this.currentUser);
-        this.notifyAuthStateChanged(this.currentUser);
-        return watchHistory;
-      }
-    } catch (error) {
-      console.warn('Erreur lors de la mise à jour de l\'historique avec l\'API, utilisation du stockage local', error);
-      
-      // Fallback: mettre à jour l'historique localement
-      const watchHistory = authStorage.updateWatchHistory(contentId, progress);
-      this.currentUser.watchHistory = watchHistory;
-      this.notifyAuthStateChanged(this.currentUser);
-      return watchHistory;
-    }
+    return this.currentUser;
   }
   
   /**
    * Ajoute un écouteur pour les changements d'état d'authentification
-   * @param {Function} listener - Fonction à appeler lors d'un changement d'état
+   * @param {Function} listener - Fonction à appeler lors des changements d'état
    */
   addAuthStateListener(listener) {
-    if (typeof listener === 'function' && !this.authStateListeners.includes(listener)) {
-      this.authStateListeners.push(listener);
+    if (typeof listener === 'function' && !this.listeners.includes(listener)) {
+      this.listeners.push(listener);
+      
+      // Appeler immédiatement l'écouteur avec l'état actuel
+      listener(this.currentUser);
     }
   }
   
   /**
    * Supprime un écouteur pour les changements d'état d'authentification
-   * @param {Function} listener - Fonction à supprimer
+   * @param {Function} listener - Fonction à supprimer des écouteurs
    */
   removeAuthStateListener(listener) {
-    this.authStateListeners = this.authStateListeners.filter(l => l !== listener);
+    this.listeners = this.listeners.filter(l => l !== listener);
   }
   
   /**
    * Notifie tous les écouteurs d'un changement d'état d'authentification
-   * @param {Object|null} user - Utilisateur connecté ou null
    */
-  notifyAuthStateChanged(user) {
-    this.authStateListeners.forEach(listener => {
+  notifyListeners() {
+    this.listeners.forEach(listener => {
       try {
-        listener(user);
+        listener(this.currentUser);
       } catch (error) {
-        console.error('Erreur dans un écouteur d\'authentification', error);
+        console.error('Erreur dans un écouteur d\'authentification:', error);
       }
     });
+  }
+  
+  /**
+   * Récupère la liste des utilisateurs enregistrés
+   * @returns {Array} Liste des utilisateurs enregistrés
+   */
+  getRegisteredUsers() {
+    const users = localStorage.getItem('flodrama_registered_users');
+    return users ? JSON.parse(users) : [];
+  }
+  
+  /**
+   * Valide les données utilisateur
+   * @param {Object} userData - Données utilisateur à valider
+   * @returns {boolean} True si les données sont valides, sinon false
+   */
+  validateUserData(userData) {
+    // Vérifier que les champs requis sont présents
+    if (!userData.email || !userData.password || !userData.name) {
+      return false;
+    }
+    
+    // Valider l'email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(userData.email)) {
+      return false;
+    }
+    
+    // Valider le mot de passe (au moins 6 caractères)
+    if (userData.password.length < 6) {
+      return false;
+    }
+    
+    return true;
+  }
+  
+  /**
+   * Ajoute un contenu aux favoris de l'utilisateur
+   * @param {number} contentId - ID du contenu à ajouter
+   * @returns {Array} Nouvelle liste des favoris
+   */
+  addToFavorites(contentId) {
+    if (!this.isLoggedIn()) {
+      throw new Error('Vous devez être connecté pour ajouter des favoris.');
+    }
+    
+    return authStorage.addFavorite(contentId);
+  }
+  
+  /**
+   * Supprime un contenu des favoris de l'utilisateur
+   * @param {number} contentId - ID du contenu à supprimer
+   * @returns {Array} Nouvelle liste des favoris
+   */
+  removeFromFavorites(contentId) {
+    if (!this.isLoggedIn()) {
+      throw new Error('Vous devez être connecté pour gérer vos favoris.');
+    }
+    
+    return authStorage.removeFavorite(contentId);
+  }
+  
+  /**
+   * Vérifie si un contenu est dans les favoris de l'utilisateur
+   * @param {number} contentId - ID du contenu à vérifier
+   * @returns {boolean} True si le contenu est dans les favoris, sinon false
+   */
+  isFavorite(contentId) {
+    const favorites = authStorage.getFavorites();
+    return favorites.includes(contentId);
+  }
+  
+  /**
+   * Récupère les favoris de l'utilisateur
+   * @returns {Array} Liste des IDs des contenus favoris
+   */
+  getFavorites() {
+    return authStorage.getFavorites();
+  }
+  
+  /**
+   * Met à jour les préférences de l'utilisateur
+   * @param {Object} preferences - Nouvelles préférences
+   * @returns {Object} Préférences mises à jour
+   */
+  updatePreferences(preferences) {
+    const currentPreferences = authStorage.getPreferences();
+    const updatedPreferences = { ...currentPreferences, ...preferences };
+    authStorage.savePreferences(updatedPreferences);
+    return updatedPreferences;
+  }
+  
+  /**
+   * Récupère les préférences de l'utilisateur
+   * @returns {Object} Préférences utilisateur
+   */
+  getPreferences() {
+    return authStorage.getPreferences();
   }
 }
 

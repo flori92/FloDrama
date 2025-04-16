@@ -4,8 +4,8 @@
  * avec intégration Bunny CDN pour les vidéos
  */
 
-import { getResourceUrl } from '../utils/assetUtils';
 import { BUNNY_CDN_CONFIG } from '../utils/bunny-cdn-config';
+// import { getBunnyVideoUrl } from '../utils/bunny-cdn-integration';
 
 // URLs pour les métadonnées
 const METADATA_URL = 'https://api.flodrama.com/metadata';
@@ -13,7 +13,7 @@ const FALLBACK_URL = 'https://d2ra390ol17u3n.cloudfront.net/data/metadata.json';
 const LOCAL_FALLBACK_PATH = '/data/metadata.json';
 
 // URL de base pour les assets (posters, bannières, etc.)
-export const ASSETS_URL = getResourceUrl('assets');
+export const ASSETS_URL = 'https://flodrama.com/assets';
 
 // URL de base pour les vidéos via Bunny CDN
 export const VIDEOS_URL = BUNNY_CDN_CONFIG.baseUrl;
@@ -111,7 +111,7 @@ export const getAssetUrl = (path) => {
   try {
     // Si le chemin est vide ou invalide, retourner une image par défaut
     if (!path) {
-      return getResourceUrl('assets/images/placeholder.jpg');
+      return `${ASSETS_URL}/images/placeholder.jpg`;
     }
     
     // Si le chemin est déjà une URL complète, la retourner directement
@@ -130,10 +130,10 @@ export const getAssetUrl = (path) => {
     }
     
     // Sinon, construire l'URL avec le CDN
-    return getResourceUrl(path.startsWith('/') ? path.substring(1) : path);
+    return `${ASSETS_URL}/${path.startsWith('/') ? path.substring(1) : path}`;
   } catch (error) {
     console.error('Erreur lors de la construction de l\'URL de l\'asset:', error);
-    return getResourceUrl('assets/images/placeholder.jpg');
+    return `${ASSETS_URL}/images/placeholder.jpg`;
   }
 };
 
