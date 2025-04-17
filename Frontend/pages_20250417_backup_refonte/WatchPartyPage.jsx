@@ -15,9 +15,6 @@ import WatchPartyContainer from '../components/watch-party/WatchPartyContainer';
 import { useAuth } from '../hooks/useAuth';
 import { useSubscription } from '../hooks/useSubscription';
 import { copyToClipboard } from '../utils/clipboard';
-import Navbar from '../components/layout/Navbar';
-import Footer from '../components/layout/Footer';
-import '../styles/PageSection.css';
 
 // Styles personnalisés
 const MainContainer = styled(Container)(({ theme }) => ({
@@ -87,89 +84,76 @@ const WatchPartyPage = () => {
   // Afficher un écran de chargement
   if (loading) {
     return (
-      <div className="section-bg min-h-screen flex flex-col" style={{ background: 'linear-gradient(to right, #121118 60%, #1A1926 100%)' }}>
-        <Navbar />
-        <main className="flex-1 w-full mx-auto px-0 md:px-4 pt-8">
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '70vh' }}>
-            <CircularProgress size={60} />
-            <Typography variant="h6" sx={{ mt: 3 }}>
-              Préparation de la Watch Party...
-            </Typography>
-          </Box>
-        </main>
-        <Footer />
-      </div>
+      <MainContainer>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '70vh' }}>
+          <CircularProgress size={60} />
+          <Typography variant="h6" sx={{ mt: 3 }}>
+            Préparation de la Watch Party...
+          </Typography>
+        </Box>
+      </MainContainer>
     );
   }
   
   // Afficher un message d'erreur
   if (error) {
     return (
-      <div className="section-bg min-h-screen flex flex-col" style={{ background: 'linear-gradient(to right, #121118 60%, #1A1926 100%)' }}>
-        <Navbar />
-        <main className="flex-1 w-full mx-auto px-0 md:px-4 pt-8">
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '70vh' }}>
-            <Typography variant="h5" color="error" gutterBottom>
-              Oups ! Un problème est survenu
-            </Typography>
-            <Typography variant="body1" sx={{ mb: 3, textAlign: 'center' }}>
-              {error}
-            </Typography>
-            {!hasActiveSubscription && (
-              <Button 
-                variant="contained" 
-                color="primary" 
-                onClick={() => navigate('/subscription')}
-                sx={{ mt: 2 }}
-              >
-                Découvrir les abonnements
-              </Button>
-            )}
+      <MainContainer>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '70vh' }}>
+          <Typography variant="h5" color="error" gutterBottom>
+            Oups ! Un problème est survenu
+          </Typography>
+          <Typography variant="body1" sx={{ mb: 3, textAlign: 'center' }}>
+            {error}
+          </Typography>
+          {!hasActiveSubscription && (
             <Button 
-              variant="outlined" 
-              onClick={() => navigate(-1)}
+              variant="contained" 
+              color="primary" 
+              onClick={() => navigate('/subscription')}
               sx={{ mt: 2 }}
             >
-              Retour
+              Découvrir les abonnements
             </Button>
-          </Box>
-        </main>
-        <Footer />
-      </div>
+          )}
+          <Button 
+            variant="outlined" 
+            onClick={() => navigate(-1)}
+            sx={{ mt: 2 }}
+          >
+            Retour
+          </Button>
+        </Box>
+      </MainContainer>
     );
   }
 
   // Utiliser le nouveau composant WatchPartyContainer pour une expérience complète
   return (
-    <div className="section-bg min-h-screen flex flex-col" style={{ background: 'linear-gradient(to right, #121118 60%, #1A1926 100%)' }}>
-      <Navbar />
-      <main className="flex-1 w-full mx-auto px-0 md:px-4 pt-8">
-        <Box sx={{ height: '100%', overflow: 'hidden' }}>
-          <WatchPartyContainer 
-            partyId={partyId}
-            dramaId={dramaId}
-            onShareSuccess={(url) => {
-              copyToClipboard(url);
-              setSnackbarMessage('Lien de la Watch Party copié dans le presse-papiers !');
-              setSnackbarSeverity('success');
-              setShowSnackbar(true);
-            }}
-            onLeave={() => navigate(`/watch/${dramaId}`)}
-          />
-          <Snackbar
-            open={showSnackbar}
-            autoHideDuration={6000}
-            onClose={handleCloseSnackbar}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-          >
-            <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity} sx={{ width: '100%' }}>
-              {snackbarMessage}
-            </Alert>
-          </Snackbar>
-        </Box>
-      </main>
-      <Footer />
-    </div>
+    <Box sx={{ height: '100vh', overflow: 'hidden' }}>
+      <WatchPartyContainer 
+        partyId={partyId}
+        dramaId={dramaId}
+        onShareSuccess={(url) => {
+          copyToClipboard(url);
+          setSnackbarMessage('Lien de la Watch Party copié dans le presse-papiers !');
+          setSnackbarSeverity('success');
+          setShowSnackbar(true);
+        }}
+        onLeave={() => navigate(`/watch/${dramaId}`)}
+      />
+      
+      <Snackbar
+        open={showSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity={snackbarSeverity} sx={{ width: '100%' }}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
+    </Box>
   );
 };
 

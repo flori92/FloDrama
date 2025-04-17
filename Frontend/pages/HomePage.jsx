@@ -1,246 +1,131 @@
-import React, { useState, useEffect } from 'react';
-import { useMetadata } from '../hooks/useMetadata';
-import HeroCarousel from '../components/hero/HeroCarousel';
-import FrenchMovieBanner from '../components/widgets/FrenchMovieBanner';
-import ContentCarousel from '../components/carousel/ContentCarousel';
+// Nouvelle page d'accueil immersive FloDrama, issue de la fusion et modernisation de HomePage et EnhancedHomePage
+// Utilise la palette, la typographie et la navigation FloDrama
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import EnhancedHeroBanner from '../components/hero/EnhancedHeroBanner';
+import EnhancedContentCarousel from '../components/carousel/EnhancedContentCarousel';
+import Navbar from '../components/layout/Navbar';
+import Footer from '../components/layout/Footer';
+import { fetchAllItems, fetchPopularItems, fetchRecentItems, fetchItemsByType, fetchContinueWatching } from '../api/enhanced-metadata';
+import { useWatchlist } from '../hooks/useWatchlist';
+import { useAuth } from '../hooks/useAuth';
 import '../styles/HomePage.css';
 
-/**
- * Page d'accueil principale de FloDrama
- * Redesign inspiré du style Apple TV+
- */
 const HomePage = () => {
-  const { 
-    isLoading, 
-    error, 
-    getFeaturedItems,
-    getTrendingItems,
-    getRecommendedItems,
-    getAllItems,
-    getFrenchMovies
-  } = useMetadata();
-  
-  const [featured, setFeatured] = useState(null);
-  const [featuredFrenchMovie, setFeaturedFrenchMovie] = useState(null);
+  const navigate = useNavigate();
+  const { isInWatchlist, toggleWatchlist } = useWatchlist();
+  const { user } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [featuredItem, setFeaturedItem] = useState(null);
   const [sections, setSections] = useState({
+    continueWatching: { title: 'Continuer à regarder', items: [] },
+    popular: { title: 'Populaires', items: [] },
+    recent: { title: 'Récemment ajoutés', items: [] },
+    dramas: { title: 'Dramas', items: [] },
+    movies: { title: 'Films', items: [] },
+    anime: { title: 'Animés', items: [] },
+    bollywood: { title: 'Bollywood', items: [] },
+    watchparty: { title: 'WatchParty', items: [] },
+    app: { title: 'App', items: [] },
+    frenchMovies: { title: 'Cinéma Français', items: [] },
     nouveautes: { title: 'Nouveautés', items: [] },
     tendances: { title: 'Tendances', items: [] },
     recommandes: { title: 'Recommandés pour vous', items: [] },
-    dramas: { title: 'Dramas', items: [] },
-    movies: { title: 'Films', items: [] },
-    anime: { title: 'Anime', items: [] },
-    romance: { title: 'Romance', items: [] },
-    frenchMovies: { title: 'Cinéma Français', items: [] }
+    romance: { title: 'Romance', items: [] }
   });
-  
-  // Charger les données une fois les métadonnées disponibles
+  const sectionsRef = useRef({});
+  const [visibleSections, setVisibleSections] = useState({});
+
   useEffect(() => {
-    if (isLoading || error) return;
-    
-    // Récupérer le contenu en vedette
-    const featuredItems = getFeaturedItems();
-    if (featuredItems.length > 0) {
-      setFeatured(featuredItems[0]);
-    }
-    
-    // Récupérer les films français en vedette
-    const frenchMovies = getFrenchMovies ? getFrenchMovies() : [];
-    if (frenchMovies && frenchMovies.length > 0) {
-      setFeaturedFrenchMovie(frenchMovies[0]);
-    }
-    
-    // Récupérer les sections
-    const allItems = getAllItems();
-    const dramaItems = allItems.filter(item => item.type === 'drama');
-    const movieItems = allItems.filter(item => item.type === 'movie');
-    const animeItems = allItems.filter(item => item.type === 'anime');
-    const romanceItems = allItems.filter(item => item.genres?.includes('Romance')).slice(0, 8);
-    
-    setSections({
-      nouveautes: { 
-        title: 'Nouveautés', 
-        subtitle: 'Les dernières sorties ajoutées à FloDrama',
-        items: getFeaturedItems()
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.id;
+          setVisibleSections((prev) => ({ ...prev, [id]: entry.isIntersecting }));
+        });
       },
-      tendances: { 
-        title: 'Tendances', 
-        subtitle: 'Ce que tout le monde regarde en ce moment',
-        items: getTrendingItems()
-      },
-      recommandes: { 
-        title: 'Recommandés pour vous', 
-        subtitle: 'Sélectionnés selon vos préférences',
-        items: getRecommendedItems()
-      },
-      dramas: { 
-        title: 'Dramas', 
-        subtitle: 'Séries dramatiques asiatiques',
-        items: dramaItems
-      },
-      movies: { 
-        title: 'Films', 
-        subtitle: 'Longs métrages à découvrir',
-        items: movieItems
-      },
-      anime: { 
-        title: 'Anime', 
-        subtitle: 'Animation japonaise de qualité',
-        items: animeItems
-      },
-      romance: {
-        title: 'Romance',
-        subtitle: 'Des histoires d\'amour qui vous toucheront',
-        items: romanceItems
-      },
-      frenchMovies: {
-        title: 'Cinéma Français',
-        subtitle: 'Le meilleur du cinéma français',
-        items: frenchMovies || []
-      }
+      { threshold: 0.1 }
+    );
+    const currentSectionsRef = { ...sectionsRef.current };
+    Object.keys(currentSectionsRef).forEach((key) => {
+      if (currentSectionsRef[key]) observer.observe(currentSectionsRef[key]);
     });
-  }, [isLoading, error, getFeaturedItems, getTrendingItems, getRecommendedItems, getAllItems, getFrenchMovies]);
+    return () => {
+      Object.keys(currentSectionsRef).forEach((key) => {
+        if (currentSectionsRef[key]) observer.unobserve(currentSectionsRef[key]);
+      });
+    };
+  }, []);
 
-  // Animation pour les sections
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1,
-      transition: { 
-        staggerChildren: 0.3,
-        delayChildren: 0.2
+  useEffect(() => {
+    const loadData = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const allItems = await fetchAllItems();
+        if (!allItems || allItems.length === 0) throw new Error('Aucune donnée disponible');
+        const potentialFeatured = allItems.filter(item => item.backdropUrl && item.rating >= 8).sort((a, b) => b.rating - a.rating);
+        setFeaturedItem(potentialFeatured.length > 0 ? potentialFeatured[Math.floor(Math.random() * Math.min(5, potentialFeatured.length))] : allItems[0]);
+        setSections({
+          continueWatching: { title: 'Continuer à regarder', items: await fetchContinueWatching(user?.id) },
+          popular: { title: 'Populaires', items: await fetchPopularItems() },
+          recent: { title: 'Récemment ajoutés', items: await fetchRecentItems() },
+          dramas: { title: 'Dramas', items: await fetchItemsByType('drama') },
+          movies: { title: 'Films', items: await fetchItemsByType('movie') },
+          anime: { title: 'Animés', items: await fetchItemsByType('anime') },
+          bollywood: { title: 'Bollywood', items: await fetchItemsByType('bollywood') },
+          watchparty: { title: 'WatchParty', items: await fetchItemsByType('watchparty') },
+          app: { title: 'App', items: await fetchItemsByType('app') },
+          frenchMovies: { title: 'Cinéma Français', items: await fetchItemsByType('frenchMovies') },
+          nouveautes: { title: 'Nouveautés', items: await fetchItemsByType('nouveautes') },
+          tendances: { title: 'Tendances', items: await fetchItemsByType('tendances') },
+          recommandes: { title: 'Recommandés pour vous', items: await fetchItemsByType('recommandes') },
+          romance: { title: 'Romance', items: await fetchItemsByType('romance') }
+        });
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
       }
-    }
-  };
+    };
+    loadData();
+  }, [user]);
 
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.5 }
-    }
-  };
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2" style={{ borderColor: 'var(--color-accent)' }}></div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center">
-        <h2 className="text-2xl font-bold mb-4" style={{ color: 'var(--color-text-primary)' }}>Erreur de chargement</h2>
-        <p style={{ color: 'var(--color-text-secondary)' }}>Impossible de charger les données. Veuillez réessayer plus tard.</p>
-      </div>
-    );
-  }
+  if (isLoading) return <div className="flex items-center justify-center min-h-screen"><div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2" style={{ borderColor: 'var(--color-accent)' }}></div></div>;
+  if (error) return <div className="text-red-500 text-center mt-10">Erreur : {error}</div>;
 
   return (
-    <div className="home-page">
-      {/* Hero Carousel */}
-      {featured && (
-        <HeroCarousel 
-          items={[
-            featured,
-            ...(sections.nouveautes.items.slice(0, 2))
-          ]} 
-        />
-      )}
-      
-      <div className="home-page-content">
-        <motion.div
-          className="home-page-sections"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* Section Nouveautés */}
-          {sections.nouveautes.items.length > 0 && (
-            <motion.section variants={sectionVariants}>
-              <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--color-text-primary)' }}>{sections.nouveautes.title}</h2>
-              <p className="text-sm mb-4" style={{ color: 'var(--color-text-secondary)' }}>{sections.nouveautes.subtitle}</p>
-              <ContentCarousel items={sections.nouveautes.items} />
-            </motion.section>
-          )}
-          
-          {/* Section Films Français avec bannière spéciale */}
-          {featuredFrenchMovie && (
-            <motion.section variants={sectionVariants}>
-              <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--color-text-primary)' }}>
-                {sections.frenchMovies.title}
-              </h2>
-              <p className="text-sm mb-4" style={{ color: 'var(--color-text-secondary)' }}>
-                {sections.frenchMovies.subtitle}
-              </p>
-              <FrenchMovieBanner movie={featuredFrenchMovie} />
-              
-              {sections.frenchMovies.items.length > 1 && (
-                <div className="mt-8">
-                  <ContentCarousel items={sections.frenchMovies.items.slice(1)} />
-                </div>
-              )}
-            </motion.section>
-          )}
-          
-          {/* Section Tendances */}
-          {sections.tendances.items.length > 0 && (
-            <motion.section variants={sectionVariants}>
-              <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--color-text-primary)' }}>{sections.tendances.title}</h2>
-              <p className="text-sm mb-4" style={{ color: 'var(--color-text-secondary)' }}>{sections.tendances.subtitle}</p>
-              <ContentCarousel items={sections.tendances.items} />
-            </motion.section>
-          )}
-          
-          {/* Section Recommandés */}
-          {sections.recommandes.items.length > 0 && (
-            <motion.section variants={sectionVariants}>
-              <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--color-text-primary)' }}>{sections.recommandes.title}</h2>
-              <p className="text-sm mb-4" style={{ color: 'var(--color-text-secondary)' }}>{sections.recommandes.subtitle}</p>
-              <ContentCarousel items={sections.recommandes.items} />
-            </motion.section>
-          )}
-          
-          {/* Section Dramas */}
-          {sections.dramas.items.length > 0 && (
-            <motion.section variants={sectionVariants}>
-              <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--color-text-primary)' }}>{sections.dramas.title}</h2>
-              <p className="text-sm mb-4" style={{ color: 'var(--color-text-secondary)' }}>{sections.dramas.subtitle}</p>
-              <ContentCarousel items={sections.dramas.items} />
-            </motion.section>
-          )}
-          
-          {/* Section Films */}
-          {sections.movies.items.length > 0 && (
-            <motion.section variants={sectionVariants}>
-              <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--color-text-primary)' }}>{sections.movies.title}</h2>
-              <p className="text-sm mb-4" style={{ color: 'var(--color-text-secondary)' }}>{sections.movies.subtitle}</p>
-              <ContentCarousel items={sections.movies.items} />
-            </motion.section>
-          )}
-          
-          {/* Section Anime */}
-          {sections.anime.items.length > 0 && (
-            <motion.section variants={sectionVariants}>
-              <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--color-text-primary)' }}>{sections.anime.title}</h2>
-              <p className="text-sm mb-4" style={{ color: 'var(--color-text-secondary)' }}>{sections.anime.subtitle}</p>
-              <ContentCarousel items={sections.anime.items} />
-            </motion.section>
-          )}
-          
-          {/* Section Romance */}
-          {sections.romance.items.length > 0 && (
-            <motion.section variants={sectionVariants}>
-              <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--color-text-primary)' }}>{sections.romance.title}</h2>
-              <p className="text-sm mb-4" style={{ color: 'var(--color-text-secondary)' }}>{sections.romance.subtitle}</p>
-              <ContentCarousel items={sections.romance.items} />
-            </motion.section>
-          )}
-        </motion.div>
-      </div>
+    <div className="homepage-bg min-h-screen flex flex-col" style={{ background: 'linear-gradient(to right, #121118 60%, #1A1926 100%)' }}>
+      <Navbar />
+      <main className="flex-1 w-full mx-auto px-0 md:px-4 pt-2">
+        {featuredItem && <EnhancedHeroBanner item={featuredItem} />}
+        <div className="space-y-12 mt-8">
+          {Object.entries(sections).map(([key, section]) => (
+            section.items.length > 0 && (
+              <motion.section
+                key={key}
+                id={`section-${key}`}
+                ref={el => sectionsRef.current[key] = el}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: visibleSections[`section-${key}`] ? 1 : 0, y: visibleSections[`section-${key}`] ? 0 : 20 }}
+                transition={{ duration: 0.5 }}
+                className="enhanced-content-section"
+              >
+                <EnhancedContentCarousel
+                  title={section.title}
+                  items={section.items}
+                  onItemClick={() => {}}
+                  isWatchlist={false}
+                  category={key}
+                />
+              </motion.section>
+            )
+          ))}
+        </div>
+      </main>
+      <Footer />
     </div>
   );
 };

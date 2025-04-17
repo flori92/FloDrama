@@ -10,9 +10,13 @@ import '../styles/landing.css';
 const LandingPage = ({ onEnter }) => {
   const navigate = useNavigate();
 
-  // Mise à jour : navigation vers la nouvelle HomePage
   const handleExplore = () => {
-    if (onEnter) onEnter();
+    // Appeler la fonction onEnter pour indiquer que l'utilisateur souhaite accéder à l'application
+    if (onEnter) {
+      onEnter();
+    }
+    
+    // Rediriger vers la page principale avec le contenu enrichi
     navigate('/home');
   };
 

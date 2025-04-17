@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { HybridComponent } from './adapters/hybrid-component';
-import { ComponentName } from './adapters/component-registry';
+import LandingPage from './pages/LandingPage';
 
 // Chargement paresseux des composants principaux
 // Ces imports sont utilisés via React.createElement plus bas
-const LecteurVideo = React.lazy(() => import('./components/player/LecteurVideo'));
-const CarouselRecommandations = React.lazy(() => import('./components/features/CarouselRecommandations'));
-const LandingPage = React.lazy(() => import('./pages/LandingPage'));
+const HomePage = React.lazy(() => import('./pages/HomePage'));
 
 // Interface pour les props de la landing page
 interface LandingPageProps {
@@ -41,10 +38,13 @@ const App: React.FC = () => {
 
   // Configuration des éléments de navigation
   const navigationItems = [
-    { label: 'Accueil', route: '/' },
-    { label: 'Découvrir', route: '/decouvrir' },
-    { label: 'Favoris', route: '/favoris' },
-    { label: 'Profil', route: '/profil' }
+    { label: 'Accueil', route: '/home' },
+    { label: 'Dramas', route: '/dramas' },
+    { label: 'Films', route: '/films' },
+    { label: 'Animés', route: '/animes' },
+    { label: 'Bollywood', route: '/bollywood' },
+    { label: 'App', route: '/app' },
+    { label: 'WatchParty', route: '/watchparty' }
   ];
 
   // Fallback pour les composants en cours de chargement
@@ -57,7 +57,7 @@ const App: React.FC = () => {
           showLanding ? (
             <div className="landing-container">
               {React.createElement(React.Suspense, { fallback: loadingFallback },
-                React.createElement(LandingPage, { onEnter: handleEnterApp } as LandingPageProps)
+                React.createElement(LandingPage, { onEnter: handleEnterApp })
               )}
             </div>
           ) : (
@@ -68,30 +68,23 @@ const App: React.FC = () => {
         <Route path="/home" element={
           <div className="app-container">
             {React.createElement(React.Suspense, { fallback: loadingFallback },
-              <>
-                {/* Navigation principale */}
-                <HybridComponent<ComponentName>
-                  componentName="Navigation"
-                  componentProps={{ items: navigationItems }}
-                />
-
-                {/* Contenu principal */}
-                <main className="main-content">
-                  {React.createElement(React.Suspense, { fallback: <div>Chargement du lecteur...</div> },
-                    React.createElement(LecteurVideo, { url: "", titre: "Bienvenue sur FloDrama" })
-                  )}
-
-                  {React.createElement(React.Suspense, { fallback: <div>Chargement des recommandations...</div> },
-                    React.createElement(CarouselRecommandations, { userId: "user123" })
-                  )}
-                </main>
-              </>
+              <main className="main-content">
+                {React.createElement(HomePage)}
+              </main>
             )}
           </div>
         } />
         
-        {/* Redirection vers la landing page pour les routes non définies */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* Pages de section */}
+        <Route path="/dramas" element={<div>Dramas</div>} />
+        <Route path="/films" element={<div>Films</div>} />
+        <Route path="/animes" element={<div>Animés</div>} />
+        <Route path="/bollywood" element={<div>Bollywood</div>} />
+        <Route path="/app" element={<div>App</div>} />
+        <Route path="/watchparty" element={<div>WatchParty</div>} />
+        
+        {/* Redirection pour toutes les routes non définies */}
+        <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
     </BrowserRouter>
   );
