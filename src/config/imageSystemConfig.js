@@ -32,28 +32,20 @@ export const CDN_CONFIG = {
   // CDNs principaux
   SOURCES: [
     {
-      name: 'bunny',
-      baseUrl: 'https://images.flodrama.com',
-      enabled: true,
-      priority: 1,
-      pathTemplate: '/${type}s/${contentId}.jpg',
-      healthCheckUrl: 'https://images.flodrama.com/status.json'
-    },
-    {
-      name: 'cloudfront',
-      baseUrl: 'https://d2ra390ol17u3n.cloudfront.net',
-      enabled: true,
-      priority: 2,
-      pathTemplate: '/${type}s/${contentId}.jpg',
-      healthCheckUrl: 'https://d2ra390ol17u3n.cloudfront.net/status.json'
-    },
-    {
       name: 'github',
       baseUrl: '',  // URL relative
       enabled: true,
-      priority: 3,
-      pathTemplate: '/assets/media/${type}s/${contentId}/poster.jpg',
+      priority: 1, // Priorité maximale pour les assets locaux
+      pathTemplate: '/assets/media/${type}s/${contentId}.jpg',
       healthCheckUrl: '/assets/status.json'
+    },
+    {
+      name: 'cloudfront',
+      baseUrl: 'https://d1323ouxr1qbdp.cloudfront.net',
+      enabled: true,
+      priority: 2,
+      pathTemplate: '/${type}s/${contentId}.jpg',
+      healthCheckUrl: 'https://d1323ouxr1qbdp.cloudfront.net/status.json'
     }
   ],
   
@@ -93,9 +85,8 @@ export const SYNC_CONFIG = {
   SOURCE_PRIORITY: {
     'tmdb': 1,
     'mydramalist': 2,
-    'bunny-cdn': 3,
-    'cloudfront': 4,
-    'github-pages': 5
+    'github-pages': 3,
+    'cloudfront': 4
   }
 };
 

@@ -249,6 +249,20 @@
     // Système de gestion des images avec fallbacks multiples - Version optimisée
     const processedUrls = new Set(); // Pour éviter les boucles infinies
     
+    function generateImageSources(contentId, type) {
+      const sources = [];
+      
+      // Utiliser d'abord les assets locaux (GitHub Pages)
+      sources.push(`/assets/media/${type}s/${contentId}.jpg`);
+      
+      // Puis CloudFront AWS
+      if (cdnStatus.cloudfront) {
+        sources.push(`https://d1323ouxr1qbdp.cloudfront.net/${type}s/${contentId}.jpg`);
+      }
+      
+      return sources;
+    }
+    
     function handleImageError(event) {
       const img = event.target;
       const contentId = img.dataset.contentId;
@@ -264,28 +278,25 @@
       
       processedUrls.add(currentUrl);
       
-      // Essayer les différentes sources dans l'ordre
-      const sources = [
-        // 1. Bunny CDN
-        `https://images.flodrama.com/${type}s/${contentId}.jpg`,
-        // 2. CloudFront
-        `https://d2ra390ol17u3n.cloudfront.net/${type}s/${contentId}.jpg`,
-        // 3. GitHub Pages
-        `/assets/media/${type}s/${contentId}/poster.jpg`,
-        // 4. Placeholder local
-        `/assets/static/placeholders/${type}-placeholder.jpg`
-      ];
+      // Essayer les sources alternatives
+      const sources = generateImageSources(contentId, type);
+      const currentSrc = img.src;
       
-      // Trouver l'index de la source actuelle
-      const currentIndex = sources.indexOf(currentUrl);
+      // Trouver la source suivante
+      let nextSourceIndex = -1;
+      for (let i = 0; i < sources.length; i++) {
+        if (currentSrc.includes(sources[i])) {
+          nextSourceIndex = i + 1;
+          break;
+        }
+      }
       
-      // Si on n'est pas à la dernière source, essayer la suivante
-      if (currentIndex < sources.length - 1 && currentIndex !== -1) {
-        const nextSource = sources[currentIndex + 1];
-        console.log(`Image fallback: ${currentUrl} -> ${nextSource}`);
-        img.src = nextSource;
+      // S'il y a une source suivante, l'essayer
+      if (nextSourceIndex >= 0 && nextSourceIndex < sources.length) {
+        console.log(`Image fallback: ${currentSrc} -> ${sources[nextSourceIndex]}`);
+        img.src = sources[nextSourceIndex];
       } else {
-        // Si toutes les sources ont échoué, utiliser un SVG intégré
+        // Sinon, utiliser le SVG fallback
         applyFallbackSvg(img, contentId, type);
       }
     }
@@ -342,17 +353,52 @@
       console.warn(`Utilisation du SVG fallback pour ${contentId}`);
     }
     
+    // État des CDNs
+    const cdnStatus = {
+      cloudfront: false,
+      github: true // GitHub Pages est toujours considéré comme disponible car c'est local
+    };
+    
+    // Vérifier l'état des CDNs
+    async function checkCdnStatus(baseUrl) {
+      try {
+        const response = await fetch(`${baseUrl}/status.json?_t=${Date.now()}`, {
+          method: 'HEAD',
+          cache: 'no-store',
+          timeout: 3000
+        });
+        return response.ok;
+      } catch (error) {
+        console.warn(`[FloDrama Images] CDN inaccessible: ${baseUrl}`);
+        return false;
+      }
+    }
+    
+    // Vérifier tous les CDNs
+    async function checkAllCdnStatus() {
+      try {
+        // Vérifier CloudFront
+        cdnStatus.cloudfront = await checkCdnStatus('https://d1323ouxr1qbdp.cloudfront.net');
+        
+        console.log(`État des CDNs - CloudFront: ${cdnStatus.cloudfront ? 'OK' : 'KO'}, GitHub: ${cdnStatus.github ? 'OK' : 'KO'}`);
+      } catch (error) {
+        console.error('Erreur lors de la vérification des CDNs', error);
+      }
+    }
+    
     // Initialiser le système de gestion d'images au chargement
     document.addEventListener('DOMContentLoaded', function() {
-      // Ajouter un gestionnaire global pour les erreurs d'images
-      document.addEventListener('error', function(e) {
-        if (e.target.tagName && e.target.tagName.toLowerCase() === 'img') {
-          handleImageError(e);
-          e.preventDefault();
-        }
-      }, true);
+      console.log("Système de gestion d'images avec fallbacks multiples initialisé");
       
-      console.log('Système de gestion d\'images avec fallbacks multiples initialisé');
+      // Ajouter un gestionnaire global pour les erreurs d'images
+      document.querySelectorAll('img[data-content-id]').forEach(img => {
+        img.addEventListener('error', handleImageError);
+      });
+      
+      // Vérifier l'état des CDNs
+      checkAllCdnStatus().then(() => {
+        console.log("Initialisation du système de gestion d'images FloDrama");
+      });
     });
     </script>
     
@@ -404,7 +450,7 @@
         <!-- Contenu généré dynamiquement avec système de fallback robuste -->
         <div class="content-card">
           <img 
-            src="https://images.flodrama.com/posters/drama001.jpg" 
+            src="/assets/media/posters/drama001.jpg" 
             data-content-id="drama001" 
             data-type="poster" 
             alt="Crash Landing on You" 
@@ -421,7 +467,7 @@
         </div>
         <div class="content-card">
           <img 
-            src="https://images.flodrama.com/posters/drama002.jpg" 
+            src="/assets/media/posters/drama002.jpg" 
             data-content-id="drama002" 
             data-type="poster" 
             alt="Itaewon Class" 
@@ -438,7 +484,7 @@
         </div>
         <div class="content-card">
           <img 
-            src="https://images.flodrama.com/posters/drama003.jpg" 
+            src="/assets/media/posters/drama003.jpg" 
             data-content-id="drama003" 
             data-type="poster" 
             alt="Goblin" 
@@ -455,7 +501,7 @@
         </div>
         <div class="content-card">
           <img 
-            src="https://images.flodrama.com/posters/drama004.jpg" 
+            src="/assets/media/posters/drama004.jpg" 
             data-content-id="drama004" 
             data-type="poster" 
             alt="Vincenzo" 
@@ -476,7 +522,7 @@
       <div class="content-grid">
         <div class="content-card">
           <img 
-            src="https://images.flodrama.com/posters/drama005.jpg" 
+            src="/assets/media/posters/drama005.jpg" 
             data-content-id="drama005" 
             data-type="poster" 
             alt="Reply 1988" 
@@ -493,7 +539,7 @@
         </div>
         <div class="content-card">
           <img 
-            src="https://images.flodrama.com/posters/drama006.jpg" 
+            src="/assets/media/posters/drama006.jpg" 
             data-content-id="drama006" 
             data-type="poster" 
             alt="Hospital Playlist" 
@@ -510,7 +556,7 @@
         </div>
         <div class="content-card">
           <img 
-            src="https://images.flodrama.com/posters/drama007.jpg" 
+            src="/assets/media/posters/drama007.jpg" 
             data-content-id="drama007" 
             data-type="poster" 
             alt="My Mister" 
@@ -527,7 +573,7 @@
         </div>
         <div class="content-card">
           <img 
-            src="https://images.flodrama.com/posters/drama008.jpg" 
+            src="/assets/media/posters/drama008.jpg" 
             data-content-id="drama008" 
             data-type="poster" 
             alt="Signal" 
