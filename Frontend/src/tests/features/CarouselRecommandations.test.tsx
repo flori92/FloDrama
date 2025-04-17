@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react'; // Suppression de l'import inutile
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import CarouselRecommandations from '@/components/features/CarouselRecommandations';
@@ -149,12 +149,47 @@ describe('CarouselRecommandations', () => {
 });
 
 // Tests du hook useRecommandations
-describe('useRecommandations', () => {
-  it('devrait mettre à jour les préférences et recharger les recommandations', async () => {
-    const mockMettreAJourPreferences = jest.fn().mockResolvedValue(true);
-    (RecommandationService.mettreAJourPreferences as jest.Mock) = mockMettreAJourPreferences;
+import { renderHook, act } from '@testing-library/react-hooks';
+import { useRecommandations } from '@/hooks/useRecommandations';
 
-    // Test du hook à implémenter avec @testing-library/react-hooks
-    // TODO: Ajouter les tests du hook
+describe('useRecommandations', () => {
+  it('devrait charger les recommandations initiales', async () => {
+    const recommandationsMock = [contenuTest];
+    (RecommandationService.getRecommandations as jest.Mock).mockResolvedValue(recommandationsMock);
+
+    const { result, waitForNextUpdate } = renderHook(() => useRecommandations({ userId: 'user123', nombreElements: 1 }));
+
+    expect(result.current.isLoading).toBe(true);
+    await waitForNextUpdate();
+    expect(result.current.isLoading).toBe(false);
+    expect(result.current.contenus).toEqual(recommandationsMock);
+    expect(result.current.error).toBeNull();
+  });
+
+  it('devrait gérer une erreur lors du chargement', async () => {
+    (RecommandationService.getRecommandations as jest.Mock).mockRejectedValue(new Error('Erreur test'));
+    const { result, waitForNextUpdate } = renderHook(() => useRecommandations({ userId: 'user123', nombreElements: 1 }));
+    await waitForNextUpdate();
+    expect(result.current.error).not.toBeNull();
+    expect(result.current.contenus).toEqual([]);
+  });
+
+  it('devrait mettre à jour les préférences et recharger les recommandations', async () => {
+    const recommandationsInitiales = [contenuTest];
+    const recommandationsMaj = [{ ...contenuTest, id: '2', titre: 'Maj' }];
+    (RecommandationService.getRecommandations as jest.Mock)
+      .mockResolvedValueOnce(recommandationsInitiales)
+      .mockResolvedValueOnce(recommandationsMaj);
+    (RecommandationService.mettreAJourPreferences as jest.Mock).mockResolvedValue(true);
+
+    const { result, waitForNextUpdate } = renderHook(() => useRecommandations({ userId: 'user123', nombreElements: 1 }));
+    await waitForNextUpdate();
+    expect(result.current.contenus).toEqual(recommandationsInitiales);
+
+    await act(async () => {
+      await result.current.mettreAJourPreferences({ genresPrefers: ['action'] });
+    });
+    expect(result.current.contenus).toEqual(recommandationsMaj);
+    expect(result.current.error).toBeNull();
   });
 });
