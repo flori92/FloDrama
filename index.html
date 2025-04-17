@@ -2,7 +2,7 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/src/assets/logo.svg" />
+    <link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="FloDrama - Votre plateforme de streaming dédiée aux dramas et films asiatiques" />
     <meta name="theme-color" content="#FF4B4B" />
@@ -46,7 +46,7 @@
   <body>
     <div id="root">
       <div class="preloader">
-        <img src="/src/assets/logo.svg" alt="FloDrama Logo" class="preloader-logo" />
+        <img src="/assets/logo.svg" alt="FloDrama Logo" class="preloader-logo" />
       </div>
     </div>
     
@@ -292,10 +292,15 @@
     
     function applyFallbackSvg(img, contentId, type) {
       // Utiliser un SVG intégré comme solution de dernier recours
-      const title = img.alt || contentId;
+      const title = img.alt || contentId || 'FloDrama';
       
       // Générer un dégradé spécifique au contenu basé sur son ID
-      const colorIndex = parseInt(contentId.replace(/\D/g, '')) % 8;
+      // Vérifier si contentId est défini avant d'appeler replace
+      const contentIdStr = contentId ? contentId.toString() : 'default';
+      const colorIndex = contentIdStr.replace ? 
+        parseInt(contentIdStr.replace(/\D/g, '') || '0') % 8 : 
+        0;
+      
       const colors = [
         ['#3b82f6', '#1e40af'], // Bleu foncé
         ['#d946ef', '#9333ea'], // Fuchsia
@@ -373,7 +378,7 @@
     
     <div class="app-container">
       <header class="app-header">
-        <img src="/src/assets/logo.svg" alt="FloDrama Logo" class="app-logo">
+        <img src="/assets/logo.svg" alt="FloDrama Logo" class="app-logo">
         <nav class="app-nav">
           <a href="#">Accueil</a>
           <a href="#">Dramas</a>
