@@ -602,9 +602,8 @@ export const getOptimalImageUrl = async (contentId, type = IMAGE_TYPES.POSTER, o
 export const getImageManagerStats = () => {
   return {
     cdnStatus: {
-      bunny: cdnStatusCache.get('BUNNY_CDN')?.status || false,
       cloudfront: cdnStatusCache.get('CLOUDFRONT')?.status || false,
-      lastCheck: cdnStatusCache.get('BUNNY_CDN')?.timestamp || Date.now()
+      lastCheck: cdnStatusCache.get('CLOUDFRONT')?.timestamp || Date.now()
     },
     cache: {
       processedUrls: processedUrls.size,
