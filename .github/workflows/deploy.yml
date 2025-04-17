@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - master
+      - github-pages-clean
   workflow_dispatch:
 
 jobs:
@@ -32,6 +33,13 @@ jobs:
           grep -q "<Navbar />" Frontend/App.jsx
           # Construction du projet
           npm run build
+          
+      - name: Copier le fichier CNAME dans le dossier de build 📋
+        run: |
+          echo "Copie du fichier CNAME dans le dossier de build..."
+          cp CNAME dist/
+          echo "Vérification du contenu du fichier CNAME..."
+          cat dist/CNAME
         
       - name: Déploiement sur GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
@@ -43,4 +51,4 @@ jobs:
       - name: Notification de déploiement réussi 📢
         run: |
           echo "🎉 FloDrama a été déployé avec succès sur GitHub Pages avec la Navbar avancée!"
-          echo "L'application est maintenant accessible via https://flori92.github.io/FloDrama/"
+          echo "L'application est maintenant accessible via https://flodrama.com"
