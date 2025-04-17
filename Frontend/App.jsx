@@ -4,7 +4,7 @@ import { lazyLoad, preloadRelatedComponents } from './utils/lazyLoader';
 import PageTransition from './components/transitions/PageTransition';
 import LoadingSpinner from './components/LoadingSpinner';
 import ContentDataService from './services/ContentDataService';
-import Header from './components/layout/Header';
+import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import './styles/App.css';
 
@@ -143,7 +143,7 @@ const App = () => {
   return (
     <Router>
       <div className="app">
-        <Header />
+        <Navbar />
         <main className="app-content">
           <Routes>
             <Route path="/" element={

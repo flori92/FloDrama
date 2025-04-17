@@ -1,0 +1,46 @@
+name: Déploiement FloDrama sur GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Configuration de Node.js 📦
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Installation des dépendances 🔧
+        run: |
+          npm ci
+          
+      - name: Build du projet 🏗️
+        run: |
+          echo "Création du build de production avec Navbar..."
+          # Vérifier que le composant Navbar est bien utilisé dans App.jsx
+          grep -q "import Navbar from './components/layout/Navbar'" Frontend/App.jsx
+          grep -q "<Navbar />" Frontend/App.jsx
+          # Construction du projet
+          npm run build
+        
+      - name: Déploiement sur GitHub Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
+          branch: gh-pages
+          clean: true
+          
+      - name: Notification de déploiement réussi 📢
+        run: |
+          echo "🎉 FloDrama a été déployé avec succès sur GitHub Pages avec la Navbar avancée!"
+          echo "L'application est maintenant accessible via https://flori92.github.io/FloDrama/"
