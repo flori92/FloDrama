@@ -49,13 +49,344 @@
         <img src="/src/assets/logo.svg" alt="FloDrama Logo" class="preloader-logo" />
       </div>
     </div>
-    <script type="module" src="/src/main.tsx"></script>
+    <!-- JS principal intégré inline pour éviter les erreurs MIME sur GitHub Pages -->
+    <script>
+// === js/auth-storage.js ===
+class AuthStorage {
+  constructor() {
+    this.storageKey = 'flodrama_user';
+    this.favoritesKey = 'flodrama_favorites';
+    this.preferencesKey = 'flodrama_preferences';
+  }
+  saveUser(userData) {
+    const userToSave = { ...userData };
+    if (userToSave.password) {
+      userToSave.hashedPassword = this.simpleHash(userToSave.password);
+      delete userToSave.password;
+    }
+    localStorage.setItem(this.storageKey, JSON.stringify(userToSave));
+    return userToSave;
+  }
+  getUser() {
+    const userData = localStorage.getItem(this.storageKey);
+    return userData ? JSON.parse(userData) : null;
+  }
+  removeUser() {
+    localStorage.removeItem(this.storageKey);
+  }
+  saveFavorites(favorites) {
+    localStorage.setItem(this.favoritesKey, JSON.stringify(favorites));
+  }
+  getFavorites() {
+    const favorites = localStorage.getItem(this.favoritesKey);
+    return favorites ? JSON.parse(favorites) : [];
+  }
+  addFavorite(contentId) {
+    const favorites = this.getFavorites();
+    if (!favorites.includes(contentId)) {
+      favorites.push(contentId);
+      this.saveFavorites(favorites);
+    }
+    return favorites;
+  }
+  removeFavorite(contentId) {
+    let favorites = this.getFavorites();
+    favorites = favorites.filter(id => id !== contentId);
+    this.saveFavorites(favorites);
+    return favorites;
+  }
+  savePreferences(preferences) {
+    localStorage.setItem(this.preferencesKey, JSON.stringify(preferences));
+  }
+  getPreferences() {
+    const preferences = localStorage.getItem(this.preferencesKey);
+    return preferences ? JSON.parse(preferences) : {};
+  }
+  simpleHash(str) {
+    let hash = 0, i, chr;
+    if (str.length === 0) return hash;
+    for (i = 0; i < str.length; i++) {
+      chr = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + chr;
+      hash |= 0;
+    }
+    return hash.toString();
+  }
+}
+const authStorage = new AuthStorage();
+// === js/auth.js ===
+class Auth {
+  constructor() {
+    this.currentUser = null;
+    this.listeners = [];
+    this.init();
+  }
+  init() {
+    this.currentUser = authStorage.getUser();
+    if (this.currentUser) {
+      this.notifyListeners();
+    }
+  }
+  register(userData) {
+    return new Promise((resolve, reject) => {
+      const existingUsers = this.getRegisteredUsers();
+      const userExists = existingUsers.some(user => user.email === userData.email);
+      if (userExists) {
+        return reject(new Error('Cet email est déjà utilisé.'));
+      }
+      if (!this.validateUserData(userData)) {
+        return reject(new Error('Données utilisateur invalides.'));
+      }
+      userData.id = Date.now().toString();
+      userData.createdAt = new Date().toISOString();
+      existingUsers.push(userData);
+      localStorage.setItem('flodrama_registered_users', JSON.stringify(existingUsers));
+      this.login(userData.email, userData.password)
+        .then(user => resolve(user))
+        .catch(error => reject(error));
+    });
+  }
+  login(email, password) {
+    return new Promise((resolve, reject) => {
+      const existingUsers = this.getRegisteredUsers();
+      const user = existingUsers.find(user => user.email === email);
+      if (!user) {
+        return reject(new Error('Utilisateur non trouvé.'));
+      }
+      const hashedPassword = authStorage.simpleHash(password);
+      if (user.hashedPassword && user.hashedPassword !== hashedPassword) {
+        return reject(new Error('Mot de passe incorrect.'));
+      }
+      user.lastLogin = new Date().toISOString();
+      this.currentUser = authStorage.saveUser(user);
+      this.notifyListeners();
+      resolve(this.currentUser);
+    });
+  }
+  logout() {
+    authStorage.removeUser();
+    this.currentUser = null;
+    this.notifyListeners();
+  }
+  getCurrentUser() {
+    return this.currentUser;
+  }
+  isLoggedIn() {
+    return !!this.currentUser;
+  }
+  addAuthStateListener(listener) {
+    this.listeners.push(listener);
+  }
+  notifyListeners() {
+    this.listeners.forEach(listener => listener(this.currentUser));
+  }
+  getRegisteredUsers() {
+    const users = localStorage.getItem('flodrama_registered_users');
+    return users ? JSON.parse(users) : [];
+  }
+  validateUserData(userData) {
+    return userData.email && userData.password && userData.name;
+  }
+  isFavorite(contentId) {
+    return authStorage.getFavorites().includes(contentId);
+  }
+  addToFavorites(contentId) {
+    authStorage.addFavorite(contentId);
+  }
+  removeFromFavorites(contentId) {
+    authStorage.removeFavorite(contentId);
+  }
+}
+const auth = new Auth();
+// === js/auth-ui.js ===
+class AuthUI {
+  constructor() {
+    this.loginModal = null;
+    this.registerModal = null;
+    this.profileModal = null;
+    this.overlay = null;
+    this.init();
+  }
+  init() {
+    this.createModals();
+    this.addStyles();
+    this.addEventListeners();
+    auth.addAuthStateListener(this.handleAuthStateChange ? this.handleAuthStateChange.bind(this) : () => {});
+    this.updateUI(auth.getCurrentUser());
+  }
+  createModals() {
+    if (document.getElementById('loginModal')) return;
+    this.overlay = document.createElement('div');
+    this.overlay.id = 'authOverlay';
+    this.overlay.className = 'auth-overlay';
+    document.body.appendChild(this.overlay);
+    this.loginModal = document.createElement('div');
+    this.loginModal.id = 'loginModal';
+    this.loginModal.className = 'auth-modal';
+    this.loginModal.innerHTML = `<div class=\"auth-modal-content\"><div class=\"auth-modal-header\"><h2>Connexion</h2><button class=\"auth-modal-close\" data-action=\"close-modal\">&times;</button></div><div class=\"auth-modal-body\"><form id=\"loginForm\"><div class=\"auth-form-group\"><label for=\"loginEmail\">Email</label><input type=\"email\" id=\"loginEmail\" name=\"email\" required placeholder=\"votre@email.com\"></div><div class=\"auth-form-group\"><label for=\"loginPassword\">Mot de passe</label><input type=\"password\" id=\"loginPassword\" name=\"password\" required placeholder=\"Votre mot de passe\"></div><div class=\"auth-form-error\" id=\"loginError\"></div><div class=\"auth-form-actions\"><button type=\"submit\" class=\"auth-button auth-button-primary\">Se connecter</button></div></form><div class=\"auth-form-footer\"><p>Pas encore de compte ? <a href=\"#\" data-action=\"show-register\">S'inscrire</a></p></div></div></div>`;
+    document.body.appendChild(this.loginModal);
+    this.registerModal = document.createElement('div');
+    this.registerModal.id = 'registerModal';
+    this.registerModal.className = 'auth-modal';
+    this.registerModal.innerHTML = `<div class=\"auth-modal-content\"><div class=\"auth-modal-header\"><h2>Inscription</h2><button class=\"auth-modal-close\" data-action=\"close-modal\">&times;</button></div><div class=\"auth-modal-body\"><form id=\"registerForm\"><div class=\"auth-form-group\"><label for=\"registerName\">Nom</label><input type=\"text\" id=\"registerName\" name=\"name\" required placeholder=\"Votre nom\"></div><div class=\"auth-form-group\"><label for=\"registerEmail\">Email</label><input type=\"email\" id=\"registerEmail\" name=\"email\" required placeholder=\"votre@email.com\"></div><div class=\"auth-form-group\"><label for=\"registerPassword\">Mot de passe</label><input type=\"password\" id=\"registerPassword\" name=\"password\" required placeholder=\"Votre mot de passe\"></div><div class=\"auth-form-error\" id=\"registerError\"></div><div class=\"auth-form-actions\"><button type=\"submit\" class=\"auth-button auth-button-primary\">S'inscrire</button></div></form><div class=\"auth-form-footer\"><p>Déjà inscrit ? <a href=\"#\" data-action=\"show-login\">Se connecter</a></p></div></div></div>`;
+    document.body.appendChild(this.registerModal);
+  }
+  addStyles() {
+    const style = document.createElement('style');
+    style.textContent = `.auth-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);z-index:9998;display:none}.auth-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;color:#222;z-index:9999;min-width:320px;max-width:400px;border-radius:8px;box-shadow:0 2px 24px rgba(0,0,0,0.2);display:none}.auth-modal-content{padding:24px}.auth-modal-header{display:flex;justify-content:space-between;align-items:center}.auth-modal-close{background:none;border:none;font-size:1.5rem;cursor:pointer}.auth-form-group{margin-bottom:16px}.auth-form-group label{display:block;margin-bottom:4px}.auth-form-group input{width:100%;padding:8px;border-radius:4px;border:1px solid #ccc}.auth-form-actions{text-align:right}.auth-button{padding:8px 16px;border:none;border-radius:4px;cursor:pointer}.auth-button-primary{background:#3b82f6;color:#fff}.auth-form-footer{text-align:center;margin-top:16px}.auth-form-error{color:#d946ef;margin-bottom:8px}`;
+    document.head.appendChild(style);
+  }
+  addEventListeners() {
+    document.body.addEventListener('click', (e) => {
+      if (e.target.matches('[data-action="close-modal"]') || e.target === this.overlay) {
+        this.hideModals();
+      }
+      if (e.target.matches('[data-action="show-register"]')) {
+        e.preventDefault();
+        this.showRegisterModal();
+      }
+      if (e.target.matches('[data-action="show-login"]')) {
+        e.preventDefault();
+        this.showLoginModal();
+      }
+    });
+    document.body.addEventListener('submit', (e) => {
+      if (e.target.id === 'loginForm') {
+        e.preventDefault();
+        this.handleLoginSubmit && this.handleLoginSubmit(e);
+      }
+      if (e.target.id === 'registerForm') {
+        e.preventDefault();
+        this.handleRegisterSubmit && this.handleRegisterSubmit(e);
+      }
+      if (e.target.id === 'preferencesForm') {
+        e.preventDefault();
+        this.handlePreferencesSubmit && this.handlePreferencesSubmit(e);
+      }
+    });
+  }
+  updateUI(user) {
+    // À compléter selon l'état utilisateur
+  }
+  showLoginModal() {
+    this.overlay.style.display = 'block';
+    this.loginModal.style.display = 'block';
+    this.registerModal.style.display = 'none';
+    this.profileModal && (this.profileModal.style.display = 'none');
+  }
+  showRegisterModal() {
+    this.overlay.style.display = 'block';
+    this.loginModal.style.display = 'none';
+    this.registerModal.style.display = 'block';
+    this.profileModal && (this.profileModal.style.display = 'none');
+  }
+  hideModals() {
+    this.overlay.style.display = 'none';
+    this.loginModal.style.display = 'none';
+    this.registerModal.style.display = 'none';
+    this.profileModal && (this.profileModal.style.display = 'none');
+  }
+}
+const authUI = new AuthUI();
+// === js/main.js ===
+class FloDramaApp {
+  constructor() {
+    this.init();
+  }
+  init() {
+    this.initUI();
+    this.setupAuthListeners();
+    this.initFavorites();
+    console.log('FloDrama App initialisée');
+  }
+  initUI() {
+    this.updateUserAvatars();
+    this.setupAuthButtons();
+    this.setupFavoriteButtons();
+  }
+  updateUserAvatars() {
+    const user = auth.getCurrentUser();
+    const userAvatars = document.querySelectorAll('.user-avatar');
+    userAvatars.forEach(avatar => {
+      if (user) {
+        const initials = user.name.split(' ').map(name => name.charAt(0)).join('').toUpperCase();
+        avatar.textContent = initials;
+      } else {
+        avatar.textContent = 'FD';
+      }
+    });
+  }
+  setupAuthButtons() {}
+  setupAuthListeners() {
+    auth.addAuthStateListener(user => {
+      this.updateUI(user);
+    });
+  }
+  updateUI(user) {
+    this.updateUserAvatars();
+    this.updateFavoriteButtons();
+    const userOnlyElements = document.querySelectorAll('.user-only');
+    userOnlyElements.forEach(element => {
+      element.style.display = user ? 'block' : 'none';
+    });
+    const guestOnlyElements = document.querySelectorAll('.guest-only');
+    guestOnlyElements.forEach(element => {
+      element.style.display = user ? 'none' : 'block';
+    });
+  }
+  initFavorites() {
+    this.updateFavoriteButtons();
+  }
+  setupFavoriteButtons() {
+    const favoriteButtons = document.querySelectorAll('[data-favorite]');
+    favoriteButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (!auth.isLoggedIn()) {
+          authUI.showLoginModal();
+          return;
+        }
+        const contentId = parseInt(button.dataset.favorite);
+        const isFavorite = auth.isFavorite(contentId);
+        if (isFavorite) {
+          auth.removeFromFavorites(contentId);
+          button.classList.remove('is-favorite');
+          button.setAttribute('title', 'Ajouter aux favoris');
+        } else {
+          auth.addToFavorites(contentId);
+          button.classList.add('is-favorite');
+          button.setAttribute('title', 'Retirer des favoris');
+        }
+      });
+    });
+  }
+  updateFavoriteButtons() {
+    const favoriteButtons = document.querySelectorAll('[data-favorite]');
+    favoriteButtons.forEach(button => {
+      const contentId = parseInt(button.dataset.favorite);
+      const isFavorite = auth.isFavorite(contentId);
+      if (isFavorite) {
+        button.classList.add('is-favorite');
+        button.setAttribute('title', 'Retirer des favoris');
+      } else {
+        button.classList.remove('is-favorite');
+        button.setAttribute('title', 'Ajouter aux favoris');
+      }
+    });
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof window.flodramaApp === 'undefined') {
+    window.flodramaApp = new FloDramaApp();
+  }
+});
+    </script>
+    <!-- Fin JS principal inline -->
     <script>
       // Script pour forcer le rafraîchissement du cache
       (function() {
         // Générer un timestamp unique
         const timestamp = new Date().getTime();
-        
         // Ajouter le timestamp comme paramètre à toutes les requêtes
         const originalFetch = window.fetch;
         window.fetch = function(url, options) {
@@ -64,12 +395,10 @@
           }
           return originalFetch(url, options);
         };
-        
         // Forcer le rechargement de la page si elle a été mise en cache
         if (window.performance && window.performance.navigation.type === 2) {
           window.location.reload(true);
         }
-        
         console.log('Cache refresh script initialized with timestamp: ' + timestamp);
       })();
     </script>
