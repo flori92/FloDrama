@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import OptimizedImage from '../common/OptimizedImage';
+import { ImageTypes } from '../../utils/imageManager';
 import './HeroCarousel.css';
 
 /**
@@ -169,14 +171,18 @@ const HeroCarousel = ({
         >
           {/* Image d'arrière-plan */}
           <div className="hero-carousel-background">
-            <img 
-              src={currentItem.image} 
+            <OptimizedImage 
+              contentId={currentItem.id || `demo-${currentIndex + 1}`}
+              type={ImageTypes.BACKDROP}
               alt={currentItem.title}
               className="hero-carousel-image"
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = '/assets/media/hero-fallback.jpg';
+              options={{
+                preload: true,
+                lazyLoad: false,
+                quality: 'high'
               }}
+              showPlaceholder={true}
+              blur={true}
             />
             <div className="hero-carousel-overlay"></div>
           </div>
