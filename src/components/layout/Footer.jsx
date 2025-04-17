@@ -83,9 +83,9 @@ const Footer = () => {
             </div>
           </div>
           
-          {/* Liens de navigation */}
+          {/* Navigation */}
           <div className="footer-links-section">
-            <h3 className="footer-heading">Navigation</h3>
+            <h3 className="footer-links-title">Navigation</h3>
             <ul className="footer-links">
               <li className="footer-link-item">
                 <Link to="/" className="footer-link">Accueil</Link>
@@ -94,13 +94,16 @@ const Footer = () => {
                 <Link to="/dramas" className="footer-link">Dramas</Link>
               </li>
               <li className="footer-link-item">
-                <Link to="/films" className="footer-link">Films</Link>
+                <Link to="/film" className="footer-link">Film</Link>
               </li>
               <li className="footer-link-item">
-                <Link to="/nouveautes" className="footer-link">Nouveautés</Link>
+                <Link to="/bollywood" className="footer-link">Bollywood</Link>
               </li>
               <li className="footer-link-item">
-                <Link to="/top10" className="footer-link">Top 10</Link>
+                <Link to="/anime" className="footer-link">Animé</Link>
+              </li>
+              <li className="footer-link-item">
+                <Link to="/app" className="footer-link">App</Link>
               </li>
             </ul>
           </div>

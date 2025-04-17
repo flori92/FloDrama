@@ -17,6 +17,7 @@ const PlayerPage = lazyLoad(() => import('./pages/PlayerPage'));
 const ContentPage = lazyLoad(() => import('./pages/ContentPage'));
 const MyListPage = lazyLoad(() => import('./pages/MyListPage'));
 const CategoryPage = lazyLoad(() => import('./pages/CategoryPage'));
+const ContentGalleryPage = lazyLoad(() => import('./pages/ContentGalleryPage'));
 const ErrorPage = lazyLoad(() => import('./pages/ErrorPage'));
 const RecommendationsDemo = lazyLoad(() => import('./pages/RecommendationsDemo'));
 
@@ -182,37 +183,52 @@ const App = () => {
             } />
             <Route path="/dramas" element={
               <RouteManager>
-                <CategoryPage type="drama" title="Dramas" />
+                <ContentGalleryPage type="drama" title="Dramas" />
               </RouteManager>
             } />
             <Route path="/dramas/:subcategory" element={
               <RouteManager>
-                <CategoryPage type="drama" />
+                <ContentGalleryPage type="drama" />
               </RouteManager>
             } />
-            <Route path="/films" element={
+            <Route path="/film" element={
               <RouteManager>
-                <CategoryPage type="film" title="Films" />
+                <ContentGalleryPage type="film" title="Film" />
               </RouteManager>
             } />
-            <Route path="/films/:subcategory" element={
+            <Route path="/film/:subcategory" element={
               <RouteManager>
-                <CategoryPage type="film" />
+                <ContentGalleryPage type="film" />
               </RouteManager>
             } />
-            <Route path="/nouveautes" element={
+            <Route path="/bollywood" element={
               <RouteManager>
-                <CategoryPage type="new" title="Nouveautés" />
+                <ContentGalleryPage type="bollywood" title="Bollywood" />
               </RouteManager>
             } />
-            <Route path="/nouveautes/:subcategory" element={
+            <Route path="/bollywood/:subcategory" element={
               <RouteManager>
-                <CategoryPage type="new" />
+                <ContentGalleryPage type="bollywood" />
               </RouteManager>
             } />
-            <Route path="/top10" element={
+            <Route path="/anime" element={
               <RouteManager>
-                <CategoryPage type="top" title="Top 10" />
+                <ContentGalleryPage type="anime" title="Animé" />
+              </RouteManager>
+            } />
+            <Route path="/anime/:subcategory" element={
+              <RouteManager>
+                <ContentGalleryPage type="anime" />
+              </RouteManager>
+            } />
+            <Route path="/app" element={
+              <RouteManager>
+                <ContentGalleryPage type="all" title="Toutes nos vidéos" />
+              </RouteManager>
+            } />
+            <Route path="/app/:subcategory" element={
+              <RouteManager>
+                <ContentGalleryPage type="all" />
               </RouteManager>
             } />
             <Route path="/recommandations" element={
