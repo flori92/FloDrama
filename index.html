@@ -181,6 +181,18 @@
         padding: 1rem;
       }
       
+      /* Styles pour les fallbacks d'images */
+      .fallback-image.poster-fallback {
+        background: linear-gradient(135deg, #3b82f6, #d946ef);
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        text-align: center;
+      }
+      
       .content-info {
         padding: 1rem;
       }
@@ -233,6 +245,58 @@
       }
     </style>
     
+    <script>
+    // Système de gestion des images avec fallbacks multiples
+    function handleImageError(event) {
+      const img = event.target;
+      const contentId = img.dataset.contentId;
+      const type = img.dataset.type || 'poster';
+      
+      // Essayer les différentes sources dans l'ordre
+      const sources = [
+        // 1. Bunny CDN
+        `https://images.flodrama.com/${type}s/${contentId}.jpg`,
+        // 2. CloudFront
+        `https://d2ra390ol17u3n.cloudfront.net/${type}s/${contentId}.jpg`,
+        // 3. GitHub Pages
+        `/assets/media/${type}s/${contentId}/poster.jpg`,
+        // 4. Placeholder local
+        `/assets/static/placeholders/${type}-placeholder.jpg`,
+        // 5. Fallback SVG intégré (dernier recours)
+        `data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 viewBox%3D%220 0 300 450%22%3E%3Crect width%3D%22300%22 height%3D%22450%22 fill%3D%22%231A1926%22%2F%3E%3Ctext x%3D%22150%22 y%3D%22225%22 fill%3D%22%233b82f6%22 text-anchor%3D%22middle%22 dominant-baseline%3D%22middle%22 font-family%3D%22sans-serif%22 font-size%3D%2224%22%3E${contentId}%3C%2Ftext%3E%3C%2Fsvg%3E`
+      ];
+      
+      // Trouver l'index de la source actuelle
+      const currentIndex = sources.indexOf(img.src);
+      
+      // Si on n'est pas à la dernière source, essayer la suivante
+      if (currentIndex < sources.length - 1) {
+        const nextSource = sources[currentIndex + 1];
+        console.log(`Image fallback: ${img.src} -> ${nextSource}`);
+        img.src = nextSource;
+      } else {
+        // Si toutes les sources ont échoué, ajouter une classe de fallback
+        img.classList.add('fallback-image');
+        img.classList.add(`${type}-fallback`);
+        img.alt = img.alt || `${type} ${contentId}`;
+        console.warn(`Toutes les sources d'images ont échoué pour ${contentId}`);
+      }
+    }
+    
+    // Initialiser le système de gestion d'images au chargement
+    document.addEventListener('DOMContentLoaded', function() {
+      // Ajouter un gestionnaire global pour les erreurs d'images
+      document.addEventListener('error', function(e) {
+        if (e.target.tagName && e.target.tagName.toLowerCase() === 'img') {
+          handleImageError(e);
+          e.preventDefault();
+        }
+      }, true);
+      
+      console.log('Système de gestion d\'images avec fallbacks multiples initialisé');
+    });
+    </script>
+    
     <div class="app-container">
       <header class="app-header">
         <img src="/src/assets/logo.svg" alt="FloDrama Logo" class="app-logo">
@@ -258,9 +322,16 @@
       
       <h2 class="section-title">Tendances</h2>
       <div class="content-grid">
-        <!-- Contenu généré dynamiquement -->
+        <!-- Contenu généré dynamiquement avec système de fallback robuste -->
         <div class="content-card">
-          <img src="/assets/media/posters/drama001/poster.jpg" onerror="this.src='/assets/static/placeholders/poster-placeholder.jpg'" alt="Crash Landing on You" class="content-image">
+          <img 
+            src="https://images.flodrama.com/posters/drama001.jpg" 
+            data-content-id="drama001" 
+            data-type="poster" 
+            alt="Crash Landing on You" 
+            class="content-image"
+            onerror="handleImageError(event)"
+          >
           <div class="content-info">
             <h3 class="content-title">Crash Landing on You</h3>
             <div class="content-meta">
@@ -270,7 +341,14 @@
           </div>
         </div>
         <div class="content-card">
-          <img src="/assets/media/posters/drama002/poster.jpg" onerror="this.src='/assets/static/placeholders/poster-placeholder.jpg'" alt="Itaewon Class" class="content-image">
+          <img 
+            src="https://images.flodrama.com/posters/drama002.jpg" 
+            data-content-id="drama002" 
+            data-type="poster" 
+            alt="Itaewon Class" 
+            class="content-image"
+            onerror="handleImageError(event)"
+          >
           <div class="content-info">
             <h3 class="content-title">Itaewon Class</h3>
             <div class="content-meta">
@@ -280,7 +358,14 @@
           </div>
         </div>
         <div class="content-card">
-          <img src="/assets/media/posters/drama003/poster.jpg" onerror="this.src='/assets/static/placeholders/poster-placeholder.jpg'" alt="Goblin" class="content-image">
+          <img 
+            src="https://images.flodrama.com/posters/drama003.jpg" 
+            data-content-id="drama003" 
+            data-type="poster" 
+            alt="Goblin" 
+            class="content-image"
+            onerror="handleImageError(event)"
+          >
           <div class="content-info">
             <h3 class="content-title">Goblin</h3>
             <div class="content-meta">
@@ -290,7 +375,14 @@
           </div>
         </div>
         <div class="content-card">
-          <img src="/assets/media/posters/drama004/poster.jpg" onerror="this.src='/assets/static/placeholders/poster-placeholder.jpg'" alt="Vincenzo" class="content-image">
+          <img 
+            src="https://images.flodrama.com/posters/drama004.jpg" 
+            data-content-id="drama004" 
+            data-type="poster" 
+            alt="Vincenzo" 
+            class="content-image"
+            onerror="handleImageError(event)"
+          >
           <div class="content-info">
             <h3 class="content-title">Vincenzo</h3>
             <div class="content-meta">
@@ -304,7 +396,14 @@
       <h2 class="section-title">Recommandé pour vous</h2>
       <div class="content-grid">
         <div class="content-card">
-          <img src="/assets/media/posters/drama005/poster.jpg" onerror="this.src='/assets/static/placeholders/poster-placeholder.jpg'" alt="Reply 1988" class="content-image">
+          <img 
+            src="https://images.flodrama.com/posters/drama005.jpg" 
+            data-content-id="drama005" 
+            data-type="poster" 
+            alt="Reply 1988" 
+            class="content-image"
+            onerror="handleImageError(event)"
+          >
           <div class="content-info">
             <h3 class="content-title">Reply 1988</h3>
             <div class="content-meta">
@@ -314,7 +413,14 @@
           </div>
         </div>
         <div class="content-card">
-          <img src="/assets/media/posters/drama006/poster.jpg" onerror="this.src='/assets/static/placeholders/poster-placeholder.jpg'" alt="Hospital Playlist" class="content-image">
+          <img 
+            src="https://images.flodrama.com/posters/drama006.jpg" 
+            data-content-id="drama006" 
+            data-type="poster" 
+            alt="Hospital Playlist" 
+            class="content-image"
+            onerror="handleImageError(event)"
+          >
           <div class="content-info">
             <h3 class="content-title">Hospital Playlist</h3>
             <div class="content-meta">
@@ -324,7 +430,14 @@
           </div>
         </div>
         <div class="content-card">
-          <img src="/assets/media/posters/drama007/poster.jpg" onerror="this.src='/assets/static/placeholders/poster-placeholder.jpg'" alt="My Mister" class="content-image">
+          <img 
+            src="https://images.flodrama.com/posters/drama007.jpg" 
+            data-content-id="drama007" 
+            data-type="poster" 
+            alt="My Mister" 
+            class="content-image"
+            onerror="handleImageError(event)"
+          >
           <div class="content-info">
             <h3 class="content-title">My Mister</h3>
             <div class="content-meta">
@@ -334,7 +447,14 @@
           </div>
         </div>
         <div class="content-card">
-          <img src="/assets/media/posters/drama008/poster.jpg" onerror="this.src='/assets/static/placeholders/poster-placeholder.jpg'" alt="Signal" class="content-image">
+          <img 
+            src="https://images.flodrama.com/posters/drama008.jpg" 
+            data-content-id="drama008" 
+            data-type="poster" 
+            alt="Signal" 
+            class="content-image"
+            onerror="handleImageError(event)"
+          >
           <div class="content-info">
             <h3 class="content-title">Signal</h3>
             <div class="content-meta">
