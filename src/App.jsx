@@ -1,15 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import SearchPage from './pages/SearchPage';
-import ProfilePage from './pages/ProfilePage';
-import SettingsPage from './pages/SettingsPage';
-import PlayerPage from './pages/PlayerPage';
-import ContentPage from './pages/ContentPage';
-import ErrorPage from './pages/ErrorPage';
+import React, { useState, useEffect, useCallback } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { lazyLoad, preloadRelatedComponents } from './utils/lazyLoader';
+import PageTransition from './components/transitions/PageTransition';
 import LoadingSpinner from './components/LoadingSpinner';
 import ContentDataService from './services/ContentDataService';
 import './styles/App.css';
+
+// Chargement paresseux des pages
+const HomePage = lazyLoad(() => import('./pages/HomePage'));
+const SearchPage = lazyLoad(() => import('./pages/SearchPage'));
+const ProfilePage = lazyLoad(() => import('./pages/ProfilePage'));
+const SettingsPage = lazyLoad(() => import('./pages/SettingsPage'));
+const PlayerPage = lazyLoad(() => import('./pages/PlayerPage'));
+const ContentPage = lazyLoad(() => import('./pages/ContentPage'));
+const MyListPage = lazyLoad(() => import('./pages/MyListPage'));
+const CategoryPage = lazyLoad(() => import('./pages/CategoryPage'));
+const ErrorPage = lazyLoad(() => import('./pages/ErrorPage'));
+
+// Composant pour précharger les composants liés à la page actuelle
+// et gérer les transitions de page
+const RouteManager = ({ children }) => {
+  const location = useLocation();
+  
+  useEffect(() => {
+    preloadRelatedComponents(location.pathname);
+  }, [location.pathname]);
+  
+  return (
+    <PageTransition>
+      {children}
+    </PageTransition>
+  );
+};
 
 /**
  * Composant principal de l'application FloDrama
@@ -26,7 +48,7 @@ const App = () => {
   });
   
   // Fonction pour générer des données mockées en cas d'erreur
-  const generateMockData = () => {
+  const generateMockData = useCallback(() => {
     return {
       popular: Array(10).fill().map((_, i) => ({
         id: `mock-popular-${i}`,
@@ -53,7 +75,7 @@ const App = () => {
         type: 'movie'
       }))
     };
-  };
+  }, []);
   
   useEffect(() => {
     // Initialiser les services
@@ -96,7 +118,7 @@ const App = () => {
     };
     
     initializeApp();
-  }, []);
+  }, [generateMockData]);
   
   // Afficher l'écran de démarrage pendant le chargement
   if (isLoading) {
@@ -118,13 +140,71 @@ const App = () => {
     <Router>
       <div className="app">
         <Routes>
-          <Route path="/" element={<HomePage initialData={homeData} />} />
-          <Route path="/search" element={<SearchPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          <Route path="/player" element={<PlayerPage />} />
-          <Route path="/content" element={<ContentPage />} />
-          <Route path="*" element={<ErrorPage />} />
+          <Route path="/" element={
+            <RouteManager>
+              <HomePage initialData={homeData} />
+            </RouteManager>
+          } />
+          <Route path="/recherche" element={
+            <RouteManager>
+              <SearchPage />
+            </RouteManager>
+          } />
+          <Route path="/ma-liste" element={
+            <RouteManager>
+              <MyListPage />
+            </RouteManager>
+          } />
+          <Route path="/profil" element={
+            <RouteManager>
+              <ProfilePage />
+            </RouteManager>
+          } />
+          <Route path="/parametres" element={
+            <RouteManager>
+              <SettingsPage />
+            </RouteManager>
+          } />
+          <Route path="/player" element={
+            <RouteManager>
+              <PlayerPage />
+            </RouteManager>
+          } />
+          <Route path="/contenu/:id" element={
+            <RouteManager>
+              <ContentPage />
+            </RouteManager>
+          } />
+          <Route path="/dramas" element={
+            <RouteManager>
+              <CategoryPage type="drama" title="Dramas" />
+            </RouteManager>
+          } />
+          <Route path="/dramas/:subcategory" element={
+            <RouteManager>
+              <CategoryPage type="drama" />
+            </RouteManager>
+          } />
+          <Route path="/animes" element={
+            <RouteManager>
+              <CategoryPage type="anime" title="Animés" />
+            </RouteManager>
+          } />
+          <Route path="/animes/:subcategory" element={
+            <RouteManager>
+              <CategoryPage type="anime" />
+            </RouteManager>
+          } />
+          <Route path="/bollywood" element={
+            <RouteManager>
+              <CategoryPage type="bollywood" title="Bollywood" />
+            </RouteManager>
+          } />
+          <Route path="*" element={
+            <RouteManager>
+              <ErrorPage />
+            </RouteManager>
+          } />
         </Routes>
       </div>
     </Router>
