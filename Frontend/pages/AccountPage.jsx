@@ -23,7 +23,7 @@ const AccountPage = () => {
   } = useSubscription();
 
   const handleCancelSubscription = () => {
-    if (window.confirm('Êtes-vous sûr de vouloir annuler votre abonnement ? Vous pourrez toujours y accéder jusqu\'à la fin de la période en cours.')) {
+    if (window.confirm('Êtes-vous sûr de vouloir annuler votre abonnement ? Vous pourrez toujours y accéder jusqu&apos;à la fin de la période en cours.')) {
       cancelSubscription();
     }
   };
@@ -84,7 +84,7 @@ const AccountPage = () => {
                   
                   {hasActiveSubscription() && subscriptionData && (
                     <div className="mb-8">
-                      <h3 className="text-lg font-semibold mb-4">Options d'abonnement</h3>
+                      <h3 className="text-lg font-semibold mb-4">Options d&apos;abonnement</h3>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="bg-gray-700 rounded-lg p-6">
@@ -100,14 +100,14 @@ const AccountPage = () => {
                               className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors"
                               onClick={handleCancelSubscription}
                             >
-                              Annuler l'abonnement
+                              Annuler l&apos;abonnement
                             </button>
                           ) : (
                             <button 
                               className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors"
                               onClick={handleReactivateSubscription}
                             >
-                              Réactiver l'abonnement
+                              Réactiver l&apos;abonnement
                             </button>
                           )}
                         </div>

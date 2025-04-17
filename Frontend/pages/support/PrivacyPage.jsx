@@ -83,7 +83,7 @@ const PrivacyPage = () => {
               <div className="mt-12 pt-8 border-t border-gray-700">
                 <h2 className="text-2xl font-semibold mb-4 text-pink-500">Vos droits</h2>
                 <p className="mb-4 text-gray-300">
-                  Vous avez le droit de demander l'accès, la rectification ou la suppression de vos données personnelles. Vous pouvez également vous opposer au traitement de vos données ou demander la limitation de ce traitement.
+                  Vous avez le droit de demander l&apos;accès, la rectification ou la suppression de vos données personnelles. Vous pouvez également vous opposer au traitement de vos données ou demander la limitation de ce traitement.
                 </p>
                 <p className="mb-4 text-gray-300">
                   Pour exercer ces droits ou pour toute question concernant notre politique de confidentialité, veuillez nous contacter à <a href="mailto:hotline@flodrama.com" className="text-pink-500 hover:underline">hotline@flodrama.com</a>.
@@ -93,7 +93,7 @@ const PrivacyPage = () => {
               <div className="mt-8 pt-8 border-t border-gray-700">
                 <h2 className="text-2xl font-semibold mb-4 text-pink-500">Modifications de notre politique de confidentialité</h2>
                 <p className="mb-4 text-gray-300">
-                  FloDrama se réserve le droit de modifier cette politique de confidentialité à tout moment. Nous vous informerons de tout changement en publiant la nouvelle politique de confidentialité sur cette page et en mettant à jour la date de "dernière mise à jour" en haut de cette politique.
+                  FloDrama se réserve le droit de modifier cette politique de confidentialité à tout moment. Nous vous informerons de tout changement en publiant la nouvelle politique de confidentialité sur cette page et en mettant à jour la date de &quot;dernière mise à jour&quot; en haut de cette politique.
                 </p>
                 <p className="mb-4 text-gray-300">
                   Nous vous encourageons à consulter régulièrement cette politique de confidentialité pour prendre connaissance de tout changement.

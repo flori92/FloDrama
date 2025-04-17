@@ -69,15 +69,15 @@ const AboutPage = () => {
               
               <div className="space-y-4 text-gray-300">
                 <p>
-                  FloDrama est né en 2025 de la passion d'une équipe de fans de dramas asiatiques qui souhaitaient créer une plateforme dédiée à ce type de contenu, offrant une expérience de visionnage optimale avec des sous-titres de qualité professionnelle.
+                  FloDrama est né en 2025 de la passion d&apos;une équipe de fans de dramas asiatiques qui souhaitaient créer une plateforme dédiée à ce type de contenu, offrant une expérience de visionnage optimale avec des sous-titres de qualité professionnelle.
                 </p>
                 
                 <p>
-                  Face à la popularité croissante des dramas asiatiques dans le monde entier, nous avons constaté un manque de plateformes spécialisées proposant une expérience utilisateur moderne et un catalogue diversifié. C'est ainsi que FloDrama a vu le jour, avec l'ambition de devenir la référence pour les amateurs de dramas et films asiatiques.
+                  Face à la popularité croissante des dramas asiatiques dans le monde entier, nous avons constaté un manque de plateformes spécialisées proposant une expérience utilisateur moderne et un catalogue diversifié. C&apos;est ainsi que FloDrama a vu le jour, avec l&apos;ambition de devenir la référence pour les amateurs de dramas et films asiatiques.
                 </p>
                 
                 <p>
-                  Aujourd'hui, FloDrama propose des milliers d'heures de contenu provenant de toute l'Asie : dramas coréens, chinois, japonais, films, productions Bollywood et animes. Notre équipe travaille sans relâche pour enrichir notre catalogue et améliorer constamment l'expérience utilisateur.
+                  Aujourd&apos;hui, FloDrama propose des milliers d&apos;heures de contenu provenant de toute l&apos;Asie : dramas coréens, chinois, japonais, films, productions Bollywood et animes. Notre équipe travaille sans relâche pour enrichir notre catalogue et améliorer constamment l&apos;expérience utilisateur.
                 </p>
               </div>
             </div>
@@ -109,7 +109,7 @@ const AboutPage = () => {
               
               <div className="space-y-4 text-gray-300">
                 <p>
-                  Notre mission est de promouvoir la richesse culturelle asiatique à travers ses productions audiovisuelles et de rendre ces contenus accessibles au public francophone. Nous croyons fermement que les dramas asiatiques offrent une perspective unique et des histoires captivantes qui méritent d'être découvertes par un public plus large.
+                  Notre mission est de promouvoir la richesse culturelle asiatique à travers ses productions audiovisuelles et de rendre ces contenus accessibles au public francophone. Nous croyons fermement que les dramas asiatiques offrent une perspective unique et des histoires captivantes qui méritent d&#39;être découvertes par un public plus large.
                 </p>
                 
                 <p>
@@ -120,14 +120,14 @@ const AboutPage = () => {
                   <li>Proposer un catalogue diversifié et régulièrement mis à jour</li>
                   <li>Offrir des sous-titres de qualité professionnelle en français</li>
                   <li>Garantir une expérience utilisateur fluide et intuitive</li>
-                  <li>Soutenir l'industrie créative asiatique en respectant les droits d'auteur</li>
+                  <li>Soutenir l&#39;industrie créative asiatique en respectant les droits d&#39;auteur</li>
                   <li>Créer une communauté passionnée autour des dramas asiatiques</li>
                 </ul>
               </div>
             </div>
             
             <div className="text-center">
-              <h3 className="text-2xl font-semibold mb-6">Rejoignez l'aventure FloDrama</h3>
+              <h3 className="text-2xl font-semibold mb-6">Rejoignez l&#39;aventure FloDrama</h3>
               <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
                 Que vous soyez un fan de longue date des dramas asiatiques ou simplement curieux de découvrir ce monde fascinant, FloDrama vous ouvre ses portes.
               </p>
@@ -137,7 +137,7 @@ const AboutPage = () => {
                   href="/register" 
                   className="px-6 py-3 bg-pink-500 text-white rounded-md hover:bg-pink-600 transition-colors"
                 >
-                  S'inscrire gratuitement
+                  S&#39;inscrire gratuitement
                 </a>
                 <a 
                   href="/browse" 

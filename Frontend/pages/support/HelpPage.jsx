@@ -91,12 +91,12 @@ const HelpPage = () => {
         },
         {
           id: 'technical-2',
-          question: 'J\'ai des problèmes de connexion à mon compte',
+          question: "J'ai des problèmes de connexion à mon compte",
           answer: 'Si vous ne parvenez pas à vous connecter à votre compte, vérifiez que vous utilisez la bonne adresse e-mail et le bon mot de passe. Utilisez l\'option "Mot de passe oublié" si nécessaire. Si vous êtes sûr de vos identifiants mais que le problème persiste, votre compte pourrait être temporairement bloqué pour des raisons de sécurité. Contactez notre support à hotline@flodrama.com.'
         },
         {
           id: 'technical-3',
-          question: 'L\'application plante ou se fige',
+          question: "L'application plante ou se fige",
           answer: 'Si l\'application plante ou se fige, essayez de l\'actualiser ou de la redémarrer. Videz également le cache de votre navigateur. Sur mobile, fermez complètement l\'application et relancez-la. Si le problème persiste, désinstallez et réinstallez l\'application, ou contactez notre support technique avec une description détaillée du problème.'
         }
       ]
@@ -178,26 +178,24 @@ const HelpPage = () => {
             transition={{ duration: 0.5 }}
             className="max-w-4xl mx-auto"
           >
-            <h1 className="text-4xl font-bold mb-4 text-center">Centre d'aide FloDrama</h1>
+            <h1 className="text-4xl font-bold mb-4 text-center">Centre d&apos;aide FloDrama</h1>
             <p className="text-xl text-gray-400 mb-12 text-center">
-              Comment pouvons-nous vous aider aujourd'hui ?
+              Comment pouvons-nous vous aider aujourd&apos;hui ?
             </p>
             
             {/* Barre de recherche */}
             <div className="relative mb-12">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search size={20} className="text-gray-400" />
-              </div>
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
               <input
                 type="text"
                 className="bg-gray-800 text-white w-full pl-10 pr-4 py-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
-                placeholder="Rechercher dans l'aide..."
+                placeholder="Rechercher dans l&apos;aide..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
             
-            {/* Catégories d'aide */}
+            {/* Catégories d&apos;aide */}
             <div className="space-y-4">
               {filteredCategories.map((category) => (
                 <div key={category.id} className="bg-gray-800 rounded-xl overflow-hidden">
@@ -256,7 +254,7 @@ const HelpPage = () => {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="bg-gray-800 rounded-xl p-8 mt-12 text-center"
             >
-              <h2 className="text-2xl font-semibold mb-4">Vous n'avez pas trouvé de réponse ?</h2>
+              <h2 className="text-2xl font-semibold mb-4">Vous n&apos;avez pas trouvé de réponse ?</h2>
               <p className="text-gray-300 mb-6">
                 Notre équipe de support est disponible 7j/7 pour vous aider avec toutes vos questions.
               </p>

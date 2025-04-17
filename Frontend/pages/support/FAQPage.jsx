@@ -17,12 +17,12 @@ const FAQPage = () => {
   
   const faqItems = [
     {
-      question: "Qu'est-ce que FloDrama ?",
+      question: "Qu&apos;est-ce que FloDrama ?",
       answer: "FloDrama est votre plateforme de streaming dédiée aux dramas asiatiques, films asiatiques, Bollywood et animes. Nous vous proposons des histoires captivantes du monde entier, avec un accent particulier sur les contenus asiatiques."
     },
     {
-      question: "Comment puis-je m'abonner à FloDrama ?",
-      answer: "Pour vous abonner, rendez-vous sur la page d'accueil et cliquez sur le bouton 'S'abonner'. Vous pourrez ensuite choisir parmi nos différentes formules d'abonnement et profiter immédiatement de notre catalogue."
+      question: "Comment puis-je m&apos;abonner à FloDrama ?",
+      answer: "Pour vous abonner, rendez-vous sur la page d&apos;accueil et cliquez sur le bouton &apos;S&apos;abonner&apos;. Vous pourrez ensuite choisir parmi nos différentes formules d&apos;abonnement et profiter immédiatement de notre catalogue."
     },
     {
       question: "Quels types de contenus proposez-vous ?",
@@ -34,7 +34,7 @@ const FAQPage = () => {
     },
     {
       question: "Les sous-titres sont-ils disponibles ?",
-      answer: "Oui, tous nos contenus sont disponibles avec des sous-titres en français. Certains titres proposent également des sous-titres en anglais et d'autres langues."
+      answer: "Oui, tous nos contenus sont disponibles avec des sous-titres en français. Certains titres proposent également des sous-titres en anglais et d&apos;autres langues."
     },
     {
       question: "Puis-je télécharger les contenus pour les regarder hors ligne ?",
@@ -42,7 +42,7 @@ const FAQPage = () => {
     },
     {
       question: "Comment puis-je contacter le service client ?",
-      answer: "Vous pouvez nous contacter via notre formulaire de contact dans la section 'Support', ou par email à support@flodrama.com. Notre équipe est disponible 7j/7 pour répondre à vos questions."
+      answer: "Vous pouvez nous contacter via notre formulaire de contact dans la section &apos;Support&apos;, ou par email à support@flodrama.com. Notre équipe est disponible 7j/7 pour répondre à vos questions."
     }
   ];
   
@@ -110,7 +110,7 @@ const FAQPage = () => {
             
             <div className="mt-12 text-center">
               <p className="text-gray-400">
-                Vous n'avez pas trouvé la réponse à votre question ?
+                Vous n&apos;avez pas trouvé la réponse à votre question ?
               </p>
               <a 
                 href="/support/contact" 
