@@ -4,6 +4,8 @@ import { lazyLoad, preloadRelatedComponents } from './utils/lazyLoader';
 import PageTransition from './components/transitions/PageTransition';
 import LoadingSpinner from './components/LoadingSpinner';
 import ContentDataService from './services/ContentDataService';
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
 import './styles/App.css';
 
 // Chargement paresseux des pages
@@ -16,6 +18,7 @@ const ContentPage = lazyLoad(() => import('./pages/ContentPage'));
 const MyListPage = lazyLoad(() => import('./pages/MyListPage'));
 const CategoryPage = lazyLoad(() => import('./pages/CategoryPage'));
 const ErrorPage = lazyLoad(() => import('./pages/ErrorPage'));
+const RecommendationsDemo = lazyLoad(() => import('./pages/RecommendationsDemo'));
 
 // Composant pour précharger les composants liés à la page actuelle
 // et gérer les transitions de page
@@ -139,73 +142,107 @@ const App = () => {
   return (
     <Router>
       <div className="app">
-        <Routes>
-          <Route path="/" element={
-            <RouteManager>
-              <HomePage initialData={homeData} />
-            </RouteManager>
-          } />
-          <Route path="/recherche" element={
-            <RouteManager>
-              <SearchPage />
-            </RouteManager>
-          } />
-          <Route path="/ma-liste" element={
-            <RouteManager>
-              <MyListPage />
-            </RouteManager>
-          } />
-          <Route path="/profil" element={
-            <RouteManager>
-              <ProfilePage />
-            </RouteManager>
-          } />
-          <Route path="/parametres" element={
-            <RouteManager>
-              <SettingsPage />
-            </RouteManager>
-          } />
-          <Route path="/player" element={
-            <RouteManager>
-              <PlayerPage />
-            </RouteManager>
-          } />
-          <Route path="/contenu/:id" element={
-            <RouteManager>
-              <ContentPage />
-            </RouteManager>
-          } />
-          <Route path="/dramas" element={
-            <RouteManager>
-              <CategoryPage type="drama" title="Dramas" />
-            </RouteManager>
-          } />
-          <Route path="/dramas/:subcategory" element={
-            <RouteManager>
-              <CategoryPage type="drama" />
-            </RouteManager>
-          } />
-          <Route path="/animes" element={
-            <RouteManager>
-              <CategoryPage type="anime" title="Animés" />
-            </RouteManager>
-          } />
-          <Route path="/animes/:subcategory" element={
-            <RouteManager>
-              <CategoryPage type="anime" />
-            </RouteManager>
-          } />
-          <Route path="/bollywood" element={
-            <RouteManager>
-              <CategoryPage type="bollywood" title="Bollywood" />
-            </RouteManager>
-          } />
-          <Route path="*" element={
-            <RouteManager>
-              <ErrorPage />
-            </RouteManager>
-          } />
-        </Routes>
+        <Header />
+        <main className="app-content">
+          <Routes>
+            <Route path="/" element={
+              <RouteManager>
+                <HomePage initialData={homeData} />
+              </RouteManager>
+            } />
+            <Route path="/recherche" element={
+              <RouteManager>
+                <SearchPage />
+              </RouteManager>
+            } />
+            <Route path="/ma-liste" element={
+              <RouteManager>
+                <MyListPage />
+              </RouteManager>
+            } />
+            <Route path="/profil" element={
+              <RouteManager>
+                <ProfilePage />
+              </RouteManager>
+            } />
+            <Route path="/parametres" element={
+              <RouteManager>
+                <SettingsPage />
+              </RouteManager>
+            } />
+            <Route path="/player" element={
+              <RouteManager>
+                <PlayerPage />
+              </RouteManager>
+            } />
+            <Route path="/contenu/:id" element={
+              <RouteManager>
+                <ContentPage />
+              </RouteManager>
+            } />
+            <Route path="/dramas" element={
+              <RouteManager>
+                <CategoryPage type="drama" title="Dramas" />
+              </RouteManager>
+            } />
+            <Route path="/dramas/:subcategory" element={
+              <RouteManager>
+                <CategoryPage type="drama" />
+              </RouteManager>
+            } />
+            <Route path="/film" element={
+              <RouteManager>
+                <CategoryPage type="film" title="Film" />
+              </RouteManager>
+            } />
+            <Route path="/film/:subcategory" element={
+              <RouteManager>
+                <CategoryPage type="film" />
+              </RouteManager>
+            } />
+            <Route path="/bollywood" element={
+              <RouteManager>
+                <CategoryPage type="bollywood" title="Bollywood" />
+              </RouteManager>
+            } />
+            <Route path="/bollywood/:subcategory" element={
+              <RouteManager>
+                <CategoryPage type="bollywood" />
+              </RouteManager>
+            } />
+            <Route path="/anime" element={
+              <RouteManager>
+                <CategoryPage type="anime" title="Animé" />
+              </RouteManager>
+            } />
+            <Route path="/anime/:subcategory" element={
+              <RouteManager>
+                <CategoryPage type="anime" />
+              </RouteManager>
+            } />
+            <Route path="/app" element={
+              <RouteManager>
+                <CategoryPage type="app" title="App" />
+              </RouteManager>
+            } />
+            <Route path="/recommandations" element={
+              <RouteManager>
+                <RecommendationsDemo />
+              </RouteManager>
+            } />
+            <Route path="/recommandations/:type" element={
+              <RouteManager>
+                <RecommendationsDemo />
+              </RouteManager>
+            } />
+            <Route path="*" element={
+              <RouteManager>
+                <ErrorPage />
+              </RouteManager>
+            } />
+          </Routes>
+        </main>
+        <Footer />
       </div>
     </Router>
   );

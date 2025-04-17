@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useMetadata } from '../hooks/useMetadata';
-import AppleStyleHero from '../components/widgets/AppleStyleHero';
+import HeroCarousel from '../components/hero/HeroCarousel';
 import FrenchMovieBanner from '../components/widgets/FrenchMovieBanner';
 import ContentCarousel from '../components/carousel/ContentCarousel';
 import { motion } from 'framer-motion';
+import '../styles/HomePage.css';
 
 /**
  * Page d'accueil principale de FloDrama
@@ -139,17 +140,23 @@ const HomePage = () => {
   }
 
   return (
-    <div className="min-h-screen pb-20" style={{ backgroundColor: 'var(--color-background)' }}>
-      {/* Héro principal */}
-      {featured && <AppleStyleHero item={featured} />}
+    <div className="home-page">
+      {/* Hero Carousel */}
+      {featured && (
+        <HeroCarousel 
+          items={[
+            featured,
+            ...(sections.nouveautes.items.slice(0, 2))
+          ]} 
+        />
+      )}
       
-      {/* Contenu principal */}
-      <div className="container mx-auto px-4 mt-8">
+      <div className="home-page-content">
         <motion.div
+          className="home-page-sections"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="space-y-12"
         >
           {/* Section Nouveautés */}
           {sections.nouveautes.items.length > 0 && (
