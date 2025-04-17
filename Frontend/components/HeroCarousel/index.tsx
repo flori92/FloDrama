@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react';
-import { View, Text, Image, Video } from '@lynx-js/core';
-import { useAnimation } from '@lynx-js/hooks';
+import React, { useEffect, useState } from 'react';
 import { useUserPreferences } from '../../hooks/useUserPreferences';
 import './styles.css';
 
@@ -32,23 +30,6 @@ export const HeroCarousel = ({
   const [showTrailer, setShowTrailer] = useState(false);
   const { preferences } = useUserPreferences();
 
-  // Animations Lynx
-  const slideAnimation = useAnimation({
-    initial: { opacity: 0, scale: 1.1 },
-    visible: { opacity: 1, scale: 1 },
-    exit: { opacity: 0, scale: 0.95 },
-    duration: 800,
-    easing: 'easeOutCubic'
-  });
-
-  const contentAnimation = useAnimation({
-    initial: { opacity: 0, x: -30 },
-    visible: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: 30 },
-    duration: 600,
-    easing: 'easeOutCubic'
-  });
-
   // Gestion du défilement automatique
   useEffect(() => {
     if (!isPlaying) return;
@@ -63,13 +44,13 @@ export const HeroCarousel = ({
 
   // Gestion de la lecture du trailer
   useEffect(() => {
-    if (preferences.autoplayTrailers && contents[currentIndex].trailerUrl) {
+    if (preferences.autoplayTrailers && contents[currentIndex]?.trailerUrl) {
       const timer = setTimeout(() => {
         setShowTrailer(true);
       }, 1000);
       return () => clearTimeout(timer);
     }
-  }, [currentIndex, preferences.autoplayTrailers]);
+  }, [currentIndex, preferences.autoplayTrailers, contents]);
 
   const handleDotClick = (index: number) => {
     setCurrentIndex(index);
@@ -86,16 +67,20 @@ export const HeroCarousel = ({
 
   const currentContent = contents[currentIndex];
 
+  if (!currentContent) {
+    return <div className="hero-carousel--empty">Aucun contenu disponible</div>;
+  }
+
   return (
-    <View 
+    <div 
       className="hero-carousel"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       {/* Fond avec effet parallaxe */}
-      <View className="hero-carousel__background" animation={slideAnimation}>
+      <div className="hero-carousel__background fade-in">
         {showTrailer && currentContent.trailerUrl ? (
-          <Video
+          <video
             className="hero-carousel__trailer"
             src={currentContent.trailerUrl}
             autoPlay
@@ -103,113 +88,113 @@ export const HeroCarousel = ({
             loop
           />
         ) : (
-          <Image
+          <img
             className="hero-carousel__backdrop"
             src={currentContent.backdropUrl}
             alt={currentContent.title}
           />
         )}
-        <View className="hero-carousel__overlay" />
-      </View>
+        <div className="hero-carousel__overlay" />
+      </div>
 
       {/* Contenu */}
-      <View className="hero-carousel__content" animation={contentAnimation}>
-        <Text className="hero-carousel__title">
+      <div className="hero-carousel__content slide-in">
+        <h2 className="hero-carousel__title">
           {currentContent.title}
-        </Text>
+        </h2>
 
         {/* Métadonnées */}
-        <View className="hero-carousel__metadata">
+        <div className="hero-carousel__metadata">
           {currentContent.rating && (
-            <Text className="hero-carousel__rating">
+            <span className="hero-carousel__rating">
               ★ {currentContent.rating.toFixed(1)}
-            </Text>
+            </span>
           )}
           {currentContent.releaseDate && (
-            <Text className="hero-carousel__date">
+            <span className="hero-carousel__date">
               {new Date(currentContent.releaseDate).getFullYear()}
-            </Text>
+            </span>
           )}
           {currentContent.duration && (
-            <Text className="hero-carousel__duration">
+            <span className="hero-carousel__duration">
               {currentContent.duration}
-            </Text>
+            </span>
           )}
-        </View>
+        </div>
 
         {/* Genres */}
-        <View className="hero-carousel__genres">
+        <div className="hero-carousel__genres">
           {currentContent.genres.map((genre, index) => (
-            <Text key={index} className="hero-carousel__genre">
+            <span key={index} className="hero-carousel__genre">
               {genre}
-            </Text>
+            </span>
           ))}
-        </View>
+        </div>
 
         {/* Description */}
-        <Text className="hero-carousel__description">
+        <p className="hero-carousel__description">
           {currentContent.description}
-        </Text>
+        </p>
 
         {/* Boutons d'action */}
-        <View className="hero-carousel__actions">
-          <View 
+        <div className="hero-carousel__actions">
+          <button 
             className="hero-carousel__button hero-carousel__button--primary"
             onClick={() => onContentSelect?.(currentContent.id)}
           >
-            <Image
+            <img
               src="/icons/play.svg"
               alt="Lecture"
               className="hero-carousel__button-icon"
             />
-            <Text>Regarder</Text>
-          </View>
-          <View 
+            <span>Regarder</span>
+          </button>
+          <button 
             className="hero-carousel__button hero-carousel__button--secondary"
             onClick={() => setShowTrailer(!showTrailer)}
           >
-            <Image
+            <img
               src={showTrailer ? "/icons/info.svg" : "/icons/play-trailer.svg"}
               alt={showTrailer ? "Plus d'infos" : "Bande annonce"}
               className="hero-carousel__button-icon"
             />
-            <Text>{showTrailer ? "Plus d'infos" : "Bande annonce"}</Text>
-          </View>
-        </View>
-      </View>
+            <span>{showTrailer ? "Plus d'infos" : "Bande annonce"}</span>
+          </button>
+        </div>
+      </div>
 
       {/* Navigation */}
-      <View className="hero-carousel__navigation">
+      <div className="hero-carousel__navigation">
         {contents.map((_, index) => (
-          <View
+          <button
             key={index}
             className={`hero-carousel__dot ${index === currentIndex ? 'active' : ''}`}
             onClick={() => handleDotClick(index)}
           >
-            <View 
+            <div 
               className="hero-carousel__dot-progress"
               style={{
                 animationDuration: `${autoPlayInterval}ms`,
                 animationPlayState: isPlaying && index === currentIndex ? 'running' : 'paused'
               }}
             />
-          </View>
+          </button>
         ))}
-      </View>
+      </div>
 
       {/* Boutons précédent/suivant */}
-      <View 
+      <button 
         className="hero-carousel__arrow hero-carousel__arrow--prev"
         onClick={() => handleDotClick((currentIndex - 1 + contents.length) % contents.length)}
       >
-        <Image src="/icons/chevron-left.svg" alt="Précédent" />
-      </View>
-      <View 
+        <img src="/icons/chevron-left.svg" alt="Précédent" />
+      </button>
+      <button 
         className="hero-carousel__arrow hero-carousel__arrow--next"
         onClick={() => handleDotClick((currentIndex + 1) % contents.length)}
       >
-        <Image src="/icons/chevron-right.svg" alt="Suivant" />
-      </View>
-    </View>
+        <img src="/icons/chevron-right.svg" alt="Suivant" />
+      </button>
+    </div>
   );
 };

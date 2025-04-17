@@ -4,7 +4,6 @@
  */
 
 import logger from './logger';
-import { getMediaUrl, getPosterUrl, getBackdropUrl } from './bunny-cdn-integration';
 import { createPlaceholders } from './localImageFallback';
 import ContentDataService from '../services/ContentDataService';
 import SmartScrapingService from '../services/SmartScrapingService';
@@ -13,11 +12,11 @@ import SmartScrapingService from '../services/SmartScrapingService';
 const IMAGE_SOURCES = {
   BUNNY_CDN: {
     baseUrl: 'https://images.flodrama.com',
-    enabled: true,
+    enabled: false, // Désactivé - BunnyCDN n'est plus utilisé
     priority: 1
   },
   CLOUDFRONT: {
-    baseUrl: 'https://d2ra390ol17u3n.cloudfront.net',
+    baseUrl: 'https://d1323ouxr1qbdp.cloudfront.net', // URL correcte depuis aws-config.js
     enabled: true,
     priority: 2
   },
@@ -126,30 +125,19 @@ const checkAllCdnStatus = async () => {
   logger.debug('Vérification de l\'état des CDNs');
   
   try {
-    // Vérifier Bunny CDN
-    const bunnyStatus = await checkCdnStatus(IMAGE_SOURCES.BUNNY_CDN.baseUrl);
-    IMAGE_SOURCES.BUNNY_CDN.enabled = bunnyStatus;
-    cdnStatusCache.set('BUNNY_CDN', { status: bunnyStatus, timestamp: Date.now() });
+    // Vérifier CloudFront (seul CDN actif)
+    const cloudFrontStatus = await checkCdnStatus(IMAGE_SOURCES.CLOUDFRONT.baseUrl);
+    IMAGE_SOURCES.CLOUDFRONT.enabled = cloudFrontStatus;
+    cdnStatusCache.set('CLOUDFRONT', { 
+      status: cloudFrontStatus, 
+      timestamp: Date.now() 
+    });
     
-    // Vérifier CloudFront
-    const cloudfrontStatus = await checkCdnStatus(IMAGE_SOURCES.CLOUDFRONT.baseUrl);
-    IMAGE_SOURCES.CLOUDFRONT.enabled = cloudfrontStatus;
-    cdnStatusCache.set('CLOUDFRONT', { status: cloudfrontStatus, timestamp: Date.now() });
-    
-    logger.info(`État des CDNs - Bunny: ${bunnyStatus ? 'OK' : 'KO'}, CloudFront: ${cloudfrontStatus ? 'OK' : 'KO'}`);
-    
-    // Émettre un événement pour informer l'application
-    if (typeof window !== 'undefined' && window.dispatchEvent) {
-      window.dispatchEvent(new CustomEvent('flodrama:cdn-status-updated', { 
-        detail: { 
-          bunny: bunnyStatus,
-          cloudfront: cloudfrontStatus,
-          timestamp: Date.now()
-        }
-      }));
+    if (!cloudFrontStatus) {
+      logger.warn('CloudFront n\'est pas disponible, utilisation des fallbacks locaux');
     }
   } catch (error) {
-    logger.error('Erreur lors de la vérification des CDNs', error);
+    logger.error('Erreur lors de la vérification des CDNs:', error);
   }
 };
 
@@ -568,23 +556,12 @@ export const getOptimalImageUrl = async (contentId, type = IMAGE_TYPES.POSTER, o
     }
     
     // Vérifier l'état des CDNs
-    const bunnyAvailable = cdnStatusCache.get('BUNNY_CDN')?.status !== false;
     const cloudfrontAvailable = cdnStatusCache.get('CLOUDFRONT')?.status !== false;
     
-    // Utiliser la source la plus fiable selon l'état des CDNs
-    if (bunnyAvailable) {
-      // Utiliser Bunny CDN
-      switch (type) {
-        case IMAGE_TYPES.POSTER:
-          return getPosterUrl(`/posters/${contentId}.jpg`, size);
-        case IMAGE_TYPES.BACKDROP:
-          return getBackdropUrl(`/backdrops/${contentId}.jpg`, size);
-        default:
-          return getMediaUrl(`/${type}s/${contentId}.jpg`);
-      }
-    } else if (cloudfrontAvailable) {
-      // Fallback vers CloudFront
-      return `https://d2ra390ol17u3n.cloudfront.net/${type}s/${contentId}.jpg`;
+    // Utiliser CloudFront ou fallback selon l'état
+    if (cloudfrontAvailable) {
+      // Utiliser CloudFront
+      return `${IMAGE_SOURCES.CLOUDFRONT.baseUrl}/${type}s/${contentId}.jpg`;
     } else {
       // Fallback vers GitHub Pages
       return `/${type}s/${contentId}.jpg`;
