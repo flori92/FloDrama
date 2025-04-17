@@ -149,7 +149,7 @@ const Navbar = () => {
             className="flex items-center"
           >
             <img 
-              src="/assets/logo/flodrama-logo.svg" 
+              src="/assets/logo.svg" 
               alt="FloDrama Logo" 
               className="h-8 w-8 mr-2" 
             />

@@ -29,7 +29,7 @@ const LandingPage = ({ onEnter }) => {
           transition={{ duration: 0.8 }}
           className="logo-container"
         >
-          <img src="/flodrama-logo.svg" alt="FloDrama Logo" className="logo" />
+          <img src="/assets/logo.svg" alt="FloDrama Logo" className="logo" />
           <h1>FloDrama</h1>
         </motion.div>
 

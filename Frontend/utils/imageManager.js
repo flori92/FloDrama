@@ -352,89 +352,31 @@ const generateImageSources = (contentId, type, contentInfo = null) => {
  * @param {Object} contentInfo - Informations sur le contenu (optionnel)
  */
 const applyFallbackSvg = (img, contentId, type, contentInfo = null) => {
-  // Utiliser un SVG intégré comme solution de dernier recours
-  const title = img.alt || (contentInfo ? contentInfo.title : null) || contentId || 'FloDrama';
-  
-  // Générer un dégradé spécifique au contenu basé sur son ID
-  const colorIndex = contentId ? parseInt(contentId.replace(/\D/g, '') || '0') % 8 : 0;
-  
-  // Utiliser les couleurs de l'identité visuelle de FloDrama
-  const colors = [
-    ['#3b82f6', '#1e40af'], // Bleu foncé
-    ['#d946ef', '#9333ea'], // Fuchsia
-    ['#3b82f6', '#6366f1'], // Bleu-indigo
-    ['#d946ef', '#ec4899'], // Fuchsia-rose
-    ['#3b82f6', '#0ea5e9'], // Bleu-ciel
-    ['#d946ef', '#c026d3'], // Fuchsia-violet
-    ['#3b82f6', '#2563eb'], // Bleu royal
-    ['#d946ef', '#be185d']  // Fuchsia-rose foncé
-  ];
-  
-  const [color1, color2] = colors[colorIndex];
-  
-  // Adapter les dimensions selon le type d'image
-  let width, height;
-  switch (type) {
-    case IMAGE_TYPES.POSTER:
-      width = 300;
-      height = 450;
-      break;
-    case IMAGE_TYPES.BACKDROP:
-      width = 500;
-      height = 281;
-      break;
-    case IMAGE_TYPES.THUMBNAIL:
-      width = 200;
-      height = 200;
-      break;
-    case IMAGE_TYPES.PROFILE:
-      width = 300;
-      height = 300;
-      break;
-    default:
-      width = 300;
-      height = 450;
+  // Correction : éviter les erreurs sur undefined
+  let safeContentId = contentId;
+  if (!safeContentId || typeof safeContentId !== 'string') {
+    safeContentId = 'poster-placeholder';
   }
-  
-  // Informations supplémentaires à afficher dans le SVG
-  let extraInfo = '';
-  if (contentInfo) {
-    const year = contentInfo.year || '';
-    const country = contentInfo.country || '';
-    const genres = Array.isArray(contentInfo.genres) ? contentInfo.genres.slice(0, 2).join(', ') : '';
-    
-    if (year || country || genres) {
-      extraInfo = `<text x="${width/2}" y="${height/2 + 30}" fill="white" text-anchor="middle" font-family="SF Pro Display, sans-serif" font-size="${Math.min(width, height) * 0.05}px">${year} ${country} ${genres}</text>`;
-    }
-  }
-  
-  // Créer un SVG intégré avec le dégradé et le titre
-  const svgContent = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="100%">
-      <defs>
-        <linearGradient id="grad${contentId}" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="${color1}" />
-          <stop offset="100%" stop-color="${color2}" />
-        </linearGradient>
-      </defs>
-      <rect width="${width}" height="${height}" fill="url(#grad${contentId})" />
-      <text x="${width/2}" y="${height/2}" fill="white" text-anchor="middle" dominant-baseline="middle" 
-            font-family="SF Pro Display, sans-serif" font-weight="bold" font-size="${Math.min(width, height) * 0.08}px">${title}</text>
-      ${extraInfo}
-    </svg>
-  `;
-  
-  // Convertir le SVG en Data URL
-  const svgDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgContent)}`;
-  
-  // Appliquer le SVG comme source de l'image
-  img.src = svgDataUrl;
-  
-  // Ajouter une classe pour le style
+
+  // Si le poster local existe, l'utiliser
+  const posterPath = `/assets/media/posters/${safeContentId}.svg`;
+  fetch(posterPath, { method: 'HEAD' })
+    .then(res => {
+      if (res.ok) {
+        img.src = posterPath;
+      } else {
+        // Fallback vers le placeholder générique
+        img.src = '/assets/media/posters/poster-placeholder.svg';
+      }
+    })
+    .catch(() => {
+      img.src = '/assets/media/posters/poster-placeholder.svg';
+    });
+
   img.classList.add('fallback-image');
   img.classList.add(`${type}-fallback`);
   
-  logger.warn(`SVG fallback appliqué pour ${contentId} (${type})`);
+  logger.warn(`SVG fallback appliqué pour ${safeContentId} (${type})`);
   
   // Enregistrer l'événement dans les statistiques
   if (typeof window !== 'undefined' && window._flodramaStats) {

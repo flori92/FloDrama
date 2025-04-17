@@ -46,7 +46,7 @@ const EnhancedNavbar = () => {
       <div className="navbar-container">
         <div className="navbar-left">
           <Link to="/" className="navbar-logo">
-            <img src="/assets/icons/logo.svg" alt="FloDrama" />
+            <img src="/assets/logo.svg" alt="FloDrama" />
           </Link>
           <div className={`navbar-links ${isMenuOpen ? 'active' : ''}`}>
             <Link to="/" className={isActive('/') ? 'active' : ''}>

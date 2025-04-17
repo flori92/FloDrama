@@ -75,7 +75,7 @@ const Header = () => {
         {/* Logo */}
         <Link to="/" className="header-logo-container">
           <img 
-            src="/assets/logo/flodrama-logo.svg" 
+            src="/assets/logo.svg" 
             alt="FloDrama" 
             className="header-logo"
           />

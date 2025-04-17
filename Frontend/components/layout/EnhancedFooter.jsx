@@ -74,7 +74,7 @@ const EnhancedFooter = () => {
         {/* Logo et description */}
         <div className="footer-brand">
           <Link to="/" className="footer-logo">
-            <img src="/assets/icons/logo.svg" alt="FloDrama" />
+            <img src="/assets/logo.svg" alt="FloDrama" />
           </Link>
           <p className="footer-tagline">
             La meilleure plateforme de streaming pour les dramas et films asiatiques.
