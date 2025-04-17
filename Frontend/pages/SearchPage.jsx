@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Search, Filter, X, ChevronDown, Check } from 'lucide-react';
 import { useMetadata } from '../hooks/useMetadata';
-import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import AppleStyleCard from '../components/cards/AppleStyleCard';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
@@ -255,7 +254,6 @@ const SearchPage = () => {
   
   return (
     <div className="min-h-screen bg-gray-900 text-white">
-      <Navbar />
       
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">

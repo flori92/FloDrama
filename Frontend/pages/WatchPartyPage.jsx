@@ -15,7 +15,6 @@ import WatchPartyContainer from '../components/watch-party/WatchPartyContainer';
 import { useAuth } from '../hooks/useAuth';
 import { useSubscription } from '../hooks/useSubscription';
 import { copyToClipboard } from '../utils/clipboard';
-import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import '../styles/PageSection.css';
 
@@ -88,7 +87,6 @@ const WatchPartyPage = () => {
   if (loading) {
     return (
       <div className="section-bg min-h-screen flex flex-col" style={{ background: 'linear-gradient(to right, #121118 60%, #1A1926 100%)' }}>
-        <Navbar />
         <main className="flex-1 w-full mx-auto px-0 md:px-4 pt-8">
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '70vh' }}>
             <CircularProgress size={60} />
@@ -106,7 +104,6 @@ const WatchPartyPage = () => {
   if (error) {
     return (
       <div className="section-bg min-h-screen flex flex-col" style={{ background: 'linear-gradient(to right, #121118 60%, #1A1926 100%)' }}>
-        <Navbar />
         <main className="flex-1 w-full mx-auto px-0 md:px-4 pt-8">
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '70vh' }}>
             <Typography variant="h5" color="error" gutterBottom>
@@ -142,7 +139,6 @@ const WatchPartyPage = () => {
   // Utiliser le nouveau composant WatchPartyContainer pour une expérience complète
   return (
     <div className="section-bg min-h-screen flex flex-col" style={{ background: 'linear-gradient(to right, #121118 60%, #1A1926 100%)' }}>
-      <Navbar />
       <main className="flex-1 w-full mx-auto px-0 md:px-4 pt-8">
         <Box sx={{ height: '100%', overflow: 'hidden' }}>
           <WatchPartyContainer 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import Navbar from '../../components/layout/Navbar';
 import Footer from '../../components/layout/Footer';
 import PageTransition from '../../components/animations/PageTransition';
 
@@ -50,7 +49,6 @@ const FAQPage = () => {
   return (
     <PageTransition type="fade">
       <div className="bg-gray-900 text-white min-h-screen">
-        <Navbar />
         
         <div className="container mx-auto px-4 py-12 pt-24">
           <motion.div 

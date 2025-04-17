@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Check, X, CreditCard, Calendar, Smartphone, Tv, Monitor, Tablet } from 'lucide-react';
-import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import PageTransition from '../components/animations/PageTransition';
 import { useSubscription } from '../services/SubscriptionService';
@@ -141,7 +140,6 @@ const SubscriptionPage = () => {
   return (
     <PageTransition type="fade">
       <div className="bg-gray-900 text-white min-h-screen">
-        <Navbar />
         
         <div className="container mx-auto px-4 py-12 pt-24">
           <motion.div 

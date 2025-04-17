@@ -3,7 +3,6 @@ import { useParams, useSearchParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Filter, Search, X } from 'lucide-react';
 import { useMetadata } from '../hooks/useMetadata';
-import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import ContentCard from '../components/cards/ContentCard';
 import MotionWrapper from '../components/animations/MotionWrapper';
@@ -220,7 +219,6 @@ const BrowsePage = () => {
   
   return (
     <div className="min-h-screen bg-gray-900 text-white">
-      <Navbar />
       
       <div className="container mx-auto px-4 py-8">
         {/* En-tête */}

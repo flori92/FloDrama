@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { Trash2, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useWatchlist } from '../hooks/useWatchlist';
-import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import AppleStyleCard from '../components/cards/AppleStyleCard';
 import MotionWrapper from '../components/animations/MotionWrapper';
@@ -69,7 +68,6 @@ const WatchlistPage = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-900 text-white">
-        <Navbar />
         <div className="container mx-auto px-6 py-24 flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-600 mx-auto"></div>
@@ -83,7 +81,6 @@ const WatchlistPage = () => {
   
   return (
     <div className="min-h-screen bg-gray-900 text-white">
-      <Navbar />
       
       <div className="container mx-auto px-6 py-24">
         <MotionWrapper animation="fadeIn">

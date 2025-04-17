@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react';
-import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import RecommendationCarousel from '../components/features/RecommendationCarousel';
 import ContentGrid from '../components/features/ContentGrid';
@@ -36,7 +35,6 @@ const DramasPage = () => {
 
   return (
     <div className="section-bg min-h-screen flex flex-col" style={{ background: 'linear-gradient(to right, #121118 60%, #1A1926 100%)' }}>
-      <Navbar />
       <main className="flex-1 w-full mx-auto px-0 md:px-4 pt-8">
         <h1 className="text-3xl font-bold mb-8" style={{ color: 'var(--color-primary)' }}>Dramas</h1>
         <RecommendationCarousel section="drama" userId={null} />

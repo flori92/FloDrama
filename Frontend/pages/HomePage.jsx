@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import EnhancedHeroBanner from '../components/hero/EnhancedHeroBanner';
 import EnhancedContentCarousel from '../components/carousel/EnhancedContentCarousel';
-import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import { fetchAllItems, fetchPopularItems, fetchRecentItems, fetchItemsByType, fetchContinueWatching } from '../api/enhanced-metadata';
 import { useWatchlist } from '../hooks/useWatchlist';
@@ -98,7 +97,6 @@ const HomePage = () => {
 
   return (
     <div className="homepage-bg min-h-screen flex flex-col" style={{ background: 'linear-gradient(to right, #121118 60%, #1A1926 100%)' }}>
-      <Navbar />
       <main className="flex-1 w-full mx-auto px-0 md:px-4 pt-2">
         {featuredItem && <EnhancedHeroBanner item={featuredItem} />}
         <div className="space-y-12 mt-8">

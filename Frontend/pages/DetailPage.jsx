@@ -5,7 +5,6 @@ import { Play, Star, Calendar, Clock, ChevronLeft, Share, Plus, Check } from 'lu
 import { useMetadata } from '../hooks/useMetadata';
 import { useWatchlist } from '../hooks/useWatchlist';
 import { getAssetUrl } from '../api/metadata';
-import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import AppleStyleCard from '../components/cards/AppleStyleCard';
 import MotionWrapper from '../components/animations/MotionWrapper';
@@ -124,7 +123,6 @@ const DetailPage = () => {
   
   return (
     <div className="min-h-screen bg-gray-900 text-white">
-      <Navbar />
       
       {/* Bannière du contenu */}
       <div className="relative h-screen-80">
