@@ -190,39 +190,29 @@ const App = () => {
                 <CategoryPage type="drama" />
               </RouteManager>
             } />
-            <Route path="/film" element={
+            <Route path="/films" element={
               <RouteManager>
-                <CategoryPage type="film" title="Film" />
+                <CategoryPage type="film" title="Films" />
               </RouteManager>
             } />
-            <Route path="/film/:subcategory" element={
+            <Route path="/films/:subcategory" element={
               <RouteManager>
                 <CategoryPage type="film" />
               </RouteManager>
             } />
-            <Route path="/bollywood" element={
+            <Route path="/nouveautes" element={
               <RouteManager>
-                <CategoryPage type="bollywood" title="Bollywood" />
+                <CategoryPage type="new" title="Nouveautés" />
               </RouteManager>
             } />
-            <Route path="/bollywood/:subcategory" element={
+            <Route path="/nouveautes/:subcategory" element={
               <RouteManager>
-                <CategoryPage type="bollywood" />
+                <CategoryPage type="new" />
               </RouteManager>
             } />
-            <Route path="/anime" element={
+            <Route path="/top10" element={
               <RouteManager>
-                <CategoryPage type="anime" title="Animé" />
-              </RouteManager>
-            } />
-            <Route path="/anime/:subcategory" element={
-              <RouteManager>
-                <CategoryPage type="anime" />
-              </RouteManager>
-            } />
-            <Route path="/app" element={
-              <RouteManager>
-                <CategoryPage type="app" title="App" />
+                <CategoryPage type="top" title="Top 10" />
               </RouteManager>
             } />
             <Route path="/recommandations" element={

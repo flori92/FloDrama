@@ -94,16 +94,13 @@ const Footer = () => {
                 <Link to="/dramas" className="footer-link">Dramas</Link>
               </li>
               <li className="footer-link-item">
-                <Link to="/film" className="footer-link">Film</Link>
+                <Link to="/films" className="footer-link">Films</Link>
               </li>
               <li className="footer-link-item">
-                <Link to="/bollywood" className="footer-link">Bollywood</Link>
+                <Link to="/nouveautes" className="footer-link">Nouveautés</Link>
               </li>
               <li className="footer-link-item">
-                <Link to="/anime" className="footer-link">Animé</Link>
-              </li>
-              <li className="footer-link-item">
-                <Link to="/app" className="footer-link">App</Link>
+                <Link to="/top10" className="footer-link">Top 10</Link>
               </li>
             </ul>
           </div>

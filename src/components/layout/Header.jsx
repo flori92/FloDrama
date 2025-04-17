@@ -22,10 +22,9 @@ const Header = () => {
   const navItems = [
     { label: 'Accueil', path: '/' },
     { label: 'Dramas', path: '/dramas' },
-    { label: 'Film', path: '/film' },
-    { label: 'Bollywood', path: '/bollywood' },
-    { label: 'Animé', path: '/anime' },
-    { label: 'App', path: '/app' }
+    { label: 'Films', path: '/films' },
+    { label: 'Nouveautés', path: '/nouveautes' },
+    { label: 'Top 10', path: '/top10' }
   ];
 
   // Détecter le défilement pour modifier l'apparence du header
@@ -99,89 +98,13 @@ const Header = () => {
 
         {/* Contrôles de droite */}
         <div className="header-controls">
-          {/* Barre de recherche */}
-          <form 
-            className={`header-search-form ${isSearchFocused ? 'focused' : ''}`}
-            onSubmit={handleSearchSubmit}
-          >
-            <input
-              ref={searchInputRef}
-              type="text"
-              placeholder="Rechercher..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onFocus={() => setIsSearchFocused(true)}
-              onBlur={() => setIsSearchFocused(false)}
-              className="header-search-input"
-            />
-            <button type="submit" className="header-search-button">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-            </button>
-          </form>
-
-          {/* Bouton Ma Liste */}
-          <Link to="/ma-liste" className="header-my-list-button">
-            Ma Liste
+          {/* Boutons de connexion/inscription */}
+          <Link to="/connexion" className="header-auth-button connexion">
+            Connexion
           </Link>
-
-          {/* Menu utilisateur */}
-          <div className="header-user-menu-container" ref={userMenuRef}>
-            <button 
-              className="header-user-button"
-              onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-              aria-expanded={isUserMenuOpen}
-              aria-label="Menu utilisateur"
-            >
-              <div className="header-user-avatar">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-              </div>
-              <svg className={`header-user-chevron ${isUserMenuOpen ? 'open' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </button>
-
-            <AnimatePresence>
-              {isUserMenuOpen && (
-                <motion.div
-                  className="header-user-dropdown"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <ul className="header-user-menu-list">
-                    <li className="header-user-menu-item">
-                      <Link to="/profil" className="header-user-menu-link">
-                        Mon profil
-                      </Link>
-                    </li>
-                    <li className="header-user-menu-item">
-                      <Link to="/parametres" className="header-user-menu-link">
-                        Paramètres
-                      </Link>
-                    </li>
-                    <li className="header-user-menu-item">
-                      <Link to="/recommandations" className="header-user-menu-link">
-                        Recommandations
-                      </Link>
-                    </li>
-                    <li className="header-user-menu-divider"></li>
-                    <li className="header-user-menu-item">
-                      <button className="header-user-menu-button">
-                        Déconnexion
-                      </button>
-                    </li>
-                  </ul>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+          <Link to="/inscription" className="header-auth-button inscription">
+            Inscription
+          </Link>
 
           {/* Bouton menu mobile */}
           <button 
@@ -218,20 +141,15 @@ const Header = () => {
                   </Link>
                 </li>
               ))}
-              <li className="header-mobile-nav-item">
-                <Link to="/ma-liste" className="header-mobile-nav-link">
-                  Ma Liste
-                </Link>
-              </li>
               <li className="header-mobile-nav-divider"></li>
               <li className="header-mobile-nav-item">
-                <Link to="/profil" className="header-mobile-nav-link">
-                  Mon profil
+                <Link to="/connexion" className="header-mobile-nav-link">
+                  Connexion
                 </Link>
               </li>
               <li className="header-mobile-nav-item">
-                <Link to="/parametres" className="header-mobile-nav-link">
-                  Paramètres
+                <Link to="/inscription" className="header-mobile-nav-link">
+                  Inscription
                 </Link>
               </li>
             </ul>
