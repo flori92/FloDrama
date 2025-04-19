@@ -9,7 +9,7 @@ const IMAGE_CONFIG = {
   sources: [
     {
       name: 'github',
-      baseUrl: '',
+      baseUrl: 'https://flodrama.com',
       enabled: true,
       priority: 1,
       pathTemplate: '/assets/media/${type}s/${contentId}.jpg'
@@ -19,6 +19,13 @@ const IMAGE_CONFIG = {
       baseUrl: 'https://d11nnqvjfooahr.cloudfront.net',
       enabled: true,
       priority: 2,
+      pathTemplate: '/media/${type}s/${contentId}.jpg'
+    },
+    {
+      name: 's3-direct',
+      baseUrl: 'https://flodrama-assets.s3.amazonaws.com',
+      enabled: true,
+      priority: 3,
       pathTemplate: '/media/${type}s/${contentId}.jpg'
     }
   ],
@@ -61,7 +68,8 @@ const IMAGE_CONFIG = {
 // État des CDNs
 const cdnStatus = {
   github: true, // GitHub Pages est toujours considéré comme disponible car c'est local
-  cloudfront: false
+  cloudfront: false,
+  's3-direct': false
 };
 
 /**
@@ -79,11 +87,16 @@ function generateImageSources(contentId, type) {
   const sources = [];
   
   // D'abord les assets locaux (GitHub Pages)
-  sources.push(`/assets/media/${type}s/${contentId}.jpg`);
+  sources.push(`${IMAGE_CONFIG.sources[0].baseUrl}${IMAGE_CONFIG.sources[0].pathTemplate.replace('${type}', type).replace('${contentId}', contentId)}`);
   
   // Puis CloudFront AWS si disponible
   if (cdnStatus.cloudfront) {
-    sources.push(`https://d11nnqvjfooahr.cloudfront.net/media/${type}s/${contentId}.jpg`);
+    sources.push(`${IMAGE_CONFIG.sources[1].baseUrl}${IMAGE_CONFIG.sources[1].pathTemplate.replace('${type}', type).replace('${contentId}', contentId)}`);
+  }
+  
+  // Puis S3 direct si disponible
+  if (cdnStatus['s3-direct']) {
+    sources.push(`${IMAGE_CONFIG.sources[2].baseUrl}${IMAGE_CONFIG.sources[2].pathTemplate.replace('${type}', type).replace('${contentId}', contentId)}`);
   }
   
   return sources;
@@ -192,7 +205,10 @@ async function checkAllCdnStatus() {
     // Vérifier CloudFront
     cdnStatus.cloudfront = await checkCdnStatus('https://d11nnqvjfooahr.cloudfront.net');
     
-    console.log(`État des CDNs - CloudFront: ${cdnStatus.cloudfront ? 'OK' : 'KO'}, GitHub: ${cdnStatus.github ? 'OK' : 'KO'}`);
+    // Vérifier S3 direct
+    cdnStatus['s3-direct'] = await checkCdnStatus('https://flodrama-assets.s3.amazonaws.com');
+    
+    console.log(`État des CDNs - CloudFront: ${cdnStatus.cloudfront ? 'OK' : 'KO'}, GitHub: ${cdnStatus.github ? 'OK' : 'KO'}, S3 direct: ${cdnStatus['s3-direct'] ? 'OK' : 'KO'}`);
   } catch (error) {
     console.error('Erreur lors de la vérification des CDNs', error);
   }

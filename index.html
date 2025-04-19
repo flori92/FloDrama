@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FloDrama - Plateforme de streaming asiatique</title>
-  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="/css/main.css">
+  <link rel="icon" href="/public/assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/public/css/main.css">
   
   <!-- Intégration du système de gestion d'images -->
-  <script src="/js/flodrama-image-system.js"></script>
+  <script src="/public/js/flodrama-image-system.js"></script>
   
   <!-- Styles pour le chargement initial -->
   <style>
@@ -69,6 +69,7 @@
       color: var(--text-secondary);
       background: var(--gradient);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
     
@@ -105,7 +106,7 @@
   <div id="root">
     <!-- Écran de chargement initial -->
     <div class="loading-container">
-      <img src="/assets/logo.svg" alt="FloDrama" class="loading-logo" 
+      <img src="/public/assets/logo.svg" alt="FloDrama" class="loading-logo" 
            onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMjAwIDYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjM2I4MmY2IiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2Q5NDZlZiIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjMUExOTI2IiAvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU0YgUHJvIERpc3BsYXksIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0idXJsKCNncmFkaWVudCkiPkZsb0RyYW1hPC90ZXh0Pjwvc3ZnPg=='">
       <div class="loading-spinner"></div>
       <p class="loading-text">Chargement de FloDrama...</p>
@@ -142,11 +143,12 @@
       // Vérifier l'état de tous les CDNs
       const checkAllCdnStatus = async () => {
         const cdnStatus = {
-          github: await checkCdnStatus('GitHub', 'https://flodrama.com'),
-          cloudfront: await checkCdnStatus('CloudFront', 'https://d11nnqvjfooahr.cloudfront.net')
+          github: await checkCdnStatus('GitHub', window.location.origin),
+          cloudfront: await checkCdnStatus('CloudFront', 'https://d11nnqvjfooahr.cloudfront.net'),
+          s3: await checkCdnStatus('S3', 'https://flodrama-assets.s3.amazonaws.com')
         };
         
-        console.log(`État des CDNs - CloudFront: ${cdnStatus.cloudfront ? 'OK' : 'KO'}, GitHub: ${cdnStatus.github ? 'OK' : 'KO'}`);
+        console.log(`État des CDNs - CloudFront: ${cdnStatus.cloudfront ? 'OK' : 'KO'}, GitHub: ${cdnStatus.github ? 'OK' : 'KO'}, S3: ${cdnStatus.s3 ? 'OK' : 'KO'}`);
         return cdnStatus;
       };
       

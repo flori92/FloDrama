@@ -1,0 +1,13 @@
+{
+  "name": "flodrama-scripts",
+  "version": "1.0.0",
+  "description": "Scripts utilitaires pour FloDrama",
+  "type": "module",
+  "scripts": {
+    "build-bundle": "node build-bundle.js",
+    "sync-assets": "node sync-assets.js",
+    "sync-assets-shell": "./sync-assets.sh"
+  },
+  "author": "FloDrama",
+  "private": true
+}
