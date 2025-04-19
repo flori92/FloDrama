@@ -188,7 +188,10 @@ export class SmartScrapingService {
             'wetv',
             'iqiyi',
             'kocowa',
-            'viu'
+            'viu',
+            'netflix',
+            'amazon',
+            'hulu'
         ];
         this.events = new EventEmitter();
         this.proxyService = new ProxyService();
@@ -721,7 +724,10 @@ export class SmartScrapingService {
             'wetv': `https://wetv.vip/search?keyword=${encodeURIComponent(_query)}`,
             'iqiyi': `https://www.iq.com/search?keyword=${encodeURIComponent(_query)}`,
             'kocowa': `https://www.kocowa.com/search?q=${encodeURIComponent(_query)}`,
-            'viu': `https://www.viu.com/search?keyword=${encodeURIComponent(_query)}`
+            'viu': `https://www.viu.com/search?keyword=${encodeURIComponent(_query)}`,
+            'netflix': `https://www.netflix.com/search?q=${encodeURIComponent(_query)}`,
+            'amazon': `https://www.amazon.com/s?k=${encodeURIComponent(_query)}&i=primevideo`,
+            'hulu': `https://www.hulu.com/search?q=${encodeURIComponent(_query)}`
         };
         
         return urls[_source] || `https://flodrama.com/search?q=${encodeURIComponent(_query)}&source=${_source}`;

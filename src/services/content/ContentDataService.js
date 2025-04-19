@@ -567,7 +567,7 @@ export class ContentDataService {
       ],
       recommended: [
         'Hospital Playlist', 'Reply 1988', 'Attack on Titan', 
-        'It's Okay to Not Be Okay', 'Hometown Cha-Cha-Cha', 
+        'It\'s Okay to Not Be Okay', 'Hometown Cha-Cha-Cha', 
         'My Hero Academia', 'Goblin', 'Naruto Shippuden'
       ],
       korean: [

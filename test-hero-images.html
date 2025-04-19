@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test des Images Héroïques - FloDrama</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121118;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #3b82f6;
+            text-align: center;
+        }
+        .hero-container {
+            margin: 30px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .hero-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .status {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #1A1926;
+            border-radius: 8px;
+        }
+        .status h2 {
+            margin-top: 0;
+            color: #d946ef;
+        }
+        .status-item {
+            margin: 10px 0;
+            padding: 8px;
+            background-color: #232133;
+            border-radius: 4px;
+        }
+        .status-ok {
+            color: #10b981;
+        }
+        .status-ko {
+            color: #ef4444;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 20px;
+            background-color: #1A1926;
+            border-radius: 8px 8px 0 0;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+        .tab.active {
+            background-color: #3b82f6;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test des Images Héroïques - FloDrama</h1>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="legacy">Système Legacy</div>
+            <div class="tab" data-tab="new">Nouveau Service</div>
+        </div>
+        
+        <div class="tab-content active" id="legacy-content">
+            <h2>Images avec le système legacy</h2>
+            <div class="hero-container">
+                <img src="public/assets/images/hero/hero1.svg" alt="Hero 1" class="hero-image" data-content-id="hero1" data-type="hero">
+            </div>
+            
+            <div class="hero-container">
+                <img src="public/assets/images/hero/hero2.svg" alt="Hero 2" class="hero-image" data-content-id="hero2" data-type="hero">
+            </div>
+            
+            <div class="hero-container">
+                <img src="public/assets/images/hero/hero3.svg" alt="Hero 3" class="hero-image" data-content-id="hero3" data-type="hero">
+            </div>
+        </div>
+        
+        <div class="tab-content" id="new-content">
+            <h2>Images avec le nouveau service</h2>
+            <div class="hero-container">
+                <img id="new-hero1" alt="Hero 1" class="hero-image">
+            </div>
+            
+            <div class="hero-container">
+                <img id="new-hero2" alt="Hero 2" class="hero-image">
+            </div>
+            
+            <div class="hero-container">
+                <img id="new-hero3" alt="Hero 3" class="hero-image">
+            </div>
+        </div>
+        
+        <div class="status">
+            <h2>État du système d'images</h2>
+            <div id="cdn-status"></div>
+            <div id="image-stats"></div>
+            <div id="service-status"></div>
+        </div>
+    </div>
+    
+    <!-- Système d'images legacy -->
+    <script src="js/flodrama-image-system.js"></script>
+    
+    <!-- Nouveau système de services -->
+    <script type="module">
+        import { initializeServices } from './src/services/index.js';
+        import { initializeImageSystemAdapter } from './src/integration/image-system-adapter.js';
+        
+        // Initialiser les services
+        const services = initializeServices();
+        const { imageService } = services;
+        
+        // Initialiser l'adaptateur
+        const imageAdapter = initializeImageSystemAdapter();
+        
+        // Charger les images avec le nouveau service
+        function loadImagesWithNewService() {
+            const hero1 = document.getElementById('new-hero1');
+            const hero2 = document.getElementById('new-hero2');
+            const hero3 = document.getElementById('new-hero3');
+            
+            if (imageService) {
+                imageService.loadImage('hero1', 'hero', {
+                    element: hero1,
+                    sources: ['/public/assets/images/hero/hero1.svg', '/assets/images/hero/hero1.svg']
+                });
+                
+                imageService.loadImage('hero2', 'hero', {
+                    element: hero2,
+                    sources: ['/public/assets/images/hero/hero2.svg', '/assets/images/hero/hero2.svg']
+                });
+                
+                imageService.loadImage('hero3', 'hero', {
+                    element: hero3,
+                    sources: ['/public/assets/images/hero/hero3.svg', '/assets/images/hero/hero3.svg']
+                });
+                
+                updateServiceStatus('Services et adaptateur initialisés avec succès');
+            } else {
+                updateServiceStatus('Erreur: ImageService non disponible', true);
+            }
+        }
+        
+        // Mettre à jour le statut du service
+        function updateServiceStatus(message, isError = false) {
+            const serviceStatusElement = document.getElementById('service-status');
+            
+            let html = '<h3>État des nouveaux services</h3>';
+            html += `<div class="status-item">
+                <strong>Status:</strong> <span class="${isError ? 'status-ko' : 'status-ok'}">${message}</span>
+            </div>`;
+            
+            if (services) {
+                html += `<div class="status-item">
+                    <strong>Services disponibles:</strong> ${Object.keys(services).join(', ')}
+                </div>`;
+            }
+            
+            serviceStatusElement.innerHTML = html;
+        }
+        
+        // Gestion des onglets
+        function setupTabs() {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Désactiver tous les onglets
+                    tabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Désactiver tous les contenus
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // Activer l'onglet cliqué
+                    tab.classList.add('active');
+                    
+                    // Activer le contenu correspondant
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(`${tabId}-content`).classList.add('active');
+                });
+            });
+        }
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Page de test des images héroïques chargée');
+            setupTabs();
+            loadImagesWithNewService();
+        });
+    </script>
+    
+    <script>
+        // Afficher l'état des CDNs
+        function updateCdnStatus() {
+            const stats = window.FloDramaImages.getStats();
+            const cdnStatusElement = document.getElementById('cdn-status');
+            
+            if (stats && stats.cdnStatus) {
+                let html = '<h3>État des CDNs</h3>';
+                
+                for (const [cdn, status] of Object.entries(stats.cdnStatus)) {
+                    html += `<div class="status-item">
+                        <strong>${cdn}:</strong> <span class="${status ? 'status-ok' : 'status-ko'}">${status ? 'OK' : 'KO'}</span>
+                    </div>`;
+                }
+                
+                cdnStatusElement.innerHTML = html;
+            }
+        }
+        
+        // Afficher les statistiques d'images
+        function updateImageStats() {
+            const stats = window.FloDramaImages.getStats();
+            const imageStatsElement = document.getElementById('image-stats');
+            
+            if (stats) {
+                let html = '<h3>Statistiques d\'images</h3>';
+                
+                html += `<div class="status-item">
+                    <strong>Images traitées:</strong> ${stats.imagesProcessed}
+                </div>`;
+                html += `<div class="status-item">
+                    <strong>Images chargées:</strong> ${stats.imagesLoaded}
+                </div>`;
+                html += `<div class="status-item">
+                    <strong>Images en échec:</strong> ${stats.imagesFailed}
+                </div>`;
+                html += `<div class="status-item">
+                    <strong>Fallbacks appliqués:</strong> ${stats.fallbacksApplied}
+                </div>`;
+                
+                imageStatsElement.innerHTML = html;
+            }
+        }
+        
+        // Mettre à jour les statistiques toutes les 2 secondes
+        setInterval(() => {
+            updateCdnStatus();
+            updateImageStats();
+        }, 2000);
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCdnStatus();
+            updateImageStats();
+            
+            // Écouter les événements du système d'images
+            window.addEventListener('flodrama:cdn-status-updated', () => {
+                console.log('État des CDNs mis à jour');
+                updateCdnStatus();
+            });
+            
+            window.addEventListener('flodrama:image-system-initialized', () => {
+                console.log('Système d\'images initialisé');
+                updateCdnStatus();
+                updateImageStats();
+            });
+        });
+    </script>
+</body>
+</html>

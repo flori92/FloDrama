@@ -47,8 +47,9 @@
   // État des CDNs
   const cdnStatus = {
     bunny: true,
-    cloudfront: true,
-    github: true
+    cloudfront: false, // Désactivé par défaut car nous avons supprimé les configurations AWS
+    github: true,
+    s3direct: true // Ajout de S3 direct comme alternative
   };
   
   // Cache pour éviter les boucles infinies
@@ -100,19 +101,24 @@
       // Vérifier Bunny CDN
       cdnStatus.bunny = await checkCdnStatus('https://images.flodrama.com');
       
-      // Vérifier CloudFront
-      cdnStatus.cloudfront = await checkCdnStatus('https://d2ra390ol17u3n.cloudfront.net');
+      // CloudFront est désactivé car nous avons supprimé les configurations AWS
+      cdnStatus.cloudfront = false;
+      
+      // Vérifier S3 direct
+      cdnStatus.s3direct = await checkCdnStatus('https://flodrama-assets.s3.amazonaws.com');
       
       // Vérifier GitHub Pages (toujours considéré comme disponible car c'est le site actuel)
       cdnStatus.github = true;
       
-      logger.info(`État des CDNs - Bunny: ${cdnStatus.bunny ? 'OK' : 'KO'}, CloudFront: ${cdnStatus.cloudfront ? 'OK' : 'KO'}`);
+      logger.info(`État des CDNs - Bunny: ${cdnStatus.bunny ? 'OK' : 'KO'}, CloudFront: ${cdnStatus.cloudfront ? 'OK' : 'KO'}, GitHub: ${cdnStatus.github ? 'OK' : 'KO'}, S3 direct: ${cdnStatus.s3direct ? 'OK' : 'KO'}`);
       
       // Émettre un événement pour informer l'application
       window.dispatchEvent(new CustomEvent('flodrama:cdn-status-updated', { 
         detail: { 
           bunny: cdnStatus.bunny,
           cloudfront: cdnStatus.cloudfront,
+          github: cdnStatus.github,
+          s3direct: cdnStatus.s3direct,
           timestamp: Date.now()
         }
       }));
@@ -189,24 +195,27 @@
    * @returns {Array<string>} - Liste des URLs alternatives
    */
   function generateImageSources(contentId, type) {
-    // Liste des sources possibles
     const sources = [];
     
-    // Ajouter Bunny CDN si disponible
+    // Utiliser les CDNs disponibles uniquement
+    if (cdnStatus.github) {
+      sources.push(`/assets/images/${type}/${contentId}.jpg`);
+      sources.push(`/assets/images/${type}/${contentId}.png`);
+      sources.push(`/assets/images/${type}/${contentId}.webp`);
+      sources.push(`/assets/images/${type}/${contentId}.svg`);
+    }
+    
     if (cdnStatus.bunny) {
-      sources.push(`https://images.flodrama.com/${type}s/${contentId}.jpg`);
+      sources.push(`https://images.flodrama.com/${type}/${contentId}.jpg`);
+      sources.push(`https://images.flodrama.com/${type}/${contentId}.webp`);
     }
     
-    // Ajouter CloudFront si disponible
-    if (cdnStatus.cloudfront) {
-      sources.push(`https://d2ra390ol17u3n.cloudfront.net/${type}s/${contentId}.jpg`);
+    if (cdnStatus.s3direct) {
+      sources.push(`https://flodrama-assets.s3.amazonaws.com/${type}/${contentId}.jpg`);
+      sources.push(`https://flodrama-assets.s3.amazonaws.com/${type}/${contentId}.webp`);
     }
     
-    // Ajouter GitHub Pages (toujours disponible)
-    sources.push(`/assets/media/${type}s/${contentId}/poster.jpg`);
-    
-    // Ajouter placeholder local
-    sources.push(`/assets/static/placeholders/${type}-placeholder.jpg`);
+    // CloudFront est désactivé
     
     return sources;
   }
