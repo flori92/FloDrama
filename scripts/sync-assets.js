@@ -132,6 +132,26 @@ function configureBucketPermissions() {
   // Supprimer le fichier temporaire
   fs.unlinkSync(policyPath);
   
+  // Configurer CORS
+  const corsConfiguration = {
+    CORSRules: [
+      {
+        AllowedHeaders: ["*"],
+        AllowedMethods: ["GET", "HEAD", "PUT"],
+        AllowedOrigins: ["*"],
+        ExposeHeaders: ["ETag", "Content-Length"],
+        MaxAgeSeconds: 3600
+      }
+    ]
+  };
+  
+  const corsFilePath = path.join(__dirname, 'cors-config.json');
+  fs.writeFileSync(corsFilePath, JSON.stringify(corsConfiguration, null, 2));
+  
+  runCommand(`aws s3api put-bucket-cors --bucket ${CONFIG.s3Bucket} --cors-configuration file://${corsFilePath}`);
+  
+  fs.unlinkSync(corsFilePath);
+  
   console.log(`${colors.green}✓ Permissions du bucket configurées${colors.reset}`);
 }
 

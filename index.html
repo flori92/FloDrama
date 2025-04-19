@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="/public/css/main.css">
   
   <!-- Intégration du système de gestion d'images -->
-  <script src="/public/js/flodrama-image-system.js"></script>
   
   <!-- Styles pour le chargement initial -->
   <style>
@@ -113,73 +112,65 @@
     </div>
   </div>
 
-  <!-- Scripts React -->
-  <script src="/Frontend/dist/bundle.js"></script>
+  <!-- Scripts -->
+  <script src="https://d11nnqvjfooahr.cloudfront.net/js/bundle.js" crossorigin="anonymous" onerror="fallbackScript(this, 'js/bundle.js')"></script>
+  <script src="https://d11nnqvjfooahr.cloudfront.net/js/flodrama-image-system.js" crossorigin="anonymous" onerror="fallbackScript(this, 'public/js/flodrama-image-system.js')"></script>
   
-  <!-- Script d'initialisation -->
+  <!-- Script de fallback pour les ressources -->
   <script>
-    // Initialisation du système de gestion d'images FloDrama
-    document.addEventListener('DOMContentLoaded', function() {
-      console.log('Initialisation du système de gestion d\'images FloDrama');
-      
-      // Vérifier l'état des CDNs
-      const checkCdnStatus = async (name, baseUrl) => {
-        try {
-          const timestamp = Date.now();
-          const response = await fetch(`${baseUrl}/status.json?_t=${timestamp}`, {
-            method: 'HEAD',
-            cache: 'no-store'
-          });
-          
-          const isAvailable = response.ok;
-          console.log(`CDN ${name} est ${isAvailable ? 'disponible' : 'indisponible'}`);
-          return isAvailable;
-        } catch (error) {
-          console.warn(`CDN ${name} est indisponible:`, error);
-          return false;
-        }
-      };
-      
-      // Vérifier l'état de tous les CDNs
-      const checkAllCdnStatus = async () => {
-        const cdnStatus = {
-          github: await checkCdnStatus('GitHub', window.location.origin),
-          cloudfront: await checkCdnStatus('CloudFront', 'https://d11nnqvjfooahr.cloudfront.net'),
-          s3: await checkCdnStatus('S3', 'https://flodrama-assets.s3.amazonaws.com')
-        };
-        
-        console.log(`État des CDNs - CloudFront: ${cdnStatus.cloudfront ? 'OK' : 'KO'}, GitHub: ${cdnStatus.github ? 'OK' : 'KO'}, S3: ${cdnStatus.s3 ? 'OK' : 'KO'}`);
-        return cdnStatus;
-      };
-      
-      // Initialiser le système d'images
-      checkAllCdnStatus();
-    });
+    function fallbackScript(scriptElement, fallbackPath) {
+      console.warn(`Échec du chargement depuis CDN: ${scriptElement.src}, utilisation du fallback: ${fallbackPath}`);
+      const newScript = document.createElement('script');
+      newScript.src = fallbackPath;
+      document.body.appendChild(newScript);
+    }
     
-    // Script de rafraîchissement du cache
-    (function() {
-      const timestamp = Date.now();
-      console.log('Cache refresh script initialized with timestamp:', timestamp);
-      
-      // Forcer le rafraîchissement du cache après 30 minutes d'inactivité
-      let inactivityTimer;
-      
-      const resetTimer = () => {
-        clearTimeout(inactivityTimer);
-        inactivityTimer = setTimeout(() => {
-          console.log('Rafraîchissement de la page après inactivité');
-          window.location.reload();
-        }, 30 * 60 * 1000); // 30 minutes
+    // Vérification de l'état des CDNs
+    async function checkCdnStatus(url) {
+      try {
+        const timestamp = new Date().getTime();
+        const response = await fetch(`${url}/status.json?_t=${timestamp}`, { 
+          method: 'HEAD',
+          mode: 'cors',
+          credentials: 'omit'
+        });
+        return response.ok;
+      } catch (error) {
+        console.error(`CDN inaccessible: ${url}`, error);
+        return false;
+      }
+    }
+    
+    async function checkAllCdnStatus() {
+      const cdns = {
+        cloudfront: 'https://d11nnqvjfooahr.cloudfront.net',
+        github: 'https://flodrama.com',
+        s3: 'https://flodrama-assets.s3.amazonaws.com'
       };
       
-      // Événements d'activité utilisateur
-      ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(event => {
-        document.addEventListener(event, resetTimer, true);
-      });
+      const results = {};
       
-      // Initialiser le timer
-      resetTimer();
-    })();
+      for (const [name, url] of Object.entries(cdns)) {
+        try {
+          results[name] = await checkCdnStatus(url);
+          console.log(`CDN ${name} est ${results[name] ? 'disponible' : 'indisponible'}`);
+        } catch (error) {
+          results[name] = false;
+          console.log(`CDN ${name} est indisponible: ${error}`);
+        }
+      }
+      
+      console.log(`État des CDNs - CloudFront: ${results.cloudfront ? 'OK' : 'KO'}, GitHub: ${results.github ? 'OK' : 'KO'}, S3: ${results.s3 ? 'OK' : 'KO'}`);
+      
+      return results;
+    }
+    
+    // Initialiser la vérification des CDNs
+    document.addEventListener('DOMContentLoaded', async () => {
+      console.log('Cache refresh script initialized with timestamp: ' + new Date().getTime());
+      await checkAllCdnStatus();
+      console.log('Initialisation du système de gestion d\'images FloDrama');
+    });
   </script>
 </body>
 </html>
