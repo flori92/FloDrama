@@ -57,7 +57,10 @@ function createFooter() {
         { text: 'Dramas', href: '/dramas' },
         { text: 'Films', href: '/films' },
         { text: 'Animés', href: '/animes' },
-        { text: 'Bollywood', href: '/bollywood' }
+        { text: 'Bollywood', href: '/bollywood' },
+        { text: 'TVshow', href: '/tvshow' },
+        { text: 'App', href: '/app' },
+        { text: 'Watchparty', href: '/watchparty' }
       ]
     },
     {

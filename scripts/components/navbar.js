@@ -136,6 +136,7 @@ function createNavLinks() {
     { text: 'Films', href: '/films' },
     { text: 'Animés', href: '/animes' },
     { text: 'Bollywood', href: '/bollywood' },
+    { text: 'TVshow', href: '/tvshow' },
     { text: 'App', href: '/app' },
     { text: 'Watchparty', href: '/watchparty' }
   ];
@@ -208,6 +209,38 @@ function createUserControls() {
     style: 'display: flex; align-items: center; gap: 1rem;'
   });
   
+  // Bouton de connexion
+  const loginButton = createElementWithHTML('button', { 
+    class: 'login-button',
+    'aria-label': 'Connexion',
+    style: 'background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.5); color: #fff; cursor: pointer; padding: 0.5rem 1rem; border-radius: 4px; font-weight: 500; transition: all 0.3s ease;'
+  }, 'Connexion');
+  
+  // Effet de survol pour le bouton de connexion
+  loginButton.addEventListener('mouseover', function() {
+    this.style.background = 'rgba(59, 130, 246, 0.4)';
+  });
+  
+  loginButton.addEventListener('mouseout', function() {
+    this.style.background = 'rgba(59, 130, 246, 0.2)';
+  });
+  
+  // Bouton d'inscription
+  const signupButton = createElementWithHTML('button', { 
+    class: 'signup-button',
+    'aria-label': 'Inscription',
+    style: 'background: linear-gradient(to right, #3b82f6, #d946ef); border: none; color: #fff; cursor: pointer; padding: 0.5rem 1rem; border-radius: 4px; font-weight: 500; transition: all 0.3s ease;'
+  }, 'Inscription');
+  
+  // Effet de survol pour le bouton d'inscription
+  signupButton.addEventListener('mouseover', function() {
+    this.style.opacity = '0.9';
+  });
+  
+  signupButton.addEventListener('mouseout', function() {
+    this.style.opacity = '1';
+  });
+  
   // Bouton de notifications
   const notificationsButton = createElementWithHTML('button', { 
     class: 'notifications-button',
@@ -230,6 +263,8 @@ function createUserControls() {
     style: 'background: none; border: none; color: #fff; cursor: pointer;'
   }, '👤');
   
+  userControls.appendChild(loginButton);
+  userControls.appendChild(signupButton);
   userControls.appendChild(notificationsButton);
   userControls.appendChild(profileButton);
   

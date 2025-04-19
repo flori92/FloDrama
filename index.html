@@ -6,6 +6,8 @@
   <title>FloDrama - Films, Séries, Dramas et Animés</title>
   <link rel="icon" href="/public/assets/favicon.ico">
   <link rel="stylesheet" href="/public/css/main.css">
+  <link rel="stylesheet" href="/public/css/components/content-display.css">
+  <link rel="stylesheet" href="/public/css/components/home-content.css">
   
   <!-- Styles pour le chargement initial -->
   <style>
@@ -88,10 +90,16 @@
       <div class="loading-text">Chargement de FloDrama...</div>
       <div class="spinner"></div>
     </div>
+
+    <!-- Contenu principal -->
+    <main id="main-content">
+      <!-- Le contenu sera injecté ici par HomeContentComponent -->
+    </main>
   </div>
 
   <!-- Scripts -->
   <script src="/public/js/flodrama-image-system.js"></script>
   <script src="/public/js/bundle.js"></script>
+  <script type="module" src="/src/scripts/home-init.js"></script>
 </body>
 </html>
