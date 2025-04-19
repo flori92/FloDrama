@@ -1,0 +1,115 @@
+/**
+ * Styles pour le composant FloDramaImage
+ * Respecte l'identité visuelle de FloDrama avec les couleurs et animations définies
+ */
+
+.flodrama-image-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: #1A1926; /* Fond secondaire */
+}
+
+/* Placeholder pendant le chargement */
+.flodrama-image-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #3b82f6, #d946ef); /* Dégradé signature */
+  opacity: 0.7;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* Animation de chargement */
+@keyframes shimmer {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+/* Style de base pour les images */
+.flodrama-image-container img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  border-radius: 8px;
+}
+
+/* État de chargement */
+.flodrama-image-loading {
+  opacity: 0;
+}
+
+/* État d'erreur */
+.flodrama-image-error {
+  opacity: 0.8;
+}
+
+/* Images avec fallback appliqué */
+.flodrama-image-fallback {
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+/* Styles spécifiques par type d'image */
+.flodrama-image-poster {
+  aspect-ratio: 2/3;
+}
+
+.flodrama-image-backdrop {
+  aspect-ratio: 16/9;
+}
+
+.flodrama-image-thumbnail {
+  aspect-ratio: 16/9;
+}
+
+.flodrama-image-logo {
+  aspect-ratio: 10/3;
+  object-fit: contain;
+}
+
+/* Animation au survol */
+.flodrama-image-container:hover img:not(.flodrama-image-fallback) {
+  transform: scale(1.05);
+}
+
+/* Effet de glassmorphism pour les conteneurs */
+.flodrama-image-container.glassmorphism {
+  background: rgba(26, 25, 38, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .flodrama-image-container {
+    border-radius: 6px;
+  }
+  
+  .flodrama-image-container img {
+    border-radius: 6px;
+  }
+}
+
+/* Support pour le mode sombre */
+@media (prefers-color-scheme: dark) {
+  .flodrama-image-container {
+    background-color: #121118; /* Fond principal plus sombre */
+  }
+  
+  .flodrama-image-fallback {
+    border-color: rgba(59, 130, 246, 0.5);
+  }
+}

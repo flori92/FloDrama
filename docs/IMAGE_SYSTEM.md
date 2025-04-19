@@ -1,57 +1,57 @@
 # Système de Gestion d'Images FloDrama
 
-## 📋 Vue d'ensemble
+## Vue d'ensemble
 
-Le système de gestion d'images de FloDrama est une solution robuste et performante pour le chargement, la gestion et l'affichage des images dans l'application. Il offre des mécanismes avancés de fallback, une intégration transparente avec les services existants et une expérience utilisateur optimale.
+Le système de gestion d'images de FloDrama est une solution robuste et performante pour le chargement, la gestion et l'affichage des images dans l'application. Il offre des mécanismes avancés de fallback, une intégration transparente avec les services de scraping et de gestion de contenu, et une expérience utilisateur optimale même en cas d'indisponibilité des ressources.
 
-## 🔑 Caractéristiques principales
+## Caractéristiques principales
 
-- **Multi-CDN avec fallback automatique** : Utilisation de plusieurs CDNs avec basculement intelligent en cas d'indisponibilité
-- **Génération dynamique de SVG** : Création de placeholders visuellement cohérents avec l'identité de FloDrama
-- **Intégration avec les services existants** : Synchronisation avec ContentDataService et SmartScrapingService
-- **Préchargement intelligent** : Optimisation des performances par préchargement des images prioritaires
-- **Cache multi-niveaux** : Mise en cache en mémoire et dans IndexedDB pour des performances optimales
+- **Multi-source avec fallback automatique** : Utilisation de GitHub Pages et AWS CloudFront avec basculement intelligent
+- **Génération dynamique de SVG** : Création de placeholders respectant l'identité visuelle de FloDrama
+- **Intégration avec les services existants** : Synchronisation avec ContentDataService et ScrapingService
+- **Composant React réutilisable** : Composant `FloDramaImage` pour une intégration facile
+- **Cache multi-niveaux** : Mise en cache en mémoire pour des performances optimales
 - **Surveillance des CDNs** : Vérification périodique de la disponibilité des CDNs
-- **Statistiques détaillées** : Collecte de métriques pour l'analyse des performances
+- **Scripts de synchronisation** : Outils pour maintenir la cohérence des images entre les différentes sources
 
-## 🏗️ Architecture
+## Architecture
 
 Le système de gestion d'images est composé de plusieurs modules interconnectés :
 
 ```
 src/
-├── utils/
-│   ├── imageManager.js              # Gestionnaire principal d'images
-│   ├── contentImageSynchronizer.js  # Synchronisation avec les services de contenu
-│   ├── imageManagerIntegration.js   # Intégration avec les systèmes existants
-│   └── imageSystemInitializer.js    # Initialisation du système
+├── components/
+│   ├── FloDramaImage.jsx           # Composant React réutilisable
+│   └── FloDramaImage.css           # Styles pour le composant
 ├── config/
-│   └── imageSystemConfig.js         # Configuration centralisée
-└── services/
-    ├── ContentDataService.js        # Service de gestion des données de contenu
-    └── SmartScrapingService.js      # Service de scraping multi-sources
+│   └── imageSystemConfig.js        # Configuration centralisée
+├── services/
+│   └── ImageIntegrationService.js  # Service d'intégration avec les autres services
+├── pages/
+│   └── ExamplePage.jsx             # Page d'exemple d'utilisation
+└── scripts/
+    ├── generate-placeholders.sh    # Script de génération de placeholders
+    └── sync-images.sh              # Script de synchronisation des images
 ```
 
-## 🔄 Flux de chargement des images
+## Flux de chargement des images
 
 1. **Demande d'image** : L'application demande une image pour un contenu spécifique
 2. **Vérification du cache** : Le système vérifie si l'image est déjà en cache
-3. **Tentative de chargement** : Si non cachée, tentative de chargement depuis la source principale
-4. **Mécanisme de fallback** : En cas d'échec, tentative avec les sources alternatives
-5. **Génération de SVG** : Si toutes les sources échouent, génération d'un SVG dynamique
-6. **Mise en cache** : L'image réussie est mise en cache pour les futures demandes
+3. **Tentative de chargement** : Si non cachée, tentative de chargement depuis GitHub Pages (source prioritaire)
+4. **Mécanisme de fallback** : En cas d'échec, tentative avec AWS CloudFront
+5. **Recherche dans les services** : Si les CDNs échouent, recherche dans ContentDataService et ScrapingService
+6. **Génération de SVG** : Si toutes les sources échouent, génération d'un SVG dynamique
+7. **Mise en cache** : L'image réussie est mise en cache pour les futures demandes
 
-## 🖼️ Types d'images supportés
+## Types d'images supportés
 
 - **POSTER** : Affiches de films/séries (ratio 2:3)
 - **BACKDROP** : Arrière-plans (ratio 16:9)
-- **THUMBNAIL** : Vignettes (ratio 1:1)
-- **PROFILE** : Photos de profil (ratio 1:1)
-- **LOGO** : Logos (dimensions variables)
-- **STILL** : Images d'épisodes (ratio 16:9)
-- **BANNER** : Bannières (ratio 8:1)
+- **THUMBNAIL** : Vignettes (ratio 16:9)
+- **LOGO** : Logos (ratio 10:3)
 
-## 🎨 Identité visuelle
+## Identité visuelle
 
 Le système respecte l'identité visuelle de FloDrama avec :
 
@@ -61,17 +61,7 @@ Le système respecte l'identité visuelle de FloDrama avec :
 - **Fond principal** : `#121118`
 - **Fond secondaire** : `#1A1926`
 
-## 📊 Statistiques et surveillance
-
-Le système collecte diverses métriques pour analyser les performances :
-
-- Nombre d'images chargées/échouées
-- Taux d'utilisation des fallbacks
-- État des CDNs
-- Temps de chargement moyen
-- Taux de succès du cache
-
-## 🚀 Intégration dans les pages HTML
+## Intégration dans les pages HTML
 
 ### Intégration automatique
 
@@ -82,113 +72,178 @@ Le système s'intègre automatiquement dans les pages HTML via le script `flodra
 <script src="/js/flodrama-image-system.js"></script>
 ```
 
-### Utilisation manuelle
+### Utilisation avec le composant React
 
-Pour utiliser manuellement le système dans vos composants :
+Pour utiliser le composant React dans vos pages :
 
-```javascript
-// Améliorer les images existantes
-window.FloDramaImages.enhanceExistingImages();
+```jsx
+import FloDramaImage from '../components/FloDramaImage';
+import '../components/FloDramaImage.css';
 
-// Précharger les images prioritaires
-window.FloDramaImages.preloadPriorityImages();
-
-// Gérer manuellement une erreur d'image
-imgElement.onerror = window.FloDramaImages.handleImageError;
-
-// Appliquer un SVG de fallback
-window.FloDramaImages.applyFallbackSvg(imgElement, contentId, 'poster');
+// Dans votre composant
+<FloDramaImage
+  contentId="drama001"
+  type="poster"
+  alt="Crash Landing on You"
+  showPlaceholder={true}
+/>
 ```
 
-## 📝 Bonnes pratiques
+### Utilisation manuelle dans le HTML
+
+Pour utiliser manuellement le système dans vos pages HTML :
+
+```html
+<img 
+  src="" 
+  alt="Drama 1" 
+  class="drama-poster" 
+  data-content-id="drama001" 
+  data-type="poster"
+  onload="this.classList.remove('loading-placeholder')"
+  onerror="FloDramaImageSystem.handleImageError(event)"
+>
+
+<script>
+  // Initialiser les images avec les sources appropriées
+  document.addEventListener('DOMContentLoaded', function() {
+    const images = document.querySelectorAll('img[data-content-id]');
+    
+    images.forEach(img => {
+      const contentId = img.dataset.contentId;
+      const type = img.dataset.type;
+      
+      if (contentId && type) {
+        // Ajouter la classe de chargement
+        img.classList.add('loading-placeholder');
+        
+        // Générer les sources d'images
+        const sources = FloDramaImageSystem.generateImageSources(contentId, type);
+        
+        // Utiliser la première source disponible
+        if (sources.length > 0) {
+          img.src = sources[0];
+        } else {
+          // Appliquer le fallback SVG si aucune source n'est disponible
+          FloDramaImageSystem.applyFallbackSvg(img, contentId, type);
+        }
+      }
+    });
+  });
+</script>
+```
+
+## Bonnes pratiques
 
 1. **Attributs data-*** : Toujours ajouter `data-content-id` et `data-type` aux balises `<img>` :
    ```html
    <img 
-     src="https://images.flodrama.com/posters/drama001.jpg" 
+     src="" 
      data-content-id="drama001" 
      data-type="poster" 
      alt="Crash Landing on You" 
-     class="content-image"
+     class="drama-poster"
    >
    ```
 
 2. **Gestionnaire d'erreur** : Ajouter le gestionnaire d'erreur aux images importantes :
    ```html
-   <img src="..." onerror="window.FloDramaImages.handleImageError(event)">
+   <img src="..." onerror="FloDramaImageSystem.handleImageError(event)">
    ```
 
 3. **Classes CSS** : Utiliser les classes CSS appropriées pour les différents types d'images :
    ```css
-   .poster-image { aspect-ratio: 2/3; }
-   .backdrop-image { aspect-ratio: 16/9; }
-   .thumbnail-image { aspect-ratio: 1/1; }
+   .drama-poster { aspect-ratio: 2/3; }
+   .drama-backdrop { aspect-ratio: 16/9; }
+   .drama-thumbnail { aspect-ratio: 16/9; }
    ```
 
-## ⚙️ Configuration
+## Configuration
 
 La configuration du système est centralisée dans `src/config/imageSystemConfig.js`. Les principaux paramètres configurables sont :
 
-- Sources CDN et leur priorité
-- Intervalles de vérification des CDNs
+- Sources d'images et leur priorité
+- Configuration du fallback SVG
 - Types d'images et leurs dimensions
 - Paramètres de cache
-- Couleurs pour les SVG dynamiques
 
-## 🔍 Débogage
+## Débogage
 
-Pour activer le mode débogage et voir les logs détaillés :
+Pour vérifier l'état des CDNs et des images :
 
 ```javascript
 // Dans la console du navigateur
-window.FloDramaImages.CONFIG.DEBUG = true;
+FloDramaImageSystem.checkAllCdnStatus().then(console.log);
 
-// Afficher les statistiques actuelles
-console.table(window.FloDramaImages.getStats());
+// Voir les sources disponibles pour une image
+console.log(FloDramaImageSystem.generateImageSources('drama001', 'poster'));
 ```
 
-## 🧪 Tests
+## Scripts utilitaires
 
-Le système inclut des tests automatisés pour vérifier :
+Le système inclut plusieurs scripts utilitaires :
 
-- La disponibilité des CDNs
-- Le mécanisme de fallback
-- La génération de SVG
-- La synchronisation avec les services de contenu
+### generate-placeholders.sh
 
-## 📈 Performances
+Script pour générer des placeholders pour les images manquantes :
+
+```bash
+# Rendre le script exécutable
+chmod +x scripts/generate-placeholders.sh
+
+# Exécuter le script
+./scripts/generate-placeholders.sh
+```
+
+### sync-images.sh
+
+Script pour synchroniser les images entre GitHub Pages et AWS CloudFront :
+
+```bash
+# Rendre le script exécutable
+chmod +x scripts/sync-images.sh
+
+# Exécuter le script
+./scripts/sync-images.sh
+```
+
+## Intégration avec les services existants
+
+Le service `ImageIntegrationService` assure l'intégration avec les services existants :
+
+- **ContentDataService** : Récupération des métadonnées des contenus
+- **ScrapingService** : Récupération des images depuis des sources externes
+
+```javascript
+// Exemple d'utilisation du service d'intégration
+import imageIntegrationService from '../services/ImageIntegrationService';
+
+// Récupérer l'URL d'une image
+const imageUrl = await imageIntegrationService.fetchContentImage('drama001', 'poster');
+
+// Enrichir un contenu avec des URLs d'images
+const enrichedContent = imageIntegrationService.enrichContentWithImages(content);
+```
+
+## Performances
 
 Le système est conçu pour optimiser les performances avec :
 
-- Préchargement intelligent des images prioritaires
-- Cache multi-niveaux (mémoire et IndexedDB)
+- Préchargement des images populaires
+- Cache en mémoire pour les images fréquemment utilisées
 - Chargement asynchrone des images non critiques
 - Génération efficace de SVG pour les fallbacks
+- Animations de chargement pour améliorer l'expérience utilisateur
 
-## 🔄 Synchronisation des contenus
-
-Le module `contentImageSynchronizer.js` assure la synchronisation entre les images et les données de contenu :
-
-- Mise à jour périodique des images pour les contenus populaires
-- Récupération des métadonnées d'images depuis les services de scraping
-- Traitement par lots pour éviter de surcharger le navigateur
-- Statistiques détaillées sur les synchronisations
-
-## 🛠️ Maintenance
+## Maintenance
 
 Pour maintenir le système en bon état :
 
-1. Vérifier régulièrement l'état des CDNs dans les statistiques
-2. Surveiller le taux d'utilisation des fallbacks
-3. Mettre à jour les URLs des CDNs si nécessaire
-4. Ajuster les paramètres de cache selon les besoins
-
-## 📚 Ressources additionnelles
-
-- [Documentation de ContentDataService](./CONTENT_DATA_SERVICE.md)
-- [Documentation de SmartScrapingService](./SMART_SCRAPING_SERVICE.md)
-- [Guide d'optimisation des images](./IMAGE_OPTIMIZATION.md)
+1. Vérifier régulièrement l'état des CDNs avec `FloDramaImageSystem.checkAllCdnStatus()`
+2. Exécuter le script `sync-images.sh` pour synchroniser les images entre les différentes sources
+3. Générer des placeholders pour les nouvelles images avec `generate-placeholders.sh`
+4. Surveiller les erreurs de chargement d'images dans la console du navigateur
 
 ---
 
-© FloDrama 2023 - Système de gestion d'images v1.0
+ FloDrama 2023 - Système de gestion d'images v2.0
