@@ -89,14 +89,38 @@ const logger = {
  */
 function generateImageSources(contentId, type) {
   const sources = [];
+  
+  // Déterminer si c'est une image hero ou une image de contenu
+  const isHeroImage = contentId.startsWith('hero');
+  
   // Ajouter S3 direct si disponible
   if (cdnStatus.s3direct) {
-    sources.push(`https://flodrama-assets.s3.amazonaws.com/content/${contentId}/${type}.webp`);
+    if (isHeroImage) {
+      // Pour les images hero
+      sources.push(`https://flodrama-assets.s3.amazonaws.com/assets/images/hero/${contentId}.jpg`);
+      sources.push(`https://flodrama-assets.s3.amazonaws.com/assets/images/hero/${contentId}.webp`);
+      sources.push(`https://flodrama-assets.s3.amazonaws.com/assets/images/hero/${contentId}.svg`);
+    } else {
+      // Pour les images de contenu (posters, backdrops, etc.)
+      sources.push(`https://flodrama-assets.s3.amazonaws.com/content/${contentId}/${type}.webp`);
+      sources.push(`https://flodrama-assets.s3.amazonaws.com/content/${contentId}/${type}.jpg`);
+    }
   }
+  
   // Toujours ajouter GitHub comme fallback
-  sources.push(`/content/${contentId}/${type}.webp`);
-  sources.push(`/assets/content/${contentId}/${type}.webp`);
-  sources.push(`/public/content/${contentId}/${type}.webp`);
+  if (isHeroImage) {
+    // Fallbacks pour les images hero
+    sources.push(`/assets/images/hero/${contentId}.jpg`);
+    sources.push(`/assets/images/hero/${contentId}.webp`);
+    sources.push(`/assets/images/hero/${contentId}.svg`);
+  } else {
+    // Fallbacks pour les images de contenu
+    sources.push(`/assets/content/${contentId}/${type}.webp`);
+    sources.push(`/assets/content/${contentId}/${type}.jpg`);
+    sources.push(`/content/${contentId}/${type}.webp`);
+    sources.push(`/content/${contentId}/${type}.jpg`);
+  }
+  
   logger.debug(`Sources générées pour ${contentId}/${type}: ${sources.length} sources`);
   return sources;
 }
@@ -227,10 +251,60 @@ function initImageSystem() {
     }
   }, true);
   
+  // Initialiser les attributs pour les cartes de contenu
+  initContentCards();
+  
   // Vérifier l'état des CDNs
   checkAllCdnStatus().then(() => {
     console.log("Initialisation du système de gestion d'images FloDrama");
   });
+}
+
+/**
+ * Initialise les attributs data-* pour les cartes de contenu
+ */
+function initContentCards() {
+  // Sélectionner toutes les cartes de contenu
+  const contentCards = document.querySelectorAll('.content-card');
+  
+  contentCards.forEach((card, index) => {
+    const poster = card.querySelector('.card-poster');
+    if (poster) {
+      // Si c'est une image (balise img)
+      if (poster.tagName.toLowerCase() === 'img') {
+        // Ajouter les attributs data-* s'ils n'existent pas
+        if (!poster.hasAttribute('data-content-id')) {
+          poster.setAttribute('data-content-id', `content${index + 1}`);
+        }
+        if (!poster.hasAttribute('data-type')) {
+          poster.setAttribute('data-type', 'poster');
+        }
+      } 
+      // Si c'est un div (conteneur pour background-image)
+      else {
+        // Créer une image à l'intérieur
+        const img = document.createElement('img');
+        img.className = 'poster-image';
+        img.setAttribute('data-content-id', `content${index + 1}`);
+        img.setAttribute('data-type', 'poster');
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        img.style.borderRadius = 'inherit';
+        
+        // Ajouter l'image au poster
+        poster.appendChild(img);
+        
+        // Charger l'image avec les sources générées
+        const sources = generateImageSources(`content${index + 1}`, 'poster');
+        if (sources.length > 0) {
+          img.src = sources[0];
+        }
+      }
+    }
+  });
+  
+  logger.info(`${contentCards.length} cartes de contenu initialisées`);
 }
 
 // Exporter les fonctions pour une utilisation externe
@@ -241,7 +315,8 @@ window.FloDramaImageSystem = {
   handleImageError,
   checkCdnStatus,
   checkAllCdnStatus,
-  initImageSystem
+  initImageSystem,
+  initContentCards
 };
 
 // Initialiser le système d'images au chargement de la page
