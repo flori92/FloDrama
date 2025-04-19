@@ -257,7 +257,7 @@
       
       // Puis CloudFront AWS
       if (cdnStatus.cloudfront) {
-        sources.push(`https://d1323ouxr1qbdp.cloudfront.net/${type}s/${contentId}.jpg`);
+        sources.push(`https://d11nnqvjfooahr.cloudfront.net/${type}s/${contentId}.jpg`);
       }
       
       return sources;
@@ -378,7 +378,7 @@
     async function checkAllCdnStatus() {
       try {
         // Vérifier CloudFront
-        cdnStatus.cloudfront = await checkCdnStatus('https://d1323ouxr1qbdp.cloudfront.net');
+        cdnStatus.cloudfront = await checkCdnStatus('https://d11nnqvjfooahr.cloudfront.net');
         
         console.log(`État des CDNs - CloudFront: ${cdnStatus.cloudfront ? 'OK' : 'KO'}, GitHub: ${cdnStatus.github ? 'OK' : 'KO'}`);
       } catch (error) {

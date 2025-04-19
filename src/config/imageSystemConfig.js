@@ -41,11 +41,11 @@ export const CDN_CONFIG = {
     },
     {
       name: 'cloudfront',
-      baseUrl: 'https://d1323ouxr1qbdp.cloudfront.net',
+      baseUrl: 'https://d11nnqvjfooahr.cloudfront.net',
       enabled: true,
       priority: 2,
-      pathTemplate: '/${type}s/${contentId}.jpg',
-      healthCheckUrl: 'https://d1323ouxr1qbdp.cloudfront.net/status.json'
+      pathTemplate: '/media/${type}s/${contentId}.jpg',
+      healthCheckUrl: 'https://d11nnqvjfooahr.cloudfront.net/status.json'
     }
   ],
   

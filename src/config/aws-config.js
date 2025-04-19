@@ -57,8 +57,8 @@ const AWS_CONFIG = {
     }
   },
   
-  // Mode local (sans AWS) - TOUJOURS activé pour éviter les erreurs
-  useLocalMode: true
+  // Mode local (sans AWS) - Désactivé pour utiliser les services AWS
+  useLocalMode: false
 };
 
 /**
