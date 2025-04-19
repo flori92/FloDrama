@@ -4,65 +4,131 @@
  * avec les attributs nécessaires pour le chargement des images et des données réelles.
  */
 
-// URL du fichier de métadonnées - Correction du chemin d'accès
-const METADATA_URL = '/data/content.json';
-
-// Cache pour les métadonnées
-let metadataCache = null;
-
-// Fonction pour charger les métadonnées
-async function loadMetadata() {
-  if (metadataCache) {
-    return metadataCache;
-  }
-  
-  try {
-    const response = await fetch(METADATA_URL);
-    if (!response.ok) {
-      throw new Error(`Erreur lors du chargement des métadonnées: ${response.status}`);
+// Données de contenu intégrées directement dans le script pour éviter les problèmes de chargement
+const CONTENT_DATA = {
+  "items": [
+    {
+      "id": "drama001",
+      "title": "Crash Landing on You",
+      "originalTitle": "사랑의 불시착",
+      "type": "drama",
+      "category": "drama",
+      "country": "kr",
+      "year": 2019,
+      "rating": 9.2,
+      "episodes": 16,
+      "genres": ["Romance", "Comédie", "Drame"]
+    },
+    {
+      "id": "drama002",
+      "title": "Goblin",
+      "originalTitle": "도깨비",
+      "type": "drama",
+      "category": "drama",
+      "country": "kr",
+      "year": 2016,
+      "rating": 9.0,
+      "episodes": 16,
+      "genres": ["Fantastique", "Romance", "Drame"]
+    },
+    {
+      "id": "drama003",
+      "title": "Itaewon Class",
+      "originalTitle": "이태원 클라쓰",
+      "type": "drama",
+      "category": "drama",
+      "country": "kr",
+      "year": 2020,
+      "rating": 8.7,
+      "episodes": 16,
+      "genres": ["Drame", "Business"]
+    },
+    {
+      "id": "movie001",
+      "title": "Parasite",
+      "originalTitle": "기생충",
+      "type": "movie",
+      "category": "movie",
+      "country": "kr",
+      "year": 2019,
+      "rating": 9.5,
+      "duration": 132,
+      "genres": ["Thriller", "Drame", "Comédie noire"]
+    },
+    {
+      "id": "movie002",
+      "title": "Train to Busan",
+      "originalTitle": "부산행",
+      "type": "movie",
+      "category": "movie",
+      "country": "kr",
+      "year": 2016,
+      "rating": 8.6,
+      "duration": 118,
+      "genres": ["Horreur", "Action", "Thriller"]
+    },
+    {
+      "id": "anime001",
+      "title": "Your Name",
+      "originalTitle": "君の名は",
+      "type": "anime",
+      "category": "anime",
+      "country": "jp",
+      "year": 2016,
+      "rating": 9.3,
+      "duration": 106,
+      "genres": ["Animation", "Romance", "Fantastique"]
+    },
+    {
+      "id": "anime002",
+      "title": "Demon Slayer",
+      "originalTitle": "鬼滅の刃",
+      "type": "anime",
+      "category": "anime",
+      "country": "jp",
+      "year": 2019,
+      "rating": 9.0,
+      "episodes": 26,
+      "genres": ["Action", "Aventure", "Fantastique"]
+    },
+    {
+      "id": "drama004",
+      "title": "Reply 1988",
+      "originalTitle": "응답하라 1988",
+      "type": "drama",
+      "category": "drama",
+      "country": "kr",
+      "year": 2015,
+      "rating": 9.4,
+      "episodes": 20,
+      "genres": ["Comédie", "Drame", "Nostalgie"]
+    },
+    {
+      "id": "drama005",
+      "title": "My Mister",
+      "originalTitle": "나의 아저씨",
+      "type": "drama",
+      "category": "drama",
+      "country": "kr",
+      "year": 2018,
+      "rating": 9.6,
+      "episodes": 16,
+      "genres": ["Drame", "Slice of Life"]
+    },
+    {
+      "id": "movie003",
+      "title": "The Handmaiden",
+      "originalTitle": "아가씨",
+      "type": "movie",
+      "category": "movie",
+      "country": "kr",
+      "year": 2016,
+      "rating": 8.8,
+      "duration": 145,
+      "genres": ["Drame", "Thriller", "Romance"]
     }
-    
-    const data = await response.json();
-    
-    // Adapter le format des données si nécessaire
-    if (!data.items && data.content) {
-      // Format alternatif détecté
-      data.items = data.content;
-    }
-    
-    // Si aucun élément n'est trouvé, utiliser des données de fallback
-    if (!data.items || !Array.isArray(data.items) || data.items.length === 0) {
-      console.warn('Aucune donnée de contenu trouvée, utilisation des données de fallback');
-      data.items = generateFallbackContentData();
-    }
-    
-    metadataCache = data;
-    console.log(`Métadonnées chargées avec succès: ${data.items.length} éléments`);
-    return data;
-  } catch (error) {
-    console.error('Erreur lors du chargement des métadonnées:', error);
-    // En cas d'erreur, retourner des données de fallback
-    const fallbackData = { items: generateFallbackContentData() };
-    metadataCache = fallbackData;
-    return fallbackData;
-  }
-}
-
-// Génère des données de contenu de fallback en cas d'échec du chargement
-function generateFallbackContentData() {
-  return [
-    { id: 'drama001', title: 'Crash Landing on You', year: 2019, genres: ['Romance', 'Comédie'], category: 'drama' },
-    { id: 'drama002', title: 'Goblin', year: 2016, genres: ['Fantastique', 'Romance'], category: 'drama' },
-    { id: 'drama003', title: 'Itaewon Class', year: 2020, genres: ['Drame', 'Business'], category: 'drama' },
-    { id: 'drama004', title: 'Reply 1988', year: 2015, genres: ['Comédie', 'Drame'], category: 'drama' },
-    { id: 'drama005', title: 'My Mister', year: 2018, genres: ['Drame', 'Slice of Life'], category: 'drama' },
-    { id: 'movie001', title: 'Parasite', year: 2019, genres: ['Thriller', 'Drame'], category: 'movie' },
-    { id: 'movie002', title: 'Train to Busan', year: 2016, genres: ['Horreur', 'Action'], category: 'movie' },
-    { id: 'movie003', title: 'The Handmaiden', year: 2016, genres: ['Drame', 'Thriller'], category: 'movie' },
-    { id: 'anime001', title: 'Your Name', year: 2016, genres: ['Animation', 'Romance'], category: 'anime' },
-    { id: 'anime002', title: 'Demon Slayer', year: 2019, genres: ['Action', 'Aventure'], category: 'anime' }
-  ];
-}
+  ]
+};
 
 // Déterminer la catégorie de contenu en fonction de l'URL
 function getContentCategory() {
@@ -105,21 +171,18 @@ function filterContentByCategory(metadata, category, limit = 10) {
   return filteredItems.slice(0, limit);
 }
 
-document.addEventListener('DOMContentLoaded', async function() {
-  console.log('Initialisation des images de contenu FloDrama avec données réelles...');
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('Initialisation des images de contenu FloDrama avec données intégrées...');
   
   // Initialiser les cartes de contenu si le système d'images est chargé
   if (window.FloDramaImageSystem && typeof window.FloDramaImageSystem.initContentCards === 'function') {
     try {
-      // Charger les métadonnées
-      const metadata = await loadMetadata();
-      
       // Déterminer la catégorie de contenu
       const category = getContentCategory();
       console.log(`Catégorie de contenu détectée: ${category}`);
       
       // Filtrer les données de contenu
-      const contentData = filterContentByCategory(metadata, category);
+      const contentData = filterContentByCategory(CONTENT_DATA, category);
       console.log(`${contentData.length} éléments de contenu chargés pour la catégorie ${category}`);
       
       // Initialiser les cartes de contenu
