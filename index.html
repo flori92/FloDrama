@@ -15,6 +15,9 @@
       font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       background-color: #121118;
       color: #ffffff;
+    }
+    
+    #root {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -62,28 +65,6 @@
         transform: rotate(360deg);
       }
     }
-    
-    .main-content {
-      flex: 1;
-      padding: 2rem 0;
-    }
-    
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-    
-    .navbar {
-      background: rgba(26, 25, 38, 0.8);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 1rem 0;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
   </style>
 </head>
 <body>
@@ -111,69 +92,6 @@
 
   <!-- Scripts -->
   <script src="/public/js/flodrama-image-system.js"></script>
-  <script>
-    // Système de vérification des CDNs
-    document.addEventListener('DOMContentLoaded', async () => {
-      console.log('Cache refresh script initialized with timestamp: ' + new Date().getTime());
-      
-      // Vérification de l'état des CDNs
-      const checkCdnStatus = async (url) => {
-        try {
-          const timestamp = new Date().getTime();
-          const response = await fetch(`${url}/status.json?_t=${timestamp}`, { 
-            method: 'HEAD',
-            mode: 'no-cors'
-          });
-          return true; // En mode no-cors, on ne peut pas accéder au statut, donc on suppose que c'est OK
-        } catch (error) {
-          console.error(`CDN inaccessible: ${url}`, error);
-          return false;
-        }
-      };
-      
-      const checkAllCdnStatus = async () => {
-        const cdns = {
-          cloudfront: 'https://d11nnqvjfooahr.cloudfront.net',
-          github: 'https://flodrama.com',
-          s3: 'https://flodrama-assets.s3.amazonaws.com'
-        };
-        
-        const results = {};
-        
-        for (const [name, url] of Object.entries(cdns)) {
-          try {
-            results[name] = await checkCdnStatus(url);
-            console.log(`CDN ${name} est ${results[name] ? 'disponible' : 'indisponible'}`);
-          } catch (error) {
-            results[name] = false;
-            console.log(`CDN ${name} est indisponible: ${error}`);
-          }
-        }
-        
-        console.log(`État des CDNs - CloudFront: ${results.cloudfront ? 'OK' : 'KO'}, GitHub: ${results.github ? 'OK' : 'KO'}, S3: ${results.s3 ? 'OK' : 'KO'}`);
-        
-        return results;
-      };
-      
-      await checkAllCdnStatus();
-      console.log('Initialisation du système de gestion d\'images FloDrama');
-      
-      // Charger le bundle.js
-      const loadBundle = () => {
-        const script = document.createElement('script');
-        script.src = '/public/js/bundle.js';
-        script.onload = () => {
-          console.log('Bundle chargé avec succès');
-        };
-        script.onerror = () => {
-          console.error('Erreur lors du chargement du bundle');
-        };
-        document.body.appendChild(script);
-      };
-      
-      // Charger le bundle
-      loadBundle();
-    });
-  </script>
+  <script src="/public/js/bundle.js"></script>
 </body>
 </html>

@@ -1,16 +1,20 @@
-/**
- * FloDrama - Bundle JS minimal
- * Ce fichier est généré automatiquement pour résoudre les erreurs 404
- * Date de génération: 2025-04-19T12:32:55.300Z
- */
+// Bundle.js généré pour FloDrama
+// Ce fichier contient le code minimal pour afficher l'interface FloDrama
 
-// Initialisation de l'application FloDrama
 (function() {
   console.log('Initialisation de FloDrama...');
   
+  // S'assurer que le DOM est complètement chargé avant d'initialiser l'application
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+  } else {
+    // DOM déjà chargé, initialiser immédiatement
+    setTimeout(initializeApp, 100); // Petit délai pour s'assurer que tout est bien chargé
+  }
+  
   // Fonction principale pour initialiser l'application
   function initializeApp() {
-    console.log('Initialisation de FloDrama...');
+    console.log('Initialisation de l\'application FloDrama...');
     
     // Vérifier si l'élément racine existe, sinon le créer
     let rootElement = document.getElementById('root');
@@ -27,6 +31,8 @@
       
       // Ajouter l'élément racine au body
       document.body.appendChild(rootElement);
+    } else {
+      console.log('Élément racine trouvé:', rootElement);
     }
     
     // Créer la structure de l'application
@@ -163,17 +169,29 @@
       });
       
       const cardImage = createElementWithHTML('div', { 
-        style: 'height: 150px; background: linear-gradient(45deg, #1A1926 25%, #2A2936 50%, #1A1926 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite linear;' 
+        style: 'height: 150px; background: #2A293A; position: relative;' 
       });
       
-      const cardContent = createElementWithHTML('div', { style: 'padding: 1rem;' });
+      const cardContent = createElementWithHTML('div', { 
+        style: 'padding: 1rem;' 
+      });
+      
       const cardTitle = createElementWithHTML('h3', { 
-        style: 'margin-top: 0; margin-bottom: 0.5rem;' 
-      }, 'Titre ' + (i + 1));
+        style: 'margin: 0 0 0.5rem; font-size: 1.1rem; color: #fff;' 
+      }, `Titre ${i + 1}`);
       
       const cardDescription = createElementWithHTML('p', { 
-        style: 'margin: 0; color: #E2E8F0;' 
-      }, 'Description du contenu...');
+        style: 'margin: 0; font-size: 0.9rem; color: rgba(255, 255, 255, 0.7);' 
+      }, 'Description du contenu');
+      
+      // Ajouter des événements pour l'effet de survol
+      card.addEventListener('mouseover', function() {
+        this.style.transform = 'translateY(-5px)';
+      });
+      
+      card.addEventListener('mouseout', function() {
+        this.style.transform = 'translateY(0)';
+      });
       
       cardContent.appendChild(cardTitle);
       cardContent.appendChild(cardDescription);
@@ -183,83 +201,64 @@
     }
     
     mainContainer.appendChild(contentGrid);
+    
+    // Bouton d'action
+    const actionButton = createElementWithHTML('button', { 
+      style: 'display: block; margin: 0 auto; padding: 0.75rem 1.5rem; background: linear-gradient(to right, #3b82f6, #d946ef); border: none; border-radius: 4px; color: white; font-weight: bold; cursor: pointer; transition: transform 0.3s ease;' 
+    }, 'Découvrir plus');
+    
+    // Ajouter des événements pour l'effet de survol
+    actionButton.addEventListener('mouseover', function() {
+      this.style.transform = 'scale(1.05)';
+    });
+    
+    actionButton.addEventListener('mouseout', function() {
+      this.style.transform = 'scale(1)';
+    });
+    
+    mainContainer.appendChild(actionButton);
     mainContent.appendChild(mainContainer);
     
     // Footer
-    const footer = createElementWithHTML('div', { 
-      class: 'footer', 
-      style: 'background-color: #1A1926; padding: 2rem 0; margin-top: auto;' 
+    const footer = createElementWithHTML('footer', { 
+      style: 'background-color: #1A1926; padding: 2rem 0; margin-top: 2rem;' 
     });
     
-    const footerContainer = createElementWithHTML('div', { class: 'container' });
-    const footerContent = createElementWithHTML('div', { 
-      style: 'display: flex; justify-content: space-between; flex-wrap: wrap;' 
+    const footerContainer = createElementWithHTML('div', { 
+      class: 'container', 
+      style: 'display: flex; justify-content: space-between; align-items: center;' 
     });
     
-    // Section 1
-    const footerSection1 = createElementWithHTML('div', { style: 'margin-bottom: 1.5rem;' });
-    footerSection1.appendChild(createElementWithHTML('h3', { 
-      style: 'margin-top: 0; margin-bottom: 1rem;' 
-    }, 'FloDrama'));
+    const footerLogo = createElementWithHTML('div', { 
+      style: 'font-size: 1.5rem; font-weight: bold; background: linear-gradient(to right, #3b82f6, #d946ef); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;' 
+    }, 'FloDrama');
     
-    footerSection1.appendChild(createElementWithHTML('p', { 
-      style: 'margin: 0; color: #E2E8F0;' 
-    }, 'La plateforme de streaming asiatique'));
-    
-    // Section 2
-    const footerSection2 = createElementWithHTML('div', { style: 'margin-bottom: 1.5rem;' });
-    footerSection2.appendChild(createElementWithHTML('h4', { 
-      style: 'margin-top: 0; margin-bottom: 0.75rem;' 
-    }, 'Liens'));
-    
-    const linksList = createElementWithHTML('ul', { 
-      style: 'list-style: none; padding: 0; margin: 0;' 
+    const footerLinks = createElementWithHTML('div', { 
+      style: 'display: flex; gap: 1.5rem;' 
     });
     
-    ['Accueil', 'Dramas', 'Films', 'Animés'].forEach(item => {
-      const listItem = createElementWithHTML('li', { style: 'margin-bottom: 0.5rem;' });
-      listItem.appendChild(createElementWithHTML('a', { 
+    const footerItems = ['À propos', 'Contact', 'Conditions', 'Confidentialité'];
+    
+    footerItems.forEach(item => {
+      const link = createElementWithHTML('a', { 
         href: '#', 
-        style: 'color: #E2E8F0; text-decoration: none;' 
-      }, item));
-      linksList.appendChild(listItem);
+        style: 'color: rgba(255, 255, 255, 0.7); text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease;' 
+      }, item);
+      
+      // Ajouter des événements pour l'effet de survol
+      link.addEventListener('mouseover', function() {
+        this.style.color = '#fff';
+      });
+      
+      link.addEventListener('mouseout', function() {
+        this.style.color = 'rgba(255, 255, 255, 0.7)';
+      });
+      
+      footerLinks.appendChild(link);
     });
     
-    footerSection2.appendChild(linksList);
-    
-    // Section 3
-    const footerSection3 = createElementWithHTML('div', { style: 'margin-bottom: 1.5rem;' });
-    footerSection3.appendChild(createElementWithHTML('h4', { 
-      style: 'margin-top: 0; margin-bottom: 0.75rem;' 
-    }, 'Support'));
-    
-    const supportList = createElementWithHTML('ul', { 
-      style: 'list-style: none; padding: 0; margin: 0;' 
-    });
-    
-    ['FAQ', 'Contact', 'Mentions légales'].forEach(item => {
-      const listItem = createElementWithHTML('li', { style: 'margin-bottom: 0.5rem;' });
-      listItem.appendChild(createElementWithHTML('a', { 
-        href: '#', 
-        style: 'color: #E2E8F0; text-decoration: none;' 
-      }, item));
-      supportList.appendChild(listItem);
-    });
-    
-    footerSection3.appendChild(supportList);
-    
-    // Ajouter les sections au footer
-    footerContent.appendChild(footerSection1);
-    footerContent.appendChild(footerSection2);
-    footerContent.appendChild(footerSection3);
-    
-    // Copyright
-    const copyright = createElementWithHTML('div', { 
-      style: 'margin-top: 2rem; text-align: center; color: #E2E8F0; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1.5rem;' 
-    }, '&copy; ' + new Date().getFullYear() + ' FloDrama. Tous droits réservés.');
-    
-    footerContainer.appendChild(footerContent);
-    footerContainer.appendChild(copyright);
+    footerContainer.appendChild(footerLogo);
+    footerContainer.appendChild(footerLinks);
     footer.appendChild(footerContainer);
     
     // Assembler l'application
@@ -273,15 +272,17 @@
     
     // Ajouter des styles d'animation
     const style = document.createElement('style');
-    style.textContent = '@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }';
+    style.textContent = `
+      .card:hover { transform: translateY(-5px); }
+      .btn:hover { transform: scale(1.05); }
+    `;
     document.head.appendChild(style);
-  }
-  
-  // Initialiser l'application quand le DOM est chargé
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeApp);
-  } else {
-    initializeApp();
+    
+    // Masquer l'écran de chargement s'il existe
+    const loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen) {
+      loadingScreen.style.display = 'none';
+    }
   }
   
   // Fonction pour créer des éléments HTML
@@ -301,4 +302,3 @@
     return element;
   }
 })();
-
