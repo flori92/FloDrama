@@ -92,3 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 export default footerComponent;
+
+// Export nommé de la classe pour compatibilité avec les imports nommés
+export { FooterComponent };
