@@ -7,9 +7,9 @@ class HomeContentComponent {
   constructor() {
     this.isInitialized = false;
     this.heroImages = [
-      '/images/hero1.jpg',
-      '/images/hero2.jpg',
-      '/images/hero3.jpg'
+      'https://flodrama-assets.s3.amazonaws.com/assets/images/hero/hero1.jpg',
+      'https://flodrama-assets.s3.amazonaws.com/assets/images/hero/hero2.jpg',
+      'https://flodrama-assets.s3.amazonaws.com/assets/images/hero/hero3.jpg'
     ];
     this.heroGradients = [
       'linear-gradient(135deg, #6366F1 0%, #FB7185 100%)',
