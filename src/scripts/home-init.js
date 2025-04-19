@@ -4,7 +4,7 @@
  * Initialise les composants nécessaires et gère le chargement de la page
  */
 
-import { HomeContentComponent } from '../scripts/components/HomeContentComponent.js';
+import homeContentComponent from '../scripts/components/HomeContentComponent.js';
 import { NavbarComponent } from '../scripts/components/navbar.js';
 import footerComponent from '../scripts/components/footer.js';
 
@@ -16,9 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await navbar.init();
     
     // Initialiser le composant de contenu de la page d'accueil
-    new HomeContentComponent({
-      containerId: 'main-content'
-    });
+    homeContentComponent.init();
     
     // Initialiser le pied de page
     await footerComponent.init();
