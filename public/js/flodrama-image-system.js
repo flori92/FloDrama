@@ -134,25 +134,38 @@ function generateImageSources(contentId, type) {
 function generateFallbackSvg(contentId, type) {
   const dimensions = IMAGE_CONFIG.dimensions[type] || IMAGE_CONFIG.dimensions.poster;
   const { width, height } = dimensions;
-  const { background } = IMAGE_CONFIG.svgFallback.colors;
-  const { from, to } = IMAGE_CONFIG.svgFallback.gradient;
   
+  // Générer une couleur basée sur l'ID du contenu pour avoir des dégradés différents
+  const contentIndex = parseInt(contentId.replace(/[^\d]/g, '')) || 0;
+  const colorPairs = [
+    { from: '#6366F1', to: '#FB7185' }, // Indigo à Rose
+    { from: '#3B82F6', to: '#10B981' }, // Bleu à Vert
+    { from: '#8B5CF6', to: '#EC4899' }, // Violet à Rose
+    { from: '#F59E0B', to: '#EF4444' }, // Ambre à Rouge
+    { from: '#06B6D4', to: '#8B5CF6' }, // Cyan à Violet
+    { from: '#10B981', to: '#6366F1' }, // Vert à Indigo
+    { from: '#EC4899', to: '#F59E0B' }, // Rose à Ambre
+    { from: '#EF4444', to: '#06B6D4' }  // Rouge à Cyan
+  ];
+  
+  // Sélectionner une paire de couleurs basée sur l'ID
+  const colorIndex = contentIndex % colorPairs.length;
+  const { from, to } = colorPairs[colorIndex];
+  
+  // Créer un SVG avec un dégradé attrayant sans texte
   const svg = `
     <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <linearGradient id="gradient${contentIndex}" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stop-color="${from}" />
           <stop offset="100%" stop-color="${to}" />
         </linearGradient>
       </defs>
-      <rect width="${width}" height="${height}" fill="${background}" />
-      <rect x="10" y="10" width="${width - 20}" height="${height - 20}" rx="8" stroke="url(#gradient)" stroke-width="2" fill="none" />
-      <text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="SF Pro Display, Arial, sans-serif" font-size="24" font-weight="bold" fill="url(#gradient)">${contentId || 'FloDrama'}</text>
-      <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="SF Pro Display, Arial, sans-serif" font-size="16" fill="#FFFFFF">${type}</text>
+      <rect width="${width}" height="${height}" rx="8" fill="url(#gradient${contentIndex})" />
     </svg>
   `;
   
-  logger.warn(`[FloDrama Images] SVG fallback appliqué pour ${contentId} (${type})`);
+  logger.warn(`[FloDrama Images] Dégradé appliqué pour ${contentId} (${type})`);
   return `data:image/svg+xml;base64,${btoa(svg)}`;
 }
 
