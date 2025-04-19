@@ -3,173 +3,180 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FloDrama - Plateforme de streaming asiatique</title>
-  <link rel="icon" href="/public/assets/favicon.ico" type="image/x-icon">
+  <title>FloDrama - Films, Séries, Dramas et Animés</title>
+  <link rel="icon" href="/public/assets/favicon.ico">
   <link rel="stylesheet" href="/public/css/main.css">
-  
-  <!-- Intégration du système de gestion d'images -->
   
   <!-- Styles pour le chargement initial -->
   <style>
-    :root {
-      --primary-color: #3b82f6;
-      --secondary-color: #d946ef;
-      --background-color: #121118;
-      --background-secondary: #1A1926;
-      --text-color: #FFFFFF;
-      --text-secondary: #E2E8F0;
-      --gradient: linear-gradient(to right, #3b82f6, #d946ef);
-    }
-    
     body {
-      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      background-color: var(--background-color);
-      color: var(--text-color);
       margin: 0;
       padding: 0;
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: #121118;
+      color: #ffffff;
       min-height: 100vh;
-    }
-    
-    #root {
-      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
     
     .loading-container {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       height: 100vh;
-      background-color: var(--background-color);
     }
     
-    .loading-logo {
-      width: 200px;
-      margin-bottom: 2rem;
+    .logo {
+      width: 150px;
+      height: 150px;
+      margin-bottom: 20px;
     }
     
-    .loading-spinner {
+    .loading-text {
+      font-size: 24px;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, #3b82f6, #d946ef);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+    }
+    
+    .spinner {
       width: 50px;
       height: 50px;
       border: 5px solid rgba(255, 255, 255, 0.1);
       border-radius: 50%;
-      border-top-color: var(--primary-color);
-      border-bottom-color: var(--secondary-color);
+      border-top-color: #3b82f6;
+      border-left-color: #d946ef;
       animation: spin 1s ease-in-out infinite;
-      margin-bottom: 1.5rem;
     }
     
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
     }
     
-    .loading-text {
-      font-size: 1.2rem;
-      color: var(--text-secondary);
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .main-content {
+      flex: 1;
+      padding: 2rem 0;
     }
     
-    .fallback-svg {
-      border-radius: 8px;
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
     }
     
-    .loading-placeholder {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .loading-placeholder::before {
-      content: '';
-      position: absolute;
+    .navbar {
+      background: rgba(26, 25, 38, 0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1rem 0;
+      position: sticky;
       top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, var(--background-secondary) 25%, var(--background-color) 50%, var(--background-secondary) 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-      border-radius: 8px;
-    }
-    
-    @keyframes shimmer {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
+      z-index: 100;
     }
   </style>
 </head>
 <body>
-  <!-- Conteneur principal pour l'application React -->
-  <div id="root">
-    <!-- Écran de chargement initial -->
-    <div class="loading-container">
-      <img src="/public/assets/logo.svg" alt="FloDrama" class="loading-logo" 
-           onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMjAwIDYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjM2I4MmY2IiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2Q5NDZlZiIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjMUExOTI2IiAvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU0YgUHJvIERpc3BsYXksIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0idXJsKCNncmFkaWVudCkiPkZsb0RyYW1hPC90ZXh0Pjwvc3ZnPg=='">
-      <div class="loading-spinner"></div>
-      <p class="loading-text">Chargement de FloDrama...</p>
+  <!-- Écran de chargement -->
+  <div class="loading-container" id="loading-screen">
+    <div class="logo">
+      <svg width="150" height="150" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#3b82f6" />
+            <stop offset="100%" stop-color="#d946ef" />
+          </linearGradient>
+        </defs>
+        <circle cx="100" cy="100" r="90" fill="none" stroke="url(#logoGradient)" stroke-width="10" />
+        <path d="M60,70 L60,130 M90,70 L90,130 M60,70 Q75,50 90,70 M60,130 Q75,150 90,130" stroke="url(#logoGradient)" stroke-width="10" fill="none" stroke-linecap="round" />
+        <path d="M110,70 L140,70 Q160,70 160,90 Q160,110 140,110 L110,110 L110,130" stroke="url(#logoGradient)" stroke-width="10" fill="none" stroke-linecap="round" />
+      </svg>
     </div>
+    <div class="loading-text">Chargement de FloDrama...</div>
+    <div class="spinner"></div>
   </div>
 
   <!-- Scripts -->
-  <script src="https://d11nnqvjfooahr.cloudfront.net/js/bundle.js" crossorigin="anonymous" onerror="fallbackScript(this, 'js/bundle.js')"></script>
-  <script src="https://d11nnqvjfooahr.cloudfront.net/js/flodrama-image-system.js" crossorigin="anonymous" onerror="fallbackScript(this, 'public/js/flodrama-image-system.js')"></script>
-  
-  <!-- Script de fallback pour les ressources -->
+  <script src="/public/js/flodrama-image-system.js"></script>
   <script>
-    function fallbackScript(scriptElement, fallbackPath) {
-      console.warn(`Échec du chargement depuis CDN: ${scriptElement.src}, utilisation du fallback: ${fallbackPath}`);
-      const newScript = document.createElement('script');
-      newScript.src = fallbackPath;
-      document.body.appendChild(newScript);
-    }
-    
-    // Vérification de l'état des CDNs
-    async function checkCdnStatus(url) {
-      try {
-        const timestamp = new Date().getTime();
-        const response = await fetch(`${url}/status.json?_t=${timestamp}`, { 
-          method: 'HEAD',
-          mode: 'cors',
-          credentials: 'omit'
-        });
-        return response.ok;
-      } catch (error) {
-        console.error(`CDN inaccessible: ${url}`, error);
-        return false;
-      }
-    }
-    
-    async function checkAllCdnStatus() {
-      const cdns = {
-        cloudfront: 'https://d11nnqvjfooahr.cloudfront.net',
-        github: 'https://flodrama.com',
-        s3: 'https://flodrama-assets.s3.amazonaws.com'
-      };
-      
-      const results = {};
-      
-      for (const [name, url] of Object.entries(cdns)) {
-        try {
-          results[name] = await checkCdnStatus(url);
-          console.log(`CDN ${name} est ${results[name] ? 'disponible' : 'indisponible'}`);
-        } catch (error) {
-          results[name] = false;
-          console.log(`CDN ${name} est indisponible: ${error}`);
-        }
-      }
-      
-      console.log(`État des CDNs - CloudFront: ${results.cloudfront ? 'OK' : 'KO'}, GitHub: ${results.github ? 'OK' : 'KO'}, S3: ${results.s3 ? 'OK' : 'KO'}`);
-      
-      return results;
-    }
-    
-    // Initialiser la vérification des CDNs
+    // Système de vérification des CDNs
     document.addEventListener('DOMContentLoaded', async () => {
       console.log('Cache refresh script initialized with timestamp: ' + new Date().getTime());
+      
+      // Vérification de l'état des CDNs
+      const checkCdnStatus = async (url) => {
+        try {
+          const timestamp = new Date().getTime();
+          const response = await fetch(`${url}/status.json?_t=${timestamp}`, { 
+            method: 'HEAD',
+            mode: 'no-cors'
+          });
+          return true; // En mode no-cors, on ne peut pas accéder au statut, donc on suppose que c'est OK
+        } catch (error) {
+          console.error(`CDN inaccessible: ${url}`, error);
+          return false;
+        }
+      };
+      
+      const checkAllCdnStatus = async () => {
+        const cdns = {
+          cloudfront: 'https://d11nnqvjfooahr.cloudfront.net',
+          github: 'https://flodrama.com',
+          s3: 'https://flodrama-assets.s3.amazonaws.com'
+        };
+        
+        const results = {};
+        
+        for (const [name, url] of Object.entries(cdns)) {
+          try {
+            results[name] = await checkCdnStatus(url);
+            console.log(`CDN ${name} est ${results[name] ? 'disponible' : 'indisponible'}`);
+          } catch (error) {
+            results[name] = false;
+            console.log(`CDN ${name} est indisponible: ${error}`);
+          }
+        }
+        
+        console.log(`État des CDNs - CloudFront: ${results.cloudfront ? 'OK' : 'KO'}, GitHub: ${results.github ? 'OK' : 'KO'}, S3: ${results.s3 ? 'OK' : 'KO'}`);
+        
+        return results;
+      };
+      
       await checkAllCdnStatus();
       console.log('Initialisation du système de gestion d\'images FloDrama');
+      
+      // Charger le bundle.js
+      const loadBundle = () => {
+        const script = document.createElement('script');
+        script.src = '/public/js/bundle.js';
+        script.onload = () => {
+          console.log('Bundle chargé avec succès');
+          // Masquer l'écran de chargement après le chargement du bundle
+          setTimeout(() => {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+              loadingScreen.style.display = 'none';
+            }
+          }, 500);
+        };
+        script.onerror = () => {
+          console.error('Erreur lors du chargement du bundle');
+        };
+        document.body.appendChild(script);
+      };
+      
+      // Charger le bundle
+      loadBundle();
     });
   </script>
 </body>
