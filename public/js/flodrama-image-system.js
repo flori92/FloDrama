@@ -105,9 +105,23 @@ function generateImageSources(contentId, type) {
       // Format: drama001, movie002, anime003, etc.
       const contentType = contentId.replace(/\d+$/, ''); // Extraire le préfixe (drama, movie, anime)
       
-      // Utiliser le chemin correct pour les assets scrapés
+      // Utiliser les chemins corrects pour les assets scrapés (plusieurs formats possibles)
+      
+      // 1. Format standard: /content/dramas/drama001/poster.webp
       sources.push(`https://flodrama-assets.s3.amazonaws.com/content/${contentType}s/${contentId}/${type}.webp`);
       sources.push(`https://flodrama-assets.s3.amazonaws.com/content/${contentType}s/${contentId}/${type}.jpg`);
+      
+      // 2. Format alternatif: /scraped/drama001/poster.webp
+      sources.push(`https://flodrama-assets.s3.amazonaws.com/scraped/${contentId}/${type}.webp`);
+      sources.push(`https://flodrama-assets.s3.amazonaws.com/scraped/${contentId}/${type}.jpg`);
+      
+      // 3. Format direct: /drama001_poster.webp
+      sources.push(`https://flodrama-assets.s3.amazonaws.com/${contentId}_${type}.webp`);
+      sources.push(`https://flodrama-assets.s3.amazonaws.com/${contentId}_${type}.jpg`);
+      
+      // 4. Format avec catégorie: /dramas/drama001_poster.webp
+      sources.push(`https://flodrama-assets.s3.amazonaws.com/${contentType}s/${contentId}_${type}.webp`);
+      sources.push(`https://flodrama-assets.s3.amazonaws.com/${contentType}s/${contentId}_${type}.jpg`);
     }
   }
   
@@ -121,11 +135,31 @@ function generateImageSources(contentId, type) {
     // Fallbacks pour les images de contenu
     const contentType = contentId.replace(/\d+$/, ''); // Extraire le préfixe (drama, movie, anime)
     
-    // Chemins locaux
+    // Chemins locaux avec plusieurs formats possibles
+    
+    // 1. Format standard
     sources.push(`/assets/content/${contentType}s/${contentId}/${type}.webp`);
     sources.push(`/assets/content/${contentType}s/${contentId}/${type}.jpg`);
     sources.push(`/content/${contentType}s/${contentId}/${type}.webp`);
     sources.push(`/content/${contentType}s/${contentId}/${type}.jpg`);
+    
+    // 2. Format alternatif
+    sources.push(`/assets/scraped/${contentId}/${type}.webp`);
+    sources.push(`/assets/scraped/${contentId}/${type}.jpg`);
+    sources.push(`/scraped/${contentId}/${type}.webp`);
+    sources.push(`/scraped/${contentId}/${type}.jpg`);
+    
+    // 3. Format direct
+    sources.push(`/assets/${contentId}_${type}.webp`);
+    sources.push(`/assets/${contentId}_${type}.jpg`);
+    sources.push(`/${contentId}_${type}.webp`);
+    sources.push(`/${contentId}_${type}.jpg`);
+    
+    // 4. Format avec catégorie
+    sources.push(`/assets/${contentType}s/${contentId}_${type}.webp`);
+    sources.push(`/assets/${contentType}s/${contentId}_${type}.jpg`);
+    sources.push(`/${contentType}s/${contentId}_${type}.webp`);
+    sources.push(`/${contentType}s/${contentId}_${type}.jpg`);
   }
   
   logger.debug(`Sources générées pour ${contentId}/${type}: ${sources.length} sources`);
@@ -212,11 +246,23 @@ function handleImageError(event) {
   // Trouver l'index de la source actuelle
   const currentIndex = sources.findIndex(src => currentSrc.includes(src));
   
+  // Journaliser l'erreur pour le débogage
+  logger.warn(`Échec de chargement pour ${contentId}/${type} - Source: ${currentSrc}`);
+  
   // S'il y a une source alternative disponible
-  if (currentIndex < sources.length - 1) {
-    img.src = sources[currentIndex + 1];
+  if (currentIndex < sources.length - 1 && currentIndex !== -1) {
+    // Utiliser la source suivante
+    const nextSource = sources[currentIndex + 1];
+    logger.info(`Tentative avec source alternative: ${nextSource}`);
+    img.src = nextSource;
+  } else if (currentIndex === -1 && sources.length > 0) {
+    // Si la source actuelle n'est pas dans notre liste, essayer la première source
+    const firstSource = sources[0];
+    logger.info(`Source actuelle non reconnue, tentative avec: ${firstSource}`);
+    img.src = firstSource;
   } else {
     // Sinon, appliquer le fallback SVG
+    logger.warn(`Aucune source alternative disponible pour ${contentId}/${type}, application du SVG de fallback`);
     applyFallbackSvg(img, contentId, type);
   }
 }
@@ -260,6 +306,76 @@ async function checkCdnStatus(baseUrl) {
 }
 
 /**
+ * Initialise les cartes de contenu
+ * Recherche toutes les cartes de contenu et leur attribue des IDs
+ * @returns {number} - Nombre de cartes initialisées
+ */
+function initContentCards() {
+  const contentCards = document.querySelectorAll('.content-card');
+  let count = 0;
+  
+  contentCards.forEach((card, index) => {
+    // Vérifier si la carte a déjà un ID de contenu
+    const poster = card.querySelector('.card-poster');
+    if (poster) {
+      const img = poster.querySelector('img') || poster;
+      
+      // Si l'image n'a pas d'ID de contenu, lui en attribuer un temporaire
+      if (!img.dataset.contentId) {
+        const contentId = `temp${index.toString().padStart(3, '0')}`;
+        img.setAttribute('data-content-id', contentId);
+        img.setAttribute('data-type', 'poster');
+        
+        // Ajouter un attribut pour indiquer que c'est une carte temporaire
+        card.setAttribute('data-is-temp', 'true');
+      }
+      
+      // Ajouter un gestionnaire d'erreur pour les images
+      img.addEventListener('error', handleImageError);
+      
+      // Forcer le chargement de l'image si elle n'a pas de src
+      if (!img.src && img.dataset.contentId) {
+        const sources = generateImageSources(img.dataset.contentId, img.dataset.type || 'poster');
+        if (sources.length > 0) {
+          img.src = sources[0];
+        }
+      }
+      
+      count++;
+    }
+  });
+  
+  logger.info(`[FloDrama Images] ${count} cartes de contenu initialisées`);
+  return count;
+}
+
+/**
+ * Précharge les images pour améliorer l'expérience utilisateur
+ * @param {Array<string>} contentIds - Liste des IDs de contenu à précharger
+ * @param {string} type - Type d'image (poster, backdrop, thumbnail)
+ */
+function preloadContentImages(contentIds, type = 'poster') {
+  if (!contentIds || !Array.isArray(contentIds) || contentIds.length === 0) {
+    logger.warn('[FloDrama Images] Aucun ID de contenu fourni pour le préchargement');
+    return;
+  }
+  
+  logger.info(`[FloDrama Images] Préchargement de ${contentIds.length} images de type ${type}`);
+  
+  // Limiter le nombre d'images à précharger pour éviter de surcharger le navigateur
+  const idsToPreload = contentIds.slice(0, 10);
+  
+  // Précharger les images en arrière-plan
+  idsToPreload.forEach(contentId => {
+    const sources = generateImageSources(contentId, type);
+    if (sources.length > 0) {
+      const img = new Image();
+      img.src = sources[0];
+    }
+  });
+}
+
+/**
  * Initialise le système d'images
  */
 function initImageSystem() {
@@ -280,53 +396,6 @@ function initImageSystem() {
   });
 }
 
-/**
- * Initialise les attributs data-* pour les cartes de contenu
- */
-function initContentCards() {
-  // Sélectionner toutes les cartes de contenu
-  const contentCards = document.querySelectorAll('.content-card');
-  
-  contentCards.forEach((card, index) => {
-    const poster = card.querySelector('.card-poster');
-    if (poster) {
-      // Si c'est une image (balise img)
-      if (poster.tagName.toLowerCase() === 'img') {
-        // Ajouter les attributs data-* s'ils n'existent pas
-        if (!poster.hasAttribute('data-content-id')) {
-          poster.setAttribute('data-content-id', `content${index + 1}`);
-        }
-        if (!poster.hasAttribute('data-type')) {
-          poster.setAttribute('data-type', 'poster');
-        }
-      } 
-      // Si c'est un div (conteneur pour background-image)
-      else {
-        // Créer une image à l'intérieur
-        const img = document.createElement('img');
-        img.className = 'poster-image';
-        img.setAttribute('data-content-id', `content${index + 1}`);
-        img.setAttribute('data-type', 'poster');
-        img.style.width = '100%';
-        img.style.height = '100%';
-        img.style.objectFit = 'cover';
-        img.style.borderRadius = 'inherit';
-        
-        // Ajouter l'image au poster
-        poster.appendChild(img);
-        
-        // Charger l'image avec les sources générées
-        const sources = generateImageSources(`content${index + 1}`, 'poster');
-        if (sources.length > 0) {
-          img.src = sources[0];
-        }
-      }
-    }
-  });
-  
-  logger.info(`${contentCards.length} cartes de contenu initialisées`);
-}
-
 // Exporter les fonctions pour une utilisation externe
 window.FloDramaImageSystem = {
   generateImageSources,
@@ -336,7 +405,8 @@ window.FloDramaImageSystem = {
   checkCdnStatus,
   checkAllCdnStatus,
   initImageSystem,
-  initContentCards
+  initContentCards,
+  preloadContentImages
 };
 
 // Initialiser le système d'images au chargement de la page
