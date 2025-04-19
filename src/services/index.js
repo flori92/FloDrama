@@ -16,7 +16,7 @@ import ImageService from './content/ImageService.js';
 // Importation des services user
 import { 
   FavoritesService, 
-  RecommendationService, 
+  RecommendationService,
   WatchHistoryService,
   UserDataService,
   SubscriptionService,
@@ -122,7 +122,7 @@ export {
   ImageService,
   
   // Services user
-  FavoritesService,
+  FavoritesService, 
   RecommendationService,
   WatchHistoryService,
   UserDataService,

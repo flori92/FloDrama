@@ -5,7 +5,7 @@
 import { ContentDataService } from './services/ContentDataService.js';
 import { SearchService } from './services/SearchService.js';
 import { FavoritesService } from './services/FavoritesService.js';
-import { RecommendationService } from './services/RecommendationService.js';
+import { RecommendationService } from './services/user/RecommendationService.js';
 
 // Importer les composants
 import { SearchComponent } from './components/SearchComponent.js';

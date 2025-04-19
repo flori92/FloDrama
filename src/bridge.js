@@ -139,7 +139,7 @@ export function initializeBridge(services = {}) {
 // Exemple d'utilisation:
 /*
 // Importer les services existants
-import { RecommendationService } from './services/RecommendationService.js';
+import { RecommendationService } from './services/user/RecommendationService.js';
 import { ContentDataService } from './services/ContentDataService.js';
 import { FavoritesService } from './services/FavoritesService.js';
 import { SearchService } from './services/SearchService.js';
