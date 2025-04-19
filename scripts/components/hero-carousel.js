@@ -15,7 +15,7 @@ function createHeroCarousel() {
       id: 1, 
       title: 'Nouveauté: Drama Coréen', 
       subtitle: 'Découvrez les dernières séries coréennes',
-      image: '/public/assets/images/hero1.jpg',
+      image: 'https://flodrama-assets.s3.amazonaws.com/assets/images/hero/hero1.jpg',
       cta: 'Regarder maintenant',
       link: '/dramas/new'
     },
@@ -23,7 +23,7 @@ function createHeroCarousel() {
       id: 2, 
       title: 'Films Bollywood', 
       subtitle: 'Les meilleurs films indiens',
-      image: '/public/assets/images/hero2.jpg',
+      image: 'https://flodrama-assets.s3.amazonaws.com/assets/images/hero/hero2.jpg',
       cta: 'Explorer',
       link: '/bollywood'
     },
@@ -31,7 +31,7 @@ function createHeroCarousel() {
       id: 3, 
       title: 'Animés Populaires', 
       subtitle: 'Top des animés japonais',
-      image: '/public/assets/images/hero3.jpg',
+      image: 'https://flodrama-assets.s3.amazonaws.com/assets/images/hero/hero3.jpg',
       cta: 'Découvrir',
       link: '/anime'
     }

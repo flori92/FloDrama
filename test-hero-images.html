@@ -87,15 +87,15 @@
         <div class="tab-content active" id="legacy-content">
             <h2>Images avec le système legacy</h2>
             <div class="hero-container">
-                <img src="public/assets/images/hero/hero1.svg" alt="Hero 1" class="hero-image" data-content-id="hero1" data-type="hero">
+                <img src="https://flodrama-assets.s3.amazonaws.com/assets/images/hero/hero1.svg" alt="Hero 1" class="hero-image" data-content-id="hero1" data-type="hero">
             </div>
             
             <div class="hero-container">
-                <img src="public/assets/images/hero/hero2.svg" alt="Hero 2" class="hero-image" data-content-id="hero2" data-type="hero">
+                <img src="https://flodrama-assets.s3.amazonaws.com/assets/images/hero/hero2.svg" alt="Hero 2" class="hero-image" data-content-id="hero2" data-type="hero">
             </div>
             
             <div class="hero-container">
-                <img src="public/assets/images/hero/hero3.svg" alt="Hero 3" class="hero-image" data-content-id="hero3" data-type="hero">
+                <img src="https://flodrama-assets.s3.amazonaws.com/assets/images/hero/hero3.svg" alt="Hero 3" class="hero-image" data-content-id="hero3" data-type="hero">
             </div>
         </div>
         
@@ -146,17 +146,17 @@
             if (imageService) {
                 imageService.loadImage('hero1', 'hero', {
                     element: hero1,
-                    sources: ['/public/assets/images/hero/hero1.svg', '/assets/images/hero/hero1.svg']
+                    sources: ['https://flodrama-assets.s3.amazonaws.com/assets/images/hero/hero1.svg', '/assets/images/hero/hero1.svg']
                 });
                 
                 imageService.loadImage('hero2', 'hero', {
                     element: hero2,
-                    sources: ['/public/assets/images/hero/hero2.svg', '/assets/images/hero/hero2.svg']
+                    sources: ['https://flodrama-assets.s3.amazonaws.com/assets/images/hero/hero2.svg', '/assets/images/hero/hero2.svg']
                 });
                 
                 imageService.loadImage('hero3', 'hero', {
                     element: hero3,
-                    sources: ['/public/assets/images/hero/hero3.svg', '/assets/images/hero/hero3.svg']
+                    sources: ['https://flodrama-assets.s3.amazonaws.com/assets/images/hero/hero3.svg', '/assets/images/hero/hero3.svg']
                 });
                 
                 updateServiceStatus('Services et adaptateur initialisés avec succès');

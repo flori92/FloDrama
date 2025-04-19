@@ -204,7 +204,7 @@ const createBundle = () => {
         id: 1, 
         title: 'Nouveauté: Drama Coréen', 
         subtitle: 'Découvrez les dernières séries coréennes',
-        image: '/public/assets/images/hero1.jpg',
+        image: 'https://flodrama-assets.s3.amazonaws.com/assets/images/hero/hero1.jpg',
         cta: 'Regarder maintenant',
         link: '/dramas/new'
       },
@@ -212,7 +212,7 @@ const createBundle = () => {
         id: 2, 
         title: 'Films Bollywood', 
         subtitle: 'Les meilleurs films indiens',
-        image: '/public/assets/images/hero2.jpg',
+        image: 'https://flodrama-assets.s3.amazonaws.com/assets/images/hero/hero2.jpg',
         cta: 'Explorer',
         link: '/bollywood'
       },
@@ -220,7 +220,7 @@ const createBundle = () => {
         id: 3, 
         title: 'Animés Populaires', 
         subtitle: 'Top des animés japonais',
-        image: '/public/assets/images/hero3.jpg',
+        image: 'https://flodrama-assets.s3.amazonaws.com/assets/images/hero/hero3.jpg',
         cta: 'Découvrir',
         link: '/anime'
       }
@@ -400,7 +400,7 @@ const createBundle = () => {
     const copyright = document.createElement('div');
     copyright.className = 'copyright';
     copyright.style = 'color: rgba(255, 255, 255, 0.5); font-size: 0.9rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1);';
-    copyright.textContent = '© ' + new Date().getFullYear() + ' FloDrama. Tous droits réservés.';
+    copyright.textContent = ' ' + new Date().getFullYear() + ' FloDrama. Tous droits réservés.';
     
     // Assembler le footer
     footerContainer.appendChild(footerBrand);

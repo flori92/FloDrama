@@ -60,7 +60,7 @@ export function initializeImageSystemAdapter() {
       for (let i = 1; i <= 3; i++) {
         imageService.preloadImage(`hero${i}`, 'hero', {
           sources: [
-            `/public/assets/images/hero/hero${i}.svg`,
+            `https://flodrama-assets.s3.amazonaws.com/assets/images/hero/hero${i}.svg`,
             `/assets/images/hero/hero${i}.svg`
           ]
         });
@@ -83,7 +83,7 @@ export function initializeImageSystemAdapter() {
         if (heroMatch) {
           const heroNum = heroMatch[1];
           // Remplacer par le chemin SVG
-          const newSrc = `/public/assets/images/hero/hero${heroNum}.svg`;
+          const newSrc = `https://flodrama-assets.s3.amazonaws.com/assets/images/hero/hero${heroNum}.svg`;
           console.debug(`[ImageAdapter] Correction du chemin d'image: ${src} -> ${newSrc}`);
           img.setAttribute('src', newSrc);
           

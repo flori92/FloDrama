@@ -6,7 +6,7 @@
 
 import { HomeContentComponent } from '../scripts/components/HomeContentComponent.js';
 import { NavbarComponent } from '../scripts/components/navbar.js';
-import { FooterComponent } from '../scripts/components/footer.js';
+import footerComponent from '../scripts/components/footer.js';
 
 // Attendre que le DOM soit chargé
 document.addEventListener('DOMContentLoaded', async () => {
@@ -21,8 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
     
     // Initialiser le pied de page
-    const footer = new FooterComponent();
-    await footer.init();
+    await footerComponent.init();
     
     // Masquer l'écran de chargement une fois que tout est initialisé
     hideLoadingScreen();

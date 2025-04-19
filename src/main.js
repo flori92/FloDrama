@@ -244,7 +244,7 @@ export class FloDramaApp {
         id: 1,
         title: 'Découvrez les meilleurs dramas coréens',
         subtitle: 'Des histoires captivantes qui vous transporteront',
-        image: '/public/assets/images/hero/1.svg',
+        image: 'https://flodrama-assets.s3.amazonaws.com/assets/images/hero/1.svg',
         cta: 'Explorer',
         link: '/dramas'
       },
@@ -252,7 +252,7 @@ export class FloDramaApp {
         id: 2,
         title: 'Films Bollywood à ne pas manquer',
         subtitle: 'L\'excellence du cinéma indien',
-        image: '/public/assets/images/hero/2.svg',
+        image: 'https://flodrama-assets.s3.amazonaws.com/assets/images/hero/2.svg',
         cta: 'Voir la sélection',
         link: '/bollywood'
       },
@@ -260,7 +260,7 @@ export class FloDramaApp {
         id: 3,
         title: 'Animés populaires du moment',
         subtitle: 'Les séries qui font sensation au Japon',
-        image: '/public/assets/images/hero/3.svg',
+        image: 'https://flodrama-assets.s3.amazonaws.com/assets/images/hero/3.svg',
         cta: 'Découvrir',
         link: '/animes'
       }
