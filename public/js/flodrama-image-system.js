@@ -3,30 +3,36 @@
  * Ce fichier contient toutes les fonctions nécessaires pour gérer les images et les fallbacks
  */
 
+// Configuration globale
+const CONFIG = {
+  DEBUG: false,
+  AUTO_INIT: true
+};
+
 // Configuration du système d'images
 const IMAGE_CONFIG = {
   // Sources d'images par ordre de priorité
   sources: [
     {
+      name: 'bunny',
+      baseUrl: 'https://images.flodrama.com',
+      enabled: true,
+      priority: 1,
+      pathTemplate: '/content/${contentId}/${type}.webp'
+    },
+    {
+      name: 's3direct',
+      baseUrl: 'https://flodrama-assets.s3.amazonaws.com',
+      enabled: true,
+      priority: 2,
+      pathTemplate: '/content/${contentId}/${type}.webp'
+    },
+    {
       name: 'github',
       baseUrl: 'https://flodrama.com',
       enabled: true,
-      priority: 1,
-      pathTemplate: '/assets/media/${type}s/${contentId}.jpg'
-    },
-    {
-      name: 'cloudfront',
-      baseUrl: 'https://d11nnqvjfooahr.cloudfront.net',
-      enabled: true,
-      priority: 2,
-      pathTemplate: '/media/${type}s/${contentId}.jpg'
-    },
-    {
-      name: 's3-direct',
-      baseUrl: 'https://flodrama-assets.s3.amazonaws.com',
-      enabled: true,
       priority: 3,
-      pathTemplate: '/media/${type}s/${contentId}.jpg'
+      pathTemplate: '/content/${contentId}/${type}.webp'
     }
   ],
   
@@ -67,9 +73,29 @@ const IMAGE_CONFIG = {
 
 // État des CDNs
 const cdnStatus = {
-  github: true, // GitHub Pages est toujours considéré comme disponible car c'est local
-  cloudfront: false,
-  's3-direct': false
+  bunny: true,
+  cloudfront: false, // Désactivé car nous avons supprimé les configurations AWS
+  github: true,
+  s3direct: true // Ajout de S3 direct comme alternative
+};
+
+// Système de logs
+const logger = {
+  info: function(message) {
+    console.info(`[FloDrama Images] ${message}`);
+  },
+  
+  warn: function(message) {
+    console.warn(`[FloDrama Images] ${message}`);
+  },
+  
+  error: function(message, error) {
+    console.error(`[FloDrama Images] ${message}`, error);
+  },
+  
+  debug: function(message) {
+    if (CONFIG.DEBUG) console.debug(`[FloDrama Images] ${message}`);
+  }
 };
 
 /**
@@ -80,25 +106,28 @@ const cdnStatus = {
  */
 function generateImageSources(contentId, type) {
   if (!contentId || !type) {
-    console.warn('[FloDrama Images] contentId ou type manquant');
+    logger.warn('[FloDrama Images] contentId ou type manquant');
     return [];
   }
   
   const sources = [];
   
-  // D'abord les assets locaux (GitHub Pages)
-  sources.push(`${IMAGE_CONFIG.sources[0].baseUrl}${IMAGE_CONFIG.sources[0].pathTemplate.replace('${type}', type).replace('${contentId}', contentId)}`);
+  // Ajouter Bunny CDN si disponible
+  if (cdnStatus.bunny) {
+    sources.push(`${IMAGE_CONFIG.sources[0].baseUrl}${IMAGE_CONFIG.sources[0].pathTemplate.replace('${type}', type).replace('${contentId}', contentId)}`);
+  }
   
-  // Puis CloudFront AWS si disponible
-  if (cdnStatus.cloudfront) {
+  // Ajouter S3 direct si disponible
+  if (cdnStatus.s3direct) {
     sources.push(`${IMAGE_CONFIG.sources[1].baseUrl}${IMAGE_CONFIG.sources[1].pathTemplate.replace('${type}', type).replace('${contentId}', contentId)}`);
   }
   
-  // Puis S3 direct si disponible
-  if (cdnStatus['s3-direct']) {
-    sources.push(`${IMAGE_CONFIG.sources[2].baseUrl}${IMAGE_CONFIG.sources[2].pathTemplate.replace('${type}', type).replace('${contentId}', contentId)}`);
-  }
+  // Toujours ajouter GitHub comme fallback
+  sources.push(`${IMAGE_CONFIG.sources[2].baseUrl}${IMAGE_CONFIG.sources[2].pathTemplate.replace('${type}', type).replace('${contentId}', contentId)}`);
+  sources.push(`/assets/content/${contentId}/${type}.webp`);
+  sources.push(`/public/content/${contentId}/${type}.webp`);
   
+  logger.debug(`Sources générées pour ${contentId}/${type}: ${sources.length} sources`);
   return sources;
 }
 
@@ -129,7 +158,7 @@ function generateFallbackSvg(contentId, type) {
     </svg>
   `;
   
-  console.warn(`[FloDrama Images] SVG fallback appliqué pour ${contentId} (${type})`);
+  logger.warn(`[FloDrama Images] SVG fallback appliqué pour ${contentId} (${type})`);
   return `data:image/svg+xml;base64,${btoa(svg)}`;
 }
 
@@ -192,7 +221,7 @@ async function checkCdnStatus(baseUrl) {
     });
     return response.ok;
   } catch (error) {
-    console.warn(`[FloDrama Images] CDN inaccessible: ${baseUrl}`);
+    logger.warn(`[FloDrama Images] CDN inaccessible: ${baseUrl}`);
     return false;
   }
 }
@@ -201,16 +230,35 @@ async function checkCdnStatus(baseUrl) {
  * Vérifie l'état de tous les CDNs
  */
 async function checkAllCdnStatus() {
+  logger.debug('Vérification de l\'état des CDNs');
+  
   try {
-    // Vérifier CloudFront
-    cdnStatus.cloudfront = await checkCdnStatus('https://d11nnqvjfooahr.cloudfront.net');
+    // Vérifier Bunny CDN
+    cdnStatus.bunny = await checkCdnStatus('https://images.flodrama.com');
+    
+    // CloudFront est COMPLÈTEMENT désactivé, ne pas vérifier son statut
+    // cdnStatus.cloudfront = await checkCdnStatus('https://d11nnqvjfooahr.cloudfront.net');
     
     // Vérifier S3 direct
-    cdnStatus['s3-direct'] = await checkCdnStatus('https://flodrama-assets.s3.amazonaws.com');
+    cdnStatus.s3direct = await checkCdnStatus('https://flodrama-assets.s3.amazonaws.com');
     
-    console.log(`État des CDNs - CloudFront: ${cdnStatus.cloudfront ? 'OK' : 'KO'}, GitHub: ${cdnStatus.github ? 'OK' : 'KO'}, S3 direct: ${cdnStatus['s3-direct'] ? 'OK' : 'KO'}`);
+    // Vérifier GitHub Pages (toujours considéré comme disponible car c'est le site actuel)
+    cdnStatus.github = true;
+    
+    logger.info(`État des CDNs - Bunny: ${cdnStatus.bunny ? 'OK' : 'KO'}, GitHub: ${cdnStatus.github ? 'OK' : 'KO'}, S3 direct: ${cdnStatus.s3direct ? 'OK' : 'KO'}`);
+    
+    // Émettre un événement pour informer l'application
+    window.dispatchEvent(new CustomEvent('flodrama:cdn-status-updated', { 
+      detail: { 
+        bunny: cdnStatus.bunny,
+        cloudfront: false, // Toujours désactivé
+        github: cdnStatus.github,
+        s3direct: cdnStatus.s3direct,
+        timestamp: Date.now()
+      }
+    }));
   } catch (error) {
-    console.error('Erreur lors de la vérification des CDNs', error);
+    logger.error('Erreur lors de la vérification des CDNs', error);
   }
 }
 
