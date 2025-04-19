@@ -1,7 +1,26 @@
+// Script de génération du bundle amélioré pour FloDrama
+// Ce script génère un bundle JavaScript qui intègre toutes les fonctionnalités avancées
+// de l'interface FloDrama (carrousel, catégories, effets de survol, etc.)
 
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Obtenir le chemin du répertoire actuel
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Configuration
+const outputPath = path.join(__dirname, '../Frontend/dist/bundle.js');
+const publicOutputPath = path.join(__dirname, '../public/js/bundle.js');
+
+// Fonction pour créer le bundle
+const createBundle = () => {
+  // Contenu du bundle
+  const bundleContent = `
 // Bundle.js amélioré pour FloDrama
 // Ce fichier contient le code pour afficher l'interface FloDrama avec toutes les fonctionnalités
-// Date de génération: 2025-04-19T13:03:42.041Z
+// Date de génération: ${new Date().toISOString()}
 
 (function() {
   console.log('Initialisation de FloDrama...');
@@ -40,7 +59,7 @@
   
   // Fonction principale pour initialiser l'application
   function initializeApp() {
-    console.log('Initialisation de l\'application FloDrama...');
+    console.log('Initialisation de l\\'application FloDrama...');
     
     // Vérifier si l'élément racine existe, sinon le créer
     let rootElement = document.getElementById('root');
@@ -395,7 +414,7 @@
   // Fonction pour ajouter les styles CSS
   function addStyles() {
     const style = document.createElement('style');
-    style.textContent = `
+    style.textContent = \`
       /* Variables CSS */
       :root {
         --color-primary: #3b82f6;
@@ -485,7 +504,7 @@
           height: 50vh;
         }
       }
-    `;
+    \`;
     
     document.head.appendChild(style);
   }
@@ -532,4 +551,27 @@
     setInterval(nextSlide, 5000);
   }
 })();
+  `;
   
+  // Créer les répertoires de sortie s'ils n'existent pas
+  const frontendDistDir = path.join(__dirname, '../Frontend/dist');
+  const publicJsDir = path.join(__dirname, '../public/js');
+  
+  if (!fs.existsSync(frontendDistDir)) {
+    fs.mkdirSync(frontendDistDir, { recursive: true });
+  }
+  
+  if (!fs.existsSync(publicJsDir)) {
+    fs.mkdirSync(publicJsDir, { recursive: true });
+  }
+  
+  // Écrire le contenu dans les fichiers de sortie
+  fs.writeFileSync(outputPath, bundleContent);
+  fs.writeFileSync(publicOutputPath, bundleContent);
+  
+  console.log(`Bundle.js généré avec succès dans ${outputPath}`);
+  console.log(`Bundle.js copié dans ${publicOutputPath}`);
+};
+
+// Exécuter la fonction principale
+createBundle();
