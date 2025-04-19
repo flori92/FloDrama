@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloDrama - Détail du contenu</title>
+    <link rel="stylesheet" href="/public/css/main.css">
+    <link rel="stylesheet" href="/public/css/components/content-detail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header__logo">
+                <a href="index.html">
+                    <img src="/public/assets/images/logo.svg" alt="FloDrama Logo">
+                </a>
+            </div>
+            <nav class="header__nav">
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="dramas.html">Dramas</a></li>
+                    <li><a href="movies.html">Films</a></li>
+                    <li><a href="anime.html">Anime</a></li>
+                    <li><a href="watchparty.html">Watch Party</a></li>
+                </ul>
+            </nav>
+            <div class="header__actions">
+                <div class="search-bar">
+                    <input type="text" placeholder="Rechercher...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="user-menu">
+                    <button class="user-menu__toggle" id="userMenuToggle">
+                        <img src="/public/assets/images/avatar.svg" alt="Avatar">
+                    </button>
+                    <div class="user-menu__dropdown" id="userMenuDropdown">
+                        <ul>
+                            <li><a href="profile.html">Mon profil</a></li>
+                            <li><a href="favorites.html">Mes favoris</a></li>
+                            <li><a href="history.html">Historique</a></li>
+                            <li><a href="settings.html">Paramètres</a></li>
+                            <li><a href="#" id="logoutButton">Déconnexion</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Loading State -->
+        <div id="loadingState" class="content-detail__loading">
+            <div class="spinner"></div>
+            <p>Chargement en cours...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="errorState" class="content-detail__error hidden">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h2>Une erreur est survenue</h2>
+            <p id="errorMessage">Impossible de charger le contenu demandé.</p>
+            <button id="retryButton" class="btn btn-primary">Réessayer</button>
+        </div>
+
+        <!-- Content Detail -->
+        <section id="contentDetail" class="content-detail hidden">
+            <!-- Hero Banner -->
+            <div class="content-detail__hero">
+                <div class="content-detail__backdrop">
+                    <img id="contentBackdrop" src="" alt="">
+                    <div class="content-detail__backdrop-overlay"></div>
+                </div>
+                <div class="container">
+                    <div class="content-detail__hero-content">
+                        <div class="content-detail__poster">
+                            <img id="contentPoster" src="" alt="">
+                        </div>
+                        <div class="content-detail__info">
+                            <h1 id="contentTitle"></h1>
+                            <div class="content-detail__meta">
+                                <span id="contentYear"></span>
+                                <span id="contentDuration"></span>
+                                <span id="contentRating"></span>
+                            </div>
+                            <div class="content-detail__genres" id="contentGenres">
+                                <!-- Genres will be inserted here -->
+                            </div>
+                            <p id="contentDescription"></p>
+                            <div class="content-detail__actions">
+                                <button id="playButton" class="btn btn-primary">
+                                    <i class="fas fa-play"></i> Regarder
+                                </button>
+                                <button id="trailerButton" class="btn btn-secondary">
+                                    <i class="fas fa-film"></i> Bande-annonce
+                                </button>
+                                <button id="favoriteButton" class="btn btn-icon">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button id="watchPartyButton" class="btn btn-icon">
+                                    <i class="fas fa-users"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Player Section (initially hidden) -->
+            <section id="videoPlayerSection" class="content-detail__player hidden">
+                <div class="container">
+                    <div id="videoPlayerContainer" class="video-player-container">
+                        <!-- Video player will be inserted here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Episodes Section (for series, initially hidden) -->
+            <section id="episodesSection" class="content-detail__episodes hidden">
+                <div class="container">
+                    <h2>Épisodes</h2>
+                    <div class="content-detail__seasons" id="seasonSelector">
+                        <!-- Season selector will be inserted here -->
+                    </div>
+                    <div class="content-detail__episodes-list" id="episodesList">
+                        <!-- Episodes will be inserted here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cast Section -->
+            <section class="content-detail__cast">
+                <div class="container">
+                    <h2>Distribution</h2>
+                    <div class="content-detail__cast-list" id="castList">
+                        <!-- Cast members will be inserted here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Similar Content Section -->
+            <section class="content-detail__similar">
+                <div class="container">
+                    <h2>Contenu similaire</h2>
+                    <div class="content-detail__similar-list" id="similarContentList">
+                        <!-- Similar content will be inserted here -->
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__logo">
+                <img src="/public/assets/images/logo.svg" alt="FloDrama Logo">
+            </div>
+            <div class="footer__links">
+                <div class="footer__links-column">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="dramas.html">Dramas</a></li>
+                        <li><a href="movies.html">Films</a></li>
+                        <li><a href="anime.html">Anime</a></li>
+                        <li><a href="watchparty.html">Watch Party</a></li>
+                    </ul>
+                </div>
+                <div class="footer__links-column">
+                    <h3>Assistance</h3>
+                    <ul>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="terms.html">Conditions d'utilisation</a></li>
+                        <li><a href="privacy.html">Politique de confidentialité</a></li>
+                    </ul>
+                </div>
+                <div class="footer__links-column">
+                    <h3>Réseaux sociaux</h3>
+                    <div class="footer__social">
+                        <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__copyright">
+                <p>&copy; 2025 FloDrama. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/src/services/core/ApiService.js"></script>
+    <script src="/src/services/core/StorageService.js"></script>
+    <script src="/src/services/content/ContentDataService.js"></script>
+    <script src="/src/services/auth/AuthService.js"></script>
+    <script src="/src/services/favorites/FavoritesService.js"></script>
+    <script src="/src/services/recommendation/RecommendationService.js"></script>
+    <script src="/src/components/video/VideoPlayerAdapter.js"></script>
+    <script src="/src/components/video/VideoPlayer.js"></script>
+    <script src="/src/scripts/content-detail.js"></script>
+</body>
+</html>
