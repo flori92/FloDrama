@@ -14,6 +14,8 @@ import imageIntegrationService from '../services/ImageIntegrationService';
  */
 const FloDramaImage = ({
   contentId,
+  src = '',
+  style = null,
   type = 'poster',
   alt = '',
   className = '',
@@ -26,13 +28,26 @@ const FloDramaImage = ({
   ...props
 }) => {
   // État local
-  const [src, setSrc] = useState('');
+  const [imageSrc, setImageSrc] = useState(src);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [fallbackApplied, setFallbackApplied] = useState(false);
+  const [isGradient, setIsGradient] = useState(style === 'gradient');
 
-  // Effet pour charger l'image
+  // Effet pour charger l'image si pas un gradient
   useEffect(() => {
+    // Si c'est un gradient, rien à faire
+    if (isGradient) {
+      setIsLoading(false);
+      return;
+    }
+    
+    // Si une source directe est fournie, l'utiliser
+    if (src) {
+      setImageSrc(src);
+      return;
+    }
+    
     let isMounted = true;
     setIsLoading(true);
     setHasError(false);
@@ -44,7 +59,7 @@ const FloDramaImage = ({
         const imageUrl = await imageIntegrationService.fetchContentImage(contentId, type);
         
         if (isMounted) {
-          setSrc(imageUrl);
+          setImageSrc(imageUrl);
           setIsLoading(false);
         }
       } catch (error) {
@@ -56,28 +71,30 @@ const FloDramaImage = ({
           
           // Appliquer le fallback SVG
           const fallbackSvg = imageIntegrationService.getFallbackSvg(contentId, type);
-          setSrc(fallbackSvg);
+          setImageSrc(fallbackSvg);
           setFallbackApplied(true);
         }
       }
     };
 
-    loadImage();
+    if (contentId) {
+      loadImage();
+    }
 
     return () => {
       isMounted = false;
     };
-  }, [contentId, type]);
+  }, [contentId, type, src, isGradient]);
 
   // Gestionnaire d'erreur de chargement d'image
   const handleError = (e) => {
-    if (fallbackApplied) return; // Éviter les boucles infinies
+    if (fallbackApplied || isGradient) return; // Éviter les boucles infinies
     
     setHasError(true);
     
     // Appliquer le fallback SVG
     const fallbackSvg = imageIntegrationService.getFallbackSvg(contentId, type);
-    setSrc(fallbackSvg);
+    setImageSrc(fallbackSvg);
     setFallbackApplied(true);
     
     // Appeler le callback onError si fourni
@@ -98,10 +115,34 @@ const FloDramaImage = ({
     isLoading ? 'flodrama-image-loading' : '',
     hasError ? 'flodrama-image-error' : '',
     fallbackApplied ? 'flodrama-image-fallback' : '',
+    isGradient ? 'flodrama-image-gradient' : '',
     `flodrama-image-${type}`
   ].filter(Boolean).join(' ');
 
   // Rendu du composant
+  if (isGradient) {
+    // Rendu pour gradient CSS
+    return (
+      <div 
+        className={`flodrama-image-container ${imageClasses}`}
+        style={{ 
+          backgroundImage: imageSrc,
+          width: width || '100%', 
+          height: height || '250px',
+          borderRadius: '8px',
+          overflow: 'hidden'
+        }}
+        data-content-id={contentId}
+        data-type={type}
+        data-style="gradient"
+        {...props}
+      >
+        {props.children}
+      </div>
+    );
+  }
+
+  // Rendu standard pour image
   return (
     <div className={`flodrama-image-container ${isLoading ? 'loading' : ''}`}>
       {isLoading && showPlaceholder && (
@@ -115,9 +156,9 @@ const FloDramaImage = ({
         />
       )}
       
-      {src && (
+      {imageSrc && (
         <img
-          src={src}
+          src={imageSrc}
           alt={alt || `${type} de ${contentId}`}
           className={imageClasses}
           width={width}
@@ -136,7 +177,9 @@ const FloDramaImage = ({
 };
 
 FloDramaImage.propTypes = {
-  contentId: PropTypes.string.isRequired,
+  contentId: PropTypes.string,
+  src: PropTypes.string,
+  style: PropTypes.string,
   type: PropTypes.oneOf(['poster', 'backdrop', 'thumbnail', 'logo']),
   alt: PropTypes.string,
   className: PropTypes.string,
@@ -145,7 +188,8 @@ FloDramaImage.propTypes = {
   lazy: PropTypes.bool,
   showPlaceholder: PropTypes.bool,
   onLoad: PropTypes.func,
-  onError: PropTypes.func
+  onError: PropTypes.func,
+  children: PropTypes.node
 };
 
 export default FloDramaImage;

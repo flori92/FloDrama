@@ -212,7 +212,7 @@ export class ContentDataService {
       ],
       recommended: [
         'Hospital Playlist', 'Reply 1988', 'Attack on Titan', 
-        'It's Okay to Not Be Okay', 'Hometown Cha-Cha-Cha', 
+        'It\'s Okay to Not Be Okay', 'Hometown Cha-Cha-Cha', 
         'My Hero Academia', 'Goblin', 'Naruto Shippuden'
       ],
       korean: [
@@ -254,6 +254,42 @@ export class ContentDataService {
       anime: ['24min', '25min', '1h46', '1h57'],
       bollywood: ['2h50', '2h41', '3h44', '3h10']
     };
+
+    // Couleurs de gradient pour les placeholders d'images
+    const gradients = [
+      'linear-gradient(135deg, #6366F1 0%, #FB7185 100%)',
+      'linear-gradient(135deg, #3B82F6 0%, #10B981 100%)',
+      'linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%)',
+      'linear-gradient(135deg, #F59E0B 0%, #EF4444 100%)',
+      'linear-gradient(135deg, #06B6D4 0%, #8B5CF6 100%)',
+      'linear-gradient(135deg, #10B981 0%, #6366F1 100%)',
+      'linear-gradient(135deg, #EC4899 0%, #F59E0B 100%)',
+      'linear-gradient(135deg, #6366F1 0%, #10B981 100%)'
+    ];
+    
+    // Descriptions plus détaillées
+    const descriptions = {
+      trending: [
+        "Une histoire d'amour inattendue entre une sud-coréenne et un officier nord-coréen.",
+        "Un jeu mortel où 456 participants risquent leur vie pour un prix colossal.",
+        "Un jeune escrimeur devient chasseur de démons après la tragédie de sa famille.",
+        "Un avocat italien revient en Corée pour prendre sa revanche.",
+        "Une femme infiltre un gang de drogue pour venger son père.",
+        "Un jeune entrepreneur déterminé à transformer un quartier.",
+        "Des morts mystérieusement revenus à la vie dans la Corée médiévale.",
+        "Un lycéen rejoint une école d'exorcistes après une rencontre paranormale."
+      ],
+      recommended: [
+        "Les hauts et bas de cinq médecins amis depuis l'université.",
+        "Chroniques d'une famille et de leurs voisins dans le Séoul des années 1980.",
+        "L'humanité lutte pour sa survie contre des titans dévoreurs d'hommes.",
+        "La romance entre une écrivaine traumatisée et un gardien d'asile psychiatrique.",
+        "Un dentiste de la ville s'installe dans un village côtier paisible.",
+        "Un garçon sans pouvoir dans un monde où 80% des gens en possèdent.",
+        "Un dieu de la mort s'éprend d'une humaine, mais leur amour est maudit.",
+        "Les aventures d'un ninja aux pouvoirs extraordinaires."
+      ]
+    };
     
     // Générer les éléments
     for (let i = 1; i <= count; i++) {
@@ -261,6 +297,11 @@ export class ContentDataService {
       const genreIndex = Math.floor(Math.random() * genres[category].length);
       const durationIndex = Math.floor(Math.random() * durations[category].length);
       const yearOffset = Math.floor(Math.random() * 5);
+      const gradientIndex = i % gradients.length;
+      
+      // Utiliser des descriptions personnalisées quand disponibles
+      const description = (descriptions[category] && descriptions[category][titleIndex]) || 
+                          `Une histoire captivante de ${type.toLowerCase()} ${genres[category][genreIndex].toLowerCase()}.`;
       
       items.push({
         id: parseInt(`${category.charCodeAt(0)}${i}`), // ID unique basé sur la catégorie et l'index
@@ -270,11 +311,13 @@ export class ContentDataService {
         genre: [genres[category][genreIndex]],
         year: (currentYear - yearOffset).toString(),
         duration: durations[category][durationIndex],
-        image: `/public/assets/images/content/${category}/${i}.svg`,
+        // Utiliser un gradient CSS comme fallback quand les images ne sont pas disponibles
+        image: gradients[gradientIndex],
+        imageStyle: 'gradient', // Indique que c'est un gradient et pas une URL
         rating: (Math.floor(Math.random() * 20) + 70) / 10, // Note entre 7.0 et 9.0
         actors: ['Acteur 1', 'Acteur 2', 'Acteur 3'],
         director: 'Réalisateur',
-        description: `Description de ${titles[category][titleIndex] || `${type} ${i}`}`,
+        description: description,
         tags: [type, genres[category][genreIndex]]
       });
     }
