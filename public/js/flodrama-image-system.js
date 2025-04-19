@@ -102,12 +102,16 @@ function generateImageSources(contentId, type) {
       sources.push(`https://flodrama-assets.s3.amazonaws.com/assets/images/hero/${contentId}.svg`);
     } else {
       // Pour les images de contenu (posters, backdrops, etc.)
-      sources.push(`https://flodrama-assets.s3.amazonaws.com/content/${contentId}/${type}.webp`);
-      sources.push(`https://flodrama-assets.s3.amazonaws.com/content/${contentId}/${type}.jpg`);
+      // Format: drama001, movie002, anime003, etc.
+      const contentType = contentId.replace(/\d+$/, ''); // Extraire le préfixe (drama, movie, anime)
+      
+      // Utiliser le chemin correct pour les assets scrapés
+      sources.push(`https://flodrama-assets.s3.amazonaws.com/content/${contentType}s/${contentId}/${type}.webp`);
+      sources.push(`https://flodrama-assets.s3.amazonaws.com/content/${contentType}s/${contentId}/${type}.jpg`);
     }
   }
   
-  // Toujours ajouter GitHub comme fallback
+  // Toujours ajouter GitHub Pages (flodrama.com) comme fallback prioritaire
   if (isHeroImage) {
     // Fallbacks pour les images hero
     sources.push(`/assets/images/hero/${contentId}.jpg`);
@@ -115,10 +119,13 @@ function generateImageSources(contentId, type) {
     sources.push(`/assets/images/hero/${contentId}.svg`);
   } else {
     // Fallbacks pour les images de contenu
-    sources.push(`/assets/content/${contentId}/${type}.webp`);
-    sources.push(`/assets/content/${contentId}/${type}.jpg`);
-    sources.push(`/content/${contentId}/${type}.webp`);
-    sources.push(`/content/${contentId}/${type}.jpg`);
+    const contentType = contentId.replace(/\d+$/, ''); // Extraire le préfixe (drama, movie, anime)
+    
+    // Chemins locaux
+    sources.push(`/assets/content/${contentType}s/${contentId}/${type}.webp`);
+    sources.push(`/assets/content/${contentType}s/${contentId}/${type}.jpg`);
+    sources.push(`/content/${contentType}s/${contentId}/${type}.webp`);
+    sources.push(`/content/${contentType}s/${contentId}/${type}.jpg`);
   }
   
   logger.debug(`Sources générées pour ${contentId}/${type}: ${sources.length} sources`);

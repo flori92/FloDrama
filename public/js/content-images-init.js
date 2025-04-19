@@ -1,107 +1,109 @@
 /**
  * Script d'initialisation des images de contenu pour FloDrama
  * Ce fichier assure que toutes les cartes de contenu sont correctement initialisées
- * avec les attributs nécessaires pour le chargement des images et des données fictives.
+ * avec les attributs nécessaires pour le chargement des images et des données réelles.
  */
 
-// Catalogue de contenu fictif pour démonstration
-const MOCK_CONTENT = {
-  dramas: [
-    { id: 'drama001', title: 'Crash Landing on You', year: '2019', genres: ['Romance', 'Comédie'], origin: 'Corée' },
-    { id: 'drama002', title: 'It\'s Okay to Not Be Okay', year: '2020', genres: ['Romance', 'Drame'], origin: 'Corée' },
-    { id: 'drama003', title: 'Reply 1988', year: '2015', genres: ['Comédie', 'Drame'], origin: 'Corée' },
-    { id: 'drama004', title: 'Queen of Tears', year: '2024', genres: ['Romance', 'Drame'], origin: 'Corée' },
-    { id: 'drama005', title: 'Moving', year: '2023', genres: ['Action', 'Fantastique'], origin: 'Corée' },
-    { id: 'drama006', title: 'My Mister', year: '2018', genres: ['Drame'], origin: 'Corée' },
-    { id: 'drama007', title: 'Goblin', year: '2016', genres: ['Romance', 'Fantastique'], origin: 'Corée' },
-    { id: 'drama008', title: 'Hospital Playlist', year: '2020', genres: ['Comédie', 'Médical'], origin: 'Corée' },
-    { id: 'drama009', title: 'Extraordinary Attorney Woo', year: '2022', genres: ['Drame', 'Juridique'], origin: 'Corée' },
-    { id: 'drama010', title: 'Squid Game', year: '2021', genres: ['Thriller', 'Drame'], origin: 'Corée' }
-  ],
-  films: [
-    { id: 'film001', title: 'Parasite', year: '2019', genres: ['Thriller', 'Drame'], origin: 'Corée' },
-    { id: 'film002', title: '3 Idiots', year: '2009', genres: ['Comédie', 'Drame'], origin: 'Inde' },
-    { id: 'film003', title: 'Train to Busan', year: '2016', genres: ['Horreur', 'Action'], origin: 'Corée' },
-    { id: 'film004', title: 'Your Name', year: '2016', genres: ['Animation', 'Romance'], origin: 'Japon' },
-    { id: 'film005', title: 'The Handmaiden', year: '2016', genres: ['Drame', 'Thriller'], origin: 'Corée' },
-    { id: 'film006', title: 'Dangal', year: '2016', genres: ['Sport', 'Biographie'], origin: 'Inde' },
-    { id: 'film007', title: 'Oldboy', year: '2003', genres: ['Action', 'Drame'], origin: 'Corée' },
-    { id: 'film008', title: 'PK', year: '2014', genres: ['Comédie', 'Science-Fiction'], origin: 'Inde' },
-    { id: 'film009', title: 'Shoplifters', year: '2018', genres: ['Drame'], origin: 'Japon' },
-    { id: 'film010', title: 'Demon Slayer: Mugen Train', year: '2020', genres: ['Animation', 'Action'], origin: 'Japon' }
-  ],
-  animes: [
-    { id: 'anime001', title: 'Demon Slayer', year: '2019', genres: ['Action', 'Fantaisie'], origin: 'Japon' },
-    { id: 'anime002', title: 'Attack on Titan', year: '2013', genres: ['Action', 'Drame'], origin: 'Japon' },
-    { id: 'anime003', title: 'My Hero Academia', year: '2016', genres: ['Action', 'Super-héros'], origin: 'Japon' },
-    { id: 'anime004', title: 'Jujutsu Kaisen', year: '2020', genres: ['Action', 'Surnaturel'], origin: 'Japon' },
-    { id: 'anime005', title: 'Spy x Family', year: '2022', genres: ['Comédie', 'Action'], origin: 'Japon' },
-    { id: 'anime006', title: 'One Piece', year: '1999', genres: ['Aventure', 'Action'], origin: 'Japon' },
-    { id: 'anime007', title: 'Naruto', year: '2002', genres: ['Action', 'Aventure'], origin: 'Japon' },
-    { id: 'anime008', title: 'Death Note', year: '2006', genres: ['Thriller', 'Surnaturel'], origin: 'Japon' },
-    { id: 'anime009', title: 'Fullmetal Alchemist: Brotherhood', year: '2009', genres: ['Action', 'Aventure'], origin: 'Japon' },
-    { id: 'anime010', title: 'Vinland Saga', year: '2019', genres: ['Action', 'Historique'], origin: 'Japon' }
-  ]
-};
+// URL du fichier de métadonnées
+const METADATA_URL = '/assets/data/metadata.json';
+
+// Cache pour les métadonnées
+let metadataCache = null;
+
+// Fonction pour charger les métadonnées
+async function loadMetadata() {
+  if (metadataCache) {
+    return metadataCache;
+  }
+  
+  try {
+    const response = await fetch(METADATA_URL);
+    if (!response.ok) {
+      throw new Error(`Erreur lors du chargement des métadonnées: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    metadataCache = data;
+    console.log(`Métadonnées chargées avec succès: ${data.items.length} éléments`);
+    return data;
+  } catch (error) {
+    console.error('Erreur lors du chargement des métadonnées:', error);
+    return { items: [] };
+  }
+}
 
 // Déterminer la catégorie de contenu en fonction de l'URL
 function getContentCategory() {
   const path = window.location.pathname.toLowerCase();
   
   if (path.includes('dramas') || path.includes('drama')) {
-    return 'dramas';
+    return 'drama';
   } else if (path.includes('films') || path.includes('film') || path.includes('movie')) {
-    return 'films';
+    return 'movie';
   } else if (path.includes('animes') || path.includes('anime')) {
-    return 'animes';
+    return 'anime';
   }
   
   // Par défaut, retourner un mix de contenu
   return 'mix';
 }
 
-// Obtenir des données de contenu en fonction de la catégorie
-function getContentData(category, limit = 10) {
-  if (category === 'mix') {
-    // Mélanger du contenu de toutes les catégories
-    const allContent = [
-      ...MOCK_CONTENT.dramas.slice(0, 3),
-      ...MOCK_CONTENT.films.slice(0, 4),
-      ...MOCK_CONTENT.animes.slice(0, 3)
-    ];
-    return allContent.slice(0, limit);
+// Filtrer les données de contenu en fonction de la catégorie
+function filterContentByCategory(metadata, category, limit = 10) {
+  if (!metadata || !metadata.items || !Array.isArray(metadata.items)) {
+    console.warn('Métadonnées invalides');
+    return [];
   }
   
-  return MOCK_CONTENT[category] ? MOCK_CONTENT[category].slice(0, limit) : [];
+  let filteredItems = [];
+  
+  if (category === 'mix') {
+    // Prendre un mix de différentes catégories
+    const dramas = metadata.items.filter(item => item.category === 'drama').slice(0, 4);
+    const movies = metadata.items.filter(item => item.category === 'movie').slice(0, 3);
+    const animes = metadata.items.filter(item => item.category === 'anime').slice(0, 3);
+    
+    filteredItems = [...dramas, ...movies, ...animes];
+  } else {
+    // Filtrer par catégorie spécifique
+    filteredItems = metadata.items.filter(item => item.category === category);
+  }
+  
+  // Limiter le nombre d'éléments
+  return filteredItems.slice(0, limit);
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('Initialisation des images de contenu FloDrama...');
+document.addEventListener('DOMContentLoaded', async function() {
+  console.log('Initialisation des images de contenu FloDrama avec données réelles...');
   
   // Initialiser les cartes de contenu si le système d'images est chargé
   if (window.FloDramaImageSystem && typeof window.FloDramaImageSystem.initContentCards === 'function') {
-    // Attendre un court instant pour s'assurer que le DOM est complètement chargé
-    setTimeout(() => {
+    try {
+      // Charger les métadonnées
+      const metadata = await loadMetadata();
+      
       // Déterminer la catégorie de contenu
       const category = getContentCategory();
       console.log(`Catégorie de contenu détectée: ${category}`);
       
-      // Obtenir les données de contenu
-      const contentData = getContentData(category);
-      console.log(`${contentData.length} éléments de contenu chargés`);
+      // Filtrer les données de contenu
+      const contentData = filterContentByCategory(metadata, category);
+      console.log(`${contentData.length} éléments de contenu chargés pour la catégorie ${category}`);
       
       // Initialiser les cartes de contenu
       window.FloDramaImageSystem.initContentCards();
       
       // Mettre à jour les titres et informations des cartes
       updateContentCards(contentData);
-    }, 100);
+    } catch (error) {
+      console.error('Erreur lors de l\'initialisation des images de contenu:', error);
+    }
   } else {
     console.warn('Le système d\'images FloDrama n\'est pas chargé. Les images de contenu ne seront pas initialisées.');
   }
 });
 
-// Mettre à jour les cartes de contenu avec les données fictives
+// Mettre à jour les cartes de contenu avec les données réelles
 function updateContentCards(contentData) {
   const contentCards = document.querySelectorAll('.content-card');
   
@@ -114,6 +116,7 @@ function updateContentCards(contentData) {
       if (poster) {
         const img = poster.querySelector('img') || poster;
         img.setAttribute('data-content-id', data.id);
+        img.setAttribute('data-type', 'poster');
         
         // Forcer le rechargement de l'image avec le nouvel ID
         if (window.FloDramaImageSystem) {
@@ -140,7 +143,11 @@ function updateContentCards(contentData) {
         metaElement.className = 'card-meta';
         card.appendChild(metaElement);
       }
-      metaElement.textContent = `${data.year} • ${data.genres.join(', ')}`;
+      
+      // Formater les métadonnées
+      const year = data.year || '';
+      const genres = data.genres && Array.isArray(data.genres) ? data.genres.join(', ') : '';
+      metaElement.textContent = `${year}${genres ? ' • ' + genres : ''}`;
       
       // Ajouter des styles CSS si nécessaire
       if (!card.classList.contains('card-styled')) {
@@ -161,5 +168,5 @@ function updateContentCards(contentData) {
     }
   });
   
-  console.log(`${Math.min(contentCards.length, contentData.length)} cartes de contenu mises à jour avec des données`);
+  console.log(`${Math.min(contentCards.length, contentData.length)} cartes de contenu mises à jour avec des données réelles`);
 }
