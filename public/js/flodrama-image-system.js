@@ -14,24 +14,10 @@ const IMAGE_CONFIG = {
   // Sources d'images par ordre de priorité
   sources: [
     {
-      name: 'bunny',
-      baseUrl: 'https://images.flodrama.com',
-      enabled: true,
-      priority: 1,
-      pathTemplate: '/content/${contentId}/${type}.webp'
-    },
-    {
       name: 's3direct',
       baseUrl: 'https://flodrama-assets.s3.amazonaws.com',
       enabled: true,
-      priority: 2,
-      pathTemplate: '/content/${contentId}/${type}.webp'
-    },
-    {
-      name: 'github',
-      baseUrl: 'https://flodrama.com',
-      enabled: true,
-      priority: 3,
+      priority: 1,
       pathTemplate: '/content/${contentId}/${type}.webp'
     }
   ],
@@ -73,10 +59,7 @@ const IMAGE_CONFIG = {
 
 // État des CDNs
 const cdnStatus = {
-  bunny: true,
-  cloudfront: false, // Désactivé car nous avons supprimé les configurations AWS
-  github: true,
-  s3direct: true // Ajout de S3 direct comme alternative
+  s3direct: true // S3 direct uniquement
 };
 
 // Système de logs
@@ -99,34 +82,21 @@ const logger = {
 };
 
 /**
- * Génère les URLs des sources d'images pour un contenu donné
+ * Génère les sources d'images alternatives pour un contenu
  * @param {string} contentId - ID du contenu
- * @param {string} type - Type d'image (poster, backdrop, thumbnail)
- * @returns {Array<string>} Liste des URLs
+ * @param {string} type - Type d'image
+ * @returns {Array<string>} - Liste des URLs alternatives
  */
 function generateImageSources(contentId, type) {
-  if (!contentId || !type) {
-    logger.warn('[FloDrama Images] contentId ou type manquant');
-    return [];
-  }
-  
   const sources = [];
-  
-  // Ajouter Bunny CDN si disponible
-  if (cdnStatus.bunny) {
-    sources.push(`${IMAGE_CONFIG.sources[0].baseUrl}${IMAGE_CONFIG.sources[0].pathTemplate.replace('${type}', type).replace('${contentId}', contentId)}`);
-  }
-  
   // Ajouter S3 direct si disponible
   if (cdnStatus.s3direct) {
-    sources.push(`${IMAGE_CONFIG.sources[1].baseUrl}${IMAGE_CONFIG.sources[1].pathTemplate.replace('${type}', type).replace('${contentId}', contentId)}`);
+    sources.push(`https://flodrama-assets.s3.amazonaws.com/content/${contentId}/${type}.webp`);
   }
-  
   // Toujours ajouter GitHub comme fallback
-  sources.push(`${IMAGE_CONFIG.sources[2].baseUrl}${IMAGE_CONFIG.sources[2].pathTemplate.replace('${type}', type).replace('${contentId}', contentId)}`);
+  sources.push(`/content/${contentId}/${type}.webp`);
   sources.push(`/assets/content/${contentId}/${type}.webp`);
   sources.push(`/public/content/${contentId}/${type}.webp`);
-  
   logger.debug(`Sources générées pour ${contentId}/${type}: ${sources.length} sources`);
   return sources;
 }
@@ -208,6 +178,25 @@ function handleImageError(event) {
 }
 
 /**
+ * Vérifie l'état du CDN S3 uniquement
+ */
+async function checkAllCdnStatus() {
+  logger.debug("Vérification de l'état du CDN S3");
+  try {
+    cdnStatus.s3direct = await checkCdnStatus('https://flodrama-assets.s3.amazonaws.com');
+    logger.info(`État du CDN S3 direct : ${cdnStatus.s3direct ? 'OK' : 'KO'}`);
+    window.dispatchEvent(new CustomEvent('flodrama:cdn-status-updated', {
+      detail: {
+        s3direct: cdnStatus.s3direct,
+        timestamp: Date.now()
+      }
+    }));
+  } catch (error) {
+    logger.error("Erreur lors de la vérification du CDN S3", error);
+  }
+}
+
+/**
  * Vérifie l'état d'un CDN
  * @param {string} baseUrl - URL de base du CDN
  * @returns {Promise<boolean>} - True si le CDN est disponible
@@ -223,42 +212,6 @@ async function checkCdnStatus(baseUrl) {
   } catch (error) {
     logger.warn(`[FloDrama Images] CDN inaccessible: ${baseUrl}`);
     return false;
-  }
-}
-
-/**
- * Vérifie l'état de tous les CDNs
- */
-async function checkAllCdnStatus() {
-  logger.debug('Vérification de l\'état des CDNs');
-  
-  try {
-    // Vérifier Bunny CDN
-    cdnStatus.bunny = await checkCdnStatus('https://images.flodrama.com');
-    
-    // CloudFront est COMPLÈTEMENT désactivé, ne pas vérifier son statut
-    // cdnStatus.cloudfront = await checkCdnStatus('https://d11nnqvjfooahr.cloudfront.net');
-    
-    // Vérifier S3 direct
-    cdnStatus.s3direct = await checkCdnStatus('https://flodrama-assets.s3.amazonaws.com');
-    
-    // Vérifier GitHub Pages (toujours considéré comme disponible car c'est le site actuel)
-    cdnStatus.github = true;
-    
-    logger.info(`État des CDNs - Bunny: ${cdnStatus.bunny ? 'OK' : 'KO'}, GitHub: ${cdnStatus.github ? 'OK' : 'KO'}, S3 direct: ${cdnStatus.s3direct ? 'OK' : 'KO'}`);
-    
-    // Émettre un événement pour informer l'application
-    window.dispatchEvent(new CustomEvent('flodrama:cdn-status-updated', { 
-      detail: { 
-        bunny: cdnStatus.bunny,
-        cloudfront: false, // Toujours désactivé
-        github: cdnStatus.github,
-        s3direct: cdnStatus.s3direct,
-        timestamp: Date.now()
-      }
-    }));
-  } catch (error) {
-    logger.error('Erreur lors de la vérification des CDNs', error);
   }
 }
 
