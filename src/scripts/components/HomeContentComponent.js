@@ -207,6 +207,10 @@ class HomeContentComponent {
 // Exporter une instance unique du composant
 const homeContentComponent = new HomeContentComponent();
 
+// Exporter aussi la classe pour compatibilité avec les imports nommés
+export { HomeContentComponent };
+export default homeContentComponent;
+
 document.addEventListener('DOMContentLoaded', () => {
   // Vérifier si c'est bien la page d'accueil
   const isHomePage = window.location.pathname.endsWith('index.html') || 
@@ -218,5 +222,3 @@ document.addEventListener('DOMContentLoaded', () => {
     homeContentComponent.init();
   }
 });
-
-export default homeContentComponent;
