@@ -1,97 +1,137 @@
 /**
  * FloDrama - Bundle JS minimal
  * Ce fichier est généré automatiquement pour résoudre les erreurs 404
- * Date de génération: 2025-04-19T12:22:33.744Z
+ * Date de génération: 2025-04-19T12:32:55.300Z
  */
 
 // Initialisation de l'application FloDrama
 (function() {
   console.log('Initialisation de FloDrama...');
   
-  // Fonction pour initialiser l'application React
+  // Fonction principale pour initialiser l'application
   function initializeApp() {
-    // Créer l'élément racine pour React
-    const rootElement = document.getElementById('root');
+    console.log('Initialisation de FloDrama...');
     
+    // Vérifier si l'élément racine existe, sinon le créer
+    let rootElement = document.getElementById('root');
     if (!rootElement) {
-      console.error('Élément racine non trouvé');
-      return;
-    }
-    
-    // Masquer l'écran de chargement
-    const loadingScreen = rootElement.querySelector('.loading-container');
-    if (loadingScreen) {
-      setTimeout(() => {
-        loadingScreen.style.display = 'none';
-      }, 1500);
-    }
-    
-    // Initialiser l'application React (simulation)
-    console.log('Application FloDrama initialisée');
-    
-    // Créer un conteneur principal
-    const appContainer = document.createElement('div');
-    appContainer.className = 'app-container';
-    
-    // Image de secours pour le logo
-    const fallbackLogoSvg = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMjAwIDYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjM2I4MmY2IiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2Q5NDZlZiIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjMUExOTI2IiAvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU0YgUHJvIERpc3BsYXksIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0idXJsKCNncmFkaWVudCkiPkZsb0RyYW1hPC90ZXh0Pjwvc3ZnPg==';
-    
-    // Fonction pour créer des éléments HTML
-    function createElementWithHTML(tag, attributes = {}, innerHTML = '') {
-      const element = document.createElement(tag);
+      console.log('Élément racine non trouvé, création automatique');
+      rootElement = document.createElement('div');
+      rootElement.id = 'root';
       
-      // Ajouter les attributs
-      for (const [key, value] of Object.entries(attributes)) {
-        element.setAttribute(key, value);
+      // Supprimer l'écran de chargement s'il existe
+      const loadingScreen = document.getElementById('loading-screen');
+      if (loadingScreen) {
+        document.body.removeChild(loadingScreen);
       }
       
-      // Ajouter le contenu HTML
-      if (innerHTML) {
-        element.innerHTML = innerHTML;
-      }
-      
-      return element;
+      // Ajouter l'élément racine au body
+      document.body.appendChild(rootElement);
     }
+    
+    // Créer la structure de l'application
+    const app = createElementWithHTML('div', { class: 'app' });
     
     // Créer la navbar
-    const navbar = createElementWithHTML('div', { class: 'navbar' });
-    const navbarContainer = createElementWithHTML('div', { 
-      class: 'container', 
-      style: 'display: flex; justify-content: space-between; align-items: center; padding: 1rem;' 
-    });
+    const navbar = createElementWithHTML('nav', { class: 'navbar' });
+    const navbarContainer = createElementWithHTML('div', { class: 'container', style: 'display: flex; justify-content: space-between; align-items: center;' });
     
-    // Logo
-    const logoContainer = createElementWithHTML('div', { class: 'navbar-logo' });
-    const logoImg = createElementWithHTML('img', { 
-      src: '/assets/logo.svg', 
-      alt: 'FloDrama', 
-      style: 'height: 40px;' 
-    });
+    // Logo et nom
+    const logoContainer = createElementWithHTML('div', { class: 'logo-container', style: 'display: flex; align-items: center;' });
+    const logoLink = createElementWithHTML('a', { href: '/', style: 'display: flex; align-items: center; text-decoration: none;' });
     
-    // Ajouter l'événement onerror pour le fallback
-    logoImg.onerror = function() {
-      this.src = fallbackLogoSvg;
-    };
+    // SVG du logo
+    const logoSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    logoSvg.setAttribute('width', '40');
+    logoSvg.setAttribute('height', '40');
+    logoSvg.setAttribute('viewBox', '0 0 200 200');
     
-    logoContainer.appendChild(logoImg);
+    const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+    const linearGradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+    linearGradient.setAttribute('id', 'navLogoGradient');
+    linearGradient.setAttribute('x1', '0%');
+    linearGradient.setAttribute('y1', '0%');
+    linearGradient.setAttribute('x2', '100%');
+    linearGradient.setAttribute('y2', '0%');
+    
+    const stop1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+    stop1.setAttribute('offset', '0%');
+    stop1.setAttribute('stop-color', '#3b82f6');
+    
+    const stop2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+    stop2.setAttribute('offset', '100%');
+    stop2.setAttribute('stop-color', '#d946ef');
+    
+    linearGradient.appendChild(stop1);
+    linearGradient.appendChild(stop2);
+    defs.appendChild(linearGradient);
+    logoSvg.appendChild(defs);
+    
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', '100');
+    circle.setAttribute('cy', '100');
+    circle.setAttribute('r', '90');
+    circle.setAttribute('fill', 'none');
+    circle.setAttribute('stroke', 'url(#navLogoGradient)');
+    circle.setAttribute('stroke-width', '10');
+    logoSvg.appendChild(circle);
+    
+    const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path1.setAttribute('d', 'M60,70 L60,130 M90,70 L90,130 M60,70 Q75,50 90,70 M60,130 Q75,150 90,130');
+    path1.setAttribute('stroke', 'url(#navLogoGradient)');
+    path1.setAttribute('stroke-width', '10');
+    path1.setAttribute('fill', 'none');
+    path1.setAttribute('stroke-linecap', 'round');
+    logoSvg.appendChild(path1);
+    
+    const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path2.setAttribute('d', 'M110,70 L140,70 Q160,70 160,90 Q160,110 140,110 L110,110 L110,130');
+    path2.setAttribute('stroke', 'url(#navLogoGradient)');
+    path2.setAttribute('stroke-width', '10');
+    path2.setAttribute('fill', 'none');
+    path2.setAttribute('stroke-linecap', 'round');
+    logoSvg.appendChild(path2);
+    
+    logoLink.appendChild(logoSvg);
+    
+    const brandName = createElementWithHTML('span', { 
+      style: 'margin-left: 10px; font-size: 1.5rem; font-weight: bold; background: linear-gradient(to right, #3b82f6, #d946ef); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;' 
+    }, 'FloDrama');
+    
+    logoLink.appendChild(brandName);
+    logoContainer.appendChild(logoLink);
     
     // Liens de navigation
-    const navLinks = createElementWithHTML('div', { 
-      class: 'navbar-links', 
-      style: 'display: flex; gap: 1.5rem;' 
-    });
+    const navLinks = createElementWithHTML('div', { class: 'nav-links', style: 'display: flex; gap: 1.5rem;' });
     
-    // Ajouter les liens
-    const navItems = ['Accueil', 'Dramas', 'Films', 'Animés', 'Bollywood', 'App', 'Watchparty'];
+    const navItems = [
+      { text: 'Accueil', href: '/' },
+      { text: 'Dramas', href: '/dramas' },
+      { text: 'Films', href: '/films' },
+      { text: 'Animés', href: '/animes' },
+      { text: 'Bollywood', href: '/bollywood' },
+      { text: 'App', href: '/app' },
+      { text: 'Watchparty', href: '/watchparty' }
+    ];
+    
     navItems.forEach(item => {
       const link = createElementWithHTML('a', { 
-        href: '#', 
-        style: 'color: white; text-decoration: none; font-weight: 500;' 
-      }, item);
+        href: item.href, 
+        style: 'color: #fff; text-decoration: none; font-weight: 500; transition: color 0.3s ease; padding: 0.5rem 0.75rem; border-radius: 4px; position: relative; overflow: hidden;' 
+      }, item.text);
+      
+      // Ajouter des événements pour l'effet de survol
+      link.addEventListener('mouseover', function() {
+        this.style.color = '#d946ef';
+      });
+      
+      link.addEventListener('mouseout', function() {
+        this.style.color = '#fff';
+      });
+      
       navLinks.appendChild(link);
     });
     
-    // Assembler la navbar
     navbarContainer.appendChild(logoContainer);
     navbarContainer.appendChild(navLinks);
     navbar.appendChild(navbarContainer);
@@ -223,13 +263,13 @@
     footer.appendChild(footerContainer);
     
     // Assembler l'application
-    appContainer.appendChild(navbar);
-    appContainer.appendChild(mainContent);
-    appContainer.appendChild(footer);
+    app.appendChild(navbar);
+    app.appendChild(mainContent);
+    app.appendChild(footer);
     
     // Remplacer le contenu de l'élément racine
     rootElement.innerHTML = '';
-    rootElement.appendChild(appContainer);
+    rootElement.appendChild(app);
     
     // Ajouter des styles d'animation
     const style = document.createElement('style');
@@ -243,4 +283,22 @@
   } else {
     initializeApp();
   }
+  
+  // Fonction pour créer des éléments HTML
+  function createElementWithHTML(tag, attributes = {}, innerHTML = '') {
+    const element = document.createElement(tag);
+    
+    // Ajouter les attributs
+    for (const [key, value] of Object.entries(attributes)) {
+      element.setAttribute(key, value);
+    }
+    
+    // Ajouter le contenu HTML
+    if (innerHTML) {
+      element.innerHTML = innerHTML;
+    }
+    
+    return element;
+  }
 })();
+

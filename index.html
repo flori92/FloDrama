@@ -87,23 +87,26 @@
   </style>
 </head>
 <body>
-  <!-- Écran de chargement -->
-  <div class="loading-container" id="loading-screen">
-    <div class="logo">
-      <svg width="150" height="150" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#3b82f6" />
-            <stop offset="100%" stop-color="#d946ef" />
-          </linearGradient>
-        </defs>
-        <circle cx="100" cy="100" r="90" fill="none" stroke="url(#logoGradient)" stroke-width="10" />
-        <path d="M60,70 L60,130 M90,70 L90,130 M60,70 Q75,50 90,70 M60,130 Q75,150 90,130" stroke="url(#logoGradient)" stroke-width="10" fill="none" stroke-linecap="round" />
-        <path d="M110,70 L140,70 Q160,70 160,90 Q160,110 140,110 L110,110 L110,130" stroke="url(#logoGradient)" stroke-width="10" fill="none" stroke-linecap="round" />
-      </svg>
+  <!-- Conteneur pour l'application React -->
+  <div id="root">
+    <!-- Écran de chargement -->
+    <div class="loading-container" id="loading-screen">
+      <div class="logo">
+        <svg width="150" height="150" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#3b82f6" />
+              <stop offset="100%" stop-color="#d946ef" />
+            </linearGradient>
+          </defs>
+          <circle cx="100" cy="100" r="90" fill="none" stroke="url(#logoGradient)" stroke-width="10" />
+          <path d="M60,70 L60,130 M90,70 L90,130 M60,70 Q75,50 90,70 M60,130 Q75,150 90,130" stroke="url(#logoGradient)" stroke-width="10" fill="none" stroke-linecap="round" />
+          <path d="M110,70 L140,70 Q160,70 160,90 Q160,110 140,110 L110,110 L110,130" stroke="url(#logoGradient)" stroke-width="10" fill="none" stroke-linecap="round" />
+        </svg>
+      </div>
+      <div class="loading-text">Chargement de FloDrama...</div>
+      <div class="spinner"></div>
     </div>
-    <div class="loading-text">Chargement de FloDrama...</div>
-    <div class="spinner"></div>
   </div>
 
   <!-- Scripts -->
@@ -161,13 +164,6 @@
         script.src = '/public/js/bundle.js';
         script.onload = () => {
           console.log('Bundle chargé avec succès');
-          // Masquer l'écran de chargement après le chargement du bundle
-          setTimeout(() => {
-            const loadingScreen = document.getElementById('loading-screen');
-            if (loadingScreen) {
-              loadingScreen.style.display = 'none';
-            }
-          }, 500);
         };
         script.onerror = () => {
           console.error('Erreur lors du chargement du bundle');
