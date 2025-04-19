@@ -1,948 +1,183 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="FloDrama - Votre plateforme de streaming dédiée aux dramas et films asiatiques" />
-    <meta name="theme-color" content="#FF4B4B" />
-    <title>FloDrama</title>
-    <style>
-      /* Styles de préchargement pour éviter le FOUC */
-      body {
-        background-color: #1A1A1A;
-        color: #FFFFFF;
-        font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-      
-      .preloader {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #1A1A1A;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-      }
-      
-      .preloader-logo {
-        width: 120px;
-        height: 120px;
-        animation: pulse 2s infinite ease-in-out;
-      }
-      
-      @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="root">
-      <div class="preloader">
-        <img src="/assets/logo.svg" alt="FloDrama Logo" class="preloader-logo" />
-      </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FloDrama - Plateforme de streaming asiatique</title>
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <!-- Intégration du système de gestion d'images -->
+  <script src="/js/flodrama-image-system.js"></script>
+  
+  <!-- Styles pour le chargement initial -->
+  <style>
+    :root {
+      --primary-color: #3b82f6;
+      --secondary-color: #d946ef;
+      --background-color: #121118;
+      --background-secondary: #1A1926;
+      --text-color: #FFFFFF;
+      --text-secondary: #E2E8F0;
+      --gradient: linear-gradient(to right, #3b82f6, #d946ef);
+    }
+    
+    body {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    
+    #root {
+      min-height: 100vh;
+    }
+    
+    .loading-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: var(--background-color);
+    }
+    
+    .loading-logo {
+      width: 200px;
+      margin-bottom: 2rem;
+    }
+    
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      border-top-color: var(--primary-color);
+      border-bottom-color: var(--secondary-color);
+      animation: spin 1s ease-in-out infinite;
+      margin-bottom: 1.5rem;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .loading-text {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .fallback-svg {
+      border-radius: 8px;
+    }
+    
+    .loading-placeholder {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .loading-placeholder::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--background-secondary) 25%, var(--background-color) 50%, var(--background-secondary) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 8px;
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Conteneur principal pour l'application React -->
+  <div id="root">
+    <!-- Écran de chargement initial -->
+    <div class="loading-container">
+      <img src="/assets/logo.svg" alt="FloDrama" class="loading-logo" 
+           onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMjAwIDYwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjAlIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjM2I4MmY2IiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2Q5NDZlZiIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjMUExOTI2IiAvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iU0YgUHJvIERpc3BsYXksIEFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0idXJsKCNncmFkaWVudCkiPkZsb0RyYW1hPC90ZXh0Pjwvc3ZnPg=='">
+      <div class="loading-spinner"></div>
+      <p class="loading-text">Chargement de FloDrama...</p>
     </div>
-    
-    <!-- Interface statique pour remplacer temporairement l'interface React -->
-    <style>
-      :root {
-        --blue-signature: #3b82f6;
-        --fuchsia-accent: #d946ef;
-        --background-dark: #121118;
-        --background-secondary: #1A1926;
-        --text-light: #f8fafc;
-        --text-secondary: #94a3b8;
-        --gradient-signature: linear-gradient(to right, #3b82f6, #d946ef);
-      }
-      
-      body {
-        background-color: var(--background-dark);
-        color: var(--text-light);
-        font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-      
-      .app-container {
-        max-width: 1280px;
-        margin: 0 auto;
-        padding: 1rem;
-      }
-      
-      .app-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      }
-      
-      .app-logo {
-        height: 40px;
-      }
-      
-      .app-nav {
-        display: flex;
-        gap: 1.5rem;
-      }
-      
-      .app-nav a {
-        color: var(--text-light);
-        text-decoration: none;
-        font-weight: 500;
-      }
-      
-      .app-nav a:hover {
-        color: var(--fuchsia-accent);
-      }
-      
-      .auth-buttons {
-        display: flex;
-        gap: 1rem;
-      }
-      
-      .btn {
-        padding: 0.5rem 1rem;
-        border-radius: 0.375rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-      
-      .btn-primary {
-        background: var(--gradient-signature);
-        color: white;
-        border: none;
-      }
-      
-      .btn-secondary {
-        background: transparent;
-        color: var(--text-light);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-      }
-      
-      .hero-section {
-        padding: 3rem 0;
-        text-align: center;
-      }
-      
-      .hero-title {
-        font-size: 2.5rem;
-        background: var(--gradient-signature);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 1rem;
-      }
-      
-      .hero-subtitle {
-        font-size: 1.25rem;
-        color: var(--text-secondary);
-        max-width: 600px;
-        margin: 0 auto 2rem;
-      }
-      
-      .content-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 1.5rem;
-        margin-top: 2rem;
-      }
-      
-      .content-card {
-        background: var(--background-secondary);
-        border-radius: 0.5rem;
-        overflow: hidden;
-        transition: transform 0.3s ease;
-      }
-      
-      .content-card:hover {
-        transform: translateY(-5px);
-      }
-      
-      .content-image {
-        width: 100%;
-        aspect-ratio: 2/3;
-        object-fit: cover;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: bold;
-        font-size: 1.2rem;
-        text-align: center;
-        padding: 1rem;
-      }
-      
-      /* Styles pour les fallbacks d'images */
-      .fallback-image.poster-fallback {
-        background: linear-gradient(135deg, #3b82f6, #d946ef);
-        min-height: 300px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: bold;
-        text-align: center;
-      }
-      
-      .content-info {
-        padding: 1rem;
-      }
-      
-      .content-title {
-        font-size: 1rem;
-        font-weight: 600;
-        margin: 0 0 0.5rem;
-      }
-      
-      .content-meta {
-        font-size: 0.875rem;
-        color: var(--text-secondary);
-        display: flex;
-        justify-content: space-between;
-      }
-      
-      .section-title {
-        font-size: 1.5rem;
-        margin: 2rem 0 1rem;
-        position: relative;
-        display: inline-block;
-      }
-      
-      .section-title::after {
-        content: '';
-        position: absolute;
-        bottom: -5px;
-        left: 0;
-        width: 100%;
-        height: 3px;
-        background: var(--gradient-signature);
-        border-radius: 3px;
-      }
-      
-      .user-avatar {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background: var(--gradient-signature);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: 600;
-      }
-      
-      .preloader {
-        display: none;
-      }
-    </style>
-    
-    <script>
-    // Système de gestion des images avec fallbacks multiples - Version optimisée
-    const processedUrls = new Set(); // Pour éviter les boucles infinies
-    
-    function generateImageSources(contentId, type) {
-      const sources = [];
-      
-      // Utiliser d'abord les assets locaux (GitHub Pages)
-      sources.push(`/assets/media/${type}s/${contentId}.jpg`);
-      
-      // Puis CloudFront AWS
-      if (cdnStatus.cloudfront) {
-        sources.push(`https://d11nnqvjfooahr.cloudfront.net/${type}s/${contentId}.jpg`);
-      }
-      
-      return sources;
-    }
-    
-    function handleImageError(event) {
-      const img = event.target;
-      const contentId = img.dataset.contentId;
-      const type = img.dataset.type || 'poster';
-      const currentUrl = img.src;
-      
-      // Éviter les boucles infinies
-      if (processedUrls.has(currentUrl)) {
-        // Si on a déjà traité cette URL, passer directement au SVG intégré
-        applyFallbackSvg(img, contentId, type);
-        return;
-      }
-      
-      processedUrls.add(currentUrl);
-      
-      // Essayer les sources alternatives
-      const sources = generateImageSources(contentId, type);
-      const currentSrc = img.src;
-      
-      // Trouver la source suivante
-      let nextSourceIndex = -1;
-      for (let i = 0; i < sources.length; i++) {
-        if (currentSrc.includes(sources[i])) {
-          nextSourceIndex = i + 1;
-          break;
-        }
-      }
-      
-      // S'il y a une source suivante, l'essayer
-      if (nextSourceIndex >= 0 && nextSourceIndex < sources.length) {
-        console.log(`Image fallback: ${currentSrc} -> ${sources[nextSourceIndex]}`);
-        img.src = sources[nextSourceIndex];
-      } else {
-        // Sinon, utiliser le SVG fallback
-        applyFallbackSvg(img, contentId, type);
-      }
-    }
-    
-    function applyFallbackSvg(img, contentId, type) {
-      // Utiliser un SVG intégré comme solution de dernier recours
-      const title = img.alt || contentId || 'FloDrama';
-      
-      // Générer un dégradé spécifique au contenu basé sur son ID
-      // Vérifier si contentId est défini avant d'appeler replace
-      const contentIdStr = contentId ? contentId.toString() : 'default';
-      const colorIndex = contentIdStr.replace ? 
-        parseInt(contentIdStr.replace(/\D/g, '') || '0') % 8 : 
-        0;
-      
-      const colors = [
-        ['#3b82f6', '#1e40af'], // Bleu foncé
-        ['#d946ef', '#9333ea'], // Fuchsia
-        ['#3b82f6', '#6366f1'], // Bleu-indigo
-        ['#d946ef', '#ec4899'], // Fuchsia-rose
-        ['#3b82f6', '#0ea5e9'], // Bleu-ciel
-        ['#d946ef', '#c026d3'], // Fuchsia-violet
-        ['#3b82f6', '#2563eb'], // Bleu royal
-        ['#d946ef', '#be185d']  // Fuchsia-rose foncé
-      ];
-      
-      const [color1, color2] = colors[colorIndex];
-      
-      // Créer un SVG intégré avec le dégradé et le titre
-      const svgContent = `
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 450" width="100%" height="100%">
-          <defs>
-            <linearGradient id="grad${contentId}" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="${color1}" />
-              <stop offset="100%" stop-color="${color2}" />
-            </linearGradient>
-          </defs>
-          <rect width="300" height="450" fill="url(#grad${contentId})" />
-          <text x="150" y="225" fill="white" text-anchor="middle" dominant-baseline="middle" 
-                font-family="sans-serif" font-weight="bold" font-size="24">${title}</text>
-        </svg>
-      `;
-      
-      // Convertir le SVG en Data URL
-      const svgDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgContent)}`;
-      
-      // Appliquer le SVG comme source de l'image
-      img.src = svgDataUrl;
-      
-      // Ajouter une classe pour le style
-      img.classList.add('fallback-image');
-      img.classList.add(`${type}-fallback`);
-      
-      console.warn(`Utilisation du SVG fallback pour ${contentId}`);
-    }
-    
-    // État des CDNs
-    const cdnStatus = {
-      cloudfront: false,
-      github: true // GitHub Pages est toujours considéré comme disponible car c'est local
-    };
-    
-    // Vérifier l'état des CDNs
-    async function checkCdnStatus(baseUrl) {
-      try {
-        const response = await fetch(`${baseUrl}/status.json?_t=${Date.now()}`, {
-          method: 'HEAD',
-          cache: 'no-store',
-          timeout: 3000
-        });
-        return response.ok;
-      } catch (error) {
-        console.warn(`[FloDrama Images] CDN inaccessible: ${baseUrl}`);
-        return false;
-      }
-    }
-    
-    // Vérifier tous les CDNs
-    async function checkAllCdnStatus() {
-      try {
-        // Vérifier CloudFront
-        cdnStatus.cloudfront = await checkCdnStatus('https://d11nnqvjfooahr.cloudfront.net');
-        
-        console.log(`État des CDNs - CloudFront: ${cdnStatus.cloudfront ? 'OK' : 'KO'}, GitHub: ${cdnStatus.github ? 'OK' : 'KO'}`);
-      } catch (error) {
-        console.error('Erreur lors de la vérification des CDNs', error);
-      }
-    }
-    
-    // Initialiser le système de gestion d'images au chargement
+  </div>
+
+  <!-- Scripts React -->
+  <script src="/Frontend/dist/bundle.js"></script>
+  
+  <!-- Script d'initialisation -->
+  <script>
+    // Initialisation du système de gestion d'images FloDrama
     document.addEventListener('DOMContentLoaded', function() {
-      console.log("Système de gestion d'images avec fallbacks multiples initialisé");
-      
-      // Ajouter un gestionnaire global pour les erreurs d'images
-      document.querySelectorAll('img[data-content-id]').forEach(img => {
-        img.addEventListener('error', handleImageError);
-      });
+      console.log('Initialisation du système de gestion d\'images FloDrama');
       
       // Vérifier l'état des CDNs
-      checkAllCdnStatus().then(() => {
-        console.log("Initialisation du système de gestion d'images FloDrama");
-      });
-    });
-    </script>
-    
-    <!-- Intégration du nouveau système de gestion d'images -->
-    <script src="/js/flodrama-image-system.js"></script>
-    <script>
-      // Initialiser le système d'images avancé au chargement complet de la page
-      window.addEventListener('load', function() {
-        // Vérifier si le système d'images avancé est disponible
-        if (window.FloDramaImages) {
-          console.info('Initialisation du système de gestion d\'images FloDrama');
-          
-          // Améliorer les images existantes avec des attributs data-*
-          window.FloDramaImages.enhanceExistingImages();
-          
-          // Précharger les images prioritaires (visibles dans la viewport)
-          window.FloDramaImages.preloadPriorityImages();
-        } else {
-          console.warn('Le système de gestion d\'images FloDrama n\'est pas disponible');
-        }
-      });
-    </script>
-    
-    <div class="app-container">
-      <header class="app-header">
-        <img src="/assets/logo.svg" alt="FloDrama Logo" class="app-logo">
-        <nav class="app-nav">
-          <a href="#">Accueil</a>
-          <a href="#">Dramas</a>
-          <a href="#">Films</a>
-          <a href="#">Nouveautés</a>
-          <a href="#">Top 10</a>
-        </nav>
-        <div class="auth-buttons guest-only">
-          <button class="btn btn-secondary" onclick="authUI.showLoginModal()">Connexion</button>
-          <button class="btn btn-primary" onclick="authUI.showRegisterModal()">Inscription</button>
-        </div>
-        <div class="user-avatar user-only" style="display: none;">FD</div>
-      </header>
-      
-      <section class="hero-section">
-        <h1 class="hero-title">Bienvenue sur FloDrama</h1>
-        <p class="hero-subtitle">Découvrez les meilleurs dramas et films asiatiques en streaming, avec des recommandations personnalisées selon vos goûts et habitudes.</p>
-        <button class="btn btn-primary">Explorer le catalogue</button>
-      </section>
-      
-      <h2 class="section-title">Tendances</h2>
-      <div class="content-grid">
-        <!-- Contenu généré dynamiquement avec système de fallback robuste -->
-        <div class="content-card">
-          <img 
-            src="/assets/media/posters/drama001.jpg" 
-            data-content-id="drama001" 
-            data-type="poster" 
-            alt="Crash Landing on You" 
-            class="content-image"
-            onerror="handleImageError(event)"
-          >
-          <div class="content-info">
-            <h3 class="content-title">Crash Landing on You</h3>
-            <div class="content-meta">
-              <span>2020</span>
-              <span>⭐ 9.2</span>
-            </div>
-          </div>
-        </div>
-        <div class="content-card">
-          <img 
-            src="/assets/media/posters/drama002.jpg" 
-            data-content-id="drama002" 
-            data-type="poster" 
-            alt="Itaewon Class" 
-            class="content-image"
-            onerror="handleImageError(event)"
-          >
-          <div class="content-info">
-            <h3 class="content-title">Itaewon Class</h3>
-            <div class="content-meta">
-              <span>2020</span>
-              <span>⭐ 8.7</span>
-            </div>
-          </div>
-        </div>
-        <div class="content-card">
-          <img 
-            src="/assets/media/posters/drama003.jpg" 
-            data-content-id="drama003" 
-            data-type="poster" 
-            alt="Goblin" 
-            class="content-image"
-            onerror="handleImageError(event)"
-          >
-          <div class="content-info">
-            <h3 class="content-title">Goblin</h3>
-            <div class="content-meta">
-              <span>2016</span>
-              <span>⭐ 9.5</span>
-            </div>
-          </div>
-        </div>
-        <div class="content-card">
-          <img 
-            src="/assets/media/posters/drama004.jpg" 
-            data-content-id="drama004" 
-            data-type="poster" 
-            alt="Vincenzo" 
-            class="content-image"
-            onerror="handleImageError(event)"
-          >
-          <div class="content-info">
-            <h3 class="content-title">Vincenzo</h3>
-            <div class="content-meta">
-              <span>2021</span>
-              <span>⭐ 9.0</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <h2 class="section-title">Recommandé pour vous</h2>
-      <div class="content-grid">
-        <div class="content-card">
-          <img 
-            src="/assets/media/posters/drama005.jpg" 
-            data-content-id="drama005" 
-            data-type="poster" 
-            alt="Reply 1988" 
-            class="content-image"
-            onerror="handleImageError(event)"
-          >
-          <div class="content-info">
-            <h3 class="content-title">Reply 1988</h3>
-            <div class="content-meta">
-              <span>2015</span>
-              <span>⭐ 9.7</span>
-            </div>
-          </div>
-        </div>
-        <div class="content-card">
-          <img 
-            src="/assets/media/posters/drama006.jpg" 
-            data-content-id="drama006" 
-            data-type="poster" 
-            alt="Hospital Playlist" 
-            class="content-image"
-            onerror="handleImageError(event)"
-          >
-          <div class="content-info">
-            <h3 class="content-title">Hospital Playlist</h3>
-            <div class="content-meta">
-              <span>2020</span>
-              <span>⭐ 9.1</span>
-            </div>
-          </div>
-        </div>
-        <div class="content-card">
-          <img 
-            src="/assets/media/posters/drama007.jpg" 
-            data-content-id="drama007" 
-            data-type="poster" 
-            alt="My Mister" 
-            class="content-image"
-            onerror="handleImageError(event)"
-          >
-          <div class="content-info">
-            <h3 class="content-title">My Mister</h3>
-            <div class="content-meta">
-              <span>2018</span>
-              <span>⭐ 9.8</span>
-            </div>
-          </div>
-        </div>
-        <div class="content-card">
-          <img 
-            src="/assets/media/posters/drama008.jpg" 
-            data-content-id="drama008" 
-            data-type="poster" 
-            alt="Signal" 
-            class="content-image"
-            onerror="handleImageError(event)"
-          >
-          <div class="content-info">
-            <h3 class="content-title">Signal</h3>
-            <div class="content-meta">
-              <span>2016</span>
-              <span>⭐ 9.3</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- JS principal intégré inline pour éviter les erreurs MIME sur GitHub Pages -->
-    <script>
-    // === js/auth-storage.js ===
-    class AuthStorage {
-      constructor() {
-        this.storageKey = 'flodrama_user';
-        this.favoritesKey = 'flodrama_favorites';
-        this.preferencesKey = 'flodrama_preferences';
-      }
-      saveUser(userData) {
-        const userToSave = { ...userData };
-        if (userToSave.password) {
-          userToSave.hashedPassword = this.simpleHash(userToSave.password);
-          delete userToSave.password;
-        }
-        localStorage.setItem(this.storageKey, JSON.stringify(userToSave));
-        return userToSave;
-      }
-      getUser() {
-        const userData = localStorage.getItem(this.storageKey);
-        return userData ? JSON.parse(userData) : null;
-      }
-      removeUser() {
-        localStorage.removeItem(this.storageKey);
-      }
-      saveFavorites(favorites) {
-        localStorage.setItem(this.favoritesKey, JSON.stringify(favorites));
-      }
-      getFavorites() {
-        const favorites = localStorage.getItem(this.favoritesKey);
-        return favorites ? JSON.parse(favorites) : [];
-      }
-      addFavorite(contentId) {
-        const favorites = this.getFavorites();
-        if (!favorites.includes(contentId)) {
-          favorites.push(contentId);
-          this.saveFavorites(favorites);
-        }
-        return favorites;
-      }
-      removeFavorite(contentId) {
-        let favorites = this.getFavorites();
-        favorites = favorites.filter(id => id !== contentId);
-        this.saveFavorites(favorites);
-        return favorites;
-      }
-      savePreferences(preferences) {
-        localStorage.setItem(this.preferencesKey, JSON.stringify(preferences));
-      }
-      getPreferences() {
-        const preferences = localStorage.getItem(this.preferencesKey);
-        return preferences ? JSON.parse(preferences) : {};
-      }
-      simpleHash(str) {
-        let hash = 0, i, chr;
-        if (str.length === 0) return hash;
-        for (i = 0; i < str.length; i++) {
-          chr = str.charCodeAt(i);
-          hash = ((hash << 5) - hash) + chr;
-          hash |= 0;
-        }
-        return hash.toString();
-      }
-    }
-    const authStorage = new AuthStorage();
-    // === js/auth.js ===
-    class Auth {
-      constructor() {
-        this.currentUser = null;
-        this.listeners = [];
-        this.init();
-      }
-      init() {
-        this.currentUser = authStorage.getUser();
-        if (this.currentUser) {
-          this.notifyListeners();
-        }
-      }
-      register(userData) {
-        return new Promise((resolve, reject) => {
-          const existingUsers = this.getRegisteredUsers();
-          const userExists = existingUsers.some(user => user.email === userData.email);
-          if (userExists) {
-            return reject(new Error('Cet email est déjà utilisé.'));
-          }
-          if (!this.validateUserData(userData)) {
-            return reject(new Error('Données utilisateur invalides.'));
-          }
-          userData.id = Date.now().toString();
-          userData.createdAt = new Date().toISOString();
-          existingUsers.push(userData);
-          localStorage.setItem('flodrama_registered_users', JSON.stringify(existingUsers));
-          this.login(userData.email, userData.password)
-            .then(user => resolve(user))
-            .catch(error => reject(error));
-        });
-      }
-      login(email, password) {
-        return new Promise((resolve, reject) => {
-          const existingUsers = this.getRegisteredUsers();
-          const user = existingUsers.find(user => user.email === email);
-          if (!user) {
-            return reject(new Error('Utilisateur non trouvé.'));
-          }
-          const hashedPassword = authStorage.simpleHash(password);
-          if (user.hashedPassword && user.hashedPassword !== hashedPassword) {
-            return reject(new Error('Mot de passe incorrect.'));
-          }
-          user.lastLogin = new Date().toISOString();
-          this.currentUser = authStorage.saveUser(user);
-          this.notifyListeners();
-          resolve(this.currentUser);
-        });
-      }
-      logout() {
-        authStorage.removeUser();
-        this.currentUser = null;
-        this.notifyListeners();
-      }
-      getCurrentUser() {
-        return this.currentUser;
-      }
-      isLoggedIn() {
-        return !!this.currentUser;
-      }
-      addAuthStateListener(listener) {
-        this.listeners.push(listener);
-      }
-      notifyListeners() {
-        this.listeners.forEach(listener => listener(this.currentUser));
-      }
-      getRegisteredUsers() {
-        const users = localStorage.getItem('flodrama_registered_users');
-        return users ? JSON.parse(users) : [];
-      }
-      validateUserData(userData) {
-        return userData.email && userData.password && userData.name;
-      }
-      isFavorite(contentId) {
-        return authStorage.getFavorites().includes(contentId);
-      }
-      addToFavorites(contentId) {
-        authStorage.addFavorite(contentId);
-      }
-      removeFromFavorites(contentId) {
-        authStorage.removeFavorite(contentId);
-      }
-    }
-    const auth = new Auth();
-    // === js/auth-ui.js ===
-    class AuthUI {
-      constructor() {
-        this.loginModal = null;
-        this.registerModal = null;
-        this.profileModal = null;
-        this.overlay = null;
-        this.init();
-      }
-      init() {
-        this.createModals();
-        this.addStyles();
-        this.addEventListeners();
-        auth.addAuthStateListener(this.handleAuthStateChange ? this.handleAuthStateChange.bind(this) : () => {});
-        this.updateUI(auth.getCurrentUser());
-      }
-      createModals() {
-        if (document.getElementById('loginModal')) return;
-        this.overlay = document.createElement('div');
-        this.overlay.id = 'authOverlay';
-        this.overlay.className = 'auth-overlay';
-        document.body.appendChild(this.overlay);
-        this.loginModal = document.createElement('div');
-        this.loginModal.id = 'loginModal';
-        this.loginModal.className = 'auth-modal';
-        this.loginModal.innerHTML = `<div class=\"auth-modal-content\"><div class=\"auth-modal-header\"><h2>Connexion</h2><button class=\"auth-modal-close\" data-action=\"close-modal\">&times;</button></div><div class=\"auth-modal-body\"><form id=\"loginForm\"><div class=\"auth-form-group\"><label for=\"loginEmail\">Email</label><input type=\"email\" id=\"loginEmail\" name=\"email\" required placeholder=\"votre@email.com\" autocomplete=\"email\"></div><div class=\"auth-form-group\"><label for=\"loginPassword\">Mot de passe</label><input type=\"password\" id=\"loginPassword\" name=\"password\" required placeholder=\"Votre mot de passe\" autocomplete=\"current-password\"></div><div class=\"auth-form-error\" id=\"loginError\"></div><div class=\"auth-form-actions\"><button type=\"submit\" class=\"auth-button auth-button-primary\">Se connecter</button></div></form><div class=\"auth-form-footer\"><p>Pas encore de compte ? <a href=\"#\" data-action=\"show-register\">S'inscrire</a></p></div></div></div>`;
-        document.body.appendChild(this.loginModal);
-        this.registerModal = document.createElement('div');
-        this.registerModal.id = 'registerModal';
-        this.registerModal.className = 'auth-modal';
-        this.registerModal.innerHTML = `<div class=\"auth-modal-content\"><div class=\"auth-modal-header\"><h2>Inscription</h2><button class=\"auth-modal-close\" data-action=\"close-modal\">&times;</button></div><div class=\"auth-modal-body\"><form id=\"registerForm\"><div class=\"auth-form-group\"><label for=\"registerName\">Nom</label><input type=\"text\" id=\"registerName\" name=\"name\" required placeholder=\"Votre nom\"></div><div class=\"auth-form-group\"><label for=\"registerEmail\">Email</label><input type=\"email\" id=\"registerEmail\" name=\"email\" required placeholder=\"votre@email.com\" autocomplete=\"email\"></div><div class=\"auth-form-group\"><label for=\"registerPassword\">Mot de passe</label><input type=\"password\" id=\"registerPassword\" name=\"password\" required placeholder=\"Votre mot de passe\" autocomplete=\"new-password\"></div><div class=\"auth-form-error\" id=\"registerError\"></div><div class=\"auth-form-actions\"><button type=\"submit\" class=\"auth-button auth-button-primary\">S'inscrire</button></div></form><div class=\"auth-form-footer\"><p>Déjà inscrit ? <a href=\"#\" data-action=\"show-login\">Se connecter</a></p></div></div></div>`;
-        document.body.appendChild(this.registerModal);
-      }
-      addStyles() {
-        const style = document.createElement('style');
-        style.textContent = `.auth-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);z-index:9998;display:none}.auth-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;color:#222;z-index:9999;min-width:320px;max-width:400px;border-radius:8px;box-shadow:0 2px 24px rgba(0,0,0,0.2);display:none}.auth-modal-content{padding:24px}.auth-modal-header{display:flex;justify-content:space-between;align-items:center}.auth-modal-close{background:none;border:none;font-size:1.5rem;cursor:pointer}.auth-form-group{margin-bottom:16px}.auth-form-group label{display:block;margin-bottom:4px}.auth-form-group input{width:100%;padding:8px;border-radius:4px;border:1px solid #ccc}.auth-form-actions{text-align:right}.auth-button{padding:8px 16px;border:none;border-radius:4px;cursor:pointer}.auth-button-primary{background:#3b82f6;color:#fff}.auth-form-footer{text-align:center;margin-top:16px}.auth-form-error{color:#d946ef;margin-bottom:8px}`;
-        document.head.appendChild(style);
-      }
-      addEventListeners() {
-        document.body.addEventListener('click', (e) => {
-          if (e.target.matches('[data-action="close-modal"]') || e.target === this.overlay) {
-            this.hideModals();
-          }
-          if (e.target.matches('[data-action="show-register"]')) {
-            e.preventDefault();
-            this.showRegisterModal();
-          }
-          if (e.target.matches('[data-action="show-login"]')) {
-            e.preventDefault();
-            this.showLoginModal();
-          }
-        });
-        document.body.addEventListener('submit', (e) => {
-          if (e.target.id === 'loginForm') {
-            e.preventDefault();
-            this.handleLoginSubmit && this.handleLoginSubmit(e);
-          }
-          if (e.target.id === 'registerForm') {
-            e.preventDefault();
-            this.handleRegisterSubmit && this.handleRegisterSubmit(e);
-          }
-          if (e.target.id === 'preferencesForm') {
-            e.preventDefault();
-            this.handlePreferencesSubmit && this.handlePreferencesSubmit(e);
-          }
-        });
-      }
-      updateUI(user) {
-        // À compléter selon l'état utilisateur
-      }
-      showLoginModal() {
-        this.overlay.style.display = 'block';
-        this.loginModal.style.display = 'block';
-        this.registerModal.style.display = 'none';
-        this.profileModal && (this.profileModal.style.display = 'none');
-      }
-      showRegisterModal() {
-        this.overlay.style.display = 'block';
-        this.loginModal.style.display = 'none';
-        this.registerModal.style.display = 'block';
-        this.profileModal && (this.profileModal.style.display = 'none');
-      }
-      hideModals() {
-        this.overlay.style.display = 'none';
-        this.loginModal.style.display = 'none';
-        this.registerModal.style.display = 'none';
-        this.profileModal && (this.profileModal.style.display = 'none');
-      }
-    }
-    const authUI = new AuthUI();
-    // === js/main.js ===
-    class FloDramaApp {
-      constructor() {
-        this.init();
-      }
-      init() {
-        this.initUI();
-        this.setupAuthListeners();
-        this.initFavorites();
-        console.log('FloDrama App initialisée');
-      }
-      initUI() {
-        this.updateUserAvatars();
-        this.setupAuthButtons();
-        this.setupFavoriteButtons();
-      }
-      updateUserAvatars() {
-        const user = auth.getCurrentUser();
-        const userAvatars = document.querySelectorAll('.user-avatar');
-        userAvatars.forEach(avatar => {
-          if (user) {
-            const initials = user.name.split(' ').map(name => name.charAt(0)).join('').toUpperCase();
-            avatar.textContent = initials;
-          } else {
-            avatar.textContent = 'FD';
-          }
-        });
-      }
-      setupAuthButtons() {}
-      setupAuthListeners() {
-        auth.addAuthStateListener(user => {
-          this.updateUI(user);
-        });
-      }
-      updateUI(user) {
-        this.updateUserAvatars();
-        this.updateFavoriteButtons();
-        const userOnlyElements = document.querySelectorAll('.user-only');
-        userOnlyElements.forEach(element => {
-          element.style.display = user ? 'block' : 'none';
-        });
-        const guestOnlyElements = document.querySelectorAll('.guest-only');
-        guestOnlyElements.forEach(element => {
-          element.style.display = user ? 'none' : 'block';
-        });
-      }
-      initFavorites() {
-        this.updateFavoriteButtons();
-      }
-      setupFavoriteButtons() {
-        const favoriteButtons = document.querySelectorAll('[data-favorite]');
-        favoriteButtons.forEach(button => {
-          button.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (!auth.isLoggedIn()) {
-              authUI.showLoginModal();
-              return;
-            }
-            const contentId = parseInt(button.dataset.favorite);
-            const isFavorite = auth.isFavorite(contentId);
-            if (isFavorite) {
-              auth.removeFromFavorites(contentId);
-              button.classList.remove('is-favorite');
-              button.setAttribute('title', 'Ajouter aux favoris');
-            } else {
-              auth.addToFavorites(contentId);
-              button.classList.add('is-favorite');
-              button.setAttribute('title', 'Retirer des favoris');
-            }
+      const checkCdnStatus = async (name, baseUrl) => {
+        try {
+          const timestamp = Date.now();
+          const response = await fetch(`${baseUrl}/status.json?_t=${timestamp}`, {
+            method: 'HEAD',
+            cache: 'no-store'
           });
-        });
-      }
-      updateFavoriteButtons() {
-        const favoriteButtons = document.querySelectorAll('[data-favorite]');
-        favoriteButtons.forEach(button => {
-          const contentId = parseInt(button.dataset.favorite);
-          const isFavorite = auth.isFavorite(contentId);
-          if (isFavorite) {
-            button.classList.add('is-favorite');
-            button.setAttribute('title', 'Retirer des favoris');
-          } else {
-            button.classList.remove('is-favorite');
-            button.setAttribute('title', 'Ajouter aux favoris');
-          }
-        });
-      }
-    }
-    document.addEventListener('DOMContentLoaded', () => {
-      if (typeof window.flodramaApp === 'undefined') {
-        window.flodramaApp = new FloDramaApp();
-      }
-    });
-    </script>
-    <!-- Fin JS principal inline -->
-    <script>
-      // Script pour forcer le rafraîchissement du cache
-      (function() {
-        // Générer un timestamp unique
-        const timestamp = new Date().getTime();
-        // Ajouter le timestamp comme paramètre à toutes les requêtes
-        const originalFetch = window.fetch;
-        window.fetch = function(url, options) {
-          if (typeof url === 'string') {
-            url = url + (url.includes('?') ? '&' : '?') + '_t=' + timestamp;
-          }
-          return originalFetch(url, options);
-        };
-        // Forcer le rechargement de la page si elle a été mise en cache
-        if (window.performance && window.performance.navigation.type === 2) {
-          window.location.reload(true);
+          
+          const isAvailable = response.ok;
+          console.log(`CDN ${name} est ${isAvailable ? 'disponible' : 'indisponible'}`);
+          return isAvailable;
+        } catch (error) {
+          console.warn(`CDN ${name} est indisponible:`, error);
+          return false;
         }
-        console.log('Cache refresh script initialized with timestamp: ' + timestamp);
-      })();
-    </script>
-  </body>
+      };
+      
+      // Vérifier l'état de tous les CDNs
+      const checkAllCdnStatus = async () => {
+        const cdnStatus = {
+          github: await checkCdnStatus('GitHub', 'https://flodrama.com'),
+          cloudfront: await checkCdnStatus('CloudFront', 'https://d11nnqvjfooahr.cloudfront.net')
+        };
+        
+        console.log(`État des CDNs - CloudFront: ${cdnStatus.cloudfront ? 'OK' : 'KO'}, GitHub: ${cdnStatus.github ? 'OK' : 'KO'}`);
+        return cdnStatus;
+      };
+      
+      // Initialiser le système d'images
+      checkAllCdnStatus();
+    });
+    
+    // Script de rafraîchissement du cache
+    (function() {
+      const timestamp = Date.now();
+      console.log('Cache refresh script initialized with timestamp:', timestamp);
+      
+      // Forcer le rafraîchissement du cache après 30 minutes d'inactivité
+      let inactivityTimer;
+      
+      const resetTimer = () => {
+        clearTimeout(inactivityTimer);
+        inactivityTimer = setTimeout(() => {
+          console.log('Rafraîchissement de la page après inactivité');
+          window.location.reload();
+        }, 30 * 60 * 1000); // 30 minutes
+      };
+      
+      // Événements d'activité utilisateur
+      ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(event => {
+        document.addEventListener(event, resetTimer, true);
+      });
+      
+      // Initialiser le timer
+      resetTimer();
+    })();
+  </script>
+</body>
 </html>
