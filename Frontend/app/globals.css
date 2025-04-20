@@ -3,14 +3,24 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #181824;
+  --foreground: #ededed;
+  --flo-violet: #9D4EDD;
+  --flo-fuchsia: #F72585;
+  --flo-blue: #5F5FFF;
+  --flo-gray: #C7C7D9;
+  --flo-white: #FFFFFF;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #181824;
     --foreground: #ededed;
+    --flo-violet: #9D4EDD;
+    --flo-fuchsia: #F72585;
+    --flo-blue: #5F5FFF;
+    --flo-gray: #C7C7D9;
+    --flo-white: #FFFFFF;
   }
 }
 
@@ -43,4 +53,12 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+/* Ajout d'une classe utilitaire pour le dégradé bleu-fuchsia sur le texte */
+.flo-hover-gradient {
+  background: linear-gradient(90deg, #5F5FFF 0%, #F72585 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background 0.3s;
 }

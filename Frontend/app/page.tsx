@@ -3,10 +3,18 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./page.module.css";
+import dynamic from 'next/dynamic';
+
+// Import dynamique avec No SSR pour éviter les erreurs document is not defined
+const MainNavigation = dynamic(
+  () => import('../src/components/ui/MainNavigation').then(mod => mod.MainNavigation || mod.default),
+  { ssr: false }
+);
+
+// Imports normaux pour les autres composants
 import { ContentRow } from "../src/components/ui/ContentRow";
 import { ContentItem } from "../src/components/ui/ContentCard";
 import { Footer } from "../src/components/ui/Footer";
-import { MainNavigation } from "../src/components/ui/MainNavigation";
 import { HeroBanner } from "../src/components/ui/HeroBanner";
 
 export default function Home() {
@@ -102,7 +110,7 @@ export default function Home() {
       {/* Navigation principale moderne */}
       <MainNavigation />
 
-      {/* Bannière héro personnalisée */}
+      {/* Bannière héro personnalisée - décommentée pour tester progressivement */}
       <HeroBanner
         content={[
           {
@@ -115,7 +123,7 @@ export default function Home() {
       />
 
       <main className={styles.main}>
-        {/* Section Tendances avec carrousel moderne */}
+        {/* Commenté temporairement pour tester le build
         <section className={styles.contentSection}>
           <ContentRow
             title="Tendances"
@@ -124,7 +132,6 @@ export default function Home() {
           />
         </section>
 
-        {/* Section Ajouts Récents avec carrousel moderne */}
         <section className={styles.contentSection}>
           <ContentRow
             title="Ajouts Récents"
@@ -132,10 +139,12 @@ export default function Home() {
             className="mb-8"
           />
         </section>
+        */}
       </main>
 
-      {/* Footer moderne */}
+      {/* Footer moderne - commenté temporairement pour tester le build
       <Footer />
+      */}
     </div>
   );
 }

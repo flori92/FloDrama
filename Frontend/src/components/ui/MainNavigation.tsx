@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { HybridComponent } from "@/adapters/hybrid-component";
-import { cn } from "@/lib/utils";
+import { HybridComponent } from "../../adapters/hybrid-component";
+import { cn } from "../../lib/utils";
 
 interface NavItem {
   name: string;
@@ -33,11 +33,14 @@ export function MainNavigation({
 
   // Détecter le défilement pour changer l'apparence de la barre de navigation
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    // Vérifier si window est défini (côté client uniquement)
+    if (typeof window !== 'undefined') {
+      const handleScroll = () => {
+        setScrolled(window.scrollY > 10);
+      };
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
   }, []);
 
   // Éléments de navigation par défaut
@@ -98,7 +101,7 @@ export function MainNavigation({
                   <a
                     key={item.name}
                     href={item.href}
-                    className="text-gray-300 hover:text-white transition-colors"
+                    className="text-gray-300 hover:flo-hover-gradient hover:text-transparent font-medium transition-all duration-200 px-2 py-1 rounded focus:outline-none focus:ring-2 focus:ring-flo-fuchsia"
                   >
                     {item.name}
                   </a>
@@ -169,7 +172,7 @@ export function MainNavigation({
               <a
                 key={item.name}
                 href={item.href}
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:flo-hover-gradient hover:text-transparent transition-all duration-200"
               >
                 {item.name}
               </a>
@@ -180,3 +183,5 @@ export function MainNavigation({
     </HybridComponent>
   );
 }
+
+export default MainNavigation;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { HybridComponent } from "@/adapters/hybrid-component";
-import { cn } from "@/lib/utils";
+import { HybridComponent } from "../../adapters/hybrid-component";
+import { cn } from "../../lib/utils";
 
 interface HeroContent {
   title: string;
@@ -57,19 +57,19 @@ export function HeroBanner({
     },
   ];
 
-  const heroContent = content || defaultContent;
+  const heroContent = content && content.length > 0 ? content : defaultContent;
   const current = heroContent[currentIndex];
 
   // Rotation automatique du contenu
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || !heroContent || heroContent.length <= 1) return;
     
     const autoRotate = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % heroContent.length);
     }, interval);
     
     return () => clearInterval(autoRotate);
-  }, [heroContent.length, interval, isPaused]);
+  }, [heroContent, heroContent.length, interval, isPaused]);
 
   // Gestionnaires d'événements
   const handlePlay = () => {
@@ -142,23 +142,25 @@ export function HeroBanner({
                   <img
                     src={current.logo}
                     alt={current.title}
-                    className="h-24 mb-4 object-contain object-left"
+                    className="h-24 mb-4 object-contain object-left drop-shadow-lg"
                   />
                 ) : (
-                  <h1 className="text-5xl font-bold mb-2">{current.title}</h1>
+                  <h1 className="text-5xl font-extrabold mb-2 bg-gradient-to-r from-flo-blue via-flo-fuchsia to-flo-violet bg-clip-text text-transparent drop-shadow-lg">
+                    {current.title}
+                  </h1>
                 )}
 
                 {/* Sous-titre */}
                 {current.subtitle && (
                   <div className="mb-4">
-                    <span className="inline-block bg-primary px-3 py-1 text-sm font-medium rounded">
+                    <span className="inline-block bg-flo-fuchsia/90 text-white px-3 py-1 text-base font-semibold rounded shadow-md tracking-wide">
                       {current.subtitle}
                     </span>
                   </div>
                 )}
 
                 {/* Description */}
-                <p className="text-lg text-gray-300 mb-6 line-clamp-3">
+                <p className="text-lg text-flo-gray mb-6 line-clamp-3 drop-shadow-md">
                   {current.description}
                 </p>
 
@@ -166,17 +168,17 @@ export function HeroBanner({
                 <div className="flex flex-wrap gap-4">
                   <button
                     onClick={handlePlay}
-                    className="bg-white text-black hover:bg-white/90 px-6 py-2 rounded-md flex items-center gap-2 font-medium"
+                    className="bg-gradient-to-r from-flo-blue to-flo-fuchsia text-white hover:from-flo-fuchsia hover:to-flo-blue shadow-xl px-7 py-2 rounded-lg flex items-center gap-2 font-bold text-lg transition-all duration-200"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                       <polygon points="5 3 19 12 5 21 5 3"></polygon>
                     </svg>
-                    Lecture
+                    Regarder
                   </button>
                   
                   <button
                     onClick={handleMoreInfo}
-                    className="bg-gray-700/80 hover:bg-gray-600/80 px-6 py-2 rounded-md flex items-center gap-2 font-medium"
+                    className="bg-flo-violet/90 hover:bg-flo-fuchsia/90 text-white px-7 py-2 rounded-lg flex items-center gap-2 font-semibold shadow-md border-2 border-flo-fuchsia transition-all duration-200"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <circle cx="12" cy="12" r="10"></circle>
@@ -188,7 +190,7 @@ export function HeroBanner({
                   
                   <button
                     onClick={handleAddToList}
-                    className="bg-transparent hover:bg-gray-700/50 border border-gray-500 px-3 py-2 rounded-md flex items-center"
+                    className="bg-transparent hover:bg-flo-blue/30 border-2 border-flo-blue px-4 py-2 rounded-lg flex items-center shadow-md"
                     aria-label="Ajouter à ma liste"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -206,13 +208,13 @@ export function HeroBanner({
       {/* Indicateurs de position */}
       <div className="absolute bottom-8 left-0 right-0">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex gap-2">
-            {heroContent.map((_, index) => (
+          <div className="flex gap-2 justify-start">
+            {heroContent && heroContent.length > 0 && heroContent.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`h-1 rounded-full transition-all ${
-                  index === currentIndex ? "bg-white w-8" : "bg-white/50 w-4"
+                className={`h-2 rounded-full shadow-md border-2 border-flo-fuchsia transition-all duration-200 ${
+                  index === currentIndex ? "bg-flo-fuchsia w-8" : "bg-flo-gray/40 w-4"
                 }`}
                 aria-label={`Aller au contenu ${index + 1}`}
               />
@@ -223,3 +225,5 @@ export function HeroBanner({
     </HybridComponent>
   );
 }
+
+export default HeroBanner;

@@ -62,6 +62,24 @@ export const ComponentRegistry: Record<string, ComponentConfig> = {
       initial: { opacity: 0 },
       animate: { opacity: 1 }
     }
+  },
+
+  // Composants HeroBanner
+  HeroBanner: {
+    reactComponent: lazy(() => import('../components/ui/HeroBanner')),
+    defaultProps: {}
+  },
+
+  // Composants ContentRow
+  ContentRow: {
+    reactComponent: lazy(() => import('../components/ui/ContentRow')),
+    defaultProps: {}
+  },
+
+  // Composants Footer
+  Footer: {
+    reactComponent: lazy(() => import('../components/ui/Footer')),
+    defaultProps: {}
   }
 };
 

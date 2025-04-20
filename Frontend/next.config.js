@@ -1,3 +1,5 @@
+const path = require('path');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export', // Active l'export statique pour GitHub Pages
@@ -12,6 +14,10 @@ const nextConfig = {
   },
   typescript: {
     ignoreBuildErrors: true, // Désactive la vérification TypeScript pendant le build
+  },
+  webpack: (config) => {
+    config.resolve.alias['@'] = path.resolve(__dirname, 'src');
+    return config;
   },
 };
 

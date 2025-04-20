@@ -62,9 +62,9 @@ export function ContentCard({ item, featured = false, onClick, className }: Cont
       componentName="ContentCard"
       componentProps={{
         className: cn(
-          "relative overflow-hidden transition-all duration-300",
+          "relative overflow-hidden transition-all duration-300 rounded-2xl shadow-lg bg-gradient-to-br from-flo-night/90 via-flo-blue/5 to-flo-fuchsia/10 border-2 border-transparent hover:border-flo-fuchsia hover:scale-105 hover:shadow-2xl group cursor-pointer",
           featured ? "w-full" : "w-full",
-          isHovering ? "scale-105 z-10 shadow-xl" : "scale-100",
+          isHovering ? "z-20" : "z-0",
           className
         ),
         onClick: handleCardClick
@@ -79,11 +79,26 @@ export function ContentCard({ item, featured = false, onClick, className }: Cont
         onHoverStart={() => setIsHovering(true)}
         onHoverEnd={() => setIsHovering(false)}
       >
+        {/* Overlay dégradé au survol */}
+        <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 bg-gradient-to-t from-flo-fuchsia/80 via-flo-blue/60 to-transparent transition-opacity duration-300 rounded-2xl" />
+        {/* Badge catégorie */}
+        {item.category && (
+          <span className={`absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold shadow-md bg-gradient-to-r from-flo-fuchsia via-flo-blue to-flo-violet text-white uppercase tracking-wide`}>
+            {item.category}
+          </span>
+        )}
+        {/* Badge nouveauté */}
+        {item.tags?.includes('nouveau') && (
+          <span className="absolute top-3 right-3 px-2 py-1 rounded-full text-xs font-bold bg-flo-violet/90 text-white shadow-md uppercase tracking-wide animate-pulse">
+            Nouveau
+          </span>
+        )}
         {/* Contenu de la carte */}
         <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-          <h3 className="text-lg font-bold leading-tight mb-1">{item.title}</h3>
-          
-          <div className="flex items-center gap-2 text-sm text-gray-300 mb-2">
+          <h3 className="text-lg font-extrabold leading-tight mb-1 bg-gradient-to-r from-flo-blue via-flo-fuchsia to-flo-violet bg-clip-text text-transparent drop-shadow-lg">
+            {item.title}
+          </h3>
+          <div className="flex items-center gap-2 text-xs text-flo-gray mb-2">
             {item.year && <span>{item.year}</span>}
             {item.duration && <span>{item.duration}</span>}
             {item.rating && (
@@ -95,22 +110,20 @@ export function ContentCard({ item, featured = false, onClick, className }: Cont
               </span>
             )}
           </div>
-
           {/* Description (visible uniquement au survol ou si featured) */}
           <AnimatePresence>
             {(isHovering || featured) && item.description && (
-              <p className={`text-sm text-gray-300 line-clamp-2 mb-3 transition-all duration-300 ${isHovering ? 'opacity-100' : 'opacity-0'}`}>
+              <p className={`text-sm text-flo-gray line-clamp-2 mb-3 transition-all duration-300 ${isHovering ? 'opacity-100' : 'opacity-0'}`}>
                 {item.description}
               </p>
             )}
           </AnimatePresence>
-
           {/* Boutons d'action (visibles uniquement au survol) */}
           <AnimatePresence>
             {isHovering && (
               <div className={`flex items-center gap-2 mt-2 transition-all duration-300 ${isHovering ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
                 <button
-                  className="bg-white text-black hover:bg-white/90 rounded-full p-2 flex items-center gap-1"
+                  className="bg-gradient-to-r from-flo-blue to-flo-fuchsia text-white font-bold rounded-full p-2 flex items-center gap-1 shadow-lg hover:scale-110 transition-all duration-200"
                   onClick={handleCardClick}
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -118,27 +131,24 @@ export function ContentCard({ item, featured = false, onClick, className }: Cont
                   </svg>
                   <span className="font-medium">Lecture</span>
                 </button>
-                
                 <button
-                  className={`rounded-full p-2 ${isInList ? "bg-green-600" : "bg-white/20 hover:bg-white/30"}`}
+                  className={`rounded-full p-2 border-2 border-flo-blue bg-flo-blue/10 hover:bg-flo-fuchsia/30 hover:border-flo-fuchsia transition-all duration-200 ${isInList ? 'ring-2 ring-flo-fuchsia' : ''}`}
                   onClick={handleAddToList}
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
                   </svg>
                 </button>
-                
                 <button
-                  className={`rounded-full p-2 ${isLiked ? "bg-blue-600" : "bg-white/20 hover:bg-white/30"}`}
+                  className={`rounded-full p-2 border-2 border-flo-blue bg-flo-blue/10 hover:bg-flo-fuchsia/30 hover:border-flo-fuchsia transition-all duration-200 ${isLiked ? 'ring-2 ring-flo-blue' : ''}`}
                   onClick={handleLike}
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
                   </svg>
                 </button>
-                
                 <button
-                  className={`rounded-full p-2 ${isDisliked ? "bg-red-600" : "bg-white/20 hover:bg-white/30"}`}
+                  className={`rounded-full p-2 border-2 border-flo-fuchsia bg-flo-fuchsia/10 hover:bg-flo-blue/30 hover:border-flo-blue transition-all duration-200 ${isDisliked ? 'ring-2 ring-flo-fuchsia' : ''}`}
                   onClick={handleDislike}
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">

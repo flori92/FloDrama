@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { ComponentName, ComponentProps, getComponentConfig, isComponentAvailable } from './component-registry';
+import { ComponentName, ComponentProps, getComponentConfig } from './component-registry';
 
 interface HybridComponentProps<T extends ComponentName> {
   // Nom du composant à utiliser (doit être enregistré dans le registre)

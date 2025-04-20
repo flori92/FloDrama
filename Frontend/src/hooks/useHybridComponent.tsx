@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { ComponentName, getComponentConfig, needsReactFallback } from '../adapters/ui-component-registry';
+import { ComponentName, getComponentConfig, needsReactFallback } from '../adapters/component-registry';
 import { useHybridSystem } from '../components/HybridComponentProvider';
 
 // Interface pour les résultats de vérification de disponibilité
