@@ -1,7 +1,5 @@
 import React, { Suspense } from 'react';
-import { LynxView } from '@lynx/core';
-import { useTheme } from '@lynx/hooks';
-import { ComponentName, ComponentProps, getComponentConfig, isLynxComponentAvailable } from './component-registry';
+import { ComponentName, ComponentProps, getComponentConfig, isComponentAvailable } from './component-registry';
 
 interface HybridComponentProps<T extends ComponentName> {
   // Nom du composant à utiliser (doit être enregistré dans le registre)
@@ -22,7 +20,7 @@ interface HybridComponentProps<T extends ComponentName> {
 
 /**
  * Composant hybride amélioré qui utilise le registre des composants
- * pour gérer automatiquement le basculement entre Lynx et React
+ * pour gérer automatiquement le basculement vers les composants React/Next.js
  */
 export function HybridComponent<T extends ComponentName>({
   componentName,
@@ -33,7 +31,6 @@ export function HybridComponent<T extends ComponentName>({
   testID,
   fallback = <div>Chargement...</div>
 }: HybridComponentProps<T>) {
-  const theme = useTheme();
   const config = getComponentConfig(componentName);
 
   if (!config) {
@@ -50,20 +47,8 @@ export function HybridComponent<T extends ComponentName>({
     }
   };
 
-  // Si le composant Lynx est disponible et qu'on ne force pas React
-  if (isLynxComponentAvailable(componentName) && !forceReact) {
-    const LynxComponent = config.lynxComponent;
-    return (
-      <LynxView testID={testID} style={style}>
-        <LynxComponent {...finalProps}>
-          {children}
-        </LynxComponent>
-      </LynxView>
-    );
-  }
-
-  // Fallback vers le composant React avec Suspense pour le chargement dynamique
-  const ReactComponent = config.reactFallback;
+  // Utilisation directe du composant React
+  const ReactComponent = config.reactComponent;
   return (
     <Suspense fallback={fallback}>
       <div data-testid={testID} style={style}>
