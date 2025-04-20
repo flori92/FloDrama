@@ -6,6 +6,7 @@ const nextConfig = {
   },
   trailingSlash: true, // Pour la compatibilité avec GitHub Pages
   basePath: '', // À ajuster si déployé dans un sous-répertoire
+  assetPrefix: '/', // Préfixe pour les assets statiques (doit commencer par /)
   eslint: {
     ignoreDuringBuilds: true, // Désactive ESLint pendant le build
   },
