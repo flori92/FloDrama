@@ -6,7 +6,7 @@ import { ContentRow } from "./ui/ContentRow";
 import { FeaturedCarousel } from "./ui/FeaturedCarousel";
 import { Footer } from "./ui/Footer";
 import { AnimatedElement } from "./ui/animated-element";
-import { BASE_DATA_URL } from "../config/data";
+import { BASE_DATA_URL } from "../src/config/data";
 
 // Types pour le contenu
 interface ContentItem {
