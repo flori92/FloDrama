@@ -1,22 +1,20 @@
 import { useEffect, useState } from 'react';
-import { View, Text, Image, Video } from '@lynx-js/core';
-import { useAnimation, useHover } from '@lynx-js/hooks';
-import { RecommandationService } from '../../services/RecommandationService';
-import { useUserPreferences } from '../../hooks/useUserPreferences';
-import './styles.css';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 
 interface ContentCardProps {
   id: string;
   title: string;
-  description: string;
+  description?: string;
   posterUrl: string;
   trailerUrl?: string;
   backdropUrl?: string;
   rating?: number;
   genres?: string[];
-  duration?: string;
-  inWatchlist?: boolean;
-  onWatchlistToggle?: (id: string) => void;
+  year?: string;
+  type?: 'drama' | 'anime' | 'bollywood';
+  country?: string;
 }
 
 export const ContentCard = ({
@@ -28,170 +26,109 @@ export const ContentCard = ({
   backdropUrl,
   rating,
   genres,
-  duration,
-  inWatchlist,
-  onWatchlistToggle
+  year,
+  type = 'drama',
+  country
 }: ContentCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
-  const [isDisliked, setIsDisliked] = useState(false);
-  const [showTrailer, setShowTrailer] = useState(false);
-  const { preferences } = useUserPreferences();
+  const router = useRouter();
   
-  // Animations Lynx
-  const cardAnimation = useAnimation({
-    initial: { scale: 1, y: 0 },
-    hover: { scale: 1.05, y: -10 },
-    duration: 300,
-    easing: 'easeOutCubic'
-  });
-
-  const contentAnimation = useAnimation({
-    initial: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-    duration: 200,
-    easing: 'easeOutCubic'
-  });
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-    if (preferences.autoplayTrailers && trailerUrl) {
-      setTimeout(() => setShowTrailer(true), 500);
+  // Déterminer la classe de thème en fonction du type ou du pays
+  let themeClass = '';
+  if (type === 'anime') {
+    themeClass = 'anime-theme';
+  } else if (type === 'bollywood') {
+    themeClass = 'bollywood-theme';
+  } else if (country) {
+    const lowerCountry = country.toLowerCase();
+    if (lowerCountry.includes('coréen') || lowerCountry.includes('korean')) {
+      themeClass = 'korean-theme';
+    } else if (lowerCountry.includes('japonais') || lowerCountry.includes('japanese')) {
+      themeClass = 'japanese-theme';
     }
+  }
+
+  const handleClick = () => {
+    router.push(`/content/${id}`);
   };
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setShowTrailer(false);
-  };
-
-  const handleLike = async () => {
-    try {
-      if (isDisliked) setIsDisliked(false);
-      setIsLiked(!isLiked);
-      await RecommandationService.updateContentPreference(id, !isLiked ? 'like' : 'neutral');
-    } catch (error) {
-      console.error('Erreur lors de la mise à jour des préférences:', error);
-    }
-  };
-
-  const handleDislike = async () => {
-    try {
-      if (isLiked) setIsLiked(false);
-      setIsDisliked(!isDisliked);
-      await RecommandationService.updateContentPreference(id, !isDisliked ? 'dislike' : 'neutral');
-    } catch (error) {
-      console.error('Erreur lors de la mise à jour des préférences:', error);
-    }
-  };
-
-  const handleWatchlistToggle = () => {
-    onWatchlistToggle?.(id);
-  };
-
+  // Fallback pour l'image si l'URL est invalide
+  const imageSrc = posterUrl || '/images/fallback/poster1.jpg';
+  
   return (
-    <View
-      className="content-card"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      animation={cardAnimation}
+    <motion.div
+      className={`content-card ${themeClass}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={handleClick}
+      whileHover={{ 
+        scale: 1.05,
+        y: -10,
+        transition: { duration: 0.3 }
+      }}
     >
-      {/* Image principale */}
-      <Image
-        className="content-card__poster"
-        src={posterUrl}
-        alt={title}
-        loading="lazy"
-      />
-
-      {/* Overlay avec contenu détaillé */}
-      <View
-        className={`content-card__overlay ${isHovered ? 'visible' : ''}`}
-        animation={contentAnimation}
-      >
-        {/* Trailer ou backdrop */}
-        {showTrailer && trailerUrl ? (
-          <Video
-            className="content-card__trailer"
-            src={trailerUrl}
-            autoPlay
-            muted
-            loop
-          />
-        ) : (
-          <Image
-            className="content-card__backdrop"
-            src={backdropUrl || posterUrl}
-            alt={title}
-          />
+      {/* Image principale avec ratio 2:3 */}
+      <div className="content-card__image relative overflow-hidden rounded-md">
+        <Image
+          src={imageSrc}
+          alt={title}
+          width={300}
+          height={450}
+          className="object-cover w-full h-full"
+          loading="lazy"
+        />
+        
+        {/* Badge pour le type de contenu */}
+        {type && (
+          <div className={`absolute top-2 right-2 px-2 py-1 text-xs font-bold rounded-md ${
+            type === 'anime' ? 'bg-anime-blue' : 
+            type === 'bollywood' ? 'bg-bollywood-orange' : 
+            'bg-drama-red'
+          } text-drama-white`}>
+            {type.toUpperCase()}
+          </div>
         )}
-
-        {/* Informations */}
-        <View className="content-card__content">
-          <Text className="content-card__title">{title}</Text>
+        
+        {/* Overlay avec contenu détaillé */}
+        <div className="content-card__content">
+          <h3 className="content-card__title">{title}</h3>
           
           {/* Métadonnées */}
-          <View className="content-card__metadata">
+          <div className="flex items-center space-x-2 mt-1">
             {rating && (
-              <Text className="content-card__rating">
-                ★ {rating.toFixed(1)}
-              </Text>
+              <div className="content-card__rating">
+                <span className="text-drama-gold">★</span> {rating.toFixed(1)}
+              </div>
             )}
-            {duration && (
-              <Text className="content-card__duration">
-                {duration}
-              </Text>
+            {year && (
+              <span className="text-drama-white/80 text-sm">
+                {year}
+              </span>
             )}
-          </View>
+          </div>
 
-          {/* Genres */}
-          {genres && genres.length > 0 && (
-            <View className="content-card__genres">
-              {genres.map((genre, index) => (
-                <Text key={index} className="content-card__genre">
+          {/* Genres (affichés uniquement au survol) */}
+          {isHovered && genres && genres.length > 0 && (
+            <div className="flex flex-wrap gap-1 mt-2">
+              {genres.slice(0, 2).map((genre, index) => (
+                <span 
+                  key={index} 
+                  className="text-xs px-1.5 py-0.5 bg-drama-black/50 text-drama-white rounded"
+                >
                   {genre}
-                </Text>
+                </span>
               ))}
-            </View>
+            </div>
           )}
-
-          {/* Description */}
-          <Text className="content-card__description">
-            {description}
-          </Text>
-
-          {/* Actions */}
-          <View className="content-card__actions">
-            <View
-              className={`content-card__action ${isLiked ? 'active' : ''}`}
-              onClick={handleLike}
-            >
-              <Image
-                src={isLiked ? '/icons/thumb-up-filled.svg' : '/icons/thumb-up.svg'}
-                alt="Like"
-              />
-            </View>
-            <View
-              className={`content-card__action ${isDisliked ? 'active' : ''}`}
-              onClick={handleDislike}
-            >
-              <Image
-                src={isDisliked ? '/icons/thumb-down-filled.svg' : '/icons/thumb-down.svg'}
-                alt="Dislike"
-              />
-            </View>
-            <View
-              className={`content-card__action ${inWatchlist ? 'active' : ''}`}
-              onClick={handleWatchlistToggle}
-            >
-              <Image
-                src={inWatchlist ? '/icons/bookmark-filled.svg' : '/icons/bookmark.svg'}
-                alt="Ajouter à la liste"
-              />
-            </View>
-          </View>
-        </View>
-      </View>
-    </View>
+        </div>
+      </div>
+      
+      {/* Effet de survol avec dégradé */}
+      <motion.div 
+        className="absolute inset-0 bg-gradient-drama opacity-0 rounded-md"
+        animate={{ opacity: isHovered ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+      />
+    </motion.div>
   );
 };
