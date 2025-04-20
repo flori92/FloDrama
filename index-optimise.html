@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#121118">
+  <title>FloDrama - Streaming de dramas et films asiatiques</title>
+  <link rel="icon" type="image/svg+xml" href="/public/assets/static/placeholders/logo-placeholder.svg">
+  <style>
+    :root {
+      --primary-blue: #3b82f6;
+      --primary-fuchsia: #d946ef;
+      --bg-dark: #121118;
+      --bg-secondary: #1A1926;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-dark);
+      color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      background: linear-gradient(to right, var(--primary-blue), var(--primary-fuchsia));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .nav {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .nav-item {
+      color: white;
+      text-decoration: none;
+      opacity: 0.7;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .nav-item:hover {
+      opacity: 1;
+      color: var(--primary-fuchsia);
+    }
+    
+    .nav-item.active {
+      opacity: 1;
+    }
+    
+    .nav-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--primary-fuchsia);
+    }
+    
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .search-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(to right, var(--primary-blue), var(--primary-fuchsia));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    
+    /* Mobile menu toggle */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    
+    .menu-toggle span {
+      width: 25px;
+      height: 2px;
+      background-color: white;
+      transition: all 0.3s ease;
+    }
+    
+    /* Mobile menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 320px;
+      height: 100vh;
+      background-color: var(--bg-secondary);
+      z-index: 1000;
+      padding: 80px 30px 30px;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .mobile-menu.active {
+      right: 0;
+    }
+    
+    .mobile-menu-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: white;
+      font-size: 24px;
+      opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+    
+    .mobile-menu-close:hover {
+      opacity: 1;
+      color: var(--primary-fuchsia);
+    }
+    
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .mobile-nav-item {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .mobile-nav-item:hover, .mobile-nav-item.active {
+      color: var(--primary-fuchsia);
+    }
+    
+    .mobile-user-section {
+      margin-top: auto;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .mobile-user-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .mobile-user-name {
+      font-weight: 600;
+    }
+    
+    .mobile-user-email {
+      font-size: 14px;
+      opacity: 0.7;
+    }
+    
+    /* Hero section */
+    .hero {
+      padding: 60px 0;
+      text-align: left;
+    }
+    
+    .hero-title {
+      font-size: 48px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    
+    .hero-description {
+      font-size: 18px;
+      margin-bottom: 30px;
+      opacity: 0.8;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 24px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(to right, var(--primary-blue), var(--primary-fuchsia));
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .btn-secondary {
+      background-color: transparent;
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .btn-secondary:hover {
+      border-color: var(--primary-fuchsia);
+      color: var(--primary-fuchsia);
+    }
+    
+    /* Section styles */
+    .section {
+      padding: 40px 0;
+    }
+    
+    .section-title {
+      font-size: 24px;
+      margin-bottom: 20px;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: linear-gradient(to right, var(--primary-blue), var(--primary-fuchsia));
+    }
+    
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    
+    .content-card {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .content-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .card-poster {
+      width: 100%;
+      aspect-ratio: 2/3;
+      background: linear-gradient(to top, #3b82f6, #d946ef);
+      position: relative;
+    }
+    
+    .card-info {
+      padding: 10px;
+      background-color: var(--bg-secondary);
+    }
+    
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    
+    .card-meta {
+      font-size: 12px;
+      opacity: 0.7;
+    }
+    
+    /* Footer */
+    .footer {
+      background-color: var(--bg-secondary);
+      padding: 30px 0;
+      margin-top: 60px;
+    }
+    
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .footer-logo {
+      font-size: 20px;
+      font-weight: bold;
+      background: linear-gradient(to right, var(--primary-blue), var(--primary-fuchsia));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .footer-link {
+      color: white;
+      text-decoration: none;
+      opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+    
+    .footer-link:hover {
+      opacity: 1;
+      color: var(--primary-fuchsia);
+      text-decoration: underline;
+    }
+    
+    .footer-copyright {
+      opacity: 0.5;
+      font-size: 14px;
+    }
+    
+    /* Overlay for mobile menu */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* Mobile styles */
+    @media (max-width: 768px) {
+      .nav {
+        display: none;
+      }
+      
+      .menu-toggle {
+        display: flex;
+      }
+      
+      .hero-title {
+        font-size: 36px;
+      }
+      
+      .content-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+      
+      .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .menu-toggle.active span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      
+      .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+      
+      .menu-toggle.active span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo">FloDrama</div>
+      <nav class="nav">
+        <a href="index-optimise.html" class="nav-item active">Accueil</a>
+        <a href="dramas.html" class="nav-item">Dramas</a>
+        <a href="films.html" class="nav-item">Films</a>
+        <a href="animes.html" class="nav-item">Animés</a>
+        <a href="ma-liste.html" class="nav-item">Ma Liste</a>
+      </nav>
+      <div class="user-menu">
+        <button class="search-button">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="user-avatar profile-button" data-action="profile">FD</div>
+        <div class="menu-toggle" id="menuToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </header>
+    
+    <main>
+      <section class="hero">
+        <h1 class="hero-title">Découvrez le meilleur du streaming asiatique</h1>
+        <p class="hero-description">
+          FloDrama vous propose une sélection de dramas coréens, films asiatiques et animés japonais en streaming.
+        </p>
+        <div class="hero-buttons">
+          <a href="#" class="btn btn-primary">Explorer</a>
+          <a href="#" class="btn btn-secondary">En savoir plus</a>
+        </div>
+      </section>
+      
+      <section class="section">
+        <h2 class="section-title">Tendances</h2>
+        <div class="content-grid">
+          <div class="content-card">
+            <div class="card-poster"></div>
+            <div class="card-info">
+              <h3 class="card-title">Goblin</h3>
+              <p class="card-meta">2016 • Fantastique, Romance</p>
+            </div>
+          </div>
+          <div class="content-card">
+            <div class="card-poster"></div>
+            <div class="card-info">
+              <h3 class="card-title">Hospital Playlist</h3>
+              <p class="card-meta">2020 • Comédie, Médical</p>
+            </div>
+          </div>
+          <div class="content-card">
+            <div class="card-poster"></div>
+            <div class="card-info">
+              <h3 class="card-title">Parasite</h3>
+              <p class="card-meta">2019 • Thriller, Drame</p>
+            </div>
+          </div>
+          <div class="content-card">
+            <div class="card-poster"></div>
+            <div class="card-info">
+              <h3 class="card-title">Vincenzo</h3>
+              <p class="card-meta">2021 • Action, Comédie</p>
+            </div>
+          </div>
+          <div class="content-card">
+            <div class="card-poster"></div>
+            <div class="card-info">
+              <h3 class="card-title">My Mister</h3>
+              <p class="card-meta">2018 • Drame</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section class="section">
+        <h2 class="section-title">Dramas Populaires</h2>
+        <div class="content-grid">
+          <div class="content-card">
+            <div class="card-poster"></div>
+            <div class="card-info">
+              <h3 class="card-title">Crash Landing on You</h3>
+              <p class="card-meta">2019 • Romance, Comédie</p>
+            </div>
+          </div>
+          <div class="content-card">
+            <div class="card-poster"></div>
+            <div class="card-info">
+              <h3 class="card-title">It's Okay to Not Be Okay</h3>
+              <p class="card-meta">2020 • Romance, Drame</p>
+            </div>
+          </div>
+          <div class="content-card">
+            <div class="card-poster"></div>
+            <div class="card-info">
+              <h3 class="card-title">Reply 1988</h3>
+              <p class="card-meta">2015 • Comédie, Drame</p>
+            </div>
+          </div>
+          <div class="content-card">
+            <div class="card-poster"></div>
+            <div class="card-info">
+              <h3 class="card-title">Queen of Tears</h3>
+              <p class="card-meta">2024 • Romance, Drame</p>
+            </div>
+          </div>
+          <div class="content-card">
+            <div class="card-poster"></div>
+            <div class="card-info">
+              <h3 class="card-title">Moving</h3>
+              <p class="card-meta">2023 • Action, Fantastique</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-logo">FloDrama</div>
+        <div class="footer-links">
+          <a href="a-propos.html" class="footer-link">À propos</a>
+          <a href="conditions.html" class="footer-link">Conditions d'utilisation</a>
+          <a href="confidentialite.html" class="footer-link">Confidentialité</a>
+          <a href="contact.html" class="footer-link">Contact</a>
+        </div>
+        <div class="footer-copyright"> 2025 FloDrama. Tous droits réservés.</div>
+      </div>
+    </footer>
+  </div>
+  
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-close" id="mobileMenuClose">×</div>
+    <nav class="mobile-nav">
+      <a href="index-optimise.html" class="mobile-nav-item active">Accueil</a>
+      <a href="dramas.html" class="mobile-nav-item">Dramas</a>
+      <a href="films.html" class="mobile-nav-item">Films</a>
+      <a href="animes.html" class="mobile-nav-item">Animés</a>
+      <a href="ma-liste.html" class="mobile-nav-item">Ma Liste</a>
+    </nav>
+    <div class="mobile-user-section">
+      <div class="mobile-user-info">
+        <div class="user-avatar profile-button" data-action="profile">FD</div>
+        <div>
+          <div class="mobile-user-name">FloDrama User</div>
+          <div class="mobile-user-email user-only">user@flodrama.com</div>
+          <div class="guest-only">Non connecté</div>
+        </div>
+      </div>
+      <a href="#" class="btn btn-primary login-button guest-only" data-action="login" style="width: 100%; text-align: center;">Connexion</a>
+      <a href="#" class="btn btn-primary profile-button user-only" data-action="profile" style="width: 100%; text-align: center;">Mon profil</a>
+    </div>
+  </div>
+  
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+  
+  <!-- Scripts -->
+  <script src="js/search.js" type="module"></script>
+  <script src="js/main.js" type="module"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mobile menu toggle
+      const menuToggle = document.getElementById('menuToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const mobileMenuClose = document.getElementById('mobileMenuClose');
+      const overlay = document.getElementById('overlay');
+      
+      function openMobileMenu() {
+        menuToggle.classList.add('active');
+        mobileMenu.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function closeMobileMenu() {
+        menuToggle.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+      
+      if (menuToggle) {
+        menuToggle.addEventListener('click', openMobileMenu);
+      }
+      
+      if (mobileMenuClose) {
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+      }
+      
+      if (overlay) {
+        overlay.addEventListener('click', closeMobileMenu);
+      }
+      
+      // Close mobile menu when clicking on a link
+      const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+      mobileNavItems.forEach(item => {
+        item.addEventListener('click', closeMobileMenu);
+      });
+    });
+  </script>
+</body>
+</html>
