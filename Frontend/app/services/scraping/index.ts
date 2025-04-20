@@ -28,6 +28,7 @@ export interface ContentItem {
   isHD?: boolean;
   popularity?: number;
   source?: string;
+  description?: any;
 }
 
 export interface ContentData {
