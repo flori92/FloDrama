@@ -15,6 +15,7 @@ interface ContentCardProps {
   year?: string;
   type?: 'drama' | 'anime' | 'bollywood';
   country?: string;
+  onClick?: () => void;
 }
 
 export const ContentCard = ({
@@ -28,7 +29,8 @@ export const ContentCard = ({
   genres,
   year,
   type = 'drama',
-  country
+  country,
+  onClick
 }: ContentCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -70,7 +72,7 @@ export const ContentCard = ({
         transition: { duration: 0.3 }
       }}
     >
-      <Link href={`/content/${id}`} className="block h-full">
+      <div className="block h-full" onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
         {/* Image principale avec ratio 2:3 */}
         <div className="relative overflow-hidden w-full" style={{ aspectRatio: '2/3' }}>
           <Image
@@ -172,7 +174,7 @@ export const ContentCard = ({
             )}
           </div>
         </div>
-      </Link>
+      </div>
     </motion.div>
   );
 };

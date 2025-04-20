@@ -5,10 +5,13 @@ import './styles.css';
 interface ContentItem {
   id: string;
   title: string;
-  imageUrl: string;
-  rating: number;
-  year: number;
-  type: string;
+  posterUrl: string;
+  rating?: number;
+  year?: string;
+  type?: string;
+  description?: string;
+  genres?: string[];
+  country?: string;
 }
 
 interface ContentGridProps {
@@ -80,9 +83,17 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             style={{ animationDelay: `${index * 100}ms` }}
           >
             <ContentCard
-              item={item}
-              onClick={() => onItemClick && onItemClick(item)}
-            />
+                id={item.id}
+                title={item.title}
+                posterUrl={item.posterUrl || item.imageUrl}
+                rating={item.rating}
+                year={item.year?.toString()}
+                type={item.type as 'drama' | 'anime' | 'bollywood'}
+                description={item.description}
+                genres={item.genres}
+                country={item.country}
+                onClick={() => onItemClick && onItemClick(item)}
+              />
           </div>
         ))}
       </div>
