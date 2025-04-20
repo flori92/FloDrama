@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@types/react-slick": "^0.23.13",
+    "framer-motion": "^12.7.4",
     "next": "15.3.1",
     "react": "^19.0.0",
+    "react-day-picker": "^9.6.7",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.56.0",
     "react-player": "^2.16.0",
