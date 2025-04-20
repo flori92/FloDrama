@@ -6,7 +6,8 @@
 // Configuration globale
 const CONFIG = {
   DEBUG: false,
-  AUTO_INIT: true
+  AUTO_INIT: true,
+  USE_PLACEHOLDERS: true // Activer les placeholders personnalisés
 };
 
 // Configuration du système d'images
@@ -89,81 +90,102 @@ const logger = {
  */
 function generateImageSources(contentId, type) {
   const sources = [];
+  const contentType = contentId.replace(/\d+$/, '');
+  const category = contentType === 'drama' ? 'dramas' : 
+                  contentType === 'movie' ? 'movies' : 
+                  contentType === 'anime' ? 'animes' : 'content';
   
-  // Déterminer si c'est une image hero ou une image de contenu
+  // Catégorie pour les dossiers locaux
+  const localCategory = contentType === 'drama' ? 'korean' : 
+                        contentType === 'movie' ? 'movies' : 
+                        contentType === 'anime' ? 'anime' : 'content';
+  
+  // Déterminer si c'est une image hero
   const isHeroImage = contentId.startsWith('hero');
   
-  // Ajouter S3 direct si disponible
-  if (cdnStatus.s3direct) {
-    if (isHeroImage) {
-      // Pour les images hero
-      sources.push(`https://flodrama-assets.s3.amazonaws.com/assets/images/hero/${contentId}.jpg`);
-      sources.push(`https://flodrama-assets.s3.amazonaws.com/assets/images/hero/${contentId}.webp`);
-      sources.push(`https://flodrama-assets.s3.amazonaws.com/assets/images/hero/${contentId}.svg`);
-    } else {
-      // Pour les images de contenu (posters, backdrops, etc.)
-      // Format: drama001, movie002, anime003, etc.
-      const contentType = contentId.replace(/\d+$/, ''); // Extraire le préfixe (drama, movie, anime)
-      
-      // Utiliser les chemins corrects pour les assets scrapés (plusieurs formats possibles)
-      
-      // 1. Format standard: /content/dramas/drama001/poster.webp
-      sources.push(`https://flodrama-assets.s3.amazonaws.com/content/${contentType}s/${contentId}/${type}.webp`);
-      sources.push(`https://flodrama-assets.s3.amazonaws.com/content/${contentType}s/${contentId}/${type}.jpg`);
-      
-      // 2. Format alternatif: /scraped/drama001/poster.webp
-      sources.push(`https://flodrama-assets.s3.amazonaws.com/scraped/${contentId}/${type}.webp`);
-      sources.push(`https://flodrama-assets.s3.amazonaws.com/scraped/${contentId}/${type}.jpg`);
-      
-      // 3. Format direct: /drama001_poster.webp
-      sources.push(`https://flodrama-assets.s3.amazonaws.com/${contentId}_${type}.webp`);
-      sources.push(`https://flodrama-assets.s3.amazonaws.com/${contentId}_${type}.jpg`);
-      
-      // 4. Format avec catégorie: /dramas/drama001_poster.webp
-      sources.push(`https://flodrama-assets.s3.amazonaws.com/${contentType}s/${contentId}_${type}.webp`);
-      sources.push(`https://flodrama-assets.s3.amazonaws.com/${contentType}s/${contentId}_${type}.jpg`);
+  // Logger les informations pour le débogage
+  logger.debug(`Génération des sources pour ${contentId} (${type})`);
+  logger.debug(`Type de contenu: ${contentType}, Catégorie: ${category}, Catégorie locale: ${localCategory}`);
+  
+  if (isHeroImage) {
+    // ===== SOURCES POUR LES IMAGES HERO =====
+    
+    // Récupérer les sources prioritaires depuis la configuration
+    const priorities = CONFIG.sources.priorities || [];
+    
+    // Ajouter les sources prioritaires
+    for (const priority of priorities) {
+      if (priority.enabled) {
+        sources.push(`${priority.baseUrl}assets/images/hero/${contentId}.webp`);
+        sources.push(`${priority.baseUrl}assets/images/hero/${contentId}.jpg`);
+        sources.push(`${priority.baseUrl}assets/images/hero/${contentId}.png`);
+      }
+    }
+    
+    // Sources locales
+    sources.push(`/assets/images/hero/${contentId}.webp`);
+    sources.push(`/assets/images/hero/${contentId}.jpg`);
+    sources.push(`/assets/images/hero/${contentId}.png`);
+    sources.push(`/assets/images/hero${contentId.replace('hero', '')}/hero.jpg`); // Format alternatif hero1/hero.jpg
+    
+    // Placeholder SVG en dernier recours
+    sources.push(`/assets/images/hero/${contentId}.svg`);
+    sources.push(`/assets/placeholders/hero${contentId.replace('hero', '')}.svg`);
+  } else {
+    // ===== SOURCES POUR LES IMAGES DE CONTENU =====
+    
+    // Récupérer les sources prioritaires depuis la configuration
+    const priorities = CONFIG.sources.priorities || [];
+    
+    // Ajouter les sources prioritaires
+    for (const priority of priorities) {
+      if (priority.enabled) {
+        // Pour chaque format supporté
+        for (const format of CONFIG.sources.formats) {
+          // Format principal avec catégorie
+          sources.push(`${priority.baseUrl}${category}/${contentId}/${type}.${format}`);
+          
+          // Format scraped
+          sources.push(`${priority.baseUrl}scraped/${contentId}/${type}.${format}`);
+          
+          // Format avec ID numérique
+          const numericId = contentId.replace(/^[a-z]+/, '');
+          sources.push(`${priority.baseUrl}${category}/${numericId}/${type}.${format}`);
+          
+          // Format direct
+          sources.push(`${priority.baseUrl}${contentId}_${type}.${format}`);
+        }
+      }
+    }
+    
+    // Sources locales - Structure principale
+    sources.push(`/assets/images/content/${localCategory}/${contentId.replace(/^[a-z]+/, '')}_${type}.webp`);
+    sources.push(`/assets/images/content/${localCategory}/${contentId.replace(/^[a-z]+/, '')}_${type}.jpg`);
+    
+    // Sources locales - Format alternatif
+    sources.push(`/assets/content/${category}/${contentId}/${type}.webp`);
+    sources.push(`/assets/content/${category}/${contentId}/${type}.jpg`);
+    
+    // Sources locales - Format direct
+    sources.push(`/content/${contentId}/${type}.webp`);
+    sources.push(`/content/${contentId}/${type}.jpg`);
+    
+    // Sources locales - Format avec ID numérique uniquement
+    const numericId = contentId.replace(/^[a-z]+/, '');
+    sources.push(`/assets/images/content/${localCategory}/${numericId}.webp`);
+    sources.push(`/assets/images/content/${localCategory}/${numericId}.jpg`);
+    
+    // Ajouter le chemin vers les placeholders statiques
+    if (window.FloDramaConfig && window.FloDramaConfig.get('placeholders.useStatic', true)) {
+      const staticPath = window.FloDramaConfig.get('placeholders.staticPath', '/assets/placeholders/');
+      sources.push(`${staticPath}${contentId}_${type}.svg`);
     }
   }
   
-  // Toujours ajouter GitHub Pages (flodrama.com) comme fallback prioritaire
-  if (isHeroImage) {
-    // Fallbacks pour les images hero
-    sources.push(`/assets/images/hero/${contentId}.jpg`);
-    sources.push(`/assets/images/hero/${contentId}.webp`);
-    sources.push(`/assets/images/hero/${contentId}.svg`);
-  } else {
-    // Fallbacks pour les images de contenu
-    const contentType = contentId.replace(/\d+$/, ''); // Extraire le préfixe (drama, movie, anime)
-    
-    // Chemins locaux avec plusieurs formats possibles
-    
-    // 1. Format standard
-    sources.push(`/assets/content/${contentType}s/${contentId}/${type}.webp`);
-    sources.push(`/assets/content/${contentType}s/${contentId}/${type}.jpg`);
-    sources.push(`/content/${contentType}s/${contentId}/${type}.webp`);
-    sources.push(`/content/${contentType}s/${contentId}/${type}.jpg`);
-    
-    // 2. Format alternatif
-    sources.push(`/assets/scraped/${contentId}/${type}.webp`);
-    sources.push(`/assets/scraped/${contentId}/${type}.jpg`);
-    sources.push(`/scraped/${contentId}/${type}.webp`);
-    sources.push(`/scraped/${contentId}/${type}.jpg`);
-    
-    // 3. Format direct
-    sources.push(`/assets/${contentId}_${type}.webp`);
-    sources.push(`/assets/${contentId}_${type}.jpg`);
-    sources.push(`/${contentId}_${type}.webp`);
-    sources.push(`/${contentId}_${type}.jpg`);
-    
-    // 4. Format avec catégorie
-    sources.push(`/assets/${contentType}s/${contentId}_${type}.webp`);
-    sources.push(`/assets/${contentType}s/${contentId}_${type}.jpg`);
-    sources.push(`/${contentType}s/${contentId}_${type}.webp`);
-    sources.push(`/${contentType}s/${contentId}_${type}.jpg`);
-  }
-  
   logger.debug(`Sources générées pour ${contentId}/${type}: ${sources.length} sources`);
-  return sources;
+  
+  // Éliminer les doublons
+  return [...new Set(sources)];
 }
 
 /**
@@ -232,7 +254,9 @@ function applyFallbackSvg(img, contentId, type) {
 function handleImageError(event) {
   const img = event.target;
   const contentId = img.dataset.contentId;
-  const type = img.dataset.type;
+  const type = img.dataset.type || 'poster';
+  const title = img.dataset.title || contentId;
+  const category = img.dataset.category || contentId.replace(/\d+$/, '');
   
   // Si l'image a déjà un fallback, ne rien faire
   if (img.getAttribute('data-is-fallback') === 'true') {
@@ -261,7 +285,35 @@ function handleImageError(event) {
     logger.info(`Source actuelle non reconnue, tentative avec: ${firstSource}`);
     img.src = firstSource;
   } else {
-    // Sinon, appliquer le fallback SVG
+    // Sinon, essayer d'utiliser un placeholder personnalisé
+    if (CONFIG.USE_PLACEHOLDERS && window.FloDramaPlaceholders) {
+      logger.info(`Utilisation d'un placeholder personnalisé pour ${contentId}/${type}`);
+      try {
+        // Récupérer les dimensions de l'image
+        const width = img.width || IMAGE_CONFIG.dimensions[type]?.width || 300;
+        const height = img.height || IMAGE_CONFIG.dimensions[type]?.height || 450;
+        
+        // Appliquer le placeholder personnalisé
+        window.FloDramaPlaceholders.applyPlaceholderToImage(img, contentId, title, category, {
+          width: width,
+          height: height,
+          showTitle: true,
+          showLogo: true
+        });
+        
+        // Marquer l'image comme ayant un fallback
+        img.setAttribute('data-is-fallback', 'true');
+        img.setAttribute('data-fallback-type', 'placeholder');
+        
+        // Ajouter une classe pour les styles CSS
+        img.classList.add('placeholder-image');
+        return;
+      } catch (error) {
+        logger.error(`Erreur lors de la génération du placeholder pour ${contentId}/${type}`, error);
+      }
+    }
+    
+    // Si les placeholders ne sont pas disponibles ou ont échoué, utiliser le SVG de fallback
     logger.warn(`Aucune source alternative disponible pour ${contentId}/${type}, application du SVG de fallback`);
     applyFallbackSvg(img, contentId, type);
   }
@@ -353,8 +405,9 @@ function initContentCards() {
  * Précharge les images pour améliorer l'expérience utilisateur
  * @param {Array<string>} contentIds - Liste des IDs de contenu à précharger
  * @param {string} type - Type d'image (poster, backdrop, thumbnail)
+ * @param {Object} _metadata - Métadonnées des contenus (non utilisé actuellement)
  */
-function preloadContentImages(contentIds, type = 'poster') {
+function preloadContentImages(contentIds, type = 'poster', _metadata = null) {
   if (!contentIds || !Array.isArray(contentIds) || contentIds.length === 0) {
     logger.warn('[FloDrama Images] Aucun ID de contenu fourni pour le préchargement');
     return;
@@ -371,6 +424,31 @@ function preloadContentImages(contentIds, type = 'poster') {
     if (sources.length > 0) {
       const img = new Image();
       img.src = sources[0];
+      
+      // Précharger également les placeholders si activés
+      if (CONFIG.USE_PLACEHOLDERS && window.FloDramaPlaceholders) {
+        try {
+          // Récupérer les métadonnées du contenu si disponibles
+          let title = contentId;
+          let category = contentId.replace(/\d+$/, '');
+          
+          if (_metadata && _metadata.items) {
+            const contentData = _metadata.items.find(item => item.id === contentId);
+            if (contentData) {
+              title = contentData.title || title;
+              category = contentData.category || category;
+            }
+          }
+          
+          // Précharger le placeholder
+          window.FloDramaPlaceholders.preloadPlaceholderImage(contentId, title, category, {
+            width: IMAGE_CONFIG.dimensions[type]?.width,
+            height: IMAGE_CONFIG.dimensions[type]?.height
+          });
+        } catch (error) {
+          logger.error(`Erreur lors du préchargement du placeholder pour ${contentId}/${type}`, error);
+        }
+      }
     }
   });
 }
@@ -392,7 +470,26 @@ function initImageSystem() {
   
   // Vérifier l'état des CDNs
   checkAllCdnStatus().then(() => {
-    console.log("Initialisation du système de gestion d'images FloDrama");
+    logger.info("Initialisation du système de gestion d'images FloDrama terminée");
+    
+    // Précharger les placeholders pour les contenus populaires
+    if (CONFIG.USE_PLACEHOLDERS && window.FloDramaPlaceholders) {
+      // Récupérer les métadonnées si disponibles
+      fetch('/data/content.json')
+        .then(response => response.json())
+        .then(metadata => {
+          // Précharger les placeholders pour les 20 premiers contenus
+          const popularIds = metadata.items
+            .sort((a, b) => (b.popularity || 0) - (a.popularity || 0))
+            .slice(0, 20)
+            .map(item => item.id);
+          
+          preloadContentImages(popularIds, 'poster', metadata);
+        })
+        .catch(error => {
+          logger.error("Erreur lors du chargement des métadonnées pour les placeholders", error);
+        });
+    }
   });
 }
 
@@ -411,6 +508,322 @@ window.FloDramaImageSystem = {
 
 // Initialiser le système d'images au chargement de la page
 document.addEventListener('DOMContentLoaded', function() {
-  console.log("Système de gestion d'images avec fallbacks multiples initialisé");
-  initImageSystem();
+  logger.info("Système de gestion d'images avec fallbacks multiples et placeholders personnalisés initialisé");
+  
+  // Charger le script de génération de placeholders s'il n'est pas déjà chargé
+  if (CONFIG.USE_PLACEHOLDERS && !window.FloDramaPlaceholders) {
+    const script = document.createElement('script');
+    script.src = '/js/placeholder-generator.js';
+    script.onload = function() {
+      logger.info("Générateur de placeholders chargé avec succès");
+      initImageSystem();
+    };
+    script.onerror = function() {
+      logger.error("Impossible de charger le générateur de placeholders");
+      CONFIG.USE_PLACEHOLDERS = false;
+      initImageSystem();
+    };
+    document.head.appendChild(script);
+  } else {
+    initImageSystem();
+  }
 });
+
+window.FloDramaImageSystem = (function() {
+  // Utiliser la configuration centralisée
+  const CONFIG = window.FloDramaConfig ? window.FloDramaConfig.ImageSystem : {
+    sources: {
+      priorities: [
+        { name: 'githubPages', baseUrl: 'https://flodrama.com/assets/content/', enabled: true },
+        { name: 'cloudfront', baseUrl: 'https://d11nnqvjfooahr.cloudfront.net/content/', enabled: true },
+        { name: 's3direct', baseUrl: 'https://flodrama-assets.s3.amazonaws.com/content/', enabled: true }
+      ],
+      localPaths: ['/assets/content/', '/content/', '/public/content/', '/assets/placeholders/'],
+      formats: ['webp', 'jpg', 'png']
+    }
+  };
+  
+  // Système de logs
+  const logger = {
+    debug: function(message) {
+      if (window.FloDramaConfig && window.FloDramaConfig.get('debug.enabled', false)) {
+        console.debug(`[FloDrama Image System] ${message}`);
+      }
+    },
+    
+    info: function(message) {
+      console.info(`[FloDrama Image System] ${message}`);
+    },
+    
+    warn: function(message) {
+      console.warn(`[FloDrama Image System] ${message}`);
+    },
+    
+    error: function(message, error) {
+      console.error(`[FloDrama Image System] ${message}`, error);
+    }
+  };
+  
+  /**
+   * Génère les sources d'images pour un contenu
+   * @param {string} contentId - Identifiant du contenu
+   * @param {string} type - Type d'image
+   * @returns {Array<string>} - Liste des URLs des sources d'images
+   */
+  function generateImageSources(contentId, type) {
+    const sources = [];
+    const contentType = contentId.replace(/\d+$/, '');
+    const category = contentType === 'drama' ? 'dramas' : 
+                    contentType === 'movie' ? 'movies' : 
+                    contentType === 'anime' ? 'animes' : 'content';
+    
+    // Catégorie pour les dossiers locaux
+    const localCategory = contentType === 'drama' ? 'korean' : 
+                          contentType === 'movie' ? 'movies' : 
+                          contentType === 'anime' ? 'anime' : 'content';
+    
+    // Déterminer si c'est une image hero
+    const isHeroImage = contentId.startsWith('hero');
+    
+    // Logger les informations pour le débogage
+    logger.debug(`Génération des sources pour ${contentId} (${type})`);
+    logger.debug(`Type de contenu: ${contentType}, Catégorie: ${category}, Catégorie locale: ${localCategory}`);
+    
+    if (isHeroImage) {
+      // ===== SOURCES POUR LES IMAGES HERO =====
+      
+      // Récupérer les sources prioritaires depuis la configuration
+      const priorities = CONFIG.sources.priorities || [];
+      
+      // Ajouter les sources prioritaires
+      for (const priority of priorities) {
+        if (priority.enabled) {
+          sources.push(`${priority.baseUrl}assets/images/hero/${contentId}.webp`);
+          sources.push(`${priority.baseUrl}assets/images/hero/${contentId}.jpg`);
+          sources.push(`${priority.baseUrl}assets/images/hero/${contentId}.png`);
+        }
+      }
+      
+      // Sources locales
+      sources.push(`/assets/images/hero/${contentId}.webp`);
+      sources.push(`/assets/images/hero/${contentId}.jpg`);
+      sources.push(`/assets/images/hero/${contentId}.png`);
+      sources.push(`/assets/images/hero${contentId.replace('hero', '')}/hero.jpg`); // Format alternatif hero1/hero.jpg
+      
+      // Placeholder SVG en dernier recours
+      sources.push(`/assets/images/hero/${contentId}.svg`);
+      sources.push(`/assets/placeholders/hero${contentId.replace('hero', '')}.svg`);
+    } else {
+      // ===== SOURCES POUR LES IMAGES DE CONTENU =====
+      
+      // Récupérer les sources prioritaires depuis la configuration
+      const priorities = CONFIG.sources.priorities || [];
+      
+      // Ajouter les sources prioritaires
+      for (const priority of priorities) {
+        if (priority.enabled) {
+          // Pour chaque format supporté
+          for (const format of CONFIG.sources.formats) {
+            // Format principal avec catégorie
+            sources.push(`${priority.baseUrl}${category}/${contentId}/${type}.${format}`);
+            
+            // Format scraped
+            sources.push(`${priority.baseUrl}scraped/${contentId}/${type}.${format}`);
+            
+            // Format avec ID numérique
+            const numericId = contentId.replace(/^[a-z]+/, '');
+            sources.push(`${priority.baseUrl}${category}/${numericId}/${type}.${format}`);
+            
+            // Format direct
+            sources.push(`${priority.baseUrl}${contentId}_${type}.${format}`);
+          }
+        }
+      }
+      
+      // Sources locales - Structure principale
+      sources.push(`/assets/images/content/${localCategory}/${contentId.replace(/^[a-z]+/, '')}_${type}.webp`);
+      sources.push(`/assets/images/content/${localCategory}/${contentId.replace(/^[a-z]+/, '')}_${type}.jpg`);
+      
+      // Sources locales - Format alternatif
+      sources.push(`/assets/content/${category}/${contentId}/${type}.webp`);
+      sources.push(`/assets/content/${category}/${contentId}/${type}.jpg`);
+      
+      // Sources locales - Format direct
+      sources.push(`/content/${contentId}/${type}.webp`);
+      sources.push(`/content/${contentId}/${type}.jpg`);
+      
+      // Sources locales - Format avec ID numérique uniquement
+      const numericId = contentId.replace(/^[a-z]+/, '');
+      sources.push(`/assets/images/content/${localCategory}/${numericId}.webp`);
+      sources.push(`/assets/images/content/${localCategory}/${numericId}.jpg`);
+      
+      // Ajouter le chemin vers les placeholders statiques
+      if (window.FloDramaConfig && window.FloDramaConfig.get('placeholders.useStatic', true)) {
+        const staticPath = window.FloDramaConfig.get('placeholders.staticPath', '/assets/placeholders/');
+        sources.push(`${staticPath}${contentId}_${type}.svg`);
+      }
+    }
+    
+    logger.debug(`Sources générées pour ${contentId}/${type}: ${sources.length} sources`);
+    
+    // Éliminer les doublons
+    return [...new Set(sources)];
+  }
+  
+  /**
+   * Gère les erreurs de chargement d'images
+   * @param {Event} event - Événement d'erreur
+   */
+  function handleImageError(event) {
+    const img = event.target;
+    const contentId = img.dataset.contentId;
+    const type = img.dataset.type || 'poster';
+    
+    // Si l'image n'a pas d'attribut de contenu, ne rien faire
+    if (!contentId) {
+      logger.warn("Image sans attribut data-content-id");
+      return;
+    }
+    
+    logger.debug(`Erreur de chargement pour ${contentId}/${type}`);
+    
+    // Récupérer l'index de la source actuelle
+    const currentSrc = img.src;
+    const sources = generateImageSources(contentId, type);
+    const currentIndex = sources.indexOf(currentSrc);
+    
+    // Si l'index est valide et qu'il y a une source suivante
+    if (currentIndex !== -1 && currentIndex < sources.length - 1) {
+      // Essayer la source suivante
+      const nextSrc = sources[currentIndex + 1];
+      logger.debug(`Essai de la source suivante: ${nextSrc}`);
+      
+      img.src = nextSrc;
+      
+      // Si c'est la dernière source (placeholder), marquer l'image
+      if (currentIndex + 1 === sources.length - 1) {
+        img.setAttribute('data-fallback-type', 'placeholder');
+      }
+    } else {
+      // Si toutes les sources ont échoué, utiliser un placeholder dynamique
+      if (window.FloDramaConfig && window.FloDramaConfig.get('placeholders.useDynamic', true)) {
+        if (window.generatePlaceholder) {
+          logger.debug(`Génération d'un placeholder dynamique pour ${contentId}/${type}`);
+          
+          // Récupérer les couleurs de la catégorie
+          const contentType = contentId.replace(/\d+$/, '');
+          const categoryColors = window.FloDramaConfig.get(`placeholders.colors.${contentType}`, 
+                                window.FloDramaConfig.get('placeholders.colors.default', {
+                                  primary: '#3b82f6',
+                                  secondary: '#d946ef'
+                                }));
+          
+          // Générer un placeholder
+          const placeholderSvg = window.generatePlaceholder(contentId, type, {
+            primaryColor: categoryColors.primary,
+            secondaryColor: categoryColors.secondary
+          });
+          
+          // Appliquer le placeholder
+          img.src = placeholderSvg;
+          img.setAttribute('data-fallback-type', 'dynamic-placeholder');
+        } else {
+          // Si le générateur de placeholder n'est pas disponible, utiliser un dégradé
+          logger.warn("Générateur de placeholder non disponible");
+          
+          // Appliquer un style de dégradé directement
+          img.style.background = window.FloDramaConfig.get('visualIdentity.gradient', 'linear-gradient(to right, #3b82f6, #d946ef)');
+          img.setAttribute('data-fallback-type', 'gradient');
+          
+          // Masquer l'image source mais garder les dimensions
+          img.style.visibility = 'hidden';
+        }
+      }
+    }
+  }
+  
+  /**
+   * Précharge les images pour une liste de contenus
+   * @param {Array<string>} contentIds - Liste des identifiants de contenu
+   * @param {string} type - Type d'image (poster, backdrop, thumbnail)
+   * @param {Object} _metadata - Métadonnées des contenus (non utilisé actuellement)
+   */
+  function preloadContentImages(contentIds, type = 'poster', _metadata = null) {
+    if (!contentIds || !contentIds.length) {
+      logger.warn("Aucun contenu à précharger");
+      return;
+    }
+    
+    logger.info(`Préchargement de ${contentIds.length} images de type ${type}`);
+    
+    // Créer un tableau pour stocker les promesses de préchargement
+    const preloadPromises = [];
+    
+    // Précharger chaque image
+    contentIds.forEach(contentId => {
+      const sources = generateImageSources(contentId, type);
+      
+      if (sources.length > 0) {
+        // Créer une promesse pour le préchargement
+        const preloadPromise = new Promise((resolve) => {
+          const img = new Image();
+          
+          img.onload = function() {
+            logger.debug(`Image préchargée: ${contentId}/${type}`);
+            resolve({ contentId, type, success: true });
+          };
+          
+          img.onerror = function() {
+            // Si la première source échoue, essayer la suivante
+            if (sources.length > 1) {
+              img.src = sources[1];
+            } else {
+              logger.debug(`Échec du préchargement: ${contentId}/${type}`);
+              resolve({ contentId, type, success: false });
+            }
+          };
+          
+          // Commencer le chargement
+          img.src = sources[0];
+        });
+        
+        preloadPromises.push(preloadPromise);
+      }
+    });
+    
+    // Retourner une promesse qui se résout lorsque toutes les images sont préchargées
+    return Promise.all(preloadPromises);
+  }
+  
+  /**
+   * Initialise le système d'images
+   */
+  function init() {
+    logger.info("Initialisation du système d'images FloDrama");
+    
+    // Écouter les changements de configuration
+    document.addEventListener('flodrama-config-changed', function(event) {
+      if (event.detail.path.startsWith('ImageSystem')) {
+        logger.info(`Configuration du système d'images mise à jour: ${event.detail.path}`);
+      }
+    });
+    
+    // Rechercher toutes les images de contenu et ajouter un gestionnaire d'erreur
+    document.querySelectorAll('img[data-content-id]').forEach(img => {
+      img.addEventListener('error', handleImageError);
+    });
+    
+    logger.info("Système d'images FloDrama initialisé");
+  }
+  
+  // Initialiser le système au chargement du DOM
+  document.addEventListener('DOMContentLoaded', init);
+  
+  // Exposer l'API publique
+  return {
+    generateImageSources,
+    handleImageError,
+    preloadContentImages,
+    init
+  };
+})();

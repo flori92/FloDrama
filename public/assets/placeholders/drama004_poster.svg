@@ -1,0 +1,68 @@
+
+    <svg width="300" height="450" viewBox="0 0 300 450" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="grad-placeholder-drama004-poster" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#3b82f6" />
+          <stop offset="100%" stop-color="#d946ef" />
+        </linearGradient>
+        <linearGradient id="overlay-placeholder-drama004-poster" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="rgba(0,0,0,0)" />
+          <stop offset="85%" stop-color="rgba(0,0,0,0.5)" />
+          <stop offset="100%" stop-color="rgba(0,0,0,0.8)" />
+        </linearGradient>
+        <filter id="shadow-placeholder-drama004-poster">
+          <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3" />
+        </filter>
+      </defs>
+      
+      <!-- Fond avec dégradé -->
+      <rect width="300" height="450" rx="8" fill="url(#grad-placeholder-drama004-poster)" />
+      
+      <!-- Motif décoratif basé sur l'ID du contenu -->
+      
+        <circle cx="210" cy="135" r="120" 
+                fill="rgba(255,255,255,0.1)" />
+        <circle cx="90" cy="315" r="60" 
+                fill="rgba(255,255,255,0.05)" />
+      
+      
+      <!-- Overlay pour le texte -->
+      <rect width="300" height="450" rx="8" fill="url(#overlay-placeholder-drama004-poster)" />
+      
+      
+    <g transform="translate(120, 195) scale(0.6)">
+      <defs>
+        <linearGradient id="logoGradient-placeholder-drama004-poster" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#3b82f6" />
+          <stop offset="100%" stop-color="#d946ef" />
+        </linearGradient>
+      </defs>
+      <circle cx="50" cy="50" r="45" fill="none" stroke="url(#logoGradient-placeholder-drama004-poster)" stroke-width="5" />
+      <path d="M30,35 L30,65 M45,35 L45,65 M30,35 Q37.5,25 45,35 M30,65 Q37.5,75 45,65" 
+            stroke="url(#logoGradient-placeholder-drama004-poster)" stroke-width="5" fill="none" stroke-linecap="round" />
+      <path d="M55,35 L70,35 Q80,35 80,45 Q80,55 70,55 L55,55 L55,65" 
+            stroke="url(#logoGradient-placeholder-drama004-poster)" stroke-width="5" fill="none" stroke-linecap="round" />
+    </g>
+  
+      
+      <!-- Titre du contenu -->
+      <text x="150" y="410" 
+            font-family="SF Pro Display, Arial, sans-serif" 
+            font-size="18" 
+            font-weight="bold"
+            text-anchor="middle" 
+            fill="#ffffff"
+            filter="url(#shadow-placeholder-drama004-poster)">
+        Reply 1988
+      </text>
+      
+      <!-- Catégorie -->
+      <text x="150" y="430" 
+            font-family="SF Pro Display, Arial, sans-serif" 
+            font-size="14" 
+            text-anchor="middle" 
+            fill="rgba(255, 255, 255, 0.7)">
+        Drama
+      </text>
+    </svg>
+  

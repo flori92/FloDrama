@@ -1,0 +1,70 @@
+
+    <svg width="200" height="113" viewBox="0 0 200 113" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="grad-placeholder-anime002-thumbnail" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#10B981" />
+          <stop offset="100%" stop-color="#6366F1" />
+        </linearGradient>
+        <linearGradient id="overlay-placeholder-anime002-thumbnail" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="rgba(0,0,0,0)" />
+          <stop offset="85%" stop-color="rgba(0,0,0,0.5)" />
+          <stop offset="100%" stop-color="rgba(0,0,0,0.8)" />
+        </linearGradient>
+        <filter id="shadow-placeholder-anime002-thumbnail">
+          <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3" />
+        </filter>
+      </defs>
+      
+      <!-- Fond avec dégradé -->
+      <rect width="200" height="113" rx="8" fill="url(#grad-placeholder-anime002-thumbnail)" />
+      
+      <!-- Motif décoratif basé sur l'ID du contenu -->
+      
+        <path d="M0,45.2 
+                 C50,33.9 
+                  150,56.5 
+                  200,45.2 
+                 V113 H0 Z" 
+              fill="rgba(255,255,255,0.1)" />
+      
+      
+      <!-- Overlay pour le texte -->
+      <rect width="200" height="113" rx="8" fill="url(#overlay-placeholder-anime002-thumbnail)" />
+      
+      
+    <g transform="translate(88.7, 45.2) scale(0.226)">
+      <defs>
+        <linearGradient id="logoGradient-placeholder-anime002-thumbnail" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#3b82f6" />
+          <stop offset="100%" stop-color="#d946ef" />
+        </linearGradient>
+      </defs>
+      <circle cx="50" cy="50" r="45" fill="none" stroke="url(#logoGradient-placeholder-anime002-thumbnail)" stroke-width="5" />
+      <path d="M30,35 L30,65 M45,35 L45,65 M30,35 Q37.5,25 45,35 M30,65 Q37.5,75 45,65" 
+            stroke="url(#logoGradient-placeholder-anime002-thumbnail)" stroke-width="5" fill="none" stroke-linecap="round" />
+      <path d="M55,35 L70,35 Q80,35 80,45 Q80,55 70,55 L55,55 L55,65" 
+            stroke="url(#logoGradient-placeholder-anime002-thumbnail)" stroke-width="5" fill="none" stroke-linecap="round" />
+    </g>
+  
+      
+      <!-- Titre du contenu -->
+      <text x="100" y="73" 
+            font-family="SF Pro Display, Arial, sans-serif" 
+            font-size="18" 
+            font-weight="bold"
+            text-anchor="middle" 
+            fill="#ffffff"
+            filter="url(#shadow-placeholder-anime002-thumbnail)">
+        Demon Slayer
+      </text>
+      
+      <!-- Catégorie -->
+      <text x="100" y="93" 
+            font-family="SF Pro Display, Arial, sans-serif" 
+            font-size="14" 
+            text-anchor="middle" 
+            fill="rgba(255, 255, 255, 0.7)">
+        Anime
+      </text>
+    </svg>
+  

@@ -628,6 +628,8 @@ function updateContentCards(contentData) {
       const img = poster.querySelector('img') || poster;
       img.setAttribute('data-content-id', data.id);
       img.setAttribute('data-type', 'poster');
+      img.setAttribute('data-title', data.title);
+      img.setAttribute('data-category', data.category);
       
       // Forcer le rechargement de l'image avec le nouvel ID
       if (window.FloDramaImageSystem) {
@@ -675,8 +677,65 @@ function updateContentCards(contentData) {
       metaElement.style.color = 'rgba(255, 255, 255, 0.7)';
       metaElement.style.fontSize = '0.8rem';
       metaElement.style.padding = '0 8px 8px 8px';
+      
+      // Ajouter un style de curseur pour indiquer que la carte est cliquable
+      card.style.cursor = 'pointer';
     }
+    
+    // Stocker les données du contenu dans la carte pour y accéder lors du clic
+    card.dataset.contentId = data.id;
+    card.dataset.contentTitle = data.title;
+    card.dataset.contentCategory = data.category;
+    card.dataset.contentYear = data.year;
+    
+    // Ajouter un gestionnaire d'événement de clic pour la navigation
+    card.onclick = function() {
+      navigateToContentDetail(data);
+    };
   });
   
   console.log(`${Math.min(contentCards.length, contentData.length)} cartes de contenu mises à jour avec des données réelles`);
+}
+
+/**
+ * Navigue vers la page de détail du contenu
+ * @param {Object} contentData - Données du contenu
+ */
+function navigateToContentDetail(contentData) {
+  try {
+    console.log(`Navigation vers la page de détail pour: ${contentData.title} (${contentData.id})`);
+    
+    // Construire l'URL de la page de détail
+    let detailUrl;
+    
+    // Vérifier si nous sommes sur GitHub Pages
+    const isGitHubPages = window.location.hostname.includes('github.io') || 
+                          window.location.hostname === 'flodrama.com';
+    
+    // Créer un slug à partir du titre
+    const slug = contentData.title.toLowerCase()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-');
+    
+    if (isGitHubPages) {
+      // Sur GitHub Pages, utiliser des chemins relatifs
+      detailUrl = `./content-detail.html?id=${contentData.id}&title=${encodeURIComponent(contentData.title)}&slug=${slug}`;
+    } else {
+      // En développement local ou autre environnement
+      const baseUrl = window.location.pathname.includes('index.html') 
+        ? window.location.pathname.replace('index.html', '')
+        : window.location.pathname;
+      
+      detailUrl = `${baseUrl}${baseUrl.endsWith('/') ? '' : '/'}content-detail.html?id=${contentData.id}&title=${encodeURIComponent(contentData.title)}&slug=${slug}`;
+    }
+    
+    // Sauvegarder les données du contenu dans sessionStorage pour y accéder sur la page de détail
+    sessionStorage.setItem('currentContent', JSON.stringify(contentData));
+    
+    // Rediriger vers la page de détail
+    window.location.href = detailUrl;
+  } catch (error) {
+    console.error(`Erreur lors de la navigation vers la page de détail: ${error.message}`);
+    alert(`Impossible d'afficher les détails de ${contentData.title}. Veuillez réessayer.`);
+  }
 }

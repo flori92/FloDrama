@@ -116,8 +116,9 @@ class NavbarComponent {
     profileButtons.forEach(button => {
       button.addEventListener('click', (e) => {
         e.preventDefault();
-        // Rediriger vers la page de profil ou ouvrir une modale
-        // window.location.href = 'profile.html';
+        // Rediriger vers la page de profil
+        window.location.href = 'profile.html';
+        // Également déclencher l'événement personnalisé pour compatibilité
         document.dispatchEvent(new CustomEvent('flodrama:profile:open'));
       });
     });
