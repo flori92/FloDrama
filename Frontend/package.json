@@ -3,15 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "prebuild": "node scripts/prepare-data.js",
+    "dev": "next dev",
+    "prepare-data": "node scripts/prepare-data.js",
+    "optimize-images": "node scripts/optimize-images.js",
+    "prebuild": "npm run prepare-data && npm run optimize-images",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next build && next export"
+    "export": "next build && next export",
+    "export-content": "cd .. && python scripts/export_content_for_frontend.py"
   },
   "dependencies": {
     "@types/react-slick": "^0.23.13",
+    "canvas": "^3.1.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.7.4",
     "next": "15.3.1",
@@ -22,6 +26,7 @@
     "react-player": "^2.16.0",
     "react-router-dom": "^7.5.1",
     "react-slick": "^0.30.3",
+    "sharp": "^0.34.1",
     "tailwind-merge": "^3.2.0"
   },
   "devDependencies": {
