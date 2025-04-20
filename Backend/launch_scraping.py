@@ -195,6 +195,25 @@ def generate_report(results):
     
     return report_path
 
+def export_data_for_frontend():
+    """Exporte les données pour le frontend"""
+    print("\n📦 Exportation des données pour le frontend...")
+    
+    # Exécuter le script d'exportation
+    script_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'scripts', 'export_content_for_frontend.py')
+    
+    if not os.path.exists(script_path):
+        print(f"❌ Script d'exportation non trouvé: {script_path}")
+        return False
+    
+    try:
+        subprocess.run([sys.executable, script_path], check=True)
+        print("✅ Données exportées avec succès")
+        return True
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Erreur lors de l'exportation des données: {e}")
+        return False
+
 def main():
     """Fonction principale"""
     print("\n╔════════════════════════════════════════════════╗")
@@ -241,6 +260,9 @@ def main():
     report_path = generate_report(results)
     
     print(f"\nRapport généré: {report_path}")
+    
+    # Exporter les données pour le frontend
+    export_data_for_frontend()
     
     # Affichage du résumé
     total_sources = len(results)
