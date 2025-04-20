@@ -10,6 +10,7 @@ export interface ContentItem {
   title: string;
   description?: string;
   imageUrl: string;
+  backdropUrl?: string;
   videoPreviewUrl?: string;
   category?: string;
   year?: number;
