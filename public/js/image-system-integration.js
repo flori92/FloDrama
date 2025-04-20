@@ -249,6 +249,8 @@
               category = 'anime';
             } else if (sectionText.includes('bollywood')) {
               category = 'bollywood';
+            } else if (sectionText.includes('kshow') || sectionText.includes('variety')) {
+              category = 'kshow';
             }
           }
         }
@@ -311,261 +313,195 @@
   }
   
   /**
-   * Applique le chargement paresseux (lazy loading) aux images
+   * Applique les données de contenu aux cartes existantes
+   * @param {Array} contentData - Données de contenu
    */
-  function applyLazyLoading() {
-    if (!CONFIG.LAZY_LOADING) return;
+  function applyContentDataToCards(contentData) {
+    logger.info("Application des données de contenu aux cartes existantes...");
     
-    logger.info("Application du lazy loading aux images...");
-    
-    // Sélectionner toutes les images de contenu qui ne sont pas dans la viewport
-    const contentImages = document.querySelectorAll('img[data-content-id]:not([data-lazy-loaded])');
-    
-    // Créer un observateur d'intersection
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          
-          // Marquer l'image comme chargée paresseusement
-          img.setAttribute('data-lazy-loaded', 'true');
-          
-          // Générer les sources d'images
-          if (window.FloDramaImageSystem && window.FloDramaImageSystem.generateImageSources) {
-            const sources = window.FloDramaImageSystem.generateImageSources(
-              img.dataset.contentId, 
-              img.dataset.type || 'poster'
-            );
-            
-            if (sources && sources.length > 0) {
-              // Définir la source de l'image
-              img.src = sources[0];
-              
-              // Enregistrer la statistique
-              imageStats.record('total');
-            }
-          }
-          
-          // Arrêter d'observer cette image
-          observer.unobserve(img);
-        }
-      });
-    }, {
-      rootMargin: '200px 0px',
-      threshold: 0.01
-    });
-    
-    // Observer chaque image
-    contentImages.forEach(img => {
-      observer.observe(img);
-    });
-    
-    logger.debug(`${contentImages.length} images configurées pour le lazy loading`);
-  }
-  
-  /**
-   * Améliore les gestionnaires d'erreur pour les images
-   */
-  function enhanceErrorHandlers() {
-    logger.info("Amélioration des gestionnaires d'erreur pour les images...");
-    
-    // Sauvegarder la fonction originale
-    const originalHandleImageError = window.FloDramaImageSystem.handleImageError;
-    
-    // Remplacer par une version améliorée
-    window.FloDramaImageSystem.handleImageError = function(event) {
-      const img = event.target;
-      
-      // Enregistrer les statistiques
-      imageStats.record('failed');
-      imageStats.record('fallbackUsed');
-      
-      // Appeler la fonction originale
-      const result = originalHandleImageError.call(window.FloDramaImageSystem, event);
-      
-      // Si un placeholder a été utilisé, enregistrer la statistique
-      if (img.getAttribute('data-fallback-type') === 'placeholder') {
-        imageStats.record('placeholderUsed');
-      }
-      
-      return result;
-    };
-    
-    // Améliorer également le gestionnaire de chargement réussi
-    document.addEventListener('load', function(e) {
-      if (e.target.tagName && e.target.tagName.toLowerCase() === 'img' && e.target.dataset.contentId) {
-        // Enregistrer la statistique de succès
-        imageStats.record('success');
-        
-        // Déterminer la source utilisée
-        const src = e.target.src;
-        if (src.includes('github.io') || src.includes('flodrama.com')) {
-          imageStats.record('githubPages');
-        } else if (src.includes('cloudfront.net')) {
-          imageStats.record('cloudfront');
-        } else if (src.includes('s3.amazonaws.com')) {
-          imageStats.record('s3direct');
-        }
-      }
-    }, true);
-  }
-  
-  /**
-   * Optimise les performances de chargement des images
-   */
-  function optimizeImagePerformance() {
-    logger.info("Optimisation des performances de chargement des images...");
-    
-    // Utiliser les indices de priorité pour les images
-    const contentCards = document.querySelectorAll('.content-card');
-    
-    contentCards.forEach((card, index) => {
-      const img = card.querySelector('img[data-content-id]');
-      if (img) {
-        // Définir la priorité en fonction de la position
-        // Les 6 premières cartes ont une priorité élevée
-        if (index < 6) {
-          img.setAttribute('loading', 'eager');
-          img.setAttribute('fetchpriority', 'high');
-        } else {
-          img.setAttribute('loading', 'lazy');
-          img.setAttribute('fetchpriority', 'low');
-        }
-        
-        // Ajouter des dimensions explicites si elles ne sont pas définies
-        if (!img.width && !img.height) {
-          const type = img.dataset.type || 'poster';
-          if (type === 'poster') {
-            img.width = 300;
-            img.height = 450;
-          } else if (type === 'backdrop') {
-            img.width = 1280;
-            img.height = 720;
-          } else if (type === 'thumbnail') {
-            img.width = 200;
-            img.height = 113;
-          }
-        }
-      }
-    });
-  }
-  
-  /**
-   * Initialise l'intégration du système d'images
-   */
-  function initImageSystemIntegration() {
-    logger.info("Initialisation de l'intégration du système d'images...");
-    
-    // Vérifier que le système d'images est disponible
-    if (!window.FloDramaImageSystem) {
-      logger.error("Le système d'images FloDrama n'est pas disponible");
+    if (!contentData || contentData.length === 0) {
+      logger.warn("Aucune donnée de contenu disponible");
       return;
     }
+    
+    // Sélectionner toutes les cartes de contenu
+    const contentCards = document.querySelectorAll('.content-card');
+    if (contentCards.length === 0) {
+      logger.warn("Aucune carte de contenu trouvée sur la page");
+      return;
+    }
+    
+    logger.info(`Application des données à ${contentCards.length} cartes de contenu`);
+    
+    // Année courante pour le filtrage des tendances
+    const currentYear = new Date().getFullYear();
+    
+    // Parcourir les cartes de contenu
+    contentCards.forEach(card => {
+      // Récupérer l'ID de contenu de la carte
+      let contentId = card.dataset.contentId;
+      
+      // Si la carte n'a pas d'ID, lui en attribuer un
+      if (!contentId) {
+        // Trouver un ID disponible
+        const index = Array.from(contentCards).indexOf(card);
+        contentId = `content${index + 1}`;
+        card.dataset.contentId = contentId;
+      }
+      
+      // Trouver les données correspondantes
+      let contentItem = contentData.find(item => item.id === contentId);
+      
+      // Si aucune correspondance exacte, essayer de trouver par section
+      if (!contentItem) {
+        // Déterminer la catégorie en fonction de la section parente
+        let category = 'drama'; // Par défaut
+        let isTrending = false;
+        
+        const parentSection = card.closest('section');
+        if (parentSection) {
+          const sectionTitle = parentSection.querySelector('h2, h3');
+          if (sectionTitle) {
+            const sectionText = sectionTitle.textContent.toLowerCase();
+            if (sectionText.includes('film')) {
+              category = 'movie';
+            } else if (sectionText.includes('animé') || sectionText.includes('anime')) {
+              category = 'anime';
+            } else if (sectionText.includes('bollywood')) {
+              category = 'bollywood';
+            } else if (sectionText.includes('kshow') || sectionText.includes('variety')) {
+              category = 'kshow';
+            }
+            
+            // Vérifier si c'est la section Tendances
+            if (sectionText.includes('tendance') || sectionText.includes('trend')) {
+              isTrending = true;
+            }
+          }
+        }
+        
+        // Filtrer les contenus par catégorie
+        let categoryItems = contentData.filter(item => item.category === category);
+        
+        // Pour la section Tendances, filtrer par année (moins de 2 ans)
+        if (isTrending) {
+          logger.debug(`Filtrage des tendances: année courante = ${currentYear}`);
+          categoryItems = contentData.filter(item => {
+            // Vérifier si l'année est définie et convertir en nombre si nécessaire
+            const itemYear = typeof item.year === 'string' ? parseInt(item.year, 10) : item.year;
+            
+            // Accepter uniquement les contenus de moins de 2 ans
+            return itemYear && (currentYear - itemYear < 2);
+          });
+          
+          logger.debug(`${categoryItems.length} éléments récents trouvés pour les tendances`);
+          
+          // Si aucun contenu récent n'est disponible, utiliser les plus récents disponibles
+          if (categoryItems.length === 0) {
+            logger.warn("Aucun contenu récent trouvé pour les tendances, utilisation des plus récents disponibles");
+            
+            // Trier par année décroissante et prendre les 10 premiers
+            categoryItems = contentData
+              .filter(item => item.year)
+              .sort((a, b) => {
+                const yearA = typeof a.year === 'string' ? parseInt(a.year, 10) : a.year;
+                const yearB = typeof b.year === 'string' ? parseInt(b.year, 10) : b.year;
+                return yearB - yearA;
+              })
+              .slice(0, 10);
+          }
+        }
+        
+        // Prendre un élément aléatoire de cette catégorie
+        if (categoryItems.length > 0) {
+          const randomIndex = Math.floor(Math.random() * categoryItems.length);
+          contentItem = categoryItems[randomIndex];
+        } else {
+          // Prendre un élément aléatoire si aucun élément de cette catégorie n'est disponible
+          const randomIndex = Math.floor(Math.random() * contentData.length);
+          contentItem = contentData[randomIndex];
+        }
+      }
+      
+      // Appliquer les données à la carte
+      if (contentItem) {
+        // Mettre à jour l'ID de contenu
+        card.dataset.contentId = contentItem.id;
+        
+        // Mettre à jour le titre
+        const titleElement = card.querySelector('.card-title');
+        if (titleElement) {
+          titleElement.textContent = contentItem.title;
+        }
+        
+        // Mettre à jour les métadonnées
+        const metaElement = card.querySelector('.card-meta');
+        if (metaElement) {
+          metaElement.textContent = `${contentItem.year} • ${contentItem.genres.join(', ')}`;
+        }
+        
+        // Mettre à jour l'image
+        const imageElement = card.querySelector('img');
+        if (imageElement) {
+          imageElement.dataset.contentId = contentItem.id;
+          imageElement.dataset.type = imageElement.dataset.type || 'poster';
+          imageElement.dataset.category = contentItem.category;
+          imageElement.alt = contentItem.title;
+          
+          // Charger l'image avec le système d'images
+          if (window.FloDramaImageSystem && window.FloDramaImageSystem.loadImageWithRetry) {
+            const sources = window.FloDramaImageSystem.generateImageSources(contentItem.id, imageElement.dataset.type);
+            window.FloDramaImageSystem.loadImageWithRetry(imageElement, sources);
+          }
+        }
+      }
+    });
+    
+    logger.info("Données de contenu appliquées avec succès");
+  }
+  
+  /**
+   * Initialise le système d'intégration d'images
+   */
+  function initImageSystemIntegration() {
+    logger.info("Initialisation du système d'intégration d'images...");
     
     // Charger le générateur de placeholders
     loadPlaceholderGenerator()
       .then(() => {
-        // Améliorer les gestionnaires d'erreur
-        enhanceErrorHandlers();
+        // Charger les données de contenu
+        return loadContentData();
+      })
+      .then(contentData => {
+        // Appliquer les données de contenu aux cartes existantes
+        applyContentDataToCards(contentData);
         
-        // Optimiser les performances
-        optimizeImagePerformance();
-        
-        // Appliquer le lazy loading
-        applyLazyLoading();
+        // Déclencher un événement pour signaler que les données sont chargées
+        document.dispatchEvent(new CustomEvent('contentDataLoaded', {
+          detail: {
+            contentData: {
+              items: contentData
+            }
+          }
+        }));
         
         // Précharger les contenus populaires
-        preloadPopularContent();
+        if (CONFIG.PRELOAD_POPULAR) {
+          preloadPopularContent();
+        }
         
-        // Initialiser les cartes de contenu avec les données réelles
-        initContentCardsWithRealData();
+        // Initialiser le système d'images
+        if (window.FloDramaImageSystem && window.FloDramaImageSystem.initImageSystem) {
+          window.FloDramaImageSystem.initImageSystem();
+        }
         
         // Afficher les statistiques après 5 secondes
         setTimeout(() => {
           logger.stats();
         }, 5000);
-        
-        logger.info("Intégration du système d'images terminée");
       })
       .catch(error => {
-        logger.error("Erreur lors de l'initialisation de l'intégration du système d'images", error);
-      });
-  }
-  
-  /**
-   * Initialise les cartes de contenu avec les données réelles
-   */
-  function initContentCardsWithRealData() {
-    logger.info("Initialisation des cartes de contenu avec les données réelles...");
-    
-    // Charger les données de contenu
-    loadContentData()
-      .then(items => {
-        logger.info(`${items.length} éléments de contenu chargés`);
-        
-        // Sélectionner toutes les cartes de contenu
-        const contentCards = document.querySelectorAll('.content-card');
-        
-        if (contentCards.length === 0) {
-          logger.warn("Aucune carte de contenu trouvée");
-          return;
-        }
-        
-        logger.info(`${contentCards.length} cartes de contenu trouvées`);
-        
-        // Initialiser chaque carte avec des données réelles
-        contentCards.forEach((card, index) => {
-          // Utiliser les données réelles si disponibles, sinon utiliser l'index
-          const item = items[index % items.length];
-          
-          if (!item) {
-            logger.warn(`Aucune donnée disponible pour la carte ${index}`);
-            return;
-          }
-          
-          // Définir l'ID du contenu
-          card.dataset.contentId = item.id;
-          
-          // Sélectionner l'image de la carte
-          const img = card.querySelector('img');
-          if (img) {
-            // Définir les attributs de l'image
-            img.dataset.contentId = item.id;
-            img.dataset.type = 'poster';
-            
-            // Générer les sources d'images
-            if (window.FloDramaImageSystem && window.FloDramaImageSystem.generateImageSources) {
-              const sources = window.FloDramaImageSystem.generateImageSources(item.id, 'poster');
-              
-              if (sources && sources.length > 0) {
-                // Définir la source de l'image
-                img.src = sources[0];
-                
-                // Enregistrer la statistique
-                imageStats.record('total');
-              }
-            }
-          }
-          
-          // Mettre à jour le titre
-          const titleElement = card.querySelector('.card-title');
-          if (titleElement) {
-            titleElement.textContent = item.title;
-          }
-          
-          // Mettre à jour les métadonnées
-          const metaElement = card.querySelector('.card-meta');
-          if (metaElement) {
-            const year = item.year || '';
-            const genres = item.genres && Array.isArray(item.genres) ? item.genres.join(', ') : '';
-            metaElement.textContent = `${year}${genres ? ' • ' + genres : ''}`;
-          }
-        });
-        
-        logger.info(`${contentCards.length} cartes de contenu initialisées avec des données réelles`);
-      })
-      .catch(error => {
-        logger.error("Erreur lors de l'initialisation des cartes de contenu", error);
+        logger.error("Erreur lors de l'initialisation du système d'intégration d'images", error);
       });
   }
   

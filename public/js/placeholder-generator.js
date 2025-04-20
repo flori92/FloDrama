@@ -14,12 +14,23 @@ const FLODRAMA_COLORS = {
   lightAlt: 'rgba(255, 255, 255, 0.7)' // Texte secondaire
 };
 
-// Dégradés prédéfinis pour les différentes catégories
-const CATEGORY_GRADIENTS = {
+// Dégradés prédéfinis pour les différentes catégories (utilisés dans la fonction interne)
+const INTERNAL_CATEGORY_GRADIENTS = {
   drama: { from: FLODRAMA_COLORS.primary, to: FLODRAMA_COLORS.secondary },
   movie: { from: '#06B6D4', to: '#8B5CF6' }, // Cyan à Violet
   anime: { from: '#10B981', to: '#6366F1' }, // Vert à Indigo
+  bollywood: { from: '#FFC107', to: '#FF69B4' }, // Orange à Rose
   default: { from: '#F59E0B', to: '#EF4444' } // Ambre à Rouge
+};
+
+// Dégradés par catégorie (fallback global pour la fonction externe)
+window.categoryGradientsFallback = {
+  drama: ['#3b82f6', '#8b5cf6'],
+  movie: ['#8b5cf6', '#d946ef'],
+  anime: ['#d946ef', '#ec4899'],
+  kshow: ['#ec4899', '#f43f5e'],
+  bollywood: ['#f43f5e', '#ef4444'],
+  default: ['#3b82f6', '#d946ef']
 };
 
 /**
@@ -73,15 +84,8 @@ const CATEGORY_GRADIENTS = {
     }
   };
   
-  // Dégradés par catégorie (fallback si les métadonnées ne sont pas chargées)
-  const CATEGORY_GRADIENTS = {
-    drama: ['#3b82f6', '#8b5cf6'],
-    movie: ['#8b5cf6', '#d946ef'],
-    anime: ['#d946ef', '#ec4899'],
-    kshow: ['#ec4899', '#f43f5e'],
-    bollywood: ['#f43f5e', '#ef4444'],
-    default: ['#3b82f6', '#d946ef']
-  };
+  // Référence locale aux dégradés par catégorie
+  const categoryGradientsFallback = window.categoryGradientsFallback;
   
   // Système de logs
   const logger = {
@@ -299,7 +303,7 @@ const CATEGORY_GRADIENTS = {
     
     // Déterminer le dégradé en fonction de la catégorie
     const categoryData = placeholderMetadata.categories[category] || placeholderMetadata.categories.default;
-    const gradient = categoryData.gradient || CATEGORY_GRADIENTS[category] || CATEGORY_GRADIENTS.default;
+    const gradient = categoryData.gradient || categoryGradientsFallback[category] || categoryGradientsFallback.default;
     
     // Déterminer le motif
     const pattern = categoryData.pattern || 'grid';
@@ -380,14 +384,16 @@ const CATEGORY_GRADIENTS = {
 })();
 
 /**
- * Génère une image placeholder pour un contenu spécifique
+ * Génère une image placeholder pour un contenu spécifique (fonction externe)
+ * Cette fonction est exposée globalement pour une utilisation en dehors du module
+ * 
  * @param {string} contentId - ID du contenu
  * @param {string} title - Titre du contenu
- * @param {string} category - Catégorie du contenu (drama, movie, anime)
+ * @param {string} category - Catégorie du contenu (drama, movie, anime, kshow, bollywood)
  * @param {Object} options - Options supplémentaires
  * @returns {string} - URL data de l'image SVG
  */
-function generatePlaceholderImage(contentId, title, category, options) {
+window.generatePlaceholderImage = function(contentId, title, category, options) {
   // Options par défaut
   const width = options.width || 300;
   const height = options.height || 450;
@@ -395,183 +401,50 @@ function generatePlaceholderImage(contentId, title, category, options) {
   const showLogo = options.showLogo !== false;
   
   // Sélectionner le dégradé en fonction de la catégorie
-  const gradient = CATEGORY_GRADIENTS[category] || CATEGORY_GRADIENTS.default;
+  const gradient = window.categoryGradientsFallback[category] || window.categoryGradientsFallback.default;
   
   // Extraire l'index numérique du contentId pour varier les designs
   const contentIndex = parseInt((contentId.match(/\d+/) || ['0'])[0], 10);
   
-  // Créer un identifiant unique pour les éléments SVG
-  const uniqueId = `placeholder-${contentId.replace(/[^a-z0-9]/gi, '')}-${Date.now()}`;
+  // Générer un ID unique pour les éléments SVG
+  const uniqueId = Math.random().toString(36).substring(2, 9);
   
-  // Préparer le titre pour l'affichage (limiter la longueur)
-  const displayTitle = title.length > 20 ? title.substring(0, 18) + '...' : title;
+  // Préparer le titre à afficher
+  const displayTitle = showTitle ? (title || contentId) : '';
   
-  // Générer le SVG
+  // Générer le SVG avec un design qui varie selon l'index du contenu
   const svg = `
     <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="grad-${uniqueId}" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="${gradient.from}" />
-          <stop offset="100%" stop-color="${gradient.to}" />
+          <stop offset="0%" stop-color="${gradient[0]}" />
+          <stop offset="100%" stop-color="${gradient[1] || gradient[0]}" />
         </linearGradient>
         <linearGradient id="overlay-${uniqueId}" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stop-color="rgba(0,0,0,0)" />
-          <stop offset="85%" stop-color="rgba(0,0,0,0.5)" />
-          <stop offset="100%" stop-color="rgba(0,0,0,0.8)" />
+          <stop offset="100%" stop-color="rgba(0,0,0,0.5)" />
         </linearGradient>
-        <filter id="shadow-${uniqueId}">
-          <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.3" />
-        </filter>
       </defs>
-      
-      <!-- Fond avec dégradé -->
       <rect width="${width}" height="${height}" rx="8" fill="url(#grad-${uniqueId})" />
-      
-      <!-- Motif décoratif basé sur l'ID du contenu -->
-      ${generateDecorativePattern(contentIndex, width, height)}
-      
-      <!-- Overlay pour le texte -->
-      <rect width="${width}" height="${height}" rx="8" fill="url(#overlay-${uniqueId})" />
-      
-      ${showLogo ? generateFloDramaLogo(width, height) : ''}
-      
-      ${showTitle ? `
-        <!-- Titre du contenu -->
-        <text x="${width/2}" y="${height - 40}" 
-              font-family="SF Pro Display, Arial, sans-serif" 
-              font-size="18" 
-              font-weight="bold"
-              text-anchor="middle" 
-              fill="${FLODRAMA_COLORS.light}"
-              filter="url(#shadow-${uniqueId})">
-          ${displayTitle}
-        </text>
-        
-        <!-- Catégorie -->
-        <text x="${width/2}" y="${height - 20}" 
-              font-family="SF Pro Display, Arial, sans-serif" 
-              font-size="14" 
-              text-anchor="middle" 
-              fill="${FLODRAMA_COLORS.lightAlt}">
-          ${category.charAt(0).toUpperCase() + category.slice(1)}
-        </text>
+      ${contentIndex % 2 === 0 ? `
+        <circle cx="${width * 0.7}" cy="${height * 0.3}" r="${width * 0.2}" fill="rgba(255,255,255,0.1)" />
+        <circle cx="${width * 0.3}" cy="${height * 0.7}" r="${width * 0.1}" fill="rgba(255,255,255,0.05)" />
+      ` : `
+        <path d="M0,${height * 0.4} C${width * 0.25},${height * 0.3} ${width * 0.75},${height * 0.5} ${width},${height * 0.4}" 
+              stroke="rgba(255,255,255,0.1)" stroke-width="20" fill="none" />
+      `}
+      ${showLogo ? `
+        <g opacity="0.7" transform="translate(${width/2 - 15}, ${height/2 - 15})">
+          <circle cx="15" cy="15" r="15" fill="white" opacity="0.2" />
+          <path d="M10 8 L22 15 L10 22 Z" fill="white" />
+        </g>
+      ` : ''}
+      ${displayTitle ? `
+        <rect width="${width}" height="60" y="${height - 60}" fill="url(#overlay-${uniqueId})" />
+        <text x="${width/2}" y="${height - 25}" font-family="Arial" font-size="14" fill="white" text-anchor="middle">${displayTitle}</text>
       ` : ''}
     </svg>
   `;
   
-  // Encoder en base64
   return `data:image/svg+xml;base64,${btoa(svg)}`;
-}
-
-/**
- * Génère un motif décoratif basé sur l'index du contenu
- * @param {number} index - Index du contenu
- * @param {number} width - Largeur de l'image
- * @param {number} height - Hauteur de l'image
- * @returns {string} - Éléments SVG pour le motif
- */
-function generateDecorativePattern(index, width, height) {
-  // Différents motifs en fonction de l'index
-  const patternType = index % 4;
-  
-  switch (patternType) {
-    case 0: // Cercles
-      return `
-        <circle cx="${width * 0.7}" cy="${height * 0.3}" r="${width * 0.4}" 
-                fill="rgba(255,255,255,0.1)" />
-        <circle cx="${width * 0.3}" cy="${height * 0.7}" r="${width * 0.2}" 
-                fill="rgba(255,255,255,0.05)" />
-      `;
-    case 1: // Lignes diagonales
-      return `
-        <line x1="0" y1="0" x2="${width}" y2="${height}" 
-              stroke="rgba(255,255,255,0.1)" stroke-width="30" />
-        <line x1="${width}" y1="0" x2="0" y2="${height}" 
-              stroke="rgba(255,255,255,0.05)" stroke-width="20" />
-      `;
-    case 2: // Vagues
-      return `
-        <path d="M0,${height * 0.4} 
-                 C${width * 0.25},${height * 0.3} 
-                  ${width * 0.75},${height * 0.5} 
-                  ${width},${height * 0.4} 
-                 V${height} H0 Z" 
-              fill="rgba(255,255,255,0.1)" />
-      `;
-    case 3: // Points
-      let dots = '';
-      for (let i = 0; i < 20; i++) {
-        const x = Math.floor(Math.random() * width);
-        const y = Math.floor(Math.random() * height);
-        const r = Math.floor(Math.random() * 10) + 2;
-        dots += `<circle cx="${x}" cy="${y}" r="${r}" fill="rgba(255,255,255,0.1)" />`;
-      }
-      return dots;
-    default:
-      return '';
-  }
-}
-
-/**
- * Génère le logo FloDrama pour les placeholders
- * @param {number} width - Largeur de l'image
- * @param {number} height - Hauteur de l'image
- * @returns {string} - Éléments SVG pour le logo
- */
-function generateFloDramaLogo(width, height) {
-  const logoSize = Math.min(width, height) * 0.2;
-  const logoX = width / 2 - logoSize / 2;
-  const logoY = height / 2 - logoSize / 2;
-  
-  return `
-    <g transform="translate(${logoX}, ${logoY}) scale(${logoSize/100})">
-      <defs>
-        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="${FLODRAMA_COLORS.primary}" />
-          <stop offset="100%" stop-color="${FLODRAMA_COLORS.secondary}" />
-        </linearGradient>
-      </defs>
-      <circle cx="50" cy="50" r="45" fill="none" stroke="url(#logoGradient)" stroke-width="5" />
-      <path d="M30,35 L30,65 M45,35 L45,65 M30,35 Q37.5,25 45,35 M30,65 Q37.5,75 45,65" 
-            stroke="url(#logoGradient)" stroke-width="5" fill="none" stroke-linecap="round" />
-      <path d="M55,35 L70,35 Q80,35 80,45 Q80,55 70,55 L55,55 L55,65" 
-            stroke="url(#logoGradient)" stroke-width="5" fill="none" stroke-linecap="round" />
-    </g>
-  `;
-}
-
-/**
- * Génère et précharge une image placeholder
- * @param {string} contentId - ID du contenu
- * @param {string} title - Titre du contenu
- * @param {string} category - Catégorie du contenu
- * @param {Object} options - Options supplémentaires
- * @returns {HTMLImageElement} - Élément image préchargé
- */
-function preloadPlaceholderImage(contentId, title, category, options = {}) {
-  const dataUrl = generatePlaceholderImage(contentId, title, category, options);
-  const img = new Image();
-  img.src = dataUrl;
-  return img;
-}
-
-/**
- * Applique une image placeholder à un élément image
- * @param {HTMLImageElement} imgElement - Élément image
- * @param {string} contentId - ID du contenu
- * @param {string} title - Titre du contenu
- * @param {string} category - Catégorie du contenu
- * @param {Object} options - Options supplémentaires
- */
-function applyPlaceholderToImage(imgElement, contentId, title, category, options = {}) {
-  const dataUrl = generatePlaceholderImage(contentId, title, category, options);
-  imgElement.src = dataUrl;
-  imgElement.setAttribute('data-is-placeholder', 'true');
-}
-
-// Exporter les fonctions pour une utilisation externe
-window.FloDramaPlaceholders = {
-  generatePlaceholderImage,
-  preloadPlaceholderImage,
-  applyPlaceholderToImage
 };

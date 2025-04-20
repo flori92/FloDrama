@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloDrama - Démo Carrousel Moderne</title>
+    <link rel="stylesheet" href="css/modern-carousel.css">
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --accent-color: #d946ef;
+            --background-color: #121118;
+            --secondary-bg: #1A1926;
+            --text-color: #FFFFFF;
+        }
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            padding: 1rem 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(to right, #FFFFFF, #F0F0F0);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        h1 {
+            color: white;
+            margin: 0;
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .info-box {
+            background-color: var(--secondary-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .info-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .code-block {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: monospace;
+            margin: 1rem 0;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">FloDrama</div>
+            <h1>Démo Carrousel Moderne</h1>
+        </header>
+        
+        <div class="info-box">
+            <div class="info-title">À propos de cette démo</div>
+            <p>
+                Cette page démontre le nouveau système de carrousel moderne inspiré de cinepulse.fr. 
+                Le carrousel offre une expérience utilisateur fluide avec un chargement optimisé des images 
+                et une compatibilité complète avec le système d'images FloDrama.
+            </p>
+        </div>
+        
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Tendances</h2>
+                <div class="section-link">Voir tout</div>
+            </div>
+            
+            <div class="flodrama-carousel" data-carousel data-slides-to-show="5" data-slides-to-scroll="2" data-autoplay="false">
+                <!-- Les éléments du carrousel seront générés dynamiquement -->
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Films Populaires</h2>
+                <div class="section-link">Voir tout</div>
+            </div>
+            
+            <div class="flodrama-carousel" data-carousel data-slides-to-show="4" data-slides-to-scroll="1" data-autoplay="true" data-autoplay-speed="5000">
+                <!-- Les éléments du carrousel seront générés dynamiquement -->
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">Bollywood</h2>
+                <div class="section-link">Voir tout</div>
+            </div>
+            
+            <div class="flodrama-carousel" data-carousel data-slides-to-show="5" data-slides-to-scroll="2" data-autoplay="false">
+                <!-- Les éléments du carrousel seront générés dynamiquement -->
+            </div>
+        </section>
+        
+        <div class="info-box">
+            <div class="info-title">Comment utiliser le carrousel</div>
+            <p>
+                Pour intégrer ce carrousel dans vos pages, suivez ces étapes simples :
+            </p>
+            
+            <div class="code-block">
+                &lt;!-- 1. Inclure les fichiers CSS et JS --&gt;<br>
+                &lt;link rel="stylesheet" href="css/modern-carousel.css"&gt;<br>
+                &lt;script src="js/modern-carousel.js" defer&gt;&lt;/script&gt;<br><br>
+                
+                &lt;!-- 2. Créer la structure du carrousel --&gt;<br>
+                &lt;div class="section-header"&gt;<br>
+                &nbsp;&nbsp;&lt;h2 class="section-title"&gt;Titre de la section&lt;/h2&gt;<br>
+                &nbsp;&nbsp;&lt;div class="section-link"&gt;Voir tout&lt;/div&gt;<br>
+                &lt;/div&gt;<br><br>
+                
+                &lt;div class="flodrama-carousel" data-carousel data-slides-to-show="5" data-slides-to-scroll="2"&gt;<br>
+                &nbsp;&nbsp;&lt;!-- Éléments du carrousel --&gt;<br>
+                &nbsp;&nbsp;&lt;div class="carousel-item"&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="content-card category-drama"&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- Contenu de la carte --&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+                &nbsp;&nbsp;&lt;/div&gt;<br>
+                &lt;/div&gt;
+            </div>
+        </div>
+        
+        <div class="footer">
+            FloDrama © 2025 - Tous droits réservés
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="js/imageSystemConfig.js"></script>
+    <script src="js/flodrama-image-system.js"></script>
+    <script src="js/placeholder-generator.js"></script>
+    <script src="js/smart-scraping-service.js"></script>
+    <script src="js/modern-carousel.js"></script>
+    
+    <script>
+        // Fonction pour générer des cartes de contenu aléatoires
+        function generateContentCards() {
+            // Catégories disponibles
+            const categories = ['drama', 'movie', 'anime', 'bollywood', 'kshow'];
+            
+            // Années récentes (pour les tendances)
+            const currentYear = new Date().getFullYear();
+            const recentYears = [currentYear, currentYear - 1];
+            
+            // Titres de films/séries par catégorie
+            const contentTitles = {
+                drama: ['Flower of Evil', 'Vincenzo', 'It\'s Okay to Not Be Okay', 'Crash Landing on You', 'Hospital Playlist', 'The Glory', 'Squid Game', 'My Name', 'Move to Heaven', 'Sweet Home'],
+                movie: ['Parasite', 'Train to Busan', 'The Handmaiden', 'Oldboy', 'Burning', 'Peninsula', 'Space Sweepers', 'The Call', 'Time to Hunt', 'Forgotten'],
+                anime: ['Demon Slayer', 'Attack on Titan', 'Jujutsu Kaisen', 'My Hero Academia', 'One Piece', 'Chainsaw Man', 'Spy x Family', 'Tokyo Revengers', 'Blue Lock', 'Haikyuu!!'],
+                bollywood: ['Pathaan', 'RRR', 'Brahmastra', 'Gangubai Kathiawadi', 'Laal Singh Chaddha', 'Gehraiyaan', 'Drishyam 2', 'Darlings', 'Bhool Bhulaiyaa 2', 'Shershaah'],
+                kshow: ['Running Man', 'Knowing Bros', 'I Live Alone', 'Home Alone', 'The Return of Superman', '2 Days & 1 Night', 'Master in the House', 'Law of the Jungle', 'Weekly Idol', 'Radio Star']
+            };
+            
+            // Fonction pour générer un ID de contenu
+            function generateContentId(category, index) {
+                return `${category}${index + 100}`;
+            }
+            
+            // Fonction pour générer une carte de contenu
+            function createContentCard(category, index, isTrending = false) {
+                const contentId = generateContentId(category, index);
+                const title = contentTitles[category][index % contentTitles[category].length];
+                const year = isTrending ? recentYears[Math.floor(Math.random() * recentYears.length)] : (currentYear - Math.floor(Math.random() * 5));
+                const rating = (3.5 + Math.random() * 1.5).toFixed(1);
+                const isNew = Math.random() > 0.7;
+                
+                // Créer l'élément de carte
+                const cardItem = document.createElement('div');
+                cardItem.className = 'carousel-item';
+                
+                // Contenu HTML de la carte
+                cardItem.innerHTML = `
+                    <div class="content-card category-${category} ${isNew ? 'new-content' : ''}">
+                        <div class="card-image-container">
+                            <img src="" 
+                                 data-content-id="${contentId}" 
+                                 data-type="poster" 
+                                 data-category="${category}" 
+                                 alt="${title}" 
+                                 class="card-image">
+                            <div class="card-overlay"></div>
+                            ${isNew ? '<div class="new-badge">NEW</div>' : ''}
+                            <div class="quality-badge">HD</div>
+                            <div class="play-button">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">${title}</h3>
+                            <div class="card-meta">${year} • ${category.charAt(0).toUpperCase() + category.slice(1)}</div>
+                            <div class="rating">
+                                <div class="rating-stars">★★★★☆</div>
+                                <div class="rating-value">${rating}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                return cardItem;
+            }
+            
+            // Remplir les carrousels
+            const carousels = document.querySelectorAll('[data-carousel]');
+            
+            carousels.forEach((carousel, carouselIndex) => {
+                // Déterminer la catégorie en fonction du titre de section
+                const sectionTitle = carousel.closest('.section').querySelector('.section-title').textContent.toLowerCase();
+                let category = 'drama';
+                let isTrending = false;
+                
+                if (sectionTitle.includes('film')) {
+                    category = 'movie';
+                } else if (sectionTitle.includes('bollywood')) {
+                    category = 'bollywood';
+                } else if (sectionTitle.includes('animé') || sectionTitle.includes('anime')) {
+                    category = 'anime';
+                } else if (sectionTitle.includes('kshow') || sectionTitle.includes('variety')) {
+                    category = 'kshow';
+                }
+                
+                // Vérifier si c'est la section Tendances
+                if (sectionTitle.includes('tendance') || sectionTitle.includes('trend')) {
+                    isTrending = true;
+                }
+                
+                // Générer 10 cartes pour chaque carrousel
+                for (let i = 0; i < 10; i++) {
+                    const card = createContentCard(category, i + (carouselIndex * 10), isTrending);
+                    carousel.appendChild(card);
+                }
+            });
+            
+            // Initialiser le système d'images pour les nouvelles cartes
+            if (window.FloDramaImageSystem) {
+                // Générer des placeholders pour toutes les images
+                const images = document.querySelectorAll('.card-image');
+                
+                images.forEach(img => {
+                    const contentId = img.dataset.contentId;
+                    const category = img.dataset.category;
+                    const title = img.alt;
+                    
+                    // Générer un placeholder
+                    if (window.generatePlaceholderImage) {
+                        const placeholder = window.generatePlaceholderImage(contentId, title, category, {
+                            width: 300,
+                            height: 450,
+                            showTitle: true,
+                            showLogo: true
+                        });
+                        
+                        // Appliquer le placeholder
+                        img.src = placeholder;
+                    }
+                    
+                    // Charger l'image réelle avec le système d'images
+                    if (window.FloDramaImageSystem.loadImageWithRetry) {
+                        const sources = window.FloDramaImageSystem.generateImageSources(contentId, 'poster');
+                        window.FloDramaImageSystem.loadImageWithRetry(img, sources);
+                    }
+                });
+            }
+        }
+        
+        // Initialiser la démo au chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Générer les cartes de contenu
+            generateContentCards();
+        });
+    </script>
+</body>
+</html>
