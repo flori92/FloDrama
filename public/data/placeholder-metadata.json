@@ -1,0 +1,72 @@
+{
+  "version": "1.0.0",
+  "categories": {
+    "drama": {
+      "gradient": ["#3b82f6", "#8b5cf6"],
+      "pattern": "dots",
+      "icon": "tv"
+    },
+    "movie": {
+      "gradient": ["#8b5cf6", "#d946ef"],
+      "pattern": "lines",
+      "icon": "film"
+    },
+    "anime": {
+      "gradient": ["#d946ef", "#ec4899"],
+      "pattern": "waves",
+      "icon": "star"
+    },
+    "kshow": {
+      "gradient": ["#ec4899", "#f43f5e"],
+      "pattern": "circles",
+      "icon": "microphone"
+    },
+    "bollywood": {
+      "gradient": ["#f43f5e", "#ef4444"],
+      "pattern": "diamonds",
+      "icon": "music"
+    },
+    "default": {
+      "gradient": ["#3b82f6", "#d946ef"],
+      "pattern": "grid",
+      "icon": "play"
+    }
+  },
+  "dimensions": {
+    "poster": {
+      "width": 300,
+      "height": 450,
+      "titlePosition": "bottom"
+    },
+    "backdrop": {
+      "width": 1280,
+      "height": 720,
+      "titlePosition": "center"
+    },
+    "thumbnail": {
+      "width": 200,
+      "height": 113,
+      "titlePosition": "none"
+    },
+    "logo": {
+      "width": 400,
+      "height": 200,
+      "titlePosition": "none"
+    },
+    "profile": {
+      "width": 300,
+      "height": 300,
+      "titlePosition": "bottom"
+    }
+  },
+  "branding": {
+    "logo": true,
+    "logoPosition": "center",
+    "logoSize": 0.3,
+    "logoOpacity": 0.5,
+    "textOpacity": 0.8,
+    "fontFamily": "SF Pro Display, sans-serif",
+    "fontSize": 16,
+    "textColor": "#FFFFFF"
+  }
+}
