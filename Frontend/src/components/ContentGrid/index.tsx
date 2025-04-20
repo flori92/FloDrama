@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { View, Text } from '@lynx-js/core';
-import { useAnimation } from '@lynx-js/hooks';
+import React from 'react';
+
 import { ContentCard } from '../ContentCard';
 import './styles.css';
 
@@ -86,24 +86,24 @@ export const ContentGrid = ({
   }, [contents]);
 
   return (
-    <View className="content-grid-container">
+    <div className="content-grid-container">
       {/* En-tête de la section */}
-      <View className="content-grid__header">
-        <Text className="content-grid__title">{title}</Text>
+      <div className="content-grid__header">
+        <span className="content-grid__title">{title}</span>
         {category && (
-          <View 
+          <div 
             className="content-grid__more"
             onClick={() => onContentSelect?.('category:' + category)}
           >
-            <Text>Voir plus</Text>
-          </View>
+            <span>Voir plus</span>
+          </div>
         )}
-      </View>
+      </div>
 
       {/* Grille de contenu */}
-      <View className="content-grid" animation={gridAnimation}>
+      <div className="content-grid" animation={gridAnimation}>
         {visibleContents.map((content, index) => (
-          <View 
+          <div 
             key={content.id}
             className="content-grid__item"
             style={{
@@ -115,28 +115,28 @@ export const ContentGrid = ({
               onWatchlistToggle={onWatchlistToggle}
               onClick={() => onContentSelect?.(content.id)}
             />
-          </View>
+          </div>
         ))}
-      </View>
+      </div>
 
       {/* Indicateur de chargement */}
       {isLoading && (
-        <View className="content-grid__loading">
-          <Text>Chargement...</Text>
-        </View>
+        <div className="content-grid__loading">
+          <span>Chargement...</span>
+        </div>
       )}
 
       {/* Sentinel pour le défilement infini */}
       {visibleContents.length < contents.length && (
-        <View className="content-grid__sentinel" />
+        <div className="content-grid__sentinel" />
       )}
 
       {/* Message si aucun contenu */}
       {contents.length === 0 && (
-        <View className="content-grid__empty">
-          <Text>Aucun contenu disponible pour le moment</Text>
-        </View>
+        <div className="content-grid__empty">
+          <span>Aucun contenu disponible pour le moment</span>
+        </div>
       )}
-    </View>
+    </div>
   );
 };

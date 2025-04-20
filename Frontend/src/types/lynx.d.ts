@@ -24,11 +24,11 @@ declare module '@lynx-js/core' {
 }
 
 declare module '@lynx-js/react' {
-  import { ViewProps, TextProps, ImageProps } from '@lynx-js/core';
+  import React from 'react';
   import React from 'react';
 
-  export const View: React.FC<ViewProps>;
-  export const Text: React.FC<TextProps>;
+  export const View: React.FC<divProps>;
+  export const Text: React.FC<spanProps>;
   export const Image: React.FC<ImageProps>;
 
   export function useMainThreadRef<T>(): React.RefObject<T>;

@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { View, Text, Video } from '@lynx-js/core';
-import { useHotkeys } from '@lynx-js/hooks';
+import React from 'react';
+
 import { PlayIcon, PauseIcon } from '@/assets/icons/icons';
 import { WatchParty } from '../features/WatchParty';
 import '@/styles/components/videoPlayer.scss';
@@ -218,16 +218,16 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   };
 
   return (
-    <View className="video-player-container">
+    <div className="video-player-container">
       {isLoading ? (
-        <View className="video-loading">
-          <Text>Chargement de la vidéo...</Text>
-        </View>
+        <div className="video-loading">
+          <span>Chargement de la vidéo...</span>
+        </div>
       ) : errorMessage ? (
-        <View className="video-error">
-          <Text>{errorMessage}</Text>
+        <div className="video-error">
+          <span>{errorMessage}</span>
           <button onClick={() => window.location.reload()}>Réessayer</button>
-        </View>
+        </div>
       ) : (
         <>
           <Video
@@ -249,10 +249,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
           </Video>
 
           {/* Contrôles */}
-          <View className={`video-player__controls ${showControls ? 'visible' : ''}`}>
+          <div className={`video-player__controls ${showControls ? 'visible' : ''}`}>
             {/* Barre de progression */}
-            <View className="video-player__progress">
-              <View 
+            <div className="video-player__progress">
+              <div 
                 className="video-player__progress-bar"
                 style={{ width: `${(currentTime / duration) * 100}%` }}
               />
@@ -269,11 +269,11 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                 }}
                 className="video-player__progress-input"
               />
-            </View>
+            </div>
 
             {/* Contrôles principaux */}
-            <View className="video-player__controls-main">
-              <View className="video-player__controls-left">
+            <div className="video-player__controls-main">
+              <div className="video-player__controls-left">
                 <button onClick={togglePlay} className="video-player__button">
                   {isPlaying ? <PauseIcon /> : <PlayIcon />}
                 </button>
@@ -283,12 +283,12 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                 <button onClick={() => seek(10)} className="video-player__button">
                   +10s
                 </button>
-                <View className="video-player__time">
+                <div className="video-player__time">
                   {formatTime(currentTime)} / {formatTime(duration)}
-                </View>
-              </View>
+                </div>
+              </div>
 
-              <View className="video-player__controls-right">
+              <div className="video-player__controls-right">
                 {watchPartyEnabled && (
                   <button 
                     onClick={() => setShowWatchParty(!showWatchParty)}
@@ -297,11 +297,11 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                     Watch Party
                   </button>
                 )}
-                <View className="video-player__dropdown">
+                <div className="video-player__dropdown">
                   <button className="video-player__button">
                     {selectedQuality}
                   </button>
-                  <View className="video-player__dropdown-content">
+                  <div className="video-player__dropdown-content">
                     {quality.map((q) => (
                       <button
                         key={q.label}
@@ -313,13 +313,13 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                         {q.label}
                       </button>
                     ))}
-                  </View>
-                </View>
-                <View className="video-player__dropdown">
+                  </div>
+                </div>
+                <div className="video-player__dropdown">
                   <button className="video-player__button">
                     {selectedSubtitle === 'off' ? 'CC' : selectedSubtitle}
                   </button>
-                  <View className="video-player__dropdown-content">
+                  <div className="video-player__dropdown-content">
                     <button
                       onClick={() => handleSubtitleChange('off')}
                       className={`video-player__dropdown-item ${
@@ -339,14 +339,14 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                         {subtitle.language}
                       </button>
                     ))}
-                  </View>
-                </View>
+                  </div>
+                </div>
                 <button onClick={toggleFullscreen} className="video-player__button">
                   {isFullscreen ? 'Quitter' : 'Plein écran'}
                 </button>
-              </View>
-            </View>
-          </View>
+              </div>
+            </div>
+          </div>
 
           {/* Watch Party */}
           {watchPartyEnabled && showWatchParty && (
@@ -357,9 +357,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
           )}
 
           {/* Titre de l'épisode */}
-          <View className="video-player__title">
-            <Text>{title}</Text>
-          </View>
+          <div className="video-player__title">
+            <span>{title}</span>
+          </div>
 
           {/* Boutons de navigation épisodes */}
           {onPrevious && (
@@ -380,7 +380,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
           )}
         </>
       )}
-    </View>
+    </div>
   );
 };
 

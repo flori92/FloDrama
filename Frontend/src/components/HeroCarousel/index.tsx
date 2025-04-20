@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { View, Text, Image, Video } from '@lynx-js/core';
-import { useAnimation } from '@lynx-js/hooks';
+import React from 'react';
+
 import { useUserPreferences } from '../../hooks/useUserPreferences';
 import './styles.css';
 
@@ -87,13 +87,13 @@ export const HeroCarousel = ({
   const currentContent = contents[currentIndex];
 
   return (
-    <View 
+    <div 
       className="hero-carousel"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       {/* Fond avec effet parallaxe */}
-      <View className="hero-carousel__background" animation={slideAnimation}>
+      <div className="hero-carousel__background" animation={slideAnimation}>
         {showTrailer && currentContent.trailerUrl ? (
           <Video
             className="hero-carousel__trailer"
@@ -109,51 +109,51 @@ export const HeroCarousel = ({
             alt={currentContent.title}
           />
         )}
-        <View className="hero-carousel__overlay" />
-      </View>
+        <div className="hero-carousel__overlay" />
+      </div>
 
       {/* Contenu */}
-      <View className="hero-carousel__content" animation={contentAnimation}>
-        <Text className="hero-carousel__title">
+      <div className="hero-carousel__content" animation={contentAnimation}>
+        <span className="hero-carousel__title">
           {currentContent.title}
-        </Text>
+        </span>
 
         {/* Métadonnées */}
-        <View className="hero-carousel__metadata">
+        <div className="hero-carousel__metadata">
           {currentContent.rating && (
-            <Text className="hero-carousel__rating">
+            <span className="hero-carousel__rating">
               ★ {currentContent.rating.toFixed(1)}
-            </Text>
+            </span>
           )}
           {currentContent.releaseDate && (
-            <Text className="hero-carousel__date">
+            <span className="hero-carousel__date">
               {new Date(currentContent.releaseDate).getFullYear()}
-            </Text>
+            </span>
           )}
           {currentContent.duration && (
-            <Text className="hero-carousel__duration">
+            <span className="hero-carousel__duration">
               {currentContent.duration}
-            </Text>
+            </span>
           )}
-        </View>
+        </div>
 
         {/* Genres */}
-        <View className="hero-carousel__genres">
+        <div className="hero-carousel__genres">
           {currentContent.genres.map((genre, index) => (
-            <Text key={index} className="hero-carousel__genre">
+            <span key={index} className="hero-carousel__genre">
               {genre}
-            </Text>
+            </span>
           ))}
-        </View>
+        </div>
 
         {/* Description */}
-        <Text className="hero-carousel__description">
+        <span className="hero-carousel__description">
           {currentContent.description}
-        </Text>
+        </span>
 
         {/* Boutons d'action */}
-        <View className="hero-carousel__actions">
-          <View 
+        <div className="hero-carousel__actions">
+          <div 
             className="hero-carousel__button hero-carousel__button--primary"
             onClick={() => onContentSelect?.(currentContent.id)}
           >
@@ -162,9 +162,9 @@ export const HeroCarousel = ({
               alt="Lecture"
               className="hero-carousel__button-icon"
             />
-            <Text>Regarder</Text>
-          </View>
-          <View 
+            <span>Regarder</span>
+          </div>
+          <div 
             className="hero-carousel__button hero-carousel__button--secondary"
             onClick={() => setShowTrailer(!showTrailer)}
           >
@@ -173,43 +173,43 @@ export const HeroCarousel = ({
               alt={showTrailer ? "Plus d'infos" : "Bande annonce"}
               className="hero-carousel__button-icon"
             />
-            <Text>{showTrailer ? "Plus d'infos" : "Bande annonce"}</Text>
-          </View>
-        </View>
-      </View>
+            <span>{showTrailer ? "Plus d'infos" : "Bande annonce"}</span>
+          </div>
+        </div>
+      </div>
 
       {/* Navigation */}
-      <View className="hero-carousel__navigation">
+      <div className="hero-carousel__navigation">
         {contents.map((_, index) => (
-          <View
+          <div
             key={index}
             className={`hero-carousel__dot ${index === currentIndex ? 'active' : ''}`}
             onClick={() => handleDotClick(index)}
           >
-            <View 
+            <div 
               className="hero-carousel__dot-progress"
               style={{
                 animationDuration: `${autoPlayInterval}ms`,
                 animationPlayState: isPlaying && index === currentIndex ? 'running' : 'paused'
               }}
             />
-          </View>
+          </div>
         ))}
-      </View>
+      </div>
 
       {/* Boutons précédent/suivant */}
-      <View 
+      <div 
         className="hero-carousel__arrow hero-carousel__arrow--prev"
         onClick={() => handleDotClick((currentIndex - 1 + contents.length) % contents.length)}
       >
         <Image src="/icons/chevron-left.svg" alt="Précédent" />
-      </View>
-      <View 
+      </div>
+      <div 
         className="hero-carousel__arrow hero-carousel__arrow--next"
         onClick={() => handleDotClick((currentIndex + 1) % contents.length)}
       >
         <Image src="/icons/chevron-right.svg" alt="Suivant" />
-      </View>
-    </View>
+      </div>
+    </div>
   );
 };
