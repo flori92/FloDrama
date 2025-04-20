@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FloDrama Frontend
 
-## Getting Started
+FloDrama est une plateforme moderne de streaming multi-sources dédiée aux dramas, films, animes et contenus asiatiques, offrant une expérience utilisateur immersive et performante.
 
-First, run the development server:
+---
+
+## 🚀 Présentation
+
+FloDrama agrège et présente dynamiquement du contenu vidéo issu de différentes sources, avec une interface inspirée des meilleures plateformes de streaming. L'application met l'accent sur la rapidité, la disponibilité des assets et une expérience visuelle premium (carrousels, dark mode, responsive, etc.).
+
+---
+
+## ✨ Fonctionnalités principales
+
+- **Accueil dynamique** avec sections "Tendances" et "Ajouts récents" (carrousels horizontaux)
+- **Navigation multi-catégorie** : Dramas, Films, Animes, Bollywood, WatchParty, Recherche
+- **Carrousels modernes** avec effets, badges, overlay et support tactile
+- **Système d'images multi-sources** (GitHub Pages, CloudFront, S3) avec fallback automatique
+- **Mode sombre/clair** automatique
+- **Design responsive** (desktop/mobile)
+- **Préparation à l'intégration dynamique** (API, recherche, watchlist, etc.)
+- **Performance & accessibilité** (lazy loading, animations fluides, optimisation CDN)
+
+---
+
+## 🏗️ Architecture technique
+
+- **Framework** : Next.js (App Router)
+- **UI/UX** : React, Tailwind CSS, CSS modules, Framer Motion
+- **Système d'images** :
+  - `imageSystemConfig.js` : gestion des priorités/fallback CDN
+  - `FloDramaImage.jsx` : composant image réutilisable
+  - Placeholders SVG et cache intégré
+- **Carrousels** :
+  - `ContentRow`, `ContentCard` : carrousels horizontaux et cartes animées
+  - Effets de survol, badges, overlay dynamique
+- **Navigation** :
+  - `MainNavigation` : barre de navigation principale
+  - `Footer` : pied de page moderne
+  - `HeroBanner` : bannière héroïque personnalisée
+- **Configuration** :
+  - Alias TypeScript (`@/`) configuré dans `tsconfig.json`
+  - Export statique optimisé pour GitHub Pages
+  - Fichiers `.nojekyll` et `CNAME` pour le domaine personnalisé
+
+---
+
+## 📦 Installation & développement
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ouvrir [http://localhost:3000](http://localhost:3000) pour voir l'application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔗 Ressources complémentaires
 
-## Learn More
+- [Documentation Next.js](https://nextjs.org/docs)
+- [Tailwind CSS](https://tailwindcss.com/docs)
+- [Framer Motion](https://www.framer.com/motion/)
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📝 Licence
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Projet sous licence MIT.
