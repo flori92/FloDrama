@@ -83,8 +83,8 @@ export const ContentCard = ({
           <div className={`absolute top-2 right-2 px-2 py-1 text-xs font-bold rounded-md ${
             type === 'anime' ? 'bg-anime-blue' : 
             type === 'bollywood' ? 'bg-bollywood-orange' : 
-            'bg-drama-red'
-          } text-drama-white`}>
+            'bg-flo-violet'
+          } text-flo-white`}>
             {type.toUpperCase()}
           </div>
         )}
@@ -97,11 +97,11 @@ export const ContentCard = ({
           <div className="flex items-center space-x-2 mt-1">
             {rating && (
               <div className="content-card__rating">
-                <span className="text-drama-gold">★</span> {rating.toFixed(1)}
+                <span className="text-flo-fuchsia">★</span> {rating.toFixed(1)}
               </div>
             )}
             {year && (
-              <span className="text-drama-white/80 text-sm">
+              <span className="text-flo-white/80 text-sm">
                 {year}
               </span>
             )}
@@ -113,7 +113,7 @@ export const ContentCard = ({
               {genres.slice(0, 2).map((genre, index) => (
                 <span 
                   key={index} 
-                  className="text-xs px-1.5 py-0.5 bg-drama-black/50 text-drama-white rounded"
+                  className="text-xs px-1.5 py-0.5 bg-flo-night/50 text-flo-white rounded"
                 >
                   {genre}
                 </span>
@@ -125,7 +125,7 @@ export const ContentCard = ({
       
       {/* Effet de survol avec dégradé */}
       <motion.div 
-        className="absolute inset-0 bg-gradient-drama opacity-0 rounded-md"
+        className="absolute inset-0 bg-gradient-flo opacity-0 rounded-md"
         animate={{ opacity: isHovered ? 1 : 0 }}
         transition={{ duration: 0.3 }}
       />

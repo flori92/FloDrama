@@ -8,41 +8,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
 
 :root {
-  /* Couleurs principales */
-  --drama-red: 185 28 28; /* #B91C1C */
-  --drama-black: 0 0 0; /* #000000 */
-  --drama-white: 255 255 255; /* #FFFFFF */
-  --drama-gold: 212 175 55; /* #D4AF37 */
+  /* Couleurs principales FloDrama */
+  --flo-night: 24 24 36; /* #181824 */
+  --flo-violet: 157 78 221; /* #9D4EDD */
+  --flo-fuchsia: 247 37 133; /* #F72585 */
+  --flo-blue: 95 95 255; /* #5F5FFF */
+  --flo-white: 255 255 255; /* #FFFFFF */
+  --flo-gray: 199 199 217; /* #C7C7D9 */
   
-  /* Couleurs secondaires */
-  --anime-blue: 30 58 138; /* #1E3A8A */
-  --bollywood-orange: 234 88 12; /* #EA580C */
-  --korean-green: 4 120 87; /* #047857 */
-  --japanese-purple: 126 34 206; /* #7E22CE */
+  /* Couleurs pour les catégories */
+  --anime-blue: 67 97 238; /* #4361EE */
+  --bollywood-orange: 251 86 7; /* #FB5607 */
+  --korean-green: 6 214 160; /* #06D6A0 */
+  --japanese-purple: 114 9 183; /* #7209B7 */
   
   /* Variables système */
-  --background: var(--drama-black);
-  --foreground: var(--drama-white);
-  --primary: var(--drama-red);
-  --primary-foreground: var(--drama-white);
-  --secondary: var(--drama-black);
-  --secondary-foreground: var(--drama-white);
-  --accent: var(--drama-gold);
-  --accent-foreground: var(--drama-black);
+  --background: var(--flo-night);
+  --foreground: var(--flo-white);
+  --primary: var(--flo-violet);
+  --primary-foreground: var(--flo-white);
+  --secondary: var(--flo-night);
+  --secondary-foreground: var(--flo-white);
+  --accent: var(--flo-fuchsia);
+  --accent-foreground: var(--flo-white);
   --muted: 0 0% 15%;
   --muted-foreground: 0 0% 60%;
-  --card: 0 0% 9%;
-  --card-foreground: var(--drama-white);
-  --popover: 0 0% 9%;
-  --popover-foreground: var(--drama-white);
-  --border: 0 0% 20%;
+  --card: var(--flo-night);
+  --card-foreground: var(--flo-white);
+  --popover: var(--flo-night);
+  --popover-foreground: var(--flo-white);
+  --border: var(--flo-gray);
   --input: 0 0% 15%;
-  --ring: var(--drama-gold);
+  --ring: var(--flo-violet);
   --radius: 0.5rem;
 }
 
 body {
-  @apply bg-drama-black text-drama-white font-inter;
+  @apply bg-flo-night text-flo-white font-inter;
   font-feature-settings: "rlig" 1, "calt" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -62,7 +64,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hero-banner__content {
-  @apply absolute inset-0 flex flex-col justify-end p-8 bg-gradient-drama;
+  @apply absolute inset-0 flex flex-col justify-end p-8 bg-gradient-flo;
 }
 
 .content-row {
@@ -70,7 +72,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .content-card {
-  @apply relative overflow-hidden rounded-md shadow-drama transition-transform duration-300 hover:scale-105;
+  @apply relative overflow-hidden rounded-md shadow-flo transition-transform duration-300 hover:scale-105;
 }
 
 .content-card__image {
@@ -78,19 +80,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .content-card__content {
-  @apply absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-drama-black to-transparent;
+  @apply absolute bottom-0 left-0 right-0 p-4 bg-gradient-card;
 }
 
 .content-card__title {
-  @apply text-lg font-montserrat font-bold text-drama-white;
+  @apply text-lg font-montserrat font-bold text-flo-white;
 }
 
 .content-card__meta {
-  @apply text-sm text-drama-white/80;
+  @apply text-sm text-flo-white/80;
 }
 
 .content-card__rating {
-  @apply flex items-center text-drama-gold;
+  @apply flex items-center text-flo-fuchsia;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -109,7 +111,7 @@ h1, h2, h3, h4, h5, h6 {
     @apply border-border;
   }
   body {
-    @apply bg-drama-black text-drama-white;
+    @apply bg-flo-night text-flo-white;
   }
 }
 
@@ -124,17 +126,17 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Styles spécifiques par catégorie */
 .anime-theme {
-  @apply bg-anime-blue text-drama-white;
+  @apply bg-anime-blue text-flo-white;
 }
 
 .bollywood-theme {
-  @apply bg-bollywood-orange text-drama-white;
+  @apply bg-bollywood-orange text-flo-white;
 }
 
 .korean-theme {
-  @apply bg-korean-green text-drama-white;
+  @apply bg-korean-green text-flo-white;
 }
 
 .japanese-theme {
-  @apply bg-japanese-purple text-drama-white;
+  @apply bg-japanese-purple text-flo-white;
 }
