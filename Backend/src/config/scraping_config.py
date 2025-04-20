@@ -5,7 +5,11 @@ Configuration pour le service de scraping de FloDrama
 # Configuration des sources de streaming
 STREAMING_SOURCES = {
     'vostfree': {
-        'base_url': 'https://vostfree.cx',
+        'base_url': 'https://vostfree.ws',
+        'fallback_urls': [
+            'https://vostfree.cx',
+            'https://vostfree.tv'
+        ],
         'search_url': '{base_url}/recherche',
         'latest_url': '{base_url}/derniers-episodes',
         'popular_url': '{base_url}/populaire',
@@ -139,7 +143,10 @@ STREAMING_SOURCES = {
         }
     },
     'zee5': {
-        'base_url': 'https://www.zee5.com',
+        'base_url': 'https://www.zee5.com/global',
+        'fallback_urls': [
+            'https://www.zee5.com'
+        ],
         'search_url': '{base_url}/search',
         'latest_url': '{base_url}/movies/latest',
         'popular_url': '{base_url}/collections/free-bollywood-movies/0-8-2429',
@@ -171,7 +178,9 @@ STREAMING_SOURCES = {
 
 # Liste des domaines de streaming autorisés
 ALLOWED_STREAMING_DOMAINS = [
+    'vostfree.ws',
     'vostfree.cx',
+    'vostfree.tv',
     'dramacool.com.tr',
     'myasiantv.com.lv',
     'dramacoolhd.mom',
@@ -186,6 +195,8 @@ ALLOWED_STREAMING_DOMAINS = [
     'dramaday.net',
     'mydramalist.com',
     'bollywoodmdb.com',
+    'www.zee5.com/global',
+    'www.zee5.com',
     'streamtape.com',
     'vidstream.pro',
     'fembed.com',
