@@ -9,7 +9,6 @@ Plateforme de streaming dédiée aux dramas et films asiatiques.
 - Node.js (v18+)
 - npm (v9+)
 - Git
-- Vercel CLI (pour le déploiement)
 - AWS CLI (pour la gestion des ressources AWS)
 
 ### Installation
@@ -34,18 +33,27 @@ npm run dev
 - `npm run lint` : Vérifier le code avec ESLint
 - `npm run format` : Formater le code avec Prettier
 - `npm run test` : Exécuter les tests unitaires
-- `npm run deploy` : Déployer l'application sur Vercel
+- `npm run deploy` : Déployer l'application sur GitHub Pages
 - `npm run deploy:force` : Forcer le déploiement sans page de maintenance
 
 ## Architecture
 
 L'application utilise une architecture hybride :
-- **Frontend** : React + Vite, déployé sur Vercel
+- **Frontend** : React + Next.js, déployé sur GitHub Pages
 - **Backend** : Services AWS (Lambda, DynamoDB, S3)
+- **CDN** : AWS CloudFront (d1323ouxr1qbdp.cloudfront.net)
+- **Assets** : Stockés sur S3 avec fallback vers GitHub Pages
+
+## Système d'images multi-sources
+
+Le système d'images de FloDrama utilise une approche multi-sources avec ordre de priorité :
+1. GitHub Pages (flodrama.com) - Priorité 1
+2. CloudFront (d1323ouxr1qbdp.cloudfront.net) - Priorité 2
+3. S3 direct (flodrama-assets.s3.amazonaws.com) - Priorité 3
 
 ## Déploiement
 
-L'application est déployée sur Vercel à l'adresse [https://flodrama.vercel.app](https://flodrama.vercel.app).
+L'application est déployée sur GitHub Pages à l'adresse [https://flodrama.com](https://flodrama.com).
 
 ## Documentation
 

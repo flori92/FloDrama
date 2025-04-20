@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script de déploiement automatique complet pour FloDrama
 # Auteur: Cascade AI
-# Date: 2025-04-07
+# Date: 2025-04-20
 
 # Couleurs pour les logs
 GREEN='\033[0;32m'
@@ -23,13 +23,10 @@ log() {
 log "${GREEN}=== Déploiement automatique complet de FloDrama ===${NC}"
 
 # Vérifier si les commandes nécessaires sont installées
-for cmd in vercel node npm aws; do
+for cmd in node npm aws git; do
     if ! command -v $cmd &> /dev/null; then
         log "${YELLOW}Installation de $cmd...${NC}"
         case $cmd in
-            vercel)
-                npm install -g vercel --silent >> $LOG_FILE 2>&1
-                ;;
             node|npm)
                 # Ces commandes sont généralement installées ensemble
                 log "${RED}Node.js ou npm n'est pas installé. Veuillez l'installer manuellement.${NC}"
@@ -39,19 +36,23 @@ for cmd in vercel node npm aws; do
                 # Installer AWS CLI via pip
                 pip install awscli --upgrade --user >> $LOG_FILE 2>&1
                 ;;
+            git)
+                log "${RED}Git n'est pas installé. Veuillez l'installer manuellement.${NC}"
+                exit 1
+                ;;
         esac
     fi
 done
 
 # 1. Nettoyer les builds précédents
 log "${BLUE}1. Nettoyage des builds précédents...${NC}"
-rm -rf dist build .vercel/output
+rm -rf dist build out .next
 
 # 2. Mettre à jour le fichier status.json pour désactiver explicitement la maintenance
 log "${BLUE}2. Mise à jour du fichier status.json...${NC}"
-mkdir -p public/data
+mkdir -p frontend/public/data
 
-cat > public/data/status.json << EOF
+cat > frontend/public/data/status.json << EOF
 {
   "status": "online",
   "version": "1.0.0",
@@ -73,7 +74,7 @@ EOF
 
 # 3. Créer un fichier index.html de secours sans message de maintenance
 log "${BLUE}3. Création d'un fichier index.html de secours...${NC}"
-cat > public/index.html << EOF
+cat > frontend/public/index.html << EOF
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -140,216 +141,96 @@ cat > public/index.html << EOF
   
   <!-- Redirection automatique vers l'interface enrichie -->
   <script>
-    window.location.href = "/?enhanced=true";
+    // Vérifier si le navigateur prend en charge le stockage local
+    if (window.localStorage) {
+      // Vérifier si l'utilisateur a déjà choisi l'interface enrichie
+      const preferEnhanced = localStorage.getItem('preferEnhanced');
+      if (preferEnhanced === 'true') {
+        window.location.href = '/direct-enhanced.html';
+      } else {
+        // Rediriger vers l'interface principale
+        setTimeout(function() {
+          window.location.href = '/';
+        }, 2000);
+      }
+    }
   </script>
 </body>
 </html>
 EOF
 
-# 4. Créer un fichier vercel.json optimisé pour Vite
-log "${BLUE}4. Création d'un fichier vercel.json optimisé...${NC}"
-cat > vercel.json << EOF
-{
-  "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "framework": "vite",
-  "rewrites": [
-    { "source": "/app", "destination": "/?enhanced=true" }
-  ],
-  "headers": [
-    {
-      "source": "/data/status.json",
-      "headers": [
-        { "key": "Cache-Control", "value": "s-maxage=1, stale-while-revalidate=59" }
-      ]
-    },
-    {
-      "source": "/assets/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
-      ]
-    },
-    {
-      "source": "/(.*)\\.(js|css|svg|png|jpg|jpeg|gif|ico|json)$",
-      "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
-      ]
-    }
-  ]
-}
+# 4. Configurer le fichier next.config.js pour GitHub Pages
+log "${BLUE}4. Configuration de next.config.js pour GitHub Pages...${NC}"
+cat > frontend/next.config.js << EOF
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'export',
+  images: {
+    unoptimized: true,
+  },
+  basePath: '',
+  trailingSlash: true,
+  assetPrefix: ''
+};
+
+module.exports = nextConfig;
 EOF
 
 # 5. Créer un fichier .env pour désactiver la maintenance et activer l'interface enrichie
 log "${BLUE}5. Création d'un fichier .env pour désactiver la maintenance...${NC}"
-cat > .env << EOF
-VITE_MAINTENANCE_MODE=false
-VITE_API_URL=https://api.flodrama.com
-VITE_ENABLE_ANALYTICS=true
-VITE_ENABLE_ENHANCED_UI=true
-VITE_DEFAULT_INTERFACE=enhanced
+cat > frontend/.env << EOF
+NEXT_PUBLIC_MAINTENANCE_MODE=false
+NEXT_PUBLIC_API_URL=https://api.flodrama.com
+NEXT_PUBLIC_ENABLE_ANALYTICS=true
+NEXT_PUBLIC_ENABLE_ENHANCED_UI=true
+NEXT_PUBLIC_DEFAULT_INTERFACE=enhanced
 EOF
 
-# 6. Modifier le fichier src/index.js pour charger l'interface enrichie par défaut
-log "${BLUE}6. Modification du fichier src/index.js pour charger l'interface enrichie par défaut...${NC}"
-if [ -f "src/index.js" ]; then
-    # Sauvegarder le fichier original
-    cp src/index.js src/index.js.bak
-    
-    # Remplacer la condition pour charger l'interface enrichie par défaut
-    sed -i 's/const isEnhanced = urlParams.get(.enhanced.) === .true.;/const isEnhanced = urlParams.get("enhanced") !== "false";/' src/index.js
-    
-    log "${GREEN}Fichier src/index.js modifié pour charger l'interface enrichie par défaut${NC}"
-else
-    log "${YELLOW}Fichier src/index.js non trouvé, impossible de modifier la condition${NC}"
-fi
+# 6. Construction de l'application
+log "${BLUE}6. Construction de l'application...${NC}"
+cd frontend
+npm run build
 
-# 7. Installer les dépendances
-log "${BLUE}7. Installation des dépendances...${NC}"
-npm install --legacy-peer-deps --silent >> $LOG_FILE 2>&1
-
-# 8. Construire l'application
-log "${BLUE}8. Construction de l'application...${NC}"
-npm run build >> $LOG_FILE 2>&1
-
-# 9. Vérifier si le build a réussi
-if [ ! -d "dist" ]; then
+# Vérifier si la construction a réussi
+if [ $? -ne 0 ]; then
     log "${RED}Erreur: La construction de l'application a échoué${NC}"
     log "${YELLOW}Tentative de construction avec une configuration minimale...${NC}"
     
-    # Créer un fichier vite.config.js minimal
-    cat > vite.config.js << EOF
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-
-export default defineConfig({
-  plugins: [react()],
-  build: {
-    minify: false,
-    sourcemap: true
+    # Créer un fichier next.config.js minimal
+    cat > next.config.js << EOF
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'export',
+  images: {
+    unoptimized: true,
   }
-});
+};
+
+module.exports = nextConfig;
 EOF
     
     # Réessayer la construction
-    log "${YELLOW}Réessai de construction...${NC}"
-    npm run build >> $LOG_FILE 2>&1
+    npm run build
     
-    # Vérifier à nouveau
-    if [ ! -d "dist" ]; then
-        log "${RED}Erreur: La construction a échoué même avec la configuration minimale${NC}"
-        log "${YELLOW}Utilisation du fichier index.html de secours...${NC}"
-        
-        # Créer un dossier dist et y copier le fichier index.html de secours
-        mkdir -p dist
-        cp public/index.html dist/
-        
-        # Créer un dossier pour les assets statiques
-        mkdir -p dist/assets
-        
-        # Copier les assets statiques
-        if [ -d "public" ]; then
-            cp -r public/* dist/
-        else
-            log "${RED}Erreur: Dossier public non trouvé${NC}"
-            # Créer un fichier index.html minimal
-            if [ ! -f "dist/index.html" ]; then
-                echo "<html><body><h1>FloDrama</h1><p>Service temporairement indisponible</p></body></html>" > dist/index.html
-            fi
-        fi
+    if [ $? -ne 0 ]; then
+        log "${RED}Erreur: La construction a échoué même avec une configuration minimale. Abandon du déploiement.${NC}"
+        exit 1
+    else
+        log "${GREEN}Construction réussie avec la configuration minimale${NC}"
     fi
 fi
 
-# 10. Vérifier que le fichier index.html du build ne contient pas de message de maintenance
-log "${BLUE}10. Vérification du fichier index.html du build...${NC}"
-if [ -f "dist/index.html" ] && grep -q "maintenance" dist/index.html; then
+# 7. Vérifier que le fichier index.html du build ne contient pas de message de maintenance
+log "${BLUE}7. Vérification du fichier index.html du build...${NC}"
+if [ -f "out/index.html" ] && grep -q "maintenance" out/index.html; then
     log "${YELLOW}Le fichier index.html contient toujours un message de maintenance. Remplacement...${NC}"
-    cp public/index.html dist/index.html
+    cp public/index.html out/index.html
 fi
 
-# 11. Créer un fichier direct-enhanced.html dans le dossier dist
-log "${BLUE}11. Création d'un fichier direct-enhanced.html dans le dossier dist...${NC}"
-cat > dist/direct-enhanced.html << EOF
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8" />
-  <link rel="icon" href="/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#3b82f6" />
-  <meta name="description" content="FloDrama - Interface enrichie" />
-  <link rel="apple-touch-icon" href="/logo192.png" />
-  <link rel="manifest" href="/manifest.json" />
-  <title>FloDrama - Interface Enrichie</title>
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: Arial, sans-serif;
-    }
-    #root {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      background-color: #111827;
-      color: #f3f4f6;
-    }
-    .logo {
-      width: 180px;
-      margin-bottom: 20px;
-    }
-    h1 {
-      color: #3b82f6;
-      margin-bottom: 16px;
-      font-size: 2.5rem;
-    }
-    p {
-      font-size: 1.2rem;
-      margin-bottom: 24px;
-      text-align: center;
-      max-width: 500px;
-    }
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 5px solid rgba(59, 130, 246, 0.2);
-      border-top: 5px solid #3b82f6;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  </style>
-</head>
-<body>
-  <div id="root">
-    <img src="/flodrama-logo.svg" alt="FloDrama Logo" class="logo" />
-    <h1>FloDrama</h1>
-    <p>Chargement de l'interface enrichie...</p>
-    <div class="spinner"></div>
-  </div>
-  
-  <!-- Redirection automatique vers l'interface enrichie -->
-  <script>
-    window.location.href = "/?enhanced=true";
-    
-    // Sauvegarder la préférence utilisateur
-    localStorage.setItem('flodrama_interface', 'enhanced');
-    localStorage.setItem('flodrama_visited', 'true');
-  </script>
-</body>
-</html>
-EOF
-
-# 12. Créer un script pour vider le cache du navigateur
-log "${BLUE}12. Création d'un script pour vider le cache du navigateur...${NC}"
-mkdir -p dist/js
-cat > dist/js/clear-cache.js << EOF
+# 8. Créer un script pour vider le cache du navigateur
+log "${BLUE}8. Création d'un script pour vider le cache du navigateur...${NC}"
+mkdir -p out/js
+cat > out/js/clear-cache.js << EOF
 // Script pour vider le cache du navigateur
 (function() {
   // Générer un timestamp unique pour forcer le rechargement des ressources
@@ -364,77 +245,105 @@ cat > dist/js/clear-cache.js << EOF
     }
   });
   
-  // Vider le cache si possible
+  // Vider le cache du navigateur si possible
   if ('caches' in window) {
     caches.keys().then(cacheNames => {
       cacheNames.forEach(cacheName => {
-        if (cacheName.includes('flodrama')) {
-          caches.delete(cacheName);
-        }
+        caches.delete(cacheName);
       });
+      console.log('Cache vidé avec succès');
     });
+  }
+  
+  // Recharger la page sans utiliser le cache
+  if (window.location.href.includes('?')) {
+    window.location.href = window.location.href + '&nocache=' + timestamp;
+  } else {
+    window.location.href = window.location.href + '?nocache=' + timestamp;
   }
 })();
 EOF
 
-# 13. Ajouter le script de nettoyage de cache dans index.html
-log "${BLUE}13. Ajout du script de nettoyage de cache dans index.html...${NC}"
-if [ -f "dist/index.html" ]; then
-    sed -i.bak 's/<\/head>/<script src="\/js\/clear-cache.js"><\/script><\/head>/' dist/index.html
-    rm -f dist/index.html.bak
+# 9. Déploiement sur GitHub Pages
+log "${BLUE}9. Déploiement sur GitHub Pages...${NC}"
+cd ..
+
+# Vérifier si le dossier .git existe
+if [ ! -d ".git" ]; then
+    log "${YELLOW}Initialisation du dépôt Git...${NC}"
+    git init
+    git remote add origin https://github.com/flori92/FloDrama.git
 fi
 
-# 14. Déployer sur Vercel (sans interaction)
-log "${BLUE}14. Déploiement sur Vercel...${NC}"
-echo '{}' > vercel.json.tmp  # Configuration temporaire pour éviter les questions
-VERCEL_PROJECT_ID=$(cat .vercel/project.json 2>/dev/null | grep projectId | cut -d'"' -f4)
-
-if [ -n "$VERCEL_PROJECT_ID" ]; then
-    log "${YELLOW}Projet Vercel existant détecté. ID: $VERCEL_PROJECT_ID${NC}"
-    # Utiliser --token pour éviter l'interaction
-    VERCEL_TOKEN=${VERCEL_TOKEN:-$(cat ~/.vercel/credentials.json 2>/dev/null | grep token | cut -d'"' -f4)}
-    
-    if [ -n "$VERCEL_TOKEN" ]; then
-        vercel deploy --prod --token $VERCEL_TOKEN --yes >> $LOG_FILE 2>&1
-    else
-        # Si pas de token, utiliser --confirm pour minimiser l'interaction
-        vercel deploy --prod --confirm >> $LOG_FILE 2>&1
-    fi
+# Vérifier si la branche gh-pages existe
+git branch -a | grep -q "gh-pages"
+if [ $? -ne 0 ]; then
+    log "${YELLOW}Création de la branche gh-pages...${NC}"
+    git checkout --orphan gh-pages
 else
-    log "${YELLOW}Aucun projet Vercel existant détecté. Création d'un nouveau projet...${NC}"
-    # Créer un fichier de configuration pour éviter les questions
-    cat > .vercel/project.json << EOF
-{
-  "projectId": "flodrama-app",
-  "orgId": "flodrama-projects"
-}
-EOF
-    
-    # Déployer avec confirmation automatique
-    vercel deploy --prod --confirm >> $LOG_FILE 2>&1
+    log "${YELLOW}Checkout de la branche gh-pages...${NC}"
+    git checkout gh-pages || git checkout -b gh-pages
 fi
 
-# 15. Vider le cache CloudFront
-log "${BLUE}15. Invalidation du cache CloudFront...${NC}"
-DISTRIBUTIONS=$(aws cloudfront list-distributions --query "DistributionList.Items[*].{Id:Id,Origins:Origins.Items[*].DomainName}" --output json 2>/dev/null)
-if [ -n "$DISTRIBUTIONS" ]; then
-    echo "$DISTRIBUTIONS" | grep -q "flodrama"
-    if [ $? -eq 0 ]; then
-        log "${YELLOW}Distributions CloudFront trouvées pour FloDrama. Invalidation du cache...${NC}"
-        DIST_IDS=$(echo "$DISTRIBUTIONS" | grep -B 2 "flodrama" | grep "Id" | awk -F'"' '{print $4}')
-        for DIST_ID in $DIST_IDS; do
-            aws cloudfront create-invalidation --distribution-id $DIST_ID --paths "/*" >> $LOG_FILE 2>&1
-            log "${GREEN}Invalidation du cache créée pour la distribution $DIST_ID${NC}"
-        done
-    else
-        log "${YELLOW}Aucune distribution CloudFront trouvée pour FloDrama${NC}"
-    fi
+# Copier les fichiers du build dans la racine du dépôt
+log "${YELLOW}Copie des fichiers du build...${NC}"
+cp -r frontend/out/* .
+
+# Ajouter un fichier .nojekyll pour désactiver Jekyll sur GitHub Pages
+touch .nojekyll
+
+# Commit et push
+log "${YELLOW}Commit et push des fichiers...${NC}"
+git add .
+git commit -m "✨ [FEAT] Déploiement automatique sur GitHub Pages"
+git push -f origin gh-pages
+
+# Revenir à la branche principale
+git checkout main || git checkout master
+
+# 10. Vider le cache CloudFront
+log "${BLUE}10. Invalidation du cache CloudFront...${NC}"
+CLOUDFRONT_DISTRIBUTION_ID="d1323ouxr1qbdp"
+if [ -n "$CLOUDFRONT_DISTRIBUTION_ID" ]; then
+    log "${YELLOW}Invalidation du cache CloudFront pour la distribution $CLOUDFRONT_DISTRIBUTION_ID...${NC}"
+    aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*" >> $LOG_FILE 2>&1
+    log "${GREEN}Invalidation du cache créée pour la distribution $CLOUDFRONT_DISTRIBUTION_ID${NC}"
 else
-    log "${YELLOW}Aucune distribution CloudFront trouvée ou AWS CLI non configuré${NC}"
+    log "${YELLOW}Aucun ID de distribution CloudFront spécifié${NC}"
+    
+    # Essayer de trouver automatiquement les distributions
+    DISTRIBUTIONS=$(aws cloudfront list-distributions --query "DistributionList.Items[*].{Id:Id,Origins:Origins.Items[*].DomainName}" --output json 2>/dev/null)
+    if [ -n "$DISTRIBUTIONS" ]; then
+        echo "$DISTRIBUTIONS" | grep -q "flodrama"
+        if [ $? -eq 0 ]; then
+            log "${YELLOW}Distributions CloudFront trouvées pour FloDrama. Invalidation du cache...${NC}"
+            DIST_IDS=$(echo "$DISTRIBUTIONS" | grep -B 2 "flodrama" | grep "Id" | awk -F'"' '{print $4}')
+            for DIST_ID in $DIST_IDS; do
+                aws cloudfront create-invalidation --distribution-id $DIST_ID --paths "/*" >> $LOG_FILE 2>&1
+                log "${GREEN}Invalidation du cache créée pour la distribution $DIST_ID${NC}"
+            done
+        else
+            log "${YELLOW}Aucune distribution CloudFront trouvée pour FloDrama${NC}"
+        fi
+    else
+        log "${YELLOW}Aucune distribution CloudFront trouvée ou AWS CLI non configuré${NC}"
+    fi
 fi
 
-# 16. Créer un rapport de déploiement
-log "${BLUE}16. Création du rapport de déploiement...${NC}"
+# 11. Synchroniser les assets avec S3
+log "${BLUE}11. Synchronisation des assets avec S3...${NC}"
+S3_BUCKET="flodrama-assets"
+if aws s3 ls "s3://$S3_BUCKET" &>/dev/null; then
+    log "${YELLOW}Synchronisation des assets avec le bucket S3 $S3_BUCKET...${NC}"
+    aws s3 sync frontend/out/images s3://$S3_BUCKET/images --acl public-read >> $LOG_FILE 2>&1
+    aws s3 sync frontend/out/assets s3://$S3_BUCKET/assets --acl public-read >> $LOG_FILE 2>&1
+    log "${GREEN}Synchronisation avec S3 terminée${NC}"
+else
+    log "${YELLOW}Le bucket S3 $S3_BUCKET n'existe pas ou n'est pas accessible${NC}"
+fi
+
+# 12. Créer un rapport de déploiement
+log "${BLUE}12. Création du rapport de déploiement...${NC}"
 REPORT_DIR="rapports"
 mkdir -p $REPORT_DIR
 REPORT_FILE="$REPORT_DIR/rapport-deploiement-$(date +%Y%m%d_%H%M%S).md"
@@ -444,35 +353,41 @@ cat > $REPORT_FILE << EOF
 
 ## Informations générales
 - **Date de déploiement:** $(date +"%d/%m/%Y %H:%M:%S")
-- **URL de production:** https://flodrama.vercel.app
-- **URL de l'interface enrichie:** https://flodrama.vercel.app/direct-enhanced.html
-- **Plateforme de déploiement:** Vercel
+- **URL de production:** https://flodrama.com
+- **Plateforme de déploiement:** GitHub Pages
+- **CDN:** AWS CloudFront (d1323ouxr1qbdp.cloudfront.net)
+- **Stockage des assets:** S3 (flodrama-assets.s3.amazonaws.com)
 
 ## Actions réalisées
 1. Nettoyage des builds précédents
 2. Mise à jour du fichier status.json (maintenance désactivée)
 3. Création d'un fichier index.html de secours
-4. Configuration optimisée de Vercel
-5. Modification du fichier src/index.js pour charger l'interface enrichie par défaut
-6. Construction de l'application
-7. Déploiement sur Vercel
-8. Invalidation du cache CloudFront
+4. Configuration optimisée pour GitHub Pages
+5. Construction de l'application Next.js
+6. Déploiement sur GitHub Pages
+7. Invalidation du cache CloudFront
+8. Synchronisation des assets avec S3
+
+## Système d'images multi-sources
+Le système d'images utilise une approche multi-sources avec ordre de priorité :
+1. GitHub Pages (flodrama.com) - Priorité 1
+2. CloudFront (d1323ouxr1qbdp.cloudfront.net) - Priorité 2
+3. S3 direct (flodrama-assets.s3.amazonaws.com) - Priorité 3
 
 ## Prochaines étapes recommandées
 1. Vérifier l'application en production
-2. Configurer un domaine personnalisé
+2. Tester le système d'images multi-sources
 3. Mettre en place un monitoring
 4. Nettoyer les ressources AWS inutilisées
 
 ## Ressources
 - **Logs de déploiement:** $LOG_FILE
-- **Documentation technique:** docs/architecture-vercel-aws.md
+- **Documentation technique:** docs/architecture-github-aws.md
 EOF
 
 log "${GREEN}=== Déploiement automatique complet de FloDrama terminé ===${NC}"
 log "${YELLOW}Consultez le rapport pour plus de détails: $REPORT_FILE${NC}"
-log "${YELLOW}URL de l'application: https://flodrama.vercel.app${NC}"
-log "${YELLOW}URL de l'interface enrichie: https://flodrama.vercel.app/direct-enhanced.html${NC}"
+log "${YELLOW}URL de l'application: https://flodrama.com${NC}"
 
 # Sauvegarde automatique
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
@@ -481,12 +396,7 @@ mkdir -p $BACKUP_DIR
 BACKUP_FILE="${BACKUP_DIR}/${TIMESTAMP}_backup_deployment.tar.gz"
 
 log "${BLUE}Sauvegarde automatique du projet...${NC}"
-tar -czf $BACKUP_FILE --exclude="node_modules" --exclude="dist" --exclude=".git" --exclude="backups" .
+tar -czf $BACKUP_FILE --exclude="node_modules" --exclude="out" --exclude=".next" --exclude=".git" --exclude="backups" .
 log "${GREEN}Sauvegarde créée: $BACKUP_FILE${NC}"
-
-# Commit des changements
-git add public/data/status.json vercel.json .env src/index.js 2>/dev/null
-git commit -m "✨ [FEAT] Déploiement automatique et activation de l'interface enrichie par défaut" 2>/dev/null
-git push origin main 2>/dev/null
 
 exit 0
