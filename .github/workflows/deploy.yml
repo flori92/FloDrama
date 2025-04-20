@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - master
-      - github-pages-clean
+      - gh-pages
   workflow_dispatch:
 
 jobs:
@@ -20,35 +20,101 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
+          cache-dependency-path: 'Frontend/package-lock.json'
 
       - name: Installation des dépendances 🔧
+        working-directory: ./Frontend
         run: |
           npm ci
           
-      - name: Build du projet 🏗️
+      - name: Correction de la configuration Tailwind 🛠️
+        working-directory: ./Frontend
         run: |
-          echo "Création du build de production avec Navbar..."
-          # Vérifier que le composant Navbar est bien utilisé dans App.jsx
-          grep -q "import Navbar from './components/layout/Navbar'" Frontend/App.jsx
-          grep -q "<Navbar />" Frontend/App.jsx
+          echo "Correction de la configuration Tailwind CSS..."
+          # Simplifier postcss.config.js
+          cat > postcss.config.js << 'EOL'
+          module.exports = {
+            plugins: {
+              tailwindcss: {},
+              autoprefixer: {},
+            },
+          }
+          EOL
+          
+          # Mettre à jour tailwind.config.js
+          cat > tailwind.config.js << 'EOL'
+          /** @type {import('tailwindcss').Config} */
+          module.exports = {
+            content: [
+              './pages/**/*.{js,ts,jsx,tsx,mdx}',
+              './components/**/*.{js,ts,jsx,tsx,mdx}',
+              './app/**/*.{js,ts,jsx,tsx,mdx}',
+              './src/**/*.{js,ts,jsx,tsx,mdx}',
+            ],
+            theme: {
+              extend: {
+                colors: {
+                  'flo-blue': '#1E3A8A',
+                  'flo-fuchsia': '#B91C1C',
+                  'flo-violet': '#7E22CE',
+                  'flo-gray': '#D1D5DB',
+                },
+              },
+            },
+            plugins: [],
+          }
+          EOL
+          
+          # Mettre à jour les versions de Tailwind dans package.json
+          npm install --save-dev tailwindcss@3.3.0 autoprefixer@10.4.14 postcss@8.4.21
+          
+      - name: Configuration des données S3 📊
+        working-directory: ./Frontend
+        run: |
+          echo "Configuration des données S3..."
+          mkdir -p src/config
+          cat > src/config/data.ts << 'EOL'
+          // src/config/data.ts
+          
+          // Forcer l'utilisation du S3 pour toutes les URLs de données
+          export const BASE_DATA_URL = "https://flodrama-exported-data.s3.eu-west-3.amazonaws.com/";
+          export const SEARCH_INDEX_URL = "https://flodrama-exported-data.s3.eu-west-3.amazonaws.com/index.txt";
+          
+          // Log pour debug
+          if (typeof window !== "undefined") {
+            console.log("FloDrama - Configuration de données:", {
+              baseUrl: BASE_DATA_URL,
+              searchUrl: SEARCH_INDEX_URL
+            });
+          }
+          EOL
+          
+      - name: Build du projet 🏗️
+        working-directory: ./Frontend
+        run: |
+          echo "Création du build de production..."
+          # Vérifier que le répertoire out n'existe pas déjà
+          rm -rf out
           # Construction du projet
           npm run build
+          # Créer un fichier .nojekyll pour GitHub Pages
+          touch out/.nojekyll
           
       - name: Copier le fichier CNAME dans le dossier de build 📋
         run: |
           echo "Copie du fichier CNAME dans le dossier de build..."
-          cp CNAME dist/
+          echo "flodrama.com" > Frontend/out/CNAME
           echo "Vérification du contenu du fichier CNAME..."
-          cat dist/CNAME
+          cat Frontend/out/CNAME
         
       - name: Déploiement sur GitHub Pages 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist
+          folder: Frontend/out
           branch: gh-pages
           clean: true
           
       - name: Notification de déploiement réussi 📢
         run: |
-          echo "🎉 FloDrama a été déployé avec succès sur GitHub Pages avec la Navbar avancée!"
+          echo "🎉 FloDrama a été déployé avec succès sur GitHub Pages!"
           echo "L'application est maintenant accessible via https://flodrama.com"
