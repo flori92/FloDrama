@@ -3,62 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --background: #181824;
-  --foreground: #ededed;
-  --flo-violet: #9D4EDD;
-  --flo-fuchsia: #F72585;
-  --flo-blue: #5F5FFF;
-  --flo-gray: #C7C7D9;
-  --flo-white: #FFFFFF;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #181824;
-    --foreground: #ededed;
-    --flo-violet: #9D4EDD;
-    --flo-fuchsia: #F72585;
-    --flo-blue: #5F5FFF;
-    --flo-gray: #C7C7D9;
-    --flo-white: #FFFFFF;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+  --foreground-rgb: 255, 255, 255;
+  --background-rgb: 0, 0, 0;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
-
-/* Ajout d'une classe utilitaire pour le dégradé bleu-fuchsia sur le texte */
-.flo-hover-gradient {
-  background: linear-gradient(90deg, #5F5FFF 0%, #F72585 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: background 0.3s;
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
 }
