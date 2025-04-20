@@ -145,11 +145,10 @@ const CATEGORY_GRADIENTS = {
    * @param {number} index - Index du contenu
    * @param {number} width - Largeur du SVG
    * @param {number} height - Hauteur du SVG
-   * @param {string} uniqueId - Identifiant unique pour les éléments SVG
    * @param {string} pattern - Type de motif (grid, dots, lines, waves, circles, diamonds)
    * @returns {string} - Élément SVG du motif
    */
-  function generateDecorativePattern(index, width, height, uniqueId, pattern = 'grid') {
+  function generateDecorativePattern(index, width, height, pattern = 'grid') {
     // Utiliser l'index pour varier les motifs
     const patternIndex = index % 5;
     
@@ -159,18 +158,20 @@ const CATEGORY_GRADIENTS = {
     // Différents types de motifs
     switch (pattern) {
       case 'dots':
-        return `
-          <g opacity="0.2">
-            ${Array.from({length: 10}, (_, i) => {
-              const x = (width / 10) * (i + 0.5);
-              return Array.from({length: 15}, (_, j) => {
-                const y = (height / 15) * (j + 0.5);
-                const radius = 2 + (Math.sin(i + j + patternIndex) * 1.5);
-                return `<circle cx="${x}" cy="${y}" r="${radius}" fill="${patternColor}" />`;
-              }).join('');
-            }).join('')}
-          </g>
-        `;
+        {
+          return `
+            <g opacity="0.2">
+              ${Array.from({length: 10}, (_, i) => {
+                const x = (width / 10) * (i + 0.5);
+                return Array.from({length: 15}, (_, j) => {
+                  const y = (height / 15) * (j + 0.5);
+                  const radius = 2 + (Math.sin(i + j + patternIndex) * 1.5);
+                  return `<circle cx="${x}" cy="${y}" r="${radius}" fill="${patternColor}" />`;
+                }).join('');
+              }).join('')}
+            </g>
+          `;
+        }
       
       case 'lines':
         return `
@@ -227,11 +228,11 @@ const CATEGORY_GRADIENTS = {
       case 'grid':
       default:
         return `
-          <pattern id="grid-${uniqueId}" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+          <pattern id="grid-${generateUniqueId()}" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
             <rect width="20" height="20" fill="none" />
             <path d="M 20 0 L 0 0 0 20" fill="none" stroke="${patternColor}" stroke-width="1" />
           </pattern>
-          <rect width="${width}" height="${height}" fill="url(#grid-${uniqueId})" opacity="0.1" />
+          <rect width="${width}" height="${height}" fill="url(#grid-${generateUniqueId()})" opacity="0.1" />
         `;
     }
   }
@@ -260,11 +261,11 @@ const CATEGORY_GRADIENTS = {
   
   /**
    * Génère un dégradé pour le placeholder
-   * @param {string} uniqueId - Identifiant unique pour les éléments SVG
    * @param {Array} colors - Couleurs du dégradé
    * @returns {string} - Élément SVG du dégradé
    */
-  function generateGradient(uniqueId, colors) {
+  function generateGradient(colors) {
+    const uniqueId = generateUniqueId();
     return `
       <defs>
         <linearGradient id="grad-${uniqueId}" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -309,9 +310,9 @@ const CATEGORY_GRADIENTS = {
     // Générer le SVG
     const svg = `
       <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-        ${generateGradient(uniqueId, gradient)}
+        ${generateGradient(gradient)}
         <rect width="${width}" height="${height}" fill="url(#grad-${uniqueId})"/>
-        ${generateDecorativePattern(contentIndex, width, height, uniqueId, pattern)}
+        ${generateDecorativePattern(contentIndex, width, height, pattern)}
         ${placeholderMetadata.branding.logo ? generateLogo(width, height, placeholderMetadata.branding.logoSize, placeholderMetadata.branding.logoOpacity) : ''}
         ${dimensions.titlePosition !== 'none' ? 
           `<text 
@@ -384,13 +385,9 @@ const CATEGORY_GRADIENTS = {
  * @param {string} title - Titre du contenu
  * @param {string} category - Catégorie du contenu (drama, movie, anime)
  * @param {Object} options - Options supplémentaires
- * @param {number} options.width - Largeur de l'image (défaut: 300)
- * @param {number} options.height - Hauteur de l'image (défaut: 450)
- * @param {boolean} options.showTitle - Afficher le titre (défaut: true)
- * @param {boolean} options.showLogo - Afficher le logo FloDrama (défaut: true)
- * @returns {string} - Image SVG encodée en base64 (data URL)
+ * @returns {string} - URL data de l'image SVG
  */
-function generatePlaceholderImage(contentId, title, category = 'default', options = {}) {
+function generatePlaceholderImage(contentId, title, category, options) {
   // Options par défaut
   const width = options.width || 300;
   const height = options.height || 450;
@@ -431,12 +428,12 @@ function generatePlaceholderImage(contentId, title, category = 'default', option
       <rect width="${width}" height="${height}" rx="8" fill="url(#grad-${uniqueId})" />
       
       <!-- Motif décoratif basé sur l'ID du contenu -->
-      ${generateDecorativePattern(contentIndex, width, height, uniqueId)}
+      ${generateDecorativePattern(contentIndex, width, height)}
       
       <!-- Overlay pour le texte -->
       <rect width="${width}" height="${height}" rx="8" fill="url(#overlay-${uniqueId})" />
       
-      ${showLogo ? generateFloDramaLogo(width, height, uniqueId) : ''}
+      ${showLogo ? generateFloDramaLogo(width, height) : ''}
       
       ${showTitle ? `
         <!-- Titre du contenu -->
@@ -471,10 +468,9 @@ function generatePlaceholderImage(contentId, title, category = 'default', option
  * @param {number} index - Index du contenu
  * @param {number} width - Largeur de l'image
  * @param {number} height - Hauteur de l'image
- * @param {string} uniqueId - Identifiant unique
  * @returns {string} - Éléments SVG pour le motif
  */
-function generateDecorativePattern(index, width, height, uniqueId) {
+function generateDecorativePattern(index, width, height) {
   // Différents motifs en fonction de l'index
   const patternType = index % 4;
   
@@ -520,10 +516,9 @@ function generateDecorativePattern(index, width, height, uniqueId) {
  * Génère le logo FloDrama pour les placeholders
  * @param {number} width - Largeur de l'image
  * @param {number} height - Hauteur de l'image
- * @param {string} uniqueId - Identifiant unique
  * @returns {string} - Éléments SVG pour le logo
  */
-function generateFloDramaLogo(width, height, uniqueId) {
+function generateFloDramaLogo(width, height) {
   const logoSize = Math.min(width, height) * 0.2;
   const logoX = width / 2 - logoSize / 2;
   const logoY = height / 2 - logoSize / 2;
@@ -531,16 +526,16 @@ function generateFloDramaLogo(width, height, uniqueId) {
   return `
     <g transform="translate(${logoX}, ${logoY}) scale(${logoSize/100})">
       <defs>
-        <linearGradient id="logoGradient-${uniqueId}" x1="0%" y1="0%" x2="100%" y2="0%">
+        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="${FLODRAMA_COLORS.primary}" />
           <stop offset="100%" stop-color="${FLODRAMA_COLORS.secondary}" />
         </linearGradient>
       </defs>
-      <circle cx="50" cy="50" r="45" fill="none" stroke="url(#logoGradient-${uniqueId})" stroke-width="5" />
+      <circle cx="50" cy="50" r="45" fill="none" stroke="url(#logoGradient)" stroke-width="5" />
       <path d="M30,35 L30,65 M45,35 L45,65 M30,35 Q37.5,25 45,35 M30,65 Q37.5,75 45,65" 
-            stroke="url(#logoGradient-${uniqueId})" stroke-width="5" fill="none" stroke-linecap="round" />
+            stroke="url(#logoGradient)" stroke-width="5" fill="none" stroke-linecap="round" />
       <path d="M55,35 L70,35 Q80,35 80,45 Q80,55 70,55 L55,55 L55,65" 
-            stroke="url(#logoGradient-${uniqueId})" stroke-width="5" fill="none" stroke-linecap="round" />
+            stroke="url(#logoGradient)" stroke-width="5" fill="none" stroke-linecap="round" />
     </g>
   `;
 }
