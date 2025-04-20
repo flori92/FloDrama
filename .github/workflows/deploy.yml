@@ -19,12 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v3
-        with:
-          persist-credentials: true # Assure que les credentials sont persistées
+        uses: actions/checkout@v4
 
       - name: Configuration de Node.js 📦
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: 'npm'
@@ -117,16 +115,16 @@ jobs:
         
       # Utilisation de l'action officielle GitHub Pages
       - name: Configuration de GitHub Pages 🔧
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v4
       
       - name: Upload des artifacts 📤
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: 'Frontend/out'
       
       - name: Déploiement sur GitHub Pages 🚀
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
           
       - name: Notification de déploiement réussi 📢
         run: |
