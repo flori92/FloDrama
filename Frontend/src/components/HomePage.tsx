@@ -32,7 +32,7 @@ interface HeroContent {
   videoUrl?: string;
 }
 
-export function HomePage() {
+function HomePage() {
   // États pour les données dynamiques
   const [featuredContent, setFeaturedContent] = useState<ContentItem[]>([]);
   const [popularDramas, setPopularDramas] = useState<ContentItem[]>([]);
@@ -180,3 +180,6 @@ export function HomePage() {
     </div>
   );
 }
+
+// Export par défaut du composant HomePage
+export default HomePage;
