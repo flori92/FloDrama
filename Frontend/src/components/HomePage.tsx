@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MainNavigation } from "./ui/MainNavigation";
 import { HeroBanner } from "./ui/HeroBanner";
 import { ContentSection } from "./ui/ContentSection";
@@ -6,184 +6,81 @@ import { ContentRow } from "./ui/ContentRow";
 import { FeaturedCarousel } from "./ui/FeaturedCarousel";
 import { Footer } from "./ui/Footer";
 import { AnimatedElement } from "./ui/animated-element";
+import { BASE_DATA_URL } from "../config/data";
 
-// Données de démonstration
-const featuredContent = [
-  {
-    id: "1",
-    title: "Pachinko",
-    subtitle: "Nouvelle Saison",
-    description:
-      "Une saga familiale épique qui s'étend sur quatre générations, depuis la Corée sous occupation japonaise jusqu'au Japon moderne.",
-    imageUrl: "https://d1pbqs2b6em4ha.cloudfront.net/images/pachinko-banner.jpg",
-    videoPreviewUrl: "https://d1pbqs2b6em4ha.cloudfront.net/videos/pachinko-preview.mp4",
-    year: 2023,
-    rating: 9.2,
-    duration: "50 min",
-    category: "Drame",
-    tags: ["Historique", "Famille", "Adaptation"]
-  },
-  {
-    id: "2",
-    title: "The Glory",
-    subtitle: "Série Originale",
-    description:
-      "Après avoir subi d'horribles brimades à l'école, une femme met au point un plan élaboré pour se venger de ses bourreaux.",
-    imageUrl: "https://d1pbqs2b6em4ha.cloudfront.net/images/the-glory-banner.jpg",
-    videoPreviewUrl: "https://d1pbqs2b6em4ha.cloudfront.net/videos/the-glory-preview.mp4",
-    year: 2022,
-    rating: 8.8,
-    duration: "45 min",
-    category: "Thriller",
-    tags: ["Vengeance", "Drame", "Suspense"]
-  },
-  {
-    id: "3",
-    title: "Moving",
-    subtitle: "Exclusivité",
-    description:
-      "Des adolescents aux super-pouvoirs et leurs parents, qui ont vécu en cachant leurs identités, se retrouvent face à de nouveaux défis.",
-    imageUrl: "https://d1pbqs2b6em4ha.cloudfront.net/images/moving-banner.jpg",
-    videoPreviewUrl: "https://d1pbqs2b6em4ha.cloudfront.net/videos/moving-preview.mp4",
-    year: 2023,
-    rating: 9.5,
-    duration: "60 min",
-    category: "Action",
-    tags: ["Super-héros", "Fantastique", "Adaptation"]
-  }
-];
+// Types pour le contenu
+interface ContentItem {
+  id: string;
+  title: string;
+  subtitle?: string;
+  description: string;
+  imageUrl: string;
+  videoPreviewUrl?: string;
+  year: number;
+  rating: number;
+  duration: string;
+  category?: string;
+  tags?: string[];
+}
 
-const popularDramas = [
-  {
-    id: "4",
-    title: "Crash Landing on You",
-    description: "Une héritière sud-coréenne atterrit accidentellement en Corée du Nord après un accident de parapente.",
-    imageUrl: "https://d1pbqs2b6em4ha.cloudfront.net/images/crash-landing.jpg",
-    year: 2020,
-    rating: 9.0,
-    duration: "70 min"
-  },
-  {
-    id: "5",
-    title: "Goblin",
-    description: "Un gobelin immortel cherche sa fiancée pour mettre fin à sa vie éternelle.",
-    imageUrl: "https://d1pbqs2b6em4ha.cloudfront.net/images/goblin.jpg",
-    year: 2016,
-    rating: 8.9,
-    duration: "60 min"
-  },
-  {
-    id: "6",
-    title: "Itaewon Class",
-    description: "Un ex-détenu et ses amis luttent pour réussir dans le quartier d'Itaewon.",
-    imageUrl: "https://d1pbqs2b6em4ha.cloudfront.net/images/itaewon-class.jpg",
-    year: 2020,
-    rating: 8.7,
-    duration: "70 min"
-  },
-  {
-    id: "7",
-    title: "Vincenzo",
-    description: "Un avocat coréen-italien de la mafia revient en Corée et utilise ses méthodes pour combattre les grands conglomérats.",
-    imageUrl: "https://d1pbqs2b6em4ha.cloudfront.net/images/vincenzo.jpg",
-    year: 2021,
-    rating: 8.8,
-    duration: "80 min"
-  },
-  {
-    id: "8",
-    title: "Mr. Queen",
-    description: "Un chef cuisinier moderne se retrouve dans le corps d'une reine de la dynastie Joseon.",
-    imageUrl: "https://d1pbqs2b6em4ha.cloudfront.net/images/mr-queen.jpg",
-    year: 2020,
-    rating: 8.9,
-    duration: "70 min"
-  }
-];
+interface HeroContent {
+  title: string;
+  subtitle?: string;
+  description: string;
+  image: string;
+  logo?: string;
+  videoUrl?: string;
+}
 
-const recentlyAdded = [
-  {
-    id: "9",
-    title: "Queen of Tears",
-    description: "L'histoire d'un couple marié qui traverse une crise dans leur relation.",
-    imageUrl: "https://d1pbqs2b6em4ha.cloudfront.net/images/queen-of-tears.jpg",
-    year: 2024,
-    rating: 9.1,
-    duration: "70 min"
-  },
-  {
-    id: "10",
-    title: "Lovely Runner",
-    description: "Une fan voyage dans le temps pour sauver son idole d'un destin tragique.",
-    imageUrl: "https://d1pbqs2b6em4ha.cloudfront.net/images/lovely-runner.jpg",
-    year: 2024,
-    rating: 8.9,
-    duration: "60 min"
-  },
-  {
-    id: "11",
-    title: "A Time Called You",
-    description: "Une femme voyage dans le passé et se retrouve dans le corps d'une autre personne.",
-    imageUrl: "https://d1pbqs2b6em4ha.cloudfront.net/images/a-time-called-you.jpg",
-    year: 2023,
-    rating: 8.5,
-    duration: "50 min"
-  },
-  {
-    id: "12",
-    title: "Daily Dose of Sunshine",
-    description: "Le quotidien d'une infirmière travaillant dans un service psychiatrique.",
-    imageUrl: "https://d1pbqs2b6em4ha.cloudfront.net/images/daily-dose-of-sunshine.jpg",
-    year: 2023,
-    rating: 8.7,
-    duration: "60 min"
-  }
-];
-
-const topRated = [
-  {
-    id: "13",
-    title: "Reply 1988",
-    description: "La vie de cinq familles vivant dans le même quartier de Séoul en 1988.",
-    imageUrl: "https://d1pbqs2b6em4ha.cloudfront.net/images/reply-1988.jpg",
-    year: 2015,
-    rating: 9.7,
-    duration: "90 min"
-  },
-  {
-    id: "14",
-    title: "My Mister",
-    description: "La relation entre un homme d'âge moyen et une jeune femme qui ont tous deux traversé des difficultés dans la vie.",
-    imageUrl: "https://d1pbqs2b6em4ha.cloudfront.net/images/my-mister.jpg",
-    year: 2018,
-    rating: 9.6,
-    duration: "90 min"
-  },
-  {
-    id: "15",
-    title: "Hospital Playlist",
-    description: "Le quotidien de cinq médecins qui sont amis depuis la faculté de médecine.",
-    imageUrl: "https://d1pbqs2b6em4ha.cloudfront.net/images/hospital-playlist.jpg",
-    year: 2020,
-    rating: 9.4,
-    duration: "90 min"
-  },
-  {
-    id: "16",
-    title: "Prison Playbook",
-    description: "Un célèbre joueur de baseball est envoyé en prison suite à un incident.",
-    imageUrl: "https://d1pbqs2b6em4ha.cloudfront.net/images/prison-playbook.jpg",
-    year: 2017,
-    rating: 9.3,
-    duration: "90 min"
-  }
-];
-
-/**
- * Page d'accueil de FloDrama
- * Utilise tous les composants UI adaptés du Template_Front
- */
 export function HomePage() {
+  // États pour les données dynamiques
+  const [featuredContent, setFeaturedContent] = useState<ContentItem[]>([]);
+  const [popularDramas, setPopularDramas] = useState<ContentItem[]>([]);
+  const [recentlyAdded, setRecentlyAdded] = useState<ContentItem[]>([]);
+  const [topRated, setTopRated] = useState<ContentItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        // On suppose que le bucket contient ces fichiers JSON : featured.json, popular.json, recently.json, topRated.json
+        const [featuredRes, popularRes, recentRes, topRatedRes] = await Promise.all([
+          fetch(`${BASE_DATA_URL}featured.json`),
+          fetch(`${BASE_DATA_URL}popular.json`),
+          fetch(`${BASE_DATA_URL}recently.json`),
+          fetch(`${BASE_DATA_URL}topRated.json`)
+        ]);
+        if (!featuredRes.ok || !popularRes.ok || !recentRes.ok || !topRatedRes.ok) {
+          throw new Error("Erreur lors du chargement des données");
+        }
+        setFeaturedContent(await featuredRes.json());
+        setPopularDramas(await popularRes.json());
+        setRecentlyAdded(await recentRes.json());
+        setTopRated(await topRatedRes.json());
+      } catch (e: any) {
+        setError(e.message || "Erreur inconnue");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // Fonction utilitaire pour adapter ContentItem en HeroContent
+  function toHeroContent(item: ContentItem): HeroContent {
+    return {
+      title: item.title,
+      subtitle: item.subtitle,
+      description: item.description,
+      image: item.imageUrl, // mapping imageUrl -> image
+      logo: undefined, // ou item.logo si présent dans les données futures
+      videoUrl: item.videoPreviewUrl // mapping videoPreviewUrl -> videoUrl
+    };
+  }
+
   // Gestionnaires d'événements
   const handlePlay = (content: any) => {
     console.log("Lecture de", content.title);
@@ -209,6 +106,16 @@ export function HomePage() {
     console.log("Clic sur les notifications");
   };
 
+  if (loading) {
+    return <div className="min-h-screen bg-black text-white flex items-center justify-center">Chargement du contenu...</div>;
+  }
+  if (error) {
+    return <div className="min-h-screen bg-black text-red-500 flex items-center justify-center">{error}</div>;
+  }
+
+  // Adaptation dynamique pour HeroBanner (évite l'erreur de typage)
+  const heroBannerContent = featuredContent.map(toHeroContent);
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Navigation */}
@@ -220,7 +127,7 @@ export function HomePage() {
 
       {/* Bannière héro */}
       <HeroBanner 
-        content={featuredContent}
+        content={heroBannerContent}
         onPlay={handlePlay}
         onMoreInfo={handleMoreInfo}
         onAddToList={handleAddToList}
