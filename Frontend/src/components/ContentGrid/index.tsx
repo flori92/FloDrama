@@ -5,9 +5,10 @@ import './styles.css';
 interface ContentItem {
   id: string;
   title: string;
-  posterUrl: string;
+  posterUrl?: string;
+  imageUrl?: string;
   rating?: number;
-  year?: string;
+  year?: number | string;
   type?: string;
   description?: string;
   genres?: string[];
@@ -85,7 +86,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             <ContentCard
                 id={item.id}
                 title={item.title}
-                posterUrl={item.posterUrl || item.imageUrl}
+                posterUrl={item.posterUrl || item.imageUrl || "/images/fallback/poster1.jpg"}
                 rating={item.rating}
                 year={item.year?.toString()}
                 type={item.type as 'drama' | 'anime' | 'bollywood'}
