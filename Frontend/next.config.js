@@ -1,14 +1,21 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
-  distDir: 'dist',
+  reactStrictMode: true,
   images: {
-    unoptimized: true,
-    domains: ['localhost', 'flodrama.com'],
+    domains: ['flodrama.com'],
+    formats: ['image/avif', 'image/webp'],
   },
   experimental: {
-    appDir: true
-  }
+    serverActions: true,
+    serverComponentsExternalPackages: ['lucide-react'],
+  },
+  compiler: {
+    styledComponents: true,
+  },
+  webpack: (config) => {
+    config.resolve.fallback = { fs: false, path: false };
+    return config;
+  },
 }
 
 module.exports = nextConfig
