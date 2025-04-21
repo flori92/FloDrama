@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useUserPreferences } from '../hooks/useUserPreferences';
+import { BASE_DATA_URL } from '../config/data';
 
 /**
  * Service de recommandation pour FloDrama
@@ -91,7 +92,8 @@ export class RecommandationService {
 
   private async loadContentCache() {
     try {
-      const response = await fetch('/data/content.json');
+      // Charger les données scrappées depuis S3 (données publiques)
+      const response = await fetch(`${BASE_DATA_URL}content.json`);
       this.contentCache = await response.json();
     } catch (error) {
       console.error('Erreur lors du chargement du cache de contenu:', error);
