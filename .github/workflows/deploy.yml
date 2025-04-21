@@ -14,8 +14,145 @@ permissions:
   pages: write
   id-token: write
 
+# Variables d'environnement globales
+env:
+  AWS_REGION: 'us-east-1'
+  S3_BUCKET: 'flodrama-content-1745269660'
+  API_URL: 'https://api.flodrama.com'
+  FRONTEND_URL: 'https://flodrama.com'
+
 jobs:
-  build-and-deploy:
+  deploy-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v4
+
+      - name: Configuration de Node.js 
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          cache-dependency-path: 'Backend/api/package-lock.json'
+
+      - name: Configuration d'AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Installation des dépendances du backend
+        working-directory: ./Backend/api
+        run: |
+          npm ci
+
+      - name: Création du fichier .env de production
+        working-directory: ./Backend/api
+        run: |
+          cat > .env << EOL
+          NODE_ENV=production
+          PORT=3001
+          AWS_REGION=${{ env.AWS_REGION }}
+          S3_BUCKET=${{ env.S3_BUCKET }}
+          FRONTEND_URL=${{ env.FRONTEND_URL }}
+          EOL
+
+      - name: Création du package Lambda
+        working-directory: ./Backend/api
+        run: |
+          zip -r ../backend-api.zip . -x "node_modules/aws-sdk/*" -x "*.git*" -x "*.env.example"
+
+      - name: Déploiement sur AWS Lambda
+        run: |
+          # Vérifier si la fonction Lambda existe déjà
+          LAMBDA_EXISTS=$(aws lambda list-functions --query "Functions[?FunctionName=='FloDramaAPI'].FunctionName" --output text || echo "")
+          
+          if [ -z "$LAMBDA_EXISTS" ]; then
+            # Créer la fonction Lambda
+            echo "Création de la fonction Lambda FloDramaAPI..."
+            aws lambda create-function \
+              --function-name FloDramaAPI \
+              --runtime nodejs18.x \
+              --role ${{ secrets.AWS_LAMBDA_ROLE_ARN }} \
+              --handler contentDistributionAPI.handler \
+              --zip-file fileb://Backend/backend-api.zip \
+              --timeout 30 \
+              --memory-size 512 \
+              --environment "Variables={NODE_ENV=production,S3_BUCKET=${{ env.S3_BUCKET }},FRONTEND_URL=${{ env.FRONTEND_URL }}}"
+          else
+            # Mettre à jour la fonction Lambda existante
+            echo "Mise à jour de la fonction Lambda FloDramaAPI..."
+            aws lambda update-function-code \
+              --function-name FloDramaAPI \
+              --zip-file fileb://Backend/backend-api.zip
+          fi
+          
+          # Configurer l'API Gateway si nécessaire
+          API_ID=$(aws apigateway get-rest-apis --query "items[?name=='FloDramaAPI'].id" --output text || echo "")
+          
+          if [ -z "$API_ID" ]; then
+            echo "Configuration d'API Gateway..."
+            # Créer une nouvelle API
+            API_ID=$(aws apigateway create-rest-api \
+              --name FloDramaAPI \
+              --endpoint-configuration "types=REGIONAL" \
+              --query "id" --output text)
+            
+            # Configurer l'API
+            ROOT_ID=$(aws apigateway get-resources --rest-api-id $API_ID --query "items[?path=='/'].id" --output text)
+            
+            # Créer la ressource /api
+            API_RESOURCE_ID=$(aws apigateway create-resource \
+              --rest-api-id $API_ID \
+              --parent-id $ROOT_ID \
+              --path-part "api" \
+              --query "id" --output text)
+            
+            # Configurer la méthode ANY pour /api
+            aws apigateway put-method \
+              --rest-api-id $API_ID \
+              --resource-id $API_RESOURCE_ID \
+              --http-method ANY \
+              --authorization-type NONE
+            
+            # Configurer l'intégration avec Lambda
+            aws apigateway put-integration \
+              --rest-api-id $API_ID \
+              --resource-id $API_RESOURCE_ID \
+              --http-method ANY \
+              --type AWS_PROXY \
+              --integration-http-method POST \
+              --uri arn:aws:apigateway:${{ env.AWS_REGION }}:lambda:path/2015-03-31/functions/arn:aws:lambda:${{ env.AWS_REGION }}:${{ secrets.AWS_ACCOUNT_ID }}:function:FloDramaAPI/invocations
+            
+            # Déployer l'API
+            aws apigateway create-deployment \
+              --rest-api-id $API_ID \
+              --stage-name prod
+          else
+            # Mettre à jour le déploiement
+            echo "Mise à jour du déploiement API Gateway..."
+            aws apigateway create-deployment \
+              --rest-api-id $API_ID \
+              --stage-name prod
+          fi
+          
+          # Récupérer l'URL de l'API
+          API_URL=$(aws apigateway get-stage \
+            --rest-api-id $API_ID \
+            --stage-name prod \
+            --query "invokeUrl" --output text)
+          
+          echo "API Gateway URL: ${API_URL}/api"
+          echo "API_GATEWAY_URL=${API_URL}/api" >> $GITHUB_ENV
+
+      - name: Notification de déploiement du backend réussi
+        run: |
+          echo "✅ Backend FloDrama déployé avec succès!"
+          echo "API URL: ${{ env.API_GATEWAY_URL }}"
+
+  build-and-deploy-frontend:
+    needs: deploy-backend
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -82,25 +219,33 @@ jobs:
           # Mettre à jour les versions de Tailwind dans package.json
           npm install --save-dev tailwindcss@3.3.0 autoprefixer@10.4.14 postcss@8.4.21
           
-      - name: Configuration des données S3 
+      - name: Configuration des données S3 et API
         working-directory: ./Frontend
         run: |
-          echo "Configuration des données S3..."
+          echo "Configuration des données S3 et API..."
           mkdir -p src/config
-          cat > src/config/data.ts << 'EOL'
+          cat > src/config/data.ts << EOL
           // src/config/data.ts
           
           // Forcer l'utilisation du S3 pour toutes les URLs de données
           export const BASE_DATA_URL = "https://flodrama-exported-data.s3.eu-west-3.amazonaws.com/";
           export const SEARCH_INDEX_URL = "https://flodrama-exported-data.s3.eu-west-3.amazonaws.com/index.txt";
+          export const API_URL = "${{ env.API_GATEWAY_URL || env.API_URL }}";
           
           // Log pour debug
           if (typeof window !== "undefined") {
             console.log("FloDrama - Configuration de données:", {
               baseUrl: BASE_DATA_URL,
-              searchUrl: SEARCH_INDEX_URL
+              searchUrl: SEARCH_INDEX_URL,
+              apiUrl: API_URL
             });
           }
+          EOL
+          
+          # Créer le fichier .env.production
+          cat > .env.production << EOL
+          VITE_API_URL=${{ env.API_GATEWAY_URL || env.API_URL }}
+          VITE_ENVIRONMENT=production
           EOL
           
       - name: Build du projet 
@@ -136,5 +281,6 @@ jobs:
           
       - name: Notification de déploiement réussi 
         run: |
-          echo " FloDrama a été déployé avec succès sur GitHub Pages!"
-          echo "L'application est maintenant accessible via https://flodrama.com"
+          echo "✅ FloDrama a été déployé avec succès sur GitHub Pages!"
+          echo "🌐 Frontend: https://flodrama.com"
+          echo "🔌 Backend API: ${{ env.API_GATEWAY_URL || env.API_URL }}"
