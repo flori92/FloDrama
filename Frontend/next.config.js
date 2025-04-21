@@ -6,7 +6,6 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
   },
   experimental: {
-    serverActions: true,
     serverComponentsExternalPackages: ['lucide-react'],
   },
   compiler: {
