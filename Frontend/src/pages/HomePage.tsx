@@ -2,6 +2,8 @@ import React, { useState, useEffect, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { getDynamicComponent } from '../components/component-registry';
 import { getContentByCategory, getFeaturedContent } from '../services/apiService';
+import { CDN_BASE_URL } from '../config';
+import { useRouter } from 'next/router';
 
 // Types pour les données
 interface ContentData {
@@ -27,6 +29,8 @@ const HomePage: React.FC = () => {
     isLoading: true,
     error: null
   });
+
+  const router = useRouter();
 
   // Récupération des données au chargement de la page
   useEffect(() => {
@@ -77,6 +81,34 @@ const HomePage: React.FC = () => {
     category: item.categories?.[0] || ''
   }));
 
+  // Données pour les cartes de catégories
+  const categoryCardsData = [
+    {
+      title: 'Dramas',
+      slug: 'dramas',
+      image: `${CDN_BASE_URL}/categories/drama-category.jpg`,
+      gradient: 'from-purple-600/80 to-fuchsia-500/80'
+    },
+    {
+      title: 'Films',
+      slug: 'movies',
+      image: `${CDN_BASE_URL}/categories/movie-category.jpg`,
+      gradient: 'from-blue-600/80 to-blue-400/80'
+    },
+    {
+      title: 'Animés',
+      slug: 'anime',
+      image: `${CDN_BASE_URL}/categories/anime-category.jpg`,
+      gradient: 'from-teal-500/80 to-green-400/80'
+    },
+    {
+      title: 'Bollywood',
+      slug: 'bollywood',
+      image: `${CDN_BASE_URL}/categories/bollywood-category.jpg`,
+      gradient: 'from-orange-500/80 to-red-400/80'
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header (Navigation) */}
@@ -107,7 +139,7 @@ const HomePage: React.FC = () => {
           {getDynamicComponent('ContentRow', {
             title: 'Tendances',
             items: contentData.trending,
-            onSeeAll: () => console.log('Voir toutes les tendances')
+            onSeeAll: () => router.push('/category/trending')
           })}
         </Suspense>
 
@@ -116,7 +148,7 @@ const HomePage: React.FC = () => {
           {getDynamicComponent('ContentRow', {
             title: 'Dramas',
             items: contentData.dramas,
-            onSeeAll: () => console.log('Voir tous les dramas')
+            onSeeAll: () => router.push('/category/dramas')
           })}
         </Suspense>
 
@@ -125,7 +157,7 @@ const HomePage: React.FC = () => {
           {getDynamicComponent('ContentRow', {
             title: 'Films',
             items: contentData.movies,
-            onSeeAll: () => console.log('Voir tous les films')
+            onSeeAll: () => router.push('/category/movies')
           })}
         </Suspense>
 
@@ -135,7 +167,7 @@ const HomePage: React.FC = () => {
             title: 'Sélection du moment',
             subtitle: 'Notre sélection de contenus à ne pas manquer ce mois-ci',
             items: contentData.featured,
-            onSeeAll: () => console.log('Voir toute la sélection')
+            onSeeAll: () => router.push('/category/featured')
           })}
         </Suspense>
 
@@ -144,7 +176,7 @@ const HomePage: React.FC = () => {
           {getDynamicComponent('ContentRow', {
             title: 'Animés',
             items: contentData.anime,
-            onSeeAll: () => console.log('Voir tous les animés')
+            onSeeAll: () => router.push('/category/anime')
           })}
         </Suspense>
 
@@ -153,9 +185,25 @@ const HomePage: React.FC = () => {
           {getDynamicComponent('ContentRow', {
             title: 'Bollywood',
             items: contentData.bollywood,
-            onSeeAll: () => console.log('Voir tout Bollywood')
+            onSeeAll: () => router.push('/category/bollywood')
           })}
         </Suspense>
+
+        {/* Cartes de catégories */}
+        <div className="container mx-auto px-4 py-12">
+          <h2 className="text-3xl font-bold mb-8 text-white">Explorez par catégorie</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {categoryCardsData.map((category, index) => (
+              <Suspense key={category.slug} fallback={<div className="h-48 w-full bg-gradient-to-r from-blue-500/20 to-fuchsia-500/20 animate-pulse rounded-lg" />}>
+                {getDynamicComponent('CategoryCard', {
+                  ...category,
+                  onClick: () => router.push(`/category/${category.slug}`)
+                })}
+              </Suspense>
+            ))}
+          </div>
+        </div>
+
       </main>
 
       {/* Footer */}

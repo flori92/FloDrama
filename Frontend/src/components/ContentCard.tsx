@@ -101,7 +101,7 @@ const ContentCard: React.FC<ContentCardProps> = ({
       }}
     >
       {/* Affiche */}
-      <div className="relative overflow-hidden rounded-md aspect-[2/3] bg-black/20">
+      <div className="relative overflow-hidden rounded-md aspect-[2/3] bg-black/20 shadow-lg">
         {/* Prévisualisation vidéo */}
         {videoPreview && (
           <video
@@ -144,17 +144,17 @@ const ContentCard: React.FC<ContentCardProps> = ({
           isInList={isInList}
           isLiked={isLiked}
           isDisliked={isDisliked}
-          onPlay={() => console.log('Play', id)}
+          onPlay={() => console.log(`Lecture de ${title}`)}
           onAddToList={handleAddToList}
           onLike={() => setIsLiked(!isLiked)}
           onDislike={() => setIsDisliked(!isDisliked)}
-          onMoreInfo={() => console.log('More Info', id)}
+          onMoreInfo={() => console.log(`Plus d'infos sur ${title}`)}
         />
       </div>
       
-      {/* Titre (visible uniquement quand non survolé) */}
-      <motion.div 
-        className="mt-2 px-1"
+      {/* Titre (visible uniquement lorsque non survolé) */}
+      <motion.div
+        className="px-1 py-2 font-['SF_Pro_Display',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,'Helvetica_Neue',Arial,sans-serif]"
         animate={{ opacity: isHovering ? 0 : 1 }}
         transition={{ duration: 0.2 }}
       >
@@ -200,7 +200,7 @@ const AnimatedOverlay: React.FC<{
 }) => {
   return (
     <motion.div
-      className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent p-3 flex flex-col justify-end"
+      className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent p-3 flex flex-col justify-end font-['SF_Pro_Display',-apple-system,BlinkMacSystemFont,'Segoe_UI',Roboto,'Helvetica_Neue',Arial,sans-serif]"
       initial={{ opacity: 0 }}
       animate={{ opacity: isVisible ? 1 : 0 }}
       transition={{ duration: 0.2 }}
@@ -236,6 +236,7 @@ const AnimatedOverlay: React.FC<{
           onClick={onPlay}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
           <Play className="w-4 h-4" />
         </motion.button>
@@ -250,6 +251,7 @@ const AnimatedOverlay: React.FC<{
           onClick={onAddToList}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
           <Plus className="w-4 h-4" />
         </motion.button>
@@ -264,6 +266,7 @@ const AnimatedOverlay: React.FC<{
           onClick={onLike}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
           <ThumbsUp className="w-4 h-4" />
         </motion.button>
@@ -278,6 +281,7 @@ const AnimatedOverlay: React.FC<{
           onClick={onDislike}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
           <ThumbsDown className="w-4 h-4" />
         </motion.button>
@@ -288,6 +292,7 @@ const AnimatedOverlay: React.FC<{
           onClick={onMoreInfo}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
           <Info className="w-4 h-4" />
         </motion.button>
