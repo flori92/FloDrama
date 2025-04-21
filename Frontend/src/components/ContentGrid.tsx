@@ -8,11 +8,14 @@ interface ContentGridProps {
 }
 
 const ContentGrid: React.FC<ContentGridProps> = ({ title, category, searchQuery }) => {
+  // @ts-expect-error: Ajout dynamique MEDIA_CDN_URL sur window par aws-config-global.js
+  const CDN_URL = (typeof window !== 'undefined' && window.MEDIA_CDN_URL) ? window.MEDIA_CDN_URL : 'https://d1323ouxr1qbdp.cloudfront.net';
+
   // Simuler des données de contenu
   const contentItems = Array.from({ length: 6 }, (_, i) => ({
     id: i + 1,
     title: `Titre ${i + 1}`,
-    image: `/static/placeholders/${category || 'drama'}-${i + 1}.webp`,
+    image: `${CDN_URL}/placeholders/${category || 'drama'}-${i + 1}.webp`,
     type: category || 'drama'
   }));
 
