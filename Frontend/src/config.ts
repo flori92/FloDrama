@@ -14,15 +14,17 @@ export const contentColors = {
 } as const;
 
 export const apiConfig = {
-  baseUrl: process.env.NEXT_PUBLIC_API_URL || 'https://REPLACE_WITH_LAMBDA_API_URL',
+  baseUrl: process.env.NEXT_PUBLIC_API_URL || 'https://71e6p3gfk1.execute-api.us-east-1.amazonaws.com/prod',
+  cdnUrl: process.env.NEXT_PUBLIC_S3_BUCKET || 'https://d1pbqs2b6em4ha.cloudfront.net',
   timeout: 10000,
   retryAttempts: 3
 } as const;
 
 // Export API_BASE_URL pour compatibilité avec les services
 export const API_BASE_URL = apiConfig.baseUrl;
+export const CDN_BASE_URL = apiConfig.cdnUrl;
 
 export const cacheConfig = {
   ttl: 1000 * 60 * 60, // 1 heure
-  maxSize: 100 // Nombre maximum d'éléments en cache
+  maxSize: 100 // Nombre maximum d'élééments en cache
 } as const; 
