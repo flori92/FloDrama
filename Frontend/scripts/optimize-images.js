@@ -3,10 +3,15 @@
  * Ce script convertit les images en WebP et génère des placeholders pour les images manquantes
  */
 
-const fs = require('fs');
-const path = require('path');
-const sharp = require('sharp');
-const { createCanvas } = require('canvas');
+import fs from 'fs';
+import path from 'path';
+import sharp from 'sharp';
+import { createCanvas } from 'canvas';
+import { fileURLToPath } from 'url';
+
+// Obtenir le chemin du répertoire actuel en utilisant ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Chemins des répertoires
 const ROOT_DIR = path.resolve(__dirname, '..');

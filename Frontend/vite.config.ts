@@ -33,8 +33,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          'vendor': ['react', 'react-dom', 'react-router-dom'],
-          'lynx': ['@lynx-js/core', '@lynx-js/react', '@lynx-js/runtime']
+          'vendor': ['react', 'react-dom', 'react-router-dom']
         }
       }
     }

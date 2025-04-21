@@ -2,11 +2,13 @@
 const nextConfig = {
   output: 'export',
   distDir: 'dist',
-  generateBuildId: () => 'flodrama-build',
   images: {
     unoptimized: true,
     domains: ['localhost', 'flodrama.com'],
   },
+  experimental: {
+    appDir: true
+  }
 }
 
 module.exports = nextConfig

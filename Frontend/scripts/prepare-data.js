@@ -3,9 +3,14 @@
  * Ce script est exécuté avant chaque build pour s'assurer que les données sont disponibles
  */
 
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { execSync } from 'child_process';
+
+// Obtenir le chemin du répertoire actuel en utilisant ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Chemins des répertoires
 const ROOT_DIR = path.resolve(__dirname, '..');

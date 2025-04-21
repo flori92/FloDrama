@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import { ThemeProvider } from './components/ThemeProvider';
 import './styles/globals.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ThemeProvider defaultTheme="dark" storageKey="flodrama-theme">
+    <BrowserRouter>
       <App />
-    </ThemeProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
