@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import { ComponentName, getComponentConfig, needsReactFallback } from '../adapters/component-registry';
-import { useHybridSystem } from '../components/HybridComponentProvider';
+import { ComponentName, getComponentConfig, needsReactFallback } from './component-registry';
+import { useHybridSystem } from '../../components/HybridComponentProvider';
 
 // Interface pour les résultats de vérification de disponibilité
 export interface AvailabilityCheckResult {
@@ -145,6 +145,34 @@ export function useHybridComponent<T extends ComponentName>(componentName: T) {
     error,
     refreshDependencies
   };
+}
+
+/**
+ * Composant React qui encapsule la logique du hook useHybridComponent
+ * pour faciliter l'utilisation des composants hybrides
+ */
+export function HybridComponent({ 
+  componentName, 
+  props = {}, 
+  fallback = null 
+}: { 
+  componentName: ComponentName; 
+  props?: Record<string, any>; 
+  fallback?: React.ReactNode;
+}) {
+  const { component, isLoading, error } = useHybridComponent(componentName);
+  
+  if (isLoading) {
+    return <div className="hybrid-component-loading">Chargement...</div>;
+  }
+  
+  if (error || !component) {
+    console.error(`[HybridComponent] Erreur de rendu pour ${componentName}:`, error);
+    return fallback ? <>{fallback}</> : <div className="hybrid-component-error">Erreur de chargement du composant</div>;
+  }
+  
+  const Component = component;
+  return <Component {...props} />;
 }
 
 /**
