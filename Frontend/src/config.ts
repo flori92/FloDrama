@@ -14,7 +14,7 @@ export const contentColors = {
 } as const;
 
 export const apiConfig = {
-  baseUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api',
+  baseUrl: process.env.NEXT_PUBLIC_API_URL || 'https://REPLACE_WITH_LAMBDA_API_URL',
   timeout: 10000,
   retryAttempts: 3
 } as const;
