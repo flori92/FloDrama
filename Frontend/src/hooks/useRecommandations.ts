@@ -1,113 +1,77 @@
 import { useState, useEffect, useCallback } from 'react';
-import RecommandationService, { 
-  ContenuMedia, 
-  PreferencesUtilisateur 
-} from '@/services/RecommandationService';
+import { RecommandationService, ContenuMedia } from '@/services/RecommandationService';
+
+interface UserPreferences {
+  favoriteGenres: string[];
+  preferredContentTypes: string[];
+  language: string;
+  subtitlesEnabled: boolean;
+  autoplayEnabled: boolean;
+}
 
 interface UseRecommandationsOptions {
-  userId: string;
+  userPreferences?: UserPreferences;
   nombreElements?: number;
-  intervalleMiseAJour?: number; // en millisecondes
+  rafraichissementAutomatique?: boolean;
+  intervalleRafraichissement?: number;
 }
 
 interface UseRecommandationsResult {
-  contenus: ContenuMedia[];
+  recommandations: ContenuMedia[];
   isLoading: boolean;
   error: Error | null;
-  rafraichirRecommandations: () => Promise<void>;
-  mettreAJourPreferences: (preferences: Partial<PreferencesUtilisateur>) => Promise<void>;
+  rafraichir: () => Promise<void>;
 }
 
 /**
  * Hook personnalisé pour gérer les recommandations
  * Intègre la logique de mise à jour automatique et de gestion d'état
  */
-export const useRecommandations = ({
-  userId,
-  nombreElements = 10,
-  intervalleMiseAJour = 5 * 60 * 1000 // 5 minutes par défaut
-}: UseRecommandationsOptions): UseRecommandationsResult => {
-  const [contenus, setContenus] = useState<ContenuMedia[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-  const [preferences, setPreferences] = useState<PreferencesUtilisateur>({
-    genresPrefers: [],
-    languesPreferees: [],
-    parametres: {
-      autoplay: false,
-      qualitePreferee: 'auto',
-      sousTitresParDefaut: true,
-      langueAudioPreferee: 'fr'
-    }
-  });
+export const useRecommandations = (options: UseRecommandationsOptions = {}) => {
+  const {
+    userPreferences,
+    nombreElements = 10,
+    rafraichissementAutomatique = false,
+    intervalleRafraichissement = 5000,
+  } = options;
 
-  // Fonction de chargement des recommandations
-  const chargerRecommandations = useCallback(async () => {
+  const [recommandations, setRecommandations] = useState<ContenuMedia[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  const fetchRecommandations = useCallback(async () => {
     try {
       setIsLoading(true);
-      const recommandations = await RecommandationService.getRecommandations(
-        userId,
+      const recommandationService = RecommandationService.getInstance();
+      const recommendations = await recommandationService.getRecommendations(
+        userPreferences,
         nombreElements
       );
-      setContenus(recommandations);
+      setRecommandations(recommendations);
       setError(null);
     } catch (err) {
-      setError(err instanceof Error ? err : new Error('Erreur de chargement des recommandations'));
-      // Log détaillé pour le débogage
-      console.error('Erreur lors du chargement des recommandations:', err);
+      setError(err instanceof Error ? err : new Error('Une erreur est survenue'));
     } finally {
       setIsLoading(false);
     }
-  }, [userId, nombreElements]);
+  }, [userPreferences, nombreElements]);
 
-  // Mise à jour des préférences
-  const mettreAJourPreferences = async (nouvellesPreferences: Partial<PreferencesUtilisateur>) => {
-    try {
-      const succes = await RecommandationService.mettreAJourPreferences(userId, nouvellesPreferences);
-      
-      if (succes) {
-        setPreferences(prev => ({
-          ...prev,
-          ...nouvellesPreferences
-        }));
-        
-        // Recharger les recommandations avec les nouvelles préférences
-        await chargerRecommandations();
-      } else {
-        throw new Error('Échec de la mise à jour des préférences');
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('Erreur de mise à jour des préférences'));
-      console.error('Erreur lors de la mise à jour des préférences:', err);
-    }
-  };
-
-  // Chargement initial et mise en place de l'intervalle de rafraîchissement
   useEffect(() => {
-    chargerRecommandations();
+    fetchRecommandations();
 
-    // Mettre en place l'intervalle de rafraîchissement
-    const intervalId = setInterval(chargerRecommandations, intervalleMiseAJour);
-
-    // Nettoyage lors du démontage
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [chargerRecommandations, intervalleMiseAJour]);
-
-  // Fonction de rafraîchissement manuel
-  const rafraichirRecommandations = async () => {
-    await chargerRecommandations();
-  };
+    if (rafraichissementAutomatique) {
+      const interval = setInterval(fetchRecommandations, intervalleRafraichissement);
+      return () => clearInterval(interval);
+    }
+  }, [fetchRecommandations, rafraichissementAutomatique, intervalleRafraichissement]);
 
   return {
-    contenus,
+    recommandations,
     isLoading,
     error,
-    rafraichirRecommandations,
-    mettreAJourPreferences
+    rafraichir: fetchRecommandations,
   };
 };
 
 // Types d'export pour TypeScript
-export type { ContenuMedia, PreferencesUtilisateur };
+export type { ContenuMedia };

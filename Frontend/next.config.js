@@ -5,9 +5,6 @@ const nextConfig = {
     domains: ['flodrama.com'],
     formats: ['image/avif', 'image/webp'],
   },
-  experimental: {
-    serverComponentsExternalPackages: ['lucide-react'],
-  },
   compiler: {
     styledComponents: true,
   },

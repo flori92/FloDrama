@@ -1,6 +1,6 @@
 // Version stub temporaire de useUserPreferences.ts pour permettre la compilation
 import { useState, useEffect } from 'react';
-import recommandationService from '../services/RecommandationService';
+import { RecommandationService } from '../services/RecommandationService';
 
 interface UserPreferences {
   favoriteGenres: string[];
@@ -22,6 +22,8 @@ interface UserPreferences {
     timestamp: string;
     progress: number;
   }[];
+  subtitlesEnabled: boolean;
+  autoplayEnabled: boolean;
 }
 
 interface UseUserPreferencesReturn {
@@ -36,8 +38,8 @@ interface UseUserPreferencesReturn {
 }
 
 const defaultPreferences: UserPreferences = {
-  favoriteGenres: [],
-  preferredContentTypes: ['drama', 'movie', 'anime', 'bollywood'],
+  favoriteGenres: ['action', 'drama'],
+  preferredContentTypes: ['drama', 'movie'],
   language: 'fr',
   theme: 'dark',
   notifications: {
@@ -50,7 +52,9 @@ const defaultPreferences: UserPreferences = {
   watchlist: [],
   likedContent: [],
   dislikedContent: [],
-  viewingHistory: []
+  viewingHistory: [],
+  subtitlesEnabled: true,
+  autoplayEnabled: false,
 };
 
 export const useUserPreferences = (): UseUserPreferencesReturn => {
@@ -83,6 +87,7 @@ export const useUserPreferences = (): UseUserPreferencesReturn => {
 
   const updatePreferences = async (updates: Partial<UserPreferences>) => {
     try {
+      setIsLoading(true);
       const updatedPreferences = { ...preferences, ...updates };
       setPreferences(updatedPreferences);
       localStorage.setItem('userPreferences', JSON.stringify(updatedPreferences));
@@ -92,6 +97,8 @@ export const useUserPreferences = (): UseUserPreferencesReturn => {
     } catch (err) {
       setError(err instanceof Error ? err : new Error('Erreur lors de la mise à jour des préférences'));
       throw err;
+    } finally {
+      setIsLoading(false);
     }
   };
 
