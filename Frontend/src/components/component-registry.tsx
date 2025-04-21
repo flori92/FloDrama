@@ -20,6 +20,7 @@ const ContentCard = lazy(() => import('./ContentCard'));
 const FeaturedSection = lazy(() => import('./FeaturedSection'));
 const Header = lazy(() => import('./Header'));
 const Footer = lazy(() => import('./Footer'));
+const CategoryCard = lazy(() => import('./CategoryCard'));
 
 // Fallbacks par défaut
 const defaultFallbacks = {
@@ -28,7 +29,8 @@ const defaultFallbacks = {
   contentCard: <div className="w-[200px] h-[300px] bg-white/5 animate-pulse rounded-md"></div>,
   featuredSection: <div className="h-96 w-full bg-gradient-to-r from-blue-500/10 to-fuchsia-500/10 animate-pulse rounded-lg my-8"></div>,
   header: <div className="h-16 w-full bg-black/80 animate-pulse"></div>,
-  footer: <div className="h-64 w-full bg-black animate-pulse mt-8"></div>
+  footer: <div className="h-64 w-full bg-black animate-pulse mt-8"></div>,
+  categoryCard: <div className="h-48 w-full bg-gradient-to-r from-blue-500/20 to-fuchsia-500/20 animate-pulse rounded-lg"></div>
 };
 
 // Registre de composants
@@ -92,6 +94,18 @@ const componentRegistry: Record<string, ComponentConfig> = {
       items: []
     },
     fallback: defaultFallbacks.featuredSection,
+    lazyOptions: { ssr: true, suspense: true }
+  },
+  'CategoryCard': {
+    name: 'CategoryCard',
+    component: CategoryCard,
+    loadAsync: true,
+    defaultProps: {
+      title: '',
+      image: '/static/placeholders/category-placeholder.jpg',
+      slug: ''
+    },
+    fallback: defaultFallbacks.categoryCard,
     lazyOptions: { ssr: true, suspense: true }
   }
 };
