@@ -105,6 +105,14 @@ jobs:
             aws lambda update-function-code \
               --function-name FloDramaAPI \
               --zip-file fileb://Backend/backend-api.zip
+            
+            # Mettre à jour la configuration de la fonction Lambda
+            echo "Mise à jour de la configuration Lambda..."
+            aws lambda update-function-configuration \
+              --function-name FloDramaAPI \
+              --timeout 30 \
+              --memory-size 512 \
+              --environment "Variables={NODE_ENV=production,S3_BUCKET=${{ env.S3_BUCKET }},FRONTEND_URL=${{ env.FRONTEND_URL }}}"
           fi
           
           # Configurer l'API Gateway si nécessaire
@@ -164,6 +172,35 @@ jobs:
           
           echo "API Gateway URL: ${API_URL}/api"
           echo "API_GATEWAY_URL=${API_URL}/api" >> $GITHUB_ENV
+
+      - name: Nettoyage des ressources AWS Lambda
+        run: |
+          echo "Nettoyage des anciennes versions Lambda..."
+          
+          # Récupération des versions de la fonction Lambda
+          LAMBDA_VERSIONS=$(aws lambda list-versions-by-function --function-name FloDramaAPI --query "Versions[?Version!='$LATEST'].Version" --output text 2>/dev/null || echo "")
+          
+          if [ -n "$LAMBDA_VERSIONS" ]; then
+            # Trier les versions et garder uniquement les plus anciennes à supprimer
+            VERSIONS_TO_DELETE=$(echo "$LAMBDA_VERSIONS" | tr '\t' '\n' | sort -n | head -n -2)
+            
+            if [ -n "$VERSIONS_TO_DELETE" ]; then
+              echo "Versions à supprimer: $VERSIONS_TO_DELETE"
+              
+              for VERSION in $VERSIONS_TO_DELETE; do
+                echo "Suppression de la version $VERSION de FloDramaAPI..."
+                aws lambda delete-function --function-name FloDramaAPI --qualifier $VERSION
+              done
+            else
+              echo "Aucune ancienne version à supprimer."
+            fi
+          else
+            echo "Aucune version supplémentaire trouvée pour la fonction FloDramaAPI."
+          fi
+          
+          # Nettoyage des logs CloudWatch
+          echo "Configuration de la politique de rétention des logs..."
+          aws logs put-retention-policy --log-group-name "/aws/lambda/FloDramaAPI" --retention-in-days 30 || echo "Groupe de logs non trouvé"
 
       - name: Notification de déploiement du backend réussi
         run: |
