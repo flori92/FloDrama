@@ -3,12 +3,17 @@ import { useState, useEffect } from 'react';
 import recommandationService from '../services/RecommandationService';
 
 interface UserPreferences {
-  autoplayTrailers: boolean;
-  enableNotifications: boolean;
-  preferredLanguages: string[];
-  preferredGenres: string[];
-  subtitleLanguage: string;
-  videoQuality: 'auto' | '480p' | '720p' | '1080p';
+  favoriteGenres: string[];
+  preferredContentTypes: string[];
+  language: string;
+  theme: 'dark' | 'light' | 'system';
+  notifications: {
+    newContent: boolean;
+    recommendations: boolean;
+    updates: boolean;
+  };
+  autoplay: boolean;
+  quality: 'auto' | '1080p' | '720p' | '480p';
   watchlist: string[];
   likedContent: string[];
   dislikedContent: string[];
@@ -24,18 +29,24 @@ interface UseUserPreferencesReturn {
   isLoading: boolean;
   error: Error | null;
   updatePreferences: (updates: Partial<UserPreferences>) => Promise<void>;
+  resetPreferences: () => void;
   toggleWatchlist: (contentId: string) => Promise<void>;
   updateContentPreference: (contentId: string, preference: 'like' | 'dislike' | 'neutral') => Promise<void>;
   updateViewingProgress: (contentId: string, progress: number) => Promise<void>;
 }
 
 const defaultPreferences: UserPreferences = {
-  autoplayTrailers: true,
-  enableNotifications: true,
-  preferredLanguages: ['fr', 'ko', 'ja', 'zh'],
-  preferredGenres: [],
-  subtitleLanguage: 'fr',
-  videoQuality: 'auto',
+  favoriteGenres: [],
+  preferredContentTypes: ['drama', 'movie', 'anime', 'bollywood'],
+  language: 'fr',
+  theme: 'dark',
+  notifications: {
+    newContent: true,
+    recommendations: true,
+    updates: true,
+  },
+  autoplay: false,
+  quality: 'auto',
   watchlist: [],
   likedContent: [],
   dislikedContent: [],
@@ -81,6 +92,15 @@ export const useUserPreferences = (): UseUserPreferencesReturn => {
     } catch (err) {
       setError(err instanceof Error ? err : new Error('Erreur lors de la mise à jour des préférences'));
       throw err;
+    }
+  };
+
+  const resetPreferences = () => {
+    try {
+      setPreferences(defaultPreferences);
+      localStorage.setItem('userPreferences', JSON.stringify(defaultPreferences));
+    } catch (error) {
+      console.error('Erreur lors de la réinitialisation des préférences:', error);
     }
   };
 
@@ -159,6 +179,7 @@ export const useUserPreferences = (): UseUserPreferencesReturn => {
     isLoading,
     error,
     updatePreferences,
+    resetPreferences,
     toggleWatchlist,
     updateContentPreference,
     updateViewingProgress

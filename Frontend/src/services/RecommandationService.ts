@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { API_BASE_URL } from '@/config/constants';
+import { useEffect, useState } from 'react';
+import { useUserPreferences } from '../hooks/useUserPreferences';
 
 /**
  * Service de recommandation pour FloDrama
@@ -42,129 +42,172 @@ export interface PreferencesUtilisateur {
   };
 }
 
-class RecommandationService {
+interface Content {
+  id: string;
+  title: string;
+  type: 'drama' | 'movie' | 'anime' | 'bollywood';
+  genres: string[];
+  rating: number;
+  year: number;
+  image: string;
+}
+
+interface Recommendation {
+  content: Content;
+  score: number;
+  reason: string;
+}
+
+export class RecommandationService {
   private static instance: RecommandationService;
-  private cache: Map<string, { data: ContenuMedia[]; timestamp: number }>;
-  private readonly CACHE_DURATION = 5 * 60 * 1000; // 5 minutes en millisecondes
+  private userPreferences: any;
+  private contentCache: Content[] = [];
 
   private constructor() {
-    this.cache = new Map();
+    this.loadContentCache();
   }
 
-  static getInstance(): RecommandationService {
+  public static getInstance(): RecommandationService {
     if (!RecommandationService.instance) {
       RecommandationService.instance = new RecommandationService();
     }
     return RecommandationService.instance;
   }
 
-  /**
-   * Récupère les recommandations pour un utilisateur
-   */
-  async getRecommandations(
-    userId: string,
-    nombreElements: number = 10
-  ): Promise<ContenuMedia[]> {
+  private async loadContentCache() {
     try {
-      // Vérifier le cache
-      const cacheKey = `${userId}:${nombreElements}`;
-      const cached = this.cache.get(cacheKey);
-      
-      if (cached && Date.now() - cached.timestamp < this.CACHE_DURATION) {
-        return cached.data;
-      }
-
-      // Appeler l'API
-      const response = await axios.get<{ status: string; data: ContenuMedia[] }>(
-        `${API_BASE_URL}/api/recommandations/${userId}`,
-        {
-          params: { limit: nombreElements },
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-          }
-        }
-      );
-
-      // Mettre en cache
-      this.cache.set(cacheKey, {
-        data: response.data.data,
-        timestamp: Date.now()
-      });
-
-      return response.data.data;
+      const response = await fetch('/data/content.json');
+      this.contentCache = await response.json();
     } catch (error) {
-      console.error('Erreur lors de la récupération des recommandations:', error);
-      throw new Error('Impossible de récupérer les recommandations');
+      console.error('Erreur lors du chargement du cache de contenu:', error);
     }
   }
 
-  /**
-   * Met à jour les préférences utilisateur
-   */
-  async mettreAJourPreferences(
-    userId: string,
-    preferences: Partial<PreferencesUtilisateur>
-  ): Promise<boolean> {
-    try {
-      await axios.patch(
-        `${API_BASE_URL}/api/recommandations/${userId}/preferences`,
-        preferences,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-          }
-        }
-      );
+  private calculateContentScore(content: Content, userPreferences: any): number {
+    let score = 0;
 
-      // Invalider le cache pour cet utilisateur
-      for (const key of this.cache.keys()) {
-        if (key.startsWith(userId)) {
-          this.cache.delete(key);
-        }
-      }
+    // Score basé sur les genres préférés
+    const genreMatches = content.genres.filter(genre => 
+      userPreferences.favoriteGenres.includes(genre)
+    ).length;
+    score += genreMatches * 2;
 
-      return true;
-    } catch (error) {
-      console.error('Erreur lors de la mise à jour des préférences:', error);
-      throw new Error('Impossible de mettre à jour les préférences');
+    // Score basé sur le type de contenu
+    if (userPreferences.preferredContentTypes.includes(content.type)) {
+      score += 3;
     }
+
+    // Score basé sur la note
+    score += content.rating;
+
+    // Score basé sur la récence
+    const currentYear = new Date().getFullYear();
+    const yearDiff = currentYear - content.year;
+    if (yearDiff <= 2) {
+      score += 2;
+    }
+
+    return score;
   }
 
-  /**
-   * Enregistre un visionnage de contenu
-   */
-  async enregistrerVisionnage(
-    userId: string,
-    contenuId: string,
-    tempsVisionnage: number,
-    termine: boolean
-  ): Promise<void> {
-    try {
-      await axios.post(
-        `${API_BASE_URL}/api/recommandations/${userId}/visionnages`,
-        {
-          contenuId,
-          tempsVisionnage,
-          termine
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-          }
-        }
-      );
+  private generateRecommendationReason(content: Content, score: number): string {
+    const reasons = [
+      'Basé sur vos genres préférés',
+      'Contenu récent et populaire',
+      'Similaire à vos favoris',
+      'Note élevée de la communauté',
+      'Nouveauté dans votre catégorie préférée'
+    ];
 
-      // Invalider le cache pour cet utilisateur
-      for (const key of this.cache.keys()) {
-        if (key.startsWith(userId)) {
-          this.cache.delete(key);
-        }
-      }
-    } catch (error) {
-      console.error('Erreur lors de l\'enregistrement du visionnage:', error);
-      throw new Error('Impossible d\'enregistrer le visionnage');
+    return reasons[Math.floor(Math.random() * reasons.length)];
+  }
+
+  public async getRecommendations(
+    userPreferences: any,
+    limit: number = 10
+  ): Promise<Recommendation[]> {
+    if (this.contentCache.length === 0) {
+      await this.loadContentCache();
     }
+
+    const recommendations = this.contentCache
+      .map(content => ({
+        content,
+        score: this.calculateContentScore(content, userPreferences),
+        reason: this.generateRecommendationReason(content, this.calculateContentScore(content, userPreferences))
+      }))
+      .sort((a, b) => b.score - a.score)
+      .slice(0, limit);
+
+    return recommendations;
+  }
+
+  public async getSimilarContent(
+    contentId: string,
+    limit: number = 5
+  ): Promise<Content[]> {
+    if (this.contentCache.length === 0) {
+      await this.loadContentCache();
+    }
+
+    const targetContent = this.contentCache.find(c => c.id === contentId);
+    if (!targetContent) return [];
+
+    return this.contentCache
+      .filter(c => c.id !== contentId)
+      .map(c => ({
+        content: c,
+        score: this.calculateSimilarityScore(c, targetContent)
+      }))
+      .sort((a, b) => b.score - a.score)
+      .slice(0, limit)
+      .map(r => r.content);
+  }
+
+  private calculateSimilarityScore(content1: Content, content2: Content): number {
+    let score = 0;
+
+    // Similarité des genres
+    const commonGenres = content1.genres.filter(g => content2.genres.includes(g));
+    score += commonGenres.length * 2;
+
+    // Similarité du type
+    if (content1.type === content2.type) {
+      score += 3;
+    }
+
+    // Similarité de l'année (plus proche = meilleur score)
+    const yearDiff = Math.abs(content1.year - content2.year);
+    if (yearDiff <= 2) {
+      score += 2;
+    }
+
+    return score;
   }
 }
 
-export default RecommandationService.getInstance();
+export const useRecommendations = (limit: number = 10) => {
+  const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const userPreferences = useUserPreferences();
+
+  useEffect(() => {
+    const fetchRecommendations = async () => {
+      try {
+        setLoading(true);
+        const service = RecommandationService.getInstance();
+        const recs = await service.getRecommendations(userPreferences, limit);
+        setRecommendations(recs);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Une erreur est survenue');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRecommendations();
+  }, [userPreferences, limit]);
+
+  return { recommendations, loading, error };
+};
