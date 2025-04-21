@@ -21,22 +21,27 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout 🛎️
+      - name: Checkout 
         uses: actions/checkout@v4
 
-      - name: Configuration de Node.js 📦
+      - name: Configuration de Node.js 
         uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: 'npm'
           cache-dependency-path: 'Frontend/package-lock.json'
 
-      - name: Installation des dépendances 🔧
+      - name: Purge du cache npm (sécurité)
+        working-directory: ./Frontend
+        run: |
+          npm cache clean --force
+
+      - name: Installation des dépendances 
         working-directory: ./Frontend
         run: |
           npm ci
           
-      - name: Correction de la configuration Tailwind 🛠️
+      - name: Correction de la configuration Tailwind 
         working-directory: ./Frontend
         run: |
           echo "Correction de la configuration Tailwind CSS..."
@@ -77,7 +82,7 @@ jobs:
           # Mettre à jour les versions de Tailwind dans package.json
           npm install --save-dev tailwindcss@3.3.0 autoprefixer@10.4.14 postcss@8.4.21
           
-      - name: Configuration des données S3 📊
+      - name: Configuration des données S3 
         working-directory: ./Frontend
         run: |
           echo "Configuration des données S3..."
@@ -98,7 +103,7 @@ jobs:
           }
           EOL
           
-      - name: Build du projet 🏗️
+      - name: Build du projet 
         working-directory: ./Frontend
         run: |
           echo "Création du build de production..."
@@ -109,7 +114,7 @@ jobs:
           # Créer un fichier .nojekyll pour GitHub Pages
           touch out/.nojekyll
           
-      - name: Copier le fichier CNAME dans le dossier de build 📋
+      - name: Copier le fichier CNAME dans le dossier de build 
         run: |
           echo "Copie du fichier CNAME dans le dossier de build..."
           echo "flodrama.com" > Frontend/out/CNAME
@@ -117,19 +122,19 @@ jobs:
           cat Frontend/out/CNAME
         
       # Utilisation de l'action officielle GitHub Pages
-      - name: Configuration de GitHub Pages 🔧
+      - name: Configuration de GitHub Pages 
         uses: actions/configure-pages@v4
       
-      - name: Upload des artifacts 📤
+      - name: Upload des artifacts 
         uses: actions/upload-pages-artifact@v3
         with:
           path: 'Frontend/out'
       
-      - name: Déploiement sur GitHub Pages 🚀
+      - name: Déploiement sur GitHub Pages 
         id: deployment
         uses: actions/deploy-pages@v4
           
-      - name: Notification de déploiement réussi 📢
+      - name: Notification de déploiement réussi 
         run: |
-          echo "🎉 FloDrama a été déployé avec succès sur GitHub Pages!"
+          echo " FloDrama a été déployé avec succès sur GitHub Pages!"
           echo "L'application est maintenant accessible via https://flodrama.com"
