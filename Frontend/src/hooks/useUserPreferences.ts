@@ -1,183 +1,91 @@
-// Version stub temporaire de useUserPreferences.ts pour permettre la compilation
 import { useState, useEffect } from 'react';
-import { RecommandationService } from '../services/RecommandationService';
+import {
+  getUserPreferences,
+  updateUserPreferences,
+  likeContent,
+  dislikeContent,
+  addToFavorites,
+  removeFromFavorites
+} from '../services/userPreferencesService';
 
 interface UserPreferences {
-  favoriteGenres: string[];
-  preferredContentTypes: string[];
-  language: string;
-  theme: 'dark' | 'light' | 'system';
-  notifications: {
-    newContent: boolean;
-    recommendations: boolean;
-    updates: boolean;
-  };
-  autoplay: boolean;
-  quality: 'auto' | '1080p' | '720p' | '480p';
-  watchlist: string[];
-  likedContent: string[];
-  dislikedContent: string[];
-  viewingHistory: {
-    contentId: string;
-    timestamp: string;
-    progress: number;
-  }[];
-  subtitlesEnabled: boolean;
-  autoplayEnabled: boolean;
+  favoris: string[];
+  notesMoyennes: Record<string, number>;
+  historique: Array<{
+    contenuId: string;
+    dateVisionnage: string;
+    tempsVisionnage: number;
+    termine: boolean;
+  }>;
 }
 
 interface UseUserPreferencesReturn {
-  preferences: UserPreferences;
+  preferences: UserPreferences | null;
   isLoading: boolean;
   error: Error | null;
-  updatePreferences: (updates: Partial<UserPreferences>) => Promise<void>;
-  resetPreferences: () => void;
-  toggleWatchlist: (contentId: string) => Promise<void>;
-  updateContentPreference: (contentId: string, preference: 'like' | 'dislike' | 'neutral') => Promise<void>;
-  updateViewingProgress: (contentId: string, progress: number) => Promise<void>;
+  refresh: () => Promise<void>;
+  addFavori: (contentId: string) => Promise<void>;
+  removeFavori: (contentId: string) => Promise<void>;
+  setLike: (contentId: string, genre: string) => Promise<void>;
+  setDislike: (contentId: string, genre: string) => Promise<void>;
 }
 
-const defaultPreferences: UserPreferences = {
-  favoriteGenres: ['action', 'drama'],
-  preferredContentTypes: ['drama', 'movie'],
-  language: 'fr',
-  theme: 'dark',
-  notifications: {
-    newContent: true,
-    recommendations: true,
-    updates: true,
-  },
-  autoplay: false,
-  quality: 'auto',
-  watchlist: [],
-  likedContent: [],
-  dislikedContent: [],
-  viewingHistory: [],
-  subtitlesEnabled: true,
-  autoplayEnabled: false,
-};
-
-export const useUserPreferences = (): UseUserPreferencesReturn => {
-  const [preferences, setPreferences] = useState<UserPreferences>(defaultPreferences);
+export function useUserPreferences(userId: string, token: string): UseUserPreferencesReturn {
+  const [preferences, setPreferences] = useState<UserPreferences | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  // Chargement initial des préférences
-  useEffect(() => {
-    loadPreferences();
-  }, []);
-
-  const loadPreferences = async () => {
+  const refresh = async () => {
+    setIsLoading(true);
+    setError(null);
     try {
-      setIsLoading(true);
-      // Récupération des préférences depuis le localStorage
-      const savedPrefs = localStorage.getItem('userPreferences');
-      if (savedPrefs) {
-        setPreferences(JSON.parse(savedPrefs));
-      }
-
-      // Note: Dans cette version stub, nous ne synchronisons pas avec le backend
-      // car les méthodes nécessaires ne sont pas disponibles
-      setIsLoading(false);
+      const data = await getUserPreferences(userId, token);
+      setPreferences(data);
     } catch (err) {
-      setError(err instanceof Error ? err : new Error('Erreur lors du chargement des préférences'));
-      setIsLoading(false);
-    }
-  };
-
-  const updatePreferences = async (updates: Partial<UserPreferences>) => {
-    try {
-      setIsLoading(true);
-      const updatedPreferences = { ...preferences, ...updates };
-      setPreferences(updatedPreferences);
-      localStorage.setItem('userPreferences', JSON.stringify(updatedPreferences));
-
-      // Note: Dans cette version stub, nous ne synchronisons pas avec le backend
-      console.log('[Stub] Mise à jour des préférences:', updates);
-    } catch (err) {
-      setError(err instanceof Error ? err : new Error('Erreur lors de la mise à jour des préférences'));
-      throw err;
+      setError(err instanceof Error ? err : new Error('Erreur de chargement des préférences'));
     } finally {
       setIsLoading(false);
     }
   };
 
-  const resetPreferences = () => {
+  useEffect(() => {
+    refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId, token]);
+
+  const addFavori = async (contentId: string) => {
     try {
-      setPreferences(defaultPreferences);
-      localStorage.setItem('userPreferences', JSON.stringify(defaultPreferences));
-    } catch (error) {
-      console.error('Erreur lors de la réinitialisation des préférences:', error);
+      await addToFavorites(userId, contentId, token);
+      await refresh();
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('Erreur ajout favori'));
     }
   };
 
-  const toggleWatchlist = async (contentId: string) => {
+  const removeFavori = async (contentId: string) => {
     try {
-      const isInWatchlist = preferences.watchlist.includes(contentId);
-      const updatedWatchlist = isInWatchlist
-        ? preferences.watchlist.filter(id => id !== contentId)
-        : [...preferences.watchlist, contentId];
-
-      await updatePreferences({ watchlist: updatedWatchlist });
-      console.log(`[Stub] ${isInWatchlist ? 'Retrait de' : 'Ajout à'} la watchlist:`, contentId);
+      await removeFromFavorites(userId, contentId, token);
+      await refresh();
     } catch (err) {
-      setError(err instanceof Error ? err : new Error('Erreur lors de la mise à jour de la liste de lecture'));
-      throw err;
+      setError(err instanceof Error ? err : new Error('Erreur retrait favori'));
     }
   };
 
-  const updateContentPreference = async (contentId: string, preference: 'like' | 'dislike' | 'neutral') => {
+  const setLike = async (contentId: string, genre: string) => {
     try {
-      const { likedContent, dislikedContent } = preferences;
-
-      let updatedLiked = [...likedContent];
-      let updatedDisliked = [...dislikedContent];
-
-      // Mise à jour des listes selon la préférence
-      switch (preference) {
-        case 'like':
-          updatedLiked = [...new Set([...likedContent, contentId])];
-          updatedDisliked = dislikedContent.filter(id => id !== contentId);
-          break;
-        case 'dislike':
-          updatedDisliked = [...new Set([...dislikedContent, contentId])];
-          updatedLiked = likedContent.filter(id => id !== contentId);
-          break;
-        case 'neutral':
-          updatedLiked = likedContent.filter(id => id !== contentId);
-          updatedDisliked = dislikedContent.filter(id => id !== contentId);
-          break;
-      }
-
-      await updatePreferences({
-        likedContent: updatedLiked,
-        dislikedContent: updatedDisliked
-      });
-
-      console.log('[Stub] Mise à jour de la préférence de contenu:', { contentId, preference });
+      await likeContent(userId, contentId, genre, token);
+      await refresh();
     } catch (err) {
-      setError(err instanceof Error ? err : new Error('Erreur lors de la mise à jour des préférences de contenu'));
-      throw err;
+      setError(err instanceof Error ? err : new Error('Erreur like'));
     }
   };
 
-  const updateViewingProgress = async (contentId: string, progress: number) => {
+  const setDislike = async (contentId: string, genre: string) => {
     try {
-      const timestamp = new Date().toISOString();
-      const currentHistory = preferences.viewingHistory.filter(
-        item => item.contentId !== contentId
-      );
-
-      const updatedHistory = [
-        { contentId, timestamp, progress },
-        ...currentHistory
-      ].slice(0, 100); // Garder uniquement les 100 derniers éléments
-
-      await updatePreferences({ viewingHistory: updatedHistory });
-      console.log('[Stub] Mise à jour de la progression:', { contentId, progress });
+      await dislikeContent(userId, contentId, genre, token);
+      await refresh();
     } catch (err) {
-      setError(err instanceof Error ? err : new Error('Erreur lors de la mise à jour de la progression'));
-      throw err;
+      setError(err instanceof Error ? err : new Error('Erreur dislike'));
     }
   };
 
@@ -185,10 +93,10 @@ export const useUserPreferences = (): UseUserPreferencesReturn => {
     preferences,
     isLoading,
     error,
-    updatePreferences,
-    resetPreferences,
-    toggleWatchlist,
-    updateContentPreference,
-    updateViewingProgress
+    refresh,
+    addFavori,
+    removeFavori,
+    setLike,
+    setDislike
   };
-};
+}

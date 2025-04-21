@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
@@ -9,34 +9,34 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-bold mb-4 text-flo-violet font-sans">À propos</h3>
             <ul className="space-y-2">
-              <li><Link to="/about" className="hover:text-flo-blue transition-colors">Qui sommes-nous</Link></li>
-              <li><Link to="/contact" className="hover:text-flo-blue transition-colors">Contact</Link></li>
-              <li><Link to="/careers" className="hover:text-flo-blue transition-colors">Carrières</Link></li>
+              <li><NavLink to="/about" className={({isActive}) => `transition-colors ${isActive ? 'bg-gradient-to-r from-flo-violet to-flo-fuchsia text-flo-white px-2 rounded' : 'text-flo-white hover:text-flo-fuchsia'}`}>Qui sommes-nous</NavLink></li>
+              <li><NavLink to="/contact" className={({isActive}) => `transition-colors ${isActive ? 'bg-gradient-to-r from-flo-violet to-flo-fuchsia text-flo-white px-2 rounded' : 'text-flo-white hover:text-flo-fuchsia'}`}>Contact</NavLink></li>
+              <li><NavLink to="/careers" className={({isActive}) => `transition-colors ${isActive ? 'bg-gradient-to-r from-flo-violet to-flo-fuchsia text-flo-white px-2 rounded' : 'text-flo-white hover:text-flo-fuchsia'}`}>Carrières</NavLink></li>
             </ul>
           </div>
           <div>
             <h3 className="text-lg font-bold mb-4 text-flo-violet font-sans">Aide</h3>
             <ul className="space-y-2">
-              <li><Link to="/faq" className="hover:text-flo-blue transition-colors">FAQ</Link></li>
-              <li><Link to="/support" className="hover:text-flo-blue transition-colors">Support</Link></li>
-              <li><Link to="/terms" className="hover:text-flo-blue transition-colors">Conditions d'utilisation</Link></li>
+              <li><NavLink to="/faq" className={({isActive}) => `transition-colors ${isActive ? 'bg-gradient-to-r from-flo-violet to-flo-fuchsia text-flo-white px-2 rounded' : 'text-flo-white hover:text-flo-fuchsia'}`}>FAQ</NavLink></li>
+              <li><NavLink to="/support" className={({isActive}) => `transition-colors ${isActive ? 'bg-gradient-to-r from-flo-violet to-flo-fuchsia text-flo-white px-2 rounded' : 'text-flo-white hover:text-flo-fuchsia'}`}>Support</NavLink></li>
+              <li><NavLink to="/terms" className={({isActive}) => `transition-colors ${isActive ? 'bg-gradient-to-r from-flo-violet to-flo-fuchsia text-flo-white px-2 rounded' : 'text-flo-white hover:text-flo-fuchsia'}`}>Conditions d'utilisation</NavLink></li>
             </ul>
           </div>
           <div>
             <h3 className="text-lg font-bold mb-4 text-flo-violet font-sans">Contenu</h3>
             <ul className="space-y-2">
-              <li><Link to="/category/dramas" className="hover:text-flo-blue transition-colors">Dramas</Link></li>
-              <li><Link to="/category/movies" className="hover:text-flo-blue transition-colors">Films</Link></li>
-              <li><Link to="/category/anime" className="hover:text-flo-blue transition-colors">Animés</Link></li>
-              <li><Link to="/category/bollywood" className="hover:text-flo-blue transition-colors">Bollywood</Link></li>
+              <li><NavLink to="/category/dramas" className={({isActive}) => `transition-colors ${isActive ? 'bg-gradient-to-r from-flo-violet to-flo-fuchsia text-flo-white px-2 rounded' : 'text-flo-white hover:text-flo-fuchsia'}`}>Dramas</NavLink></li>
+              <li><NavLink to="/category/movies" className={({isActive}) => `transition-colors ${isActive ? 'bg-gradient-to-r from-flo-violet to-flo-fuchsia text-flo-white px-2 rounded' : 'text-flo-white hover:text-flo-fuchsia'}`}>Films</NavLink></li>
+              <li><NavLink to="/category/anime" className={({isActive}) => `transition-colors ${isActive ? 'bg-gradient-to-r from-flo-violet to-flo-fuchsia text-flo-white px-2 rounded' : 'text-flo-white hover:text-flo-fuchsia'}`}>Animés</NavLink></li>
+              <li><NavLink to="/category/bollywood" className={({isActive}) => `transition-colors ${isActive ? 'bg-gradient-to-r from-flo-violet to-flo-fuchsia text-flo-white px-2 rounded' : 'text-flo-white hover:text-flo-fuchsia'}`}>Bollywood</NavLink></li>
             </ul>
           </div>
           <div>
             <h3 className="text-lg font-bold mb-4 text-flo-violet font-sans">Suivez-nous</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="hover:text-flo-blue transition-colors">Facebook</a></li>
-              <li><a href="#" className="hover:text-flo-blue transition-colors">Twitter</a></li>
-              <li><a href="#" className="hover:text-flo-blue transition-colors">Instagram</a></li>
+              <li><a href="#" className="hover:text-flo-fuchsia transition-colors">Facebook</a></li>
+              <li><a href="#" className="hover:text-flo-fuchsia transition-colors">Twitter</a></li>
+              <li><a href="#" className="hover:text-flo-fuchsia transition-colors">Instagram</a></li>
             </ul>
           </div>
         </div>

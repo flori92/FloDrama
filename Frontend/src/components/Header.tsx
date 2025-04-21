@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Search, User } from 'lucide-react';
 
 const categories = [
@@ -17,21 +17,26 @@ const Header: React.FC = () => {
     <header className="bg-flo-black text-flo-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between py-3 px-4">
         {/* Logo */}
-        <Link to="/" className="text-2xl font-bold font-sans tracking-tight bg-gradient-to-r from-flo-violet to-flo-blue bg-clip-text text-transparent">
+        <NavLink to="/" className="text-2xl font-bold font-sans tracking-tight bg-gradient-to-r from-flo-violet to-flo-blue bg-clip-text text-transparent">
           FloDrama
-        </Link>
+        </NavLink>
         {/* Navigation */}
         <nav className="flex-1 flex justify-center">
           <ul className="flex space-x-6">
             {categories.map(cat => (
               <li key={cat.name}>
-                <Link
+                <NavLink
                   to={cat.path}
-                  className="px-3 py-1 rounded-full font-semibold transition-colors duration-200 hover:bg-flo-violet/90 hover:text-flo-white focus:outline-none focus:ring-2 focus:ring-flo-blue"
-                  // activeclassname supprimé car non supporté par Link
+                  className={({ isActive }) =>
+                    `px-3 py-1 rounded-full font-semibold transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-flo-blue ` +
+                    (isActive
+                      ? 'bg-gradient-to-r from-flo-violet to-flo-blue text-flo-white'
+                      : 'text-flo-white hover:bg-gradient-to-r hover:from-flo-violet hover:to-flo-fuchsia hover:text-flo-white')
+                  }
+                  end={cat.path === '/'}
                 >
                   {cat.name}
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>
@@ -48,13 +53,13 @@ const Header: React.FC = () => {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-flo-violet" />
           </form>
           {/* Profil/connexion */}
-          <Link
+          <NavLink
             to="/profile"
             className="flex items-center px-3 py-1 rounded-full bg-flo-violet hover:bg-flo-blue text-flo-white font-semibold transition-colors duration-200"
           >
             <User className="w-5 h-5 mr-2" />
             <span className="hidden md:inline">Profil</span>
-          </Link>
+          </NavLink>
         </div>
       </div>
     </header>
