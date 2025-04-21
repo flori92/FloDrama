@@ -35,6 +35,25 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'Backend/api/package-lock.json'
 
+      - name: Vérification de la configuration des identifiants AWS
+        run: |
+          if [ -z "${{ secrets.AWS_ACCESS_KEY_ID }}" ] || [ -z "${{ secrets.AWS_SECRET_ACCESS_KEY }}" ]; then
+            echo "❌ Erreur : Les identifiants AWS ne sont pas configurés dans les secrets GitHub."
+            echo "Veuillez configurer les secrets suivants :"
+            echo "- AWS_ACCESS_KEY_ID"
+            echo "- AWS_SECRET_ACCESS_KEY"
+            echo "- AWS_ACCOUNT_ID"
+            echo "- AWS_LAMBDA_ROLE_ARN"
+            exit 1
+          else
+            echo "✅ Les secrets AWS sont configurés."
+            echo "AWS_REGION: ${{ env.AWS_REGION }}"
+            echo "AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID != '' && '***' || 'Non configuré' }}"
+            echo "AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY != '' && '***' || 'Non configuré' }}"
+            echo "AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID != '' && '***' || 'Non configuré' }}"
+            echo "AWS_LAMBDA_ROLE_ARN: ${{ secrets.AWS_LAMBDA_ROLE_ARN != '' && '***' || 'Non configuré' }}"
+          fi
+
       - name: Configuration d'AWS
         uses: aws-actions/configure-aws-credentials@v4
         with:
