@@ -2,6 +2,9 @@ import axios from 'axios';
 
 // Service pour gérer les favoris, likes, dislikes, préférences utilisateur
 export const getUserPreferences = async (userId: string, token: string) => {
+  if (!userId) {
+    throw new Error('userId requis pour accéder aux préférences');
+  }
   const res = await axios.get(`/api/recommandations/${userId}/preferences`, {
     headers: { Authorization: `Bearer ${token}` }
   });
@@ -9,6 +12,9 @@ export const getUserPreferences = async (userId: string, token: string) => {
 };
 
 export const updateUserPreferences = async (userId: string, updates: any, token: string) => {
+  if (!userId) {
+    throw new Error('userId requis pour mettre à jour les préférences');
+  }
   const res = await axios.patch(`/api/recommandations/${userId}/preferences`, updates, {
     headers: { Authorization: `Bearer ${token}` }
   });
