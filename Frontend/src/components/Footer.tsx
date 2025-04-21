@@ -3,47 +3,44 @@ import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-800 p-6">
-      <div className="container mx-auto">
+    <footer className="bg-flo-black text-flo-white pt-10 pb-6 px-4 mt-8 border-t border-flo-violet/20">
+      <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-lg font-semibold mb-4">À propos</h3>
+            <h3 className="text-lg font-bold mb-4 text-flo-violet font-sans">À propos</h3>
             <ul className="space-y-2">
-              <li><Link to="/about" className="hover:text-gray-300">Qui sommes-nous</Link></li>
-              <li><Link to="/contact" className="hover:text-gray-300">Contact</Link></li>
-              <li><Link to="/careers" className="hover:text-gray-300">Carrières</Link></li>
+              <li><Link to="/about" className="hover:text-flo-blue transition-colors">Qui sommes-nous</Link></li>
+              <li><Link to="/contact" className="hover:text-flo-blue transition-colors">Contact</Link></li>
+              <li><Link to="/careers" className="hover:text-flo-blue transition-colors">Carrières</Link></li>
             </ul>
           </div>
-          
           <div>
-            <h3 className="text-lg font-semibold mb-4">Aide</h3>
+            <h3 className="text-lg font-bold mb-4 text-flo-violet font-sans">Aide</h3>
             <ul className="space-y-2">
-              <li><Link to="/faq" className="hover:text-gray-300">FAQ</Link></li>
-              <li><Link to="/support" className="hover:text-gray-300">Support</Link></li>
-              <li><Link to="/terms" className="hover:text-gray-300">Conditions d'utilisation</Link></li>
+              <li><Link to="/faq" className="hover:text-flo-blue transition-colors">FAQ</Link></li>
+              <li><Link to="/support" className="hover:text-flo-blue transition-colors">Support</Link></li>
+              <li><Link to="/terms" className="hover:text-flo-blue transition-colors">Conditions d'utilisation</Link></li>
             </ul>
           </div>
-          
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contenu</h3>
+            <h3 className="text-lg font-bold mb-4 text-flo-violet font-sans">Contenu</h3>
             <ul className="space-y-2">
-              <li><Link to="/dramas" className="hover:text-gray-300">Dramas</Link></li>
-              <li><Link to="/movies" className="hover:text-gray-300">Films</Link></li>
-              <li><Link to="/anime" className="hover:text-gray-300">Anime</Link></li>
+              <li><Link to="/category/dramas" className="hover:text-flo-blue transition-colors">Dramas</Link></li>
+              <li><Link to="/category/movies" className="hover:text-flo-blue transition-colors">Films</Link></li>
+              <li><Link to="/category/anime" className="hover:text-flo-blue transition-colors">Animés</Link></li>
+              <li><Link to="/category/bollywood" className="hover:text-flo-blue transition-colors">Bollywood</Link></li>
             </ul>
           </div>
-          
           <div>
-            <h3 className="text-lg font-semibold mb-4">Suivez-nous</h3>
+            <h3 className="text-lg font-bold mb-4 text-flo-violet font-sans">Suivez-nous</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="hover:text-gray-300">Facebook</a></li>
-              <li><a href="#" className="hover:text-gray-300">Twitter</a></li>
-              <li><a href="#" className="hover:text-gray-300">Instagram</a></li>
+              <li><a href="#" className="hover:text-flo-blue transition-colors">Facebook</a></li>
+              <li><a href="#" className="hover:text-flo-blue transition-colors">Twitter</a></li>
+              <li><a href="#" className="hover:text-flo-blue transition-colors">Instagram</a></li>
             </ul>
           </div>
         </div>
-        
-        <div className="mt-8 pt-8 border-t border-gray-700 text-center">
+        <div className="mt-10 pt-8 border-t border-flo-violet/10 text-center text-flo-gray text-sm">
           <p>&copy; {new Date().getFullYear()} FloDrama. Tous droits réservés.</p>
         </div>
       </div>
@@ -51,4 +48,4 @@ const Footer: React.FC = () => {
   );
 };
 
-export default Footer; 
+export default Footer;
