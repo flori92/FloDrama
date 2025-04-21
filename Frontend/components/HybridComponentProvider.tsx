@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { checkLynxAvailability } from '../hooks/useHybridComponent';
-import theme from '../styles/theme';
+import { checkLynxAvailability } from '../src/adapters/hybrid-component';
+import theme from '../src/styles/theme';
 
 interface HybridContextType {
   isLynxAvailable: boolean;
