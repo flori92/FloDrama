@@ -57,7 +57,7 @@ export const getContentByCategory = async (
     const mappedCategory = CATEGORY_MAPPING[category] || category;
     
     const response = await fetch(
-      `${API_BASE_URL}/api/content?category=${mappedCategory}&page=${page}&limit=${limit}`
+      `${API_BASE_URL}/api/content/?category=${mappedCategory}&page=${page}&limit=${limit}`
     );
     
     if (!response.ok) {
@@ -70,7 +70,7 @@ export const getContentByCategory = async (
           id: `mock-${category}-${i}`,
           title: `Contenu ${category} ${i+1}`,
           description: "Description temporaire pendant la maintenance de l'API",
-          image: `${CDN_BASE_URL}/placeholders/content-${category}-${i % 3 + 1}.jpg`,
+          image: `${CDN_BASE_URL}/static/placeholders/${category}-${i % 5 + 1}.jpg`,
           categories: [category],
           year: 2025,
           rating: "4.5"
@@ -100,7 +100,7 @@ export const getContentByCategory = async (
  */
 export const getFeaturedContent = async (limit: number = 6): Promise<FeaturedResponse> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/content?category=featured&limit=${limit}`);
+    const response = await fetch(`${API_BASE_URL}/api/content/?category=featured&limit=${limit}`);
     
     if (!response.ok) {
       // Fallback de sécurité pour éviter les erreurs 404
@@ -112,7 +112,7 @@ export const getFeaturedContent = async (limit: number = 6): Promise<FeaturedRes
           id: `mock-featured-${i}`,
           title: `Contenu à découvrir ${i+1}`,
           description: "Description temporaire pendant la maintenance de l'API",
-          image: `${CDN_BASE_URL}/placeholders/content-${i % 3 + 1}.jpg`,
+          image: `${CDN_BASE_URL}/static/placeholders/featured-${i % 5 + 1}.jpg`,
           categories: ["featured", i % 2 === 0 ? "dramas" : "movies"],
           year: 2025,
           rating: "4.8"
