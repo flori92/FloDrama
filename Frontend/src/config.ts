@@ -19,6 +19,9 @@ export const apiConfig = {
   retryAttempts: 3
 } as const;
 
+// Export API_BASE_URL pour compatibilité avec les services
+export const API_BASE_URL = apiConfig.baseUrl;
+
 export const cacheConfig = {
   ttl: 1000 * 60 * 60, // 1 heure
   maxSize: 100 // Nombre maximum d'éléments en cache
