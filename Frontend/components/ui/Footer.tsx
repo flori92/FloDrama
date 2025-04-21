@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { HybridComponent } from "../../adapters/hybrid-component";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 interface FooterProps {
   className?: string;
@@ -20,14 +19,9 @@ export function Footer({
 }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
-  // Utiliser le composant hybride pour le pied de page
+  // Utiliser un composant React standard au lieu du composant hybride
   return (
-    <HybridComponent
-      componentName="Footer"
-      componentProps={{
-        className: cn("py-12 px-4 border-t border-white/10", className)
-      }}
-    >
+    <footer className={cn("py-12 px-4 border-t border-white/10", className)}>
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Colonne 1 - À propos */}
@@ -204,7 +198,7 @@ export function Footer({
           </div>
         </div>
       </div>
-    </HybridComponent>
+    </footer>
   );
 }
 

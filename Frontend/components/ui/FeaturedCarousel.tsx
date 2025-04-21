@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { HybridComponent } from "@/adapters/hybrid-component";
 import { ContentCard, ContentItem } from "./ContentCard";
 import { cn } from "@/lib/utils";
 
@@ -55,14 +54,9 @@ export function FeaturedCarousel({
     return () => clearInterval(autoAdvance);
   }, [currentIndex, autoPlay, isPaused, interval]);
 
-  // Utiliser le composant hybride pour le carrousel
+  // Utiliser un composant React standard au lieu du composant hybride
   return (
-    <HybridComponent
-      componentName="Carousel"
-      componentProps={{
-        className: cn("py-12", className)
-      }}
-    >
+    <section className={cn("py-12", className)}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold">{title}</h2>
@@ -145,6 +139,6 @@ export function FeaturedCarousel({
           ))}
         </div>
       </div>
-    </HybridComponent>
+    </section>
   );
 }

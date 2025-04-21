@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { HybridComponent } from "@/adapters/hybrid-component";
 import { HoverPreview } from "./HoverPreview";
 import { cn } from "@/lib/utils";
 
@@ -57,19 +56,16 @@ export function ContentCard({ item, featured = false, onClick, className }: Cont
     setIsInList(!isInList);
   };
 
-  // Utiliser le composant hybride pour la carte
+  // Utiliser un composant React standard au lieu du composant hybride
   return (
-    <HybridComponent
-      componentName="ContentCard"
-      componentProps={{
-        className: cn(
-          "relative overflow-hidden transition-all duration-300 rounded-2xl shadow-lg bg-gradient-to-br from-flo-night/90 via-flo-blue/5 to-flo-fuchsia/10 border-2 border-transparent hover:border-flo-fuchsia hover:scale-105 hover:shadow-2xl group cursor-pointer",
-          featured ? "w-full" : "w-full",
-          isHovering ? "z-20" : "z-0",
-          className
-        ),
-        onClick: handleCardClick
-      }}
+    <div
+      className={cn(
+        "relative overflow-hidden transition-all duration-300 rounded-2xl shadow-lg bg-gradient-to-br from-flo-night/90 via-flo-blue/5 to-flo-fuchsia/10 border-2 border-transparent hover:border-flo-fuchsia hover:scale-105 hover:shadow-2xl group cursor-pointer",
+        featured ? "w-full" : "w-full",
+        isHovering ? "z-20" : "z-0",
+        className
+      )}
+      onClick={handleCardClick}
     >
       {/* Utiliser le composant HoverPreview pour la prévisualisation au survol */}
       <HoverPreview
@@ -161,6 +157,6 @@ export function ContentCard({ item, featured = false, onClick, className }: Cont
           </AnimatePresence>
         </div>
       </HoverPreview>
-    </HybridComponent>
+    </div>
   );
 }

@@ -1,12 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
   output: 'export',
+  distDir: 'dist',
+  generateBuildId: () => 'flodrama-build',
   images: {
     unoptimized: true,
+    domains: ['localhost', 'flodrama.com'],
   },
-  trailingSlash: true,
-};
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

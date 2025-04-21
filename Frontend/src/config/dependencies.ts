@@ -6,15 +6,6 @@
 export const DEPENDENCIES = {
   // Dépendances principales
   core: {
-    lynx: {
-      version: '^1.0.0',
-      packages: [
-        '@lynx/core',
-        '@lynx/react',
-        '@lynx/hooks',
-        '@lynx/runtime'
-      ]
-    },
     react: {
       version: '^18.0.0',
       packages: [
@@ -26,8 +17,8 @@ export const DEPENDENCIES = {
     }
   },
 
-  // Composants React de fallback
-  fallbacks: {
+  // Composants React
+  components: {
     video: {
       package: 'react-player',
       version: '^2.12.0'
@@ -70,26 +61,6 @@ export const DEPENDENCIES = {
     }
   }
 };
-
-/**
- * Vérifie si un composant Lynx est disponible
- * @param componentName Nom du composant
- * @returns Promise<boolean> true si le composant est disponible en version Lynx
- */
-export async function needsReactFallback(componentName: string): Promise<boolean> {
-  try {
-    // Vérifier si Lynx est disponible
-    await import('@lynx/core');
-    
-    // Vérifier si le composant spécifique est disponible
-    const lynxComponents = await import('@lynx/react');
-    return !lynxComponents[componentName];
-  } catch (error) {
-    // Si l'import échoue, on doit utiliser la version React
-    console.warn(`[dependencies] Lynx not available for ${componentName}, using React fallback`);
-    return true;
-  }
-}
 
 /**
  * Vérifie si une dépendance est disponible

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { HybridComponent } from "../../adapters/hybrid-component";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 interface HeroContent {
   title: string;
@@ -84,20 +83,17 @@ export function HeroBanner({
     if (onAddToList) onAddToList(current);
   };
 
-  // Utiliser le composant hybride pour la bannière
+  // Utiliser un composant React standard au lieu du composant hybride
   return (
-    <HybridComponent
-      componentName="HeroBanner"
-      componentProps={{
-        className: cn("relative w-full h-[85vh] overflow-hidden", className),
-        onMouseEnter: () => {
-          setIsHovering(true);
-          setIsPaused(true);
-        },
-        onMouseLeave: () => {
-          setIsHovering(false);
-          setIsPaused(false);
-        }
+    <section 
+      className={cn("relative w-full h-[85vh] overflow-hidden", className)}
+      onMouseEnter={() => {
+        setIsHovering(true);
+        setIsPaused(true);
+      }}
+      onMouseLeave={() => {
+        setIsHovering(false);
+        setIsPaused(false);
       }}
     >
       {/* Arrière-plan animé */}
@@ -222,7 +218,7 @@ export function HeroBanner({
           </div>
         </div>
       </div>
-    </HybridComponent>
+    </section>
   );
 }
 

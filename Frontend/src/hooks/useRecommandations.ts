@@ -32,8 +32,13 @@ export const useRecommandations = ({
   const [error, setError] = useState<Error | null>(null);
   const [preferences, setPreferences] = useState<PreferencesUtilisateur>({
     genresPrefers: [],
-    historique: [],
-    favoris: []
+    languesPreferees: [],
+    parametres: {
+      autoplay: false,
+      qualitePreferee: 'auto',
+      sousTitresParDefaut: true,
+      langueAudioPreferee: 'fr'
+    }
   });
 
   // Fonction de chargement des recommandations
@@ -42,7 +47,6 @@ export const useRecommandations = ({
       setIsLoading(true);
       const recommandations = await RecommandationService.getRecommandations(
         userId,
-        preferences,
         nombreElements
       );
       setContenus(recommandations);
@@ -54,7 +58,7 @@ export const useRecommandations = ({
     } finally {
       setIsLoading(false);
     }
-  }, [userId, nombreElements, preferences]);
+  }, [userId, nombreElements]);
 
   // Mise à jour des préférences
   const mettreAJourPreferences = async (nouvellesPreferences: Partial<PreferencesUtilisateur>) => {

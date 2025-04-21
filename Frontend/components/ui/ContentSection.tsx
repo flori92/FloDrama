@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import { motion } from "framer-motion";
-import { HybridComponent } from "@/adapters/hybrid-component";
 import { ContentCard, ContentItem } from "./ContentCard";
 import { cn } from "@/lib/utils";
 
@@ -44,14 +43,9 @@ export function ContentSection({
     }
   };
 
-  // Utiliser le composant hybride pour la section de contenu
+  // Utiliser un composant React standard au lieu du composant hybride
   return (
-    <HybridComponent
-      componentName="ContentSection"
-      componentProps={{
-        className: cn("py-8", className)
-      }}
-    >
+    <section className={cn("py-8", className)}>
       <div className="container mx-auto px-4">
         {/* En-tête avec titre et contrôles */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
@@ -142,6 +136,6 @@ export function ContentSection({
           </div>
         )}
       </div>
-    </HybridComponent>
+    </section>
   );
 }

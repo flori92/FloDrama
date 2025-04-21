@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { HybridComponent } from "../../adapters/hybrid-component";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 interface NavItem {
   name: string;
@@ -61,17 +60,14 @@ export function MainNavigation({
     setSearchOpen(false);
   };
 
-  // Utiliser le composant hybride pour la navigation
+  // Utiliser un composant React standard au lieu du composant hybride
   return (
-    <HybridComponent
-      componentName="Navigation"
-      componentProps={{
-        className: cn(
-          "fixed top-0 w-full z-50 transition-all duration-300",
-          scrolled ? "bg-black/90 backdrop-blur-md" : "bg-transparent",
-          className
-        )
-      }}
+    <nav
+      className={cn(
+        "fixed top-0 w-full z-50 transition-all duration-300",
+        scrolled ? "bg-black/90 backdrop-blur-md" : "bg-transparent",
+        className
+      )}
     >
       <motion.header
         initial={{ y: -100 }}
@@ -180,7 +176,7 @@ export function MainNavigation({
           </div>
         </div>
       </motion.header>
-    </HybridComponent>
+    </nav>
   );
 }
 

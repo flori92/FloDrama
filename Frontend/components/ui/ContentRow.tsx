@@ -1,8 +1,7 @@
 import React, { useRef } from "react";
 import { motion } from "framer-motion";
-import { HybridComponent } from "../../adapters/hybrid-component";
 import { ContentCard, ContentItem } from "./ContentCard";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 interface ContentRowProps {
   title: string;
@@ -33,14 +32,9 @@ export function ContentRow({ title, items, className, onSeeAll }: ContentRowProp
     }
   };
 
-  // Utiliser le composant hybride pour la rangée de contenu
+  // Utiliser un composant React standard au lieu du composant hybride
   return (
-    <HybridComponent
-      componentName="ContentRow"
-      componentProps={{
-        className: cn("py-4", className)
-      }}
-    >
+    <section className={cn("py-4", className)}>
       <div className="container mx-auto px-4">
         {/* En-tête avec titre et contrôles */}
         <div className="flex items-center justify-between mb-4">
@@ -100,7 +94,7 @@ export function ContentRow({ title, items, className, onSeeAll }: ContentRowProp
           ))}
         </div>
       </div>
-    </HybridComponent>
+    </section>
   );
 }
 
