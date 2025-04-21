@@ -1,0 +1,175 @@
+name: Distribution des données FloDrama
+
+on:
+  # Déclenchement automatique toutes les 12 heures
+  schedule:
+    - cron: '0 */12 * * *'
+  
+  # Déclenchement manuel depuis l'interface GitHub
+  workflow_dispatch:
+    inputs:
+      force_update:
+        description: 'Forcer la mise à jour complète des données'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  distribute-content:
+    name: Distribution des données scrapées
+    runs-on: ubuntu-latest
+    
+    env:
+      AWS_REGION: us-east-1
+      S3_BUCKET: flodrama-content-1745269660
+      FRONTEND_DATA_PATH: ./Frontend/src/data
+    
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Configuration AWS
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Téléchargement des données depuis S3
+        run: |
+          echo "🔄 Téléchargement des données depuis S3..."
+          mkdir -p temp_data
+          aws s3 sync s3://${{ env.S3_BUCKET }}/content/ temp_data/ --exclude "*" --include "*/*/items.json"
+          echo "✅ Téléchargement terminé"
+      
+      - name: Préparation des données pour le frontend
+        run: |
+          echo "🔄 Préparation des données pour le frontend..."
+          mkdir -p ${{ env.FRONTEND_DATA_PATH }}/content
+          
+          # Création du fichier de métadonnées global
+          echo "{" > ${{ env.FRONTEND_DATA_PATH }}/metadata.json
+          echo "  \"lastUpdated\": \"$(date -u +"%Y-%m-%dT%H:%M:%SZ")\"," >> ${{ env.FRONTEND_DATA_PATH }}/metadata.json
+          echo "  \"totalItems\": $(find temp_data -name "items.json" -exec cat {} \; | grep -c "\"id\""),", >> ${{ env.FRONTEND_DATA_PATH }}/metadata.json
+          echo "  \"sources\": [" >> ${{ env.FRONTEND_DATA_PATH }}/metadata.json
+          
+          # Liste des types de contenu
+          CONTENT_TYPES=(drama anime bollywood film)
+          
+          # Traitement par type de contenu
+          for TYPE in "${CONTENT_TYPES[@]}"; do
+            echo "  Traitement du type: $TYPE"
+            
+            # Création du fichier index pour ce type
+            mkdir -p ${{ env.FRONTEND_DATA_PATH }}/content/$TYPE
+            echo "{" > ${{ env.FRONTEND_DATA_PATH }}/content/$TYPE/index.json
+            echo "  \"type\": \"$TYPE\"," >> ${{ env.FRONTEND_DATA_PATH }}/content/$TYPE/index.json
+            echo "  \"items\": [" >> ${{ env.FRONTEND_DATA_PATH }}/content/$TYPE/index.json
+            
+            # Fusion des données de toutes les sources pour ce type
+            FIRST_SOURCE=true
+            for SOURCE_DIR in temp_data/$TYPE/*; do
+              if [ -d "$SOURCE_DIR" ]; then
+                SOURCE=$(basename "$SOURCE_DIR")
+                echo "    Traitement de la source: $SOURCE"
+                
+                # Ajouter la source au fichier de métadonnées
+                if [ "$FIRST_SOURCE" = true ]; then
+                  FIRST_SOURCE=false
+                else
+                  echo "    ," >> ${{ env.FRONTEND_DATA_PATH }}/metadata.json
+                fi
+                echo "    {\"name\": \"$SOURCE\", \"type\": \"$TYPE\"}" >> ${{ env.FRONTEND_DATA_PATH }}/metadata.json
+                
+                # Traitement du fichier items.json
+                if [ -f "$SOURCE_DIR/items.json" ]; then
+                  # Extraire les données essentielles pour l'index
+                  jq -c '.[] | {id: .id, title: .title, poster: .poster, year: .year, rating: .rating, language: .language}' "$SOURCE_DIR/items.json" >> ${{ env.FRONTEND_DATA_PATH }}/content/$TYPE/items_temp.json
+                  
+                  # Copier le fichier complet pour les détails
+                  cp "$SOURCE_DIR/items.json" ${{ env.FRONTEND_DATA_PATH }}/content/$TYPE/$SOURCE.json
+                fi
+              fi
+            done
+            
+            # Finaliser l'index de ce type
+            if [ -f "${{ env.FRONTEND_DATA_PATH }}/content/$TYPE/items_temp.json" ]; then
+              cat ${{ env.FRONTEND_DATA_PATH }}/content/$TYPE/items_temp.json | sed 's/$/,/' | sed '$ s/,$//' >> ${{ env.FRONTEND_DATA_PATH }}/content/$TYPE/index.json
+              rm ${{ env.FRONTEND_DATA_PATH }}/content/$TYPE/items_temp.json
+            fi
+            
+            echo "  ]" >> ${{ env.FRONTEND_DATA_PATH }}/content/$TYPE/index.json
+            echo "}" >> ${{ env.FRONTEND_DATA_PATH }}/content/$TYPE/index.json
+          done
+          
+          # Finaliser le fichier de métadonnées
+          echo "  ]" >> ${{ env.FRONTEND_DATA_PATH }}/metadata.json
+          echo "}" >> ${{ env.FRONTEND_DATA_PATH }}/metadata.json
+          
+          echo "✅ Préparation des données terminée"
+      
+      - name: Génération des fichiers de composants dynamiques
+        run: |
+          echo "🔄 Génération des composants dynamiques..."
+          
+          # Création du fichier de configuration des carrousels
+          cat > ${{ env.FRONTEND_DATA_PATH }}/carousels.json << EOL
+          {
+            "featured": {
+              "title": "À l'affiche",
+              "type": "featured",
+              "items": $(jq '[.[] | select(.rating >= 8.5)]' ${{ env.FRONTEND_DATA_PATH }}/content/drama/index.json | head -n 10)
+            },
+            "trending": {
+              "title": "Tendances",
+              "type": "trending",
+              "items": $(jq '[.[] | select(.rating >= 7.5)]' ${{ env.FRONTEND_DATA_PATH }}/content/film/index.json | head -n 10)
+            },
+            "new_releases": {
+              "title": "Nouveautés",
+              "type": "new_releases",
+              "items": $(jq '[.[] | select(.year >= 2024)]' ${{ env.FRONTEND_DATA_PATH }}/content/anime/index.json | head -n 10)
+            },
+            "popular": {
+              "title": "Populaires",
+              "type": "popular",
+              "items": $(jq '[.[] | select(.rating >= 7.0)]' ${{ env.FRONTEND_DATA_PATH }}/content/bollywood/index.json | head -n 10)
+            }
+          }
+          EOL
+          
+          # Création du fichier de configuration des bannières
+          cat > ${{ env.FRONTEND_DATA_PATH }}/hero_banners.json << EOL
+          {
+            "banners": [
+              $(jq '.[] | select(.rating >= 9.0) | {id: .id, title: .title, image: .poster}' ${{ env.FRONTEND_DATA_PATH }}/content/drama/index.json | head -n 1),
+              $(jq '.[] | select(.rating >= 8.8) | {id: .id, title: .title, image: .poster}' ${{ env.FRONTEND_DATA_PATH }}/content/film/index.json | head -n 1),
+              $(jq '.[] | select(.rating >= 8.5) | {id: .id, title: .title, image: .poster}' ${{ env.FRONTEND_DATA_PATH }}/content/anime/index.json | head -n 1)
+            ]
+          }
+          EOL
+          
+          echo "✅ Génération des composants dynamiques terminée"
+      
+      - name: Commit et push des modifications
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          git add ${{ env.FRONTEND_DATA_PATH }}
+          
+          # Vérifier s'il y a des modifications à commiter
+          if git diff --staged --quiet; then
+            echo "Aucune modification détectée, rien à commiter."
+          else
+            git commit -m "✨ [DATA] Mise à jour des données de contenu - $(date +"%d/%m/%Y %H:%M")"
+            git push
+            echo "✅ Modifications commitées et poussées avec succès"
+          fi
+      
+      - name: Nettoyage
+        run: |
+          rm -rf temp_data
+          echo "✅ Nettoyage terminé"

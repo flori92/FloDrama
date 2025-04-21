@@ -1,0 +1,26 @@
+{
+  "lastUpdated": "2025-04-21T23:11:00Z",
+  "totalItems": 5960,
+  "sources": [
+    {"name": "dramacool", "type": "drama"},
+    {"name": "myasiantv", "type": "drama"},
+    {"name": "voirdrama", "type": "drama"},
+    {"name": "vostfree", "type": "drama"},
+    {"name": "viki", "type": "drama"},
+    {"name": "wetv", "type": "drama"},
+    {"name": "iqiyi", "type": "drama"},
+    {"name": "kocowa", "type": "drama"},
+    {"name": "gogoanime", "type": "anime"},
+    {"name": "voiranime", "type": "anime"},
+    {"name": "neko-sama", "type": "anime"},
+    {"name": "bollywoodmdb", "type": "bollywood"},
+    {"name": "zee5", "type": "bollywood"},
+    {"name": "hotstar", "type": "bollywood"},
+    {"name": "allocine", "type": "film"},
+    {"name": "imdb", "type": "film"},
+    {"name": "themoviedb", "type": "film"},
+    {"name": "dpstream", "type": "film"},
+    {"name": "cinepulse", "type": "film"},
+    {"name": "mydramalist", "type": "metadata"}
+  ]
+}

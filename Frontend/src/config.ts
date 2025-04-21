@@ -14,7 +14,7 @@ export const contentColors = {
 } as const;
 
 export const apiConfig = {
-  baseUrl: process.env.NEXT_PUBLIC_API_URL || 'https://71e6p3gfk1.execute-api.us-east-1.amazonaws.com/prod',
+  baseUrl: process.env.NEXT_PUBLIC_API_URL || 'https://flodrama-content-1745266734.s3.us-east-1.amazonaws.com',
   cdnUrl: process.env.NEXT_PUBLIC_S3_BUCKET || 'https://d1pbqs2b6em4ha.cloudfront.net',
   timeout: 10000,
   retryAttempts: 3

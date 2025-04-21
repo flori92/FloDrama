@@ -1,0 +1,929 @@
+{
+  "metadata": {
+    "timestamp": "2025-04-21T22:24:26.583049",
+    "sources_count": 3,
+    "limit_per_source": 30,
+    "simulated": true
+  },
+  "stats": {
+    "total_items": 90,
+    "by_source": {
+      "dramacool": 30,
+      "kdramahood": 30,
+      "asianfilm": 30
+    },
+    "by_type": {
+      "drama": 60,
+      "movie": 30
+    },
+    "by_language": {
+      "ko": 56,
+      "zh": 10,
+      "ja": 15,
+      "th": 6,
+      "hi": 3
+    }
+  },
+  "data": [
+    {
+      "title": "Descendants of the Sun",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/descendants-of-the-sun",
+      "image": "https://example.com/images/drama_20.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583087",
+      "simulated": true
+    },
+    {
+      "title": "Descendants of the Sun",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/descendants-of-the-sun",
+      "image": "https://example.com/images/drama_71.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583097",
+      "simulated": true
+    },
+    {
+      "title": "Heirs",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/heirs",
+      "image": "https://example.com/images/drama_48.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583103",
+      "simulated": true
+    },
+    {
+      "title": "Vincenzo (Chinese Drama)",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/vincenzo-(chinese-drama)",
+      "image": "https://example.com/images/drama_18.jpg",
+      "type": "drama",
+      "language": "zh",
+      "scraped_at": "2025-04-21T22:24:26.583108",
+      "simulated": true
+    },
+    {
+      "title": "Moon Lovers: Scarlet Heart Ryeo",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/moon-lovers:-scarlet-heart-ryeo",
+      "image": "https://example.com/images/drama_78.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583112",
+      "simulated": true
+    },
+    {
+      "title": "Descendants of the Sun",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/descendants-of-the-sun",
+      "image": "https://example.com/images/drama_21.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583115",
+      "simulated": true
+    },
+    {
+      "title": "What's Wrong with Secretary Kim (Japanese Version)",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/what's-wrong-with-secretary-kim-(japanese-version)",
+      "image": "https://example.com/images/drama_62.jpg",
+      "type": "drama",
+      "language": "ja",
+      "scraped_at": "2025-04-21T22:24:26.583120",
+      "simulated": true
+    },
+    {
+      "title": "It's Okay to Not Be Okay",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/it's-okay-to-not-be-okay",
+      "image": "https://example.com/images/drama_44.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583123",
+      "simulated": true
+    },
+    {
+      "title": "Descendants of the Sun",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/descendants-of-the-sun",
+      "image": "https://example.com/images/drama_8.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583126",
+      "simulated": true
+    },
+    {
+      "title": "Itaewon Class (Japanese Version)",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/itaewon-class-(japanese-version)",
+      "image": "https://example.com/images/drama_43.jpg",
+      "type": "drama",
+      "language": "ja",
+      "scraped_at": "2025-04-21T22:24:26.583130",
+      "simulated": true
+    },
+    {
+      "title": "The King: Eternal Monarch",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/the-king:-eternal-monarch",
+      "image": "https://example.com/images/drama_96.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583133",
+      "simulated": true
+    },
+    {
+      "title": "Descendants of the Sun (Japanese Version)",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/descendants-of-the-sun-(japanese-version)",
+      "image": "https://example.com/images/drama_92.jpg",
+      "type": "drama",
+      "language": "ja",
+      "scraped_at": "2025-04-21T22:24:26.583137",
+      "simulated": true
+    },
+    {
+      "title": "Kingdom (Chinese Drama)",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/kingdom-(chinese-drama)",
+      "image": "https://example.com/images/drama_53.jpg",
+      "type": "drama",
+      "language": "zh",
+      "scraped_at": "2025-04-21T22:24:26.583140",
+      "simulated": true
+    },
+    {
+      "title": "My Love from the Star (Japanese Version)",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/my-love-from-the-star-(japanese-version)",
+      "image": "https://example.com/images/drama_9.jpg",
+      "type": "drama",
+      "language": "ja",
+      "scraped_at": "2025-04-21T22:24:26.583143",
+      "simulated": true
+    },
+    {
+      "title": "Hospital Playlist",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/hospital-playlist",
+      "image": "https://example.com/images/drama_64.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583146",
+      "simulated": true
+    },
+    {
+      "title": "Start-Up",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/start-up",
+      "image": "https://example.com/images/drama_83.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583150",
+      "simulated": true
+    },
+    {
+      "title": "Boys Over Flowers",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/boys-over-flowers",
+      "image": "https://example.com/images/drama_51.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583153",
+      "simulated": true
+    },
+    {
+      "title": "Signal",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/signal",
+      "image": "https://example.com/images/drama_71.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583156",
+      "simulated": true
+    },
+    {
+      "title": "Goblin",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/goblin",
+      "image": "https://example.com/images/drama_33.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583159",
+      "simulated": true
+    },
+    {
+      "title": "It's Okay to Not Be Okay",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/it's-okay-to-not-be-okay",
+      "image": "https://example.com/images/drama_65.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583162",
+      "simulated": true
+    },
+    {
+      "title": "Reply 1988",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/reply-1988",
+      "image": "https://example.com/images/drama_67.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583166",
+      "simulated": true
+    },
+    {
+      "title": "Reply 1988",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/reply-1988",
+      "image": "https://example.com/images/drama_33.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583169",
+      "simulated": true
+    },
+    {
+      "title": "Heirs (Japanese Version)",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/heirs-(japanese-version)",
+      "image": "https://example.com/images/drama_18.jpg",
+      "type": "drama",
+      "language": "ja",
+      "scraped_at": "2025-04-21T22:24:26.583172",
+      "simulated": true
+    },
+    {
+      "title": "Crash Landing on You",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/crash-landing-on-you",
+      "image": "https://example.com/images/drama_46.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583175",
+      "simulated": true
+    },
+    {
+      "title": "Start-Up",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/start-up",
+      "image": "https://example.com/images/drama_50.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583178",
+      "simulated": true
+    },
+    {
+      "title": "Hotel Del Luna",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/hotel-del-luna",
+      "image": "https://example.com/images/drama_52.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583181",
+      "simulated": true
+    },
+    {
+      "title": "Moon Lovers: Scarlet Heart Ryeo (Chinese Drama)",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/moon-lovers:-scarlet-heart-ryeo-(chinese-drama)",
+      "image": "https://example.com/images/drama_88.jpg",
+      "type": "drama",
+      "language": "zh",
+      "scraped_at": "2025-04-21T22:24:26.583184",
+      "simulated": true
+    },
+    {
+      "title": "Itaewon Class",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/itaewon-class",
+      "image": "https://example.com/images/drama_96.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583187",
+      "simulated": true
+    },
+    {
+      "title": "Itaewon Class",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/itaewon-class",
+      "image": "https://example.com/images/drama_35.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583190",
+      "simulated": true
+    },
+    {
+      "title": "Descendants of the Sun",
+      "source": "dramacool",
+      "url": "https://example.com/dramacool/descendants-of-the-sun",
+      "image": "https://example.com/images/drama_74.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583193",
+      "simulated": true
+    },
+    {
+      "title": "Heirs",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/heirs",
+      "image": "https://example.com/images/drama_55.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583197",
+      "simulated": true
+    },
+    {
+      "title": "Moon Lovers: Scarlet Heart Ryeo (Thai Adaptation)",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/moon-lovers:-scarlet-heart-ryeo-(thai-adaptation)",
+      "image": "https://example.com/images/drama_76.jpg",
+      "type": "drama",
+      "language": "th",
+      "scraped_at": "2025-04-21T22:24:26.583200",
+      "simulated": true
+    },
+    {
+      "title": "Goblin",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/goblin",
+      "image": "https://example.com/images/drama_26.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583204",
+      "simulated": true
+    },
+    {
+      "title": "The King: Eternal Monarch (Bollywood Remake)",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/the-king:-eternal-monarch-(bollywood-remake)",
+      "image": "https://example.com/images/drama_57.jpg",
+      "type": "drama",
+      "language": "hi",
+      "scraped_at": "2025-04-21T22:24:26.583207",
+      "simulated": true
+    },
+    {
+      "title": "Goblin (Chinese Drama)",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/goblin-(chinese-drama)",
+      "image": "https://example.com/images/drama_73.jpg",
+      "type": "drama",
+      "language": "zh",
+      "scraped_at": "2025-04-21T22:24:26.583210",
+      "simulated": true
+    },
+    {
+      "title": "Kingdom",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/kingdom",
+      "image": "https://example.com/images/drama_2.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583213",
+      "simulated": true
+    },
+    {
+      "title": "Hotel Del Luna (Thai Adaptation)",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/hotel-del-luna-(thai-adaptation)",
+      "image": "https://example.com/images/drama_26.jpg",
+      "type": "drama",
+      "language": "th",
+      "scraped_at": "2025-04-21T22:24:26.583217",
+      "simulated": true
+    },
+    {
+      "title": "Start-Up (Japanese Version)",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/start-up-(japanese-version)",
+      "image": "https://example.com/images/drama_72.jpg",
+      "type": "drama",
+      "language": "ja",
+      "scraped_at": "2025-04-21T22:24:26.583220",
+      "simulated": true
+    },
+    {
+      "title": "Mr. Sunshine",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/mr.-sunshine",
+      "image": "https://example.com/images/drama_38.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583223",
+      "simulated": true
+    },
+    {
+      "title": "Crash Landing on You (Thai Adaptation)",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/crash-landing-on-you-(thai-adaptation)",
+      "image": "https://example.com/images/drama_20.jpg",
+      "type": "drama",
+      "language": "th",
+      "scraped_at": "2025-04-21T22:24:26.583226",
+      "simulated": true
+    },
+    {
+      "title": "Hospital Playlist",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/hospital-playlist",
+      "image": "https://example.com/images/drama_60.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583229",
+      "simulated": true
+    },
+    {
+      "title": "Reply 1988 (Chinese Drama)",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/reply-1988-(chinese-drama)",
+      "image": "https://example.com/images/drama_54.jpg",
+      "type": "drama",
+      "language": "zh",
+      "scraped_at": "2025-04-21T22:24:26.583233",
+      "simulated": true
+    },
+    {
+      "title": "Start-Up",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/start-up",
+      "image": "https://example.com/images/drama_32.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583236",
+      "simulated": true
+    },
+    {
+      "title": "Strong Woman Do Bong Soon",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/strong-woman-do-bong-soon",
+      "image": "https://example.com/images/drama_68.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583239",
+      "simulated": true
+    },
+    {
+      "title": "Hospital Playlist (Chinese Drama)",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/hospital-playlist-(chinese-drama)",
+      "image": "https://example.com/images/drama_34.jpg",
+      "type": "drama",
+      "language": "zh",
+      "scraped_at": "2025-04-21T22:24:26.583242",
+      "simulated": true
+    },
+    {
+      "title": "Vincenzo",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/vincenzo",
+      "image": "https://example.com/images/drama_27.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583246",
+      "simulated": true
+    },
+    {
+      "title": "Kingdom",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/kingdom",
+      "image": "https://example.com/images/drama_63.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583249",
+      "simulated": true
+    },
+    {
+      "title": "Strong Woman Do Bong Soon",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/strong-woman-do-bong-soon",
+      "image": "https://example.com/images/drama_72.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583252",
+      "simulated": true
+    },
+    {
+      "title": "Start-Up",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/start-up",
+      "image": "https://example.com/images/drama_49.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583255",
+      "simulated": true
+    },
+    {
+      "title": "Heirs",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/heirs",
+      "image": "https://example.com/images/drama_11.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583258",
+      "simulated": true
+    },
+    {
+      "title": "Crash Landing on You",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/crash-landing-on-you",
+      "image": "https://example.com/images/drama_28.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583261",
+      "simulated": true
+    },
+    {
+      "title": "Kingdom (Thai Adaptation)",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/kingdom-(thai-adaptation)",
+      "image": "https://example.com/images/drama_4.jpg",
+      "type": "drama",
+      "language": "th",
+      "scraped_at": "2025-04-21T22:24:26.583264",
+      "simulated": true
+    },
+    {
+      "title": "Hospital Playlist",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/hospital-playlist",
+      "image": "https://example.com/images/drama_64.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583267",
+      "simulated": true
+    },
+    {
+      "title": "My Love from the Star",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/my-love-from-the-star",
+      "image": "https://example.com/images/drama_88.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583270",
+      "simulated": true
+    },
+    {
+      "title": "Strong Woman Do Bong Soon (Chinese Drama)",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/strong-woman-do-bong-soon-(chinese-drama)",
+      "image": "https://example.com/images/drama_65.jpg",
+      "type": "drama",
+      "language": "zh",
+      "scraped_at": "2025-04-21T22:24:26.583273",
+      "simulated": true
+    },
+    {
+      "title": "Moon Lovers: Scarlet Heart Ryeo (Japanese Version)",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/moon-lovers:-scarlet-heart-ryeo-(japanese-version)",
+      "image": "https://example.com/images/drama_89.jpg",
+      "type": "drama",
+      "language": "ja",
+      "scraped_at": "2025-04-21T22:24:26.583277",
+      "simulated": true
+    },
+    {
+      "title": "Strong Woman Do Bong Soon (Japanese Version)",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/strong-woman-do-bong-soon-(japanese-version)",
+      "image": "https://example.com/images/drama_95.jpg",
+      "type": "drama",
+      "language": "ja",
+      "scraped_at": "2025-04-21T22:24:26.583280",
+      "simulated": true
+    },
+    {
+      "title": "Goblin",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/goblin",
+      "image": "https://example.com/images/drama_90.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583283",
+      "simulated": true
+    },
+    {
+      "title": "Vincenzo",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/vincenzo",
+      "image": "https://example.com/images/drama_45.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583286",
+      "simulated": true
+    },
+    {
+      "title": "Goblin",
+      "source": "kdramahood",
+      "url": "https://example.com/kdramahood/goblin",
+      "image": "https://example.com/images/drama_16.jpg",
+      "type": "drama",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583289",
+      "simulated": true
+    },
+    {
+      "title": "Memories of Murder",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/memories-of-murder",
+      "image": "https://example.com/images/movie_95.jpg",
+      "type": "movie",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583293",
+      "simulated": true
+    },
+    {
+      "title": "The Wailing",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/the-wailing",
+      "image": "https://example.com/images/movie_20.jpg",
+      "type": "movie",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583296",
+      "simulated": true
+    },
+    {
+      "title": "Thirst",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/thirst",
+      "image": "https://example.com/images/movie_86.jpg",
+      "type": "movie",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583299",
+      "simulated": true
+    },
+    {
+      "title": "The Handmaiden",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/the-handmaiden",
+      "image": "https://example.com/images/movie_77.jpg",
+      "type": "movie",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583302",
+      "simulated": true
+    },
+    {
+      "title": "The Host (Chinese Drama)",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/the-host-(chinese-drama)",
+      "image": "https://example.com/images/movie_3.jpg",
+      "type": "movie",
+      "language": "zh",
+      "scraped_at": "2025-04-21T22:24:26.583305",
+      "simulated": true
+    },
+    {
+      "title": "Burning (Japanese Version)",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/burning-(japanese-version)",
+      "image": "https://example.com/images/movie_46.jpg",
+      "type": "movie",
+      "language": "ja",
+      "scraped_at": "2025-04-21T22:24:26.583308",
+      "simulated": true
+    },
+    {
+      "title": "In the Mood for Love",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/in-the-mood-for-love",
+      "image": "https://example.com/images/movie_84.jpg",
+      "type": "movie",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583312",
+      "simulated": true
+    },
+    {
+      "title": "Drive My Car (Japanese Version)",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/drive-my-car-(japanese-version)",
+      "image": "https://example.com/images/movie_29.jpg",
+      "type": "movie",
+      "language": "ja",
+      "scraped_at": "2025-04-21T22:24:26.583319",
+      "simulated": true
+    },
+    {
+      "title": "Chungking Express",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/chungking-express",
+      "image": "https://example.com/images/movie_49.jpg",
+      "type": "movie",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583322",
+      "simulated": true
+    },
+    {
+      "title": "Train to Busan (Japanese Version)",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/train-to-busan-(japanese-version)",
+      "image": "https://example.com/images/movie_2.jpg",
+      "type": "movie",
+      "language": "ja",
+      "scraped_at": "2025-04-21T22:24:26.583325",
+      "simulated": true
+    },
+    {
+      "title": "Crouching Tiger, Hidden Dragon",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/crouching-tiger,-hidden-dragon",
+      "image": "https://example.com/images/movie_55.jpg",
+      "type": "movie",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583328",
+      "simulated": true
+    },
+    {
+      "title": "Shoplifters (Japanese Version)",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/shoplifters-(japanese-version)",
+      "image": "https://example.com/images/movie_12.jpg",
+      "type": "movie",
+      "language": "ja",
+      "scraped_at": "2025-04-21T22:24:26.583331",
+      "simulated": true
+    },
+    {
+      "title": "A Tale of Two Sisters",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/a-tale-of-two-sisters",
+      "image": "https://example.com/images/movie_73.jpg",
+      "type": "movie",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583335",
+      "simulated": true
+    },
+    {
+      "title": "Chungking Express",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/chungking-express",
+      "image": "https://example.com/images/movie_64.jpg",
+      "type": "movie",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583338",
+      "simulated": true
+    },
+    {
+      "title": "Mother (Japanese Version)",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/mother-(japanese-version)",
+      "image": "https://example.com/images/movie_72.jpg",
+      "type": "movie",
+      "language": "ja",
+      "scraped_at": "2025-04-21T22:24:26.583341",
+      "simulated": true
+    },
+    {
+      "title": "The Host",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/the-host",
+      "image": "https://example.com/images/movie_16.jpg",
+      "type": "movie",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583344",
+      "simulated": true
+    },
+    {
+      "title": "Joint Security Area (Japanese Version)",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/joint-security-area-(japanese-version)",
+      "image": "https://example.com/images/movie_53.jpg",
+      "type": "movie",
+      "language": "ja",
+      "scraped_at": "2025-04-21T22:24:26.583347",
+      "simulated": true
+    },
+    {
+      "title": "Oldboy",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/oldboy",
+      "image": "https://example.com/images/movie_55.jpg",
+      "type": "movie",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583350",
+      "simulated": true
+    },
+    {
+      "title": "The Wailing (Bollywood Remake)",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/the-wailing-(bollywood-remake)",
+      "image": "https://example.com/images/movie_40.jpg",
+      "type": "movie",
+      "language": "hi",
+      "scraped_at": "2025-04-21T22:24:26.583353",
+      "simulated": true
+    },
+    {
+      "title": "In the Mood for Love",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/in-the-mood-for-love",
+      "image": "https://example.com/images/movie_97.jpg",
+      "type": "movie",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583356",
+      "simulated": true
+    },
+    {
+      "title": "Drive My Car (Thai Adaptation)",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/drive-my-car-(thai-adaptation)",
+      "image": "https://example.com/images/movie_35.jpg",
+      "type": "movie",
+      "language": "th",
+      "scraped_at": "2025-04-21T22:24:26.583359",
+      "simulated": true
+    },
+    {
+      "title": "Joint Security Area (Thai Adaptation)",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/joint-security-area-(thai-adaptation)",
+      "image": "https://example.com/images/movie_57.jpg",
+      "type": "movie",
+      "language": "th",
+      "scraped_at": "2025-04-21T22:24:26.583362",
+      "simulated": true
+    },
+    {
+      "title": "Oldboy",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/oldboy",
+      "image": "https://example.com/images/movie_72.jpg",
+      "type": "movie",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583365",
+      "simulated": true
+    },
+    {
+      "title": "Spirited Away",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/spirited-away",
+      "image": "https://example.com/images/movie_92.jpg",
+      "type": "movie",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583368",
+      "simulated": true
+    },
+    {
+      "title": "Burning",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/burning",
+      "image": "https://example.com/images/movie_11.jpg",
+      "type": "movie",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583371",
+      "simulated": true
+    },
+    {
+      "title": "Oldboy (Bollywood Remake)",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/oldboy-(bollywood-remake)",
+      "image": "https://example.com/images/movie_8.jpg",
+      "type": "movie",
+      "language": "hi",
+      "scraped_at": "2025-04-21T22:24:26.583374",
+      "simulated": true
+    },
+    {
+      "title": "Your Name (Chinese Drama)",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/your-name-(chinese-drama)",
+      "image": "https://example.com/images/movie_81.jpg",
+      "type": "movie",
+      "language": "zh",
+      "scraped_at": "2025-04-21T22:24:26.583378",
+      "simulated": true
+    },
+    {
+      "title": "I Saw the Devil (Japanese Version)",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/i-saw-the-devil-(japanese-version)",
+      "image": "https://example.com/images/movie_59.jpg",
+      "type": "movie",
+      "language": "ja",
+      "scraped_at": "2025-04-21T22:24:26.583381",
+      "simulated": true
+    },
+    {
+      "title": "Train to Busan (Chinese Drama)",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/train-to-busan-(chinese-drama)",
+      "image": "https://example.com/images/movie_47.jpg",
+      "type": "movie",
+      "language": "zh",
+      "scraped_at": "2025-04-21T22:24:26.583384",
+      "simulated": true
+    },
+    {
+      "title": "I Saw the Devil",
+      "source": "asianfilm",
+      "url": "https://example.com/asianfilm/i-saw-the-devil",
+      "image": "https://example.com/images/movie_52.jpg",
+      "type": "movie",
+      "language": "ko",
+      "scraped_at": "2025-04-21T22:24:26.583387",
+      "simulated": true
+    }
+  ]
+}
