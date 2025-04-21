@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Search, User } from 'lucide-react';
+import { Search, User, Bell, Menu } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const categories = [
   { name: 'Accueil', path: '/' },
@@ -13,56 +14,163 @@ const categories = [
 ];
 
 const Header: React.FC = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Effet de détection du scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <header className="bg-flo-black text-flo-white shadow-md sticky top-0 z-50">
-      <div className="container mx-auto flex items-center justify-between py-3 px-4">
+    <motion.header 
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, type: "spring", stiffness: 260, damping: 20 }}
+      className={`sticky top-0 z-50 ${
+        isScrolled 
+          ? 'bg-black/90 backdrop-blur-md shadow-lg' 
+          : 'bg-transparent'
+      } transition-all duration-300`}
+    >
+      <div className="container mx-auto flex items-center justify-between py-4 px-4">
         {/* Logo */}
-        <NavLink to="/" className="text-2xl font-bold font-sans tracking-tight bg-gradient-to-r from-flo-violet to-flo-blue bg-clip-text text-transparent">
-          FloDrama
-        </NavLink>
-        {/* Navigation */}
-        <nav className="flex-1 flex justify-center">
+        <motion.div
+          whileHover={{ scale: 1.02 }}
+          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+        >
+          <NavLink to="/" className="text-2xl font-medium tracking-tight bg-gradient-to-r from-blue-500 to-fuchsia-500 bg-clip-text text-transparent">
+            FloDrama
+          </NavLink>
+        </motion.div>
+
+        {/* Menu Burger Mobile */}
+        <button
+          className="md:hidden text-white focus:outline-none"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          <Menu className="w-6 h-6" />
+        </button>
+
+        {/* Navigation Desktop */}
+        <nav className="hidden md:flex flex-1 justify-center">
           <ul className="flex space-x-6">
             {categories.map(cat => (
-              <li key={cat.name}>
+              <motion.li key={cat.name} whileHover={{ scale: 1.05 }}>
                 <NavLink
                   to={cat.path}
                   className={({ isActive }) =>
-                    `px-3 py-1 rounded-full font-semibold transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-flo-blue ` +
+                    `px-3 py-1 rounded-full font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 ` +
                     (isActive
-                      ? 'bg-gradient-to-r from-flo-violet to-flo-blue text-flo-white'
-                      : 'text-flo-white hover:bg-gradient-to-r hover:from-flo-violet hover:to-flo-fuchsia hover:text-flo-white')
+                      ? 'bg-gradient-to-r from-blue-500 to-fuchsia-500 text-white'
+                      : 'text-white hover:bg-white/10')
                   }
                   end={cat.path === '/'}
                 >
                   {cat.name}
                 </NavLink>
-              </li>
+              </motion.li>
             ))}
           </ul>
         </nav>
-        {/* Actions */}
-        <div className="flex items-center space-x-4">
+
+        {/* Actions Desktop */}
+        <div className="hidden md:flex items-center space-x-4">
           {/* Barre de recherche */}
-          <form className="relative hidden md:block">
+          <motion.form 
+            className="relative"
+            whileHover={{ scale: 1.02 }}
+          >
             <input
               type="text"
               placeholder="Rechercher..."
-              className="pl-10 pr-4 py-1 rounded-full bg-flo-gray/20 text-flo-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-flo-violet"
+              className="pl-10 pr-4 py-1 rounded-full bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500 border border-white/30"
             />
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-flo-violet" />
-          </form>
-          {/* Profil/connexion */}
-          <NavLink
-            to="/profile"
-            className="flex items-center px-3 py-1 rounded-full bg-flo-violet hover:bg-flo-blue text-flo-white font-semibold transition-colors duration-200"
-          >
-            <User className="w-5 h-5 mr-2" />
-            <span className="hidden md:inline">Profil</span>
-          </NavLink>
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
+          </motion.form>
+          
+          {/* Notifications */}
+          <motion.div whileHover={{ scale: 1.1 }}>
+            <button className="p-2 rounded-full hover:bg-gradient-to-r hover:from-blue-500 hover:to-fuchsia-500 text-white border border-white/30">
+              <Bell className="w-5 h-5" />
+            </button>
+          </motion.div>
+          
+          {/* Profil */}
+          <motion.div whileHover={{ scale: 1.1 }}>
+            <NavLink
+              to="/profile"
+              className="flex items-center px-3 py-1 rounded-full bg-white text-black hover:bg-white/90 font-medium transition-colors duration-200"
+            >
+              <User className="w-5 h-5 mr-2" />
+              <span>Profil</span>
+            </NavLink>
+          </motion.div>
         </div>
       </div>
-    </header>
+      
+      {/* Menu Mobile */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            className="md:hidden bg-black border-t border-white/30"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <ul className="flex flex-col p-4 space-y-3">
+              {categories.map(cat => (
+                <li key={cat.name}>
+                  <NavLink
+                    to={cat.path}
+                    className={({ isActive }) =>
+                      `block px-3 py-2 rounded-lg font-medium transition-colors duration-200 ` +
+                      (isActive
+                        ? 'bg-gradient-to-r from-blue-500 to-fuchsia-500 text-white'
+                        : 'text-white hover:bg-white/10')
+                    }
+                    end={cat.path === '/'}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {cat.name}
+                  </NavLink>
+                </li>
+              ))}
+              <li className="pt-2 border-t border-white/30">
+                <form className="relative">
+                  <input
+                    type="text"
+                    placeholder="Rechercher..."
+                    className="w-full pl-10 pr-4 py-2 rounded-lg bg-white/10 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-500 border border-white/30"
+                  />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" />
+                </form>
+              </li>
+              <li>
+                <NavLink
+                  to="/profile"
+                  className="flex items-center px-3 py-2 rounded-lg bg-white text-black hover:bg-white/90 font-medium transition-colors duration-200"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <User className="w-5 h-5 mr-2" />
+                  <span>Profil</span>
+                </NavLink>
+              </li>
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 };
 

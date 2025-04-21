@@ -1,50 +1,131 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Facebook, Twitter, Instagram, ArrowRight } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-flo-black text-flo-white pt-10 pb-6 px-4 mt-8 border-t border-flo-violet/20">
+    <footer className="bg-black text-white pt-10 pb-6 px-4 mt-8 border-t border-white/30">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* À propos */}
           <div>
-            <h3 className="text-lg font-bold mb-4 text-flo-violet font-sans">À propos</h3>
-            <ul className="space-y-2">
-              <li><NavLink to="/about" className={({isActive}) => `transition-colors ${isActive ? 'bg-gradient-to-r from-flo-violet to-flo-fuchsia text-flo-white px-2 rounded' : 'text-flo-white hover:text-flo-fuchsia'}`}>Qui sommes-nous</NavLink></li>
-              <li><NavLink to="/contact" className={({isActive}) => `transition-colors ${isActive ? 'bg-gradient-to-r from-flo-violet to-flo-fuchsia text-flo-white px-2 rounded' : 'text-flo-white hover:text-flo-fuchsia'}`}>Contact</NavLink></li>
-              <li><NavLink to="/careers" className={({isActive}) => `transition-colors ${isActive ? 'bg-gradient-to-r from-flo-violet to-flo-fuchsia text-flo-white px-2 rounded' : 'text-flo-white hover:text-flo-fuchsia'}`}>Carrières</NavLink></li>
+            <h3 className="text-lg font-medium mb-4 relative inline-block group">
+              À propos de FloDrama
+              <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-fuchsia-500 group-hover:w-full transition-all duration-300"></span>
+            </h3>
+            <ul className="space-y-3">
+              <FooterLink to="/about">À propos</FooterLink>
+              <FooterLink to="/careers">Emplois</FooterLink>
+              <FooterLink to="/contact">Contact</FooterLink>
             </ul>
           </div>
+          
+          {/* Regarder */}
           <div>
-            <h3 className="text-lg font-bold mb-4 text-flo-violet font-sans">Aide</h3>
-            <ul className="space-y-2">
-              <li><NavLink to="/faq" className={({isActive}) => `transition-colors ${isActive ? 'bg-gradient-to-r from-flo-violet to-flo-fuchsia text-flo-white px-2 rounded' : 'text-flo-white hover:text-flo-fuchsia'}`}>FAQ</NavLink></li>
-              <li><NavLink to="/support" className={({isActive}) => `transition-colors ${isActive ? 'bg-gradient-to-r from-flo-violet to-flo-fuchsia text-flo-white px-2 rounded' : 'text-flo-white hover:text-flo-fuchsia'}`}>Support</NavLink></li>
-              <li><NavLink to="/terms" className={({isActive}) => `transition-colors ${isActive ? 'bg-gradient-to-r from-flo-violet to-flo-fuchsia text-flo-white px-2 rounded' : 'text-flo-white hover:text-flo-fuchsia'}`}>Conditions d'utilisation</NavLink></li>
+            <h3 className="text-lg font-medium mb-4 relative inline-block group">
+              Regarder
+              <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-fuchsia-500 group-hover:w-full transition-all duration-300"></span>
+            </h3>
+            <ul className="space-y-3">
+              <FooterLink to="/category/dramas">Dramas</FooterLink>
+              <FooterLink to="/category/movies">Films</FooterLink>
+              <FooterLink to="/category/anime">Animés</FooterLink>
+              <FooterLink to="/category/bollywood">Bollywood</FooterLink>
             </ul>
           </div>
+          
+          {/* Assistance */}
           <div>
-            <h3 className="text-lg font-bold mb-4 text-flo-violet font-sans">Contenu</h3>
-            <ul className="space-y-2">
-              <li><NavLink to="/category/dramas" className={({isActive}) => `transition-colors ${isActive ? 'bg-gradient-to-r from-flo-violet to-flo-fuchsia text-flo-white px-2 rounded' : 'text-flo-white hover:text-flo-fuchsia'}`}>Dramas</NavLink></li>
-              <li><NavLink to="/category/movies" className={({isActive}) => `transition-colors ${isActive ? 'bg-gradient-to-r from-flo-violet to-flo-fuchsia text-flo-white px-2 rounded' : 'text-flo-white hover:text-flo-fuchsia'}`}>Films</NavLink></li>
-              <li><NavLink to="/category/anime" className={({isActive}) => `transition-colors ${isActive ? 'bg-gradient-to-r from-flo-violet to-flo-fuchsia text-flo-white px-2 rounded' : 'text-flo-white hover:text-flo-fuchsia'}`}>Animés</NavLink></li>
-              <li><NavLink to="/category/bollywood" className={({isActive}) => `transition-colors ${isActive ? 'bg-gradient-to-r from-flo-violet to-flo-fuchsia text-flo-white px-2 rounded' : 'text-flo-white hover:text-flo-fuchsia'}`}>Bollywood</NavLink></li>
+            <h3 className="text-lg font-medium mb-4 relative inline-block group">
+              Assistance
+              <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-fuchsia-500 group-hover:w-full transition-all duration-300"></span>
+            </h3>
+            <ul className="space-y-3">
+              <FooterLink to="/faq">FAQ</FooterLink>
+              <FooterLink to="/support">Appareils compatibles</FooterLink>
+              <FooterLink to="/privacy">Confidentialité</FooterLink>
             </ul>
           </div>
+          
+          {/* Légal */}
           <div>
-            <h3 className="text-lg font-bold mb-4 text-flo-violet font-sans">Suivez-nous</h3>
-            <ul className="space-y-2">
-              <li><a href="#" className="hover:text-flo-fuchsia transition-colors">Facebook</a></li>
-              <li><a href="#" className="hover:text-flo-fuchsia transition-colors">Twitter</a></li>
-              <li><a href="#" className="hover:text-flo-fuchsia transition-colors">Instagram</a></li>
+            <h3 className="text-lg font-medium mb-4 relative inline-block group">
+              Légal
+              <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-fuchsia-500 group-hover:w-full transition-all duration-300"></span>
+            </h3>
+            <ul className="space-y-3">
+              <FooterLink to="/terms">Conditions d'utilisation</FooterLink>
+              <FooterLink to="/privacy-policy">Politique de confidentialité</FooterLink>
+              <FooterLink to="/cookie-preferences">Préférences de cookies</FooterLink>
             </ul>
           </div>
         </div>
-        <div className="mt-10 pt-8 border-t border-flo-violet/10 text-center text-flo-gray text-sm">
-          <p>&copy; {new Date().getFullYear()} FloDrama. Tous droits réservés.</p>
+        
+        {/* Réseaux sociaux */}
+        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-white/60 text-sm mb-4 md:mb-0">
+            &copy; {new Date().getFullYear()} FloDrama. Tous droits réservés.
+          </p>
+          
+          <div className="flex space-x-4">
+            <motion.a 
+              href="https://facebook.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="p-2 rounded-full border border-white/30 text-white hover:bg-gradient-to-r hover:from-blue-500 hover:to-fuchsia-500 transition-all duration-200"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Facebook className="w-5 h-5" />
+            </motion.a>
+            <motion.a 
+              href="https://twitter.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="p-2 rounded-full border border-white/30 text-white hover:bg-gradient-to-r hover:from-blue-500 hover:to-fuchsia-500 transition-all duration-200"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Twitter className="w-5 h-5" />
+            </motion.a>
+            <motion.a 
+              href="https://instagram.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="p-2 rounded-full border border-white/30 text-white hover:bg-gradient-to-r hover:from-blue-500 hover:to-fuchsia-500 transition-all duration-200"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Instagram className="w-5 h-5" />
+            </motion.a>
+          </div>
         </div>
       </div>
     </footer>
+  );
+};
+
+// Composant lien de pied de page réutilisable avec animation
+const FooterLink: React.FC<{ to: string; children: React.ReactNode }> = ({ to, children }) => {
+  return (
+    <li>
+      <motion.div whileHover={{ x: 5 }} className="inline-block">
+        <NavLink 
+          to={to} 
+          className={({ isActive }) => 
+            `group flex items-center transition-colors duration-200 ${
+              isActive 
+                ? 'text-white bg-gradient-to-r from-blue-500 to-fuchsia-500 bg-clip-text text-transparent' 
+                : 'text-white/60 hover:text-white'
+            }`
+          }
+        >
+          <span>{children}</span>
+          <ArrowRight className="w-0 h-4 ml-0 opacity-0 group-hover:w-4 group-hover:ml-1 group-hover:opacity-100 transition-all duration-200" />
+        </NavLink>
+      </motion.div>
+    </li>
   );
 };
 
