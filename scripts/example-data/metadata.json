@@ -1,0 +1,62 @@
+{
+  "lastUpdate": "2025-04-22T15:30:00Z",
+  "contentCounts": {
+    "total": 1245,
+    "popular": 245,
+    "featured": 187,
+    "topRated": 134,
+    "recently": 89
+  },
+  "trends": {
+    "weeklyGrowth": 12.5,
+    "monthlyGrowth": 8.3,
+    "popularGenres": [
+      {
+        "name": "Romance",
+        "percentage": 28.5
+      },
+      {
+        "name": "Action",
+        "percentage": 22.3
+      },
+      {
+        "name": "Fantastique",
+        "percentage": 18.7
+      },
+      {
+        "name": "Historique",
+        "percentage": 15.2
+      }
+    ],
+    "popularSources": [
+      {
+        "name": "Corée du Sud",
+        "percentage": 42.8
+      },
+      {
+        "name": "Japon",
+        "percentage": 28.5
+      },
+      {
+        "name": "Chine",
+        "percentage": 18.2
+      },
+      {
+        "name": "Taïwan",
+        "percentage": 10.5
+      }
+    ]
+  },
+  "userStats": {
+    "totalUsers": 25678,
+    "activeUsers": 18945,
+    "averageWatchTime": 126,
+    "completionRate": 72.3
+  },
+  "platformPerformance": {
+    "averageLoadTime": 1.8,
+    "cacheHitRate": 92.5,
+    "cdnPerformance": 98.2,
+    "apiResponseTime": 0.32
+  }
+}
