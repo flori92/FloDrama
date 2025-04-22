@@ -16,8 +16,6 @@ permissions:
 env:
   S3_BUCKET: flodrama-content-1745269660
   AWS_REGION: us-east-1
-  # Définir une valeur par défaut pour l'ID CloudFront
-  CLOUDFRONT_ID: E3ABCDEFGHIJKL
 
 jobs:
   deploy:
@@ -210,7 +208,7 @@ jobs:
             echo "HAS_CONTENT=false" >> $GITHUB_OUTPUT
           fi
       
-      - name: Upload vers S3 et invalidation du cache CloudFront
+      - name: Upload vers S3
         if: steps.check-s3-content.outputs.HAS_CONTENT == 'true'
         run: |
           echo "📤 Upload des données vers S3..."
@@ -218,14 +216,28 @@ jobs:
           # Upload des données vers S3
           aws s3 sync export_data/ s3://${{ env.S3_BUCKET }}/data/ --cache-control "max-age=3600"
           echo "✅ Upload vers S3 terminé avec succès!"
+      
+      # Étape d'invalidation du cache CloudFront avec gestion d'erreur
+      - name: Invalidation du cache CloudFront
+        if: steps.check-s3-content.outputs.HAS_CONTENT == 'true'
+        run: |
+          echo "🔄 Tentative d'invalidation du cache CloudFront..."
           
-          # Invalidation du cache CloudFront
-          echo "🔄 Invalidation du cache CloudFront..."
-          echo "CloudFront Distribution ID: ${{ env.CLOUDFRONT_ID }}"
-          
-          # Toujours tenter l'invalidation du cache avec l'ID disponible
-          aws cloudfront create-invalidation --distribution-id "${{ env.CLOUDFRONT_ID }}" --paths "/data/*"
-          echo "✅ Cache CloudFront invalidé avec succès"
+          # Vérifier si le secret est disponible
+          if [ -n "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" ]; then
+            # Tenter l'invalidation avec gestion d'erreur
+            if aws cloudfront create-invalidation --distribution-id "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" --paths "/data/*"; then
+              echo "✅ Cache CloudFront invalidé avec succès"
+            else
+              echo "⚠️ Échec de l'invalidation du cache CloudFront"
+              echo "⚠️ Vérifiez que l'ID de distribution est correct"
+              # Ne pas faire échouer le workflow pour cette erreur
+              exit 0
+            fi
+          else
+            echo "⚠️ Aucun ID de distribution CloudFront n'est défini dans les secrets"
+            echo "⚠️ L'invalidation du cache CloudFront est ignorée"
+          fi
       
       - name: Génération des fichiers de contenu agrégé
         if: steps.check-s3-content.outputs.HAS_CONTENT == 'true'
@@ -355,9 +367,6 @@ jobs:
           
           echo " Déploiement Lambda terminé avec succès!"
       
-      - name: Notification backend
-        run: echo " Backend (S3/CDN/Lambda) déployé avec succès"
-
       - name: Configuration de Node.js
         uses: actions/setup-node@v4
         with:
