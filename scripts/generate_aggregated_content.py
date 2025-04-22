@@ -14,6 +14,7 @@ import logging
 from datetime import datetime
 import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import uuid
 
 # Configuration du logging
 logging.basicConfig(
@@ -48,10 +49,40 @@ def download_json_from_s3(s3_client, bucket, key):
     try:
         response = s3_client.get_object(Bucket=bucket, Key=key)
         content = response['Body'].read().decode('utf-8')
-        return json.loads(content)
+        data = json.loads(content)
+        # Vérifier si les données sont dans un format utilisable
+        if isinstance(data, list) and len(data) > 0:
+            # Vérifier si les éléments ont les propriétés minimales requises
+            sample_items = []
+            for item in data[:10]:  # Examiner les 10 premiers éléments
+                # Créer un nouvel élément avec les propriétés minimales requises
+                new_item = {
+                    "id": item.get("id", str(uuid.uuid4())),
+                    "title": item.get("title", "Sans titre"),
+                    "description": item.get("description", "Aucune description disponible"),
+                    "image": ensure_valid_image_url(item.get("image", "")),
+                    "url": item.get("url", ""),
+                    "score": item.get("score", round(random.uniform(7.0, 9.5), 1)),
+                    "popularity": item.get("popularity", random.randint(70, 95)),
+                    "releaseDate": item.get("releaseDate", "2025-01-01")
+                }
+                sample_items.append(new_item)
+            return sample_items
+        else:
+            logger.warning(f"Format de données invalide pour {key}, utilisation de données fictives")
+            return []
     except Exception as e:
         logger.error(f"Erreur lors du téléchargement du fichier {key}: {e}")
         return []
+
+def ensure_valid_image_url(url):
+    """S'assure que l'URL de l'image est valide, sinon retourne une URL par défaut"""
+    if not url or not (url.startswith("http://") or url.startswith("https://")):
+        # Générer une URL d'image aléatoire
+        category = random.choice(["anime", "drama", "film", "bollywood"])
+        image_id = random.randint(1, 20)
+        return f"https://flodrama-content-1745269660.s3.amazonaws.com/assets/images/{category}/{image_id}.jpg"
+    return url
 
 def upload_json_to_s3(s3_client, bucket, key, data):
     """Upload un dictionnaire au format JSON vers S3"""
@@ -73,14 +104,18 @@ def invalidate_cloudfront_distribution(distribution_id):
     """Invalide le cache CloudFront pour les fichiers agrégés"""
     try:
         cloudfront = boto3.client('cloudfront')
+        
+        # Chemins à invalider
         invalidation_paths = [
             '/featured.json',
             '/popular.json',
             '/recently.json',
             '/topRated.json',
-            '/categories.json'
+            '/categories.json',
+            '/*'  # Invalider tous les fichiers pour s'assurer que les nouvelles données sont visibles
         ]
         
+        # Créer l'invalidation
         response = cloudfront.create_invalidation(
             DistributionId=distribution_id,
             InvalidationBatch={
@@ -91,10 +126,26 @@ def invalidate_cloudfront_distribution(distribution_id):
                 'CallerReference': str(datetime.now().timestamp())
             }
         )
-        logger.info(f"Invalidation CloudFront créée: {response['Invalidation']['Id']}")
+        
+        logger.info(f"✅ Invalidation CloudFront créée: {response['Invalidation']['Id']}")
+        logger.info(f"📊 Statut de l'invalidation: {response['Invalidation']['Status']}")
+        
+        # Attendre que l'invalidation soit terminée (optionnel)
+        logger.info("⏳ Attente de la fin de l'invalidation...")
+        waiter = cloudfront.get_waiter('invalidation_completed')
+        waiter.wait(
+            DistributionId=distribution_id,
+            Id=response['Invalidation']['Id'],
+            WaiterConfig={
+                'Delay': 10,  # Vérifier toutes les 10 secondes
+                'MaxAttempts': 18  # Attendre jusqu'à 3 minutes (18 * 10 secondes)
+            }
+        )
+        
+        logger.info("✅ Invalidation CloudFront terminée avec succès")
         return True
     except Exception as e:
-        logger.error(f"Erreur lors de l'invalidation CloudFront: {e}")
+        logger.error(f"❌ Erreur lors de l'invalidation CloudFront: {e}")
         return False
 
 def fetch_all_content(s3_client):
@@ -119,10 +170,10 @@ def fetch_all_content(s3_client):
     return all_content
 
 def generate_featured_content(all_content):
-    """Génère une sélection de contenu mis en avant"""
+    """Génère une sélection de contenu mis en avant en utilisant les données réelles"""
     featured = []
     
-    # Sélectionner 2-3 éléments de chaque catégorie
+    # Sélectionner des éléments de chaque catégorie
     for category, sources in all_content.items():
         category_items = []
         
@@ -130,111 +181,202 @@ def generate_featured_content(all_content):
             if not items:
                 continue
                 
-            # Créer des éléments fictifs si les données réelles sont inaccessibles
-            sample_items = []
-            for i in range(5):
-                sample_item = {
-                    "id": f"{category}-{source}-{i}",
-                    "title": f"Top {category.capitalize()} from {format_source_name(source)} {i+1}",
-                    "description": f"Une histoire captivante de {category} disponible sur {format_source_name(source)}.",
-                    "image": f"https://flodrama-content-1745269660.s3.amazonaws.com/assets/images/{category}/{i+1}.jpg",
-                    "category": category,
-                    "source": source,
-                    "releaseDate": "2025-04-01",
-                    "score": round(random.uniform(7.5, 9.9), 1),
-                    "popularity": random.randint(70, 100),
-                    "url": f"https://flodrama.com/{category}/{source}/{i+1}"
-                }
-                sample_items.append(sample_item)
+            # Filtrer les éléments qui ont une image et un titre
+            valid_items = [item for item in items if item.get('image') and item.get('title')]
             
-            category_items.extend(sample_items[:3])
+            # Ajouter la catégorie et la source si elles ne sont pas déjà présentes
+            for item in valid_items:
+                if 'category' not in item:
+                    item['category'] = category
+                if 'source' not in item:
+                    item['source'] = source
+            
+            # Sélectionner jusqu'à 3 éléments aléatoires
+            if valid_items:
+                selected = random.sample(valid_items, min(3, len(valid_items)))
+                category_items.extend(selected)
         
-        # Prendre les 5 meilleurs éléments de cette catégorie
+        # Trier par score et prendre les meilleurs
         if category_items:
-            # Trier par score
             category_items.sort(key=lambda x: x.get('score', 0), reverse=True)
             featured.extend(category_items[:5])
+    
+    # Si nous n'avons pas assez d'éléments, ajouter des éléments fictifs
+    if len(featured) < 15:
+        logger.warning(f"Pas assez de contenu réel pour featured.json ({len(featured)} éléments), ajout de contenu fictif")
+        for i in range(15 - len(featured)):
+            category = random.choice(list(CATEGORIES.keys()))
+            source = random.choice(CATEGORIES[category])
+            featured.append({
+                "id": f"featured-{category}-{source}-{i}",
+                "title": f"Top {category.capitalize()} {i+1}",
+                "description": f"Une histoire captivante de {category}.",
+                "image": f"https://flodrama-content-1745269660.s3.amazonaws.com/assets/images/{category}/{i+1}.jpg",
+                "category": category,
+                "source": source,
+                "score": round(random.uniform(8.0, 9.9), 1),
+                "popularity": random.randint(80, 100),
+                "releaseDate": "2025-04-01",
+                "url": f"https://flodrama.com/{category}/{source}/{i+1}"
+            })
     
     # Limiter à 15 éléments au total
     random.shuffle(featured)
     return featured[:15]
 
 def generate_popular_content(all_content):
-    """Génère une liste de contenu populaire"""
+    """Génère une liste de contenu populaire en utilisant les données réelles"""
     popular = []
     
     for category, sources in all_content.items():
-        for source in sources.keys():
-            # Créer des éléments fictifs pour le contenu populaire
-            for i in range(3):
-                popularity = random.randint(80, 100)
-                item = {
-                    "id": f"popular-{category}-{source}-{i}",
-                    "title": f"Popular {category.capitalize()} {i+1}",
-                    "description": f"Un {category} très populaire de {format_source_name(source)}.",
-                    "image": f"https://flodrama-content-1745269660.s3.amazonaws.com/assets/images/{category}/{i+5}.jpg",
-                    "category": category,
-                    "source": source,
-                    "popularity": popularity,
-                    "views": popularity * 1000,
-                    "url": f"https://flodrama.com/{category}/{source}/popular-{i+1}"
-                }
-                popular.append(item)
+        for source, items in sources.items():
+            if not items:
+                continue
+                
+            # Filtrer les éléments valides
+            valid_items = [item for item in items if item.get('image') and item.get('title')]
+            
+            # Ajouter la catégorie et la source si elles ne sont pas déjà présentes
+            for item in valid_items:
+                if 'category' not in item:
+                    item['category'] = category
+                if 'source' not in item:
+                    item['source'] = source
+                
+                # Ajouter un score de popularité si non présent
+                if 'popularity' not in item:
+                    item['popularity'] = random.randint(70, 100)
+            
+            # Trier par popularité et prendre les meilleurs
+            if valid_items:
+                valid_items.sort(key=lambda x: x.get('popularity', 0), reverse=True)
+                popular.extend(valid_items[:3])
+    
+    # Si nous n'avons pas assez d'éléments, ajouter des éléments fictifs
+    if len(popular) < 20:
+        logger.warning(f"Pas assez de contenu réel pour popular.json ({len(popular)} éléments), ajout de contenu fictif")
+        for i in range(20 - len(popular)):
+            category = random.choice(list(CATEGORIES.keys()))
+            source = random.choice(CATEGORIES[category])
+            popular.append({
+                "id": f"popular-{category}-{source}-{i}",
+                "title": f"Popular {category.capitalize()} {i+1}",
+                "description": f"Un {category} très populaire.",
+                "image": f"https://flodrama-content-1745269660.s3.amazonaws.com/assets/images/{category}/{i+5}.jpg",
+                "category": category,
+                "source": source,
+                "popularity": random.randint(85, 100),
+                "views": random.randint(10000, 50000),
+                "url": f"https://flodrama.com/{category}/{source}/popular-{i+1}"
+            })
     
     # Limiter à 20 éléments au total
     popular.sort(key=lambda x: x.get('popularity', 0), reverse=True)
     return popular[:20]
 
 def generate_recent_content(all_content):
-    """Génère une liste de contenu récent"""
+    """Génère une liste de contenu récent en utilisant les données réelles"""
     recent = []
     
     for category, sources in all_content.items():
-        for source in sources.keys():
-            # Créer des éléments fictifs pour le contenu récent
-            for i in range(3):
-                days_ago = random.randint(1, 14)
-                current_date = datetime.now()
-                release_date = current_date.replace(day=max(1, current_date.day - days_ago))
+        for source, items in sources.items():
+            if not items:
+                continue
                 
-                item = {
-                    "id": f"recent-{category}-{source}-{i}",
-                    "title": f"New {category.capitalize()} Release {i+1}",
-                    "description": f"Une nouvelle sortie de {category} sur {format_source_name(source)}.",
-                    "image": f"https://flodrama-content-1745269660.s3.amazonaws.com/assets/images/{category}/{i+10}.jpg",
-                    "category": category,
-                    "source": source,
-                    "releaseDate": release_date.strftime("%Y-%m-%d"),
-                    "url": f"https://flodrama.com/{category}/{source}/recent-{i+1}"
-                }
-                recent.append(item)
+            # Filtrer les éléments valides
+            valid_items = [item for item in items if item.get('image') and item.get('title')]
+            
+            # Ajouter la catégorie et la source si elles ne sont pas déjà présentes
+            for item in valid_items:
+                if 'category' not in item:
+                    item['category'] = category
+                if 'source' not in item:
+                    item['source'] = source
+                
+                # Ajouter une date de sortie si non présente
+                if 'releaseDate' not in item:
+                    days_ago = random.randint(1, 14)
+                    current_date = datetime.now()
+                    release_date = current_date.replace(day=max(1, current_date.day - days_ago))
+                    item['releaseDate'] = release_date.strftime("%Y-%m-%d")
+            
+            # Trier par date de sortie et prendre les plus récents
+            if valid_items:
+                valid_items.sort(key=lambda x: x.get('releaseDate', '2000-01-01'), reverse=True)
+                recent.extend(valid_items[:3])
+    
+    # Si nous n'avons pas assez d'éléments, ajouter des éléments fictifs
+    if len(recent) < 20:
+        logger.warning(f"Pas assez de contenu réel pour recently.json ({len(recent)} éléments), ajout de contenu fictif")
+        for i in range(20 - len(recent)):
+            category = random.choice(list(CATEGORIES.keys()))
+            source = random.choice(CATEGORIES[category])
+            days_ago = random.randint(1, 14)
+            current_date = datetime.now()
+            release_date = current_date.replace(day=max(1, current_date.day - days_ago))
+            
+            recent.append({
+                "id": f"recent-{category}-{source}-{i}",
+                "title": f"New {category.capitalize()} Release {i+1}",
+                "description": f"Une nouvelle sortie de {category}.",
+                "image": f"https://flodrama-content-1745269660.s3.amazonaws.com/assets/images/{category}/{i+10}.jpg",
+                "category": category,
+                "source": source,
+                "releaseDate": release_date.strftime("%Y-%m-%d"),
+                "url": f"https://flodrama.com/{category}/{source}/recent-{i+1}"
+            })
     
     # Limiter à 20 éléments au total
     recent.sort(key=lambda x: x.get('releaseDate', '2000-01-01'), reverse=True)
     return recent[:20]
 
 def generate_top_rated_content(all_content):
-    """Génère une liste de contenu les mieux notés"""
+    """Génère une liste de contenu les mieux notés en utilisant les données réelles"""
     top_rated = []
     
     for category, sources in all_content.items():
-        for source in sources.keys():
-            # Créer des éléments fictifs pour le contenu bien noté
-            for i in range(3):
-                score = round(random.uniform(8.5, 9.9), 1)
+        for source, items in sources.items():
+            if not items:
+                continue
                 
-                item = {
-                    "id": f"toprated-{category}-{source}-{i}",
-                    "title": f"Top Rated {category.capitalize()} {i+1}",
-                    "description": f"Un {category} très bien noté de {format_source_name(source)}.",
-                    "image": f"https://flodrama-content-1745269660.s3.amazonaws.com/assets/images/{category}/{i+15}.jpg",
-                    "category": category,
-                    "source": source,
-                    "score": score,
-                    "votes": random.randint(1000, 10000),
-                    "url": f"https://flodrama.com/{category}/{source}/toprated-{i+1}"
-                }
-                top_rated.append(item)
+            # Filtrer les éléments valides
+            valid_items = [item for item in items if item.get('image') and item.get('title')]
+            
+            # Ajouter la catégorie et la source si elles ne sont pas déjà présentes
+            for item in valid_items:
+                if 'category' not in item:
+                    item['category'] = category
+                if 'source' not in item:
+                    item['source'] = source
+                
+                # Ajouter un score si non présent
+                if 'score' not in item:
+                    item['score'] = round(random.uniform(7.5, 9.9), 1)
+            
+            # Trier par score et prendre les meilleurs
+            if valid_items:
+                valid_items.sort(key=lambda x: x.get('score', 0), reverse=True)
+                top_rated.extend(valid_items[:3])
+    
+    # Si nous n'avons pas assez d'éléments, ajouter des éléments fictifs
+    if len(top_rated) < 20:
+        logger.warning(f"Pas assez de contenu réel pour topRated.json ({len(top_rated)} éléments), ajout de contenu fictif")
+        for i in range(20 - len(top_rated)):
+            category = random.choice(list(CATEGORIES.keys()))
+            source = random.choice(CATEGORIES[category])
+            score = round(random.uniform(8.5, 9.9), 1)
+            
+            top_rated.append({
+                "id": f"toprated-{category}-{source}-{i}",
+                "title": f"Top Rated {category.capitalize()} {i+1}",
+                "description": f"Un {category} très bien noté.",
+                "image": f"https://flodrama-content-1745269660.s3.amazonaws.com/assets/images/{category}/{i+15}.jpg",
+                "category": category,
+                "source": source,
+                "score": score,
+                "votes": random.randint(1000, 10000),
+                "url": f"https://flodrama.com/{category}/{source}/toprated-{i+1}"
+            })
     
     # Limiter à 20 éléments au total
     top_rated.sort(key=lambda x: x.get('score', 0), reverse=True)
@@ -331,21 +473,21 @@ def get_source_url(source):
 
 def main():
     """Fonction principale"""
-    logger.info("Démarrage de la génération des fichiers agrégés...")
+    logger.info("🚀 Démarrage de la génération des fichiers agrégés...")
     
     # Initialiser le client S3
     s3_client = get_s3_client()
     
     # Récupérer tout le contenu
-    logger.info("Récupération du contenu depuis S3...")
+    logger.info("📥 Récupération du contenu depuis S3...")
     all_content = fetch_all_content(s3_client)
     
     if not all_content or all(not sources for sources in all_content.values()):
-        logger.error("Aucun contenu trouvé dans le bucket S3")
+        logger.error("❌ Aucun contenu trouvé dans le bucket S3")
         return False
     
     # Générer les fichiers agrégés
-    logger.info("Génération des fichiers agrégés...")
+    logger.info("🔄 Génération des fichiers agrégés...")
     
     # Featured content
     featured = generate_featured_content(all_content)
@@ -367,13 +509,38 @@ def main():
     categories = generate_categories(all_content)
     upload_json_to_s3(s3_client, S3_BUCKET, f"{OUTPUT_PREFIX}categories.json", categories)
     
+    # Créer un fichier metadata.json avec des informations sur la génération
+    metadata = {
+        "generatedAt": datetime.now().isoformat(),
+        "contentCounts": {
+            "featured": len(featured),
+            "popular": len(popular),
+            "recently": len(recent),
+            "topRated": len(top_rated),
+            "categories": len(categories)
+        },
+        "version": "1.0.0"
+    }
+    upload_json_to_s3(s3_client, S3_BUCKET, f"{OUTPUT_PREFIX}metadata.json", metadata)
+    
     # Invalider le cache CloudFront si l'ID de distribution est disponible
     cloudfront_distribution_id = os.environ.get('CLOUDFRONT_DISTRIBUTION_ID')
     if cloudfront_distribution_id:
-        logger.info(f"Invalidation du cache CloudFront pour la distribution {cloudfront_distribution_id}...")
+        logger.info(f"☁️ Invalidation du cache CloudFront pour la distribution {cloudfront_distribution_id}...")
         invalidate_cloudfront_distribution(cloudfront_distribution_id)
+    else:
+        logger.warning("⚠️ Variable d'environnement CLOUDFRONT_DISTRIBUTION_ID non définie, pas d'invalidation du cache")
     
-    logger.info("Génération des fichiers agrégés terminée avec succès")
+    logger.info("✅ Génération des fichiers agrégés terminée avec succès")
+    
+    # Afficher un résumé des fichiers générés
+    logger.info("📊 Résumé des fichiers générés:")
+    logger.info(f"  - featured.json: {len(featured)} éléments")
+    logger.info(f"  - popular.json: {len(popular)} éléments")
+    logger.info(f"  - recently.json: {len(recent)} éléments")
+    logger.info(f"  - topRated.json: {len(top_rated)} éléments")
+    logger.info(f"  - categories.json: {len(categories)} catégories")
+    
     return True
 
 if __name__ == "__main__":

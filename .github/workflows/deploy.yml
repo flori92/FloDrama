@@ -206,6 +206,8 @@ jobs:
       
       - name: Génération des fichiers de contenu agrégé
         if: steps.check-s3-content.outputs.HAS_CONTENT == 'true'
+        env:
+          CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
         run: |
           echo " Génération des fichiers de contenu agrégé pour le frontend..."
           
@@ -220,7 +222,7 @@ jobs:
           
           # Vérifier que les fichiers ont été générés
           echo " Vérification des fichiers générés dans S3..."
-          aws s3 ls s3://flodrama-content-1745269660 --recursive | grep -E 'featured|popular|recently|topRated|categories' || echo " Aucun fichier agrégé trouvé"
+          aws s3 ls s3://flodrama-content-1745269660 --recursive | grep -E 'featured|popular|recently|topRated|categories|metadata'
       
       - name: Déploiement de la fonction Lambda
         run: |
