@@ -1,0 +1,16 @@
+{
+  "name": "flodrama-image-optimizer",
+  "version": "1.0.0",
+  "description": "Fonction Lambda@Edge pour l'optimisation des images dans FloDrama",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm install --production && zip -r image-optimizer.zip node_modules index.js"
+  },
+  "author": "FloDrama Team",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.1500.0",
+    "sharp": "^0.33.0"
+  }
+}
