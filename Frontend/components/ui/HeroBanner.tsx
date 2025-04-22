@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-
-interface HeroContent {
-  title: string;
-  subtitle?: string;
-  description: string;
-  image: string;
-  logo?: string;
-  videoUrl?: string;
-}
+import { HeroContent } from "./types";
 
 interface HeroBannerProps {
   content?: HeroContent[];
@@ -39,6 +31,7 @@ export function HeroBanner({
   // Contenu par défaut si aucun n'est fourni
   const defaultContent: HeroContent[] = [
     {
+      id: "pachinko",
       title: "Pachinko",
       subtitle: "Nouvelle Saison",
       description:
@@ -47,6 +40,7 @@ export function HeroBanner({
       logo: "https://d1pbqs2b6em4ha.cloudfront.net/images/pachinko-logo.png",
     },
     {
+      id: "the-glory",
       title: "The Glory",
       subtitle: "Série Originale",
       description:

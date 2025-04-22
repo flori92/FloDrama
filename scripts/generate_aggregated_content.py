@@ -2,547 +2,417 @@
 # -*- coding: utf-8 -*-
 
 """
-Script de génération des fichiers agrégés pour FloDrama
-Ce script génère les fichiers featured.json, popular.json, recently.json, topRated.json et categories.json
-à partir des données existantes dans le bucket S3.
+Script de génération de contenu agrégé pour FloDrama
+Ce script récupère les données depuis S3, les traite et génère des fichiers JSON
+pour le frontend avec les contenus populaires, en vedette, récents et mieux notés.
 """
 
-import json
-import random
-import boto3
-import logging
-from datetime import datetime
 import os
-from concurrent.futures import ThreadPoolExecutor, as_completed
-import uuid
+import json
+import logging
+import time
+import boto3
+from datetime import datetime
+from botocore.exceptions import ClientError
 
 # Configuration du logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
-logger = logging.getLogger('FloDrama-ContentAggregator')
+logger = logging.getLogger('FloDrama-ContentGenerator')
 
 # Configuration AWS
-S3_BUCKET = "flodrama-content-1745269660"
-CONTENT_PREFIX = "content/"
-OUTPUT_PREFIX = ""  # Fichiers à la racine pour faciliter l'accès depuis le frontend
+S3_BUCKET = os.environ.get('S3_BUCKET', 'flodrama-content-1745269660')
+CLOUDFRONT_DISTRIBUTION_ID = os.environ.get('CLOUDFRONT_DISTRIBUTION_ID', '')
+AWS_REGION = os.environ.get('AWS_REGION', 'us-east-1')
 
-# Catégories et sous-catégories
-CATEGORIES = {
-    "anime": ["gogoanime", "neko-sama", "voiranime"],
-    "bollywood": ["bollywoodmdb", "hotstar", "zee5"],
-    "drama": ["dramacool", "iqiyi", "kocowa", "myasiantv", "viki", "voirdrama", "vostfree", "wetv"],
-    "film": ["allocine", "cinepulse", "dpstream", "imdb", "themoviedb"]
+# Chemins des fichiers de sortie
+OUTPUT_FILES = {
+    'featured': 'featured.json',
+    'popular': 'popular.json',
+    'recently': 'recently.json',
+    'topRated': 'topRated.json',
+    'categories': 'categories.json',
+    'metadata': 'metadata.json'
 }
 
-def get_s3_client():
-    """Initialise et retourne un client S3"""
-    try:
-        return boto3.client('s3')
-    except Exception as e:
-        logger.error(f"Erreur lors de l'initialisation du client S3: {e}")
-        raise
+# Initialisation des clients AWS
+s3_client = boto3.client('s3', region_name=AWS_REGION)
+cloudfront_client = boto3.client('cloudfront', region_name=AWS_REGION)
 
-def download_json_from_s3(s3_client, bucket, key):
-    """Télécharge et parse un fichier JSON depuis S3"""
-    try:
-        response = s3_client.get_object(Bucket=bucket, Key=key)
-        content = response['Body'].read().decode('utf-8')
-        data = json.loads(content)
-        # Vérifier si les données sont dans un format utilisable
-        if isinstance(data, list) and len(data) > 0:
-            # Vérifier si les éléments ont les propriétés minimales requises
-            sample_items = []
-            for item in data[:10]:  # Examiner les 10 premiers éléments
-                # Créer un nouvel élément avec les propriétés minimales requises
-                new_item = {
-                    "id": item.get("id", str(uuid.uuid4())),
-                    "title": item.get("title", "Sans titre"),
-                    "description": item.get("description", "Aucune description disponible"),
-                    "image": ensure_valid_image_url(item.get("image", "")),
-                    "url": item.get("url", ""),
-                    "score": item.get("score", round(random.uniform(7.0, 9.5), 1)),
-                    "popularity": item.get("popularity", random.randint(70, 95)),
-                    "releaseDate": item.get("releaseDate", "2025-01-01")
-                }
-                sample_items.append(new_item)
-            return sample_items
-        else:
-            logger.warning(f"Format de données invalide pour {key}, utilisation de données fictives")
-            return []
-    except Exception as e:
-        logger.error(f"Erreur lors du téléchargement du fichier {key}: {e}")
-        return []
 
-def ensure_valid_image_url(url):
-    """S'assure que l'URL de l'image est valide, sinon retourne une URL par défaut"""
-    if not url or not (url.startswith("http://") or url.startswith("https://")):
-        # Générer une URL d'image aléatoire
-        category = random.choice(["anime", "drama", "film", "bollywood"])
-        image_id = random.randint(1, 20)
-        return f"https://flodrama-content-1745269660.s3.amazonaws.com/assets/images/{category}/{image_id}.jpg"
-    return url
-
-def upload_json_to_s3(s3_client, bucket, key, data):
-    """Upload un dictionnaire au format JSON vers S3"""
+def download_s3_content(bucket, key, local_path):
+    """Télécharge un fichier depuis S3"""
     try:
-        s3_client.put_object(
-            Bucket=bucket,
-            Key=key,
-            Body=json.dumps(data, ensure_ascii=False),
-            ContentType='application/json',
-            CacheControl='max-age=300'  # 5 minutes de cache
-        )
-        logger.info(f"Fichier {key} uploadé avec succès")
+        logger.info(f"Téléchargement de {key} depuis S3...")
+        s3_client.download_file(bucket, key, local_path)
         return True
-    except Exception as e:
-        logger.error(f"Erreur lors de l'upload du fichier {key}: {e}")
+    except ClientError as e:
+        logger.error(f"Erreur lors du téléchargement de {key}: {e}")
         return False
 
-def invalidate_cloudfront_distribution(distribution_id):
-    """Invalide le cache CloudFront pour les fichiers agrégés"""
+
+def upload_to_s3(bucket, key, local_path):
+    """Téléverse un fichier vers S3"""
     try:
-        cloudfront = boto3.client('cloudfront')
-        
-        # Chemins à invalider
-        invalidation_paths = [
-            '/featured.json',
-            '/popular.json',
-            '/recently.json',
-            '/topRated.json',
-            '/categories.json',
-            '/*'  # Invalider tous les fichiers pour s'assurer que les nouvelles données sont visibles
-        ]
-        
-        # Créer l'invalidation
-        response = cloudfront.create_invalidation(
-            DistributionId=distribution_id,
+        logger.info(f"Téléversement de {local_path} vers S3 ({key})...")
+        s3_client.upload_file(
+            local_path, 
+            bucket, 
+            key,
+            ExtraArgs={
+                'ContentType': 'application/json', 
+                'CacheControl': 'max-age=3600'
+                # ACL supprimé car le bucket n'autorise pas les ACLs
+            }
+        )
+        return True
+    except ClientError as e:
+        logger.error(f"Erreur lors du téléversement de {local_path}: {e}")
+        return False
+
+
+def invalidate_cloudfront_cache():
+    """Invalide le cache CloudFront"""
+    if not CLOUDFRONT_DISTRIBUTION_ID:
+        logger.warning("ID de distribution CloudFront non défini, pas d'invalidation")
+        return False
+
+    try:
+        logger.info(f"Invalidation du cache CloudFront pour la distribution {CLOUDFRONT_DISTRIBUTION_ID}...")
+        response = cloudfront_client.create_invalidation(
+            DistributionId=CLOUDFRONT_DISTRIBUTION_ID,
             InvalidationBatch={
                 'Paths': {
-                    'Quantity': len(invalidation_paths),
-                    'Items': invalidation_paths
+                    'Quantity': 1,
+                    'Items': ['/*']
                 },
-                'CallerReference': str(datetime.now().timestamp())
+                'CallerReference': str(int(time.time()))
             }
         )
-        
-        logger.info(f"✅ Invalidation CloudFront créée: {response['Invalidation']['Id']}")
-        logger.info(f"📊 Statut de l'invalidation: {response['Invalidation']['Status']}")
-        
-        # Attendre que l'invalidation soit terminée (optionnel)
-        logger.info("⏳ Attente de la fin de l'invalidation...")
-        waiter = cloudfront.get_waiter('invalidation_completed')
-        waiter.wait(
-            DistributionId=distribution_id,
-            Id=response['Invalidation']['Id'],
-            WaiterConfig={
-                'Delay': 10,  # Vérifier toutes les 10 secondes
-                'MaxAttempts': 18  # Attendre jusqu'à 3 minutes (18 * 10 secondes)
-            }
-        )
-        
-        logger.info("✅ Invalidation CloudFront terminée avec succès")
+        logger.info(f"Invalidation créée: {response['Invalidation']['Id']}")
         return True
-    except Exception as e:
-        logger.error(f"❌ Erreur lors de l'invalidation CloudFront: {e}")
+    except ClientError as e:
+        logger.error(f"Erreur lors de l'invalidation du cache CloudFront: {e}")
         return False
 
-def fetch_all_content(s3_client):
-    """Récupère tout le contenu depuis S3 et le structure par catégorie et source"""
-    all_content = {}
-    
-    for category, sources in CATEGORIES.items():
-        all_content[category] = {}
+
+def list_s3_content(bucket, prefix=''):
+    """Liste le contenu d'un bucket S3"""
+    try:
+        logger.info(f"Listage du contenu de {bucket}/{prefix}...")
+        response = s3_client.list_objects_v2(Bucket=bucket, Prefix=prefix)
         
-        for source in sources:
-            key = f"{CONTENT_PREFIX}{category}/{source}/items.json"
+        if 'Contents' not in response:
+            logger.warning(f"Aucun contenu trouvé dans {bucket}/{prefix}")
+            return []
+        
+        return response['Contents']
+    except ClientError as e:
+        logger.error(f"Erreur lors du listage du contenu de {bucket}/{prefix}: {e}")
+        return []
+
+
+def process_raw_data():
+    """Traite les données brutes et génère les fichiers de sortie"""
+    # Créer un répertoire temporaire pour les fichiers
+    os.makedirs('tmp', exist_ok=True)
+    
+    # Récupérer les données brutes depuis S3
+    raw_data = []
+    content_items = list_s3_content(S3_BUCKET, 'raw-data/')
+    
+    if not content_items:
+        logger.error("Aucune donnée brute trouvée dans S3")
+        # Utiliser les exemples de données si aucune donnée n'est trouvée
+        return use_example_data()
+    
+    # Télécharger et traiter chaque fichier
+    for item in content_items:
+        key = item['Key']
+        if not key.endswith('.json'):
+            continue
+            
+        local_path = f"tmp/{os.path.basename(key)}"
+        if download_s3_content(S3_BUCKET, key, local_path):
             try:
-                data = download_json_from_s3(s3_client, S3_BUCKET, key)
-                if data:
-                    all_content[category][source] = data
-                    logger.info(f"Données récupérées pour {category}/{source}: {len(data)} éléments")
-                else:
-                    logger.warning(f"Aucune donnée trouvée pour {category}/{source}")
-            except Exception as e:
-                logger.error(f"Erreur lors du téléchargement de {key}: {e}")
+                with open(local_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    if isinstance(data, list):
+                        raw_data.extend(data)
+                    else:
+                        raw_data.append(data)
+            except json.JSONDecodeError as e:
+                logger.error(f"Erreur de décodage JSON pour {key}: {e}")
     
-    return all_content
-
-def generate_featured_content(all_content):
-    """Génère une sélection de contenu mis en avant en utilisant les données réelles"""
-    featured = []
+    if not raw_data:
+        logger.error("Aucune donnée valide trouvée dans les fichiers téléchargés")
+        return use_example_data()
     
-    # Sélectionner des éléments de chaque catégorie
-    for category, sources in all_content.items():
-        category_items = []
-        
-        for source, items in sources.items():
-            if not items:
-                continue
-                
-            # Filtrer les éléments qui ont une image et un titre
-            valid_items = [item for item in items if item.get('image') and item.get('title')]
-            
-            # Ajouter la catégorie et la source si elles ne sont pas déjà présentes
-            for item in valid_items:
-                if 'category' not in item:
-                    item['category'] = category
-                if 'source' not in item:
-                    item['source'] = source
-            
-            # Sélectionner jusqu'à 3 éléments aléatoires
-            if valid_items:
-                selected = random.sample(valid_items, min(3, len(valid_items)))
-                category_items.extend(selected)
-        
-        # Trier par score et prendre les meilleurs
-        if category_items:
-            category_items.sort(key=lambda x: x.get('score', 0), reverse=True)
-            featured.extend(category_items[:5])
+    # Traiter les données brutes
+    logger.info(f"Traitement de {len(raw_data)} éléments...")
     
-    # Si nous n'avons pas assez d'éléments, ajouter des éléments fictifs
-    if len(featured) < 15:
-        logger.warning(f"Pas assez de contenu réel pour featured.json ({len(featured)} éléments), ajout de contenu fictif")
-        for i in range(15 - len(featured)):
-            category = random.choice(list(CATEGORIES.keys()))
-            source = random.choice(CATEGORIES[category])
-            featured.append({
-                "id": f"featured-{category}-{source}-{i}",
-                "title": f"Top {category.capitalize()} {i+1}",
-                "description": f"Une histoire captivante de {category}.",
-                "image": f"https://flodrama-content-1745269660.s3.amazonaws.com/assets/images/{category}/{i+1}.jpg",
-                "category": category,
-                "source": source,
-                "score": round(random.uniform(8.0, 9.9), 1),
-                "popularity": random.randint(80, 100),
-                "releaseDate": "2025-04-01",
-                "url": f"https://flodrama.com/{category}/{source}/{i+1}"
-            })
+    # Trier par popularité, date d'ajout et note
+    popular_items = sorted(raw_data, key=lambda x: x.get('popularity', 0), reverse=True)[:20]
+    recent_items = sorted(raw_data, key=lambda x: x.get('addedDate', ''), reverse=True)[:20]
+    top_rated = sorted(raw_data, key=lambda x: x.get('score', 0), reverse=True)[:20]
     
-    # Limiter à 15 éléments au total
-    random.shuffle(featured)
-    return featured[:15]
-
-def generate_popular_content(all_content):
-    """Génère une liste de contenu populaire en utilisant les données réelles"""
-    popular = []
+    # Sélectionner les éléments en vedette (combinaison de popularité et de note)
+    featured_score = lambda x: (x.get('popularity', 0) * 0.7) + (x.get('score', 0) * 0.3)
+    featured_items = sorted(raw_data, key=featured_score, reverse=True)[:12]
     
-    for category, sources in all_content.items():
-        for source, items in sources.items():
-            if not items:
-                continue
-                
-            # Filtrer les éléments valides
-            valid_items = [item for item in items if item.get('image') and item.get('title')]
-            
-            # Ajouter la catégorie et la source si elles ne sont pas déjà présentes
-            for item in valid_items:
-                if 'category' not in item:
-                    item['category'] = category
-                if 'source' not in item:
-                    item['source'] = source
-                
-                # Ajouter un score de popularité si non présent
-                if 'popularity' not in item:
-                    item['popularity'] = random.randint(70, 100)
-            
-            # Trier par popularité et prendre les meilleurs
-            if valid_items:
-                valid_items.sort(key=lambda x: x.get('popularity', 0), reverse=True)
-                popular.extend(valid_items[:3])
+    # Générer les fichiers de sortie
+    generate_output_file('featured', featured_items)
+    generate_output_file('popular', popular_items)
+    generate_output_file('recently', recent_items)
+    generate_output_file('topRated', top_rated)
     
-    # Si nous n'avons pas assez d'éléments, ajouter des éléments fictifs
-    if len(popular) < 20:
-        logger.warning(f"Pas assez de contenu réel pour popular.json ({len(popular)} éléments), ajout de contenu fictif")
-        for i in range(20 - len(popular)):
-            category = random.choice(list(CATEGORIES.keys()))
-            source = random.choice(CATEGORIES[category])
-            popular.append({
-                "id": f"popular-{category}-{source}-{i}",
-                "title": f"Popular {category.capitalize()} {i+1}",
-                "description": f"Un {category} très populaire.",
-                "image": f"https://flodrama-content-1745269660.s3.amazonaws.com/assets/images/{category}/{i+5}.jpg",
-                "category": category,
-                "source": source,
-                "popularity": random.randint(85, 100),
-                "views": random.randint(10000, 50000),
-                "url": f"https://flodrama.com/{category}/{source}/popular-{i+1}"
-            })
+    # Générer les catégories et métadonnées
+    generate_categories()
+    generate_metadata(raw_data)
     
-    # Limiter à 20 éléments au total
-    popular.sort(key=lambda x: x.get('popularity', 0), reverse=True)
-    return popular[:20]
-
-def generate_recent_content(all_content):
-    """Génère une liste de contenu récent en utilisant les données réelles"""
-    recent = []
+    # Téléverser les fichiers vers S3
+    upload_output_files()
     
-    for category, sources in all_content.items():
-        for source, items in sources.items():
-            if not items:
-                continue
-                
-            # Filtrer les éléments valides
-            valid_items = [item for item in items if item.get('image') and item.get('title')]
-            
-            # Ajouter la catégorie et la source si elles ne sont pas déjà présentes
-            for item in valid_items:
-                if 'category' not in item:
-                    item['category'] = category
-                if 'source' not in item:
-                    item['source'] = source
-                
-                # Ajouter une date de sortie si non présente
-                if 'releaseDate' not in item:
-                    days_ago = random.randint(1, 14)
-                    current_date = datetime.now()
-                    release_date = current_date.replace(day=max(1, current_date.day - days_ago))
-                    item['releaseDate'] = release_date.strftime("%Y-%m-%d")
-            
-            # Trier par date de sortie et prendre les plus récents
-            if valid_items:
-                valid_items.sort(key=lambda x: x.get('releaseDate', '2000-01-01'), reverse=True)
-                recent.extend(valid_items[:3])
-    
-    # Si nous n'avons pas assez d'éléments, ajouter des éléments fictifs
-    if len(recent) < 20:
-        logger.warning(f"Pas assez de contenu réel pour recently.json ({len(recent)} éléments), ajout de contenu fictif")
-        for i in range(20 - len(recent)):
-            category = random.choice(list(CATEGORIES.keys()))
-            source = random.choice(CATEGORIES[category])
-            days_ago = random.randint(1, 14)
-            current_date = datetime.now()
-            release_date = current_date.replace(day=max(1, current_date.day - days_ago))
-            
-            recent.append({
-                "id": f"recent-{category}-{source}-{i}",
-                "title": f"New {category.capitalize()} Release {i+1}",
-                "description": f"Une nouvelle sortie de {category}.",
-                "image": f"https://flodrama-content-1745269660.s3.amazonaws.com/assets/images/{category}/{i+10}.jpg",
-                "category": category,
-                "source": source,
-                "releaseDate": release_date.strftime("%Y-%m-%d"),
-                "url": f"https://flodrama.com/{category}/{source}/recent-{i+1}"
-            })
-    
-    # Limiter à 20 éléments au total
-    recent.sort(key=lambda x: x.get('releaseDate', '2000-01-01'), reverse=True)
-    return recent[:20]
-
-def generate_top_rated_content(all_content):
-    """Génère une liste de contenu les mieux notés en utilisant les données réelles"""
-    top_rated = []
-    
-    for category, sources in all_content.items():
-        for source, items in sources.items():
-            if not items:
-                continue
-                
-            # Filtrer les éléments valides
-            valid_items = [item for item in items if item.get('image') and item.get('title')]
-            
-            # Ajouter la catégorie et la source si elles ne sont pas déjà présentes
-            for item in valid_items:
-                if 'category' not in item:
-                    item['category'] = category
-                if 'source' not in item:
-                    item['source'] = source
-                
-                # Ajouter un score si non présent
-                if 'score' not in item:
-                    item['score'] = round(random.uniform(7.5, 9.9), 1)
-            
-            # Trier par score et prendre les meilleurs
-            if valid_items:
-                valid_items.sort(key=lambda x: x.get('score', 0), reverse=True)
-                top_rated.extend(valid_items[:3])
-    
-    # Si nous n'avons pas assez d'éléments, ajouter des éléments fictifs
-    if len(top_rated) < 20:
-        logger.warning(f"Pas assez de contenu réel pour topRated.json ({len(top_rated)} éléments), ajout de contenu fictif")
-        for i in range(20 - len(top_rated)):
-            category = random.choice(list(CATEGORIES.keys()))
-            source = random.choice(CATEGORIES[category])
-            score = round(random.uniform(8.5, 9.9), 1)
-            
-            top_rated.append({
-                "id": f"toprated-{category}-{source}-{i}",
-                "title": f"Top Rated {category.capitalize()} {i+1}",
-                "description": f"Un {category} très bien noté.",
-                "image": f"https://flodrama-content-1745269660.s3.amazonaws.com/assets/images/{category}/{i+15}.jpg",
-                "category": category,
-                "source": source,
-                "score": score,
-                "votes": random.randint(1000, 10000),
-                "url": f"https://flodrama.com/{category}/{source}/toprated-{i+1}"
-            })
-    
-    # Limiter à 20 éléments au total
-    top_rated.sort(key=lambda x: x.get('score', 0), reverse=True)
-    return top_rated[:20]
-
-def generate_categories(all_content):
-    """Génère la structure des catégories avec leurs sous-catégories"""
-    categories = []
-    
-    for category, sources in CATEGORIES.items():
-        category_data = {
-            "id": category,
-            "name": category.capitalize(),
-            "description": get_category_description(category),
-            "image": get_category_image(category),
-            "sources": []
-        }
-        
-        for source in sources:
-            source_data = {
-                "id": source,
-                "name": format_source_name(source),
-                "url": get_source_url(source)
-            }
-            category_data["sources"].append(source_data)
-        
-        categories.append(category_data)
-    
-    return categories
-
-def get_category_description(category):
-    """Retourne une description pour chaque catégorie"""
-    descriptions = {
-        "anime": "Découvrez une vaste collection d'animes japonais, des classiques aux dernières sorties.",
-        "bollywood": "Explorez l'univers coloré du cinéma indien avec nos films et séries Bollywood.",
-        "drama": "Plongez dans l'émotion des dramas asiatiques, avec des histoires captivantes de Corée, Chine et Japon.",
-        "film": "Une sélection des meilleurs films internationaux, pour tous les goûts et toutes les humeurs."
-    }
-    return descriptions.get(category, f"Explorez notre collection de {category}")
-
-def get_category_image(category):
-    """Retourne une URL d'image pour chaque catégorie"""
-    # Dans un cas réel, ces images seraient stockées dans S3
-    images = {
-        "anime": "https://flodrama-content-1745269660.s3.amazonaws.com/assets/categories/anime.jpg",
-        "bollywood": "https://flodrama-content-1745269660.s3.amazonaws.com/assets/categories/bollywood.jpg",
-        "drama": "https://flodrama-content-1745269660.s3.amazonaws.com/assets/categories/drama.jpg",
-        "film": "https://flodrama-content-1745269660.s3.amazonaws.com/assets/categories/film.jpg"
-    }
-    return images.get(category, "https://flodrama-content-1745269660.s3.amazonaws.com/assets/categories/default.jpg")
-
-def format_source_name(source):
-    """Formate le nom de la source pour l'affichage"""
-    # Remplacer les tirets par des espaces et mettre en majuscule
-    formatted = source.replace('-', ' ').title()
-    
-    # Cas spéciaux
-    special_cases = {
-        "Gogoanime": "GoGoAnime",
-        "Iqiyi": "iQIYI",
-        "Imdb": "IMDb",
-        "Themoviedb": "The Movie DB",
-        "Dpstream": "DPStream",
-        "Zee5": "ZEE5",
-        "Wetv": "WeTV"
-    }
-    
-    return special_cases.get(formatted, formatted)
-
-def get_source_url(source):
-    """Retourne l'URL de base pour chaque source"""
-    urls = {
-        "gogoanime": "https://gogoanime.cl",
-        "neko-sama": "https://neko-sama.fr",
-        "voiranime": "https://voiranime.com",
-        "bollywoodmdb": "https://www.bollywoodmdb.com",
-        "hotstar": "https://www.hotstar.com",
-        "zee5": "https://www.zee5.com",
-        "dramacool": "https://dramacool.cy",
-        "iqiyi": "https://www.iq.com",
-        "kocowa": "https://www.kocowa.com",
-        "myasiantv": "https://myasiantv.cx",
-        "viki": "https://www.viki.com",
-        "voirdrama": "https://voirdrama.org",
-        "vostfree": "https://vostfree.cx",
-        "wetv": "https://wetv.vip",
-        "allocine": "https://www.allocine.fr",
-        "cinepulse": "https://cinepulse.com",
-        "dpstream": "https://dpstream.ch",
-        "imdb": "https://www.imdb.com",
-        "themoviedb": "https://www.themoviedb.org"
-    }
-    return urls.get(source, "#")
-
-def main():
-    """Fonction principale"""
-    logger.info("🚀 Démarrage de la génération des fichiers agrégés...")
-    
-    # Initialiser le client S3
-    s3_client = get_s3_client()
-    
-    # Récupérer tout le contenu
-    logger.info("📥 Récupération du contenu depuis S3...")
-    all_content = fetch_all_content(s3_client)
-    
-    if not all_content or all(not sources for sources in all_content.values()):
-        logger.error("❌ Aucun contenu trouvé dans le bucket S3")
-        return False
-    
-    # Générer les fichiers agrégés
-    logger.info("🔄 Génération des fichiers agrégés...")
-    
-    # Featured content
-    featured = generate_featured_content(all_content)
-    upload_json_to_s3(s3_client, S3_BUCKET, f"{OUTPUT_PREFIX}featured.json", featured)
-    
-    # Popular content
-    popular = generate_popular_content(all_content)
-    upload_json_to_s3(s3_client, S3_BUCKET, f"{OUTPUT_PREFIX}popular.json", popular)
-    
-    # Recent content
-    recent = generate_recent_content(all_content)
-    upload_json_to_s3(s3_client, S3_BUCKET, f"{OUTPUT_PREFIX}recently.json", recent)
-    
-    # Top rated content
-    top_rated = generate_top_rated_content(all_content)
-    upload_json_to_s3(s3_client, S3_BUCKET, f"{OUTPUT_PREFIX}topRated.json", top_rated)
-    
-    # Categories
-    categories = generate_categories(all_content)
-    upload_json_to_s3(s3_client, S3_BUCKET, f"{OUTPUT_PREFIX}categories.json", categories)
-    
-    # Créer un fichier metadata.json avec des informations sur la génération
-    metadata = {
-        "generatedAt": datetime.now().isoformat(),
-        "contentCounts": {
-            "featured": len(featured),
-            "popular": len(popular),
-            "recently": len(recent),
-            "topRated": len(top_rated),
-            "categories": len(categories)
-        },
-        "version": "1.0.0"
-    }
-    upload_json_to_s3(s3_client, S3_BUCKET, f"{OUTPUT_PREFIX}metadata.json", metadata)
-    
-    # Invalider le cache CloudFront si l'ID de distribution est disponible
-    cloudfront_distribution_id = os.environ.get('CLOUDFRONT_DISTRIBUTION_ID')
-    if cloudfront_distribution_id:
-        logger.info(f"☁️ Invalidation du cache CloudFront pour la distribution {cloudfront_distribution_id}...")
-        invalidate_cloudfront_distribution(cloudfront_distribution_id)
-    else:
-        logger.warning("⚠️ Variable d'environnement CLOUDFRONT_DISTRIBUTION_ID non définie, pas d'invalidation du cache")
-    
-    logger.info("✅ Génération des fichiers agrégés terminée avec succès")
-    
-    # Afficher un résumé des fichiers générés
-    logger.info("📊 Résumé des fichiers générés:")
-    logger.info(f"  - featured.json: {len(featured)} éléments")
-    logger.info(f"  - popular.json: {len(popular)} éléments")
-    logger.info(f"  - recently.json: {len(recent)} éléments")
-    logger.info(f"  - topRated.json: {len(top_rated)} éléments")
-    logger.info(f"  - categories.json: {len(categories)} catégories")
+    # Invalider le cache CloudFront
+    invalidate_cloudfront_cache()
     
     return True
 
+
+def generate_output_file(file_type, data):
+    """Génère un fichier de sortie"""
+    output_path = f"tmp/{OUTPUT_FILES[file_type]}"
+    logger.info(f"Génération du fichier {output_path}...")
+    
+    try:
+        with open(output_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        return True
+    except Exception as e:
+        logger.error(f"Erreur lors de la génération du fichier {output_path}: {e}")
+        return False
+
+
+def generate_categories():
+    """Génère le fichier de catégories"""
+    # Essayer de télécharger le fichier de catégories depuis S3
+    categories_key = 'data/categories.json'
+    local_path = f"tmp/{OUTPUT_FILES['categories']}"
+    
+    if download_s3_content(S3_BUCKET, categories_key, local_path):
+        logger.info("Fichier de catégories existant téléchargé depuis S3")
+        return True
+    
+    # Si le fichier n'existe pas, utiliser l'exemple
+    logger.info("Utilisation du fichier de catégories exemple")
+    try:
+        example_path = 'scripts/example-data/categories.json'
+        if os.path.exists(example_path):
+            with open(example_path, 'r', encoding='utf-8') as f:
+                categories = json.load(f)
+            
+            with open(local_path, 'w', encoding='utf-8') as f:
+                json.dump(categories, f, ensure_ascii=False, indent=2)
+            return True
+        else:
+            logger.error(f"Fichier exemple {example_path} introuvable")
+            return False
+    except Exception as e:
+        logger.error(f"Erreur lors de la génération du fichier de catégories: {e}")
+        return False
+
+
+def generate_metadata(raw_data):
+    """Génère le fichier de métadonnées"""
+    local_path = f"tmp/{OUTPUT_FILES['metadata']}"
+    
+    try:
+        # Calculer les statistiques à partir des données brutes
+        total_items = len(raw_data)
+        popular_count = len([x for x in raw_data if x.get('popularity', 0) > 70])
+        featured_count = len([x for x in raw_data if x.get('isFeatured', False)])
+        top_rated_count = len([x for x in raw_data if x.get('score', 0) > 8.0])
+        recent_count = len([x for x in raw_data if x.get('addedDate', '') > (datetime.now().strftime('%Y-%m-%d'))])
+        
+        # Créer les métadonnées
+        metadata = {
+            "lastUpdate": datetime.now().isoformat(),
+            "contentCounts": {
+                "total": total_items,
+                "popular": popular_count,
+                "featured": featured_count,
+                "topRated": top_rated_count,
+                "recently": recent_count
+            }
+        }
+        
+        # Essayer de télécharger les métadonnées existantes pour les fusionner
+        metadata_key = 'data/metadata.json'
+        temp_path = "tmp/existing_metadata.json"
+        
+        if download_s3_content(S3_BUCKET, metadata_key, temp_path):
+            try:
+                with open(temp_path, 'r', encoding='utf-8') as f:
+                    existing_metadata = json.load(f)
+                
+                # Fusionner les métadonnées existantes avec les nouvelles
+                if 'trends' in existing_metadata:
+                    metadata['trends'] = existing_metadata['trends']
+                if 'userStats' in existing_metadata:
+                    metadata['userStats'] = existing_metadata['userStats']
+                if 'platformPerformance' in existing_metadata:
+                    metadata['platformPerformance'] = existing_metadata['platformPerformance']
+            except Exception as e:
+                logger.error(f"Erreur lors de la fusion des métadonnées: {e}")
+        else:
+            # Si les métadonnées n'existent pas, utiliser l'exemple
+            example_path = 'scripts/example-data/metadata.json'
+            if os.path.exists(example_path):
+                try:
+                    with open(example_path, 'r', encoding='utf-8') as f:
+                        example_metadata = json.load(f)
+                    
+                    # Fusionner les métadonnées calculées avec l'exemple
+                    if 'trends' in example_metadata:
+                        metadata['trends'] = example_metadata['trends']
+                    if 'userStats' in example_metadata:
+                        metadata['userStats'] = example_metadata['userStats']
+                    if 'platformPerformance' in example_metadata:
+                        metadata['platformPerformance'] = example_metadata['platformPerformance']
+                except Exception as e:
+                    logger.error(f"Erreur lors de la lecture du fichier exemple de métadonnées: {e}")
+        
+        # Enregistrer les métadonnées
+        with open(local_path, 'w', encoding='utf-8') as f:
+            json.dump(metadata, f, ensure_ascii=False, indent=2)
+        
+        return True
+    except Exception as e:
+        logger.error(f"Erreur lors de la génération du fichier de métadonnées: {e}")
+        return False
+
+
+def use_example_data():
+    """Utilise les données d'exemple en cas d'échec de récupération des données réelles"""
+    logger.warning("Utilisation des données d'exemple...")
+    
+    # Créer un répertoire temporaire pour les fichiers
+    os.makedirs('tmp', exist_ok=True)
+    
+    # Copier les fichiers d'exemple
+    example_files = {
+        'featured': 'scripts/example-data/featured.json',
+        'popular': 'scripts/example-data/popular.json',
+        'recently': 'scripts/example-data/recently.json',
+        'topRated': 'scripts/example-data/topRated.json'
+    }
+    
+    for file_type, example_path in example_files.items():
+        output_path = f"tmp/{OUTPUT_FILES[file_type]}"
+        
+        if os.path.exists(example_path):
+            try:
+                with open(example_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                
+                with open(output_path, 'w', encoding='utf-8') as f:
+                    json.dump(data, f, ensure_ascii=False, indent=2)
+            except Exception as e:
+                logger.error(f"Erreur lors de la copie du fichier exemple {example_path}: {e}")
+                # Créer un fichier vide pour éviter les erreurs
+                with open(output_path, 'w', encoding='utf-8') as f:
+                    json.dump([], f)
+        else:
+            logger.error(f"Fichier exemple {example_path} introuvable")
+            # Créer un fichier vide pour éviter les erreurs
+            with open(output_path, 'w', encoding='utf-8') as f:
+                json.dump([], f)
+    
+    # Générer les catégories et métadonnées
+    generate_categories()
+    
+    # Pour les métadonnées, utiliser directement l'exemple
+    example_metadata_path = 'scripts/example-data/metadata.json'
+    output_metadata_path = f"tmp/{OUTPUT_FILES['metadata']}"
+    
+    if os.path.exists(example_metadata_path):
+        try:
+            with open(example_metadata_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            
+            with open(output_metadata_path, 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+        except Exception as e:
+            logger.error(f"Erreur lors de la copie du fichier exemple de métadonnées: {e}")
+            # Créer un fichier vide pour éviter les erreurs
+            with open(output_metadata_path, 'w', encoding='utf-8') as f:
+                json.dump({}, f)
+    else:
+        logger.error(f"Fichier exemple {example_metadata_path} introuvable")
+        # Créer un fichier vide pour éviter les erreurs
+        with open(output_metadata_path, 'w', encoding='utf-8') as f:
+            json.dump({}, f)
+    
+    # Téléverser les fichiers vers S3
+    upload_output_files()
+    
+    # Invalider le cache CloudFront
+    invalidate_cloudfront_cache()
+    
+    return True
+
+
+def upload_output_files():
+    """Téléverse tous les fichiers de sortie vers S3"""
+    success = True
+    
+    for file_type, filename in OUTPUT_FILES.items():
+        local_path = f"tmp/{filename}"
+        s3_key = f"data/{filename}"
+        
+        if os.path.exists(local_path):
+            if not upload_to_s3(S3_BUCKET, s3_key, local_path):
+                success = False
+        else:
+            logger.error(f"Fichier local {local_path} introuvable")
+            success = False
+    
+    return success
+
+
+def cleanup():
+    """Nettoie les fichiers temporaires"""
+    try:
+        import shutil
+        if os.path.exists('tmp'):
+            shutil.rmtree('tmp')
+        return True
+    except Exception as e:
+        logger.error(f"Erreur lors du nettoyage des fichiers temporaires: {e}")
+        return False
+
+
+def main():
+    """Fonction principale"""
+    logger.info("Démarrage de la génération de contenu agrégé...")
+    
+    try:
+        # Traiter les données
+        if process_raw_data():
+            logger.info("Génération de contenu terminée avec succès")
+        else:
+            logger.error("Échec de la génération de contenu")
+        
+        # Nettoyer les fichiers temporaires
+        cleanup()
+    except Exception as e:
+        logger.error(f"Erreur lors de l'exécution du script: {e}")
+        return 1
+    
+    return 0
+
+
 if __name__ == "__main__":
-    success = main()
-    exit(0 if success else 1)
+    exit(main())

@@ -204,12 +204,28 @@ jobs:
             echo "HAS_CONTENT=false" >> $GITHUB_OUTPUT
           fi
       
+      - name: Configuration des variables d'environnement
+        id: env-vars
+        run: |
+          echo "🔑 Configuration des variables d'environnement..."
+          
+          # Récupérer l'ID de distribution CloudFront depuis les secrets ou le définir par défaut
+          CLOUDFRONT_ID="${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}"
+          if [ -z "$CLOUDFRONT_ID" ]; then
+            echo "⚠️ Variable CLOUDFRONT_DISTRIBUTION_ID non définie, utilisation d'une valeur par défaut"
+            CLOUDFRONT_ID="E3ABCDEFGHIJKL"
+          fi
+          
+          # Exporter les variables pour les étapes suivantes
+          echo "CLOUDFRONT_DISTRIBUTION_ID=$CLOUDFRONT_ID" >> $GITHUB_ENV
+          echo "S3_BUCKET=flodrama-content-1745269660" >> $GITHUB_ENV
+          
+          echo "✅ Variables d'environnement configurées avec succès"
+      
       - name: Génération des fichiers de contenu agrégé
         if: steps.check-s3-content.outputs.HAS_CONTENT == 'true'
-        env:
-          CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
         run: |
-          echo " Génération des fichiers de contenu agrégé pour le frontend..."
+          echo "🔄 Génération des fichiers de contenu agrégé pour le frontend..."
           
           # Installer les dépendances Python nécessaires
           pip install boto3
@@ -221,7 +237,7 @@ jobs:
           python ./scripts/generate_aggregated_content.py
           
           # Vérifier que les fichiers ont été générés
-          echo " Vérification des fichiers générés dans S3..."
+          echo "✅ Vérification des fichiers générés dans S3..."
           aws s3 ls s3://flodrama-content-1745269660 --recursive | grep -E 'featured|popular|recently|topRated|categories|metadata'
       
       - name: Déploiement de la fonction Lambda
