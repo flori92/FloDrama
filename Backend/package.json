@@ -9,7 +9,8 @@
     "test": "jest",
     "lint": "eslint src --ext .ts --fix",
     "backup": "node scripts/backup.js",
-    "doc": "swagger-jsdoc -d swaggerDef.js -o swagger.json"
+    "doc": "swagger-jsdoc -d swaggerDef.js -o swagger.json",
+    "proxy": "node cors-proxy.js"
   },
   "dependencies": {
     "@types/ioredis": "^4.28.10",
@@ -20,6 +21,7 @@
     "express": "^4.21.2",
     "express-validator": "^7.2.1",
     "helmet": "^7.0.0",
+    "http-proxy-middleware": "^2.0.9",
     "ioredis": "^5.6.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.8.6",
