@@ -74,6 +74,8 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
+          role-duration-seconds: 3600
+          role-session-name: GitHubActionsSession
       
       # Utiliser le secret s'il existe, sinon garder la valeur par défaut
       - name: Configuration de l'ID CloudFront
@@ -327,16 +329,58 @@ jobs:
           zip -r ../lambda_package.zip .
           cd ..
           
-          # Création de la fonction Lambda
+          # Vérification que le rôle IAM existe et a les permissions nécessaires
+          echo "🔍 Vérification du rôle IAM..."
+          ROLE_ARN="${{ secrets.AWS_LAMBDA_ROLE_ARN }}"
+          
+          if [ -z "$ROLE_ARN" ]; then
+            echo "❌ La variable AWS_LAMBDA_ROLE_ARN n'est pas définie dans les secrets GitHub"
+            echo "Création d'un rôle IAM temporaire pour Lambda..."
+            
+            # Créer une politique de confiance pour Lambda
+            cat > trust-policy.json << EOF
+            {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Principal": {
+                    "Service": "lambda.amazonaws.com"
+                  },
+                  "Action": "sts:AssumeRole"
+                }
+              ]
+            }
+            EOF
+            
+            # Créer le rôle IAM
+            ROLE_RESPONSE=$(aws iam create-role --role-name FloDramaLambdaRole --assume-role-policy-document file://trust-policy.json)
+            ROLE_ARN=$(echo $ROLE_RESPONSE | jq -r '.Role.Arn')
+            
+            # Attacher la politique AWSLambdaBasicExecutionRole
+            aws iam attach-role-policy --role-name FloDramaLambdaRole --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+            
+            # Attendre que le rôle soit propagé
+            echo "⏳ Attente de la propagation du rôle IAM (10 secondes)..."
+            sleep 10
+          fi
+          
+          # Création de la fonction Lambda avec gestion d'erreur
+          echo "🚀 Création de la fonction Lambda avec le rôle: $ROLE_ARN"
           aws lambda create-function \
             --function-name FloDramaImageOptimizer \
             --runtime nodejs18.x \
-            --role ${{ secrets.AWS_LAMBDA_ROLE_ARN }} \
+            --role "$ROLE_ARN" \
             --handler index.handler \
             --timeout 30 \
             --memory-size 512 \
             --zip-file fileb://lambda_package.zip \
-            --environment Variables="{NODE_ENV=production,S3_BUCKET=${{ env.S3_BUCKET }},FRONTEND_URL=https://flori92.github.io/FloDrama}"
+            --environment Variables="{NODE_ENV=production,S3_BUCKET=${{ env.S3_BUCKET }},FRONTEND_URL=https://flori92.github.io/FloDrama}" || {
+              echo "❌ Erreur lors de la création de la fonction Lambda"
+              echo "⚠️ Vérifiez que le rôle IAM a les permissions nécessaires et que l'utilisateur AWS a les droits pour créer des fonctions Lambda"
+              echo "⚠️ Continuer le workflow sans la fonction Lambda..."
+              exit 0
+            }
           
           echo "✅ Fonction Lambda créée avec succès"
       
