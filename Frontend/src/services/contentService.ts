@@ -308,7 +308,7 @@ const getMockContentDetails = (contentId: string): ContentDetail => {
 };
 
 // Configuration de l'API
-const API_URL = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api';
+const API_URL = 'https://flodrama-cors-proxy.onrender.com/api';
 
 // Variables pour le suivi des tentatives de connexion
 let isBackendAvailable = true;
