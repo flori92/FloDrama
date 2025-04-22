@@ -1,0 +1,170 @@
+[
+  {
+    "id": "dramas",
+    "title": "Dramas",
+    "items": [
+      {
+        "id": "dramas-1",
+        "title": "Dramas 1",
+        "image": "/static/placeholders/dramas/1.jpg",
+        "type": "Dramas"
+      },
+      {
+        "id": "dramas-2",
+        "title": "Dramas 2",
+        "image": "/static/placeholders/dramas/2.jpg",
+        "type": "Dramas"
+      },
+      {
+        "id": "dramas-3",
+        "title": "Dramas 3",
+        "image": "/static/placeholders/dramas/3.jpg",
+        "type": "Dramas"
+      },
+      {
+        "id": "dramas-4",
+        "title": "Dramas 4",
+        "image": "/static/placeholders/dramas/4.jpg",
+        "type": "Dramas"
+      },
+      {
+        "id": "dramas-5",
+        "title": "Dramas 5",
+        "image": "/static/placeholders/dramas/5.jpg",
+        "type": "Dramas"
+      },
+      {
+        "id": "dramas-6",
+        "title": "Dramas 6",
+        "image": "/static/placeholders/dramas/6.jpg",
+        "type": "Dramas"
+      }
+    ]
+  },
+  {
+    "id": "films",
+    "title": "Films",
+    "items": [
+      {
+        "id": "films-1",
+        "title": "Films 1",
+        "image": "/static/placeholders/films/1.jpg",
+        "type": "Films"
+      },
+      {
+        "id": "films-2",
+        "title": "Films 2",
+        "image": "/static/placeholders/films/2.jpg",
+        "type": "Films"
+      },
+      {
+        "id": "films-3",
+        "title": "Films 3",
+        "image": "/static/placeholders/films/3.jpg",
+        "type": "Films"
+      },
+      {
+        "id": "films-4",
+        "title": "Films 4",
+        "image": "/static/placeholders/films/4.jpg",
+        "type": "Films"
+      },
+      {
+        "id": "films-5",
+        "title": "Films 5",
+        "image": "/static/placeholders/films/5.jpg",
+        "type": "Films"
+      },
+      {
+        "id": "films-6",
+        "title": "Films 6",
+        "image": "/static/placeholders/films/6.jpg",
+        "type": "Films"
+      }
+    ]
+  },
+  {
+    "id": "anime",
+    "title": "Anime",
+    "items": [
+      {
+        "id": "anime-1",
+        "title": "Anime 1",
+        "image": "/static/placeholders/anime/1.jpg",
+        "type": "Anime"
+      },
+      {
+        "id": "anime-2",
+        "title": "Anime 2",
+        "image": "/static/placeholders/anime/2.jpg",
+        "type": "Anime"
+      },
+      {
+        "id": "anime-3",
+        "title": "Anime 3",
+        "image": "/static/placeholders/anime/3.jpg",
+        "type": "Anime"
+      },
+      {
+        "id": "anime-4",
+        "title": "Anime 4",
+        "image": "/static/placeholders/anime/4.jpg",
+        "type": "Anime"
+      },
+      {
+        "id": "anime-5",
+        "title": "Anime 5",
+        "image": "/static/placeholders/anime/5.jpg",
+        "type": "Anime"
+      },
+      {
+        "id": "anime-6",
+        "title": "Anime 6",
+        "image": "/static/placeholders/anime/6.jpg",
+        "type": "Anime"
+      }
+    ]
+  },
+  {
+    "id": "bollywood",
+    "title": "Bollywood",
+    "items": [
+      {
+        "id": "bollywood-1",
+        "title": "Bollywood 1",
+        "image": "/static/placeholders/bollywood/1.jpg",
+        "type": "Bollywood"
+      },
+      {
+        "id": "bollywood-2",
+        "title": "Bollywood 2",
+        "image": "/static/placeholders/bollywood/2.jpg",
+        "type": "Bollywood"
+      },
+      {
+        "id": "bollywood-3",
+        "title": "Bollywood 3",
+        "image": "/static/placeholders/bollywood/3.jpg",
+        "type": "Bollywood"
+      },
+      {
+        "id": "bollywood-4",
+        "title": "Bollywood 4",
+        "image": "/static/placeholders/bollywood/4.jpg",
+        "type": "Bollywood"
+      },
+      {
+        "id": "bollywood-5",
+        "title": "Bollywood 5",
+        "image": "/static/placeholders/bollywood/5.jpg",
+        "type": "Bollywood"
+      },
+      {
+        "id": "bollywood-6",
+        "title": "Bollywood 6",
+        "image": "/static/placeholders/bollywood/6.jpg",
+        "type": "Bollywood"
+      }
+    ]
+  }
+]

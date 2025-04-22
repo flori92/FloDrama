@@ -1,0 +1,22 @@
+[
+  {
+    "id": "dramas",
+    "name": "Dramas",
+    "count": 6
+  },
+  {
+    "id": "films",
+    "name": "Films",
+    "count": 6
+  },
+  {
+    "id": "anime",
+    "name": "Anime",
+    "count": 6
+  },
+  {
+    "id": "bollywood",
+    "name": "Bollywood",
+    "count": 6
+  }
+]
