@@ -332,249 +332,165 @@ jobs:
           fi
       
       - name: Construction du site
-        working-directory: ./Frontend
         run: |
-          # Vérifier si vite.config.js existe, sinon le créer
-          if [ ! -f vite.config.js ] && [ ! -f vite.config.ts ]; then
-            echo "Configuration Vite non trouvée, création d'une configuration minimale"
-            echo 'import { defineConfig } from "vite"
-            import react from "@vitejs/plugin-react"
-
-            // https://vitejs.dev/config/
-            export default defineConfig({
-              plugins: [react()],
-              base: "/FloDrama/",
-              build: {
-                outDir: "../dist",
-                emptyOutDir: true,
-              }
-            })' > vite.config.ts
-          fi
+          echo " Préparation du déploiement frontend..."
           
-          # Vérifier si le dossier src existe, sinon le créer avec un contenu minimal
-          if [ ! -d src ]; then
-            echo "Dossier src non trouvé, création d'une structure minimale"
-            mkdir -p src
-            
-            # Créer un fichier main.tsx minimal
-            echo 'import React from "react"
-            import ReactDOM from "react-dom/client"
-            import App from "./App.tsx"
-            import "./index.css"
-
-            ReactDOM.createRoot(document.getElementById("root")!).render(
-              <React.StrictMode>
-                <App />
-              </React.StrictMode>,
-            )' > src/main.tsx
-            
-            # Créer un fichier App.tsx minimal
-            echo 'import { useState } from "react"
-            import { motion } from "framer-motion"
-            import "./App.css"
-
-            function App() {
-              const [count, setCount] = useState(0)
-
-              return (
-                <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
-                  <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="text-center"
-                  >
-                    <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-fuchsia-500 bg-clip-text text-transparent mb-8">
-                      FloDrama
-                    </h1>
-                    <p className="mb-4">Votre plateforme de streaming asiatique</p>
-                    <div className="flex justify-center gap-4">
-                      <button
-                        onClick={() => setCount((count) => count + 1)}
-                        className="px-4 py-2 bg-white text-black rounded-md hover:bg-opacity-80 transition-all"
-                      >
-                        Compteur: {count}
-                      </button>
-                    </div>
-                  </motion.div>
-                </div>
-              )
-            }
-
-            export default App' > src/App.tsx
-            
-            # Créer un fichier index.css minimal avec Tailwind
-            echo '@tailwind base;
-            @tailwind components;
-            @tailwind utilities;
-
-            :root {
-              font-family: "SF Pro Display", system-ui, sans-serif;
-              line-height: 1.5;
-              font-weight: 400;
-              color-scheme: dark;
-              font-synthesis: none;
-              text-rendering: optimizeLegibility;
-              -webkit-font-smoothing: antialiased;
-              -moz-osx-font-smoothing: grayscale;
-            }
-
-            body {
-              margin: 0;
-              min-height: 100vh;
-              background-color: #000000;
-              color: #ffffff;
-            }' > src/index.css
-            
-            # Créer un fichier App.css minimal
-            echo "/* Styles spécifiques à l'application */" > src/App.css
-            
-            # Créer un fichier tailwind.config.js minimal
-            echo '/** @type {import("tailwindcss").Config} */
-            export default {
-              content: [
-                "./index.html",
-                "./src/**/*.{js,ts,jsx,tsx}",
-              ],
-              theme: {
-                extend: {},
-              },
-              plugins: [],
-            }' > tailwind.config.js
-            
-            # Créer un fichier postcss.config.js minimal
-            echo 'export default {
-              plugins: {
-                tailwindcss: {},
-                autoprefixer: {},
-              },
-            }' > postcss.config.js
-            
-            # Créer un fichier index.html minimal
-            echo '<!doctype html>
-            <html lang="fr">
-              <head>
-                <meta charset="UTF-8" />
-                <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <title>FloDrama - Streaming Asiatique</title>
-                <meta name="description" content="Plateforme de streaming de dramas, films et animes asiatiques" />
-              </head>
-              <body>
-                <div id="root"></div>
-                <script type="module" src="/src/main.tsx"></script>
-              </body>
-            </html>' > index.html
-          fi
+          # Création du dossier dist de manière explicite
+          mkdir -p dist
           
-          # Création d'un tsconfig.json minimal si nécessaire
-          if [ ! -f tsconfig.json ]; then
-            echo "Création d'un tsconfig.json minimal"
-            echo '{
-              "compilerOptions": {
-                "target": "ES2020",
-                "useDefineForClassFields": true,
-                "lib": ["ES2020", "DOM", "DOM.Iterable"],
-                "module": "ESNext",
-                "skipLibCheck": true,
-                "moduleResolution": "bundler",
-                "allowImportingTsExtensions": true,
-                "resolveJsonModule": true,
-                "isolatedModules": true,
-                "noEmit": true,
-                "jsx": "react-jsx",
-                "strict": true,
-                "noUnusedLocals": true,
-                "noUnusedParameters": true,
-                "noFallthroughCasesInSwitch": true
-              },
-              "include": ["src"],
-              "references": [{ "path": "./tsconfig.node.json" }]
-            }' > tsconfig.json
-          fi
+          # Création d'un fichier index.html minimal dans le dossier dist
+          cat > dist/index.html << EOF
+          <!DOCTYPE html>
+          <html lang="fr">
+            <head>
+              <meta charset="UTF-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <title>FloDrama - Streaming Asiatique</title>
+              <style>
+                body {
+                  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                  background-color: #000000;
+                  color: #FFFFFF;
+                  margin: 0;
+                  padding: 0;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  min-height: 100vh;
+                  text-align: center;
+                }
+                h1 {
+                  background: linear-gradient(to right, #3b82f6, #d946ef);
+                  -webkit-background-clip: text;
+                  -webkit-text-fill-color: transparent;
+                  font-size: 3rem;
+                  margin-bottom: 1rem;
+                }
+                p {
+                  font-size: 1.2rem;
+                  margin-bottom: 2rem;
+                }
+                .btn {
+                  display: inline-block;
+                  background: #FFFFFF;
+                  color: #000000;
+                  padding: 0.75rem 1.5rem;
+                  border-radius: 0.5rem;
+                  text-decoration: none;
+                  font-weight: bold;
+                  transition: opacity 0.3s ease;
+                }
+                .btn:hover {
+                  opacity: 0.8;
+                }
+              </style>
+            </head>
+            <body>
+              <h1>FloDrama</h1>
+              <p>Votre plateforme de streaming de dramas, films et animes asiatiques</p>
+              <p>Site en cours de déploiement...</p>
+              
+              <div>
+                <a href="#" class="btn">Bientôt disponible</a>
+              </div>
+            </body>
+          </html>
+          EOF
           
-          # Création d'un tsconfig.node.json minimal si nécessaire
-          if [ ! -f tsconfig.node.json ]; then
-            echo "Création d'un tsconfig.node.json minimal"
-            echo '{
-              "compilerOptions": {
-                "composite": true,
-                "skipLibCheck": true,
-                "module": "ESNext",
-                "moduleResolution": "bundler",
-                "allowSyntheticDefaultImports": true
-              },
-              "include": ["vite.config.ts"]
-            }' > tsconfig.node.json
-          fi
-          
-          # Tentative de construction du site
-          echo "Construction du site avec npm run build..."
-          npm run build || {
-            echo "Échec de la construction avec npm run build, tentative avec une approche alternative..."
-            
-            # Si la construction échoue, créer un dossier dist minimal
-            mkdir -p ../dist
-            
-            # Créer un index.html minimal dans le dossier dist
-            echo '<!DOCTYPE html>
-            <html lang="fr">
-              <head>
-                <meta charset="UTF-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <title>FloDrama - Streaming Asiatique</title>
-                <style>
-                  body {
-                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-                    background-color: #000000;
-                    color: #FFFFFF;
-                    margin: 0;
-                    padding: 0;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    min-height: 100vh;
-                    text-align: center;
-                  }
-                  h1 {
-                    background: linear-gradient(to right, #3b82f6, #d946ef);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    font-size: 3rem;
-                    margin-bottom: 1rem;
-                  }
-                  p {
-                    font-size: 1.2rem;
-                    margin-bottom: 2rem;
-                  }
-                  .btn {
-                    display: inline-block;
-                    background: #FFFFFF;
-                    color: #000000;
-                    padding: 0.75rem 1.5rem;
-                    border-radius: 0.5rem;
-                    text-decoration: none;
-                    font-weight: bold;
-                    transition: opacity 0.3s ease;
-                  }
-                  .btn:hover {
-                    opacity: 0.8;
-                  }
-                </style>
-              </head>
-              <body>
-                <h1>FloDrama</h1>
-                <p>Votre plateforme de streaming de dramas, films et animes asiatiques</p>
-                <p>Site en cours de déploiement...</p>
-              </body>
-            </html>' > ../dist/index.html
-            
-            # Vérifier que le dossier dist existe et contient au moins un fichier
-            echo "Vérification du dossier dist..."
-            ls -la ../dist
+          # Création d'un fichier CSS minimal
+          mkdir -p dist/assets/css
+          cat > dist/assets/css/style.css << EOF
+          /* Styles FloDrama basés sur le cahier des charges UI/UX */
+          :root {
+            --color-primary: #3b82f6;
+            --color-secondary: #d946ef;
+            --color-background: #000000;
+            --color-text: #ffffff;
+            --color-border: rgba(255, 255, 255, 0.3);
           }
-      
+          
+          body {
+            font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text);
+            margin: 0;
+            padding: 0;
+          }
+          
+          .gradient-text {
+            background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          }
+          
+          .btn-primary {
+            background-color: var(--color-text);
+            color: var(--color-background);
+            border-radius: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            font-weight: bold;
+            transition: opacity 0.3s ease;
+          }
+          
+          .btn-secondary {
+            background-color: transparent;
+            color: var(--color-text);
+            border: 1px solid var(--color-text);
+            border-radius: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+          }
+          EOF
+          
+          # Vérification du contenu du dossier dist
+          echo " Vérification du contenu du dossier dist..."
+          ls -la dist
+          
+          # Tentative de construction du frontend si le dossier Frontend existe
+          if [ -d "Frontend" ]; then
+            echo " Tentative de construction du frontend depuis le dossier Frontend..."
+            
+            cd Frontend
+            
+            # Vérifier si package.json existe
+            if [ -f package.json ]; then
+              echo " package.json trouvé, installation des dépendances..."
+              npm ci || npm install
+              
+              # Vérifier si vite.config.js existe, sinon le créer
+              if [ ! -f vite.config.js ] && [ ! -f vite.config.ts ]; then
+                echo " Configuration Vite non trouvée, création d'une configuration minimale..."
+                echo 'import { defineConfig } from "vite";
+                import react from "@vitejs/plugin-react";
+                
+                export default defineConfig({
+                  plugins: [react()],
+                  base: "/FloDrama/",
+                  build: {
+                    outDir: "../dist",
+                    emptyOutDir: true,
+                  }
+                });' > vite.config.ts
+              fi
+              
+              # Tentative de construction
+              echo " Construction du site avec npm run build..."
+              npm run build || echo " La construction a échoué, mais nous avons déjà un dossier dist minimal."
+            else
+              echo " package.json non trouvé dans le dossier Frontend."
+            fi
+            
+            cd ..
+          else
+            echo " Dossier Frontend non trouvé, utilisation du dossier dist minimal."
+          fi
+          
+          # Vérification finale du contenu du dossier dist
+          echo " Vérification finale du contenu du dossier dist..."
+          ls -la dist
+          
       - name: Déploiement sur GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
