@@ -180,7 +180,7 @@ jobs:
           
           # Upload des données vers S3
           echo " Upload des données vers S3..."
-          aws s3 sync export_data/ s3://flodrama-content-1745269660/data/ --acl public-read --cache-control "max-age=3600"
+          aws s3 sync export_data/ s3://flodrama-content-1745269660/data/ --cache-control "max-age=3600"
           
           # Invalidation du cache CloudFront
           echo " Invalidation du cache CloudFront..."
