@@ -387,7 +387,7 @@ jobs:
             }' > src/index.css
             
             # Créer un fichier App.css minimal
-            echo '/* Styles spécifiques à l'application */' > src/App.css
+            echo "/* Styles spécifiques à l'application */" > src/App.css
             
             # Créer un fichier tailwind.config.js minimal
             echo '/** @type {import("tailwindcss").Config} */
