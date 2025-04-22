@@ -338,20 +338,16 @@ jobs:
             echo "Création d'un rôle IAM temporaire pour Lambda..."
             
             # Créer une politique de confiance pour Lambda
-            cat > trust-policy.json << EOF
-            {
-              "Version": "2012-10-17",
-              "Statement": [
-                {
-                  "Effect": "Allow",
-                  "Principal": {
-                    "Service": "lambda.amazonaws.com"
-                  },
-                  "Action": "sts:AssumeRole"
-                }
-              ]
-            }
-            EOF
+            python3 -c "import json; print(json.dumps({
+              'Version': '2012-10-17',
+              'Statement': [{
+                'Effect': 'Allow',
+                'Principal': {
+                  'Service': 'lambda.amazonaws.com'
+                },
+                'Action': 'sts:AssumeRole'
+              }]
+            }))" > trust-policy.json
             
             # Créer le rôle IAM
             ROLE_RESPONSE=$(aws iam create-role --role-name FloDramaLambdaRole --assume-role-policy-document file://trust-policy.json)
@@ -375,7 +371,7 @@ jobs:
             --timeout 30 \
             --memory-size 512 \
             --zip-file fileb://lambda_package.zip \
-            --environment Variables="{NODE_ENV=production,S3_BUCKET=${{ env.S3_BUCKET }},FRONTEND_URL=https://flori92.github.io/FloDrama}" || {
+            --environment "Variables={\"NODE_ENV\":\"production\",\"S3_BUCKET\":\"${{ env.S3_BUCKET }}\",\"FRONTEND_URL\":\"https://flori92.github.io/FloDrama\"}" || {
               echo "❌ Erreur lors de la création de la fonction Lambda"
               echo "⚠️ Vérifiez que le rôle IAM a les permissions nécessaires et que l'utilisateur AWS a les droits pour créer des fonctions Lambda"
               echo "⚠️ Continuer le workflow sans la fonction Lambda..."
@@ -410,7 +406,7 @@ jobs:
             --function-name FloDramaImageOptimizer \
             --timeout 30 \
             --memory-size 512 \
-            --environment Variables="{NODE_ENV=production,S3_BUCKET=${{ env.S3_BUCKET }},FRONTEND_URL=https://flori92.github.io/FloDrama}"
+            --environment "Variables={\"NODE_ENV\":\"production\",\"S3_BUCKET\":\"${{ env.S3_BUCKET }}\",\"FRONTEND_URL\":\"https://flori92.github.io/FloDrama\"}"
           
           echo "✅ Fonction Lambda mise à jour avec succès"
       
