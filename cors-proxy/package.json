@@ -5,7 +5,8 @@
   "main": "cors-anywhere.js",
   "scripts": {
     "start": "node cors-anywhere.js",
-    "dev": "nodemon cors-anywhere.js"
+    "dev": "nodemon cors-anywhere.js",
+    "build": "echo 'Aucune étape de build nécessaire'"
   },
   "dependencies": {
     "axios": "^1.8.4",
