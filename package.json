@@ -1,0 +1,12 @@
+{
+  "name": "flodrama-project",
+  "version": "1.0.0",
+  "description": "FloDrama - Plateforme de streaming de dramas, films et animés",
+  "scripts": {
+    "start": "cd cors-proxy && npm start",
+    "install": "cd cors-proxy && npm install"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
