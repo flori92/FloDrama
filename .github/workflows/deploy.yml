@@ -445,24 +445,18 @@ jobs:
           cache: 'npm'
           cache-dependency-path: Frontend/package-lock.json
       
-      - name: Construction du frontend
+      - name: Construire le frontend
+        if: ${{ steps.check-frontend.outputs.exists == 'true' }}
+        working-directory: Frontend
         run: |
-          echo "🔨 Construction du frontend FloDrama..."
+          # Installation des dépendances avec l'option legacy-peer-deps pour éviter les conflits
+          echo "📦 Installation des dépendances..."
+          npm install --legacy-peer-deps
           
-          # Vérifier si le dossier Frontend existe
-          if [ -d "Frontend" ]; then
-            echo "📁 Dossier Frontend trouvé, préparation de la construction..."
-            
-            cd Frontend
-            
-            # Installation des dépendances nécessaires
-            echo "📦 Installation des dépendances React..."
-            npm install --legacy-peer-deps
-            
-            # Vérifier si vite.config.ts existe, sinon le créer
-            if [ ! -f vite.config.ts ] && [ ! -f vite.config.js ]; then
-              echo "⚙️ Configuration Vite non trouvée, création d'une configuration adaptée..."
-              cat > vite.config.ts << 'VITECONFIG'
+          # Créer un fichier de configuration Vite
+          echo "🔧 Configuration de Vite..."
+          if [ ! -f "vite.config.ts" ]; then
+            cat > vite.config.ts << 'VITECONFIG'
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
@@ -473,14 +467,12 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-    },
+    }
   },
   build: {
     outDir: "../dist",
     emptyOutDir: true,
     sourcemap: true,
-    minify: true,
-    cssCodeSplit: true,
   },
   css: {
     preprocessorOptions: {
@@ -488,6 +480,7 @@ export default defineConfig({
         additionalData: `
           $primary-color: #3b82f6;
           $secondary-color: #d946ef;
+          $text-color: #ffffff;
           $background-color: #121118;
         `
       }
@@ -495,180 +488,30 @@ export default defineConfig({
   }
 });
 VITECONFIG
-            fi
-            
-            # Créer un .env avec les variables d'environnement nécessaires
-            echo "🔑 Configuration des variables d'environnement..."
-            cat > .env << ENVFILE
+          fi
+          
+          # Créer un .env avec les variables d'environnement nécessaires
+          echo "🔑 Configuration des variables d'environnement..."
+          cat > .env << ENVFILE
 VITE_API_URL=https://api.flodrama.com
 VITE_S3_BUCKET=${{ env.S3_BUCKET }}
 VITE_AWS_REGION=${{ env.AWS_REGION }}
 VITE_SITE_URL=https://flori92.github.io/FloDrama
 ENVFILE
-            
-            # Construction du frontend
-            echo "🚀 Construction de l'application React..."
-            npm run build
-            
-            # Vérifier si la construction a réussi
-            if [ $? -eq 0 ]; then
-              echo "✅ Construction du frontend réussie!"
-            else
-              echo "❌ Échec de la construction du frontend, création d'une page d'attente temporaire..."
-              
-              # Créer une page d'attente temporaire avec le design FloDrama
-              mkdir -p ../dist
-              cat > ../dist/index.html << 'HTMLFILE'
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FloDrama - Votre plateforme de streaming</title>
-  <style>
-    :root {
-      --color-primary: #3b82f6;
-      --color-secondary: #d946ef;
-      --color-background: #121118;
-      --color-text: #ffffff;
-    }
-    
-    body {
-      font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: var(--color-background);
-      color: var(--color-text);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-    }
-    
-    .container {
-      max-width: 800px;
-      padding: 2rem;
-    }
-    
-    .logo {
-      font-size: 4rem;
-      font-weight: bold;
-      margin-bottom: 2rem;
-      background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: scale 2s infinite alternate;
-    }
-    
-    @keyframes scale {
-      from { transform: scale(1); }
-      to { transform: scale(1.05); }
-    }
-    
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-    
-    p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      opacity: 0.9;
-    }
-    
-    .btn {
-      display: inline-block;
-      background-color: var(--color-text);
-      color: var(--color-background);
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.5rem;
-      text-decoration: none;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
-    }
-    
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    }
-    
-    .btn-outline {
-      background-color: transparent;
-      border: 1px solid var(--color-text);
-      color: var(--color-text);
-      margin-left: 1rem;
-    }
-    
-    .btn-outline:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    .loading {
-      display: flex;
-      margin: 2rem 0;
-    }
-    
-    .loading div {
-      width: 12px;
-      height: 12px;
-      margin: 0 5px;
-      border-radius: 50%;
-      background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
-      animation: bounce 1.5s infinite alternate;
-    }
-    
-    .loading div:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-    
-    .loading div:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-    
-    @keyframes bounce {
-      from { transform: translateY(0); }
-      to { transform: translateY(-20px); }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="logo">FloDrama</div>
-    <h1>Votre plateforme de streaming asiatique</h1>
-    <p>Découvrez les meilleurs dramas, films et animés asiatiques en un seul endroit.</p>
-    
-    <div class="loading">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    
-    <p>Notre site est en cours de déploiement et sera bientôt disponible.</p>
-    
-    <div>
-      <button class="btn">Être notifié au lancement</button>
-      <button class="btn btn-outline">En savoir plus</button>
-    </div>
-  </div>
-</body>
-</html>
-HTMLFILE
-            fi
-            
-            cd ..
+          
+          # Construction du frontend
+          echo "🚀 Construction de l'application React..."
+          npm run build
+          
+          # Vérifier si la construction a réussi
+          if [ $? -eq 0 ]; then
+            echo "✅ Construction du frontend réussie!"
           else
-            echo "❌ Dossier Frontend non trouvé, création d'une page d'attente..."
+            echo "❌ Échec de la construction du frontend, création d'une page d'attente temporaire..."
             
-            # Créer le dossier dist s'il n'existe pas
-            mkdir -p dist
-            
-            # Créer une page d'attente avec le design FloDrama
-            cat > dist/index.html << 'HTMLFILE'
+            # Créer une page d'attente temporaire avec le design FloDrama
+            mkdir -p ../dist
+            cat > ../dist/index.html << 'HTMLFILE'
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -810,10 +653,154 @@ HTMLFILE
 HTMLFILE
           fi
           
-          # Vérification du contenu du dossier dist
-          echo "📂 Vérification du contenu du dossier dist..."
-          ls -la dist
-      
+          cd ..
+      - name: Créer une page d'attente si le frontend n'existe pas
+        if: ${{ steps.check-frontend.outputs.exists != 'true' }}
+        run: |
+          # Créer le dossier dist s'il n'existe pas
+          mkdir -p dist
+          
+          # Créer une page d'attente avec le design FloDrama
+          cat > dist/index.html << 'HTMLFILE'
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FloDrama - Votre plateforme de streaming</title>
+  <style>
+    :root {
+      --color-primary: #3b82f6;
+      --color-secondary: #d946ef;
+      --color-background: #121118;
+      --color-text: #ffffff;
+    }
+    
+    body {
+      font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--color-background);
+      color: var(--color-text);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+    
+    .container {
+      max-width: 800px;
+      padding: 2rem;
+    }
+    
+    .logo {
+      font-size: 4rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+      background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: scale 2s infinite alternate;
+    }
+    
+    @keyframes scale {
+      from { transform: scale(1); }
+      to { transform: scale(1.05); }
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .btn {
+      display: inline-block;
+      background-color: var(--color-text);
+      color: var(--color-background);
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid var(--color-text);
+      color: var(--color-text);
+      margin-left: 1rem;
+    }
+    
+    .btn-outline:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .loading {
+      display: flex;
+      margin: 2rem 0;
+    }
+    
+    .loading div {
+      width: 12px;
+      height: 12px;
+      margin: 0 5px;
+      border-radius: 50%;
+      background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+      animation: bounce 1.5s infinite alternate;
+    }
+    
+    .loading div:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    
+    .loading div:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-20px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">FloDrama</div>
+    <h1>Votre plateforme de streaming asiatique</h1>
+    <p>Découvrez les meilleurs dramas, films et animés asiatiques en un seul endroit.</p>
+    
+    <div class="loading">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    
+    <p>Notre site est en cours de déploiement et sera bientôt disponible.</p>
+    
+    <div>
+      <button class="btn">Être notifié au lancement</button>
+      <button class="btn btn-outline">En savoir plus</button>
+    </div>
+  </div>
+</body>
+</html>
+HTMLFILE
       - name: Déploiement sur GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
