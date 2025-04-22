@@ -41,9 +41,12 @@ app.all('/api/*', async (req, res) => {
     const url = `${API_HOST}${path}`;
     
     console.log(`Proxying request to: ${url}`);
-    
-    // Préparer les en-têtes
+    // Log des headers envoyés à AWS (en masquant Authorization)
     const headers = { ...req.headers };
+    if (headers.Authorization) {
+      headers.Authorization = '[PROTECTED]';
+    }
+    console.log('Headers envoyés à AWS:', headers);
     delete headers.host;
     
     // Effectuer la requête à l'API
@@ -52,8 +55,16 @@ app.all('/api/*', async (req, res) => {
       url: url,
       headers: headers,
       data: req.method !== 'GET' ? req.body : undefined,
-      validateStatus: () => true // Ne pas rejeter les réponses avec des codes d'erreur
+      validateStatus: () => true // Permet de capturer les codes d'erreur
     });
+    // Log de la réponse AWS
+    console.log(`Réponse AWS: ${response.status} ${response.statusText}`);
+    console.log('Headers réponse AWS:', response.headers);
+    if (typeof response.data === 'object') {
+      console.log('Body réponse AWS (JSON, tronqué):', JSON.stringify(response.data).substring(0, 500));
+    } else {
+      console.log('Body réponse AWS (texte, tronqué):', String(response.data).substring(0, 500));
+    }
     
     // Renvoyer la réponse
     res.status(response.status);
@@ -69,6 +80,13 @@ app.all('/api/*', async (req, res) => {
     res.send(response.data);
   } catch (error) {
     console.error('Erreur proxy:', error.message);
+    // Log détaillé en cas d'erreur HTTP
+    if (error.response) {
+      console.error('Erreur HTTP AWS:', error.response.status, error.response.statusText);
+      console.error('Headers erreur AWS:', error.response.headers);
+      const errBody = typeof error.response.data === 'object' ? JSON.stringify(error.response.data) : String(error.response.data);
+      console.error('Body erreur AWS (tronqué):', errBody.substring(0, 500));
+    }
     res.status(500).json({
       error: 'Erreur de proxy',
       message: error.message
