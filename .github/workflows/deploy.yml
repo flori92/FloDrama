@@ -1,342 +1,504 @@
-name: Déploiement FloDrama sur GitHub Pages
+name: CI/CD FloDrama
 
 on:
   push:
-    branches:
-      - main
-      - master
-      - gh-pages
+    branches: [main, gh-pages]
   workflow_dispatch:
 
-# Définition des permissions nécessaires
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-
-# Variables d'environnement globales
-env:
-  AWS_REGION: 'us-east-1'
-  S3_BUCKET: 'flodrama-content-1745269660'
-  API_URL: 'https://api.flodrama.com'
-  FRONTEND_URL: 'https://flodrama.com'
-
 jobs:
-  deploy-backend:
+  backend:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 
+      - name: Checkout du code
         uses: actions/checkout@v4
-
-      - name: Configuration de Node.js 
+      
+      - name: Configuration de Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip'
+      
+      - name: Configuration de Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: '18'
           cache: 'npm'
-          cache-dependency-path: 'Backend/api/package-lock.json'
-
-      - name: Vérification de la configuration des identifiants AWS
+      
+      - name: Installation des dépendances Python
         run: |
-          if [ -z "${{ secrets.AWS_ACCESS_KEY_ID }}" ] || [ -z "${{ secrets.AWS_SECRET_ACCESS_KEY }}" ]; then
-            echo "❌ Erreur : Les identifiants AWS ne sont pas configurés dans les secrets GitHub."
-            echo "Veuillez configurer les secrets suivants :"
-            echo "- AWS_ACCESS_KEY_ID"
-            echo "- AWS_SECRET_ACCESS_KEY"
-            echo "- AWS_ACCOUNT_ID"
-            echo "- AWS_LAMBDA_ROLE_ARN"
-            exit 1
+          python -m pip install --upgrade pip
+          if [ -f Backend/requirements.txt ]; then
+            pip install -r Backend/requirements.txt
           else
-            echo "✅ Les secrets AWS sont configurés."
-            echo "AWS_REGION: ${{ env.AWS_REGION }}"
-            echo "AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID != '' && '***' || 'Non configuré' }}"
-            echo "AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY != '' && '***' || 'Non configuré' }}"
-            echo "AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID != '' && '***' || 'Non configuré' }}"
-            echo "AWS_LAMBDA_ROLE_ARN: ${{ secrets.AWS_LAMBDA_ROLE_ARN != '' && '***' || 'Non configuré' }}"
+            pip install aiohttp beautifulsoup4 boto3 fastapi pymongo redis opensearch-py pydantic
           fi
-
-      - name: Configuration d'AWS
-        uses: aws-actions/configure-aws-credentials@v4
+      
+      - name: Installation des dépendances Node.js
+        run: npm ci
+      
+      - name: Configuration AWS
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
-
-      - name: Installation des dépendances du backend
-        working-directory: ./Backend/api
+          aws-region: us-east-1
+      
+      - name: Exécution du scraping et export des données
         run: |
-          npm ci
-
-      - name: Création du fichier .env de production
-        working-directory: ./Backend/api
+          echo " Lancement du scraping et de l'export des données..."
+          
+          # Création du répertoire de sortie
+          mkdir -p export_data
+          
+          # Exécution du scraping avec le service Python
+          python -c "
+          import sys
+          sys.path.append('./Backend')
+          from src.services.ScrapingService import ScrapingService
+          from src.config.scraping_config import SCRAPING_CONFIG
+          
+          # Initialisation du service de scraping
+          scraper = ScrapingService(config=SCRAPING_CONFIG)
+          
+          # Exécution du scraping pour chaque source
+          results = scraper.scrape_all_sources()
+          
+          # Export des résultats au format JSON
+          scraper.export_to_json('./export_data/content.json')
+          
+          # Création de fichiers spécifiques pour le frontend
+          scraper.export_categories('./export_data/categories.json')
+          scraper.export_featured('./export_data/featured.json')
+          scraper.export_popular('./export_data/popular.json')
+          scraper.export_recently_added('./export_data/recently.json')
+          scraper.export_top_rated('./export_data/topRated.json')
+          
+          print(f' Scraping terminé avec succès: {len(results)} éléments récupérés')
+          "
+          
+          # Vérification des fichiers générés
+          ls -la export_data/
+          
+          # Upload des données vers S3
+          echo " Upload des données vers S3..."
+          aws s3 sync export_data/ s3://flodrama-content-1745269660/data/ --acl public-read --cache-control "max-age=3600"
+          
+          # Invalidation du cache CloudFront
+          echo " Invalidation du cache CloudFront..."
+          aws cloudfront create-invalidation --distribution-id $(aws cloudfront list-distributions --query "DistributionList.Items[?contains(Aliases.Items, 'flodrama')].Id" --output text) --paths "/data/*"
+          
+          echo " Export des données terminé avec succès!"
+      
+      - name: Déploiement de la fonction Lambda
         run: |
-          cat > .env << EOL
-          NODE_ENV=production
-          PORT=3001
-          AWS_REGION=${{ env.AWS_REGION }}
-          S3_BUCKET=${{ env.S3_BUCKET }}
-          FRONTEND_URL=${{ env.FRONTEND_URL }}
-          EOL
-
-      - name: Création du package Lambda
-        working-directory: ./Backend/api
-        run: |
-          zip -r ../backend-api.zip . -x "node_modules/aws-sdk/*" -x "*.git*" -x "*.env.example"
-
-      - name: Déploiement sur AWS Lambda
-        run: |
+          echo " Déploiement de la fonction Lambda FloDramaAPI..."
+          
           # Vérifier si la fonction Lambda existe déjà
           LAMBDA_EXISTS=$(aws lambda list-functions --query "Functions[?FunctionName=='FloDramaAPI'].FunctionName" --output text || echo "")
           
           if [ -z "$LAMBDA_EXISTS" ]; then
-            # Créer la fonction Lambda
             echo "Création de la fonction Lambda FloDramaAPI..."
+            
+            # Création d'un répertoire temporaire pour le déploiement
+            mkdir -p lambda_package
+            
+            # Préparation du code Lambda
+            cp -r Backend/src/lambda/* lambda_package/
+            
+            # Installation des dépendances dans le package
+            cd lambda_package
+            npm install --production
+            zip -r ../lambda_package.zip .
+            cd ..
+            
+            # Création de la fonction Lambda
             aws lambda create-function \
               --function-name FloDramaAPI \
               --runtime nodejs18.x \
               --role ${{ secrets.AWS_LAMBDA_ROLE_ARN }} \
-              --handler contentDistributionAPI.handler \
-              --zip-file fileb://Backend/backend-api.zip \
+              --handler index.handler \
               --timeout 30 \
               --memory-size 512 \
-              --environment "Variables={NODE_ENV=production,S3_BUCKET=${{ env.S3_BUCKET }},FRONTEND_URL=${{ env.FRONTEND_URL }}}"
+              --zip-file fileb://lambda_package.zip \
+              --environment Variables="{NODE_ENV=production,S3_BUCKET=flodrama-content-1745269660,FRONTEND_URL=https://flori92.github.io/FloDrama}"
           else
-            # Mettre à jour la fonction Lambda existante
             echo "Mise à jour de la fonction Lambda FloDramaAPI..."
+            
+            # Préparation du code Lambda
+            mkdir -p lambda_package
+            cp -r Backend/src/lambda/* lambda_package/
+            
+            # Installation des dépendances dans le package
+            cd lambda_package
+            npm install --production
+            zip -r ../lambda_package.zip .
+            cd ..
+            
+            # Mise à jour du code de la fonction Lambda
             aws lambda update-function-code \
               --function-name FloDramaAPI \
-              --zip-file fileb://Backend/backend-api.zip
-            
-            # Mettre à jour la configuration de la fonction Lambda
-            echo "Mise à jour de la configuration Lambda..."
+              --zip-file fileb://lambda_package.zip
+              
+            # Mise à jour de la configuration de la fonction Lambda
             aws lambda update-function-configuration \
               --function-name FloDramaAPI \
               --timeout 30 \
               --memory-size 512 \
-              --environment "Variables={NODE_ENV=production,S3_BUCKET=${{ env.S3_BUCKET }},FRONTEND_URL=${{ env.FRONTEND_URL }}}"
+              --environment Variables="{NODE_ENV=production,S3_BUCKET=flodrama-content-1745269660,FRONTEND_URL=https://flori92.github.io/FloDrama}"
           fi
           
-          # Configurer l'API Gateway si nécessaire
-          API_ID=$(aws apigateway get-rest-apis --query "items[?name=='FloDramaAPI'].id" --output text || echo "")
+          # Nettoyage des ressources Lambda inutilisées
+          echo " Nettoyage des anciennes versions Lambda..."
           
-          if [ -z "$API_ID" ]; then
-            echo "Configuration d'API Gateway..."
-            # Créer une nouvelle API
-            API_ID=$(aws apigateway create-rest-api \
-              --name FloDramaAPI \
-              --endpoint-configuration "types=REGIONAL" \
-              --query "id" --output text)
-            
-            # Configurer l'API
-            ROOT_ID=$(aws apigateway get-resources --rest-api-id $API_ID --query "items[?path=='/'].id" --output text)
-            
-            # Créer la ressource /api
-            API_RESOURCE_ID=$(aws apigateway create-resource \
-              --rest-api-id $API_ID \
-              --parent-id $ROOT_ID \
-              --path-part "api" \
-              --query "id" --output text)
-            
-            # Configurer la méthode ANY pour /api
-            aws apigateway put-method \
-              --rest-api-id $API_ID \
-              --resource-id $API_RESOURCE_ID \
-              --http-method ANY \
-              --authorization-type NONE
-            
-            # Configurer l'intégration avec Lambda
-            aws apigateway put-integration \
-              --rest-api-id $API_ID \
-              --resource-id $API_RESOURCE_ID \
-              --http-method ANY \
-              --type AWS_PROXY \
-              --integration-http-method POST \
-              --uri arn:aws:apigateway:${{ env.AWS_REGION }}:lambda:path/2015-03-31/functions/arn:aws:lambda:${{ env.AWS_REGION }}:${{ secrets.AWS_ACCOUNT_ID }}:function:FloDramaAPI/invocations
-            
-            # Déployer l'API
-            aws apigateway create-deployment \
-              --rest-api-id $API_ID \
-              --stage-name prod
-          else
-            # Mettre à jour le déploiement
-            echo "Mise à jour du déploiement API Gateway..."
-            aws apigateway create-deployment \
-              --rest-api-id $API_ID \
-              --stage-name prod
-          fi
+          # Liste des versions sauf $LATEST et les 3 plus récentes
+          VERSIONS_TO_DELETE=$(aws lambda list-versions-by-function --function-name FloDramaAPI --query "Versions[?Version!='$LATEST'].Version" --output text | tr '\t' '\n' | sort -n | head -n -3)
           
-          # Récupérer l'URL de l'API
-          API_URL=$(aws apigateway get-stage \
-            --rest-api-id $API_ID \
-            --stage-name prod \
-            --query "invokeUrl" --output text)
+          # Suppression des anciennes versions
+          for VERSION in $VERSIONS_TO_DELETE; do
+            echo "Suppression de la version $VERSION..."
+            aws lambda delete-function --function-name FloDramaAPI:$VERSION || true
+          done
           
-          echo "API Gateway URL: ${API_URL}/api"
-          echo "API_GATEWAY_URL=${API_URL}/api" >> $GITHUB_ENV
+          # Configuration de la rétention des logs CloudWatch
+          echo " Configuration de la rétention des logs CloudWatch..."
+          aws logs put-retention-policy --log-group-name /aws/lambda/FloDramaAPI --retention-in-days 30
+          
+          echo " Déploiement Lambda terminé avec succès!"
+      
+      - name: Notification backend
+        run: echo " Backend (S3/CDN/Lambda) déployé avec succès"
 
-      - name: Nettoyage des ressources AWS Lambda
-        run: |
-          echo "Nettoyage des anciennes versions Lambda..."
-          
-          # Récupération des versions de la fonction Lambda
-          LAMBDA_VERSIONS=$(aws lambda list-versions-by-function --function-name FloDramaAPI --query "Versions[?Version!='$LATEST'].Version" --output text 2>/dev/null || echo "")
-          
-          if [ -n "$LAMBDA_VERSIONS" ]; then
-            # Trier les versions et garder uniquement les plus anciennes à supprimer
-            VERSIONS_TO_DELETE=$(echo "$LAMBDA_VERSIONS" | tr '\t' '\n' | sort -n | head -n -2)
-            
-            if [ -n "$VERSIONS_TO_DELETE" ]; then
-              echo "Versions à supprimer: $VERSIONS_TO_DELETE"
-              
-              for VERSION in $VERSIONS_TO_DELETE; do
-                echo "Suppression de la version $VERSION de FloDramaAPI..."
-                aws lambda delete-function --function-name FloDramaAPI --qualifier $VERSION
-              done
-            else
-              echo "Aucune ancienne version à supprimer."
-            fi
-          else
-            echo "Aucune version supplémentaire trouvée pour la fonction FloDramaAPI."
-          fi
-          
-          # Nettoyage des logs CloudWatch
-          echo "Configuration de la politique de rétention des logs..."
-          aws logs put-retention-policy --log-group-name "/aws/lambda/FloDramaAPI" --retention-in-days 30 || echo "Groupe de logs non trouvé"
-
-      - name: Notification de déploiement du backend réussi
-        run: |
-          echo "✅ Backend FloDrama déployé avec succès!"
-          echo "API URL: ${{ env.API_GATEWAY_URL }}"
-
-  build-and-deploy-frontend:
-    needs: deploy-backend
+  frontend:
+    if: github.ref == 'refs/heads/gh-pages' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout 
+      - name: Checkout du code
         uses: actions/checkout@v4
-
-      - name: Configuration de Node.js 
+        
+      - name: Configuration de Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: '18'
           cache: 'npm'
-          cache-dependency-path: 'Frontend/package-lock.json'
-
-      - name: Purge du cache npm (sécurité)
+          
+      - name: Installation des dépendances
         working-directory: ./Frontend
         run: |
-          npm cache clean --force
-
-      - name: Installation des dépendances 
-        working-directory: ./Frontend
-        run: |
+          echo " Installation des dépendances frontend..."
           npm ci
           
-      - name: Correction de la configuration Tailwind 
+      - name: Vérification de la configuration Tailwind
         working-directory: ./Frontend
         run: |
-          echo "Correction de la configuration Tailwind CSS..."
-          # Simplifier postcss.config.js
-          cat > postcss.config.js << 'EOL'
-          module.exports = {
-            plugins: {
-              tailwindcss: {},
-              autoprefixer: {},
-            },
-          }
-          EOL
+          echo " Vérification de la configuration Tailwind CSS..."
           
-          # Mettre à jour tailwind.config.js
-          cat > tailwind.config.js << 'EOL'
-          /** @type {import('tailwindcss').Config} */
-          module.exports = {
-            content: [
-              './pages/**/*.{js,ts,jsx,tsx,mdx}',
-              './components/**/*.{js,ts,jsx,tsx,mdx}',
-              './app/**/*.{js,ts,jsx,tsx,mdx}',
-              './src/**/*.{js,ts,jsx,tsx,mdx}',
-            ],
-            theme: {
-              extend: {
-                colors: {
-                  'flo-blue': '#1E3A8A',
-                  'flo-fuchsia': '#B91C1C',
-                  'flo-violet': '#7E22CE',
-                  'flo-gray': '#D1D5DB',
+          # Vérification et mise à jour de tailwind.config.js si nécessaire
+          if [ -f tailwind.config.js ]; then
+            # S'assurer que la configuration contient les couleurs du dégradé signature
+            if ! grep -q "blue-500" tailwind.config.js || ! grep -q "fuchsia-500" tailwind.config.js; then
+              echo " Mise à jour de la configuration Tailwind avec les couleurs de la charte graphique..."
+              cat > tailwind.config.js << 'EOF'
+              /** @type {import('tailwindcss').Config} */
+              module.exports = {
+                darkMode: ["class"],
+                content: [
+                  './pages/**/*.{ts,tsx}',
+                  './components/**/*.{ts,tsx}',
+                  './src/**/*.{ts,tsx}',
+                ],
+                theme: {
+                  container: {
+                    center: true,
+                    padding: "2rem",
+                    screens: {
+                      "2xl": "1400px",
+                    },
+                  },
+                  extend: {
+                    colors: {
+                      border: "hsl(var(--border))",
+                      input: "hsl(var(--input))",
+                      ring: "hsl(var(--ring))",
+                      background: "hsl(var(--background))",
+                      foreground: "hsl(var(--foreground))",
+                      primary: {
+                        DEFAULT: "hsl(var(--primary))",
+                        foreground: "hsl(var(--primary-foreground))",
+                      },
+                      secondary: {
+                        DEFAULT: "hsl(var(--secondary))",
+                        foreground: "hsl(var(--secondary-foreground))",
+                      },
+                      destructive: {
+                        DEFAULT: "hsl(var(--destructive))",
+                        foreground: "hsl(var(--destructive-foreground))",
+                      },
+                      muted: {
+                        DEFAULT: "hsl(var(--muted))",
+                        foreground: "hsl(var(--muted-foreground))",
+                      },
+                      accent: {
+                        DEFAULT: "hsl(var(--accent))",
+                        foreground: "hsl(var(--accent-foreground))",
+                      },
+                      popover: {
+                        DEFAULT: "hsl(var(--popover))",
+                        foreground: "hsl(var(--popover-foreground))",
+                      },
+                      card: {
+                        DEFAULT: "hsl(var(--card))",
+                        foreground: "hsl(var(--card-foreground))",
+                      },
+                    },
+                    borderRadius: {
+                      lg: "var(--radius)",
+                      md: "calc(var(--radius) - 2px)",
+                      sm: "calc(var(--radius) - 4px)",
+                    },
+                    keyframes: {
+                      "accordion-down": {
+                        from: { height: 0 },
+                        to: { height: "var(--radix-accordion-content-height)" },
+                      },
+                      "accordion-up": {
+                        from: { height: "var(--radix-accordion-content-height)" },
+                        to: { height: 0 },
+                      },
+                    },
+                    animation: {
+                      "accordion-down": "accordion-down 0.2s ease-out",
+                      "accordion-up": "accordion-up 0.2s ease-out",
+                    },
+                  },
                 },
+                plugins: [require("tailwindcss-animate")],
+              }
+              EOF
+            fi
+          fi
+          
+          # Vérification et mise à jour de globals.css si nécessaire
+          if [ -f src/styles/globals.css ]; then
+            # S'assurer que le fichier contient les variables CSS pour le dégradé signature
+            if ! grep -q "from-blue-500 to-fuchsia-500" src/styles/globals.css; then
+              echo " Mise à jour des styles globaux avec le dégradé signature..."
+              cat >> src/styles/globals.css << 'EOF'
+              
+              /* Dégradé signature FloDrama */
+              .gradient-signature {
+                @apply bg-gradient-to-r from-blue-500 to-fuchsia-500;
+              }
+              
+              /* Variables de couleur FloDrama */
+              :root {
+                --background: 0 0% 0%; /* #000000 */
+                --foreground: 0 0% 100%; /* #FFFFFF */
+                --primary-gradient-from: 217 91% 60%; /* blue-500 */
+                --primary-gradient-to: 292 84% 61%; /* fuchsia-500 */
+                --border-opacity: 0.3;
+              }
+              EOF
+            fi
+          fi
+          
+      - name: Exclusion des modules Node.js du build frontend
+        working-directory: ./Frontend
+        run: |
+          echo " Configuration du build pour exclure les modules Node.js..."
+          
+          # Créer un fichier temporaire qui exclut les imports problématiques
+          cat > vite.config.temp.js << 'EOF'
+          import { defineConfig } from 'vite'
+          import react from '@vitejs/plugin-react'
+          
+          export default defineConfig({
+            plugins: [react()],
+            build: {
+              rollupOptions: {
+                external: ['path', 'worker_threads', 'fs', 'os', 'child_process'],
               },
             },
-            plugins: [],
-          }
-          EOL
+            resolve: {
+              alias: {
+                // Remplacer les modules Node.js par des stubs vides
+                'worker_threads': './src/stubs/empty.js',
+                'path': './src/stubs/empty.js',
+                'fs': './src/stubs/empty.js',
+              }
+            }
+          })
+          EOF
           
-          # Mettre à jour les versions de Tailwind dans package.json
-          npm install --save-dev tailwindcss@3.3.0 autoprefixer@10.4.14 postcss@8.4.21
+          # Créer le répertoire stubs s'il n'existe pas
+          mkdir -p src/stubs
           
-      - name: Configuration des données S3 et API
+          # Créer un stub vide
+          echo "export default {};" > src/stubs/empty.js
+          
+          # Remplacer le fichier de configuration Vite existant
+          if [ -f vite.config.js ]; then
+            mv vite.config.temp.js vite.config.js
+          elif [ -f vite.config.ts ]; then
+            mv vite.config.temp.js vite.config.js
+          else
+            mv vite.config.temp.js vite.config.js
+          fi
+          
+          # Vérifier si SmartScrapingService est importé dans le frontend et créer une version compatible navigateur
+          if grep -q "SmartScrapingService" src/components/*.{js,jsx,ts,tsx} src/pages/*.{js,jsx,ts,tsx} 2>/dev/null; then
+            echo " Création d'une version compatible navigateur de SmartScrapingService..."
+            echo "// Version compatible navigateur de SmartScrapingService" > src/services/SmartScrapingService.browser.js
+            echo "export class SmartScrapingService {" >> src/services/SmartScrapingService.browser.js
+            echo "  constructor() { console.log('SmartScrapingService: version navigateur'); }" >> src/services/SmartScrapingService.browser.js
+            echo "  async updateContentDatabase() { return { success: true, message: 'API call required' }; }" >> src/services/SmartScrapingService.browser.js
+            echo "}" >> src/services/SmartScrapingService.browser.js
+            echo "export default SmartScrapingService;" >> src/services/SmartScrapingService.browser.js
+            
+            # Remplacer les imports dans les fichiers frontend
+            find src -type f -name "*.js" -o -name "*.jsx" -o -name "*.ts" -o -name "*.tsx" | xargs sed -i 's/from "\.\.\/services\/SmartScrapingService"/from "\.\.\/services\/SmartScrapingService.browser"/g' 2>/dev/null || true
+            find src -type f -name "*.js" -o -name "*.jsx" -o -name "*.ts" -o -name "*.tsx" | xargs sed -i "s/from '\.\.\/services\/SmartScrapingService'/from '\.\.\/services\/SmartScrapingService.browser'/g" 2>/dev/null || true
+          fi
+          
+      - name: Vérification de la configuration des données
         working-directory: ./Frontend
         run: |
-          echo "Configuration des données S3 et API..."
-          mkdir -p src/config
-          cat > src/config/data.ts << EOL
-          // src/config/data.ts
+          echo " Vérification de la configuration des données..."
           
-          // Forcer l'utilisation du S3 pour toutes les URLs de données
-          export const BASE_DATA_URL = "https://flodrama-exported-data.s3.eu-west-3.amazonaws.com/";
-          export const SEARCH_INDEX_URL = "https://flodrama-exported-data.s3.eu-west-3.amazonaws.com/index.txt";
-          export const API_URL = "${{ env.API_GATEWAY_URL || env.API_URL }}";
+          # Vérifier si le fichier de configuration des données existe
+          if [ -f src/config/data.ts ]; then
+            # S'assurer que les URLs pointent vers le bucket S3 public
+            echo " Mise à jour des URLs de données pour pointer vers S3..."
+            cat > src/config/data.ts << 'EOF'
+            /**
+             * Configuration des sources de données pour FloDrama
+             * Dernière mise à jour: $(date +"%d/%m/%Y")
+             */
+            
+            const S3_BASE_URL = 'https://flodrama-content-1745269660.s3.amazonaws.com/data';
+            const CDN_BASE_URL = 'https://d1pbqs2b6em4ha.cloudfront.net/data';
+            
+            export const DATA_URLS = {
+              // Utiliser le CDN comme source primaire pour de meilleures performances
+              featured: `${CDN_BASE_URL}/featured.json`,
+              popular: `${CDN_BASE_URL}/popular.json`,
+              recently: `${CDN_BASE_URL}/recently.json`,
+              topRated: `${CDN_BASE_URL}/topRated.json`,
+              categories: `${CDN_BASE_URL}/categories.json`,
+              content: `${CDN_BASE_URL}/content.json`,
+              
+              // URLs de fallback en cas de problème avec le CDN
+              fallback: {
+                featured: `${S3_BASE_URL}/featured.json`,
+                popular: `${S3_BASE_URL}/popular.json`,
+                recently: `${S3_BASE_URL}/recently.json`,
+                topRated: `${S3_BASE_URL}/topRated.json`,
+                categories: `${S3_BASE_URL}/categories.json`,
+                content: `${S3_BASE_URL}/content.json`,
+              }
+            };
+            
+            export default DATA_URLS;
+            EOF
+          fi
           
-          // Log pour debug
-          if (typeof window !== "undefined") {
-            console.log("FloDrama - Configuration de données:", {
-              baseUrl: BASE_DATA_URL,
-              searchUrl: SEARCH_INDEX_URL,
-              apiUrl: API_URL
-            });
-          }
-          EOL
-          
-          # Créer le fichier .env.production
-          cat > .env.production << EOL
-          VITE_API_URL=${{ env.API_GATEWAY_URL || env.API_URL }}
-          VITE_ENVIRONMENT=production
-          EOL
-          
-      - name: Build du projet 
+      - name: Build frontend
         working-directory: ./Frontend
         run: |
-          echo "Création du build de production..."
-          # Vérifier que le répertoire out n'existe pas déjà
-          rm -rf out
-          # Construction du projet
+          echo " Construction du frontend..."
           npm run build
-          # Créer un fichier .nojekyll pour GitHub Pages
-          touch out/.nojekyll
+        env:
+          REACT_APP_API_ENDPOINT: 'https://d1pbqs2b6em4ha.cloudfront.net'
+          REACT_APP_CDN_ENDPOINT: 'https://d1pbqs2b6em4ha.cloudfront.net'
+          REACT_APP_ENVIRONMENT: 'production'
+          NODE_ENV: 'production'
           
-      - name: Copier le fichier CNAME dans le dossier de build 
+      - name: Préparation pour GitHub Pages
+        working-directory: ./Frontend
         run: |
-          echo "Copie du fichier CNAME dans le dossier de build..."
-          echo "flodrama.com" > Frontend/out/CNAME
-          echo "Vérification du contenu du fichier CNAME..."
-          cat Frontend/out/CNAME
-        
-      # Utilisation de l'action officielle GitHub Pages
-      - name: Configuration de GitHub Pages 
-        uses: actions/configure-pages@v4
-      
-      - name: Upload des artifacts 
-        uses: actions/upload-pages-artifact@v3
+          echo " Préparation des fichiers pour GitHub Pages..."
+          
+          # Création du fichier .nojekyll pour désactiver le processus Jekyll
+          touch build/.nojekyll
+          
+          # Création d'un fichier 404.html personnalisé si nécessaire
+          if [ ! -f build/404.html ]; then
+            cat > build/404.html << 'EOF'
+            <!DOCTYPE html>
+            <html lang="fr">
+            <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Page non trouvée - FloDrama</title>
+              <style>
+                body {
+                  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                  background-color: #000000;
+                  color: #FFFFFF;
+                  margin: 0;
+                  padding: 0;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  min-height: 100vh;
+                  text-align: center;
+                }
+                .container {
+                  max-width: 800px;
+                  padding: 2rem;
+                }
+                h1 {
+                  background: linear-gradient(to right, #3b82f6, #d946ef);
+                  -webkit-background-clip: text;
+                  -webkit-text-fill-color: transparent;
+                  font-size: 3rem;
+                  margin-bottom: 1rem;
+                }
+                p {
+                  font-size: 1.2rem;
+                  margin-bottom: 2rem;
+                }
+                .btn {
+                  display: inline-block;
+                  background: #FFFFFF;
+                  color: #000000;
+                  padding: 0.75rem 1.5rem;
+                  border-radius: 0.5rem;
+                  text-decoration: none;
+                  font-weight: bold;
+                  transition: opacity 0.3s ease;
+                }
+                .btn:hover {
+                  opacity: 0.8;
+                }
+              </style>
+              <script>
+                // Redirection vers la page d'accueil après 5 secondes
+                setTimeout(function() {
+                  window.location.href = '/FloDrama/';
+                }, 5000);
+              </script>
+            </head>
+            <body>
+              <div class="container">
+                <h1>Page non trouvée</h1>
+                <p>La page que vous recherchez n'existe pas ou a été déplacée.</p>
+                <a href="/FloDrama/" class="btn">Retour à l'accueil</a>
+              </div>
+            </body>
+            </html>
+            EOF
+          fi
+          
+      - name: Déploiement sur GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: 'Frontend/out'
-      
-      - name: Déploiement sur GitHub Pages 
-        id: deployment
-        uses: actions/deploy-pages@v4
+          folder: Frontend/build
+          branch: gh-pages
+          clean: true
           
-      - name: Notification de déploiement réussi 
+      - name: Notification frontend
         run: |
-          echo "✅ FloDrama a été déployé avec succès sur GitHub Pages!"
-          echo "🌐 Frontend: https://flodrama.com"
-          echo "🔌 Backend API: ${{ env.API_GATEWAY_URL || env.API_URL }}"
+          echo " Frontend déployé sur GitHub Pages avec succès!"
+          echo " URL: https://flori92.github.io/FloDrama/"
