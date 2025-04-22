@@ -42,7 +42,7 @@ jobs:
             npm ci
           else
             echo "Aucun package.json trouvé dans le dossier Backend, création d'un fichier minimal"
-            cat > package.json << 'EOF'
+            cat > package.json << EOF
             {
               "name": "flodrama-backend",
               "version": "1.0.0",
@@ -102,7 +102,7 @@ jobs:
           else
             echo " ScrapingService.py non trouvé, création de données de démonstration"
             # Créer des données de démonstration
-            cat > export_data/content.json << 'EOF'
+            cat > export_data/content.json << EOF
             [
               {
                 "id": "demo1",
@@ -152,7 +152,7 @@ jobs:
           if [ ! -d Backend/src/lambda ]; then
             echo " Dossier Lambda non trouvé, création d'une fonction Lambda minimale"
             mkdir -p Backend/src/lambda
-            cat > Backend/src/lambda/index.js << 'EOF'
+            cat > Backend/src/lambda/index.js << EOF
             exports.handler = async (event) => {
               console.log('Event:', JSON.stringify(event, null, 2));
               
@@ -266,8 +266,8 @@ jobs:
           if [ -f package.json ]; then
             npm ci
           else
-            echo "⚠️ Aucun package.json trouvé dans le dossier Frontend, création d'un fichier minimal"
-            cat > package.json << 'EOF'
+            echo " Aucun package.json trouvé dans le dossier Frontend, création d'un fichier minimal"
+            cat > package.json << EOF
             {
               "name": "flodrama-frontend",
               "version": "1.0.0",
@@ -304,8 +304,8 @@ jobs:
         run: |
           # Vérifier si vite.config.js existe, sinon le créer
           if [ ! -f vite.config.js ] && [ ! -f vite.config.ts ]; then
-            echo "⚠️ Configuration Vite non trouvée, création d'une configuration minimale"
-            cat > vite.config.ts << 'EOF'
+            echo " Configuration Vite non trouvée, création d'une configuration minimale"
+            cat > vite.config.ts << EOF
             import { defineConfig } from 'vite'
             import react from '@vitejs/plugin-react'
 
@@ -323,11 +323,11 @@ jobs:
           
           # Vérifier si le dossier src existe, sinon le créer avec un contenu minimal
           if [ ! -d src ]; then
-            echo "⚠️ Dossier src non trouvé, création d'une structure minimale"
+            echo " Dossier src non trouvé, création d'une structure minimale"
             mkdir -p src
             
             # Créer un fichier main.tsx minimal
-            cat > src/main.tsx << 'EOF'
+            cat > src/main.tsx << EOF
             import React from 'react'
             import ReactDOM from 'react-dom/client'
             import App from './App.tsx'
@@ -341,7 +341,7 @@ jobs:
             EOF
             
             # Créer un fichier App.tsx minimal
-            cat > src/App.tsx << 'EOF'
+            cat > src/App.tsx << EOF
             import { useState } from 'react'
             import { motion } from 'framer-motion'
             import './App.css'
@@ -378,7 +378,7 @@ jobs:
             EOF
             
             # Créer un fichier index.css minimal avec Tailwind
-            cat > src/index.css << 'EOF'
+            cat > src/index.css << EOF
             @tailwind base;
             @tailwind components;
             @tailwind utilities;
@@ -403,12 +403,12 @@ jobs:
             EOF
             
             # Créer un fichier App.css minimal
-            cat > src/App.css << 'EOF'
+            cat > src/App.css << EOF
             /* Styles spécifiques à l'application */
             EOF
             
             # Créer un fichier tailwind.config.js minimal
-            cat > tailwind.config.js << 'EOF'
+            cat > tailwind.config.js << EOF
             /** @type {import('tailwindcss').Config} */
             export default {
               content: [
@@ -423,7 +423,7 @@ jobs:
             EOF
             
             # Créer un fichier postcss.config.js minimal
-            cat > postcss.config.js << 'EOF'
+            cat > postcss.config.js << EOF
             export default {
               plugins: {
                 tailwindcss: {},
@@ -433,7 +433,7 @@ jobs:
             EOF
             
             # Créer un fichier index.html minimal
-            cat > index.html << 'EOF'
+            cat > index.html << EOF
             <!doctype html>
             <html lang="fr">
               <head>
@@ -462,4 +462,4 @@ jobs:
           clean: true
           
       - name: Notification frontend
-        run: echo "✅ Frontend déployé avec succès sur GitHub Pages"
+        run: echo " Frontend déployé avec succès sur GitHub Pages"
