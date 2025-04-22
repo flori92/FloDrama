@@ -18,7 +18,8 @@ env:
   AWS_REGION: us-east-1
 
 jobs:
-  deploy:
+  backend:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout du code
@@ -257,14 +258,33 @@ jobs:
           echo "✅ Vérification des fichiers générés dans S3..."
           aws s3 ls s3://flodrama-content-1745269660 --recursive | grep -E 'featured|popular|recently|topRated|categories|metadata'
       
-      - name: Déploiement de la fonction Lambda
+      # Vérification de l'existence de la fonction Lambda
+      - name: Vérification de la fonction Lambda
+        id: check-lambda
         run: |
-          echo " Déploiement de la fonction Lambda FloDramaAPI..."
+          echo "🔍 Vérification de l'existence de la fonction Lambda..."
+          
+          # Vérifier si la fonction Lambda existe déjà
+          LAMBDA_EXISTS=$(aws lambda list-functions --query "Functions[?FunctionName=='FloDramaImageOptimizer'].FunctionName" --output text || echo "")
+          
+          if [ -n "$LAMBDA_EXISTS" ]; then
+            echo "✅ La fonction Lambda FloDramaImageOptimizer existe"
+            echo "LAMBDA_EXISTS=true" >> $GITHUB_OUTPUT
+          else
+            echo "⚠️ La fonction Lambda FloDramaImageOptimizer n'existe pas"
+            echo "LAMBDA_EXISTS=false" >> $GITHUB_OUTPUT
+          fi
+      
+      # Création de la fonction Lambda si elle n'existe pas
+      - name: Création de la fonction Lambda
+        if: steps.check-lambda.outputs.LAMBDA_EXISTS == 'false'
+        run: |
+          echo "🚀 Création de la fonction Lambda FloDramaImageOptimizer..."
           
           # Vérifier si le dossier Lambda/image-optimizer existe
-          if [ ! -d Backend/src/lambda/image-optimizer ]; then
-            echo " Dossier Lambda/image-optimizer non trouvé, création d'une fonction Lambda minimale"
-            mkdir -p Backend/src/lambda/image-optimizer
+          if [ ! -d Lambda/image-optimizer ]; then
+            echo "⚠️ Dossier Lambda/image-optimizer non trouvé, création d'une fonction Lambda minimale"
+            mkdir -p Lambda/image-optimizer
             echo 'exports.handler = async (event) => {
               console.log("Event:", JSON.stringify(event, null, 2));
               
@@ -275,12 +295,12 @@ jobs:
                   "Access-Control-Allow-Origin": "*"
                 },
                 body: JSON.stringify({
-                  message: "FloDrama API fonctionne correctement!",
+                  message: "FloDrama Image Optimizer fonctionne correctement!",
                   timestamp: new Date().toISOString(),
                   event: event
                 })
               };
-            };' > Backend/src/lambda/image-optimizer/index.js
+            };' > Lambda/image-optimizer/index.js
             
             # Création d'un package.json minimal
             echo '{
@@ -292,65 +312,69 @@ jobs:
                 "aws-sdk": "^2.1500.0",
                 "sharp": "^0.33.0"
               }
-            }' > Backend/src/lambda/image-optimizer/package.json
+            }' > Lambda/image-optimizer/package.json
           fi
           
-          # Vérifier si la fonction Lambda existe déjà
-          LAMBDA_EXISTS=$(aws lambda list-functions --query "Functions[?FunctionName=='FloDramaImageOptimizer'].FunctionName" --output text || echo "")
+          # Création d'un répertoire temporaire pour le déploiement
+          mkdir -p lambda_package
           
-          if [ -z "$LAMBDA_EXISTS" ]; then
-            echo "Création de la fonction Lambda FloDramaImageOptimizer..."
-            
-            # Création d'un répertoire temporaire pour le déploiement
-            mkdir -p lambda_package
-            
-            # Préparation du code Lambda
-            cp -r Backend/src/lambda/image-optimizer/* lambda_package/
-            
-            # Installation des dépendances dans le package
-            cd lambda_package
-            npm install --production
-            zip -r ../lambda_package.zip .
-            cd ..
-            
-            # Création de la fonction Lambda
-            aws lambda create-function \
-              --function-name FloDramaImageOptimizer \
-              --runtime nodejs18.x \
-              --role ${{ secrets.AWS_LAMBDA_ROLE_ARN }} \
-              --handler index.handler \
-              --timeout 30 \
-              --memory-size 512 \
-              --zip-file fileb://lambda_package.zip \
-              --environment Variables="{NODE_ENV=production,S3_BUCKET=flodrama-content-1745269660,FRONTEND_URL=https://flori92.github.io/FloDrama}"
-          else
-            echo "Mise à jour de la fonction Lambda FloDramaImageOptimizer..."
-            
-            # Préparation du code Lambda
-            mkdir -p lambda_package
-            cp -r Backend/src/lambda/image-optimizer/* lambda_package/
-            
-            # Installation des dépendances dans le package
-            cd lambda_package
-            npm install --production
-            zip -r ../lambda_package.zip .
-            cd ..
-            
-            # Mise à jour du code de la fonction Lambda
-            aws lambda update-function-code \
-              --function-name FloDramaImageOptimizer \
-              --zip-file fileb://lambda_package.zip
-              
-            # Mise à jour de la configuration de la fonction Lambda
-            aws lambda update-function-configuration \
-              --function-name FloDramaImageOptimizer \
-              --timeout 30 \
-              --memory-size 512 \
-              --environment Variables="{NODE_ENV=production,S3_BUCKET=flodrama-content-1745269660,FRONTEND_URL=https://flori92.github.io/FloDrama}"
-          fi
+          # Préparation du code Lambda
+          cp -r Lambda/image-optimizer/* lambda_package/
           
-          # Nettoyage des ressources Lambda inutilisées
-          echo " Nettoyage des anciennes versions Lambda..."
+          # Installation des dépendances dans le package
+          cd lambda_package
+          npm install --production
+          zip -r ../lambda_package.zip .
+          cd ..
+          
+          # Création de la fonction Lambda
+          aws lambda create-function \
+            --function-name FloDramaImageOptimizer \
+            --runtime nodejs18.x \
+            --role ${{ secrets.AWS_LAMBDA_ROLE_ARN }} \
+            --handler index.handler \
+            --timeout 30 \
+            --memory-size 512 \
+            --zip-file fileb://lambda_package.zip \
+            --environment Variables="{NODE_ENV=production,S3_BUCKET=${{ env.S3_BUCKET }},FRONTEND_URL=https://flori92.github.io/FloDrama}"
+          
+          echo "✅ Fonction Lambda créée avec succès"
+      
+      # Mise à jour de la fonction Lambda si elle existe
+      - name: Mise à jour de la fonction Lambda
+        if: steps.check-lambda.outputs.LAMBDA_EXISTS == 'true'
+        run: |
+          echo "🔄 Mise à jour de la fonction Lambda FloDramaImageOptimizer..."
+          
+          # Préparation du code Lambda
+          mkdir -p lambda_package
+          cp -r Lambda/image-optimizer/* lambda_package/
+          
+          # Installation des dépendances dans le package
+          cd lambda_package
+          npm install --production
+          zip -r ../lambda_package.zip .
+          cd ..
+          
+          # Mise à jour du code de la fonction Lambda
+          aws lambda update-function-code \
+            --function-name FloDramaImageOptimizer \
+            --zip-file fileb://lambda_package.zip
+            
+          # Mise à jour de la configuration de la fonction Lambda
+          aws lambda update-function-configuration \
+            --function-name FloDramaImageOptimizer \
+            --timeout 30 \
+            --memory-size 512 \
+            --environment Variables="{NODE_ENV=production,S3_BUCKET=${{ env.S3_BUCKET }},FRONTEND_URL=https://flori92.github.io/FloDrama}"
+          
+          echo "✅ Fonction Lambda mise à jour avec succès"
+      
+      # Nettoyage des anciennes versions Lambda
+      - name: Nettoyage des anciennes versions Lambda
+        if: steps.check-lambda.outputs.LAMBDA_EXISTS == 'true'
+        run: |
+          echo "🧹 Nettoyage des anciennes versions Lambda..."
           
           # Liste des versions sauf $LATEST et les 3 plus récentes
           VERSIONS_TO_DELETE=$(aws lambda list-versions-by-function --function-name FloDramaImageOptimizer --query "Versions[?Version!='$LATEST'].Version" --output text | tr '\t' '\n' | sort -n | head -n -3)
@@ -362,10 +386,17 @@ jobs:
           done
           
           # Configuration de la rétention des logs CloudWatch
-          echo " Configuration de la rétention des logs CloudWatch..."
+          echo "⏱️ Configuration de la rétention des logs CloudWatch..."
           aws logs put-retention-policy --log-group-name /aws/lambda/FloDramaImageOptimizer --retention-in-days 30
           
-          echo " Déploiement Lambda terminé avec succès!"
+          echo "✅ Nettoyage des anciennes versions Lambda terminé"
+      
+  frontend:
+    runs-on: ubuntu-latest
+    needs: backend
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
       
       - name: Configuration de Node.js
         uses: actions/setup-node@v4
