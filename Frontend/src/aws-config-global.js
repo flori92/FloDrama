@@ -3,7 +3,7 @@
 
 // Définir la région AWS globalement
 window.AWS_REGION = 'us-east-1';
-window.API_BASE_URL = 'https://7la2pq33ej.execute-api.us-east-1.amazonaws.com/production';
+window.API_BASE_URL = import.meta.env.VITE_API_URL || 'https://flodrama-cors-proxy.onrender.com/api';
 window.MEDIA_CDN_URL = 'https://d1323ouxr1qbdp.cloudfront.net';
 
 // Intercepter et corriger les requêtes AWS

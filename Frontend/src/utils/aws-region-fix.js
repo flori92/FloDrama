@@ -3,7 +3,7 @@
 
 // Configuration globale de la région AWS
 window.AWS_REGION = 'us-east-1';
-window.API_BASE_URL = 'https://71e6p3gfk1.execute-api.us-east-1.amazonaws.com/prod';
+window.API_BASE_URL = import.meta.env.VITE_API_URL || 'https://flodrama-cors-proxy.onrender.com/api';
 window.MEDIA_CDN_URL = 'https://d1pbqs2b6em4ha.cloudfront.net';
 
 // Intercepter les requêtes fetch pour ajouter la région correcte
@@ -64,5 +64,5 @@ if (typeof window !== 'undefined' && typeof window.AWS !== 'undefined') {
 
 // Exporter les variables pour l'utilisation dans le projet
 export const AWS_REGION = 'us-east-1';
-export const API_BASE_URL = 'https://71e6p3gfk1.execute-api.us-east-1.amazonaws.com/prod';
+export const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://flodrama-cors-proxy.onrender.com/api';
 export const MEDIA_CDN_URL = 'https://d1pbqs2b6em4ha.cloudfront.net';

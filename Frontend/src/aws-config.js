@@ -6,7 +6,7 @@ export const AWS_CONFIG = {
   region: 'us-east-1',
   apiGateway: {
     REGION: 'us-east-1',
-    URL: 'https://7la2pq33ej.execute-api.us-east-1.amazonaws.com/production',
+    URL: import.meta.env.VITE_API_URL || 'https://flodrama-cors-proxy.onrender.com/api',
   },
   cognito: {
     REGION: 'us-east-1',
