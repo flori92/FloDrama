@@ -444,88 +444,50 @@ jobs:
           cache: 'npm'
           cache-dependency-path: Frontend/package-lock.json
       
-      - name: Construire le frontend
+      - name: Construction du frontend
         working-directory: ./Frontend
         run: |
-          # Installation des dépendances avec l'option legacy-peer-deps pour éviter les conflits
           echo "📦 Installation des dépendances..."
           npm install --legacy-peer-deps
-          
-          # Créer un fichier de configuration Vite si nécessaire
-          echo "🔧 Configuration de Vite..."
-          if [ ! -f "vite.config.ts" ]; then
-            echo 'import { defineConfig } from "vite";' > vite.config.ts
-            echo 'import react from "@vitejs/plugin-react";' >> vite.config.ts
-            echo 'import path from "path";' >> vite.config.ts
-            echo '' >> vite.config.ts
-            echo 'export default defineConfig({' >> vite.config.ts
-            echo '  plugins: [react()],' >> vite.config.ts
-            echo '  base: "/FloDrama/",' >> vite.config.ts
-            echo '  resolve: {' >> vite.config.ts
-            echo '    alias: {' >> vite.config.ts
-            echo '      "@": path.resolve(__dirname, "./src"),' >> vite.config.ts
-            echo '    }' >> vite.config.ts
-            echo '  },' >> vite.config.ts
-            echo '  build: {' >> vite.config.ts
-            echo '    outDir: "../dist",' >> vite.config.ts
-            echo '    emptyOutDir: true,' >> vite.config.ts
-            echo '    sourcemap: true,' >> vite.config.ts
-            echo '  },' >> vite.config.ts
-            echo '  css: {' >> vite.config.ts
-            echo '    preprocessorOptions: {' >> vite.config.ts
-            echo '      scss: {' >> vite.config.ts
-            echo '        additionalData: `' >> vite.config.ts
-            echo '          $primary-color: #3b82f6;' >> vite.config.ts
-            echo '          $secondary-color: #d946ef;' >> vite.config.ts
-            echo '          $text-color: #ffffff;' >> vite.config.ts
-            echo '          $background-color: #121118;' >> vite.config.ts
-            echo '        `' >> vite.config.ts
-            echo '      }' >> vite.config.ts
-            echo '    }' >> vite.config.ts
-            echo '  }' >> vite.config.ts
-            echo '});' >> vite.config.ts
-          fi
-          
-          # Créer un .env avec les variables d'environnement nécessaires
           echo "🔑 Configuration des variables d'environnement..."
-          echo "VITE_API_URL=https://api.flodrama.com" > .env
-          echo "VITE_S3_BUCKET=${{ env.S3_BUCKET }}" >> .env
-          echo "VITE_AWS_REGION=${{ env.AWS_REGION }}" >> .env
-          echo "VITE_SITE_URL=https://flori92.github.io/FloDrama" >> .env
-          
-          # Construction du frontend
+          cp .env.production .env
           echo "🚀 Construction de l'application React..."
           npm run build
-          
-          # Vérifier si la construction a réussi
           if [ $? -eq 0 ]; then
             echo "✅ Construction du frontend réussie!"
           else
             echo "❌ Échec de la construction du frontend, création d'une page d'attente temporaire..."
           fi
 
+      - name: Vérification du build frontend
+        id: check-frontend
+        run: |
+          if [ -f Frontend/dist/index.html ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "✅ Build React trouvé dans Frontend/dist/index.html"
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "❌ Build React manquant dans Frontend/dist/index.html"
+          fi
+
       - name: Créer une page d'attente si le frontend n'existe pas
         if: ${{ steps.check-frontend.outputs.exists != 'true' }}
         run: |
-          # Créer le dossier dist s'il n'existe pas
-          mkdir -p dist
-          
-          # Copier la page d'attente préparée dans le dossier dist
+          mkdir -p Frontend/dist
           if [ -f "Frontend/public/waiting-page.html" ]; then
-            cp Frontend/public/waiting-page.html dist/index.html
-            echo "✅ Page d'attente copiée avec succès"
+            cp Frontend/public/waiting-page.html Frontend/dist/index.html
+            echo "✅ Page d'attente copiée avec succès dans Frontend/dist/index.html"
           else
-            # Fallback si la page d'attente n'existe pas
-            echo "<!DOCTYPE html><html><head><title>FloDrama</title></head><body style='background:#121118;color:white;font-family:sans-serif;text-align:center;padding-top:50px;'><h1 style='color:#3b82f6;'>FloDrama</h1><p>Site en cours de déploiement</p></body></html>" > dist/index.html
-            echo "⚠️ Page d'attente simplifiée créée"
+            echo "<html><head><title>FloDrama</title></head><body style='background:#121118;color:white;font-family:sans-serif;text-align:center;padding-top:50px;'><h1 style='color:#3b82f6;'>FloDrama</h1><p>Site en cours de déploiement</p></body></html>" > Frontend/dist/index.html
+            echo "⚠️ Page d'attente simplifiée créée dans Frontend/dist/index.html"
           fi
 
       - name: Déploiement sur GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist
+          folder: Frontend/dist
           branch: gh-pages
           clean: true
-          
+
       - name: Notification frontend
-        run: echo " Frontend déployé avec succès sur GitHub Pages"
+        run: echo "Frontend déployé avec succès sur GitHub Pages depuis Frontend/dist" 
