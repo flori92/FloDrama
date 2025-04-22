@@ -2,7 +2,7 @@
 const axios = require('axios');
 
 // Configuration de l'API cible
-const API_HOST = 'https://7la2pq33ej.execute-api.us-east-1.amazonaws.com/production';
+const API_HOST = 'https://flodrama-cors-proxy.onrender.com/api';
 const ALLOWED_ORIGINS = ['https://flodrama.com', 'http://localhost:3000', 'http://localhost:5173'];
 
 exports.handler = async function(event, context) {
