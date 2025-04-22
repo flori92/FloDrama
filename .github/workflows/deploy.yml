@@ -249,10 +249,10 @@ jobs:
         run: |
           echo " Déploiement de la fonction Lambda FloDramaAPI..."
           
-          # Vérifier si le dossier Lambda existe
-          if [ ! -d Backend/src/lambda ]; then
-            echo " Dossier Lambda non trouvé, création d'une fonction Lambda minimale"
-            mkdir -p Backend/src/lambda
+          # Vérifier si le dossier Lambda/image-optimizer existe
+          if [ ! -d Backend/src/lambda/image-optimizer ]; then
+            echo " Dossier Lambda/image-optimizer non trouvé, création d'une fonction Lambda minimale"
+            mkdir -p Backend/src/lambda/image-optimizer
             echo 'exports.handler = async (event) => {
               console.log("Event:", JSON.stringify(event, null, 2));
               
@@ -268,20 +268,32 @@ jobs:
                   event: event
                 })
               };
-            };' > Backend/src/lambda/index.js
+            };' > Backend/src/lambda/image-optimizer/index.js
+            
+            # Création d'un package.json minimal
+            echo '{
+              "name": "flodrama-image-optimizer",
+              "version": "1.0.0",
+              "description": "Fonction Lambda@Edge pour l'\''optimisation des images dans FloDrama",
+              "main": "index.js",
+              "dependencies": {
+                "aws-sdk": "^2.1500.0",
+                "sharp": "^0.33.0"
+              }
+            }' > Backend/src/lambda/image-optimizer/package.json
           fi
           
           # Vérifier si la fonction Lambda existe déjà
-          LAMBDA_EXISTS=$(aws lambda list-functions --query "Functions[?FunctionName=='FloDramaAPI'].FunctionName" --output text || echo "")
+          LAMBDA_EXISTS=$(aws lambda list-functions --query "Functions[?FunctionName=='FloDramaImageOptimizer'].FunctionName" --output text || echo "")
           
           if [ -z "$LAMBDA_EXISTS" ]; then
-            echo "Création de la fonction Lambda FloDramaAPI..."
+            echo "Création de la fonction Lambda FloDramaImageOptimizer..."
             
             # Création d'un répertoire temporaire pour le déploiement
             mkdir -p lambda_package
             
             # Préparation du code Lambda
-            cp -r Backend/src/lambda/* lambda_package/
+            cp -r Backend/src/lambda/image-optimizer/* lambda_package/
             
             # Installation des dépendances dans le package
             cd lambda_package
@@ -291,7 +303,7 @@ jobs:
             
             # Création de la fonction Lambda
             aws lambda create-function \
-              --function-name FloDramaAPI \
+              --function-name FloDramaImageOptimizer \
               --runtime nodejs18.x \
               --role ${{ secrets.AWS_LAMBDA_ROLE_ARN }} \
               --handler index.handler \
@@ -300,11 +312,11 @@ jobs:
               --zip-file fileb://lambda_package.zip \
               --environment Variables="{NODE_ENV=production,S3_BUCKET=flodrama-content-1745269660,FRONTEND_URL=https://flori92.github.io/FloDrama}"
           else
-            echo "Mise à jour de la fonction Lambda FloDramaAPI..."
+            echo "Mise à jour de la fonction Lambda FloDramaImageOptimizer..."
             
             # Préparation du code Lambda
             mkdir -p lambda_package
-            cp -r Backend/src/lambda/* lambda_package/
+            cp -r Backend/src/lambda/image-optimizer/* lambda_package/
             
             # Installation des dépendances dans le package
             cd lambda_package
@@ -314,12 +326,12 @@ jobs:
             
             # Mise à jour du code de la fonction Lambda
             aws lambda update-function-code \
-              --function-name FloDramaAPI \
+              --function-name FloDramaImageOptimizer \
               --zip-file fileb://lambda_package.zip
               
             # Mise à jour de la configuration de la fonction Lambda
             aws lambda update-function-configuration \
-              --function-name FloDramaAPI \
+              --function-name FloDramaImageOptimizer \
               --timeout 30 \
               --memory-size 512 \
               --environment Variables="{NODE_ENV=production,S3_BUCKET=flodrama-content-1745269660,FRONTEND_URL=https://flori92.github.io/FloDrama}"
@@ -329,17 +341,17 @@ jobs:
           echo " Nettoyage des anciennes versions Lambda..."
           
           # Liste des versions sauf $LATEST et les 3 plus récentes
-          VERSIONS_TO_DELETE=$(aws lambda list-versions-by-function --function-name FloDramaAPI --query "Versions[?Version!='$LATEST'].Version" --output text | tr '\t' '\n' | sort -n | head -n -3)
+          VERSIONS_TO_DELETE=$(aws lambda list-versions-by-function --function-name FloDramaImageOptimizer --query "Versions[?Version!='$LATEST'].Version" --output text | tr '\t' '\n' | sort -n | head -n -3)
           
           # Suppression des anciennes versions
           for VERSION in $VERSIONS_TO_DELETE; do
             echo "Suppression de la version $VERSION..."
-            aws lambda delete-function --function-name FloDramaAPI:$VERSION || true
+            aws lambda delete-function --function-name FloDramaImageOptimizer:$VERSION || true
           done
           
           # Configuration de la rétention des logs CloudWatch
           echo " Configuration de la rétention des logs CloudWatch..."
-          aws logs put-retention-policy --log-group-name /aws/lambda/FloDramaAPI --retention-in-days 30
+          aws logs put-retention-policy --log-group-name /aws/lambda/FloDramaImageOptimizer --retention-in-days 30
           
           echo " Déploiement Lambda terminé avec succès!"
       
