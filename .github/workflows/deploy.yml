@@ -42,8 +42,7 @@ jobs:
             npm ci
           else
             echo "Aucun package.json trouvé dans le dossier Backend, création d'un fichier minimal"
-            cat > package.json << EOF
-            {
+            echo '{
               "name": "flodrama-backend",
               "version": "1.0.0",
               "private": true,
@@ -53,8 +52,7 @@ jobs:
               "dependencies": {
                 "aws-sdk": "^2.1500.0"
               }
-            }
-            EOF
+            }' > package.json
             npm install
           fi
       
@@ -102,8 +100,7 @@ jobs:
           else
             echo " ScrapingService.py non trouvé, création de données de démonstration"
             # Créer des données de démonstration
-            cat > export_data/content.json << EOF
-            [
+            echo '[
               {
                 "id": "demo1",
                 "title": "La Voie du Dragon",
@@ -122,8 +119,7 @@ jobs:
                 "rating": 4.5,
                 "category": "drama"
               }
-            ]
-            EOF
+            ]' > export_data/content.json
             cp export_data/content.json export_data/featured.json
             cp export_data/content.json export_data/popular.json
             cp export_data/content.json export_data/recently.json
@@ -152,24 +148,22 @@ jobs:
           if [ ! -d Backend/src/lambda ]; then
             echo " Dossier Lambda non trouvé, création d'une fonction Lambda minimale"
             mkdir -p Backend/src/lambda
-            cat > Backend/src/lambda/index.js << EOF
-            exports.handler = async (event) => {
-              console.log('Event:', JSON.stringify(event, null, 2));
+            echo 'exports.handler = async (event) => {
+              console.log("Event:", JSON.stringify(event, null, 2));
               
               return {
                 statusCode: 200,
                 headers: {
-                  'Content-Type': 'application/json',
-                  'Access-Control-Allow-Origin': '*'
+                  "Content-Type": "application/json",
+                  "Access-Control-Allow-Origin": "*"
                 },
                 body: JSON.stringify({
-                  message: 'FloDrama API fonctionne correctement!',
+                  message: "FloDrama API fonctionne correctement!",
                   timestamp: new Date().toISOString(),
                   event: event
                 })
               };
-            };
-            EOF
+            };' > Backend/src/lambda/index.js
           fi
           
           # Vérifier si la fonction Lambda existe déjà
@@ -266,9 +260,8 @@ jobs:
           if [ -f package.json ]; then
             npm ci
           else
-            echo " Aucun package.json trouvé dans le dossier Frontend, création d'un fichier minimal"
-            cat > package.json << EOF
-            {
+            echo "Aucun package.json trouvé dans le dossier Frontend, création d'un fichier minimal"
+            echo '{
               "name": "flodrama-frontend",
               "version": "1.0.0",
               "private": true,
@@ -294,8 +287,7 @@ jobs:
                 "typescript": "^5.2.2",
                 "vite": "^5.0.0"
               }
-            }
-            EOF
+            }' > package.json
             npm install
           fi
       
@@ -304,47 +296,42 @@ jobs:
         run: |
           # Vérifier si vite.config.js existe, sinon le créer
           if [ ! -f vite.config.js ] && [ ! -f vite.config.ts ]; then
-            echo " Configuration Vite non trouvée, création d'une configuration minimale"
-            cat > vite.config.ts << EOF
-            import { defineConfig } from 'vite'
-            import react from '@vitejs/plugin-react'
+            echo "Configuration Vite non trouvée, création d'une configuration minimale"
+            echo 'import { defineConfig } from "vite"
+            import react from "@vitejs/plugin-react"
 
             // https://vitejs.dev/config/
             export default defineConfig({
               plugins: [react()],
-              base: '/FloDrama/',
+              base: "/FloDrama/",
               build: {
-                outDir: '../dist',
+                outDir: "../dist",
                 emptyOutDir: true,
               }
-            })
-            EOF
+            })' > vite.config.ts
           fi
           
           # Vérifier si le dossier src existe, sinon le créer avec un contenu minimal
           if [ ! -d src ]; then
-            echo " Dossier src non trouvé, création d'une structure minimale"
+            echo "Dossier src non trouvé, création d'une structure minimale"
             mkdir -p src
             
             # Créer un fichier main.tsx minimal
-            cat > src/main.tsx << EOF
-            import React from 'react'
-            import ReactDOM from 'react-dom/client'
-            import App from './App.tsx'
-            import './index.css'
+            echo 'import React from "react"
+            import ReactDOM from "react-dom/client"
+            import App from "./App.tsx"
+            import "./index.css"
 
-            ReactDOM.createRoot(document.getElementById('root')!).render(
+            ReactDOM.createRoot(document.getElementById("root")!).render(
               <React.StrictMode>
                 <App />
               </React.StrictMode>,
-            )
-            EOF
+            )' > src/main.tsx
             
             # Créer un fichier App.tsx minimal
-            cat > src/App.tsx << EOF
-            import { useState } from 'react'
-            import { motion } from 'framer-motion'
-            import './App.css'
+            echo 'import { useState } from "react"
+            import { motion } from "framer-motion"
+            import "./App.css"
 
             function App() {
               const [count, setCount] = useState(0)
@@ -374,17 +361,15 @@ jobs:
               )
             }
 
-            export default App
-            EOF
+            export default App' > src/App.tsx
             
             # Créer un fichier index.css minimal avec Tailwind
-            cat > src/index.css << EOF
-            @tailwind base;
+            echo '@tailwind base;
             @tailwind components;
             @tailwind utilities;
 
             :root {
-              font-family: 'SF Pro Display', system-ui, sans-serif;
+              font-family: "SF Pro Display", system-ui, sans-serif;
               line-height: 1.5;
               font-weight: 400;
               color-scheme: dark;
@@ -399,17 +384,13 @@ jobs:
               min-height: 100vh;
               background-color: #000000;
               color: #ffffff;
-            }
-            EOF
+            }' > src/index.css
             
             # Créer un fichier App.css minimal
-            cat > src/App.css << EOF
-            /* Styles spécifiques à l'application */
-            EOF
+            echo '/* Styles spécifiques à l'application */' > src/App.css
             
             # Créer un fichier tailwind.config.js minimal
-            cat > tailwind.config.js << EOF
-            /** @type {import('tailwindcss').Config} */
+            echo '/** @type {import("tailwindcss").Config} */
             export default {
               content: [
                 "./index.html",
@@ -419,22 +400,18 @@ jobs:
                 extend: {},
               },
               plugins: [],
-            }
-            EOF
+            }' > tailwind.config.js
             
             # Créer un fichier postcss.config.js minimal
-            cat > postcss.config.js << EOF
-            export default {
+            echo 'export default {
               plugins: {
                 tailwindcss: {},
                 autoprefixer: {},
               },
-            }
-            EOF
+            }' > postcss.config.js
             
             # Créer un fichier index.html minimal
-            cat > index.html << EOF
-            <!doctype html>
+            echo '<!doctype html>
             <html lang="fr">
               <head>
                 <meta charset="UTF-8" />
@@ -447,8 +424,7 @@ jobs:
                 <div id="root"></div>
                 <script type="module" src="/src/main.tsx"></script>
               </body>
-            </html>
-            EOF
+            </html>' > index.html
           fi
           
           # Construction du site
