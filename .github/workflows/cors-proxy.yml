@@ -24,14 +24,9 @@ jobs:
           cd cors-proxy
           npm install
 
-      - name: Build proxy
-        run: |
-          cd cors-proxy
-          npm run build
-
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: cors-proxy/dist
+          folder: cors-proxy
           branch: gh-pages
           target-folder: proxy
