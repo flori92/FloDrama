@@ -188,6 +188,40 @@ jobs:
           
           echo " Export des données terminé avec succès!"
       
+      - name: Vérification du contenu S3
+        id: check-s3-content
+        run: |
+          echo " Vérification du contenu dans le bucket S3..."
+          
+          # Vérifier si le bucket contient des données
+          CONTENT_COUNT=$(aws s3 ls s3://flodrama-content-1745269660 --recursive | grep -c "content/")
+          
+          if [ $CONTENT_COUNT -gt 0 ]; then
+            echo " Contenu trouvé dans le bucket S3: $CONTENT_COUNT fichiers"
+            echo "HAS_CONTENT=true" >> $GITHUB_OUTPUT
+          else
+            echo " Aucun contenu trouvé dans le bucket S3"
+            echo "HAS_CONTENT=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Génération des fichiers de contenu agrégé
+        if: steps.check-s3-content.outputs.HAS_CONTENT == 'true'
+        run: |
+          echo " Génération des fichiers de contenu agrégé pour le frontend..."
+          
+          # Installer les dépendances Python nécessaires
+          pip install boto3
+          
+          # Rendre le script exécutable
+          chmod +x ./scripts/generate_aggregated_content.py
+          
+          # Exécuter le script de génération de contenu
+          python ./scripts/generate_aggregated_content.py
+          
+          # Vérifier que les fichiers ont été générés
+          echo " Vérification des fichiers générés dans S3..."
+          aws s3 ls s3://flodrama-content-1745269660 --recursive | grep -E 'featured|popular|recently|topRated|categories' || echo " Aucun fichier agrégé trouvé"
+      
       - name: Déploiement de la fonction Lambda
         run: |
           echo " Déploiement de la fonction Lambda FloDramaAPI..."
