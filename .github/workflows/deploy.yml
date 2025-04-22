@@ -188,6 +188,126 @@ jobs:
           echo " Installation des dépendances frontend..."
           npm ci
           
+      - name: Suppression des fichiers statiques obsolètes
+        working-directory: ./Frontend
+        run: |
+          echo " Suppression des fichiers statiques obsolètes..."
+          # Supprimer les fichiers HTML statiques obsolètes
+          find public -name "*.html" ! -name "index.html" -type f -delete
+          
+          # Supprimer les anciennes pages statiques
+          rm -rf public/static || true
+          
+          # S'assurer que l'index.html est bien configuré pour l'application React
+          cat > public/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="fr">
+            <head>
+              <meta charset="UTF-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+              <meta name="description" content="FloDrama - Streaming de Dramas et Films Asiatiques" />
+              <meta name="theme-color" content="#3b82f6" />
+              <meta name="apple-mobile-web-app-capable" content="yes" />
+              <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+              <meta name="apple-mobile-web-app-title" content="FloDrama" />
+              <meta property="og:title" content="FloDrama - Streaming de Dramas et Films Asiatiques" />
+              <meta property="og:description" content="Découvrez les meilleurs dramas et films asiatiques en streaming HD" />
+              <meta property="og:image" content="/logo512.png" />
+              <meta property="og:url" content="https://flodrama.com" />
+              <meta property="og:type" content="website" />
+              <meta name="twitter:card" content="summary_large_image" />
+              <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+              <link rel="apple-touch-icon" href="/logo192.png" />
+              <link rel="manifest" href="/manifest.json" />
+              <title>FloDrama - Streaming de Dramas et Films Asiatiques</title>
+              
+              <!-- Préchargement des polices -->
+              <link rel="preconnect" href="https://fonts.googleapis.com">
+              <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+              
+              <!-- Styles pour éviter le FOUC (Flash of Unstyled Content) -->
+              <style>
+                body {
+                  background-color: #000000;
+                  color: #FFFFFF;
+                  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                  margin: 0;
+                  padding: 0;
+                }
+                
+                /* Dégradé signature FloDrama */
+                .gradient-signature {
+                  background: linear-gradient(to right, #3b82f6, #d946ef);
+                  -webkit-background-clip: text;
+                  background-clip: text;
+                  color: transparent;
+                }
+                
+                /* Animation de chargement avec le dégradé signature */
+                #loading {
+                  position: fixed;
+                  top: 0;
+                  left: 0;
+                  right: 0;
+                  bottom: 0;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  background-color: #000000;
+                  z-index: 9999;
+                }
+                
+                .loading-logo {
+                  font-size: 2.5rem;
+                  font-weight: 600;
+                  margin-bottom: 2rem;
+                }
+                
+                .loading-spinner {
+                  width: 50px;
+                  height: 50px;
+                  border: 3px solid rgba(255, 255, 255, 0.1);
+                  border-radius: 50%;
+                  border-top-color: #3b82f6;
+                  border-right-color: #8b5cf6;
+                  border-bottom-color: #d946ef;
+                  animation: spin 1s ease-in-out infinite;
+                }
+                
+                @keyframes spin {
+                  to { transform: rotate(360deg); }
+                }
+              </style>
+            </head>
+            <body>
+              <!-- Écran de chargement stylisé -->
+              <div id="loading">
+                <div class="loading-logo gradient-signature">FloDrama</div>
+                <div class="loading-spinner"></div>
+              </div>
+              
+              <div id="root"></div>
+              
+              <script>
+                // Masquer l'écran de chargement une fois l'application chargée
+                window.addEventListener('load', function() {
+                  setTimeout(function() {
+                    document.getElementById('loading').style.opacity = '0';
+                    document.getElementById('loading').style.transition = 'opacity 0.5s ease';
+                    setTimeout(function() {
+                      document.getElementById('loading').style.display = 'none';
+                    }, 500);
+                  }, 500);
+                });
+              </script>
+              
+              <script type="module" src="/src/main.tsx"></script>
+            </body>
+          </html>
+          EOF
+          
       - name: Vérification de la configuration Tailwind
         working-directory: ./Frontend
         run: |
@@ -311,22 +431,45 @@ jobs:
           cat > vite.config.temp.js << 'EOF'
           import { defineConfig } from 'vite'
           import react from '@vitejs/plugin-react'
+          import path from 'path'
           
           export default defineConfig({
             plugins: [react()],
             build: {
+              outDir: 'build',
+              assetsDir: 'assets',
+              sourcemap: false,
+              minify: 'terser',
+              terserOptions: {
+                compress: {
+                  drop_console: true,
+                },
+              },
               rollupOptions: {
                 external: ['path', 'worker_threads', 'fs', 'os', 'child_process'],
+                output: {
+                  manualChunks: {
+                    'vendor': ['react', 'react-dom', 'react-router-dom', 'framer-motion'],
+                    'ui': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-toast'],
+                  }
+                }
               },
             },
             resolve: {
               alias: {
+                '@': path.resolve(__dirname, './src'),
                 // Remplacer les modules Node.js par des stubs vides
                 'worker_threads': './src/stubs/empty.js',
                 'path': './src/stubs/empty.js',
                 'fs': './src/stubs/empty.js',
               }
-            }
+            },
+            server: {
+              port: 3000,
+              strictPort: true,
+              host: true
+            },
+            base: '/FloDrama/'
           })
           EOF
           
@@ -398,6 +541,8 @@ jobs:
               }
             };
             
+            export const BASE_DATA_URL = CDN_BASE_URL + '/';
+            
             export default DATA_URLS;
             EOF
           fi
@@ -406,12 +551,16 @@ jobs:
         working-directory: ./Frontend
         run: |
           echo " Construction du frontend..."
+          # Forcer le mode production
+          export NODE_ENV=production
           npm run build
         env:
           REACT_APP_API_ENDPOINT: 'https://d1pbqs2b6em4ha.cloudfront.net'
           REACT_APP_CDN_ENDPOINT: 'https://d1pbqs2b6em4ha.cloudfront.net'
           REACT_APP_ENVIRONMENT: 'production'
           NODE_ENV: 'production'
+          # Ajouter une variable pour forcer la reconstruction complète
+          VITE_FORCE_REBUILD: '$(date +%s)'
           
       - name: Préparation pour GitHub Pages
         working-directory: ./Frontend
@@ -421,75 +570,76 @@ jobs:
           # Création du fichier .nojekyll pour désactiver le processus Jekyll
           touch build/.nojekyll
           
-          # Création d'un fichier 404.html personnalisé si nécessaire
-          if [ ! -f build/404.html ]; then
-            cat > build/404.html << 'EOF'
-            <!DOCTYPE html>
-            <html lang="fr">
-            <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>Page non trouvée - FloDrama</title>
-              <style>
-                body {
-                  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                  background-color: #000000;
-                  color: #FFFFFF;
-                  margin: 0;
-                  padding: 0;
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                  justify-content: center;
-                  min-height: 100vh;
-                  text-align: center;
-                }
-                .container {
-                  max-width: 800px;
-                  padding: 2rem;
-                }
-                h1 {
-                  background: linear-gradient(to right, #3b82f6, #d946ef);
-                  -webkit-background-clip: text;
-                  -webkit-text-fill-color: transparent;
-                  font-size: 3rem;
-                  margin-bottom: 1rem;
-                }
-                p {
-                  font-size: 1.2rem;
-                  margin-bottom: 2rem;
-                }
-                .btn {
-                  display: inline-block;
-                  background: #FFFFFF;
-                  color: #000000;
-                  padding: 0.75rem 1.5rem;
-                  border-radius: 0.5rem;
-                  text-decoration: none;
-                  font-weight: bold;
-                  transition: opacity 0.3s ease;
-                }
-                .btn:hover {
-                  opacity: 0.8;
-                }
-              </style>
-              <script>
-                // Redirection vers la page d'accueil après 5 secondes
-                setTimeout(function() {
-                  window.location.href = '/FloDrama/';
-                }, 5000);
-              </script>
-            </head>
-            <body>
-              <div class="container">
-                <h1>Page non trouvée</h1>
-                <p>La page que vous recherchez n'existe pas ou a été déplacée.</p>
-                <a href="/FloDrama/" class="btn">Retour à l'accueil</a>
-              </div>
-            </body>
-            </html>
-            EOF
-          fi
+          # Création d'un fichier 404.html personnalisé
+          cat > build/404.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="fr">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Page non trouvée - FloDrama</title>
+            <style>
+              body {
+                font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                background-color: #000000;
+                color: #FFFFFF;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                text-align: center;
+              }
+              .container {
+                max-width: 800px;
+                padding: 2rem;
+              }
+              h1 {
+                background: linear-gradient(to right, #3b82f6, #d946ef);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-size: 3rem;
+                margin-bottom: 1rem;
+              }
+              p {
+                font-size: 1.2rem;
+                margin-bottom: 2rem;
+              }
+              .btn {
+                display: inline-block;
+                background: #FFFFFF;
+                color: #000000;
+                padding: 0.75rem 1.5rem;
+                border-radius: 0.5rem;
+                text-decoration: none;
+                font-weight: bold;
+                transition: opacity 0.3s ease;
+              }
+              .btn:hover {
+                opacity: 0.8;
+              }
+            </style>
+            <script>
+              // Redirection vers la page d'accueil après 5 secondes
+              setTimeout(function() {
+                window.location.href = '/FloDrama/';
+              }, 5000);
+            </script>
+          </head>
+          <body>
+            <div class="container">
+              <h1>Page non trouvée</h1>
+              <p>La page que vous recherchez n'existe pas ou a été déplacée.</p>
+              <a href="/FloDrama/" class="btn">Retour à l'accueil</a>
+            </div>
+          </body>
+          </html>
+          EOF
+          
+          # Copier index.html vers 200.html pour le routage SPA
+          cp build/index.html build/200.html
           
       - name: Déploiement sur GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
@@ -497,6 +647,9 @@ jobs:
           folder: Frontend/build
           branch: gh-pages
           clean: true
+          clean-exclude: |
+            .gitignore
+            CNAME
           
       - name: Notification frontend
         run: |
