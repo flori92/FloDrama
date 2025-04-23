@@ -485,13 +485,13 @@ jobs:
       - name: Installation de Surge
         run: npm install -g surge
 
-      - name: Déploiement sur Surge.sh
+      - name: Déploiement sur flodrama.com
         run: |
-          echo "🚀 Déploiement sur Surge.sh..."
+          echo "🚀 Déploiement sur flodrama.com..."
           cd Frontend/dist
-          surge --project ./ --domain flodrama.surge.sh --token ${{ secrets.SURGE_TOKEN }}
+          surge --project ./ --domain flodrama.com --token ${{ secrets.SURGE_TOKEN }}
         env:
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
 
       - name: Notification frontend
-        run: echo "✅ Frontend déployé avec succès sur https://flodrama.surge.sh"
+        run: echo "✅ Frontend déployé avec succès sur https://flodrama.com"

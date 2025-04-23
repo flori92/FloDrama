@@ -12,7 +12,7 @@ FloDrama est une plateforme de streaming qui agrège et organise des contenus pr
 - **Rendu** : Hybride (SSR + CSR)
 - **Styling** : Tailwind CSS
 - **État global** : React Context API + Hooks personnalisés
-- **Déploiement** : Surge.sh (https://flodrama.surge.sh)
+- **Déploiement** : Surge.sh (https://flodrama.com)
 
 ### Backend
 
@@ -97,7 +97,7 @@ FloDrama est une plateforme de streaming qui agrège et organise des contenus pr
 Le déploiement du frontend est automatisé via GitHub Actions. À chaque push sur la branche `main`, le workflow CI/CD :
 
 1. Construit l'application React
-2. Déploie sur Surge.sh à l'adresse https://flodrama.surge.sh
+2. Déploie sur Surge.sh à l'adresse https://flodrama.com
 
 ### Backend
 
@@ -112,4 +112,4 @@ https://7la2pq33ej.execute-api.us-east-1.amazonaws.com/production
 
 ## Licence
 
-Tous droits réservés © 2025 FloDrama
+Tous droits réservés 2025 FloDrama
