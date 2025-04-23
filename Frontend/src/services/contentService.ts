@@ -352,7 +352,7 @@ const getMockContentDetail = (contentId: string): ContentDetail | null => {
 // URL de l'API Gateway AWS
 const API_URL = 'https://7la2pq33ej.execute-api.us-east-1.amazonaws.com/production';
 // URL du proxy CORS (conservée pour compatibilité avec le code existant)
-const PROXY_URL = '';
+const PROXY_URL = 'https://flodrama-cors-proxy.onrender.com/api';
 // Chemin de l'API (vide car nous utilisons directement l'API Gateway)
 const API_PATH = '';
 
@@ -371,8 +371,8 @@ export async function checkBackendAvailability(): Promise<boolean> {
   }
 
   try {
-    // Tenter une requête simple vers le backend
-    const response = await axios.get(`${API_URL}/content?category=drama`, { 
+    // Tenter une requête simple vers le backend via le proxy CORS
+    const response = await axios.get(`${PROXY_URL}/content?category=drama`, { 
       timeout: 5000,  // Timeout de 5 secondes
       validateStatus: (status: number) => status >= 200 && status < 500 // Accepter les codes 2xx et 4xx, mais pas 5xx
     });
@@ -419,8 +419,14 @@ async function apiRequest<T>(url: string, options: AxiosRequestConfig = {}, retr
       throw new Error('Backend indisponible');
     }
 
+    // Vérifier si l'URL commence par http ou https
+    // Si c'est le cas, utiliser l'URL telle quelle, sinon utiliser le proxy CORS
+    const requestUrl = url.startsWith('http') ? url : url.replace(API_URL, PROXY_URL);
+    
+    console.log(`🔄 Requête API: ${requestUrl}`);
+
     // Effectuer la requête avec les options fournies
-    const response = await axios.get<T>(url, { 
+    const response = await axios.get<T>(requestUrl, { 
       timeout: options.timeout || 10000,
       validateStatus: options.validateStatus,
       headers: options.headers,
@@ -428,7 +434,7 @@ async function apiRequest<T>(url: string, options: AxiosRequestConfig = {}, retr
     });
     
     return response.data;
-  } catch (error: unknown) {
+  } catch (error) {
     console.error(`Erreur lors de la requête API: ${url}`, error);
     
     // Analyse détaillée de l'erreur pour le débogage
