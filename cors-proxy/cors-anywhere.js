@@ -90,12 +90,13 @@ app.all('/proxy/*', async (req, res) => {
         const errBody = typeof error.response.data === 'object' ? JSON.stringify(error.response.data) : String(error.response.data);
         console.error('Body erreur AWS (tronqué):', errBody.substring(0, 500));
         
-        // Intercepter les erreurs 500 pour l'endpoint /content et fournir des données de test
+        // Intercepter les erreurs 500 pour l'endpoint /content
+        // Note: path est déjà sans le préfixe /proxy, donc on vérifie directement /content
         if (error.response.status === 500 && path.startsWith('/content')) {
-          console.log('⚠️ Interception erreur 500 pour /content - Fourniture de données de test');
+          console.log('⚠️ Interception erreur 500 pour endpoint content - Fourniture de données de test');
           
-          // Extraire la catégorie depuis l'URL (ex: /content?category=drama)
-          const urlParams = new URL(`http://dummy${req.url}`).searchParams;
+          // Extraire la catégorie depuis l'URL
+          const urlParams = new URL(`http://dummy${path}`).searchParams;
           const category = urlParams.get('category') || 'all';
           console.log(`📦 Catégorie demandée: ${category}`);
           
@@ -161,74 +162,12 @@ app.all('/proxy/*', async (req, res) => {
       }
     }
   } catch (error) {
-    console.error('Erreur proxy:', error.message);
-    // Log détaillé en cas d'erreur HTTP
-    if (error.response) {
-      console.error('Erreur HTTP AWS:', error.response.status, error.response.statusText);
-      console.error('Headers erreur AWS:', error.response.headers);
-      const errBody = typeof error.response.data === 'object' ? JSON.stringify(error.response.data) : String(error.response.data);
-      console.error('Body erreur AWS (tronqué):', errBody.substring(0, 500));
-      
-      // Intercepter les erreurs 500 pour l'endpoint /content et fournir des données de test
-      if (error.response.status === 500 && path.startsWith('/content')) {
-        console.log('⚠️ Interception erreur 500 pour /content - Fourniture de données de test');
-        
-        // Extraire la catégorie depuis l'URL (ex: /content?category=drama)
-        const urlParams = new URL(`http://dummy${req.url}`).searchParams;
-        const category = urlParams.get('category') || 'all';
-        console.log(`📦 Catégorie demandée: ${category}`);
-        
-        // Données de test pour chaque catégorie
-        const mockData = {
-          drama: [
-            { id: "drama-1", title: "The King's Affection", type: "drama", imageUrl: "https://example.com/image1.jpg" },
-            { id: "drama-2", title: "Business Proposal", type: "drama", imageUrl: "https://example.com/image2.jpg" }
-          ],
-          anime: [
-            { id: "anime-1", title: "Attack on Titan", type: "anime", imageUrl: "https://example.com/image3.jpg" },
-            { id: "anime-2", title: "Demon Slayer", type: "anime", imageUrl: "https://example.com/image4.jpg" }
-          ],
-          bollywood: [
-            { id: "bollywood-1", title: "Pathaan", type: "bollywood", imageUrl: "https://example.com/image5.jpg" },
-            { id: "bollywood-2", title: "RRR", type: "bollywood", imageUrl: "https://example.com/image6.jpg" }
-          ],
-          film: [
-            { id: "film-1", title: "The Godfather", type: "film", imageUrl: "https://example.com/image7.jpg" },
-            { id: "film-2", title: "Inception", type: "film", imageUrl: "https://example.com/image8.jpg" }
-          ]
-        };
-        
-        // Renvoyer les données correspondant à la catégorie demandée ou toutes les données
-        const responseData = category === 'all' ? 
-          Object.values(mockData).flat() : 
-          mockData[category] || [];
-        
-        // Ajouter les en-têtes CORS et renvoyer les données de test
-        res.setHeader('Content-Type', 'application/json');
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-        res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
-        res.setHeader('X-Proxy-Fallback', 'true');
-        
-        // Renvoyer un statut 200 avec les données de test
-        return res.status(200).send(responseData);
-      }
-      
-      // Transmettre l'erreur avec le même code de statut que l'API
-      res.status(error.response.status).json({
-        error: `Erreur API (${error.response.status})`,
-        message: errBody.substring(0, 200),
-        timestamp: new Date().toISOString()
-      });
-    } else {
-      // Erreur lors de la configuration de la requête
-      console.error('Erreur de configuration de la requête:', error.message);
-      res.status(500).json({
-        error: 'Erreur de proxy',
-        message: error.message,
-        timestamp: new Date().toISOString()
-      });
-    }
+    console.error('Erreur proxy générale:', error.message);
+    res.status(500).json({
+      error: 'Erreur de proxy générale',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    });
   }
 });
 
