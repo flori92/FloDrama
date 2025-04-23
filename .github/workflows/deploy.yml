@@ -82,12 +82,13 @@ jobs:
         run: |
           echo "🔑 Configuration de l'ID CloudFront..."
           # Le secret sera utilisé s'il existe, sinon la valeur par défaut sera conservée
-          if [ -n "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" ]; then
-            echo "CLOUDFRONT_ID=${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" >> $GITHUB_ENV
+          if [ -n "$CLOUDFRONT_ID" ]; then
             echo "✅ ID CloudFront récupéré depuis les secrets"
           else
             echo "⚠️ Utilisation de l'ID CloudFront par défaut"
           fi
+        env:
+          CLOUDFRONT_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
       
       - name: Exécution du scraping et génération des données
         run: |
@@ -227,20 +228,19 @@ jobs:
           echo "🔄 Tentative d'invalidation du cache CloudFront..."
           
           # Vérifier si le secret est disponible
-          if [ -n "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" ]; then
+          if [ -n "$CLOUDFRONT_ID" ]; then
             # Tenter l'invalidation avec gestion d'erreur
-            if aws cloudfront create-invalidation --distribution-id "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" --paths "/data/*"; then
+            if aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_ID" --paths "/data/*"; then
               echo "✅ Cache CloudFront invalidé avec succès"
             else
               echo "⚠️ Échec de l'invalidation du cache CloudFront"
               echo "⚠️ Vérifiez que l'ID de distribution est correct"
-              # Ne pas faire échouer le workflow pour cette erreur
-              exit 0
             fi
           else
-            echo "⚠️ Aucun ID de distribution CloudFront n'est défini dans les secrets"
-            echo "⚠️ L'invalidation du cache CloudFront est ignorée"
+            echo "⚠️ Aucun ID CloudFront configuré, invalidation ignorée"
           fi
+        env:
+          CLOUDFRONT_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
       
       - name: Génération des fichiers de contenu agrégé
         if: steps.check-s3-content.outputs.HAS_CONTENT == 'true'

@@ -64,14 +64,7 @@ export interface ContentDetail extends ContentItem {
   is_premium?: boolean
 }
 
-// Interface pour les carrousels
-export interface Carousel {
-  title: string
-  type: string
-  items: ContentItem[]
-}
-
-// Interface pour les résultats de recherche avec scraping intelligent
+// Interface pour les réponses de recherche
 export interface SearchResponse {
   results: ContentItem[]
   message?: string
@@ -80,15 +73,22 @@ export interface SearchResponse {
   resultsCount?: number
 }
 
-// Interface pour les demandes de contenu
+// Interface pour les requêtes de contenu
 export interface ContentRequest {
   id: string
-  userId: string
-  query: string
-  status: 'pending' | 'processing' | 'completed'
-  createdAt: string
-  updatedAt: string
-  resultsCount: number
+  userId?: string
+  query?: string
+  status?: 'pending' | 'processing' | 'completed'
+  createdAt?: string
+  updatedAt?: string
+  resultsCount?: number
+}
+
+// Interface pour les carrousels
+export interface Carousel {
+  title: string
+  type: string
+  items: ContentItem[]
 }
 
 // Interface pour les bannières
@@ -358,9 +358,27 @@ async function apiRequest<T>(url: string, retries = 3): Promise<T> {
     const response = await axios.get<T>(url, { timeout: 10000 });
     return response.data;
   } catch (error: any) {
+    console.error(`Erreur lors de la requête API: ${url}`, error);
+    
+    // Analyse détaillée de l'erreur pour le débogage
+    if (error.response) {
+      // Erreur avec réponse du serveur (4xx, 5xx)
+      console.error(`Statut erreur: ${error.response.status}`);
+      console.error('Données erreur:', error.response.data);
+      console.error('Headers erreur:', error.response.headers);
+    } else if (error.request) {
+      // Erreur sans réponse (timeout, problème réseau)
+      console.error('Erreur de connexion, pas de réponse reçue');
+    } else {
+      // Erreur lors de la configuration de la requête
+      console.error('Erreur de configuration:', error.message);
+    }
+    
     if (retries > 0 && error.code !== 'ECONNABORTED') {
-      // Attendre avant de réessayer
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Attendre avant de réessayer (avec backoff exponentiel)
+      const backoffTime = 1000 * Math.pow(2, 3 - retries);
+      console.log(`Nouvelle tentative dans ${backoffTime}ms (${retries} restantes)`);
+      await new Promise(resolve => setTimeout(resolve, backoffTime));
       return apiRequest<T>(url, retries - 1);
     }
     
@@ -378,111 +396,95 @@ async function apiRequest<T>(url: string, retries = 3): Promise<T> {
  */
 export const searchContents = async (query: string, userId?: string): Promise<ContentItem[]> => {
   try {
-    // Vérifier si le backend est disponible
-    const backendAvailable = await checkBackendAvailability();
-    
-    if (backendAvailable) {
-      try {
-        // Construire l'URL avec les paramètres
-        let url = `${API_URL}/search?q=${encodeURIComponent(query)}`;
-        if (userId) {
-          url += `&userId=${encodeURIComponent(userId)}`;
-        }
-        
-        // Tenter de récupérer les données depuis l'API
-        const results = await apiRequest<ContentItem[]>(url);
-        console.log(`✅ ${results.length} résultats de recherche récupérés depuis l'API pour "${query}"`);
-        
-        // Si aucun résultat n'est trouvé, déclencher un scraping ciblé
-        if (results.length === 0) {
-          console.log(`🔍 Aucun résultat trouvé pour "${query}", déclenchement d'un scraping ciblé`);
-          await triggerTargetedScraping(query, userId);
-        }
-        
-        return results;
-      } catch (error) {
-        console.warn(`⚠️ Échec de recherche depuis l'API pour "${query}", fallback sur les données mockées`, error);
-        // Fallback sur les données mockées en cas d'erreur
-        return searchMockContents(query);
+    // En mode développement ou sans connexion, utiliser les données locales
+    if (process.env.NODE_ENV === 'development' || !navigator.onLine) {
+      const results: ContentItem[] = []
+      const types: ContentType[] = ['drama', 'anime', 'bollywood', 'film']
+      
+      // Rechercher dans les données de démonstration
+      for (const type of types) {
+        const typeResults = mockData[type].filter(item => 
+          item.title.toLowerCase().includes(query.toLowerCase()) ||
+          (item.original_title && item.original_title.toLowerCase().includes(query.toLowerCase()))
+        )
+        results.push(...typeResults)
       }
-    } else {
-      console.warn(`⚠️ Backend indisponible, utilisation des données mockées pour la recherche "${query}"`);
-      // Utiliser les données mockées si le backend est indisponible
-      return searchMockContents(query);
+      
+      // Si aucun résultat n'est trouvé, simuler une demande de scraping ciblé
+      if (results.length === 0 && userId) {
+        // Retourner un tableau vide avec un message dans la console
+        console.log(`Aucun résultat trouvé pour "${query}". Nous allons rechercher ce contenu pour vous.`);
+        return [];
+      }
+      
+      return results;
+    }
+    
+    // En production avec connexion, utiliser l'API
+    try {
+      const response = await apiRequest<SearchResponse>(`${API_URL}/search`, 3);
+      // Extraire le tableau de résultats de la réponse
+      return response.results || [];
+    } catch (apiError) {
+      console.warn(`Erreur API pour la recherche "${query}", utilisation des données de démonstration.`)
+      
+      // Rechercher dans les données de démonstration
+      const results: ContentItem[] = []
+      const types: ContentType[] = ['drama', 'anime', 'bollywood', 'film']
+      
+      for (const type of types) {
+        const typeResults = mockData[type].filter(item => 
+          item.title.toLowerCase().includes(query.toLowerCase()) ||
+          (item.original_title && item.original_title.toLowerCase().includes(query.toLowerCase()))
+        )
+        results.push(...typeResults)
+      }
+      
+      return results;
     }
   } catch (error) {
-    console.error(`Erreur lors de la recherche pour "${query}":`, error);
-    return searchMockContents(query);
+    console.error(`Erreur lors de la recherche de contenus:`, error)
+    return [];
   }
 }
 
 /**
- * Déclenche un scraping ciblé pour une requête spécifique
+ * Déclenche un scraping ciblé pour une recherche spécifique
  * @param query Terme de recherche
  * @param userId ID de l'utilisateur (optionnel)
- * @returns Promise<string> ID de la demande de contenu
+ * @returns Promise<string> ID de la requête de scraping
  */
 export const triggerTargetedScraping = async (query: string, userId?: string): Promise<string> => {
   try {
-    // Vérifier si le backend est disponible
-    const backendAvailable = await checkBackendAvailability();
-    
-    if (backendAvailable) {
-      try {
-        // Construire l'URL avec les paramètres
-        let url = `${API_URL}/trigger-scraping?q=${encodeURIComponent(query)}`;
-        if (userId) {
-          url += `&userId=${encodeURIComponent(userId)}`;
-        }
-        
-        // Déclencher le scraping via l'API
-        const response = await axios.post(url);
-        const requestId = response.data.requestId;
-        
-        console.log(`✅ Scraping ciblé déclenché pour "${query}" (ID: ${requestId})`);
-        return requestId;
-      } catch (error) {
-        console.warn(`⚠️ Échec du déclenchement du scraping ciblé pour "${query}"`, error);
-        // Générer un ID fictif en cas d'erreur
-        return `mock-request-${Date.now()}`;
+    // En mode développement, simuler une réponse
+    if (process.env.NODE_ENV === 'development' || !navigator.onLine) {
+      // Simuler un délai pour le traitement
+      const now = new Date();
+      const createdAt = new Date(now.getTime() - 60000); // 1 minute plus tôt
+      
+      // Déterminer le statut en fonction du temps écoulé
+      const timeDiff = now.getTime() - parseInt(query.split('-')[1]);
+      let status: 'pending' | 'processing' | 'completed' = 'pending';
+      let resultsCount = 0;
+      
+      if (timeDiff > 30000) { // Plus de 30 secondes
+        status = 'completed';
+        resultsCount = 3;
+      } else if (timeDiff > 15000) { // Plus de 15 secondes
+        status = 'processing';
       }
-    } else {
-      console.warn(`⚠️ Backend indisponible, impossible de déclencher un scraping ciblé pour "${query}"`);
-      // Générer un ID fictif si le backend est indisponible
-      return `mock-request-${Date.now()}`;
+      
+      // Retourner uniquement l'ID de la requête
+      return `req-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
     }
+    
+    // En production, utiliser l'API
+    const response = await apiRequest<ContentRequest>(`${API_URL}/trigger-scraping?q=${encodeURIComponent(query)}`, 3);
+    return response.id;
   } catch (error) {
-    console.error(`Erreur lors du déclenchement du scraping ciblé pour "${query}":`, error);
+    console.error(`Erreur lors du déclenchement du scraping ciblé pour "${query}":`, error)
     return `mock-request-${Date.now()}`;
   }
-}
-
-/**
- * Recherche dans les données mockées
- * @param query Terme de recherche
- * @returns Résultats de recherche
- */
-const searchMockContents = (query: string): ContentItem[] => {
-  const normalizedQuery = query.toLowerCase();
-  const results: ContentItem[] = [];
-  
-  // Rechercher dans toutes les catégories
-  Object.values(mockData).forEach(categoryItems => {
-    const categoryResults = categoryItems.filter(item => {
-      // Vérifier le titre
-      const titleMatch = item.title.toLowerCase().includes(normalizedQuery);
-      
-      // Vérifier la synopsis si elle existe (dans ContentDetail)
-      const detailItem = item as unknown as ContentDetail;
-      const synopsisMatch = detailItem.synopsis ? 
-        detailItem.synopsis.toLowerCase().includes(normalizedQuery) : false;
-      
-      return titleMatch || synopsisMatch;
-    });
-    results.push(...categoryResults);
-  });
-  
-  return results;
 }
 
 /**
@@ -500,10 +502,38 @@ export const getContentsByCategory = async (category: ContentType): Promise<Cont
         // Tenter de récupérer les données depuis l'API
         const items = await apiRequest<ContentItem[]>(`${API_URL}/content?category=${category}`);
         console.log(`✅ ${items.length} contenus récupérés depuis l'API pour la catégorie ${category}`);
+        
+        // Stocker les données en cache local pour une utilisation hors ligne
+        try {
+          localStorage.setItem(`content_${category}`, JSON.stringify(items));
+          localStorage.setItem(`content_${category}_timestamp`, Date.now().toString());
+        } catch (cacheError) {
+          console.warn('Impossible de mettre en cache les données:', cacheError);
+        }
+        
         return items;
       } catch (error) {
-        console.warn(`⚠️ Échec de récupération depuis l'API pour ${category}, fallback sur les données mockées`, error);
-        // Fallback sur les données mockées en cas d'erreur
+        console.warn(`⚠️ Échec de récupération depuis l'API pour ${category}, vérification du cache local`);
+        
+        // Tenter de récupérer depuis le cache local avant de fallback sur les données mockées
+        try {
+          const cachedData = localStorage.getItem(`content_${category}`);
+          const cacheTimestamp = localStorage.getItem(`content_${category}_timestamp`);
+          
+          if (cachedData && cacheTimestamp) {
+            const cacheAge = Date.now() - parseInt(cacheTimestamp);
+            // Utiliser le cache si moins de 24h
+            if (cacheAge < 24 * 60 * 60 * 1000) {
+              console.log(`📦 Utilisation des données en cache pour ${category} (${Math.round(cacheAge/3600000)}h)`);
+              return JSON.parse(cachedData);
+            }
+          }
+        } catch (cacheError) {
+          console.warn('Erreur lors de la récupération du cache:', cacheError);
+        }
+        
+        // Fallback sur les données mockées en dernier recours
+        console.warn(`⚠️ Aucun cache disponible pour ${category}, utilisation des données mockées`);
         return getMockContentsByCategory(category);
       }
     } else {
