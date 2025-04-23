@@ -40,6 +40,8 @@ export interface ContentDetail extends ContentItem {
   actors: string[]
   director?: string
   episode_count?: number
+  episodes?: number
+  seasons?: number
   duration?: number
   status?: string
   release_date?: string
@@ -252,12 +254,24 @@ function createEmptyContentDetail(contentId: string): ContentDetail {
     rating: 0,
     language: 'fr',
     description: 'Ce contenu n\'est pas disponible actuellement.',
+    synopsis: 'Aucune information disponible.',
+    url: '',
     genres: [],
-    duration: 0,
+    tags: [],
+    actors: [],
+    director: '',
+    episode_count: 0,
     episodes: 0,
     seasons: 0,
+    duration: 0,
     status: 'completed',
-    source: 'unknown'
+    release_date: '',
+    source: 'unknown',
+    streaming_urls: [],
+    trailers: [],
+    images: [],
+    subtitles: [],
+    related_content: []
   };
 }
 
@@ -285,12 +299,48 @@ const getMockContentDetail = (contentId: string): ContentDetail | null => {
   // Convertir ContentItem en ContentDetail
   return {
     ...mockItem,
+    url: `https://example.com/watch/${contentId}`,
     description: `Description détaillée pour ${mockItem.title}. Ce contenu est généré automatiquement à des fins de démonstration.`,
+    synopsis: `Synopsis détaillé pour ${mockItem.title}. Ce contenu est disponible en streaming.`,
     genres: ['Action', 'Drame', 'Romance'],
+    tags: ['Populaire', 'Tendance'],
+    actors: ['Acteur 1', 'Acteur 2', 'Acteur 3'],
+    director: 'Réalisateur',
+    episode_count: source === 'drama' || source === 'anime' ? Math.floor(Math.random() * 24) + 1 : 1,
     duration: Math.floor(Math.random() * 120) + 30,
     episodes: source === 'drama' || source === 'anime' ? Math.floor(Math.random() * 24) + 1 : 0,
     seasons: source === 'drama' || source === 'anime' ? Math.floor(Math.random() * 5) + 1 : 0,
     status: 'completed',
+    release_date: `${mockItem.year}-01-01`,
+    streaming_urls: [
+      {
+        quality: 'HD',
+        url: `https://example.com/stream/${contentId}/hd`,
+        size: '1.2 GB'
+      }
+    ],
+    trailers: [
+      {
+        title: 'Bande-annonce',
+        url: `https://example.com/trailer/${contentId}`,
+        thumbnail: mockItem.poster
+      }
+    ],
+    images: [
+      {
+        url: mockItem.poster,
+        type: 'poster',
+        width: 300,
+        height: 450
+      }
+    ],
+    subtitles: [
+      {
+        language: 'fr',
+        url: `https://example.com/subtitles/${contentId}/fr`
+      }
+    ],
+    related_content: [],
     gallery: [
       mockItem.poster,
       mockItem.poster.replace('.jpg', '-2.jpg'),
@@ -476,6 +526,8 @@ export const searchContents = async (query: string, userId?: string): Promise<Co
  * @returns Promise<string> ID de la requête de scraping
  */
 export const triggerTargetedScraping = async (query: string, userId?: string): Promise<string> => {
+  let requestId = '';
+  
   try {
     // En mode développement, simuler une réponse
     if (process.env.NODE_ENV === 'development' || !navigator.onLine) {
@@ -495,18 +547,20 @@ export const triggerTargetedScraping = async (query: string, userId?: string): P
         status = 'processing';
       }
       
-      // Retourner uniquement l'ID de la requête
-      return `req-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+      // Générer un ID de requête
+      requestId = `req-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+    } else {
+      // En production, utiliser l'API
+      const response = await apiRequest<ContentRequest>(`${API_URL}/trigger-scraping?q=${encodeURIComponent(query)}`, {}, 3);
+      requestId = response.id;
     }
-    
-    // En production, utiliser l'API
-    const response = await apiRequest<ContentRequest>(`${API_URL}/trigger-scraping?q=${encodeURIComponent(query)}`, {}, 3);
-    return response.id;
   } catch (error) {
-    console.error(`Erreur lors du déclenchement du scraping ciblé pour "${query}":`, error)
-    return `mock-request-${Date.now()}`;
+    console.error(`Erreur lors du déclenchement du scraping ciblé pour "${query}":`, error);
+    requestId = `mock-request-${Date.now()}`;
   }
-}
+  
+  return requestId;
+};
 
 /**
  * Récupère les contenus d'une catégorie spécifique
@@ -932,7 +986,7 @@ export async function searchContent(query: string, userId?: string, token?: stri
       
       // Si aucun résultat n'est trouvé, simuler une demande de scraping ciblé
       if (results.length === 0 && userId) {
-        const requestId = `req-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
+        const requestId = `req-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
         return {
           results: [],
           message: `Aucun résultat trouvé pour "${query}". Nous allons rechercher ce contenu pour vous.`,
