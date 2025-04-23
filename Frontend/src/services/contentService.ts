@@ -70,6 +70,7 @@ export interface ContentDetail extends ContentItem {
   }
   popularity_score?: number
   is_premium?: boolean
+  gallery?: string[]
 }
 
 // Interface pour les réponses de recherche
@@ -222,97 +223,80 @@ const mockData: Record<string, ContentItem[]> = {
   ]
 };
 
-// Données de démonstration pour les détails de contenu
+// Constante pour le domaine CloudFront (définie en haut du fichier pour être réutilisée)
+const CLOUDFRONT_DOMAIN = 'https://d1gmx0yvfpqbgd.cloudfront.net';
+
+// Fonction utilitaire pour corriger les URLs des images
+function fixImageUrls<T extends { poster?: string }>(items: T[]): T[] {
+  return items.map(item => {
+    if (item.poster && !item.poster.startsWith('http')) {
+      return {
+        ...item,
+        poster: item.poster.startsWith('/') 
+          ? `${CLOUDFRONT_DOMAIN}${item.poster}`
+          : `${CLOUDFRONT_DOMAIN}/${item.poster}`
+      };
+    }
+    return item;
+  });
+}
+
+// Fonction pour créer un objet ContentDetail vide
+function createEmptyContentDetail(contentId: string): ContentDetail {
+  return {
+    id: contentId,
+    title: 'Contenu non trouvé',
+    original_title: '',
+    poster: '/assets/images/placeholder.jpg',
+    year: new Date().getFullYear(),
+    rating: 0,
+    language: 'fr',
+    description: 'Ce contenu n\'est pas disponible actuellement.',
+    genres: [],
+    duration: 0,
+    episodes: 0,
+    seasons: 0,
+    status: 'completed',
+    source: 'unknown'
+  };
+}
+
+// Fonction pour récupérer les détails d'un contenu mockés
 const getMockContentDetail = (contentId: string): ContentDetail | null => {
   const [source, id] = contentId.split('-');
+  
+  // Chercher dans les données mockées
   let mockItem: ContentItem | undefined;
   
-  // Chercher l'élément dans les données de démonstration
-  Object.values(mockData).forEach(items => {
-    const found = items.find(item => item.id === contentId);
-    if (found) mockItem = found;
-  });
+  if (source === 'drama') {
+    mockItem = mockData.drama.find(item => item.id === contentId);
+  } else if (source === 'anime') {
+    mockItem = mockData.anime.find(item => item.id === contentId);
+  } else if (source === 'film') {
+    mockItem = mockData.film.find(item => item.id === contentId);
+  } else if (source === 'bollywood') {
+    mockItem = mockData.bollywood.find(item => item.id === contentId);
+  }
   
-  if (!mockItem) return null;
+  if (!mockItem) {
+    return null;
+  }
   
+  // Convertir ContentItem en ContentDetail
   return {
     ...mockItem,
-    url: `https://example.com/watch/${contentId}`,
-    description: `Ceci est une description générée pour ${mockItem.title}`,
-    synopsis: `Synopsis détaillé pour ${mockItem.title}. Ce contenu est disponible en streaming.`,
+    description: `Description détaillée pour ${mockItem.title}. Ce contenu est généré automatiquement à des fins de démonstration.`,
     genres: ['Action', 'Drame', 'Romance'],
-    tags: ['Populaire', 'Tendance', '2020s'],
-    actors: ['Acteur 1', 'Acteur 2', 'Acteur 3'],
-    director: 'Réalisateur Célèbre',
-    episode_count: Math.floor(Math.random() * 16) + 1,
-    duration: Math.floor(Math.random() * 120) + 60,
-    status: 'Terminé',
-    release_date: `${mockItem.year}-01-01`,
-    streaming_urls: [
-      {
-        quality: 'HD',
-        url: `https://example.com/stream/${contentId}/hd`,
-        size: '1.2 GB'
-      },
-      {
-        quality: 'SD',
-        url: `https://example.com/stream/${contentId}/sd`,
-        size: '700 MB'
-      }
-    ],
-    trailers: [
-      {
-        title: 'Bande-annonce officielle',
-        url: `https://example.com/trailer/${contentId}`,
-        thumbnail: `https://via.placeholder.com/640x360?text=Trailer+${mockItem.title}`
-      }
-    ],
-    images: [
-      {
-        url: `https://via.placeholder.com/1280x720?text=Scene+${mockItem.title}+1`,
-        type: 'scene',
-        width: 1280,
-        height: 720
-      },
-      {
-        url: `https://via.placeholder.com/1280x720?text=Scene+${mockItem.title}+2`,
-        type: 'scene',
-        width: 1280,
-        height: 720
-      }
-    ],
-    subtitles: [
-      {
-        language: 'fr',
-        url: `https://example.com/subtitles/${contentId}/fr`
-      },
-      {
-        language: 'en',
-        url: `https://example.com/subtitles/${contentId}/en`
-      }
-    ],
-    related_content: [],
-    user_ratings: {
-      average: mockItem.rating,
-      count: Math.floor(Math.random() * 10000) + 1000
-    },
-    popularity_score: Math.random() * 100,
-    is_premium: Math.random() > 0.7
+    duration: Math.floor(Math.random() * 120) + 30,
+    episodes: source === 'drama' || source === 'anime' ? Math.floor(Math.random() * 24) + 1 : 0,
+    seasons: source === 'drama' || source === 'anime' ? Math.floor(Math.random() * 5) + 1 : 0,
+    status: 'completed',
+    gallery: [
+      mockItem.poster,
+      mockItem.poster.replace('.jpg', '-2.jpg'),
+      mockItem.poster.replace('.jpg', '-3.jpg')
+    ]
   };
-};
-
-// Fonction pour récupérer les contenus d'une catégorie
-const getMockContentsByCategory = (category: ContentType): ContentItem[] => {
-  return mockData[category] || [];
-};
-
-// Fonction pour récupérer les détails d'un contenu
-const getMockContentDetails = (contentId: string): ContentDetail => {
-  const contentDetail = getMockContentDetail(contentId);
-  if (!contentDetail) {
-    throw new Error(`Impossible de trouver les détails du contenu ${contentId}`);
-  }
-  return contentDetail;
 };
 
 // URL de l'API Gateway AWS
@@ -500,7 +484,7 @@ export const triggerTargetedScraping = async (query: string, userId?: string): P
       const createdAt = new Date(now.getTime() - 60000); // 1 minute plus tôt
       
       // Déterminer le statut en fonction du temps écoulé
-      const timeDiff = now.getTime() - parseInt(query.split('-')[1]);
+      const timeDiff = now.getTime() - parseInt(query.split('-')[1] || '0');
       let status: 'pending' | 'processing' | 'completed' = 'pending';
       let resultsCount = 0;
       
@@ -579,7 +563,24 @@ export const getContentsByCategory = async (category: ContentType): Promise<Cont
               timeout: 3000,
               validateStatus: (status: number) => status >= 200 && status < 300
             });
-            console.log(`✅ Endpoint trouvé: ${endpoint}`);
+            
+            // Vérifier si les données reçues contiennent des URLs d'images valides
+            if (response && response.length > 0) {
+              console.log(`✅ Endpoint trouvé: ${endpoint}`);
+              console.log(`📊 Données reçues:`, response[0]);
+              
+              // Vérifier si les URLs des images sont complètes
+              const firstItem = response[0];
+              if (firstItem.poster && !firstItem.poster.startsWith('http')) {
+                console.warn(`⚠️ URL d'image incomplète détectée: ${firstItem.poster}`);
+                
+                // Compléter les URLs relatives avec le domaine CloudFront
+                response = fixImageUrls(response);
+                
+                console.log(`🔄 URLs d'images corrigées avec le domaine CloudFront`);
+              }
+            }
+            
             endpointFound = true;
             break;
           } catch (endpointError: any) {
@@ -588,21 +589,18 @@ export const getContentsByCategory = async (category: ContentType): Promise<Cont
           }
         }
         
-        if (!endpointFound) {
-          console.warn(`⚠️ Aucun endpoint n'a fonctionné pour ${category}, utilisation des données mockées`);
-          return mockData[category] || [];
+        if (endpointFound) {
+          console.log('✅ Carousels récupérés depuis l\'API');
+          // Mettre en cache les données récupérées
+          try {
+            localStorage.setItem(`content_${category}`, JSON.stringify(response));
+            localStorage.setItem(`content_${category}_timestamp`, Date.now().toString());
+            console.log(`💾 Données pour ${category} mises en cache`);
+          } catch (cacheError) {
+            console.warn('Impossible de mettre en cache les données:', cacheError);
+          }
+          return response;
         }
-        
-        // Mettre en cache les données récupérées
-        try {
-          localStorage.setItem(`content_${category}`, JSON.stringify(response));
-          localStorage.setItem(`content_${category}_timestamp`, Date.now().toString());
-          console.log(`💾 Données pour ${category} mises en cache`);
-        } catch (cacheError) {
-          console.warn('Impossible de mettre en cache les données:', cacheError);
-        }
-        
-        return response;
       } else {
         console.warn(`⚠️ Backend indisponible, utilisation des données mockées pour ${category}`);
         return mockData[category] || [];
@@ -625,30 +623,86 @@ export const getContentsByCategory = async (category: ContentType): Promise<Cont
  */
 export const getContentDetails = async (contentId: string): Promise<ContentDetail> => {
   try {
-    // Vérifier si le backend est disponible
-    const backendAvailable = await checkBackendAvailability();
-    
-    if (backendAvailable) {
-      try {
-        // Tenter de récupérer les données depuis l'API
-        const item = await apiRequest<ContentDetail>(`${API_URL}/content/${contentId}`);
-        console.log(`✅ Détails du contenu ${contentId} récupérés depuis l'API`);
-        return item;
-      } catch (error) {
-        console.warn(`⚠️ Échec de récupération des détails depuis l'API pour ${contentId}, fallback sur les données mockées`, error);
-        // Fallback sur les données mockées en cas d'erreur
-        return getMockContentDetails(contentId);
+    // Vérifier d'abord s'il existe des données en cache
+    try {
+      const cachedData = localStorage.getItem(`content_detail_${contentId}`);
+      const cacheTimestamp = localStorage.getItem(`content_detail_${contentId}_timestamp`);
+      
+      if (cachedData && cacheTimestamp) {
+        const cacheAge = Date.now() - parseInt(cacheTimestamp);
+        const CACHE_MAX_AGE = 24 * 60 * 60 * 1000; // 24 heures
+        
+        if (cacheAge < CACHE_MAX_AGE) {
+          console.log(`📦 Utilisation du cache local pour le contenu ${contentId} (âge: ${Math.round(cacheAge / 60000)}min)`);
+          return JSON.parse(cachedData);
+        } else {
+          console.log(`🕒 Cache expiré pour le contenu ${contentId}, rafraîchissement...`);
+        }
       }
-    } else {
-      console.warn(`⚠️ Backend indisponible, utilisation des données mockées pour ${contentId}`);
-      // Utiliser les données mockées si le backend est indisponible
-      return getMockContentDetails(contentId);
+    } catch (cacheError) {
+      console.warn('Impossible de lire le cache:', cacheError);
+    }
+    
+    // Tenter de récupérer les données depuis l'API
+    try {
+      // Vérifier si le backend est disponible
+      await checkBackendAvailability();
+      
+      if (isBackendAvailable) {
+        console.log(`🔄 Récupération des détails pour ${contentId} depuis l'API...`);
+        const item = await apiRequest<ContentDetail>(`${API_URL}/content/${contentId}`, {}, 3);
+        
+        // Corriger les URLs des images si nécessaires
+        if (item && item.poster && !item.poster.startsWith('http')) {
+          console.warn(`⚠️ URL d'image incomplète détectée: ${item.poster}`);
+          
+          // Corriger l'URL de l'image principale
+          item.poster = item.poster.startsWith('/') 
+            ? `${CLOUDFRONT_DOMAIN}${item.poster}`
+            : `${CLOUDFRONT_DOMAIN}/${item.poster}`;
+          
+          // Corriger les URLs des images dans la galerie
+          if (item.gallery && item.gallery.length > 0) {
+            item.gallery = item.gallery.map(img => {
+              if (img && !img.startsWith('http')) {
+                return img.startsWith('/') 
+                  ? `${CLOUDFRONT_DOMAIN}${img}`
+                  : `${CLOUDFRONT_DOMAIN}/${img}`;
+              }
+              return img;
+            });
+          }
+          
+          console.log(`🔄 URLs d'images corrigées pour le contenu ${contentId}`);
+        }
+        
+        // Mettre en cache les données récupérées
+        try {
+          localStorage.setItem(`content_detail_${contentId}`, JSON.stringify(item));
+          localStorage.setItem(`content_detail_${contentId}_timestamp`, Date.now().toString());
+          console.log(`💾 Détails pour ${contentId} mis en cache`);
+        } catch (cacheError) {
+          console.warn('Impossible de mettre en cache les données:', cacheError);
+        }
+        
+        return item;
+      } else {
+        console.warn(`⚠️ Backend indisponible, utilisation des données mockées pour ${contentId}`);
+        const mockItem = getMockContentDetail(contentId);
+        return mockItem || createEmptyContentDetail(contentId);
+      }
+    } catch (apiError) {
+      console.error(`Erreur lors de la récupération des données depuis l'API pour ${contentId}:`, apiError);
+      console.warn(`⚠️ Utilisation des données mockées pour ${contentId} (solution de repli)`);
+      const mockItem = getMockContentDetail(contentId);
+      return mockItem || createEmptyContentDetail(contentId);
     }
   } catch (error) {
     console.error(`Erreur lors de la récupération des détails pour ${contentId}:`, error);
-    return getMockContentDetails(contentId);
+    const mockItem = getMockContentDetail(contentId);
+    return mockItem || createEmptyContentDetail(contentId);
   }
-}
+};
 
 /**
  * Récupère les carrousels pour la page d'accueil
@@ -681,6 +735,27 @@ export async function getCarousels(): Promise<Record<string, Carousel>> {
             validateStatus: (status: number) => status >= 200 && status < 300
           });
           console.log(`✅ Endpoint trouvé: ${endpoint}`);
+          
+          // Vérifier et corriger les URLs des images dans les carousels
+          if (response) {
+            console.log(`📊 Données de carousel reçues:`, Object.keys(response));
+            
+            // Parcourir chaque carousel et corriger les URLs des images
+            for (const key in response) {
+              if (response[key] && response[key].items && response[key].items.length > 0) {
+                // Vérifier si les URLs des images sont complètes
+                const firstItem = response[key].items[0];
+                if (firstItem.poster && !firstItem.poster.startsWith('http')) {
+                  console.warn(`⚠️ URL d'image incomplète détectée dans le carousel ${key}: ${firstItem.poster}`);
+                  
+                  // Corriger les URLs des images
+                  response[key].items = fixImageUrls(response[key].items);
+                  console.log(`🔄 URLs d'images corrigées pour le carousel ${key}`);
+                }
+              }
+            }
+          }
+          
           endpointFound = true;
           break;
         } catch (endpointError: any) {
@@ -762,6 +837,22 @@ export async function getHeroBanners(): Promise<HeroBanner> {
             validateStatus: (status: number) => status >= 200 && status < 300
           });
           console.log(`✅ Endpoint trouvé: ${endpoint}`);
+          
+          // Vérifier et corriger les URLs des images dans les bannières
+          if (response && response.banners && response.banners.length > 0) {
+            console.log(`📊 Données de bannières reçues:`, response.banners.length);
+            
+            // Vérifier si les URLs des images sont complètes
+            const firstBanner = response.banners[0];
+            if (firstBanner.poster && !firstBanner.poster.startsWith('http')) {
+              console.warn(`⚠️ URL d'image incomplète détectée dans les bannières: ${firstBanner.poster}`);
+              
+              // Corriger les URLs des images
+              response.banners = fixImageUrls(response.banners);
+              console.log(`🔄 URLs d'images corrigées pour les bannières`);
+            }
+          }
+          
           endpointFound = true;
           return response;
         } catch (endpointError: any) {
