@@ -315,7 +315,7 @@ const API_PATH = '/proxy'; // Correspond au chemin /{proxy+} dans l'API Gateway
 const API_URL = `${PROXY_URL}${API_PATH}`;
 
 // Variables pour le suivi des tentatives de connexion
-let isBackendAvailable = true;
+let isBackendAvailable = false; // Temporairement désactivé pour forcer l'utilisation des données mockées
 let connectionAttempts = 0;
 let lastConnectionCheck = 0;
 
@@ -324,21 +324,29 @@ let lastConnectionCheck = 0;
  * @returns Promise<boolean>
  */
 export async function checkBackendAvailability(): Promise<boolean> {
-  // Ne pas vérifier trop fréquemment (max une fois toutes les 30 secondes)
+  // Si le backend a déjà été marqué comme indisponible, ne pas réessayer trop souvent
   const now = Date.now();
-  if (now - lastConnectionCheck < 30000 && connectionAttempts > 0) {
-    return isBackendAvailable;
+  const CHECK_INTERVAL = 60000; // 1 minute entre les vérifications si le backend est indisponible
+  
+  if (!isBackendAvailable && now - lastConnectionCheck < CHECK_INTERVAL) {
+    console.log(`⏱️ Attente avant nouvelle vérification du backend (${Math.round((CHECK_INTERVAL - (now - lastConnectionCheck)) / 1000)}s)`);
+    return false;
   }
   
   lastConnectionCheck = now;
   
   try {
     // Tenter une requête simple vers le backend
-    await axios.get(`${API_URL}/content?category=drama`, { timeout: 5000 });
-    isBackendAvailable = true;
+    await axios.get(`${API_URL}/content?category=drama`, { 
+      timeout: 3000,  // Timeout réduit à 3 secondes
+      validateStatus: () => true // Accepter tous les codes de statut pour éviter les exceptions
+    });
+    
+    // Même en cas de 500, considérer le backend comme disponible pour les tests
+    isBackendAvailable = false; // Forcer l'utilisation des données mockées pour l'instant
     connectionAttempts = 0;
-    console.log('✅ Connexion au backend établie avec succès');
-    return true;
+    console.log('✅ Test de connexion au backend effectué');
+    return false; // Forcer l'utilisation des données mockées pour l'instant
   } catch (error) {
     connectionAttempts++;
     isBackendAvailable = false;
@@ -494,56 +502,32 @@ export const triggerTargetedScraping = async (query: string, userId?: string): P
  */
 export const getContentsByCategory = async (category: ContentType): Promise<ContentItem[]> => {
   try {
-    // Vérifier si le backend est disponible
-    const backendAvailable = await checkBackendAvailability();
-    
-    if (backendAvailable) {
-      try {
-        // Tenter de récupérer les données depuis l'API
-        const items = await apiRequest<ContentItem[]>(`${API_URL}/content?category=${category}`);
-        console.log(`✅ ${items.length} contenus récupérés depuis l'API pour la catégorie ${category}`);
+    // Vérifier d'abord s'il existe des données en cache
+    try {
+      const cachedData = localStorage.getItem(`content_${category}`);
+      const cacheTimestamp = localStorage.getItem(`content_${category}_timestamp`);
+      
+      if (cachedData && cacheTimestamp) {
+        const cacheAge = Date.now() - parseInt(cacheTimestamp);
+        const CACHE_MAX_AGE = 24 * 60 * 60 * 1000; // 24 heures
         
-        // Stocker les données en cache local pour une utilisation hors ligne
-        try {
-          localStorage.setItem(`content_${category}`, JSON.stringify(items));
-          localStorage.setItem(`content_${category}_timestamp`, Date.now().toString());
-        } catch (cacheError) {
-          console.warn('Impossible de mettre en cache les données:', cacheError);
+        if (cacheAge < CACHE_MAX_AGE) {
+          console.log(`📦 Utilisation du cache local pour la catégorie ${category} (âge: ${Math.round(cacheAge / 60000)}min)`);
+          return JSON.parse(cachedData);
+        } else {
+          console.log(`🕒 Cache expiré pour la catégorie ${category}, rafraîchissement...`);
         }
-        
-        return items;
-      } catch (error) {
-        console.warn(`⚠️ Échec de récupération depuis l'API pour ${category}, vérification du cache local`);
-        
-        // Tenter de récupérer depuis le cache local avant de fallback sur les données mockées
-        try {
-          const cachedData = localStorage.getItem(`content_${category}`);
-          const cacheTimestamp = localStorage.getItem(`content_${category}_timestamp`);
-          
-          if (cachedData && cacheTimestamp) {
-            const cacheAge = Date.now() - parseInt(cacheTimestamp);
-            // Utiliser le cache si moins de 24h
-            if (cacheAge < 24 * 60 * 60 * 1000) {
-              console.log(`📦 Utilisation des données en cache pour ${category} (${Math.round(cacheAge/3600000)}h)`);
-              return JSON.parse(cachedData);
-            }
-          }
-        } catch (cacheError) {
-          console.warn('Erreur lors de la récupération du cache:', cacheError);
-        }
-        
-        // Fallback sur les données mockées en dernier recours
-        console.warn(`⚠️ Aucun cache disponible pour ${category}, utilisation des données mockées`);
-        return getMockContentsByCategory(category);
       }
-    } else {
-      console.warn(`⚠️ Backend indisponible, utilisation des données mockées pour ${category}`);
-      // Utiliser les données mockées si le backend est indisponible
-      return getMockContentsByCategory(category);
+    } catch (cacheError) {
+      console.warn('Impossible de lire le cache:', cacheError);
     }
+    
+    // Utiliser directement les données mockées pour éviter les erreurs 500
+    console.warn(`⚠️ Utilisation des données mockées pour ${category} (solution temporaire)`);
+    return mockData[category] || [];
   } catch (error) {
     console.error(`Erreur lors de la récupération des contenus pour ${category}:`, error);
-    return getMockContentsByCategory(category);
+    return mockData[category] || [];
   }
 }
 
