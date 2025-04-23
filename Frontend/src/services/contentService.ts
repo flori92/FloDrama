@@ -334,7 +334,7 @@ export async function checkBackendAvailability(): Promise<boolean> {
   
   try {
     // Tenter une requête simple vers le backend
-    await axios.get(`${API_URL}/content?category=drama`, { timeout: 5000 });
+    await axios.get(`${API_URL}/stream?category=drama`, { timeout: 5000 });
     isBackendAvailable = true;
     connectionAttempts = 0;
     console.log('✅ Connexion au backend établie avec succès');
@@ -498,11 +498,11 @@ export const getContentsByCategory = async (category: ContentType): Promise<Cont
     if (backendAvailable) {
       try {
         // Tenter de récupérer les données depuis l'API
-        const items = await apiRequest<ContentItem[]>(`${API_URL}/content?category=${category}`);
+        const items = await apiRequest<ContentItem[]>(`${API_URL}/stream?category=${category}`);
         console.log(`✅ ${items.length} contenus récupérés depuis l'API pour la catégorie ${category}`);
         return items;
       } catch (error) {
-        console.warn(`⚠️ Échec de récupération des contenus depuis l'API pour ${category}, fallback sur les données mockées`, error);
+        console.warn(`⚠️ Échec de récupération depuis l'API pour ${category}, fallback sur les données mockées`, error);
         // Fallback sur les données mockées en cas d'erreur
         return getMockContentsByCategory(category);
       }
@@ -530,7 +530,7 @@ export const getContentDetails = async (contentId: string): Promise<ContentDetai
     if (backendAvailable) {
       try {
         // Tenter de récupérer les données depuis l'API
-        const item = await apiRequest<ContentDetail>(`${API_URL}/content/${contentId}`);
+        const item = await apiRequest<ContentDetail>(`${API_URL}/stream/${contentId}`);
         console.log(`✅ Détails du contenu ${contentId} récupérés depuis l'API`);
         return item;
       } catch (error) {
