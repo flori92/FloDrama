@@ -1,6 +1,14 @@
 // Service de récupération des contenus depuis les données générées par GitHub Actions
 import axios from 'axios'
 
+// Définition de l'interface AxiosRequestConfig pour éviter les problèmes d'importation
+interface AxiosRequestConfig {
+  timeout?: number;
+  validateStatus?: (status: number) => boolean;
+  headers?: Record<string, string>;
+  [key: string]: any;
+}
+
 // Importation des données statiques (générées par GitHub Actions)
 import metadata from '../data/metadata.json'
 import carousels from '../data/carousels.json'
