@@ -324,23 +324,25 @@ let lastConnectionCheck = 0;
  * @returns Promise<boolean>
  */
 export async function checkBackendAvailability(): Promise<boolean> {
-  // Si le backend a déjà été marqué comme indisponible, ne pas réessayer trop souvent
-  const now = Date.now();
-  const CHECK_INTERVAL = 60000; // 1 minute entre les vérifications si le backend est indisponible
-  
-  if (!isBackendAvailable && now - lastConnectionCheck < CHECK_INTERVAL) {
-    console.log(`⏱️ Attente avant nouvelle vérification du backend (${Math.round((CHECK_INTERVAL - (now - lastConnectionCheck)) / 1000)}s)`);
+  if (typeof window === 'undefined') {
     return false;
   }
-  
-  lastConnectionCheck = now;
-  
+
   try {
     // Tenter une requête simple vers le backend
     const response = await axios.get(`${API_URL}/content?category=drama`, { 
       timeout: 5000,  // Timeout de 5 secondes
-      validateStatus: (status) => status >= 200 && status < 500 // Accepter les codes 2xx et 4xx, mais pas 5xx
+      validateStatus: (status: number) => status >= 200 && status < 500 // Accepter les codes 2xx et 4xx, mais pas 5xx
     });
+    
+    // Si le statut est 404, l'endpoint n'existe pas mais le backend pourrait être disponible
+    // Nous considérons que le backend est disponible pour tenter d'autres endpoints
+    if (response.status === 404) {
+      console.log('⚠️ Endpoint /content non trouvé, mais le backend est considéré comme disponible');
+      isBackendAvailable = true;
+      connectionAttempts = 0;
+      return true;
+    }
     
     // Vérifier si la réponse est valide (code 2xx)
     isBackendAvailable = response.status >= 200 && response.status < 300;
@@ -364,12 +366,25 @@ export async function checkBackendAvailability(): Promise<boolean> {
 /**
  * Effectue une requête API avec gestion des erreurs et retry
  * @param url URL de la requête
+ * @param options Options de la requête axios (optionnel)
  * @param retries Nombre de tentatives restantes
  * @returns Promise<any>
  */
-async function apiRequest<T>(url: string, retries = 3): Promise<T> {
+async function apiRequest<T>(url: string, options: AxiosRequestConfig = {}, retries = 3): Promise<T> {
   try {
-    const response = await axios.get<T>(url, { timeout: 10000 });
+    // Si le backend est indisponible, ne pas tenter la requête
+    if (!isBackendAvailable && retries === 3) {
+      throw new Error('Backend indisponible');
+    }
+
+    // Effectuer la requête avec les options fournies
+    const response = await axios.get<T>(url, { 
+      timeout: options.timeout || 10000,
+      validateStatus: options.validateStatus,
+      headers: options.headers,
+      ...options
+    });
+    
     return response.data;
   } catch (error: unknown) {
     console.error(`Erreur lors de la requête API: ${url}`, error);
@@ -393,7 +408,7 @@ async function apiRequest<T>(url: string, retries = 3): Promise<T> {
       const backoffTime = 1000 * Math.pow(2, 3 - retries);
       console.log(`Nouvelle tentative dans ${backoffTime}ms (${retries} restantes)`);
       await new Promise(resolve => setTimeout(resolve, backoffTime));
-      return apiRequest<T>(url, retries - 1);
+      return apiRequest<T>(url, options, retries - 1);
     }
     
     // Si toutes les tentatives échouent, marquer le backend comme indisponible
@@ -535,7 +550,40 @@ export const getContentsByCategory = async (category: ContentType): Promise<Cont
       
       if (isBackendAvailable) {
         console.log(`🔄 Récupération des données pour ${category} depuis l'API...`);
-        const response = await apiRequest<ContentItem[]>(`${API_URL}/content?category=${category}`, 3);
+        
+        // Essayer plusieurs variantes de chemins d'API possibles
+        const possibleEndpoints = [
+          `/content?category=${category}`,
+          `/contents?category=${category}`,
+          `/api/content?category=${category}`,
+          `/api/contents?category=${category}`,
+          `/${category}`
+        ];
+        
+        let response: ContentItem[] = [];
+        let endpointFound = false;
+        
+        // Essayer chaque endpoint jusqu'à ce qu'un fonctionne
+        for (const endpoint of possibleEndpoints) {
+          try {
+            console.log(`🔍 Tentative avec l'endpoint: ${endpoint}`);
+            response = await apiRequest<ContentItem[]>(`${API_URL}${endpoint}`, {
+              timeout: 3000,
+              validateStatus: (status: number) => status >= 200 && status < 300
+            });
+            console.log(`✅ Endpoint trouvé: ${endpoint}`);
+            endpointFound = true;
+            break;
+          } catch (endpointError: any) {
+            console.warn(`⚠️ Échec avec l'endpoint ${endpoint}: ${endpointError.message || 'Erreur inconnue'}`);
+            continue;
+          }
+        }
+        
+        if (!endpointFound) {
+          console.warn(`⚠️ Aucun endpoint n'a fonctionné pour ${category}, utilisation des données mockées`);
+          return mockData[category] || [];
+        }
         
         // Mettre en cache les données récupérées
         try {
@@ -604,29 +652,55 @@ export async function getCarousels(): Promise<Record<string, Carousel>> {
     await checkBackendAvailability();
     
     if (isBackendAvailable) {
-      try {
-        // Tenter de récupérer les données depuis l'API
-        const apiCarousels = await apiRequest<Record<string, Carousel>>(`${API_URL}/carousels`);
-        console.log('✅ Carrousels récupérés depuis l\'API');
-        return apiCarousels;
-      } catch (error) {
-        console.warn('⚠️ Échec de récupération des carrousels depuis l\'API, fallback sur les données importées ou mockées', error);
+      // Essayer plusieurs variantes de chemins d'API possibles
+      const possibleEndpoints = [
+        `/carousels`,
+        `/carousel`,
+        `/api/carousels`,
+        `/api/carousel`,
+        `/home/carousels`
+      ];
+      
+      let response: Record<string, Carousel> = {};
+      let endpointFound = false;
+      
+      // Essayer chaque endpoint jusqu'à ce qu'un fonctionne
+      for (const endpoint of possibleEndpoints) {
+        try {
+          console.log(`🔍 Tentative avec l'endpoint: ${endpoint}`);
+          response = await apiRequest<Record<string, Carousel>>(`${API_URL}${endpoint}`, {
+            timeout: 3000,
+            validateStatus: (status: number) => status >= 200 && status < 300
+          });
+          console.log(`✅ Endpoint trouvé: ${endpoint}`);
+          endpointFound = true;
+          break;
+        } catch (endpointError: any) {
+          console.warn(`⚠️ Échec avec l'endpoint ${endpoint}: ${endpointError.message || 'Erreur inconnue'}`);
+          continue;
+        }
+      }
+      
+      if (endpointFound) {
+        console.log('✅ Carousels récupérés depuis l\'API');
+        return response;
       }
     }
   } catch (error) {
-    console.error('Erreur lors de la récupération des carrousels:', error);
+    console.error('Erreur lors de la récupération des carousels:', error);
   }
   
-  // Si les données importées sont disponibles, les utiliser
+  console.warn('⚠️ Utilisation des données importées ou mockées pour les carousels (solution de repli)');
+  
+  // Si les données importées sont disponibles et ont le bon format, les utiliser
   if (carousels && Object.keys(carousels).length > 0) {
     return carousels;
   }
   
-  // Fallback sur les données mockées en dernier recours
-  console.warn('⚠️ Utilisation des données mockées pour les carrousels (solution de repli)');
+  // Sinon, utiliser les données mockées
   return {
     featured: {
-      title: "À l'affiche",
+      title: "À la une",
       type: "featured",
       items: mockData.drama
     },
@@ -658,18 +732,45 @@ export async function getHeroBanners(): Promise<HeroBanner> {
     await checkBackendAvailability();
     
     if (isBackendAvailable) {
-      try {
-        // Tenter de récupérer les données depuis l'API
-        const apiBanners = await apiRequest<HeroBanner>(`${API_URL}/hero-banners`);
-        console.log('✅ Bannières récupérées depuis l\'API');
-        return apiBanners;
-      } catch (error) {
-        console.warn('⚠️ Échec de récupération des bannières depuis l\'API, fallback sur les données importées ou mockées', error);
+      // Essayer plusieurs variantes de chemins d'API possibles
+      const possibleEndpoints = [
+        `/hero-banners`,
+        `/hero_banners`,
+        `/banners`,
+        `/api/hero-banners`,
+        `/api/banners`,
+        `/home/banners`
+      ];
+      
+      let response: HeroBanner;
+      let endpointFound = false;
+      
+      // Essayer chaque endpoint jusqu'à ce qu'un fonctionne
+      for (const endpoint of possibleEndpoints) {
+        try {
+          console.log(`🔍 Tentative avec l'endpoint: ${endpoint}`);
+          response = await apiRequest<HeroBanner>(`${API_URL}${endpoint}`, {
+            timeout: 3000,
+            validateStatus: (status: number) => status >= 200 && status < 300
+          });
+          console.log(`✅ Endpoint trouvé: ${endpoint}`);
+          endpointFound = true;
+          return response;
+        } catch (endpointError: any) {
+          console.warn(`⚠️ Échec avec l'endpoint ${endpoint}: ${endpointError.message || 'Erreur inconnue'}`);
+          continue;
+        }
+      }
+      
+      if (!endpointFound) {
+        console.warn('⚠️ Aucun endpoint n\'a fonctionné pour les bannières, utilisation des données importées ou mockées');
       }
     }
   } catch (error) {
     console.error('Erreur lors de la récupération des bannières:', error);
   }
+  
+  console.warn('⚠️ Utilisation des données importées ou mockées pour les bannières (solution de repli)');
   
   // Si les données importées sont vides, générer des données de démonstration
   if (!heroBanners || !heroBanners.banners || heroBanners.banners.length === 0) {
