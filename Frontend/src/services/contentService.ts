@@ -459,7 +459,7 @@ export const searchContents = async (query: string, userId?: string): Promise<Co
     
     // En production avec connexion, utiliser l'API
     try {
-      const response = await apiRequest<SearchResponse>(`${API_URL}/search`, 3);
+      const response = await apiRequest<SearchResponse>(`${API_URL}/search`, {}, 3);
       // Extraire le tableau de résultats de la réponse
       return response.results || [];
     } catch (apiError) {
@@ -516,7 +516,7 @@ export const triggerTargetedScraping = async (query: string, userId?: string): P
     }
     
     // En production, utiliser l'API
-    const response = await apiRequest<ContentRequest>(`${API_URL}/trigger-scraping?q=${encodeURIComponent(query)}`, 3);
+    const response = await apiRequest<ContentRequest>(`${API_URL}/trigger-scraping?q=${encodeURIComponent(query)}`, {}, 3);
     return response.id;
   } catch (error) {
     console.error(`Erreur lors du déclenchement du scraping ciblé pour "${query}":`, error)
@@ -856,7 +856,7 @@ export async function searchContent(query: string, userId?: string, token?: stri
     
     // En production avec connexion, utiliser l'API
     try {
-      const response = await apiRequest<SearchResponse>(`${API_URL}/search`, 3);
+      const response = await apiRequest<SearchResponse>(`${API_URL}/search`, {}, 3);
       return response;
     } catch (apiError) {
       console.warn(`Erreur API pour la recherche "${query}", utilisation des données de démonstration.`)
@@ -919,7 +919,7 @@ export async function getContentRequestStatus(requestId: string, token?: string)
     }
     
     // En production, utiliser l'API
-    const response = await apiRequest<ContentRequest>(`${API_URL}/content-request/${requestId}`, 3);
+    const response = await apiRequest<ContentRequest>(`${API_URL}/content-request/${requestId}`, {}, 3);
     return response;
   } catch (error) {
     console.error(`Erreur lors de la récupération du statut de la demande:`, error)
@@ -972,7 +972,7 @@ export async function getUserNotifications(userId: string, token: string): Promi
     }
     
     // En production, utiliser l'API
-    const response = await apiRequest<any[]>(`${API_URL}/notifications/${userId}`, 3);
+    const response = await apiRequest<any[]>(`${API_URL}/notifications/${userId}`, {}, 3);
     return response;
   } catch (error) {
     console.error(`Erreur lors de la récupération des notifications:`, error)
@@ -995,7 +995,7 @@ export async function markNotificationAsRead(notificationId: string, userId: str
     }
     
     // En production, utiliser l'API
-    await apiRequest(`${API_URL}/notifications/${notificationId}/read`, 3);
+    await apiRequest(`${API_URL}/notifications/${notificationId}/read`, {}, 3);
     return true
   } catch (error) {
     console.error(`Erreur lors du marquage de la notification comme lue:`, error)
@@ -1028,7 +1028,7 @@ export async function getRecommendedContent(userId: string, token: string): Prom
     }
     
     // En production, utiliser l'API
-    const response = await apiRequest<ContentItem[]>(`${API_URL}/recommendations/${userId}`, 3);
+    const response = await apiRequest<ContentItem[]>(`${API_URL}/recommendations/${userId}`, {}, 3);
     return response;
   } catch (error) {
     console.error(`Erreur lors de la récupération des recommandations:`, error)
