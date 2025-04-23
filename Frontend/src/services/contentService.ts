@@ -315,7 +315,7 @@ const PROXY_URL = '';
 const API_PATH = '';
 
 // Variables pour le suivi des tentatives de connexion
-let isBackendAvailable = false; // Temporairement désactivé pour forcer l'utilisation des données mockées
+let isBackendAvailable = true; // Activé par défaut pour tenter de récupérer les données réelles
 let connectionAttempts = 0;
 let lastConnectionCheck = 0;
 
@@ -528,9 +528,34 @@ export const getContentsByCategory = async (category: ContentType): Promise<Cont
       console.warn('Impossible de lire le cache:', cacheError);
     }
     
-    // Utiliser directement les données mockées pour éviter les erreurs 500
-    console.warn(`⚠️ Utilisation des données mockées pour ${category} (solution temporaire)`);
-    return mockData[category] || [];
+    // Tenter de récupérer les données depuis l'API
+    try {
+      // Vérifier si le backend est disponible
+      await checkBackendAvailability();
+      
+      if (isBackendAvailable) {
+        console.log(`🔄 Récupération des données pour ${category} depuis l'API...`);
+        const response = await apiRequest<ContentItem[]>(`${API_URL}/content?category=${category}`, 3);
+        
+        // Mettre en cache les données récupérées
+        try {
+          localStorage.setItem(`content_${category}`, JSON.stringify(response));
+          localStorage.setItem(`content_${category}_timestamp`, Date.now().toString());
+          console.log(`💾 Données pour ${category} mises en cache`);
+        } catch (cacheError) {
+          console.warn('Impossible de mettre en cache les données:', cacheError);
+        }
+        
+        return response;
+      } else {
+        console.warn(`⚠️ Backend indisponible, utilisation des données mockées pour ${category}`);
+        return mockData[category] || [];
+      }
+    } catch (apiError) {
+      console.error(`Erreur lors de la récupération des données depuis l'API pour ${category}:`, apiError);
+      console.warn(`⚠️ Utilisation des données mockées pour ${category} (solution de repli)`);
+      return mockData[category] || [];
+    }
   } catch (error) {
     console.error(`Erreur lors de la récupération des contenus pour ${category}:`, error);
     return mockData[category] || [];
@@ -573,42 +598,82 @@ export const getContentDetails = async (contentId: string): Promise<ContentDetai
  * Récupère les carrousels pour la page d'accueil
  * @returns Liste des carrousels configurés
  */
-export function getCarousels(): Record<string, Carousel> {
-  // Si les données importées sont vides, générer des données de démonstration
-  if (!carousels || Object.keys(carousels).length === 0) {
-    return {
-      featured: {
-        title: "À l'affiche",
-        type: "featured",
-        items: mockData.drama
-      },
-      trending: {
-        title: "Tendances",
-        type: "trending",
-        items: mockData.film
-      },
-      new_releases: {
-        title: "Nouveautés",
-        type: "new_releases",
-        items: mockData.anime
-      },
-      popular: {
-        title: "Populaires",
-        type: "popular",
-        items: mockData.bollywood
+export async function getCarousels(): Promise<Record<string, Carousel>> {
+  try {
+    // Vérifier si le backend est disponible
+    await checkBackendAvailability();
+    
+    if (isBackendAvailable) {
+      try {
+        // Tenter de récupérer les données depuis l'API
+        const apiCarousels = await apiRequest<Record<string, Carousel>>(`${API_URL}/carousels`);
+        console.log('✅ Carrousels récupérés depuis l\'API');
+        return apiCarousels;
+      } catch (error) {
+        console.warn('⚠️ Échec de récupération des carrousels depuis l\'API, fallback sur les données importées ou mockées', error);
       }
     }
+  } catch (error) {
+    console.error('Erreur lors de la récupération des carrousels:', error);
   }
-  return carousels
+  
+  // Si les données importées sont disponibles, les utiliser
+  if (carousels && Object.keys(carousels).length > 0) {
+    return carousels;
+  }
+  
+  // Fallback sur les données mockées en dernier recours
+  console.warn('⚠️ Utilisation des données mockées pour les carrousels (solution de repli)');
+  return {
+    featured: {
+      title: "À l'affiche",
+      type: "featured",
+      items: mockData.drama
+    },
+    trending: {
+      title: "Tendances",
+      type: "trending",
+      items: mockData.film
+    },
+    new_releases: {
+      title: "Nouveautés",
+      type: "new_releases",
+      items: mockData.anime
+    },
+    popular: {
+      title: "Populaires",
+      type: "popular",
+      items: mockData.bollywood
+    }
+  }
 }
 
 /**
  * Récupère les bannières pour le composant HeroBanner
  * @returns Liste des bannières à afficher
  */
-export function getHeroBanners(): HeroBanner {
+export async function getHeroBanners(): Promise<HeroBanner> {
+  try {
+    // Vérifier si le backend est disponible
+    await checkBackendAvailability();
+    
+    if (isBackendAvailable) {
+      try {
+        // Tenter de récupérer les données depuis l'API
+        const apiBanners = await apiRequest<HeroBanner>(`${API_URL}/hero-banners`);
+        console.log('✅ Bannières récupérées depuis l\'API');
+        return apiBanners;
+      } catch (error) {
+        console.warn('⚠️ Échec de récupération des bannières depuis l\'API, fallback sur les données importées ou mockées', error);
+      }
+    }
+  } catch (error) {
+    console.error('Erreur lors de la récupération des bannières:', error);
+  }
+  
   // Si les données importées sont vides, générer des données de démonstration
   if (!heroBanners || !heroBanners.banners || heroBanners.banners.length === 0) {
+    console.warn('⚠️ Utilisation des données mockées pour les bannières (solution de repli)');
     return {
       banners: [
         mockData.drama[0],
