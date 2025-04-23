@@ -1,0 +1,12 @@
+name = "flodrama-cors-proxy"
+type = "javascript"
+account_id = ""
+workers_dev = true
+route = ""
+zone_id = ""
+compatibility_date = "2023-07-10"
+
+[build]
+command = ""
+[build.upload]
+format = "service-worker"
