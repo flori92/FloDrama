@@ -9,6 +9,8 @@ on:
 
 jobs:
   deploy:
+    permissions:
+      contents: write  # Donne les droits d'écriture sur le contenu du dépôt
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
