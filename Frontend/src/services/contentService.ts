@@ -307,8 +307,12 @@ const getMockContentDetails = (contentId: string): ContentDetail => {
   return contentDetail;
 };
 
-// Configuration de l'API
-const API_URL = 'https://flodrama-cors-proxy.onrender.com/api';
+// URL du proxy CORS
+const PROXY_URL = 'https://flodrama-cors-proxy.onrender.com';
+// Chemin de l'API (selon la configuration AWS API Gateway)
+const API_PATH = '/proxy'; // Correspond au chemin /{proxy+} dans l'API Gateway
+// URL complète de l'API
+const API_URL = `${PROXY_URL}${API_PATH}`;
 
 // Variables pour le suivi des tentatives de connexion
 let isBackendAvailable = true;
