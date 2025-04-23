@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Configuration de l'API cible
-const API_HOST = 'https://45ipnitfag.execute-api.us-east-1.amazonaws.com/production';
+const API_HOST = 'https://7la2pq33ej.execute-api.us-east-1.amazonaws.com/production';
 const ALLOWED_ORIGINS = ['https://flori92.github.io', 'https://flodrama.com', 'http://localhost:3000', 'http://localhost:5173'];
 
 // Configuration CORS
@@ -34,10 +34,10 @@ app.use((req, res, next) => {
 });
 
 // Route principale pour le proxy
-app.all('/api/*', async (req, res) => {
+app.all('/proxy/*', async (req, res) => {
   try {
     // Extraire le chemin de l'API
-    const path = req.url.replace(/^\/api/, '');
+    const path = req.url.replace(/^\/proxy/, '');
     const url = `${API_HOST}${path}`;
     
     console.log(`Proxying request to: ${url}`);
