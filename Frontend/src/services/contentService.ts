@@ -307,12 +307,12 @@ const getMockContentDetails = (contentId: string): ContentDetail => {
   return contentDetail;
 };
 
-// URL du proxy CORS
-const PROXY_URL = 'https://flodrama-cors-proxy.onrender.com';
-// Chemin de l'API (selon la configuration AWS API Gateway)
-const API_PATH = '/proxy'; // Correspond au chemin /{proxy+} dans l'API Gateway
-// URL complète de l'API
-const API_URL = `${PROXY_URL}${API_PATH}`;
+// URL de l'API Gateway AWS
+const API_URL = 'https://7la2pq33ej.execute-api.us-east-1.amazonaws.com/production';
+// URL du proxy CORS (conservée pour compatibilité avec le code existant)
+const PROXY_URL = '';
+// Chemin de l'API (vide car nous utilisons directement l'API Gateway)
+const API_PATH = '';
 
 // Variables pour le suivi des tentatives de connexion
 let isBackendAvailable = false; // Temporairement désactivé pour forcer l'utilisation des données mockées
@@ -337,20 +337,26 @@ export async function checkBackendAvailability(): Promise<boolean> {
   
   try {
     // Tenter une requête simple vers le backend
-    await axios.get(`${API_URL}/content?category=drama`, { 
-      timeout: 3000,  // Timeout réduit à 3 secondes
-      validateStatus: () => true // Accepter tous les codes de statut pour éviter les exceptions
+    const response = await axios.get(`${API_URL}/content?category=drama`, { 
+      timeout: 5000,  // Timeout de 5 secondes
+      validateStatus: (status) => status >= 200 && status < 500 // Accepter les codes 2xx et 4xx, mais pas 5xx
     });
     
-    // Même en cas de 500, considérer le backend comme disponible pour les tests
-    isBackendAvailable = false; // Forcer l'utilisation des données mockées pour l'instant
+    // Vérifier si la réponse est valide (code 2xx)
+    isBackendAvailable = response.status >= 200 && response.status < 300;
     connectionAttempts = 0;
-    console.log('✅ Test de connexion au backend effectué');
-    return false; // Forcer l'utilisation des données mockées pour l'instant
-  } catch (error) {
+    
+    if (isBackendAvailable) {
+      console.log('✅ Connexion au backend établie avec succès');
+    } else {
+      console.warn(`⚠️ Le backend a répondu avec le code ${response.status}`);
+    }
+    
+    return isBackendAvailable;
+  } catch (error: unknown) {
     connectionAttempts++;
     isBackendAvailable = false;
-    console.warn(`❌ Échec de connexion au backend (tentative ${connectionAttempts})`);
+    console.warn(`❌ Échec de connexion au backend (tentative ${connectionAttempts}): ${error instanceof Error ? error.message : 'Erreur inconnue'}`);
     return false;
   }
 }
@@ -365,24 +371,24 @@ async function apiRequest<T>(url: string, retries = 3): Promise<T> {
   try {
     const response = await axios.get<T>(url, { timeout: 10000 });
     return response.data;
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error(`Erreur lors de la requête API: ${url}`, error);
     
     // Analyse détaillée de l'erreur pour le débogage
-    if (error.response) {
+    if (error instanceof Error) {
       // Erreur avec réponse du serveur (4xx, 5xx)
-      console.error(`Statut erreur: ${error.response.status}`);
-      console.error('Données erreur:', error.response.data);
-      console.error('Headers erreur:', error.response.headers);
-    } else if (error.request) {
+      console.error(`Statut erreur: ${error.message}`);
+      console.error('Données erreur:', error);
+      console.error('Headers erreur:', error);
+    } else if (axios.isAxiosError(error)) {
       // Erreur sans réponse (timeout, problème réseau)
       console.error('Erreur de connexion, pas de réponse reçue');
     } else {
       // Erreur lors de la configuration de la requête
-      console.error('Erreur de configuration:', error.message);
+      console.error('Erreur de configuration:', error);
     }
     
-    if (retries > 0 && error.code !== 'ECONNABORTED') {
+    if (retries > 0 && !(error instanceof Error && error.message.includes('ECONNABORTED'))) {
       // Attendre avant de réessayer (avec backoff exponentiel)
       const backoffTime = 1000 * Math.pow(2, 3 - retries);
       console.log(`Nouvelle tentative dans ${backoffTime}ms (${retries} restantes)`);

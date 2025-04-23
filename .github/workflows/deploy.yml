@@ -478,16 +478,20 @@ jobs:
             cp Frontend/public/waiting-page.html Frontend/dist/index.html
             echo "✅ Page d'attente copiée avec succès dans Frontend/dist/index.html"
           else
-            echo "<html><head><title>FloDrama</title></head><body style='background:#121118;color:white;font-family:sans-serif;text-align:center;padding-top:50px;'><h1 style='color:#3b82f6;'>FloDrama</h1><p>Site en cours de déploiement</p></body></html>" > Frontend/dist/index.html
+            echo "<html><head><title>FloDrama - Site en maintenance</title></head><body style='background:#121118;color:white;font-family:sans-serif;text-align:center;padding-top:50px;'><h1 style='color:#3b82f6;'>FloDrama</h1><p>Site en cours de déploiement - Merci de votre patience</p></body></html>" > Frontend/dist/index.html
             echo "⚠️ Page d'attente simplifiée créée dans Frontend/dist/index.html"
           fi
 
-      - name: Déploiement sur GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: Frontend/dist
-          branch: gh-pages
-          clean: true
+      - name: Installation de Surge
+        run: npm install -g surge
+
+      - name: Déploiement sur Surge.sh
+        run: |
+          echo "🚀 Déploiement sur Surge.sh..."
+          cd Frontend/dist
+          surge --project ./ --domain flodrama.surge.sh --token ${{ secrets.SURGE_TOKEN }}
+        env:
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
 
       - name: Notification frontend
-        run: echo "Frontend déployé avec succès sur GitHub Pages depuis Frontend/dist" 
+        run: echo "✅ Frontend déployé avec succès sur https://flodrama.surge.sh"
