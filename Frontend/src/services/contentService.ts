@@ -654,6 +654,10 @@ export const getContentsByCategory = async (category: ContentType): Promise<Cont
             console.warn('Impossible de mettre en cache les données:', cacheError);
           }
           return response;
+        } else {
+          // Aucun endpoint n'a fonctionné, utiliser les données mockées
+          console.warn(`⚠️ Aucun endpoint API valide trouvé pour ${category}, utilisation des données mockées`);
+          return mockData[category] || [];
         }
       } else {
         console.warn(`⚠️ Backend indisponible, utilisation des données mockées pour ${category}`);
@@ -811,16 +815,15 @@ export async function getCarousels(): Promise<Record<string, Carousel>> {
           }
           
           endpointFound = true;
-          break;
+          return response;
         } catch (endpointError: any) {
           console.warn(`⚠️ Échec avec l'endpoint ${endpoint}: ${endpointError.message || 'Erreur inconnue'}`);
           continue;
         }
       }
       
-      if (endpointFound) {
-        console.log('✅ Carousels récupérés depuis l\'API');
-        return response;
+      if (!endpointFound) {
+        console.warn('⚠️ Aucun endpoint n\'a fonctionné pour les carousels, utilisation des données importées ou mockées');
       }
     }
   } catch (error) {
