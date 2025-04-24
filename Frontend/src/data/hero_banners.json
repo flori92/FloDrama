@@ -1,19 +1,7 @@
 {
   "banners": [
-    {
-      "id": "dramacool-42",
-      "title": "Korean Drama 42",
-      "image": "https://dramacool.cr/images/42.jpg"
-    },
-    {
-      "id": "dpstream-24",
-      "title": "Action Film 24",
-      "image": "https://dpstream.fyi/images/24.jpg"
-    },
-    {
-      "id": "gogoanime-33",
-      "title": "Shonen Anime 33",
-      "image": "https://gogoanime.cl/images/33.jpg"
-    }
+    ,
+    ,
+    
   ]
 }
