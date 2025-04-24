@@ -95,6 +95,44 @@ async function main() {
   const films = generateDemoContent(12, "film");
   const bollywood = generateDemoContent(12, "bollywood");
   
+  // Filtrer les contenus récents (moins de 2 ans) pour la section Tendances
+  const currentYear = 2025;
+  const recentContents = [
+    ...dramas.filter(item => item.year >= currentYear - 2),
+    ...animes.filter(item => item.year >= currentYear - 2),
+    ...films.filter(item => item.year >= currentYear - 2),
+    ...bollywood.filter(item => item.year >= currentYear - 2)
+  ];
+  
+  // S'assurer qu'il y a suffisamment de contenus récents
+  if (recentContents.length < 6) {
+    // Générer des contenus supplémentaires spécifiquement pour les tendances
+    const additionalTrending = [];
+    for (let i = 1; i <= 10; i++) {
+      const categories = ["drama", "anime", "film", "bollywood"];
+      const selectedCategory = categories[Math.floor(Math.random() * categories.length)];
+      const countries = ["Korea", "Japan", "China", "Thailand", "India"];
+      const country = countries[Math.floor(Math.random() * countries.length)];
+      const year = currentYear - Math.floor(Math.random() * 2); // Entre 2023 et 2025
+      const rating = (7.5 + Math.random() * 2.0).toFixed(1);
+      
+      additionalTrending.push({
+        id: `trending-${selectedCategory}-${i}`,
+        title: `${country} ${selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)} Trending ${i}`,
+        original_title: `Trending Title ${i}`,
+        description: `This is a trending ${selectedCategory} from ${country} released in ${year}.`,
+        poster: `https://via.placeholder.com/300x450?text=${encodeURIComponent('Trending ' + selectedCategory + ' ' + i)}`,
+        year: year,
+        rating: parseFloat(rating),
+        language: selectedCategory === "bollywood" ? "hi" : selectedCategory === "anime" ? "ja" : "ko",
+        type: selectedCategory,
+        genres: ["Action", "Drama", "Romance"],
+        source: "generated"
+      });
+    }
+    recentContents.push(...additionalTrending);
+  }
+  
   // Générer les carrousels
   const carousels = {
     featured: {
@@ -105,7 +143,7 @@ async function main() {
     trending: {
       title: "Tendances",
       type: "trending",
-      items: [...films.slice(0, 6)]
+      items: recentContents.slice(0, 6) // Utiliser uniquement les contenus récents
     },
     new_releases: {
       title: "Nouveautés",
