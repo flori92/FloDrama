@@ -1,18 +1,18 @@
 #!/bin/bash
 
-# Script de configuration CORS pour l'API Gateway FloDrama
+# Script de configuration CORS pour l'API Gateway FloDrama existante
 # Ce script configure les paramètres CORS pour toutes les ressources de l'API Gateway
 
-echo "✨ [CHORE] Configuration CORS pour l'API Gateway FloDrama"
+echo "✨ [CHORE] Configuration CORS pour l'API Gateway FloDrama existante"
 
-# ID de l'API Gateway principale
+# ID de l'API Gateway principale (déjà existante)
 API_ID="7la2pq33ej"
 STAGE_NAME="production"
 REGION="us-east-1"
 DOMAIN="https://flodrama.surge.sh"
 
 # Récupérer toutes les ressources de l'API
-echo "🔍 Récupération des ressources de l'API Gateway..."
+echo "🔍 Récupération des ressources de l'API Gateway existante..."
 RESOURCES=$(aws apigateway get-resources --rest-api-id $API_ID --region $REGION --query "items[*].id" --output json)
 
 # Convertir la sortie JSON en tableau
@@ -29,43 +29,7 @@ for resource_id in "${RESOURCE_IDS[@]}"; do
   
   # Si la ressource n'a pas de méthodes, passer à la suivante
   if [ "$METHODS" == "null" ] || [ -z "$METHODS" ]; then
-    echo "  ℹ️ Aucune méthode pour cette ressource, création d'une méthode OPTIONS..."
-    
-    # Créer une méthode OPTIONS pour cette ressource
-    aws apigateway put-method \
-      --rest-api-id $API_ID \
-      --resource-id $resource_id \
-      --http-method OPTIONS \
-      --authorization-type NONE \
-      --region $REGION
-    
-    # Créer une intégration MOCK pour la méthode OPTIONS
-    aws apigateway put-integration \
-      --rest-api-id $API_ID \
-      --resource-id $resource_id \
-      --http-method OPTIONS \
-      --type MOCK \
-      --request-templates '{"application/json":"{\"statusCode\": 200}"}' \
-      --region $REGION
-    
-    # Configurer la réponse d'intégration
-    aws apigateway put-integration-response \
-      --rest-api-id $API_ID \
-      --resource-id $resource_id \
-      --http-method OPTIONS \
-      --status-code 200 \
-      --response-parameters "{\"method.response.header.Access-Control-Allow-Origin\":\"'$DOMAIN'\",\"method.response.header.Access-Control-Allow-Methods\":\"'GET,POST,PUT,DELETE,OPTIONS'\",\"method.response.header.Access-Control-Allow-Headers\":\"'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'\"}" \
-      --region $REGION
-    
-    # Configurer la réponse de méthode
-    aws apigateway put-method-response \
-      --rest-api-id $API_ID \
-      --resource-id $resource_id \
-      --http-method OPTIONS \
-      --status-code 200 \
-      --response-parameters "{\"method.response.header.Access-Control-Allow-Origin\":true,\"method.response.header.Access-Control-Allow-Methods\":true,\"method.response.header.Access-Control-Allow-Headers\":true}" \
-      --region $REGION
-    
+    echo "  ℹ️ Aucune méthode pour cette ressource, passage à la suivante..."
     continue
   fi
   
@@ -176,13 +140,13 @@ for resource_id in "${RESOURCE_IDS[@]}"; do
 done
 
 # Déployer les modifications
-echo "🚀 Déploiement des modifications..."
+echo "🚀 Déploiement des modifications sur l'API Gateway existante..."
 aws apigateway create-deployment \
   --rest-api-id $API_ID \
   --stage-name $STAGE_NAME \
   --region $REGION
 
-echo "✅ Configuration CORS terminée !"
+echo "✅ Configuration CORS terminée sur l'API Gateway existante!"
 echo "📌 Les requêtes depuis $DOMAIN devraient maintenant être autorisées par l'API Gateway."
 echo ""
 echo "📝 Pour tester la configuration CORS :"
