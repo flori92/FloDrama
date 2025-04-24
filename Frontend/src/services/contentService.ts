@@ -407,8 +407,10 @@ const mockData: Record<string, ContentItem[]> = {
 };
 
 // URL de l'API Gateway AWS
-const API_URL = 'http://localhost:8080';
-// Chemin de l'API (vide car nous utilisons désormais le proxy CORS local)
+const API_URL = typeof window !== 'undefined' && window.location.hostname.endsWith('surge.sh')
+  ? 'https://flodrama-cors-proxy.execute-api.us-east-1.amazonaws.com/production'  // URL du proxy CORS déployé sur AWS
+  : 'http://localhost:8080';  // URL du proxy CORS local pour le développement
+// Chemin de l'API (vide car nous utilisons désormais le proxy CORS)
 const API_PATH = '';
 
 // Variables pour le suivi des tentatives de connexion
