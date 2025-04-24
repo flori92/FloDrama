@@ -138,17 +138,19 @@ jobs:
         run: |
           echo "🔄 Vérification de la distribution CloudFront..."
           
-          if [ -n "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" ]; then
+          if [ -n "$CLOUDFRONT_ID" ]; then
             echo "🔄 Invalidation du cache CloudFront..."
             
             aws cloudfront create-invalidation \
-              --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+              --distribution-id $CLOUDFRONT_ID \
               --paths "/data/*"
             
             echo "✅ Invalidation du cache CloudFront initiée."
           else
             echo "⚠️ Aucun ID CloudFront configuré, invalidation ignorée."
           fi
+        env:
+          CLOUDFRONT_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
 
   # Job de déploiement du frontend
   deploy_frontend:
@@ -225,77 +227,13 @@ jobs:
             echo "✅ La fonction Lambda existe déjà."
             echo "LAMBDA_EXISTS=true" >> $GITHUB_OUTPUT
           else
-            echo "❌ La fonction Lambda n'existe pas."
+            echo "❌ La fonction Lambda n'existe pas et ne peut pas être créée automatiquement."
             echo "LAMBDA_EXISTS=false" >> $GITHUB_OUTPUT
+            echo "⚠️ Veuillez créer manuellement la fonction Lambda via la console AWS."
+            echo "⚠️ Nom de la fonction: ${{ env.LAMBDA_FUNCTION_NAME }}"
+            echo "⚠️ Runtime: nodejs18.x"
+            echo "⚠️ Rôle: ${{ env.IAM_ROLE_NAME }}"
           fi
-      
-      # Création de la fonction Lambda si elle n'existe pas
-      - name: Création de la fonction Lambda
-        if: steps.check-lambda.outputs.LAMBDA_EXISTS == 'false'
-        run: |
-          echo "🔧 Création de la fonction Lambda..."
-          
-          # Création du répertoire pour la fonction Lambda
-          mkdir -p lambda_function
-          
-          # Copie des fichiers de la fonction Lambda
-          cp scripts/lambda_image_optimizer.js lambda_function/index.js
-          cp scripts/lambda_package.json lambda_function/package.json
-          
-          # Installation des dépendances
-          cd lambda_function
-          npm install --production
-          
-          # Création du package ZIP
-          zip -r ../lambda_function.zip .
-          cd ..
-          
-          # Vérification du rôle IAM
-          ROLE_ARN=$(aws iam get-role --role-name ${{ env.IAM_ROLE_NAME }} 2>/dev/null | jq -r '.Role.Arn' || echo "")
-          
-          # Création du rôle IAM s'il n'existe pas
-          if [ -z "$ROLE_ARN" ]; then
-            echo "🔧 Création du rôle IAM..."
-            
-            # Création du fichier de politique de confiance
-            echo '{
-              "Version": "2012-10-17",
-              "Statement": [
-                {
-                  "Effect": "Allow",
-                  "Principal": {
-                    "Service": "lambda.amazonaws.com"
-                  },
-                  "Action": "sts:AssumeRole"
-                }
-              ]
-            }' > trust-policy.json
-            
-            # Création du rôle
-            ROLE_ARN=$(aws iam create-role --role-name ${{ env.IAM_ROLE_NAME }} --assume-role-policy-document file://trust-policy.json --query "Role.Arn" --output text)
-            
-            # Attachement des politiques
-            aws iam attach-role-policy --role-name ${{ env.IAM_ROLE_NAME }} --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess
-            aws iam attach-role-policy --role-name ${{ env.IAM_ROLE_NAME }} --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-            
-            # Attente pour la propagation du rôle
-            echo "⏳ Attente de 10 secondes pour la propagation du rôle IAM..."
-            sleep 10
-          else
-            echo "✅ Utilisation du rôle IAM existant: $ROLE_ARN"
-          fi
-          
-          # Création de la fonction Lambda
-          aws lambda create-function \
-            --function-name ${{ env.LAMBDA_FUNCTION_NAME }} \
-            --zip-file fileb://lambda_function.zip \
-            --handler index.handler \
-            --runtime nodejs18.x \
-            --role $ROLE_ARN \
-            --timeout 30 \
-            --memory-size 1024
-          
-          echo "✅ Fonction Lambda créée avec succès."
       
       # Mise à jour de la fonction Lambda si elle existe déjà
       - name: Mise à jour de la fonction Lambda
@@ -327,7 +265,7 @@ jobs:
       
       # Configuration du déclencheur S3 pour la fonction Lambda
       - name: Configuration du déclencheur S3
-        if: steps.check-lambda.outputs.LAMBDA_EXISTS == 'true' || steps.check-lambda.outputs.LAMBDA_EXISTS == 'false'
+        if: steps.check-lambda.outputs.LAMBDA_EXISTS == 'true'
         run: |
           echo "🔄 Configuration du déclencheur S3 pour la fonction Lambda..."
           
