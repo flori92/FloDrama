@@ -114,7 +114,7 @@ export interface HeroBanner {
 }
 
 // Constante pour le domaine CloudFront (définie en haut du fichier pour être réutilisée)
-const CLOUDFRONT_DOMAIN = 'https://d1gmx0yvfpqbgd.cloudfront.net';
+const CLOUDFRONT_DOMAIN = 'https://d11nnqvjfooahr.cloudfront.net';
 
 // Fonction pour corriger les URLs des images
 function fixImageUrls<T extends { image?: string; poster?: string }>(items: T[]): any[] {
@@ -139,7 +139,7 @@ function fixImageUrls<T extends { image?: string; poster?: string }>(items: T[])
       } 
       // Si l'URL est relative, la compléter avec le domaine CloudFront
       else if (fixedItem.poster.startsWith('/')) {
-        fixedItem.poster = `https://${CLOUDFRONT_DOMAIN}${fixedItem.poster}`;
+        fixedItem.poster = `${CLOUDFRONT_DOMAIN}${fixedItem.poster}`;
       }
       // Sinon, c'est une URL externe, la fonction download_and_upload_image du lambda_handler.py
       // devrait déjà avoir téléchargé cette image et remplacé l'URL par une URL CloudFront
@@ -407,16 +407,23 @@ const mockData: Record<string, ContentItem[]> = {
 };
 
 // URL de l'API Gateway AWS
-const API_URL = 'https://7la2pq33ej.execute-api.us-east-1.amazonaws.com/production';
-// URL du proxy CORS sur AWS (mise à jour pour utiliser l'API Gateway directement)
-const PROXY_URL = API_URL;
-// Chemin de l'API (vide car nous utilisons directement l'API Gateway)
+const API_URL = 'http://localhost:8080';
+// Chemin de l'API (vide car nous utilisons désormais le proxy CORS local)
 const API_PATH = '';
 
 // Variables pour le suivi des tentatives de connexion
 let isBackendAvailable = true; // Activé par défaut pour récupérer les données réelles depuis AWS
 let connectionAttempts = 0;
 let lastConnectionCheck = 0;
+
+// Vérifier si nous sommes en développement local ou en production
+const isLocalDevelopment = typeof window !== 'undefined' && (
+  window.location.hostname === 'localhost' || 
+  window.location.hostname === '127.0.0.1'
+);
+
+// Domaine de l'application en production
+const APP_DOMAIN = 'flodrama.surge.sh';
 
 /**
  * Vérifie si le backend est disponible
@@ -441,9 +448,12 @@ export async function checkBackendAvailability(): Promise<boolean> {
     // Essayer plusieurs endpoints pour vérifier la disponibilité
     const testEndpoints = [
       '/health',
-      '/api/health',
       '/status',
-      '/api/status'
+      '/content/drama',
+      '/content/anime',
+      '/content/film',
+      '/content/bollywood',
+      '/carousels'
     ];
     
     let apiAvailable = false;
@@ -452,77 +462,51 @@ export async function checkBackendAvailability(): Promise<boolean> {
       try {
         console.log(`🔍 Test de l'endpoint: ${API_URL}${endpoint}`);
         const response = await axios.get(`${API_URL}${endpoint}`, { 
-          timeout: 3000,  // Timeout réduit pour accélérer les tests
+          timeout: 5000,  // Timeout augmenté pour donner plus de temps à l'API
           validateStatus: (status: number) => true, // Accepter tous les codes de statut pour le diagnostic
           headers: {
-            'Origin': 'https://flodrama.surge.sh',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Referer': isLocalDevelopment ? 'http://localhost:3002' : `https://${APP_DOMAIN}`
           }
         });
         
         console.log(`📊 Réponse de l'API (${endpoint}): ${response.status}`);
         
-        // Si on obtient une réponse (même 404), l'API est disponible
-        if (response.status !== 0) {
+        // Si on obtient une réponse 200, l'API est disponible
+        if (response.status >= 200 && response.status < 300) {
+          console.log('✅ Connexion au backend établie avec succès');
+          isBackendAvailable = true;
+          connectionAttempts = 0;
+          lastConnectionCheck = now;
+          return true;
+        }
+        
+        // Si on obtient une réponse 403 ou 404, l'API est disponible mais l'endpoint n'existe pas
+        if (response.status === 403 || response.status === 404) {
+          console.log('✅ API Gateway détectée (mais endpoint non trouvé)');
           apiAvailable = true;
-          
-          // Si on obtient un 200, c'est encore mieux
-          if (response.status >= 200 && response.status < 300) {
-            console.log('✅ Connexion au backend établie avec succès');
-            isBackendAvailable = true;
-            connectionAttempts = 0;
-            lastConnectionCheck = now;
-            return true;
-          }
         }
       } catch (endpointError: any) {
         console.warn(`⚠️ Échec avec l'endpoint ${endpoint}: ${endpointError.message || 'Erreur inconnue'}`);
       }
     }
     
-    // Tester un endpoint réel de l'API
-    try {
-      console.log(`🔍 Test d'un endpoint API réel: ${API_URL}/carousels`);
-      const apiResponse = await axios.get(`${API_URL}/carousels`, { 
-        timeout: 5000,
-        validateStatus: (status: number) => true, // Accepter tous les codes pour le diagnostic
-        headers: {
-          'Origin': 'https://flodrama.surge.sh',
-          'Accept': 'application/json'
-        }
-      });
-      
-      console.log(`📊 Réponse de l'API: ${apiResponse.status}`);
-      
-      if (apiResponse.status >= 200 && apiResponse.status < 300) {
-        console.log('✅ Connexion au backend établie avec succès');
-        isBackendAvailable = true;
-        connectionAttempts = 0;
-        lastConnectionCheck = now;
-        return true;
-      } else if (apiResponse.status === 404) {
-        // 404 signifie que l'endpoint n'existe pas, mais l'API est disponible
-        console.log('⚠️ Endpoint /carousels non trouvé, mais l\'API est considérée comme disponible');
-        isBackendAvailable = true;
-        connectionAttempts = 0;
-        lastConnectionCheck = now;
-        return true;
-      } else {
-        console.warn(`⚠️ L'API a répondu avec le code ${apiResponse.status}`);
-        // On considère que le backend est disponible même avec une erreur 4xx
-        // car cela pourrait être dû à un problème d'authentification ou de paramètres
-        isBackendAvailable = apiResponse.status < 500;
-        connectionAttempts = isBackendAvailable ? 0 : connectionAttempts + 1;
-        lastConnectionCheck = now;
-        return isBackendAvailable;
-      }
-    } catch (apiError: any) {
-      console.error(`❌ Échec de connexion à l'API: ${apiError.message || 'Erreur inconnue'}`);
-      isBackendAvailable = false;
-      connectionAttempts++;
+    // Si au moins un endpoint a retourné 403 ou 404, considérer l'API comme disponible
+    if (apiAvailable) {
+      console.log('✅ API Gateway disponible (certains endpoints testés existent)');
+      isBackendAvailable = true;
+      connectionAttempts = 0;
       lastConnectionCheck = now;
-      return false;
+      return true;
     }
+    
+    // Si aucun endpoint n'a fonctionné, marquer le backend comme indisponible
+    console.error('❌ Aucun endpoint API valide trouvé');
+    isBackendAvailable = false;
+    connectionAttempts++;
+    lastConnectionCheck = now;
+    return false;
   } catch (error: unknown) {
     connectionAttempts++;
     isBackendAvailable = false;
@@ -541,27 +525,36 @@ export async function checkBackendAvailability(): Promise<boolean> {
  */
 async function apiRequest<T>(url: string, options: AxiosRequestConfig = {}, retries = 3): Promise<T> {
   try {
-    // Si le backend est indisponible, ne pas tenter la requête
+    // Si le backend est indisponible, lancer une erreur
     if (!isBackendAvailable && retries === 3) {
       throw new Error('Backend indisponible');
     }
 
-    // Utiliser directement l'URL fournie (qui devrait être l'URL de l'API Gateway)
-    const requestUrl = url;
+    console.log(`🔄 Requête API: ${url}`);
     
-    console.log(`🔄 Requête API: ${requestUrl}`);
+    // Configuration des en-têtes pour CORS
+    const headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Referer': isLocalDevelopment ? 'http://localhost:3002' : `https://${APP_DOMAIN}`
+    };
 
     // Effectuer la requête avec les options fournies
-    const response = await axios.get<T>(requestUrl, { 
-      timeout: options.timeout || 10000,
-      validateStatus: options.validateStatus,
+    const response = await axios.get<T>(url, { 
+      timeout: options.timeout || 8000,
+      validateStatus: (status) => status >= 200 && status < 300, // N'accepter que les codes de succès
       headers: {
-        'Origin': 'https://flodrama.surge.sh',
-        'Accept': 'application/json',
-        ...(options.headers || {})
+        ...headers,
+        ...options.headers
       },
+      withCredentials: false, // Ne pas envoyer de cookies pour les requêtes cross-origin
       ...options
     });
+    
+    // Vérifier si la réponse est valide
+    if (response.data === null || response.data === undefined) {
+      throw new Error('Réponse API vide ou invalide');
+    }
     
     return response.data;
   } catch (error) {
@@ -573,9 +566,31 @@ async function apiRequest<T>(url: string, options: AxiosRequestConfig = {}, retr
       console.error(`Statut erreur: ${error.response.status}`);
       console.error('Données erreur:', error.response.data);
       console.error('Headers erreur:', error.response.headers);
+      
+      // Vérifier si c'est une erreur CORS
+      if (error.response.status === 403 || error.message.includes('CORS')) {
+        console.error('⚠️ Erreur CORS détectée. Vérifiez la configuration CORS de l\'API Gateway.');
+        console.error('📝 Domaine de l\'application: ' + (isLocalDevelopment ? 'localhost:3002' : APP_DOMAIN));
+        console.error('📝 URL de l\'API: ' + url);
+        
+        // Si c'est la première tentative, essayer avec une approche différente
+        if (retries === 3) {
+          console.log('🔄 Tentative avec une approche différente...');
+          
+          // Essayer sans les en-têtes personnalisés
+          const newOptions = { ...options };
+          delete newOptions.headers;
+          
+          // Attendre un court instant avant de réessayer
+          await new Promise(resolve => setTimeout(resolve, 500));
+          
+          return apiRequest<T>(url, newOptions, retries - 1);
+        }
+      }
     } else if (axios.isAxiosError(error) && error.request) {
       // Erreur sans réponse (timeout, problème réseau)
       console.error('Erreur de connexion, pas de réponse reçue');
+      console.error('Détails de la requête:', error.request);
     } else {
       // Erreur lors de la configuration de la requête
       console.error('Erreur de configuration:', error);
@@ -603,54 +618,12 @@ async function apiRequest<T>(url: string, options: AxiosRequestConfig = {}, retr
  */
 export const searchContents = async (query: string, userId?: string): Promise<ContentItem[]> => {
   try {
-    // En mode développement ou sans connexion, utiliser les données locales
-    if (process.env.NODE_ENV === 'development' || !navigator.onLine) {
-      const results: ContentItem[] = []
-      const types: ContentType[] = ['drama', 'anime', 'bollywood', 'film']
-      
-      // Rechercher dans les données de démonstration
-      for (const type of types) {
-        const typeResults = mockData[type].filter(item => 
-          item.title.toLowerCase().includes(query.toLowerCase()) ||
-          (item.original_title && item.original_title.toLowerCase().includes(query.toLowerCase()))
-        )
-        results.push(...typeResults)
-      }
-      
-      // Si aucun résultat n'est trouvé, simuler une demande de scraping ciblé
-      if (results.length === 0 && userId) {
-        // Retourner un tableau vide avec un message dans la console
-        console.log(`Aucun résultat trouvé pour "${query}". Nous allons rechercher ce contenu pour vous.`);
-        return [];
-      }
-      
-      return results;
-    }
-    
     // En production avec connexion, utiliser l'API
-    try {
-      const response = await apiRequest<SearchResponse>(`${API_URL}/search`, {}, 3);
-      // Extraire le tableau de résultats de la réponse
-      return response.results || [];
-    } catch (apiError) {
-      console.warn(`Erreur API pour la recherche "${query}", utilisation des données de démonstration.`)
-      
-      // Rechercher dans les données de démonstration
-      const results: ContentItem[] = []
-      const types: ContentType[] = ['drama', 'anime', 'bollywood', 'film']
-      
-      for (const type of types) {
-        const typeResults = mockData[type].filter(item => 
-          item.title.toLowerCase().includes(query.toLowerCase()) ||
-          (item.original_title && item.original_title.toLowerCase().includes(query.toLowerCase()))
-        )
-        results.push(...typeResults)
-      }
-      
-      return results;
-    }
-  } catch (error) {
-    console.error(`Erreur lors de la recherche de contenus:`, error)
+    const response = await apiRequest<SearchResponse>(`${API_URL}/search`, {}, 3);
+    // Extraire le tableau de résultats de la réponse
+    return response.results || [];
+  } catch (apiError) {
+    console.error(`Erreur API pour la recherche "${query}":`, apiError);
     return [];
   }
 }
@@ -662,41 +635,32 @@ export const searchContents = async (query: string, userId?: string): Promise<Co
  * @returns Promise<string> ID de la requête de scraping
  */
 export const triggerTargetedScraping = async (query: string, userId?: string): Promise<string> => {
-  let requestId = '';
-  
   try {
-    // En mode développement, simuler une réponse
-    if (process.env.NODE_ENV === 'development' || !navigator.onLine) {
-      // Simuler un délai pour le traitement
-      const now = new Date();
-      const createdAt = new Date(now.getTime() - 60000); // 1 minute plus tôt
-      
-      // Déterminer le statut en fonction du temps écoulé
-      const timeDiff = now.getTime() - parseInt(query.split('-')[1] || '0');
-      let status: 'pending' | 'processing' | 'completed' = 'pending';
-      let resultsCount = 0;
-      
-      if (timeDiff > 30000) { // Plus de 30 secondes
-        status = 'completed';
-        resultsCount = 3;
-      } else if (timeDiff > 15000) { // Plus de 15 secondes
-        status = 'processing';
-      }
-      
-      // Générer un ID de requête
-      requestId = `req-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
-    } else {
-      // En production, utiliser l'API
-      const response = await apiRequest<ContentRequest>(`${API_URL}/trigger-scraping?q=${encodeURIComponent(query)}`, {}, 3);
-      requestId = response.id;
-    }
+    // En production, utiliser l'API
+    const response = await apiRequest<ContentRequest>(`${API_URL}/trigger-scraping?q=${encodeURIComponent(query)}`, {}, 3);
+    return response.id;
   } catch (error) {
     console.error(`Erreur lors du déclenchement du scraping ciblé pour "${query}":`, error);
-    requestId = `mock-request-${Date.now()}`;
+    return '';
   }
-  
-  return requestId;
 };
+
+/**
+ * Normalise une catégorie pour correspondre aux types d'API
+ * @param category Catégorie à normaliser
+ * @returns Catégorie normalisée
+ */
+function normalizeCategory(category: string): ContentType | string {
+  const mapping: Record<string, ContentType> = {
+    'movies': 'film',
+    'movie': 'film',
+    'films': 'film',
+    'dramas': 'drama',
+    'series': 'drama'
+  };
+  
+  return mapping[category] || category;
+}
 
 /**
  * Récupère les contenus d'une catégorie spécifique
@@ -711,13 +675,14 @@ export const getContentsByCategory = async (category: ContentType): Promise<Cont
     if (isBackendAvailable) {
       console.log(`🔄 Récupération des données pour ${category} depuis l'API...`);
       
+      // Normaliser la catégorie pour l'API
+      const normalizedCategory = normalizeCategory(category);
+      
       // Essayer plusieurs variantes de chemins d'API possibles
       const possibleEndpoints = [
-        `/content/${category}`,
-        `/contents/${category}`,
-        `/api/content/${category}`,
-        `/api/contents/${category}`,
-        `/${category}`
+        `/content/${normalizedCategory}`,
+        `/contents/${normalizedCategory}`,
+        `/${normalizedCategory}`
       ];
       
       let response: ContentItem[] = [];
@@ -728,8 +693,7 @@ export const getContentsByCategory = async (category: ContentType): Promise<Cont
         try {
           console.log(`🔍 Tentative avec l'endpoint: ${endpoint}`);
           response = await apiRequest<ContentItem[]>(`${API_URL}${endpoint}`, {
-            timeout: 5000,
-            validateStatus: (status: number) => status >= 200 && status < 300
+            timeout: 5000
           });
           
           // Vérifier si les données reçues sont valides
@@ -747,10 +711,10 @@ export const getContentsByCategory = async (category: ContentType): Promise<Cont
               
               console.log(`🔄 URLs d'images corrigées pour le contenu ${category}`);
             }
+            
+            endpointFound = true;
+            return response;
           }
-          
-          endpointFound = true;
-          return response;
         } catch (endpointError: any) {
           console.warn(`⚠️ Échec avec l'endpoint ${endpoint}: ${endpointError.message || 'Erreur inconnue'}`);
           continue;
@@ -758,33 +722,25 @@ export const getContentsByCategory = async (category: ContentType): Promise<Cont
       }
       
       if (!endpointFound) {
-        console.warn(`⚠️ Aucun endpoint API valide trouvé pour ${category}, utilisation des données locales`);
+        console.warn(`⚠️ Aucun endpoint API valide trouvé pour ${category}`);
+        throw new Error(`Aucun endpoint API valide trouvé pour ${category}`);
       }
     }
     
     // Si le backend n'est pas disponible ou si aucun endpoint n'a fonctionné, utiliser les données locales
-    console.log(`📊 Utilisation des données locales pour ${category}`);
-    
-    // Vérifier si la catégorie existe dans les données locales
-    if (localData[category] && localData[category].length > 0) {
-      return localData[category];
-    }
-    
-    // Fallback sur les données mockées en dernier recours
-    console.warn(`⚠️ Données locales non disponibles pour ${category}, utilisation des données mockées`);
-    return mockData[category] || [];
+    throw new Error(`Backend indisponible pour récupérer les données de ${category}`);
   } catch (error) {
     console.error(`Erreur lors de la récupération des contenus pour ${category}:`, error);
     
-    // Fallback sur les données locales
+    // Utiliser les données locales uniquement si elles existent
     if (localData[category] && localData[category].length > 0) {
       console.warn(`⚠️ Utilisation des données locales pour ${category} (solution de repli)`);
       return localData[category];
     }
     
-    // Fallback sur les données mockées en dernier recours
-    console.warn(`⚠️ Données locales non disponibles pour ${category}, utilisation des données mockées`);
-    return mockData[category] || [];
+    // Si aucune donnée locale n'est disponible, renvoyer un tableau vide
+    console.error(`❌ Aucune donnée disponible pour ${category}`);
+    return [];
   }
 }
 
@@ -795,97 +751,86 @@ export const getContentsByCategory = async (category: ContentType): Promise<Cont
  */
 export const getContentDetails = async (contentId: string): Promise<ContentDetail> => {
   try {
-    // Vérifier d'abord si nous pouvons trouver les détails dans les données locales
-    const contentIdParts = contentId.split('-');
-    const contentSource = contentIdParts[0]; // Ex: 'dramacool' de 'dramacool-123'
-    const contentType = determineContentTypeFromSource(contentSource);
-    
-    if (contentType && localData[contentType]) {
-      console.log(`🔍 Recherche du contenu ${contentId} dans les données locales de type ${contentType}`);
-      const localItem = localData[contentType].find((item: ContentItem) => item.id === contentId);
-      
-      if (localItem) {
-        console.log(`📄 Contenu ${contentId} trouvé dans les données locales`);
-        
-        // Créer un objet ContentDetail à partir de l'élément trouvé
-        const contentDetail: ContentDetail = {
-          ...localItem,
-          url: localItem.source || `https://flodrama.com/content/${contentId}`,
-          description: '',
-          synopsis: '',
-          genres: [],
-          tags: [],
-          actors: [],
-          director: '',
-          episode_count: 0,
-          duration: 0,
-          episodes: 0,
-          seasons: 0,
-          status: '',
-          release_date: '',
-          source: 'unknown',
-          streaming_urls: [],
-          trailers: [],
-          images: [],
-          subtitles: [],
-          related_content: []
-        };
-        
-        return contentDetail;
-      } else {
-        console.log(`⚠️ Contenu ${contentId} non trouvé dans les données locales`);
-      }
+    if (!contentId) {
+      throw new Error('ID de contenu non spécifié');
     }
+
+    // Vérifier si le backend est disponible
+    const backendAvailable = await checkBackendAvailability();
     
-    // Tenter de récupérer les données depuis l'API
-    try {
-      // Vérifier si le backend est disponible
-      await checkBackendAvailability();
+    if (backendAvailable) {
+      console.log(`🔍 Récupération des détails du contenu: ${contentId}`);
       
-      if (isBackendAvailable) {
-        console.log(`🔄 Récupération des détails pour ${contentId} depuis l'API...`);
-        const item = await apiRequest<ContentDetail>(`${API_URL}/content/${contentId}`, {}, 3);
+      // Récupérer les détails depuis l'API
+      const item = await apiRequest<ContentDetail>(`${API_URL}/content/${contentId}`, {}, 3);
+      
+      // Corriger les URLs des images si nécessaires
+      if (item && item.poster && !item.poster.startsWith('http')) {
+        console.warn(`⚠️ URL d'image incomplète détectée: ${item.poster}`);
         
-        // Corriger les URLs des images si nécessaires
-        if (item && item.poster && !item.poster.startsWith('http')) {
-          console.warn(`⚠️ URL d'image incomplète détectée: ${item.poster}`);
-          
-          // Corriger l'URL de l'image principale
-          item.poster = item.poster.startsWith('/') 
-            ? `${CLOUDFRONT_DOMAIN}${item.poster}`
-            : `${CLOUDFRONT_DOMAIN}/${item.poster}`;
-          
-          // Corriger les URLs des images dans la galerie
-          if (item.gallery && item.gallery.length > 0) {
-            item.gallery = item.gallery.map(img => {
-              if (img && !img.startsWith('http')) {
-                return img.startsWith('/') 
-                  ? `${CLOUDFRONT_DOMAIN}${img}`
-                  : `${CLOUDFRONT_DOMAIN}/${img}`;
-              }
-              return img;
-            });
-          }
-          
-          console.log(`🔄 URLs d'images corrigées pour le contenu ${contentId}`);
+        // Corriger l'URL de l'image principale
+        item.poster = item.poster.startsWith('/') 
+          ? `${CLOUDFRONT_DOMAIN}${item.poster}`
+          : `${CLOUDFRONT_DOMAIN}/${item.poster}`;
+        
+        // Corriger les URLs des images dans la galerie
+        if (item.gallery && item.gallery.length > 0) {
+          item.gallery = item.gallery.map(img => {
+            if (img && !img.startsWith('http')) {
+              return img.startsWith('/') 
+                ? `${CLOUDFRONT_DOMAIN}${img}`
+                : `${CLOUDFRONT_DOMAIN}/${img}`;
+            }
+            return img;
+          });
         }
-        
-        return item;
-      } else {
-        console.warn(`⚠️ Backend indisponible, utilisation des données mockées pour ${contentId}`);
-        const mockItem = getMockContentDetail(contentId);
-        return mockItem || createEmptyContentDetail(contentId);
       }
-    } catch (apiError) {
-      console.error(`Erreur lors de la récupération des données depuis l'API pour ${contentId}:`, apiError);
-      console.warn(`⚠️ Utilisation des données mockées pour ${contentId} (solution de repli)`);
-      const mockItem = getMockContentDetail(contentId);
-      return mockItem || createEmptyContentDetail(contentId);
+      
+      return item;
+    } else {
+      console.warn('⚠️ Backend indisponible, utilisation des données locales');
+      
+      // Déterminer le type de contenu à partir de l'ID
+      const sourcePrefix = contentId.split('-')[0];
+      const contentType = determineContentTypeFromSource(sourcePrefix);
+      
+      if (contentType) {
+        // Rechercher dans les données locales
+        const allItems = localData[contentType];
+        const item = allItems.find(item => item.id === contentId);
+        
+        if (item) {
+          // Créer un objet ContentDetail à partir de l'item trouvé
+          return {
+            ...item,
+            description: `Description de ${item.title}`,
+            synopsis: `Synopsis de ${item.title}`,
+            genres: ['Genre 1', 'Genre 2'],
+            tags: ['Tag 1', 'Tag 2'],
+            actors: ['Acteur 1', 'Acteur 2'],
+            streaming_urls: [],
+            trailers: [],
+            images: [],
+            subtitles: [],
+            url: `https://flodrama.surge.sh/content/${contentType}/${item.id}`
+          };
+        }
+      }
+      
+      // Si aucun contenu local n'est trouvé, essayer les données mockées
+      const mockDetail = getMockContentDetail(contentId);
+      if (mockDetail) {
+        return mockDetail;
+      }
+      
+      // Si aucune donnée n'est disponible, créer un objet vide
+      return createEmptyContentDetail(contentId);
     }
   } catch (error) {
-    console.error(`Erreur lors de la récupération des détails pour ${contentId}:`, error);
-    const mockItem = getMockContentDetail(contentId);
-    return mockItem || createEmptyContentDetail(contentId);
+    console.error(`Erreur lors de la récupération des détails du contenu:`, error);
+    
+    // En cas d'erreur, créer un objet vide
+    return createEmptyContentDetail(contentId);
   }
 };
 
@@ -932,203 +877,63 @@ function determineContentTypeFromSource(source: string): ContentType | undefined
 export async function getCarousels(): Promise<Record<string, Carousel>> {
   try {
     // Vérifier si le backend est disponible
-    await checkBackendAvailability();
+    const backendAvailable = await checkBackendAvailability();
     
-    if (isBackendAvailable) {
-      console.log('🔄 Récupération des carrousels depuis l\'API...');
+    if (backendAvailable) {
+      console.log('🔍 Récupération des carrousels depuis l\'API');
       
-      // Essayer plusieurs variantes de chemins d'API possibles
-      const possibleEndpoints = [
-        '/carousels',
-        '/carousel',
-        '/api/carousels',
-        '/api/carousel',
-        '/home/carousels'
-      ];
-      
-      let response: Record<string, any> = {};
-      let endpointFound = false;
-      
-      // Essayer chaque endpoint jusqu'à ce qu'un fonctionne
-      for (const endpoint of possibleEndpoints) {
-        try {
-          console.log(`🔍 Tentative avec l'endpoint: ${endpoint}`);
-          response = await apiRequest<Record<string, any>>(`${API_URL}${endpoint}`, {
-            timeout: 5000,
-            validateStatus: (status: number) => status >= 200 && status < 300
-          });
+      try {
+        // Récupérer les carrousels depuis l'API
+        const response = await axios.get(`${API_URL}/carousels`, {
+          timeout: 5000,
+          validateStatus: (status: number) => status === 200
+        });
+        
+        if (response.status === 200 && response.data) {
+          console.log('✅ Carrousels récupérés depuis l\'API');
           
-          // Vérifier si les données reçues sont valides
-          if (response && typeof response === 'object' && Object.keys(response).length > 0) {
-            console.log(`✅ Endpoint trouvé: ${endpoint}`);
-            console.log(`📊 Carrousels reçus: ${Object.keys(response).length} éléments`);
-            
-            // Vérifier le format des données et les adapter si nécessaire
-            const carousels: Record<string, Carousel> = {};
-            
-            for (const key in response) {
-              if (Object.prototype.hasOwnProperty.call(response, key)) {
-                const carousel = response[key];
-                
-                // Vérifier si le carousel a le format attendu
-                if (carousel && carousel.items && Array.isArray(carousel.items)) {
-                  console.log(`📊 Carousel "${key}" contient ${carousel.items.length} éléments`);
-                  
-                  // Vérifier si les URLs des images sont complètes
-                  if (carousel.items.length > 0) {
-                    const firstItem = carousel.items[0];
-                    if (firstItem.poster && !firstItem.poster.startsWith('http')) {
-                      console.warn(`⚠️ URL d'image incomplète détectée dans le carousel ${key}: ${firstItem.poster}`);
-                      
-                      // Corriger les URLs des images
-                      carousel.items = fixImageUrls(carousel.items);
-                      
-                      console.log(`🔄 URLs d'images corrigées pour le carousel ${key}`);
-                    }
-                  }
-                  
-                  // Créer un carousel correctement typé
-                  carousels[key] = createCarousel(
-                    carousel.title || key,
-                    carousel.type || 'mixed',
-                    carousel.items
-                  );
-                }
-              }
+          // Traiter les données reçues
+          const carouselsData = response.data;
+          const carousels: Record<string, Carousel> = {};
+          
+          // Parcourir les carrousels et corriger les URLs des images
+          for (const key in carouselsData) {
+            if (Object.prototype.hasOwnProperty.call(carouselsData, key)) {
+              const carousel = carouselsData[key as keyof typeof carouselsData];
+              
+              // Créer un carousel correctement typé
+              carousels[key] = {
+                title: carousel.title,
+                type: carousel.type,
+                items: fixImageUrls(carousel.items)
+              };
             }
-            
-            endpointFound = true;
-            return carousels;
           }
-        } catch (endpointError: any) {
-          console.warn(`⚠️ Échec avec l'endpoint ${endpoint}: ${endpointError.message || 'Erreur inconnue'}`);
-          continue;
-        }
-      }
-      
-      if (!endpointFound) {
-        console.warn(`⚠️ Aucun endpoint API valide trouvé pour les carrousels, utilisation des données locales`);
-      }
-    }
-    
-    // Si le backend n'est pas disponible ou si aucun endpoint n'a fonctionné, utiliser les données locales
-    console.log('📊 Utilisation des données locales pour les carrousels');
-    
-    // Vérifier si les données locales sont disponibles
-    if (carouselsData && typeof carouselsData === 'object' && Object.keys(carouselsData).length > 0) {
-      // Adapter les données au format attendu
-      const carousels: Record<string, Carousel> = {};
-      
-      for (const key in carouselsData) {
-        if (Object.prototype.hasOwnProperty.call(carouselsData, key)) {
-          const carousel = carouselsData[key];
           
-          // Vérifier si le carousel a le format attendu
-          if (carousel && carousel.items && Array.isArray(carousel.items)) {
-            // Corriger les URLs des images si nécessaire
-            const items = fixImageUrls(carousel.items);
-            
-            // Créer un carousel correctement typé
-            carousels[key] = createCarousel(
-              carousel.title || key,
-              carousel.type || 'mixed',
-              items
-            );
-          }
+          return carousels;
         }
+      } catch (apiError) {
+        console.warn('⚠️ Erreur lors de la récupération des carrousels depuis l\'API:', apiError);
       }
-      
-      return carousels;
     }
     
-    // Fallback sur les données mockées en dernier recours
-    console.warn('⚠️ Données locales non disponibles pour les carrousels, utilisation des données mockées');
+    // Si le backend est indisponible ou si la requête a échoué, utiliser les données locales
+    console.warn('⚠️ Utilisation des données locales pour les carrousels (solution de repli)');
     
-    // Créer des carrousels à partir des données mockées
-    const mockCarousels: Record<string, Carousel> = {
-      trending: createCarousel(
-        'Tendances',
-        'trending',
-        [...mockData.drama.slice(0, 3), ...mockData.anime.slice(0, 3), ...mockData.film.slice(0, 3)]
-      ),
-      drama: createCarousel(
-        'Dramas populaires',
-        'drama',
-        mockData.drama
-      ),
-      anime: createCarousel(
-        'Animes à découvrir',
-        'anime',
-        mockData.anime
-      ),
-      film: createCarousel(
-        'Films recommandés',
-        'film',
-        mockData.film
-      )
+    // Créer les carrousels à partir des données locales
+    const carousels: Record<string, Carousel> = {
+      featured: createCarousel('À découvrir', 'featured', localData.drama.slice(0, 5)),
+      trending: createCarousel('Tendances', 'trending', localData.anime.slice(0, 5)),
+      new_releases: createCarousel('Nouveautés', 'new_releases', localData.film.slice(0, 5)),
+      popular: createCarousel('Populaires', 'popular', localData.bollywood.slice(0, 5))
     };
     
-    return mockCarousels;
+    return carousels;
   } catch (error) {
-    console.error('Erreur lors de la récupération des carrousels:', error);
+    console.error('❌ Erreur lors de la récupération des carrousels:', error);
     
-    // Fallback sur les données locales
-    if (carouselsData && typeof carouselsData === 'object' && Object.keys(carouselsData).length > 0) {
-      console.warn('⚠️ Utilisation des données locales pour les carrousels (solution de repli)');
-      
-      // Adapter les données au format attendu
-      const carousels: Record<string, Carousel> = {};
-      
-      for (const key in carouselsData) {
-        if (Object.prototype.hasOwnProperty.call(carouselsData, key)) {
-          const carousel = carouselsData[key];
-          
-          // Vérifier si le carousel a le format attendu
-          if (carousel && carousel.items && Array.isArray(carousel.items)) {
-            // Corriger les URLs des images si nécessaire
-            const items = fixImageUrls(carousel.items);
-            
-            // Créer un carousel correctement typé
-            carousels[key] = createCarousel(
-              carousel.title || key,
-              carousel.type || 'mixed',
-              items
-            );
-          }
-        }
-      }
-      
-      return carousels;
-    }
-    
-    // Fallback sur les données mockées en dernier recours
-    console.warn('⚠️ Données locales non disponibles pour les carrousels, utilisation des données mockées');
-    
-    // Créer des carrousels à partir des données mockées
-    const mockCarousels: Record<string, Carousel> = {
-      trending: createCarousel(
-        'Tendances',
-        'trending',
-        [...mockData.drama.slice(0, 3), ...mockData.anime.slice(0, 3), ...mockData.film.slice(0, 3)]
-      ),
-      drama: createCarousel(
-        'Dramas populaires',
-        'drama',
-        mockData.drama
-      ),
-      anime: createCarousel(
-        'Animes à découvrir',
-        'anime',
-        mockData.anime
-      ),
-      film: createCarousel(
-        'Films recommandés',
-        'film',
-        mockData.film
-      )
-    };
-    
-    return mockCarousels;
+    // En cas d'erreur, renvoyer un objet vide
+    return {};
   }
 }
 
@@ -1170,19 +975,16 @@ function createCarousel(title: string, type: string, items: any[]): Carousel {
 export async function getHeroBanners(): Promise<HeroBanner> {
   try {
     // Vérifier si le backend est disponible
-    await checkBackendAvailability();
+    const backendAvailable = await checkBackendAvailability();
     
-    if (isBackendAvailable) {
-      console.log('🔄 Récupération des bannières depuis l\'API...');
+    if (backendAvailable) {
+      console.log('🔍 Récupération des bannières depuis l\'API...');
       
       // Essayer plusieurs variantes de chemins d'API possibles
       const possibleEndpoints = [
         '/hero_banners',
         '/hero-banners',
-        '/banners',
-        '/api/hero_banners',
-        '/api/hero-banners',
-        '/api/banners'
+        '/banners'
       ];
       
       let response: any = null;
@@ -1225,52 +1027,26 @@ export async function getHeroBanners(): Promise<HeroBanner> {
       }
       
       if (!endpointFound) {
-        console.warn('⚠️ Aucun endpoint API valide trouvé pour les bannières, utilisation des données locales');
+        console.warn('⚠️ Aucun endpoint API valide trouvé pour les bannières');
+        throw new Error('Aucun endpoint API valide trouvé pour les bannières');
       }
     }
     
-    // Si le backend n'est pas disponible ou si aucun endpoint n'a fonctionné, utiliser les données locales
-    console.log('📊 Utilisation des données locales pour les bannières');
-    
-    // Vérifier si les données locales sont disponibles
-    if (heroBannersData && heroBannersData.banners && heroBannersData.banners.length > 0) {
-      // Corriger les URLs des images si nécessaire
-      const banners = fixImageUrls(heroBannersData.banners);
-      return { banners } as HeroBanner;
-    }
-    
-    // Fallback sur les données mockées en dernier recours
-    console.warn('⚠️ Données locales non disponibles pour les bannières, utilisation des données mockées');
-    
-    // Créer des bannières à partir des données mockées
-    const mockBanners = [
-      mockData.drama[0],
-      mockData.anime[0],
-      mockData.film[0]
-    ];
-    
-    return { banners: mockBanners };
+    // Si le backend n'est pas disponible, lancer une erreur
+    throw new Error('Backend indisponible pour récupérer les bannières');
   } catch (error) {
     console.error('Erreur lors de la récupération des bannières:', error);
     
-    // Fallback sur les données locales
+    // Utiliser les données locales uniquement si elles existent
     if (heroBannersData && heroBannersData.banners && heroBannersData.banners.length > 0) {
       console.warn('⚠️ Utilisation des données locales pour les bannières (solution de repli)');
       const banners = fixImageUrls(heroBannersData.banners);
       return { banners } as HeroBanner;
     }
     
-    // Fallback sur les données mockées en dernier recours
-    console.warn('⚠️ Données locales non disponibles pour les bannières, utilisation des données mockées');
-    
-    // Créer des bannières à partir des données mockées
-    const mockBanners = [
-      mockData.drama[0],
-      mockData.anime[0],
-      mockData.film[0]
-    ];
-    
-    return { banners: mockBanners };
+    // Si aucune donnée locale n'est disponible, renvoyer un objet avec un tableau vide
+    console.error('❌ Aucune donnée disponible pour les bannières');
+    return { banners: [] };
   }
 }
 
@@ -1285,56 +1061,9 @@ export async function searchContent(query: string, userId?: string, token?: stri
   if (!query.trim()) return { results: [] }
   
   try {
-    // En mode développement ou sans connexion, utiliser les données locales
-    if (process.env.NODE_ENV === 'development' || !navigator.onLine) {
-      const results: ContentItem[] = []
-      const types: ContentType[] = ['drama', 'anime', 'bollywood', 'film']
-      
-      // Rechercher dans les données de démonstration
-      for (const type of types) {
-        const typeResults = mockData[type].filter(item => 
-          item.title.toLowerCase().includes(query.toLowerCase()) ||
-          (item.original_title && item.original_title.toLowerCase().includes(query.toLowerCase()))
-        )
-        results.push(...typeResults)
-      }
-      
-      // Si aucun résultat n'est trouvé, simuler une demande de scraping ciblé
-      if (results.length === 0 && userId) {
-        const requestId = `req-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
-        return {
-          results: [],
-          message: `Aucun résultat trouvé pour "${query}". Nous allons rechercher ce contenu pour vous.`,
-          requestId,
-          status: 'pending',
-          resultsCount: 0
-        }
-      }
-      
-      return { results }
-    }
-    
     // En production avec connexion, utiliser l'API
-    try {
-      const response = await apiRequest<SearchResponse>(`${API_URL}/search`, {}, 3);
-      return response;
-    } catch (apiError) {
-      console.warn(`Erreur API pour la recherche "${query}", utilisation des données de démonstration.`)
-      
-      // Rechercher dans les données de démonstration
-      const results: ContentItem[] = []
-      const types: ContentType[] = ['drama', 'anime', 'bollywood', 'film']
-      
-      for (const type of types) {
-        const typeResults = mockData[type].filter(item => 
-          item.title.toLowerCase().includes(query.toLowerCase()) ||
-          (item.original_title && item.original_title.toLowerCase().includes(query.toLowerCase()))
-        )
-        results.push(...typeResults)
-      }
-      
-      return { results }
-    }
+    const response = await apiRequest<SearchResponse>(`${API_URL}/search`, {}, 3);
+    return response;
   } catch (error) {
     console.error(`Erreur lors de la recherche de contenus:`, error)
     return { results: [] }
@@ -1349,35 +1078,6 @@ export async function searchContent(query: string, userId?: string, token?: stri
  */
 export async function getContentRequestStatus(requestId: string, token?: string): Promise<ContentRequest | null> {
   try {
-    // En mode développement, simuler une réponse
-    if (process.env.NODE_ENV === 'development' || !navigator.onLine) {
-      // Simuler un délai pour le traitement
-      const now = new Date();
-      const createdAt = new Date(now.getTime() - 60000); // 1 minute plus tôt
-      
-      // Déterminer le statut en fonction du temps écoulé
-      const timeDiff = now.getTime() - parseInt(requestId.split('-')[1]);
-      let status: 'pending' | 'processing' | 'completed' = 'pending';
-      let resultsCount = 0;
-      
-      if (timeDiff > 30000) { // Plus de 30 secondes
-        status = 'completed';
-        resultsCount = 3;
-      } else if (timeDiff > 15000) { // Plus de 15 secondes
-        status = 'processing';
-      }
-      
-      return {
-        id: requestId,
-        userId: 'user123',
-        query: 'Requête simulée',
-        status,
-        createdAt: createdAt.toISOString(),
-        updatedAt: now.toISOString(),
-        resultsCount
-      };
-    }
-    
     // En production, utiliser l'API
     const response = await apiRequest<ContentRequest>(`${API_URL}/content-request/${requestId}`, {}, 3);
     return response;
@@ -1395,42 +1095,6 @@ export async function getContentRequestStatus(requestId: string, token?: string)
  */
 export async function getUserNotifications(userId: string, token: string): Promise<any[]> {
   try {
-    // En mode développement, simuler des notifications
-    if (process.env.NODE_ENV === 'development' || !navigator.onLine) {
-      const now = new Date();
-      
-      return [
-        {
-          id: `notif-${Date.now()}-1`,
-          title: 'Nouveau contenu disponible',
-          message: 'Le drama que vous avez demandé "Sweet Home" est maintenant disponible.',
-          type: 'success',
-          createdAt: new Date(now.getTime() - 3600000).toISOString(), // 1 heure plus tôt
-          read: false,
-          link: '/drama/viki-1005',
-          contentId: 'viki-1005'
-        },
-        {
-          id: `notif-${Date.now()}-2`,
-          title: 'Recherche en cours',
-          message: 'Nous recherchons "Squid Game" dans nos sources. Vous serez notifié dès que nous aurons des résultats.',
-          type: 'info',
-          createdAt: new Date(now.getTime() - 86400000).toISOString(), // 1 jour plus tôt
-          read: true
-        },
-        {
-          id: `notif-${Date.now()}-3`,
-          title: 'Mise à jour de contenu',
-          message: 'De nouveaux épisodes de "Attack on Titan" sont disponibles.',
-          type: 'info',
-          createdAt: new Date(now.getTime() - 259200000).toISOString(), // 3 jours plus tôt
-          read: true,
-          link: '/anime/crunchyroll-2001',
-          contentId: 'crunchyroll-2001'
-        }
-      ];
-    }
-    
     // En production, utiliser l'API
     const response = await apiRequest<any[]>(`${API_URL}/notifications/${userId}`, {}, 3);
     return response;
@@ -1449,11 +1113,6 @@ export async function getUserNotifications(userId: string, token: string): Promi
  */
 export async function markNotificationAsRead(notificationId: string, userId: string, token: string): Promise<boolean> {
   try {
-    // En mode développement, simuler une réponse réussie
-    if (process.env.NODE_ENV === 'development' || !navigator.onLine) {
-      return true;
-    }
-    
     // En production, utiliser l'API
     await apiRequest(`${API_URL}/notifications/${notificationId}/read`, {}, 3);
     return true
@@ -1471,22 +1130,6 @@ export async function markNotificationAsRead(notificationId: string, userId: str
  */
 export async function getRecommendedContent(userId: string, token: string): Promise<ContentItem[]> {
   try {
-    // En mode développement, utiliser des données de démonstration
-    if (process.env.NODE_ENV === 'development' || !navigator.onLine) {
-      // Mélanger les contenus de différentes catégories pour simuler des recommandations
-      const recommendations: ContentItem[] = [
-        ...mockData.drama.slice(0, 1),
-        ...mockData.anime.slice(0, 1),
-        ...mockData.bollywood.slice(0, 1),
-        ...mockData.film.slice(0, 1)
-      ];
-      
-      // Ajouter un délai artificiel pour simuler un appel API
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      return recommendations;
-    }
-    
     // En production, utiliser l'API
     const response = await apiRequest<ContentItem[]>(`${API_URL}/recommendations/${userId}`, {}, 3);
     return response;
@@ -1499,7 +1142,9 @@ export async function getRecommendedContent(userId: string, token: string): Prom
     
     // Récupérer quelques éléments populaires de chaque type
     for (const type of types) {
-      popularItems.push(...mockData[type].slice(0, 1))
+      // Utiliser une assertion de type pour éviter l'erreur de typage
+      const typeItems = mockData[type as keyof typeof mockData] || [];
+      popularItems.push(...typeItems.slice(0, 1))
     }
     
     return popularItems
