@@ -14,7 +14,7 @@ interface ContentGridProps {
 }
 
 interface ContentItem {
-  _id: string;
+  id: string;
   titre: string;
   imageUrl: string;
   type: string;
@@ -97,13 +97,13 @@ const ContentGrid: React.FC<ContentGridProps> = ({ title, category, searchQuery,
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {contentItems.map((item) => (
             <div
-              key={item._id}
+              key={item.id}
               className="relative group cursor-pointer rounded-xl overflow-hidden shadow-lg bg-flo-secondary hover:scale-105 transition-transform duration-300"
-              onClick={() => navigate(`/content/${item._id}`)}
+              onClick={() => navigate(`/content/${item.id}`)}
               tabIndex={0}
               role="button"
               aria-label={`Voir les détails de ${item.titre}`}
-              onKeyPress={e => { if (e.key === 'Enter') navigate(`/content/${item._id}`); }}
+              onKeyPress={e => { if (e.key === 'Enter') navigate(`/content/${item.id}`); }}
               data-trailer-url={item.trailerUrl || ''}
               {...trailerPreview.bind}
             >
@@ -117,25 +117,25 @@ const ContentGrid: React.FC<ContentGridProps> = ({ title, category, searchQuery,
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end items-center p-2 gap-2">
                   <div className="flex gap-3 justify-center">
                     <button
-                      className={`p-2 rounded-full bg-black/60 hover:bg-flo-violet ${isLiked(item._id, item.genres) ? 'text-flo-fuchsia' : 'text-flo-white'}`}
-                      onClick={e => { e.stopPropagation(); handleLike(item._id, item.genres); }}
-                      aria-label={isLiked(item._id, item.genres) ? 'Retirer le like' : 'Liker'}
+                      className={`p-2 rounded-full bg-black/60 hover:bg-flo-violet ${isLiked(item.id, item.genres) ? 'text-flo-fuchsia' : 'text-flo-white'}`}
+                      onClick={e => { e.stopPropagation(); handleLike(item.id, item.genres); }}
+                      aria-label={isLiked(item.id, item.genres) ? 'Retirer le like' : 'Liker'}
                     >
-                      <Heart fill={isLiked(item._id, item.genres) ? '#d946ef' : 'none'} />
+                      <Heart fill={isLiked(item.id, item.genres) ? '#d946ef' : 'none'} />
                     </button>
                     <button
-                      className={`p-2 rounded-full bg-black/60 hover:bg-flo-blue ${isDisliked(item._id, item.genres) ? 'text-flo-blue' : 'text-flo-white'}`}
-                      onClick={e => { e.stopPropagation(); handleDislike(item._id, item.genres); }}
-                      aria-label={isDisliked(item._id, item.genres) ? 'Retirer le dislike' : 'Disliker'}
+                      className={`p-2 rounded-full bg-black/60 hover:bg-flo-blue ${isDisliked(item.id, item.genres) ? 'text-flo-blue' : 'text-flo-white'}`}
+                      onClick={e => { e.stopPropagation(); handleDislike(item.id, item.genres); }}
+                      aria-label={isDisliked(item.id, item.genres) ? 'Retirer le dislike' : 'Disliker'}
                     >
-                      <ThumbsDown fill={isDisliked(item._id, item.genres) ? '#3b82f6' : 'none'} />
+                      <ThumbsDown fill={isDisliked(item.id, item.genres) ? '#3b82f6' : 'none'} />
                     </button>
                     <button
-                      className={`p-2 rounded-full bg-black/60 hover:bg-flo-gold ${isFavorite(item._id) ? 'text-flo-gold' : 'text-flo-white'}`}
-                      onClick={e => { e.stopPropagation(); handleFavorite(item._id); }}
-                      aria-label={isFavorite(item._id) ? 'Retirer des favoris' : 'Ajouter aux favoris'}
+                      className={`p-2 rounded-full bg-black/60 hover:bg-flo-gold ${isFavorite(item.id) ? 'text-flo-gold' : 'text-flo-white'}`}
+                      onClick={e => { e.stopPropagation(); handleFavorite(item.id); }}
+                      aria-label={isFavorite(item.id) ? 'Retirer des favoris' : 'Ajouter aux favoris'}
                     >
-                      <Star fill={isFavorite(item._id) ? '#FFD700' : 'none'} />
+                      <Star fill={isFavorite(item.id) ? '#FFD700' : 'none'} />
                     </button>
                   </div>
                   {/* Trailer preview */}
