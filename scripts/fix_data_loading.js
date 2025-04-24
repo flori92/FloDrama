@@ -40,12 +40,24 @@ function generateDemoContent(count = 20, category) {
     const year = 2010 + Math.floor(Math.random() * 15);
     const rating = (3.5 + Math.random() * 6.3).toFixed(1);
     
+    // Utiliser des URLs d'images publiques fiables
+    let imageUrl;
+    if (selectedCategory === "drama") {
+      imageUrl = `https://picsum.photos/seed/drama${i}/300/450`;
+    } else if (selectedCategory === "anime") {
+      imageUrl = `https://picsum.photos/seed/anime${i}/300/450`;
+    } else if (selectedCategory === "film") {
+      imageUrl = `https://picsum.photos/seed/film${i}/300/450`;
+    } else {
+      imageUrl = `https://picsum.photos/seed/bollywood${i}/300/450`;
+    }
+    
     content.push({
       id: `demo-${selectedCategory}-${i}`,
       title: `${country} ${selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)} ${i}`,
       original_title: `Original Title ${i}`,
       description: `This is a ${selectedCategory} from ${country} released in ${year}.`,
-      poster: `https://via.placeholder.com/300x450?text=${encodeURIComponent(selectedCategory + ' ' + i)}`,
+      poster: imageUrl,
       year: year,
       rating: parseFloat(rating),
       language: selectedCategory === "bollywood" ? "hi" : selectedCategory === "anime" ? "ja" : "ko",
@@ -121,7 +133,7 @@ async function main() {
         title: `${country} ${selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)} Trending ${i}`,
         original_title: `Trending Title ${i}`,
         description: `This is a trending ${selectedCategory} from ${country} released in ${year}.`,
-        poster: `https://via.placeholder.com/300x450?text=${encodeURIComponent('Trending ' + selectedCategory + ' ' + i)}`,
+        poster: `https://picsum.photos/seed/trending${i}/300/450`,
         year: year,
         rating: parseFloat(rating),
         language: selectedCategory === "bollywood" ? "hi" : selectedCategory === "anime" ? "ja" : "ko",

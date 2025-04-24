@@ -414,7 +414,7 @@ const PROXY_URL = 'https://flodrama-cors-proxy.onrender.com/api';
 const API_PATH = '';
 
 // Variables pour le suivi des tentatives de connexion
-let isBackendAvailable = true; // Activé par défaut pour tenter de récupérer les données réelles
+let isBackendAvailable = false; // Désactivé par défaut pour utiliser les données locales en priorité
 let connectionAttempts = 0;
 let lastConnectionCheck = 0;
 
@@ -423,43 +423,10 @@ let lastConnectionCheck = 0;
  * @returns Promise<boolean>
  */
 export async function checkBackendAvailability(): Promise<boolean> {
-  if (typeof window === 'undefined') {
-    return false;
-  }
-
-  try {
-    // Tenter une requête simple vers le backend via le proxy CORS
-    const response = await axios.get(`${PROXY_URL}/content?category=drama`, { 
-      timeout: 5000,  // Timeout de 5 secondes
-      validateStatus: (status: number) => status >= 200 && status < 500 // Accepter les codes 2xx et 4xx, mais pas 5xx
-    });
-    
-    // Si le statut est 404, l'endpoint n'existe pas mais le backend pourrait être disponible
-    // Nous considérons que le backend est disponible pour tenter d'autres endpoints
-    if (response.status === 404) {
-      console.log('⚠️ Endpoint /content non trouvé, mais le backend est considéré comme disponible');
-      isBackendAvailable = true;
-      connectionAttempts = 0;
-      return true;
-    }
-    
-    // Vérifier si la réponse est valide (code 2xx)
-    isBackendAvailable = response.status >= 200 && response.status < 300;
-    connectionAttempts = 0;
-    
-    if (isBackendAvailable) {
-      console.log('✅ Connexion au backend établie avec succès');
-    } else {
-      console.warn(`⚠️ Le backend a répondu avec le code ${response.status}`);
-    }
-    
-    return isBackendAvailable;
-  } catch (error: unknown) {
-    connectionAttempts++;
-    isBackendAvailable = false;
-    console.warn(`❌ Échec de connexion au backend (tentative ${connectionAttempts}): ${error instanceof Error ? error.message : 'Erreur inconnue'}`);
-    return false;
-  }
+  // Désactivé pour éviter les erreurs CORS
+  console.log('🔄 Backend désactivé pour utiliser uniquement les données locales');
+  isBackendAvailable = false;
+  return false;
 }
 
 /**
@@ -470,56 +437,9 @@ export async function checkBackendAvailability(): Promise<boolean> {
  * @returns Promise<any>
  */
 async function apiRequest<T>(url: string, options: AxiosRequestConfig = {}, retries = 3): Promise<T> {
-  try {
-    // Si le backend est indisponible, ne pas tenter la requête
-    if (!isBackendAvailable && retries === 3) {
-      throw new Error('Backend indisponible');
-    }
-
-    // Vérifier si l'URL commence par http ou https
-    // Si c'est le cas, utiliser l'URL telle quelle, sinon utiliser le proxy CORS
-    const requestUrl = url.startsWith('http') ? url : url.replace(API_URL, PROXY_URL);
-    
-    console.log(`🔄 Requête API: ${requestUrl}`);
-
-    // Effectuer la requête avec les options fournies
-    const response = await axios.get<T>(requestUrl, { 
-      timeout: options.timeout || 10000,
-      validateStatus: options.validateStatus,
-      headers: options.headers,
-      ...options
-    });
-    
-    return response.data;
-  } catch (error) {
-    console.error(`Erreur lors de la requête API: ${url}`, error);
-    
-    // Analyse détaillée de l'erreur pour le débogage
-    if (error instanceof Error) {
-      // Erreur avec réponse du serveur (4xx, 5xx)
-      console.error(`Statut erreur: ${error.message}`);
-      console.error('Données erreur:', error);
-      console.error('Headers erreur:', error);
-    } else if (axios.isAxiosError(error)) {
-      // Erreur sans réponse (timeout, problème réseau)
-      console.error('Erreur de connexion, pas de réponse reçue');
-    } else {
-      // Erreur lors de la configuration de la requête
-      console.error('Erreur de configuration:', error);
-    }
-    
-    if (retries > 0 && !(error instanceof Error && error.message.includes('ECONNABORTED'))) {
-      // Attendre avant de réessayer (avec backoff exponentiel)
-      const backoffTime = 1000 * Math.pow(2, 3 - retries);
-      console.log(`Nouvelle tentative dans ${backoffTime}ms (${retries} restantes)`);
-      await new Promise(resolve => setTimeout(resolve, backoffTime));
-      return apiRequest<T>(url, options, retries - 1);
-    }
-    
-    // Si toutes les tentatives échouent, marquer le backend comme indisponible
-    isBackendAvailable = false;
-    throw error;
-  }
+  // Désactivé pour éviter les erreurs CORS
+  console.log('🔄 API désactivée, utilisation des données locales uniquement');
+  throw new Error('Backend indisponible');
 }
 
 /**
@@ -710,7 +630,7 @@ export const getContentsByCategory = async (category: ContentType): Promise<Cont
                 // Compléter les URLs relatives avec le domaine CloudFront
                 response = fixImageUrls(response);
                 
-                console.log(`🔄 URLs d'images corrigées avec le domaine CloudFront`);
+                console.log(`🔄 URLs d'images corrigées pour le contenu ${category}`);
               }
             }
             
