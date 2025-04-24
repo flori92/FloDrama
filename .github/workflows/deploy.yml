@@ -14,8 +14,8 @@ permissions:
   id-token: write
 
 env:
-  S3_BUCKET: flodrama-content-1745269660
-  AWS_REGION: us-east-1
+  S3_BUCKET: flodrama-assets
+  AWS_REGION: eu-west-3
 
 jobs:
   backend:
@@ -118,15 +118,15 @@ jobs:
                       "title": f"{country} {category.title()} {i}",
                       "original_title": f"Original Title {i}",
                       "description": f"This is a {category} from {country} released in {year}.",
-                      "poster_url": f"https://via.placeholder.com/300x450?text={country}+{category}+{i}",
-                      "backdrop_url": f"https://via.placeholder.com/1280x720?text={country}+{category}+{i}",
                       "year": year,
                       "country": country,
-                      "category": category,
-                      "genres": random.sample(["action", "romance", "comedy", "drama", "fantasy"], 2),
+                      "genre": category,
                       "rating": rating,
-                      "episodes": random.randint(1, 16) if category == "drama" else None,
-                      "duration": random.randint(22, 60) if category == "drama" else random.randint(90, 180),
+                      "episodes": random.randint(1, 24) if category == "drama" or category == "anime" else 1,
+                      "duration": random.randint(22, 60) if category == "drama" or category == "anime" else random.randint(90, 180),
+                      "poster": f"https://picsum.photos/seed/{i}/300/450",
+                      "backdrop": f"https://picsum.photos/seed/back{i}/1280/720",
+                      "trailer": f"https://example.com/trailer/{i}",
                       "streaming_url": f"https://example.com/stream/{category}/{i}",
                       "last_updated": datetime.now().isoformat()
                   })
@@ -137,26 +137,21 @@ jobs:
           def export_to_json(filename, data):
               with open(filename, "w", encoding="utf-8") as f:
                   json.dump(data, f, ensure_ascii=False, indent=2)
-              print(f" Fichier exporté: {filename}")
+              print(f" Fichier {filename} généré avec succès")
           
-          # Création du répertoire d'export
+          # Création du dossier d'export
           export_path = "export_data"
           if not os.path.exists(export_path):
               os.makedirs(export_path)
+              print(f" Dossier {export_path} créé")
           
-          # Génération des données principales
-          print(" Génération des données de contenu...")
-          content = generate_demo_content(30)
-          export_to_json(f"{export_path}/content.json", content)
-          
-          # Génération des catégories
-          print(" Génération des catégories...")
-          categories = [
-              {"id": "drama", "name": "Dramas", "count": 15},
-              {"id": "movie", "name": "Films", "count": 8},
-              {"id": "anime", "name": "Animés", "count": 7}
-          ]
-          export_to_json(f"{export_path}/categories.json", categories)
+          # Génération des dramas
+          print(" Génération des dramas...")
+          dramas = generate_demo_content(30)
+          for item in dramas:
+              if item["genre"] == "drama":
+                  item["popularity"] = random.randint(70, 100)
+          export_to_json(f"{export_path}/dramas.json", dramas)
           
           # Génération des contenus mis en avant
           print(" Génération des contenus mis en avant...")
@@ -170,22 +165,41 @@ jobs:
           print(" Génération des contenus populaires...")
           popular = generate_demo_content(10)
           for item in popular:
-              item["views"] = random.randint(1000, 50000)
+              item["popularity"] = random.randint(80, 100)
           export_to_json(f"{export_path}/popular.json", popular)
           
-          # Génération des contenus récents
-          print(" Génération des contenus récents...")
-          recent = generate_demo_content(10)
-          export_to_json(f"{export_path}/recently.json", recent)
+          # Génération des contenus récemment ajoutés
+          print(" Génération des contenus récemment ajoutés...")
+          recently_added = generate_demo_content(8)
+          for item in recently_added:
+              item["added_date"] = datetime.now().isoformat()
+          export_to_json(f"{export_path}/recently_added.json", recently_added)
           
           # Génération des contenus les mieux notés
           print(" Génération des contenus les mieux notés...")
-          top_rated = generate_demo_content(10)
+          top_rated = generate_demo_content(12)
           for item in top_rated:
               item["rating"] = round(random.uniform(8.0, 9.9), 1)
-          export_to_json(f"{export_path}/topRated.json", top_rated)
+          export_to_json(f"{export_path}/top_rated.json", top_rated)
           
-          print(" Génération des données terminée avec succès!")
+          # Génération des catégories
+          print(" Génération des catégories...")
+          categories = [
+              {"id": "drama", "name": "Drama", "count": 30, "icon": "film"},
+              {"id": "anime", "name": "Anime", "count": 25, "icon": "tv"},
+              {"id": "movie", "name": "Movie", "count": 20, "icon": "video"}
+          ]
+          export_to_json(f"{export_path}/categories.json", categories)
+          
+          # Génération des métadonnées
+          print(" Génération des métadonnées...")
+          metadata = {
+              "last_updated": datetime.now().isoformat(),
+              "version": "1.0.0",
+              "total_content": sum(cat["count"] for cat in categories),
+              "categories": len(categories)
+          }
+          export_to_json(f"{export_path}/metadata.json", metadata)
           EOF
           
           # Exécution du script Python
@@ -201,15 +215,23 @@ jobs:
         run: |
           echo " Vérification du contenu dans le bucket S3..."
           
-          # Vérifier si le bucket contient des données
-          CONTENT_COUNT=$(aws s3 ls s3://flodrama-content-1745269660 --recursive | grep -c "content/")
-          
-          if [ $CONTENT_COUNT -gt 0 ]; then
-            echo " Contenu trouvé dans le bucket S3: $CONTENT_COUNT fichiers"
-            echo "HAS_CONTENT=true" >> $GITHUB_OUTPUT
+          # Vérifier si le bucket existe avant de lister son contenu
+          if aws s3api head-bucket --bucket "${{ env.S3_BUCKET }}" 2>/dev/null; then
+            # Vérifier si le bucket contient des données
+            CONTENT_COUNT=$(aws s3 ls s3://${{ env.S3_BUCKET }} --recursive | wc -l)
+            
+            if [ $CONTENT_COUNT -gt 0 ]; then
+              echo " Contenu trouvé dans le bucket S3: $CONTENT_COUNT fichiers"
+              echo "HAS_CONTENT=true" >> $GITHUB_OUTPUT
+            else
+              echo " Aucun contenu trouvé dans le bucket S3"
+              echo "HAS_CONTENT=false" >> $GITHUB_OUTPUT
+            fi
           else
-            echo " Aucun contenu trouvé dans le bucket S3"
+            echo "⚠️ Le bucket ${{ env.S3_BUCKET }} n'existe pas ou n'est pas accessible"
             echo "HAS_CONTENT=false" >> $GITHUB_OUTPUT
+            # Ne pas échouer le build si le bucket n'existe pas
+            exit 0
           fi
       
       - name: Upload vers S3
@@ -227,14 +249,15 @@ jobs:
         run: |
           echo "🔄 Tentative d'invalidation du cache CloudFront..."
           
-          # Vérifier si le secret est disponible
+          # Vérifier si l'ID CloudFront est configuré
           if [ -n "$CLOUDFRONT_ID" ]; then
-            # Tenter l'invalidation avec gestion d'erreur
-            if aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_ID" --paths "/data/*"; then
-              echo "✅ Cache CloudFront invalidé avec succès"
+            # Créer une invalidation pour le chemin /data/*
+            INVALIDATION_ID=$(aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/data/*" --query "Invalidation.Id" --output text)
+            
+            if [ -n "$INVALIDATION_ID" ]; then
+              echo "✅ Invalidation CloudFront créée avec succès (ID: $INVALIDATION_ID)"
             else
-              echo "⚠️ Échec de l'invalidation du cache CloudFront"
-              echo "⚠️ Vérifiez que l'ID de distribution est correct"
+              echo "⚠️ Échec de la création de l'invalidation CloudFront"
             fi
           else
             echo "⚠️ Aucun ID CloudFront configuré, invalidation ignorée"
@@ -247,18 +270,44 @@ jobs:
         run: |
           echo "🔄 Génération des fichiers de contenu agrégé pour le frontend..."
           
-          # Installer les dépendances Python nécessaires
-          pip install boto3
+          # Création du script pour agréger les données
+          cat > aggregate_content.py << 'EOF'
+          import json
+          import os
           
-          # Rendre le script exécutable
-          chmod +x ./scripts/generate_aggregated_content.py
+          def load_json(filename):
+              with open(filename, "r", encoding="utf-8") as f:
+                  return json.load(f)
           
-          # Exécuter le script de génération de contenu
-          python ./scripts/generate_aggregated_content.py
+          def save_json(filename, data):
+              with open(filename, "w", encoding="utf-8") as f:
+                  json.dump(data, f, ensure_ascii=False, indent=2)
+              print(f" Fichier {filename} généré avec succès")
           
-          # Vérifier que les fichiers ont été générés
-          echo "✅ Vérification des fichiers générés dans S3..."
-          aws s3 ls s3://flodrama-content-1745269660 --recursive | grep -E 'featured|popular|recently|topRated|categories|metadata'
+          # Charger tous les fichiers JSON
+          data_dir = "export_data"
+          all_content = {}
+          
+          for filename in os.listdir(data_dir):
+              if filename.endswith(".json"):
+                  name = os.path.splitext(filename)[0]
+                  all_content[name] = load_json(os.path.join(data_dir, filename))
+          
+          # Créer un fichier agrégé pour le frontend
+          save_json(os.path.join(data_dir, "all_content.json"), all_content)
+          EOF
+          
+          # Exécution du script Python
+          python aggregate_content.py
+          
+          # Upload du fichier agrégé vers S3
+          aws s3 cp export_data/all_content.json s3://${{ env.S3_BUCKET }}/data/all_content.json --cache-control "max-age=3600"
+          
+          echo "✅ Génération des fichiers de contenu agrégé terminée avec succès!"
+          
+          # Vérification du contenu du bucket
+          echo "📋 Liste des fichiers dans le bucket S3:"
+          aws s3 ls s3://${{ env.S3_BUCKET }} --recursive | grep -E 'featured|popular|recently|topRated|categories|metadata'
       
       # Vérification de l'existence de la fonction Lambda
       - name: Vérification de la fonction Lambda
@@ -267,10 +316,8 @@ jobs:
           echo "🔍 Vérification de l'existence de la fonction Lambda..."
           
           # Vérifier si la fonction Lambda existe déjà
-          LAMBDA_EXISTS=$(aws lambda list-functions --query "Functions[?FunctionName=='FloDramaImageOptimizer'].FunctionName" --output text || echo "")
-          
-          if [ -n "$LAMBDA_EXISTS" ]; then
-            echo "✅ La fonction Lambda FloDramaImageOptimizer existe"
+          if aws lambda get-function --function-name FloDramaImageOptimizer 2>/dev/null; then
+            echo "✅ La fonction Lambda FloDramaImageOptimizer existe déjà"
             echo "LAMBDA_EXISTS=true" >> $GITHUB_OUTPUT
           else
             echo "⚠️ La fonction Lambda FloDramaImageOptimizer n'existe pas"
@@ -281,131 +328,230 @@ jobs:
       - name: Création de la fonction Lambda
         if: steps.check-lambda.outputs.LAMBDA_EXISTS == 'false'
         run: |
-          echo "🚀 Création de la fonction Lambda FloDramaImageOptimizer..."
+          echo "🔧 Création de la fonction Lambda pour l'optimisation des images..."
           
-          # Vérifier si le dossier Lambda/image-optimizer existe
-          if [ ! -d Lambda/image-optimizer ]; then
-            echo "⚠️ Dossier Lambda/image-optimizer non trouvé, création d'une fonction Lambda minimale"
-            mkdir -p Lambda/image-optimizer
-            echo 'exports.handler = async (event) => {' > Lambda/image-optimizer/index.js
-            echo '  console.log("Event:", JSON.stringify(event, null, 2));' >> Lambda/image-optimizer/index.js
-            echo '' >> Lambda/image-optimizer/index.js
-            echo '  return {' >> Lambda/image-optimizer/index.js
-            echo '    statusCode: 200,' >> Lambda/image-optimizer/index.js
-            echo '    headers: {' >> Lambda/image-optimizer/index.js
-            echo '      "Content-Type": "application/json",' >> Lambda/image-optimizer/index.js
-            echo '      "Access-Control-Allow-Origin": "*"' >> Lambda/image-optimizer/index.js
-            echo '    },' >> Lambda/image-optimizer/index.js
-            echo '    body: JSON.stringify({' >> Lambda/image-optimizer/index.js
-            echo '      message: "FloDrama Image Optimizer fonctionne correctement!",' >> Lambda/image-optimizer/index.js
-            echo '      timestamp: new Date().toISOString(),' >> Lambda/image-optimizer/index.js
-            echo '      event: event' >> Lambda/image-optimizer/index.js
-            echo '    })' >> Lambda/image-optimizer/index.js
-            echo '  };' >> Lambda/image-optimizer/index.js
-            echo '};' >> Lambda/image-optimizer/index.js
-            
-            # Création d'un package.json minimal
-            echo '{' > Lambda/image-optimizer/package.json
-            echo '  "name": "flodrama-image-optimizer",' >> Lambda/image-optimizer/package.json
-            echo '  "version": "1.0.0",' >> Lambda/image-optimizer/package.json
-            echo '  "description": "Fonction Lambda@Edge pour l'\''optimisation des images dans FloDrama",' >> Lambda/image-optimizer/package.json
-            echo '  "main": "index.js",' >> Lambda/image-optimizer/package.json
-            echo '  "dependencies": {' >> Lambda/image-optimizer/package.json
-            echo '    "aws-sdk": "^2.1500.0"' >> Lambda/image-optimizer/package.json
-            echo '  }' >> Lambda/image-optimizer/package.json
-            echo '}' >> Lambda/image-optimizer/package.json
-          fi
+          # Création du répertoire pour la fonction Lambda
+          mkdir -p lambda_function
           
-          # Création d'un répertoire temporaire pour le déploiement
-          mkdir -p lambda_package
+          # Création du fichier index.js
+          cat > lambda_function/index.js << 'EOF'
+          const AWS = require('aws-sdk');
+          const sharp = require('sharp');
+          const s3 = new AWS.S3();
           
-          # Préparation du code Lambda
-          cp -r Lambda/image-optimizer/* lambda_package/
+          exports.handler = async (event) => {
+              // Récupérer les informations sur l'objet S3 qui a déclenché l'événement
+              const bucket = event.Records[0].s3.bucket.name;
+              const key = decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, ' '));
+              
+              // Vérifier si l'image est déjà optimisée
+              if (key.includes('optimized/')) {
+                  console.log('Image déjà optimisée, ignorée:', key);
+                  return {
+                      statusCode: 200,
+                      body: JSON.stringify('Image déjà optimisée'),
+                  };
+              }
+              
+              try {
+                  // Récupérer l'image depuis S3
+                  const s3Object = await s3.getObject({ Bucket: bucket, Key: key }).promise();
+                  
+                  // Optimiser l'image avec sharp
+                  const optimizedImage = await sharp(s3Object.Body)
+                      .resize(800) // Redimensionner à 800px de large max
+                      .jpeg({ quality: 80 }) // Compression JPEG
+                      .toBuffer();
+                  
+                  // Définir le nouveau chemin pour l'image optimisée
+                  const optimizedKey = `optimized/${key}`;
+                  
+                  // Uploader l'image optimisée vers S3
+                  await s3.putObject({
+                      Bucket: bucket,
+                      Key: optimizedKey,
+                      Body: optimizedImage,
+                      ContentType: 'image/jpeg',
+                      ACL: 'public-read',
+                  }).promise();
+                  
+                  console.log('Image optimisée avec succès:', optimizedKey);
+                  
+                  return {
+                      statusCode: 200,
+                      body: JSON.stringify('Image optimisée avec succès'),
+                  };
+              } catch (error) {
+                  console.error('Erreur lors de l\'optimisation de l\'image:', error);
+                  return {
+                      statusCode: 500,
+                      body: JSON.stringify('Erreur lors de l\'optimisation de l\'image'),
+                  };
+              }
+          };
+          EOF
           
-          # Installation des dépendances dans le package
-          cd lambda_package
-          npm install --production
-          zip -r ../lambda_package.zip .
+          # Création du package.json
+          cat > lambda_function/package.json << 'EOF'
+          {
+            "name": "flodrama-image-optimizer",
+            "version": "1.0.0",
+            "description": "Fonction Lambda pour optimiser les images uploadées sur S3",
+            "main": "index.js",
+            "dependencies": {
+              "sharp": "^0.32.1"
+            }
+          }
+          EOF
+          
+          # Installation des dépendances
+          cd lambda_function
+          npm install
+          
+          # Création du fichier ZIP pour la fonction Lambda
+          zip -r ../lambda_function.zip .
           cd ..
           
-          # Vérification que le rôle IAM existe et a les permissions nécessaires
-          echo "🔍 Vérification du rôle IAM..."
-          ROLE_ARN="${{ secrets.AWS_LAMBDA_ROLE_ARN }}"
+          # Création du rôle IAM pour la fonction Lambda
+          ROLE_ARN=$(aws iam get-role --role-name LambdaS3Role 2>/dev/null | jq -r '.Role.Arn' || echo "")
           
           if [ -z "$ROLE_ARN" ]; then
-            echo "❌ La variable AWS_LAMBDA_ROLE_ARN n'est pas définie dans les secrets GitHub"
-            echo "Création d'un rôle IAM temporaire pour Lambda..."
+            echo "Création du rôle IAM pour la fonction Lambda..."
             
-            # Créer une politique de confiance pour Lambda
-            python3 -c "import json; print(json.dumps({
-              'Version': '2012-10-17',
-              'Statement': [{
-                'Effect': 'Allow',
-                'Principal': {
-                  'Service': 'lambda.amazonaws.com'
-                },
-                'Action': 'sts:AssumeRole'
-              }]
-            }))" > trust-policy.json
+            # Création du document de politique d'approbation
+            cat > trust-policy.json << 'EOF'
+            {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Principal": {
+                    "Service": "lambda.amazonaws.com"
+                  },
+                  "Action": "sts:AssumeRole"
+                }
+              ]
+            }
+            EOF
             
-            # Créer le rôle IAM
-            ROLE_RESPONSE=$(aws iam create-role --role-name FloDramaLambdaRole --assume-role-policy-document file://trust-policy.json)
-            ROLE_ARN=$(echo $ROLE_RESPONSE | jq -r '.Role.Arn')
+            # Création du rôle
+            ROLE_ARN=$(aws iam create-role --role-name LambdaS3Role --assume-role-policy-document file://trust-policy.json --query "Role.Arn" --output text)
             
-            # Attacher la politique AWSLambdaBasicExecutionRole
-            aws iam attach-role-policy --role-name FloDramaLambdaRole --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+            # Attacher la politique AWSLambdaExecute
+            aws iam attach-role-policy --role-name LambdaS3Role --policy-arn arn:aws:iam::aws:policy/AWSLambdaExecute
             
-            # Attendre que le rôle soit propagé
-            echo "⏳ Attente de la propagation du rôle IAM (10 secondes)..."
+            # Attacher la politique S3FullAccess
+            aws iam attach-role-policy --role-name LambdaS3Role --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess
+            
+            # Attendre que le rôle soit disponible
+            echo "Attente de la propagation du rôle IAM..."
             sleep 10
           fi
           
-          # Création de la fonction Lambda avec gestion d'erreur
-          echo "🚀 Création de la fonction Lambda avec le rôle: $ROLE_ARN"
+          # Création de la fonction Lambda
           aws lambda create-function \
             --function-name FloDramaImageOptimizer \
+            --zip-file fileb://lambda_function.zip \
+            --handler index.handler \
             --runtime nodejs18.x \
             --role "$ROLE_ARN" \
-            --handler index.handler \
             --timeout 30 \
-            --memory-size 512 \
-            --zip-file fileb://lambda_package.zip \
-            --environment "Variables={\"NODE_ENV\":\"production\",\"S3_BUCKET\":\"${{ env.S3_BUCKET }}\",\"FRONTEND_URL\":\"https://flori92.github.io/FloDrama\"}" || {
-              echo "❌ Erreur lors de la création de la fonction Lambda"
-              echo "⚠️ Vérifiez que le rôle IAM a les permissions nécessaires et que l'utilisateur AWS a les droits pour créer des fonctions Lambda"
-              echo "⚠️ Continuer le workflow sans la fonction Lambda..."
-              exit 0
-            }
+            --memory-size 1024
           
           echo "✅ Fonction Lambda créée avec succès"
       
-      # Mise à jour de la fonction Lambda si elle existe
+      # Mise à jour de la fonction Lambda si elle existe déjà
       - name: Mise à jour de la fonction Lambda
         if: steps.check-lambda.outputs.LAMBDA_EXISTS == 'true'
         run: |
-          echo "🔄 Mise à jour de la fonction Lambda FloDramaImageOptimizer..."
+          echo "🔄 Mise à jour de la fonction Lambda..."
           
-          # Préparation du code Lambda
-          mkdir -p lambda_package
-          cp -r Lambda/image-optimizer/* lambda_package/
+          # Création du répertoire pour la fonction Lambda
+          mkdir -p lambda_function
           
-          # Installation des dépendances dans le package
-          cd lambda_package
-          npm install --production
-          zip -r ../lambda_package.zip .
+          # Création du fichier index.js avec les mêmes optimisations
+          cat > lambda_function/index.js << 'EOF'
+          const AWS = require('aws-sdk');
+          const sharp = require('sharp');
+          const s3 = new AWS.S3();
+          
+          exports.handler = async (event) => {
+              // Récupérer les informations sur l'objet S3 qui a déclenché l'événement
+              const bucket = event.Records[0].s3.bucket.name;
+              const key = decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, ' '));
+              
+              // Vérifier si l'image est déjà optimisée
+              if (key.includes('optimized/')) {
+                  console.log('Image déjà optimisée, ignorée:', key);
+                  return {
+                      statusCode: 200,
+                      body: JSON.stringify('Image déjà optimisée'),
+                  };
+              }
+              
+              try {
+                  // Récupérer l'image depuis S3
+                  const s3Object = await s3.getObject({ Bucket: bucket, Key: key }).promise();
+                  
+                  // Optimiser l'image avec sharp
+                  const optimizedImage = await sharp(s3Object.Body)
+                      .resize(800) // Redimensionner à 800px de large max
+                      .jpeg({ quality: 80 }) // Compression JPEG
+                      .toBuffer();
+                  
+                  // Définir le nouveau chemin pour l'image optimisée
+                  const optimizedKey = `optimized/${key}`;
+                  
+                  // Uploader l'image optimisée vers S3
+                  await s3.putObject({
+                      Bucket: bucket,
+                      Key: optimizedKey,
+                      Body: optimizedImage,
+                      ContentType: 'image/jpeg',
+                      ACL: 'public-read',
+                  }).promise();
+                  
+                  console.log('Image optimisée avec succès:', optimizedKey);
+                  
+                  return {
+                      statusCode: 200,
+                      body: JSON.stringify('Image optimisée avec succès'),
+                  };
+              } catch (error) {
+                  console.error('Erreur lors de l\'optimisation de l\'image:', error);
+                  return {
+                      statusCode: 500,
+                      body: JSON.stringify('Erreur lors de l\'optimisation de l\'image'),
+                  };
+              }
+          };
+          EOF
+          
+          # Création du package.json
+          cat > lambda_function/package.json << 'EOF'
+          {
+            "name": "flodrama-image-optimizer",
+            "version": "1.0.0",
+            "description": "Fonction Lambda pour optimiser les images uploadées sur S3",
+            "main": "index.js",
+            "dependencies": {
+              "sharp": "^0.32.1"
+            }
+          }
+          EOF
+          
+          # Installation des dépendances
+          cd lambda_function
+          npm install
+          
+          # Création du fichier ZIP pour la fonction Lambda
+          zip -r ../lambda_function.zip .
           cd ..
           
-          # Mise à jour du code de la fonction Lambda
+          # Mise à jour de la fonction Lambda
           aws lambda update-function-code \
             --function-name FloDramaImageOptimizer \
-            --zip-file fileb://lambda_package.zip
-            
-          # Mise à jour de la configuration de la fonction Lambda
-          aws lambda update-function-configuration \
-            --function-name FloDramaImageOptimizer \
-            --timeout 30 \
-            --memory-size 512 \
-            --environment "Variables={\"NODE_ENV\":\"production\",\"S3_BUCKET\":\"${{ env.S3_BUCKET }}\",\"FRONTEND_URL\":\"https://flori92.github.io/FloDrama\"}"
+            --zip-file fileb://lambda_function.zip
           
           echo "✅ Fonction Lambda mise à jour avec succès"
       
