@@ -1,40 +1,82 @@
 {
-  "lastUpdated": "2025-04-24T07:26:00Z",
-  "totalItems": 1,,
+  "lastUpdated": "2025-04-24T11:01:05.104810",
+  "totalItems": 3800,
   "sources": [
-    {"name": "dramacool", "type": "drama"}
-    ,
-    {"name": "iqiyi", "type": "drama"}
-    ,
-    {"name": "kocowa", "type": "drama"}
-    ,
-    {"name": "myasiantv", "type": "drama"}
-    ,
-    {"name": "viki", "type": "drama"}
-    ,
-    {"name": "voirdrama", "type": "drama"}
-    ,
-    {"name": "vostfree", "type": "drama"}
-    ,
-    {"name": "wetv", "type": "drama"}
-    {"name": "gogoanime", "type": "anime"}
-    ,
-    {"name": "neko-sama", "type": "anime"}
-    ,
-    {"name": "voiranime", "type": "anime"}
-    {"name": "bollywoodmdb", "type": "bollywood"}
-    ,
-    {"name": "hotstar", "type": "bollywood"}
-    ,
-    {"name": "zee5", "type": "bollywood"}
-    {"name": "allocine", "type": "film"}
-    ,
-    {"name": "cinepulse", "type": "film"}
-    ,
-    {"name": "dpstream", "type": "film"}
-    ,
-    {"name": "imdb", "type": "film"}
-    ,
-    {"name": "themoviedb", "type": "film"}
+    {
+      "name": "dramacool",
+      "type": "drama"
+    },
+    {
+      "name": "kdramahood",
+      "type": "drama"
+    },
+    {
+      "name": "vostfree",
+      "type": "film"
+    },
+    {
+      "name": "myasiantv",
+      "type": "film"
+    },
+    {
+      "name": "voirdrama",
+      "type": "drama"
+    },
+    {
+      "name": "viki",
+      "type": "film"
+    },
+    {
+      "name": "wetv",
+      "type": "film"
+    },
+    {
+      "name": "iqiyi",
+      "type": "film"
+    },
+    {
+      "name": "kocowa",
+      "type": "film"
+    },
+    {
+      "name": "gogoanime",
+      "type": "film"
+    },
+    {
+      "name": "voiranime",
+      "type": "film"
+    },
+    {
+      "name": "neko-sama",
+      "type": "film"
+    },
+    {
+      "name": "bollywoodmdb",
+      "type": "film"
+    },
+    {
+      "name": "zee5",
+      "type": "film"
+    },
+    {
+      "name": "hotstar",
+      "type": "film"
+    },
+    {
+      "name": "asianfilm",
+      "type": "film"
+    },
+    {
+      "name": "allocine",
+      "type": "film"
+    },
+    {
+      "name": "imdb",
+      "type": "film"
+    },
+    {
+      "name": "themoviedb",
+      "type": "film"
+    }
   ]
 }

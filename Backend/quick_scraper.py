@@ -22,6 +22,7 @@ logger = logging.getLogger('FloDrama-QuickScraping')
 
 # Sources de contenu
 SOURCES = {
+    # Drama sources
     'dramacool': {
         'base_url': 'https://dramacool.cr',
         'recent_url': '/recently-added',
@@ -34,11 +35,113 @@ SOURCES = {
         'popular_url': '/popular-kdramas',
         'type': 'drama'
     },
+    'vostfree': {
+        'base_url': 'https://vostfree.cx',
+        'recent_url': '/dramas-en-streaming',
+        'popular_url': '/dramas-populaires',
+        'type': 'drama'
+    },
+    'myasiantv': {
+        'base_url': 'https://myasiantv.cc',
+        'recent_url': '/recently-added',
+        'popular_url': '/most-popular-drama',
+        'type': 'drama'
+    },
+    'voirdrama': {
+        'base_url': 'https://voirdrama.org',
+        'recent_url': '/dramas-recents',
+        'popular_url': '/dramas-populaires',
+        'type': 'drama'
+    },
+    'viki': {
+        'base_url': 'https://www.viki.com',
+        'recent_url': '/explore/dramas',
+        'popular_url': '/explore/trending',
+        'type': 'drama'
+    },
+    'wetv': {
+        'base_url': 'https://wetv.vip',
+        'recent_url': '/latest',
+        'popular_url': '/trending',
+        'type': 'drama'
+    },
+    'iqiyi': {
+        'base_url': 'https://www.iq.com',
+        'recent_url': '/latest-dramas',
+        'popular_url': '/trending-dramas',
+        'type': 'drama'
+    },
+    'kocowa': {
+        'base_url': 'https://www.kocowa.com',
+        'recent_url': '/latest',
+        'popular_url': '/popular',
+        'type': 'drama'
+    },
+    
+    # Anime sources
+    'gogoanime': {
+        'base_url': 'https://gogoanime.cl',
+        'recent_url': '/recently-added',
+        'popular_url': '/popular-anime',
+        'type': 'anime'
+    },
+    'voiranime': {
+        'base_url': 'https://voiranime.com',
+        'recent_url': '/animes-recents',
+        'popular_url': '/animes-populaires',
+        'type': 'anime'
+    },
+    'neko-sama': {
+        'base_url': 'https://neko-sama.fr',
+        'recent_url': '/anime',
+        'popular_url': '/anime/populaire',
+        'type': 'anime'
+    },
+    
+    # Bollywood sources
+    'bollywoodmdb': {
+        'base_url': 'https://www.bollywoodmdb.com',
+        'recent_url': '/movies/latest',
+        'popular_url': '/movies/popular',
+        'type': 'bollywood'
+    },
+    'zee5': {
+        'base_url': 'https://www.zee5.com',
+        'recent_url': '/movies',
+        'popular_url': '/movies/popular',
+        'type': 'bollywood'
+    },
+    'hotstar': {
+        'base_url': 'https://www.hotstar.com',
+        'recent_url': '/movies',
+        'popular_url': '/movies/popular',
+        'type': 'bollywood'
+    },
+    
+    # Film sources
     'asianfilm': {
         'base_url': 'https://asianfilm.to',
         'recent_url': '/latest-movies',
         'popular_url': '/popular-movies',
         'type': 'movie'
+    },
+    'allocine': {
+        'base_url': 'https://www.allocine.fr',
+        'recent_url': '/film/sorties-semaine',
+        'popular_url': '/film/meilleurs',
+        'type': 'film'
+    },
+    'imdb': {
+        'base_url': 'https://www.imdb.com',
+        'recent_url': '/movies-coming-soon',
+        'popular_url': '/chart/moviemeter',
+        'type': 'film'
+    },
+    'themoviedb': {
+        'base_url': 'https://www.themoviedb.org',
+        'recent_url': '/movie/now-playing',
+        'popular_url': '/movie/popular',
+        'type': 'film'
     }
 }
 
