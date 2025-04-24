@@ -760,7 +760,7 @@ export const getContentDetails = async (contentId: string): Promise<ContentDetai
           actors: [],
           director: '',
           episode_count: 0,
-          duration: '',
+          duration: 0,
           episodes: 0,
           seasons: 0,
           status: '',
