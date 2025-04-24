@@ -152,29 +152,23 @@ jobs:
       - name: Invalidation du cache CloudFront
         if: steps.check-s3-bucket.outputs.BUCKET_EXISTS == 'true'
         run: |
-          echo "🔄 Vérification de la distribution CloudFront..."
-          
-          if [ -n "$CLOUDFRONT_DISTRIBUTION_ID" ]; then
-            echo "🔄 Invalidation du cache CloudFront..."
-            
+          echo "☁️ Invalidation du cache CloudFront..."
+          # Vérifier si nous avons un ID de distribution CloudFront
+          if [ -n "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" ]; then
             aws cloudfront create-invalidation \
-              --distribution-id $CLOUDFRONT_DISTRIBUTION_ID \
-              --paths "/data/*"
-            
-            echo "✅ Invalidation du cache CloudFront initiée."
+              --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+              --paths "/*"
+            echo "✅ Cache CloudFront invalidé"
           else
-            echo "⚠️ Aucun ID CloudFront configuré, invalidation ignorée."
+            echo "⚠️ Aucun ID de distribution CloudFront spécifié dans les secrets"
           fi
-        env:
-          CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
 
   # Job de déploiement du frontend
   deploy_frontend:
     runs-on: ubuntu-latest
-    needs: deploy_content
     steps:
       - name: Checkout du code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       
       - name: Configuration de Node.js
         uses: actions/setup-node@v4
@@ -215,13 +209,16 @@ jobs:
 
       - name: Déploiement sur flodrama.com
         run: |
-          echo "🚀 Déploiement sur flodrama.com..."
           cd Frontend/dist
-          if [ ! -d "dist" ] && [ -d "build" ]; then
-            cd build
-          fi
           surge --project ./ --domain flodrama.com --token ${{ secrets.SURGE_TOKEN }}
           echo "✅ Frontend déployé avec succès sur https://flodrama.com"
+          
+      - name: Upload des fichiers frontend (pour le proxy)
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend-dist
+          path: Frontend/dist
+          retention-days: 1
 
   # Job de déploiement du proxy
   deploy_proxy:
@@ -236,6 +233,12 @@ jobs:
         with:
           node-version: '18'
           
+      - name: Téléchargement des fichiers frontend
+        uses: actions/download-artifact@v3
+        with:
+          name: frontend-dist
+          path: frontend-dist
+          
       - name: Installation des dépendances du proxy
         run: |
           npm install express cors axios
@@ -245,35 +248,8 @@ jobs:
           mkdir -p proxy-deploy
           cp Frontend/api-proxy-server.js proxy-deploy/server.js
           cp package.json proxy-deploy/
-          cp -r Frontend/dist proxy-deploy/dist
-      
-      - name: Préparation du package.json pour le proxy
-        run: |
-          cat > proxy-deploy/package.json << EOF
-          {
-            "name": "flodrama-api-proxy",
-            "version": "1.0.0",
-            "description": "Proxy API pour FloDrama",
-            "main": "server.js",
-            "scripts": {
-              "start": "node server.js"
-            },
-            "dependencies": {
-              "express": "^4.18.2",
-              "cors": "^2.8.5",
-              "axios": "^1.6.0"
-            },
-            "engines": {
-              "node": "18.x"
-            }
-          }
-          EOF
-          
-      - name: Déploiement du proxy sur Heroku (si disponible)
-        if: false  # Désactivé temporairement - Activer quand Heroku est configuré
-        run: |
-          # Commandes pour déployer sur Heroku (à activer plus tard)
-          echo "Déploiement sur Heroku désactivé temporairement"
+          mkdir -p proxy-deploy/dist
+          cp -r frontend-dist/* proxy-deploy/dist/ || echo "Aucun fichier frontend à copier"
 
   # Job optionnel pour la gestion de l'infrastructure Lambda
   # Ce job ne s'exécute que si le paramètre "update_lambda" est spécifié dans le workflow_dispatch
