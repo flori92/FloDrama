@@ -94,116 +94,8 @@ jobs:
         run: |
           echo "🔍 Lancement du scraping et de la génération des données..."
           
-          # Création du script temporaire pour simuler le scraping
-          cat > temp_scraping.py << "EOF"
-          import json
-          import random
-          import os
-          from datetime import datetime
-          
-          # Fonction pour générer des données de démonstration
-          def generate_demo_content(count=20):
-              content = []
-              categories = ["drama", "anime", "movie"]
-              countries = ["Korea", "Japan", "China", "Thailand"]
-              
-              for i in range(1, count + 1):
-                  category = random.choice(categories)
-                  country = random.choice(countries)
-                  year = random.randint(2010, 2025)
-                  rating = round(random.uniform(3.5, 9.8), 1)
-                  
-                  content.append({
-                      "id": f"demo{i}",
-                      "title": f"{country} {category.title()} {i}",
-                      "original_title": f"Original Title {i}",
-                      "description": f"This is a {category} from {country} released in {year}.",
-                      "year": year,
-                      "country": country,
-                      "genre": category,
-                      "rating": rating,
-                      "episodes": random.randint(1, 24) if category == "drama" or category == "anime" else 1,
-                      "duration": random.randint(22, 60) if category == "drama" or category == "anime" else random.randint(90, 180),
-                      "poster": f"https://picsum.photos/seed/{i}/300/450",
-                      "backdrop": f"https://picsum.photos/seed/back{i}/1280/720",
-                      "trailer": f"https://example.com/trailer/{i}",
-                      "streaming_url": f"https://example.com/stream/{category}/{i}",
-                      "last_updated": datetime.now().isoformat()
-                  })
-              
-              return content
-          
-          # Fonction pour exporter les données en JSON
-          def export_to_json(filename, data):
-              with open(filename, "w", encoding="utf-8") as f:
-                  json.dump(data, f, ensure_ascii=False, indent=2)
-              print(f" Fichier {filename} généré avec succès")
-          
-          # Création du dossier d'export
-          export_path = "export_data"
-          if not os.path.exists(export_path):
-              os.makedirs(export_path)
-              print(f" Dossier {export_path} créé")
-          
-          # Génération des dramas
-          print(" Génération des dramas...")
-          dramas = generate_demo_content(30)
-          for item in dramas:
-              if item["genre"] == "drama":
-                  item["popularity"] = random.randint(70, 100)
-          export_to_json(f"{export_path}/dramas.json", dramas)
-          
-          # Génération des contenus mis en avant
-          print(" Génération des contenus mis en avant...")
-          featured = generate_demo_content(5)
-          for item in featured:
-              item["featured"] = True
-              item["highlight"] = random.choice([True, False])
-          export_to_json(f"{export_path}/featured.json", featured)
-          
-          # Génération des contenus populaires
-          print(" Génération des contenus populaires...")
-          popular = generate_demo_content(10)
-          for item in popular:
-              item["popularity"] = random.randint(80, 100)
-          export_to_json(f"{export_path}/popular.json", popular)
-          
-          # Génération des contenus récemment ajoutés
-          print(" Génération des contenus récemment ajoutés...")
-          recently_added = generate_demo_content(8)
-          for item in recently_added:
-              item["added_date"] = datetime.now().isoformat()
-          export_to_json(f"{export_path}/recently_added.json", recently_added)
-          
-          # Génération des contenus les mieux notés
-          print(" Génération des contenus les mieux notés...")
-          top_rated = generate_demo_content(12)
-          for item in top_rated:
-              item["rating"] = round(random.uniform(8.0, 9.9), 1)
-          export_to_json(f"{export_path}/top_rated.json", top_rated)
-          
-          # Génération des catégories
-          print(" Génération des catégories...")
-          categories = [
-              {"id": "drama", "name": "Drama", "count": 30, "icon": "film"},
-              {"id": "anime", "name": "Anime", "count": 25, "icon": "tv"},
-              {"id": "movie", "name": "Movie", "count": 20, "icon": "video"}
-          ]
-          export_to_json(f"{export_path}/categories.json", categories)
-          
-          # Génération des métadonnées
-          print(" Génération des métadonnées...")
-          metadata = {
-              "last_updated": datetime.now().isoformat(),
-              "version": "1.0.0",
-              "total_content": sum(cat["count"] for cat in categories),
-              "categories": len(categories)
-          }
-          export_to_json(f"{export_path}/metadata.json", metadata)
-          EOF
-          
-          # Exécution du script Python
-          python temp_scraping.py
+          # Exécution du script Python de génération de données
+          python scripts/generate_demo_data.py
           
           # Vérification des fichiers générés
           ls -la export_data/
@@ -270,35 +162,8 @@ jobs:
         run: |
           echo "🔄 Génération des fichiers de contenu agrégé pour le frontend..."
           
-          # Création du script pour agréger les données
-          cat > aggregate_content.py << "EOF"
-          import json
-          import os
-          
-          def load_json(filename):
-              with open(filename, "r", encoding="utf-8") as f:
-                  return json.load(f)
-          
-          def save_json(filename, data):
-              with open(filename, "w", encoding="utf-8") as f:
-                  json.dump(data, f, ensure_ascii=False, indent=2)
-              print(f" Fichier {filename} généré avec succès")
-          
-          # Charger tous les fichiers JSON
-          data_dir = "export_data"
-          all_content = {}
-          
-          for filename in os.listdir(data_dir):
-              if filename.endswith(".json"):
-                  name = os.path.splitext(filename)[0]
-                  all_content[name] = load_json(os.path.join(data_dir, filename))
-          
-          # Créer un fichier agrégé pour le frontend
-          save_json(os.path.join(data_dir, "all_content.json"), all_content)
-          EOF
-          
-          # Exécution du script Python
-          python aggregate_content.py
+          # Exécution du script Python d'agrégation
+          python scripts/aggregate_content.py
           
           # Upload du fichier agrégé vers S3
           aws s3 cp export_data/all_content.json s3://${{ env.S3_BUCKET }}/data/all_content.json --cache-control "max-age=3600"
@@ -324,93 +189,28 @@ jobs:
             echo "LAMBDA_EXISTS=false" >> $GITHUB_OUTPUT
           fi
       
-      # Création de la fonction Lambda si elle n'existe pas
       - name: Création de la fonction Lambda
         if: steps.check-lambda.outputs.LAMBDA_EXISTS == 'false'
         run: |
-          echo "🔧 Création de la fonction Lambda pour l'optimisation des images..."
+          echo "🔧 Création de la fonction Lambda..."
           
           # Création du répertoire pour la fonction Lambda
           mkdir -p lambda_function
           
-          # Création du fichier index.js
-          cat > lambda_function/index.js << "EOF"
-          const AWS = require('aws-sdk');
-          const sharp = require('sharp');
-          const s3 = new AWS.S3();
-          
-          exports.handler = async (event) => {
-              // Récupérer les informations sur l'objet S3 qui a déclenché l'événement
-              const bucket = event.Records[0].s3.bucket.name;
-              const key = decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, ' '));
-              
-              // Vérifier si l'image est déjà optimisée
-              if (key.includes('optimized/')) {
-                  console.log('Image déjà optimisée, ignorée:', key);
-                  return {
-                      statusCode: 200,
-                      body: JSON.stringify('Image déjà optimisée'),
-                  };
-              }
-              
-              try {
-                  // Récupérer l'image depuis S3
-                  const s3Object = await s3.getObject({ Bucket: bucket, Key: key }).promise();
-                  
-                  // Optimiser l'image avec sharp
-                  const optimizedImage = await sharp(s3Object.Body)
-                      .resize(800) // Redimensionner à 800px de large max
-                      .jpeg({ quality: 80 }) // Compression JPEG
-                      .toBuffer();
-                  
-                  // Définir le nouveau chemin pour l'image optimisée
-                  const optimizedKey = `optimized/${key}`;
-                  
-                  // Uploader l'image optimisée vers S3
-                  await s3.putObject({
-                      Bucket: bucket,
-                      Key: optimizedKey,
-                      Body: optimizedImage,
-                      ContentType: 'image/jpeg',
-                      ACL: 'public-read',
-                  }).promise();
-                  
-                  console.log('Image optimisée avec succès:', optimizedKey);
-                  
-                  return {
-                      statusCode: 200,
-                      body: JSON.stringify('Image optimisée avec succès'),
-                  };
-              } catch (error) {
-                  console.error('Erreur lors de l\'optimisation de l\'image:', error);
-                  return {
-                      statusCode: 500,
-                      body: JSON.stringify('Erreur lors de l\'optimisation de l\'image'),
-                  };
-              }
-          };
-          EOF
-          
-          # Création du package.json
-          cat > lambda_function/package.json << "EOF"
-          {
-            "name": "flodrama-image-optimizer",
-            "version": "1.0.0",
-            "description": "Fonction Lambda pour optimiser les images uploadées sur S3",
-            "main": "index.js",
-            "dependencies": {
-              "sharp": "^0.32.1"
-            }
-          }
-          EOF
+          # Copie des fichiers de la fonction Lambda depuis les scripts
+          cp scripts/lambda_image_optimizer.js lambda_function/index.js
+          cp scripts/lambda_package.json lambda_function/package.json
           
           # Installation des dépendances
           cd lambda_function
-          npm install
+          npm install --production
           
-          # Création du fichier ZIP pour la fonction Lambda
+          # Création du package ZIP
           zip -r ../lambda_function.zip .
           cd ..
+          
+          # Copie du fichier de politique de confiance depuis les scripts
+          cp scripts/trust_policy.json .
           
           # Création du rôle IAM pour la fonction Lambda
           ROLE_ARN=$(aws iam get-role --role-name LambdaS3Role 2>/dev/null | jq -r '.Role.Arn' || echo "")
@@ -418,33 +218,18 @@ jobs:
           if [ -z "$ROLE_ARN" ]; then
             echo "Création du rôle IAM pour la fonction Lambda..."
             
-            # Création du document de politique d'approbation
-            cat > trust-policy.json << "EOF"
-            {
-              "Version": "2012-10-17",
-              "Statement": [
-                {
-                  "Effect": "Allow",
-                  "Principal": {
-                    "Service": "lambda.amazonaws.com"
-                  },
-                  "Action": "sts:AssumeRole"
-                }
-              ]
-            }
-            EOF
             # Création du rôle
             ROLE_ARN=$(aws iam create-role --role-name LambdaS3Role --assume-role-policy-document file://trust-policy.json --query "Role.Arn" --output text)
             
-            # Attacher la politique AWSLambdaExecute
-            aws iam attach-role-policy --role-name LambdaS3Role --policy-arn arn:aws:iam::aws:policy/AWSLambdaExecute
-            
-            # Attacher la politique S3FullAccess
+            # Attachement des politiques nécessaires
             aws iam attach-role-policy --role-name LambdaS3Role --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess
+            aws iam attach-role-policy --role-name LambdaS3Role --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
             
-            # Attendre que le rôle soit disponible
-            echo "Attente de la propagation du rôle IAM..."
+            # Attente pour la propagation du rôle
+            echo "⏳ Attente de 10 secondes pour la propagation du rôle IAM..."
             sleep 10
+          else
+            echo "✅ Rôle IAM existant: $ROLE_ARN"
           fi
           
           # Création de la fonction Lambda
@@ -453,13 +238,12 @@ jobs:
             --zip-file fileb://lambda_function.zip \
             --handler index.handler \
             --runtime nodejs18.x \
-            --role "$ROLE_ARN" \
+            --role $ROLE_ARN \
             --timeout 30 \
             --memory-size 1024
           
           echo "✅ Fonction Lambda créée avec succès"
       
-      # Mise à jour de la fonction Lambda si elle existe déjà
       - name: Mise à jour de la fonction Lambda
         if: steps.check-lambda.outputs.LAMBDA_EXISTS == 'true'
         run: |
@@ -468,82 +252,15 @@ jobs:
           # Création du répertoire pour la fonction Lambda
           mkdir -p lambda_function
           
-          # Création du fichier index.js avec les mêmes optimisations
-          cat > lambda_function/index.js << "EOF"
-          const AWS = require('aws-sdk');
-          const sharp = require('sharp');
-          const s3 = new AWS.S3();
-          
-          exports.handler = async (event) => {
-              // Récupérer les informations sur l'objet S3 qui a déclenché l'événement
-              const bucket = event.Records[0].s3.bucket.name;
-              const key = decodeURIComponent(event.Records[0].s3.object.key.replace(/\+/g, ' '));
-              
-              // Vérifier si l'image est déjà optimisée
-              if (key.includes('optimized/')) {
-                  console.log('Image déjà optimisée, ignorée:', key);
-                  return {
-                      statusCode: 200,
-                      body: JSON.stringify('Image déjà optimisée'),
-                  };
-              }
-              
-              try {
-                  // Récupérer l'image depuis S3
-                  const s3Object = await s3.getObject({ Bucket: bucket, Key: key }).promise();
-                  
-                  // Optimiser l'image avec sharp
-                  const optimizedImage = await sharp(s3Object.Body)
-                      .resize(800) // Redimensionner à 800px de large max
-                      .jpeg({ quality: 80 }) // Compression JPEG
-                      .toBuffer();
-                  
-                  // Définir le nouveau chemin pour l'image optimisée
-                  const optimizedKey = `optimized/${key}`;
-                  
-                  // Uploader l'image optimisée vers S3
-                  await s3.putObject({
-                      Bucket: bucket,
-                      Key: optimizedKey,
-                      Body: optimizedImage,
-                      ContentType: 'image/jpeg',
-                      ACL: 'public-read',
-                  }).promise();
-                  
-                  console.log('Image optimisée avec succès:', optimizedKey);
-                  
-                  return {
-                      statusCode: 200,
-                      body: JSON.stringify('Image optimisée avec succès'),
-                  };
-              } catch (error) {
-                  console.error('Erreur lors de l\'optimisation de l\'image:', error);
-                  return {
-                      statusCode: 500,
-                      body: JSON.stringify('Erreur lors de l\'optimisation de l\'image'),
-                  };
-              }
-          };
-          EOF
-          
-          # Création du package.json
-          cat > lambda_function/package.json << "EOF"
-          {
-            "name": "flodrama-image-optimizer",
-            "version": "1.0.0",
-            "description": "Fonction Lambda pour optimiser les images uploadées sur S3",
-            "main": "index.js",
-            "dependencies": {
-              "sharp": "^0.32.1"
-            }
-          }
-          EOF
+          # Copie des fichiers de la fonction Lambda depuis les scripts
+          cp scripts/lambda_image_optimizer.js lambda_function/index.js
+          cp scripts/lambda_package.json lambda_function/package.json
           
           # Installation des dépendances
           cd lambda_function
-          npm install
+          npm install --production
           
-          # Création du fichier ZIP pour la fonction Lambda
+          # Création du package ZIP
           zip -r ../lambda_function.zip .
           cd ..
           
