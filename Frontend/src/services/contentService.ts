@@ -116,51 +116,32 @@ export interface HeroBanner {
 // Constante pour le domaine CloudFront (définie en haut du fichier pour être réutilisée)
 const CLOUDFRONT_DOMAIN = 'https://d1gmx0yvfpqbgd.cloudfront.net';
 
-// Fonction utilitaire pour corriger les URLs des images
+// Fonction pour corriger les URLs des images
 function fixImageUrls<T extends { poster?: string }>(items: T[]): T[] {
+  if (!items || !Array.isArray(items)) return [];
+
   return items.map(item => {
-    if (item.poster) {
-      // Liste des domaines externes à remplacer
-      const externalDomains = [
-        'dramacool.cr', 
-        'viki.com', 
-        'kocowa.com', 
-        'iqiyi.com', 
-        'wetv.com', 
-        'myasiantv.cc',
-        'voirdrama.org',
-        'vostfree.cx',
-        'gogoanime.tv',
-        'neko-sama.fr',
-        'voiranime.com',
-        'allocine.fr',
-        'imdb.com',
-        'themoviedb.org',
-        'cinepulse.com',
-        'dpstream.net',
-        'bollywoodmdb.com',
-        'hotstar.com',
-        'zee5.com'
-      ];
-      
-      // Vérifier si l'URL contient un domaine externe
-      const containsExternalDomain = externalDomains.some(domain => 
-        item.poster && item.poster.includes(domain)
-      );
-      
-      // Si l'URL est relative ou contient un domaine externe, la remplacer
-      if (!item.poster.startsWith('http') || containsExternalDomain) {
-        // Extraire le nom du fichier de l'URL
-        const fileName = item.poster.split('/').pop() || 'default.jpg';
-        
-        // Créer une nouvelle URL avec le domaine CloudFront
-        return {
-          ...item,
-          poster: `${CLOUDFRONT_DOMAIN}/images/${fileName}`
-        };
+    if (!item) return item;
+    
+    // Copier l'item pour éviter de modifier l'original
+    const fixedItem = { ...item };
+    
+    // Corriger l'URL du poster si elle existe
+    if (fixedItem.poster) {
+      // Si l'URL est déjà une URL CloudFront, ne rien faire
+      if (fixedItem.poster.includes(CLOUDFRONT_DOMAIN)) {
+        // L'URL est déjà correcte, ne rien faire
+      } 
+      // Si l'URL est relative, la compléter avec le domaine CloudFront
+      else if (fixedItem.poster.startsWith('/')) {
+        fixedItem.poster = `https://${CLOUDFRONT_DOMAIN}${fixedItem.poster}`;
       }
+      // Sinon, c'est une URL externe, la fonction download_and_upload_image du lambda_handler.py
+      // devrait déjà avoir téléchargé cette image et remplacé l'URL par une URL CloudFront
+      // Cette partie du code n'est plus nécessaire mais conservée pour compatibilité temporaire
     }
-    return item;
+    
+    return fixedItem;
   });
 }
 

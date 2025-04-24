@@ -89,6 +89,13 @@ jobs:
                 
                 # Traitement du fichier items.json
                 if [ -f "$SOURCE_DIR/items.json" ]; then
+                  # Vérifier que les URLs des images pointent vers CloudFront
+                  # Si ce n'est pas le cas, ajouter un avertissement dans les logs
+                  if grep -q -v "cloudfront.net" "$SOURCE_DIR/items.json"; then
+                    echo "⚠️ Attention: Certaines URLs d'images ne pointent pas vers CloudFront dans $SOURCE_DIR/items.json"
+                    echo "    Ces images devraient être téléchargées par le système de scraping."
+                  fi
+                  
                   # Extraire les données essentielles pour l'index
                   jq -c '.[] | {id: .id, title: .title, poster: .poster, year: .year, rating: .rating, language: .language}' "$SOURCE_DIR/items.json" >> ${{ env.FRONTEND_DATA_PATH }}/content/$TYPE/items_temp.json
                   
