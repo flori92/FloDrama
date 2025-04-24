@@ -94,6 +94,13 @@ jobs:
         run: |
           echo "🔍 Lancement du scraping et de la génération des données..."
           
+          # Vérification de l'existence des scripts
+          echo "📂 Contenu du répertoire scripts/"
+          ls -la scripts/
+          
+          # Vérification des permissions
+          chmod +x scripts/generate_demo_data.py
+          
           # Exécution du script Python de génération de données
           python scripts/generate_demo_data.py
           
@@ -162,6 +169,13 @@ jobs:
         run: |
           echo "🔄 Génération des fichiers de contenu agrégé pour le frontend..."
           
+          # Vérification de l'existence des scripts
+          echo "📂 Contenu du répertoire scripts/"
+          ls -la scripts/
+          
+          # Vérification des permissions
+          chmod +x scripts/aggregate_content.py
+          
           # Exécution du script Python d'agrégation
           python scripts/aggregate_content.py
           
@@ -194,6 +208,10 @@ jobs:
         run: |
           echo "🔧 Création de la fonction Lambda..."
           
+          # Vérification de l'existence des scripts
+          echo "📂 Contenu du répertoire scripts/"
+          ls -la scripts/
+          
           # Création du répertoire pour la fonction Lambda
           mkdir -p lambda_function
           
@@ -209,8 +227,19 @@ jobs:
           zip -r ../lambda_function.zip .
           cd ..
           
-          # Copie du fichier de politique de confiance depuis les scripts
-          cp scripts/trust_policy.json .
+          # Création du fichier de politique de confiance directement
+          echo '{
+            "Version": "2012-10-17",
+            "Statement": [
+              {
+                "Effect": "Allow",
+                "Principal": {
+                  "Service": "lambda.amazonaws.com"
+                },
+                "Action": "sts:AssumeRole"
+              }
+            ]
+          }' > trust-policy.json
           
           # Création du rôle IAM pour la fonction Lambda
           ROLE_ARN=$(aws iam get-role --role-name LambdaS3Role 2>/dev/null | jq -r '.Role.Arn' || echo "")
