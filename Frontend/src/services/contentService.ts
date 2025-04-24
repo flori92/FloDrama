@@ -9,10 +9,24 @@ interface AxiosRequestConfig {
   [key: string]: any;
 }
 
+// Importation des données locales générées par le workflow
+import dramaData from '../data/content/drama/index.json';
+import animeData from '../data/content/anime/index.json';
+import filmData from '../data/content/film/index.json';
+import bollywoodData from '../data/content/bollywood/index.json';
+import carouselsData from '../data/carousels.json';
+import heroBannersData from '../data/hero_banners.json';
+
+// Données locales structurées
+const localData: Record<ContentType, ContentItem[]> = {
+  drama: dramaData.items,
+  anime: animeData.items,
+  film: filmData.items,
+  bollywood: bollywoodData.items
+};
+
 // Importation des données statiques (générées par GitHub Actions)
 import metadata from '../data/metadata.json'
-import carousels from '../data/carousels.json'
-import heroBanners from '../data/hero_banners.json'
 
 // Types de contenu supportés
 export type ContentType = 'drama' | 'anime' | 'bollywood' | 'film'
@@ -595,7 +609,23 @@ export const getContentsByCategory = async (category: ContentType): Promise<Cont
       console.warn('Impossible de lire le cache:', cacheError);
     }
     
-    // Tenter de récupérer les données depuis l'API
+    // Vérifier si des données locales générées sont disponibles
+    if (localData[category] && localData[category].length > 0) {
+      console.log(`📄 Utilisation des données locales générées pour ${category}`);
+      
+      // Mettre en cache les données locales
+      try {
+        localStorage.setItem(`content_${category}`, JSON.stringify(localData[category]));
+        localStorage.setItem(`content_${category}_timestamp`, Date.now().toString());
+        console.log(`💾 Données locales pour ${category} mises en cache`);
+      } catch (cacheError) {
+        console.warn('Impossible de mettre en cache les données:', cacheError);
+      }
+      
+      return localData[category];
+    }
+    
+    // Si aucune donnée locale n'est disponible, tenter de récupérer les données depuis l'API
     try {
       // Vérifier si le backend est disponible
       await checkBackendAvailability();
@@ -678,7 +708,7 @@ export const getContentsByCategory = async (category: ContentType): Promise<Cont
     console.error(`Erreur lors de la récupération des contenus pour ${category}:`, error);
     return mockData[category] || [];
   }
-}
+};
 
 /**
  * Récupère les détails d'un contenu
@@ -705,6 +735,60 @@ export const getContentDetails = async (contentId: string): Promise<ContentDetai
       }
     } catch (cacheError) {
       console.warn('Impossible de lire le cache:', cacheError);
+    }
+    
+    // Vérifier d'abord si nous pouvons trouver les détails dans les données locales
+    const contentIdParts = contentId.split('-');
+    const contentSource = contentIdParts[0]; // Ex: 'dramacool' de 'dramacool-123'
+    const contentType = determineContentTypeFromSource(contentSource);
+    
+    if (contentType && localData[contentType]) {
+      console.log(`🔍 Recherche du contenu ${contentId} dans les données locales de type ${contentType}`);
+      const localItem = localData[contentType].find((item: ContentItem) => item.id === contentId);
+      
+      if (localItem) {
+        console.log(`📄 Contenu ${contentId} trouvé dans les données locales`);
+        
+        // Créer un objet ContentDetail à partir de l'élément trouvé
+        const contentDetail: ContentDetail = {
+          ...localItem,
+          url: localItem.source || `https://flodrama.com/content/${contentId}`,
+          description: '',
+          synopsis: '',
+          genres: [],
+          tags: [],
+          actors: [],
+          director: '',
+          episode_count: 0,
+          duration: '',
+          episodes: [],
+          seasons: [],
+          status: '',
+          release_date: '',
+          streaming_urls: [],
+          trailers: [],
+          images: [],
+          subtitles: [],
+          related_content: [],
+          user_ratings: { average: 0, count: 0 },
+          popularity_score: 0,
+          is_premium: false,
+          gallery: []
+        };
+        
+        // Mettre en cache les données
+        try {
+          localStorage.setItem(`content_detail_${contentId}`, JSON.stringify(contentDetail));
+          localStorage.setItem(`content_detail_${contentId}_timestamp`, Date.now().toString());
+          console.log(`💾 Détails du contenu ${contentId} mis en cache`);
+        } catch (cacheError) {
+          console.warn('Impossible de mettre en cache les données:', cacheError);
+        }
+        
+        return contentDetail;
+      } else {
+        console.log(`⚠️ Contenu ${contentId} non trouvé dans les données locales`);
+      }
     }
     
     // Tenter de récupérer les données depuis l'API
@@ -767,6 +851,42 @@ export const getContentDetails = async (contentId: string): Promise<ContentDetai
     return mockItem || createEmptyContentDetail(contentId);
   }
 };
+
+/**
+ * Détermine le type de contenu à partir de la source
+ * @param source Nom de la source (ex: 'dramacool', 'viki', etc.)
+ * @returns ContentType ou undefined si la source n'est pas reconnue
+ */
+function determineContentTypeFromSource(source: string): ContentType | undefined {
+  // Sources de dramas
+  if (['dramacool', 'viki', 'kocowa', 'iqiyi', 'wetv', 'myasiantv', 'voirdrama', 'vostfree'].includes(source)) {
+    return 'drama';
+  }
+  
+  // Sources d'animes
+  if (['gogoanime', 'neko-sama', 'voiranime'].includes(source)) {
+    return 'anime';
+  }
+  
+  // Sources de films
+  if (['allocine', 'imdb', 'themoviedb', 'cinepulse', 'dpstream'].includes(source)) {
+    return 'film';
+  }
+  
+  // Sources de bollywood
+  if (['bollywoodmdb', 'hotstar', 'zee5'].includes(source)) {
+    return 'bollywood';
+  }
+  
+  // Si la source n'est pas reconnue, essayer de deviner à partir du préfixe
+  if (source.includes('drama')) return 'drama';
+  if (source.includes('anime')) return 'anime';
+  if (source.includes('film') || source.includes('movie')) return 'film';
+  if (source.includes('bolly')) return 'bollywood';
+  
+  // Si impossible de déterminer, retourner undefined
+  return undefined;
+}
 
 /**
  * Récupère les carrousels pour la page d'accueil
@@ -839,8 +959,8 @@ export async function getCarousels(): Promise<Record<string, Carousel>> {
   console.warn('⚠️ Utilisation des données importées ou mockées pour les carousels (solution de repli)');
   
   // Si les données importées sont disponibles et ont le bon format, les utiliser
-  if (carousels && Object.keys(carousels).length > 0) {
-    return carousels;
+  if (carouselsData && Object.keys(carouselsData).length > 0) {
+    return carouselsData;
   }
   
   // Sinon, utiliser les données mockées
@@ -935,7 +1055,7 @@ export async function getHeroBanners(): Promise<HeroBanner> {
   console.warn('⚠️ Utilisation des données importées ou mockées pour les bannières (solution de repli)');
   
   // Si les données importées sont vides, générer des données de démonstration
-  if (!heroBanners || !heroBanners.banners || heroBanners.banners.length === 0) {
+  if (!heroBannersData || !heroBannersData.banners || heroBannersData.banners.length === 0) {
     console.warn('⚠️ Utilisation des données mockées pour les bannières (solution de repli)');
     return {
       banners: [
@@ -947,12 +1067,12 @@ export async function getHeroBanners(): Promise<HeroBanner> {
   }
   
   // Si les bannières importées n'ont pas le bon format, les adapter
-  if (heroBanners.banners && heroBanners.banners.length > 0) {
+  if (heroBannersData.banners && heroBannersData.banners.length > 0) {
     // Vérifier si les bannières ont le format attendu
-    const firstBanner = heroBanners.banners[0];
+    const firstBanner = heroBannersData.banners[0];
     if (firstBanner && 'image' in firstBanner && !('poster' in firstBanner)) {
       // Convertir les bannières au format ContentItem
-      const convertedBanners = heroBanners.banners.map((banner: any) => ({
+      const convertedBanners = heroBannersData.banners.map((banner: any) => ({
         id: banner.id || `banner-${Math.random().toString(36).substring(2, 9)}`,
         title: banner.title || 'Bannière sans titre',
         poster: banner.image || 'https://via.placeholder.com/1280x720?text=Banner',
@@ -965,7 +1085,7 @@ export async function getHeroBanners(): Promise<HeroBanner> {
     }
   }
   
-  return heroBanners as unknown as HeroBanner;
+  return heroBannersData as unknown as HeroBanner;
 }
 
 /**

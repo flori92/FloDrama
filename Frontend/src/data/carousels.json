@@ -2,21 +2,21 @@
   "featured": {
     "title": "À l'affiche",
     "type": "featured",
-    "items": 
+    "items": []
   },
   "trending": {
     "title": "Tendances",
     "type": "trending",
-    "items": 
+    "items": []
   },
   "new_releases": {
     "title": "Nouveautés",
     "type": "new_releases",
-    "items": 
+    "items": []
   },
   "popular": {
     "title": "Populaires",
     "type": "popular",
-    "items": 
+    "items": []
   }
 }
