@@ -552,126 +552,28 @@ export const triggerTargetedScraping = async (query: string, userId?: string): P
  */
 export const getContentsByCategory = async (category: ContentType): Promise<ContentItem[]> => {
   try {
-    // Vérifier d'abord s'il existe des données en cache
-    try {
-      const cachedData = localStorage.getItem(`content_${category}`);
-      const cacheTimestamp = localStorage.getItem(`content_${category}_timestamp`);
-      
-      if (cachedData && cacheTimestamp) {
-        const cacheAge = Date.now() - parseInt(cacheTimestamp);
-        const CACHE_MAX_AGE = 24 * 60 * 60 * 1000; // 24 heures
-        
-        if (cacheAge < CACHE_MAX_AGE) {
-          console.log(`📦 Utilisation du cache local pour la catégorie ${category} (âge: ${Math.round(cacheAge / 60000)}min)`);
-          return JSON.parse(cachedData);
-        } else {
-          console.log(`🕒 Cache expiré pour la catégorie ${category}, rafraîchissement...`);
-        }
-      }
-    } catch (cacheError) {
-      console.warn('Impossible de lire le cache:', cacheError);
-    }
+    // Vérifier si le backend est disponible
+    await checkBackendAvailability();
     
-    // Vérifier si des données locales générées sont disponibles
+    // Utiliser directement les données locales
+    console.log(`📊 Utilisation des données locales pour ${category}`);
+    
+    // Vérifier si la catégorie existe dans les données locales
     if (localData[category] && localData[category].length > 0) {
-      console.log(`📄 Utilisation des données locales générées pour ${category}`);
-      
-      // Mettre en cache les données locales
-      try {
-        localStorage.setItem(`content_${category}`, JSON.stringify(localData[category]));
-        localStorage.setItem(`content_${category}_timestamp`, Date.now().toString());
-        console.log(`💾 Données locales pour ${category} mises en cache`);
-      } catch (cacheError) {
-        console.warn('Impossible de mettre en cache les données:', cacheError);
-      }
-      
       return localData[category];
     }
     
-    // Si aucune donnée locale n'est disponible, tenter de récupérer les données depuis l'API
-    try {
-      // Vérifier si le backend est disponible
-      await checkBackendAvailability();
-      
-      if (isBackendAvailable) {
-        console.log(`🔄 Récupération des données pour ${category} depuis l'API...`);
-        
-        // Essayer plusieurs variantes de chemins d'API possibles
-        const possibleEndpoints = [
-          `/content?category=${category}`,
-          `/contents?category=${category}`,
-          `/api/content?category=${category}`,
-          `/api/contents?category=${category}`,
-          `/${category}`
-        ];
-        
-        let response: ContentItem[] = [];
-        let endpointFound = false;
-        
-        // Essayer chaque endpoint jusqu'à ce qu'un fonctionne
-        for (const endpoint of possibleEndpoints) {
-          try {
-            console.log(`🔍 Tentative avec l'endpoint: ${endpoint}`);
-            response = await apiRequest<ContentItem[]>(`${API_URL}${endpoint}`, {
-              timeout: 3000,
-              validateStatus: (status: number) => status >= 200 && status < 300
-            });
-            
-            // Vérifier si les données reçues contiennent des URLs d'images valides
-            if (response && response.length > 0) {
-              console.log(`✅ Endpoint trouvé: ${endpoint}`);
-              console.log(`📊 Données reçues:`, response[0]);
-              
-              // Vérifier si les URLs des images sont complètes
-              const firstItem = response[0];
-              if (firstItem.poster && !firstItem.poster.startsWith('http')) {
-                console.warn(`⚠️ URL d'image incomplète détectée: ${firstItem.poster}`);
-                
-                // Compléter les URLs relatives avec le domaine CloudFront
-                response = fixImageUrls(response);
-                
-                console.log(`🔄 URLs d'images corrigées pour le contenu ${category}`);
-              }
-            }
-            
-            endpointFound = true;
-            break;
-          } catch (endpointError: any) {
-            console.warn(`⚠️ Échec avec l'endpoint ${endpoint}: ${endpointError.message || 'Erreur inconnue'}`);
-            continue;
-          }
-        }
-        
-        if (endpointFound) {
-          console.log('✅ Carousels récupérés depuis l\'API');
-          // Mettre en cache les données récupérées
-          try {
-            localStorage.setItem(`content_${category}`, JSON.stringify(response));
-            localStorage.setItem(`content_${category}_timestamp`, Date.now().toString());
-            console.log(`💾 Données pour ${category} mises en cache`);
-          } catch (cacheError) {
-            console.warn('Impossible de mettre en cache les données:', cacheError);
-          }
-          return response;
-        } else {
-          // Aucun endpoint n'a fonctionné, utiliser les données mockées
-          console.warn(`⚠️ Aucun endpoint API valide trouvé pour ${category}, utilisation des données mockées`);
-          return mockData[category] || [];
-        }
-      } else {
-        console.warn(`⚠️ Backend indisponible, utilisation des données mockées pour ${category}`);
-        return mockData[category] || [];
-      }
-    } catch (apiError) {
-      console.error(`Erreur lors de la récupération des données depuis l'API pour ${category}:`, apiError);
-      console.warn(`⚠️ Utilisation des données mockées pour ${category} (solution de repli)`);
-      return mockData[category] || [];
-    }
+    // Fallback sur les données mockées
+    console.warn(`⚠️ Backend indisponible, utilisation des données mockées pour ${category}`);
+    return mockData[category] || [];
   } catch (error) {
     console.error(`Erreur lors de la récupération des contenus pour ${category}:`, error);
+    
+    // Fallback sur les données mockées
+    console.warn(`⚠️ Backend indisponible, utilisation des données mockées pour ${category}`);
     return mockData[category] || [];
   }
-};
+}
 
 /**
  * Récupère les détails d'un contenu
@@ -680,26 +582,6 @@ export const getContentsByCategory = async (category: ContentType): Promise<Cont
  */
 export const getContentDetails = async (contentId: string): Promise<ContentDetail> => {
   try {
-    // Vérifier d'abord s'il existe des données en cache
-    try {
-      const cachedData = localStorage.getItem(`content_detail_${contentId}`);
-      const cacheTimestamp = localStorage.getItem(`content_detail_${contentId}_timestamp`);
-      
-      if (cachedData && cacheTimestamp) {
-        const cacheAge = Date.now() - parseInt(cacheTimestamp);
-        const CACHE_MAX_AGE = 24 * 60 * 60 * 1000; // 24 heures
-        
-        if (cacheAge < CACHE_MAX_AGE) {
-          console.log(`📦 Utilisation du cache local pour le contenu ${contentId} (âge: ${Math.round(cacheAge / 60000)}min)`);
-          return JSON.parse(cachedData);
-        } else {
-          console.log(`🕒 Cache expiré pour le contenu ${contentId}, rafraîchissement...`);
-        }
-      }
-    } catch (cacheError) {
-      console.warn('Impossible de lire le cache:', cacheError);
-    }
-    
     // Vérifier d'abord si nous pouvons trouver les détails dans les données locales
     const contentIdParts = contentId.split('-');
     const contentSource = contentIdParts[0]; // Ex: 'dramacool' de 'dramacool-123'
@@ -739,15 +621,6 @@ export const getContentDetails = async (contentId: string): Promise<ContentDetai
           gallery: []
         };
         
-        // Mettre en cache les données
-        try {
-          localStorage.setItem(`content_detail_${contentId}`, JSON.stringify(contentDetail));
-          localStorage.setItem(`content_detail_${contentId}_timestamp`, Date.now().toString());
-          console.log(`💾 Détails du contenu ${contentId} mis en cache`);
-        } catch (cacheError) {
-          console.warn('Impossible de mettre en cache les données:', cacheError);
-        }
-        
         return contentDetail;
       } else {
         console.log(`⚠️ Contenu ${contentId} non trouvé dans les données locales`);
@@ -785,15 +658,6 @@ export const getContentDetails = async (contentId: string): Promise<ContentDetai
           }
           
           console.log(`🔄 URLs d'images corrigées pour le contenu ${contentId}`);
-        }
-        
-        // Mettre en cache les données récupérées
-        try {
-          localStorage.setItem(`content_detail_${contentId}`, JSON.stringify(item));
-          localStorage.setItem(`content_detail_${contentId}_timestamp`, Date.now().toString());
-          console.log(`💾 Détails pour ${contentId} mis en cache`);
-        } catch (cacheError) {
-          console.warn('Impossible de mettre en cache les données:', cacheError);
         }
         
         return item;
