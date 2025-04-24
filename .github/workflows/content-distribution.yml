@@ -14,6 +14,10 @@ on:
         default: false
         type: boolean
 
+# Permissions nécessaires pour le push
+permissions:
+  contents: write
+
 jobs:
   distribute-content:
     name: Distribution des données scrapées
@@ -165,6 +169,9 @@ jobs:
             echo "Aucune modification détectée, rien à commiter."
           else
             git commit -m "✨ [DATA] Mise à jour des données de contenu - $(date +"%d/%m/%Y %H:%M")"
+            
+            # Utiliser le token GitHub pour l'authentification
+            git remote set-url origin https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
             git push
             echo "✅ Modifications commitées et poussées avec succès"
           fi
