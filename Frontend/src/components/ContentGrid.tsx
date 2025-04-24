@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ChevronRight, Heart, ThumbsDown, Star } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { getCategoryContent } from '../services/contentService';
+import { getCategoryContent, ContentItem as ServiceContentItem } from '../services/contentService';
 import { useUserPreferences } from '../hooks/useUserPreferences';
 import { useTrailerPreview } from '../hooks/useTrailerPreview';
 
@@ -13,7 +13,7 @@ interface ContentGridProps {
   token: string;
 }
 
-interface ContentItem {
+interface GridContentItem {
   id: string;
   titre: string;
   imageUrl: string;
@@ -23,8 +23,8 @@ interface ContentItem {
 }
 
 const ContentGrid: React.FC<ContentGridProps> = ({ title, category, searchQuery, userId, token }) => {
-  const [contentItems, setContentItems] = useState<ContentItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [contentItems, setContentItems] = React.useState<GridContentItem[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
   const navigate = useNavigate();
 
   // Préférences utilisateur (likes, dislikes, favoris)
@@ -40,12 +40,24 @@ const ContentGrid: React.FC<ContentGridProps> = ({ title, category, searchQuery,
   // Preview trailer
   const trailerPreview = useTrailerPreview(1000);
 
-  useEffect(() => {
+  // Fonction pour adapter les éléments du service au format attendu par le composant
+  const adaptContentItems = (items: ServiceContentItem[]): GridContentItem[] => {
+    return items.map(item => ({
+      id: item.id,
+      titre: item.title,
+      imageUrl: item.poster,
+      type: item.type || 'unknown',
+      genres: ['drama'], // Valeur par défaut car ContentItem n'a pas de propriété genres
+      trailerUrl: undefined // ContentItem n'a pas de propriété trailers
+    }));
+  };
+
+  React.useEffect(() => {
     let isMounted = true;
     setIsLoading(true);
     getCategoryContent(category || '', token)
       .then(data => {
-        if (isMounted) setContentItems(data);
+        if (isMounted) setContentItems(adaptContentItems(data));
       })
       .catch(() => setContentItems([]))
       .finally(() => { if (isMounted) setIsLoading(false); });

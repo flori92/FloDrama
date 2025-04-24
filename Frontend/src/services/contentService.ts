@@ -117,14 +117,19 @@ export interface HeroBanner {
 const CLOUDFRONT_DOMAIN = 'https://d1gmx0yvfpqbgd.cloudfront.net';
 
 // Fonction pour corriger les URLs des images
-function fixImageUrls<T extends { poster?: string }>(items: T[]): T[] {
+function fixImageUrls<T extends { image?: string; poster?: string }>(items: T[]): any[] {
   if (!items || !Array.isArray(items)) return [];
 
   return items.map(item => {
     if (!item) return item;
     
     // Copier l'item pour éviter de modifier l'original
-    const fixedItem = { ...item };
+    const fixedItem = { ...item } as any;
+    
+    // Convertir l'objet au format ContentItem
+    if (fixedItem.image && !fixedItem.poster) {
+      fixedItem.poster = fixedItem.image;
+    }
     
     // Corriger l'URL du poster si elle existe
     if (fixedItem.poster) {
@@ -141,7 +146,24 @@ function fixImageUrls<T extends { poster?: string }>(items: T[]): T[] {
       // Cette partie du code n'est plus nécessaire mais conservée pour compatibilité temporaire
     }
     
-    return fixedItem;
+    // Ajouter les propriétés manquantes pour correspondre à l'interface ContentItem
+    if (!fixedItem.title && fixedItem.titre) {
+      fixedItem.title = fixedItem.titre;
+    }
+    
+    if (!fixedItem.year && fixedItem.annee) {
+      fixedItem.year = fixedItem.annee;
+    }
+    
+    if (!fixedItem.rating) {
+      fixedItem.rating = 7.5; // Valeur par défaut
+    }
+    
+    if (!fixedItem.language) {
+      fixedItem.language = 'fr'; // Valeur par défaut
+    }
+    
+    return fixedItem as ContentItem;
   });
 }
 
