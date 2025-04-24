@@ -1,0 +1,374 @@
+name: CI/CD FloDrama Optimisé
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+# Permissions nécessaires pour GitHub Pages
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+env:
+  S3_BUCKET: flodrama-assets
+  AWS_REGION: eu-west-3
+  LAMBDA_FUNCTION_NAME: FloDramaImageOptimizer
+  IAM_ROLE_NAME: LambdaS3Role
+
+jobs:
+  # Job de déploiement du contenu
+  deploy_content:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+      
+      - name: Configuration de Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip'
+      
+      - name: Installation des dépendances Python
+        run: |
+          python -m pip install --upgrade pip
+          pip install boto3 requests pillow
+
+      - name: Configuration AWS
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+          role-duration-seconds: 3600
+          role-session-name: GitHubActionsSession
+      
+      # Vérification du bucket S3 avant toute opération
+      - name: Vérification du bucket S3
+        id: check-s3-bucket
+        run: |
+          echo "🔍 Vérification du bucket S3 ${{ env.S3_BUCKET }}..."
+          
+          if aws s3api head-bucket --bucket ${{ env.S3_BUCKET }} 2>/dev/null; then
+            echo "✅ Le bucket S3 ${{ env.S3_BUCKET }} existe."
+            echo "BUCKET_EXISTS=true" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Le bucket S3 ${{ env.S3_BUCKET }} n'existe pas."
+            echo "BUCKET_EXISTS=false" >> $GITHUB_OUTPUT
+          fi
+
+      # Création du bucket S3 s'il n'existe pas
+      - name: Création du bucket S3
+        if: steps.check-s3-bucket.outputs.BUCKET_EXISTS == 'false'
+        run: |
+          echo "🔧 Création du bucket S3 ${{ env.S3_BUCKET }}..."
+          
+          aws s3api create-bucket \
+            --bucket ${{ env.S3_BUCKET }} \
+            --region ${{ env.AWS_REGION }} \
+            --create-bucket-configuration LocationConstraint=${{ env.AWS_REGION }}
+          
+          # Configuration du bucket pour l'hébergement web statique
+          aws s3 website s3://${{ env.S3_BUCKET }}/ --index-document index.html --error-document error.html
+          
+          # Configuration des permissions CORS
+          aws s3api put-bucket-cors --bucket ${{ env.S3_BUCKET }} --cors-configuration '{
+            "CORSRules": [
+              {
+                "AllowedHeaders": ["*"],
+                "AllowedMethods": ["GET", "HEAD"],
+                "AllowedOrigins": ["*"],
+                "ExposeHeaders": [],
+                "MaxAgeSeconds": 3000
+              }
+            ]
+          }'
+          
+          echo "✅ Bucket S3 créé et configuré avec succès."
+
+      # Génération des données de contenu
+      - name: Génération des données de contenu
+        run: |
+          echo "🔄 Génération des données de contenu..."
+          
+          # Création du dossier d'export
+          mkdir -p export_data
+          
+          # Exécution du script Python de génération de données
+          python scripts/generate_demo_data.py
+          
+          echo "✅ Données générées avec succès."
+
+      # Synchronisation avec S3 uniquement si le bucket existe
+      - name: Synchronisation avec S3
+        if: steps.check-s3-bucket.outputs.BUCKET_EXISTS == 'true'
+        run: |
+          echo "🔄 Synchronisation des données avec S3..."
+          
+          # Création du dossier data s'il n'existe pas
+          aws s3api put-object --bucket ${{ env.S3_BUCKET }} --key data/ --content-type "application/x-directory" || true
+          
+          # Synchronisation des données
+          aws s3 sync export_data/ s3://${{ env.S3_BUCKET }}/data/ --cache-control "max-age=3600"
+          
+          echo "✅ Synchronisation terminée."
+
+      # Génération et upload du fichier de contenu agrégé
+      - name: Génération du contenu agrégé
+        if: steps.check-s3-bucket.outputs.BUCKET_EXISTS == 'true'
+        run: |
+          echo "🔄 Génération du contenu agrégé..."
+          
+          # Exécution du script d'agrégation
+          python scripts/aggregate_content.py
+          
+          # Upload du fichier agrégé
+          aws s3 cp export_data/all_content.json s3://${{ env.S3_BUCKET }}/data/all_content.json --cache-control "max-age=3600"
+          
+          echo "✅ Contenu agrégé généré et uploadé."
+
+      # Invalidation du cache CloudFront si l'ID est configuré
+      - name: Invalidation du cache CloudFront
+        if: steps.check-s3-bucket.outputs.BUCKET_EXISTS == 'true'
+        run: |
+          echo "🔄 Vérification de la distribution CloudFront..."
+          
+          if [ -n "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" ]; then
+            echo "🔄 Invalidation du cache CloudFront..."
+            
+            aws cloudfront create-invalidation \
+              --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+              --paths "/data/*"
+            
+            echo "✅ Invalidation du cache CloudFront initiée."
+          else
+            echo "⚠️ Aucun ID CloudFront configuré, invalidation ignorée."
+          fi
+
+  # Job de déploiement du frontend
+  deploy_frontend:
+    runs-on: ubuntu-latest
+    needs: deploy_content
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+      
+      - name: Configuration de Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: Frontend/package-lock.json
+      
+      - name: Construction du frontend
+        working-directory: ./Frontend
+        run: |
+          echo "📦 Installation des dépendances..."
+          npm install --legacy-peer-deps
+          
+          echo "🔑 Configuration des variables d'environnement..."
+          cp .env.production .env
+          
+          echo "🚀 Construction de l'application React..."
+          npm run build
+          
+          if [ $? -eq 0 ]; then
+            echo "✅ Construction du frontend réussie!"
+          else
+            echo "❌ Échec de la construction du frontend."
+            exit 1
+          fi
+
+      - name: Installation de Surge
+        run: npm install -g surge
+
+      - name: Déploiement sur flodrama.com
+        run: |
+          echo "🚀 Déploiement sur flodrama.com..."
+          cd Frontend/dist
+          surge --project ./ --domain flodrama.com --token ${{ secrets.SURGE_TOKEN }}
+          echo "✅ Frontend déployé avec succès sur https://flodrama.com"
+
+  # Job optionnel pour la gestion de l'infrastructure Lambda
+  # Ce job ne s'exécute que si le paramètre "update_lambda" est spécifié dans le workflow_dispatch
+  update_lambda:
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.update_lambda == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+      
+      - name: Configuration de Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Configuration AWS
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      
+      # Vérification de l'existence de la fonction Lambda
+      - name: Vérification de la fonction Lambda
+        id: check-lambda
+        run: |
+          echo "🔍 Vérification de la fonction Lambda ${{ env.LAMBDA_FUNCTION_NAME }}..."
+          
+          if aws lambda get-function --function-name ${{ env.LAMBDA_FUNCTION_NAME }} 2>/dev/null; then
+            echo "✅ La fonction Lambda existe déjà."
+            echo "LAMBDA_EXISTS=true" >> $GITHUB_OUTPUT
+          else
+            echo "❌ La fonction Lambda n'existe pas."
+            echo "LAMBDA_EXISTS=false" >> $GITHUB_OUTPUT
+          fi
+      
+      # Création de la fonction Lambda si elle n'existe pas
+      - name: Création de la fonction Lambda
+        if: steps.check-lambda.outputs.LAMBDA_EXISTS == 'false'
+        run: |
+          echo "🔧 Création de la fonction Lambda..."
+          
+          # Création du répertoire pour la fonction Lambda
+          mkdir -p lambda_function
+          
+          # Copie des fichiers de la fonction Lambda
+          cp scripts/lambda_image_optimizer.js lambda_function/index.js
+          cp scripts/lambda_package.json lambda_function/package.json
+          
+          # Installation des dépendances
+          cd lambda_function
+          npm install --production
+          
+          # Création du package ZIP
+          zip -r ../lambda_function.zip .
+          cd ..
+          
+          # Vérification du rôle IAM
+          ROLE_ARN=$(aws iam get-role --role-name ${{ env.IAM_ROLE_NAME }} 2>/dev/null | jq -r '.Role.Arn' || echo "")
+          
+          # Création du rôle IAM s'il n'existe pas
+          if [ -z "$ROLE_ARN" ]; then
+            echo "🔧 Création du rôle IAM..."
+            
+            # Création du fichier de politique de confiance
+            echo '{
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Principal": {
+                    "Service": "lambda.amazonaws.com"
+                  },
+                  "Action": "sts:AssumeRole"
+                }
+              ]
+            }' > trust-policy.json
+            
+            # Création du rôle
+            ROLE_ARN=$(aws iam create-role --role-name ${{ env.IAM_ROLE_NAME }} --assume-role-policy-document file://trust-policy.json --query "Role.Arn" --output text)
+            
+            # Attachement des politiques
+            aws iam attach-role-policy --role-name ${{ env.IAM_ROLE_NAME }} --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess
+            aws iam attach-role-policy --role-name ${{ env.IAM_ROLE_NAME }} --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+            
+            # Attente pour la propagation du rôle
+            echo "⏳ Attente de 10 secondes pour la propagation du rôle IAM..."
+            sleep 10
+          else
+            echo "✅ Utilisation du rôle IAM existant: $ROLE_ARN"
+          fi
+          
+          # Création de la fonction Lambda
+          aws lambda create-function \
+            --function-name ${{ env.LAMBDA_FUNCTION_NAME }} \
+            --zip-file fileb://lambda_function.zip \
+            --handler index.handler \
+            --runtime nodejs18.x \
+            --role $ROLE_ARN \
+            --timeout 30 \
+            --memory-size 1024
+          
+          echo "✅ Fonction Lambda créée avec succès."
+      
+      # Mise à jour de la fonction Lambda si elle existe déjà
+      - name: Mise à jour de la fonction Lambda
+        if: steps.check-lambda.outputs.LAMBDA_EXISTS == 'true'
+        run: |
+          echo "🔄 Mise à jour de la fonction Lambda..."
+          
+          # Création du répertoire pour la fonction Lambda
+          mkdir -p lambda_function
+          
+          # Copie des fichiers de la fonction Lambda
+          cp scripts/lambda_image_optimizer.js lambda_function/index.js
+          cp scripts/lambda_package.json lambda_function/package.json
+          
+          # Installation des dépendances
+          cd lambda_function
+          npm install --production
+          
+          # Création du package ZIP
+          zip -r ../lambda_function.zip .
+          cd ..
+          
+          # Mise à jour de la fonction Lambda
+          aws lambda update-function-code \
+            --function-name ${{ env.LAMBDA_FUNCTION_NAME }} \
+            --zip-file fileb://lambda_function.zip
+          
+          echo "✅ Fonction Lambda mise à jour avec succès."
+      
+      # Configuration du déclencheur S3 pour la fonction Lambda
+      - name: Configuration du déclencheur S3
+        if: steps.check-lambda.outputs.LAMBDA_EXISTS == 'true' || steps.check-lambda.outputs.LAMBDA_EXISTS == 'false'
+        run: |
+          echo "🔄 Configuration du déclencheur S3 pour la fonction Lambda..."
+          
+          # Vérification de l'existence du bucket S3
+          if aws s3api head-bucket --bucket ${{ env.S3_BUCKET }} 2>/dev/null; then
+            # Récupération de l'ARN de la fonction Lambda
+            LAMBDA_ARN=$(aws lambda get-function --function-name ${{ env.LAMBDA_FUNCTION_NAME }} --query 'Configuration.FunctionArn' --output text)
+            
+            # Ajout de la permission pour S3
+            aws lambda add-permission \
+              --function-name ${{ env.LAMBDA_FUNCTION_NAME }} \
+              --statement-id s3-trigger \
+              --action lambda:InvokeFunction \
+              --principal s3.amazonaws.com \
+              --source-arn arn:aws:s3:::${{ env.S3_BUCKET }} \
+              --source-account $(aws sts get-caller-identity --query 'Account' --output text) \
+              2>/dev/null || true
+            
+            # Configuration de la notification S3
+            aws s3api put-bucket-notification-configuration \
+              --bucket ${{ env.S3_BUCKET }} \
+              --notification-configuration '{
+                "LambdaFunctionConfigurations": [
+                  {
+                    "LambdaFunctionArn": "'$LAMBDA_ARN'",
+                    "Events": ["s3:ObjectCreated:*"],
+                    "Filter": {
+                      "Key": {
+                        "FilterRules": [
+                          {
+                            "Name": "suffix",
+                            "Value": ".jpg"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }'
+            
+            echo "✅ Déclencheur S3 configuré avec succès."
+          else
+            echo "❌ Le bucket S3 ${{ env.S3_BUCKET }} n'existe pas, impossible de configurer le déclencheur."
+          fi
