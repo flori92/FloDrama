@@ -408,8 +408,8 @@ const mockData: Record<string, ContentItem[]> = {
 
 // URL de l'API Gateway AWS
 const API_URL = 'https://7la2pq33ej.execute-api.us-east-1.amazonaws.com/production';
-// URL du proxy CORS (mise à jour pour utiliser l'URL correcte sans le /api final)
-const PROXY_URL = 'https://flodrama-cors-proxy.onrender.com';
+// URL du proxy CORS sur AWS (mise à jour pour utiliser l'API Gateway directement)
+const PROXY_URL = API_URL;
 // Chemin de l'API (vide car nous utilisons directement l'API Gateway)
 const API_PATH = '';
 
@@ -434,63 +434,75 @@ export async function checkBackendAvailability(): Promise<boolean> {
   }
 
   try {
-    // Tenter une requête simple vers le backend via le proxy CORS
+    // Tenter une requête simple vers le backend
     console.log('🔄 Vérification de la disponibilité du backend...');
-    console.log(`🔍 URL du proxy: ${PROXY_URL}`);
+    console.log(`🔍 URL de l'API: ${API_URL}`);
     
     // Essayer plusieurs endpoints pour vérifier la disponibilité
     const testEndpoints = [
       '/health',
-      '/',
       '/api/health',
-      '/api'
+      '/status',
+      '/api/status'
     ];
     
-    let proxyAvailable = false;
+    let apiAvailable = false;
     
     for (const endpoint of testEndpoints) {
       try {
-        console.log(`🔍 Test de l'endpoint: ${PROXY_URL}${endpoint}`);
-        const response = await axios.get(`${PROXY_URL}${endpoint}`, { 
+        console.log(`🔍 Test de l'endpoint: ${API_URL}${endpoint}`);
+        const response = await axios.get(`${API_URL}${endpoint}`, { 
           timeout: 3000,  // Timeout réduit pour accélérer les tests
-          validateStatus: (status: number) => true // Accepter tous les codes de statut pour le diagnostic
+          validateStatus: (status: number) => true, // Accepter tous les codes de statut pour le diagnostic
+          headers: {
+            'Origin': 'https://flodrama.surge.sh',
+            'Accept': 'application/json'
+          }
         });
         
-        console.log(`📊 Réponse du proxy (${endpoint}): ${response.status}`);
+        console.log(`📊 Réponse de l'API (${endpoint}): ${response.status}`);
         
-        // Si on obtient une réponse (même 404), le proxy est disponible
-        proxyAvailable = true;
-        
-        // Si on obtient un 200, c'est encore mieux
-        if (response.status >= 200 && response.status < 300) {
-          break;
+        // Si on obtient une réponse (même 404), l'API est disponible
+        if (response.status !== 0) {
+          apiAvailable = true;
+          
+          // Si on obtient un 200, c'est encore mieux
+          if (response.status >= 200 && response.status < 300) {
+            console.log('✅ Connexion au backend établie avec succès');
+            isBackendAvailable = true;
+            connectionAttempts = 0;
+            lastConnectionCheck = now;
+            return true;
+          }
         }
       } catch (endpointError: any) {
         console.warn(`⚠️ Échec avec l'endpoint ${endpoint}: ${endpointError.message || 'Erreur inconnue'}`);
       }
     }
     
-    if (!proxyAvailable) {
-      console.error('❌ Le proxy CORS est inaccessible');
-      isBackendAvailable = false;
-      connectionAttempts++;
-      lastConnectionCheck = now;
-      return false;
-    }
-    
-    // Tester un endpoint réel de l'API via le proxy
+    // Tester un endpoint réel de l'API
     try {
-      console.log(`🔍 Test d'un endpoint API réel via le proxy: ${PROXY_URL}/api/carousels`);
-      const apiResponse = await axios.get(`${PROXY_URL}/api/carousels`, { 
+      console.log(`🔍 Test d'un endpoint API réel: ${API_URL}/carousels`);
+      const apiResponse = await axios.get(`${API_URL}/carousels`, { 
         timeout: 5000,
-        validateStatus: (status: number) => true // Accepter tous les codes pour le diagnostic
+        validateStatus: (status: number) => true, // Accepter tous les codes pour le diagnostic
+        headers: {
+          'Origin': 'https://flodrama.surge.sh',
+          'Accept': 'application/json'
+        }
       });
       
       console.log(`📊 Réponse de l'API: ${apiResponse.status}`);
-      console.log(`📊 Type de données: ${typeof apiResponse.data}`);
       
-      if (apiResponse.status === 200) {
+      if (apiResponse.status >= 200 && apiResponse.status < 300) {
         console.log('✅ Connexion au backend établie avec succès');
+        isBackendAvailable = true;
+        connectionAttempts = 0;
+        lastConnectionCheck = now;
+        return true;
+      } else if (apiResponse.status === 404) {
+        // 404 signifie que l'endpoint n'existe pas, mais l'API est disponible
+        console.log('⚠️ Endpoint /carousels non trouvé, mais l\'API est considérée comme disponible');
         isBackendAvailable = true;
         connectionAttempts = 0;
         lastConnectionCheck = now;
@@ -534,16 +546,8 @@ async function apiRequest<T>(url: string, options: AxiosRequestConfig = {}, retr
       throw new Error('Backend indisponible');
     }
 
-    // Construire l'URL correcte pour le proxy CORS
-    let requestUrl = url;
-    
-    // Si l'URL commence par l'URL de l'API Gateway, la remplacer par l'URL du proxy
-    if (url.startsWith(API_URL)) {
-      // Extraire le chemin relatif après l'URL de base de l'API
-      const relativePath = url.substring(API_URL.length);
-      // Construire la nouvelle URL avec le proxy
-      requestUrl = `${PROXY_URL}/api${relativePath}`;
-    }
+    // Utiliser directement l'URL fournie (qui devrait être l'URL de l'API Gateway)
+    const requestUrl = url;
     
     console.log(`🔄 Requête API: ${requestUrl}`);
 
@@ -551,7 +555,11 @@ async function apiRequest<T>(url: string, options: AxiosRequestConfig = {}, retr
     const response = await axios.get<T>(requestUrl, { 
       timeout: options.timeout || 10000,
       validateStatus: options.validateStatus,
-      headers: options.headers,
+      headers: {
+        'Origin': 'https://flodrama.surge.sh',
+        'Accept': 'application/json',
+        ...(options.headers || {})
+      },
       ...options
     });
     
