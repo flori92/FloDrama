@@ -95,7 +95,7 @@ jobs:
           echo "🔍 Lancement du scraping et de la génération des données..."
           
           # Création du script temporaire pour simuler le scraping
-          cat > temp_scraping.py << 'EOF'
+          cat > temp_scraping.py << "EOF"
           import json
           import random
           import os
@@ -271,7 +271,7 @@ jobs:
           echo "🔄 Génération des fichiers de contenu agrégé pour le frontend..."
           
           # Création du script pour agréger les données
-          cat > aggregate_content.py << 'EOF'
+          cat > aggregate_content.py << "EOF"
           import json
           import os
           
@@ -334,7 +334,7 @@ jobs:
           mkdir -p lambda_function
           
           # Création du fichier index.js
-          cat > lambda_function/index.js << 'EOF'
+          cat > lambda_function/index.js << "EOF"
           const AWS = require('aws-sdk');
           const sharp = require('sharp');
           const s3 = new AWS.S3();
@@ -392,7 +392,7 @@ jobs:
           EOF
           
           # Création du package.json
-          cat > lambda_function/package.json << 'EOF'
+          cat > lambda_function/package.json << "EOF"
           {
             "name": "flodrama-image-optimizer",
             "version": "1.0.0",
@@ -419,7 +419,7 @@ jobs:
             echo "Création du rôle IAM pour la fonction Lambda..."
             
             # Création du document de politique d'approbation
-            cat > trust-policy.json << 'EOF'
+            cat > trust-policy.json << "EOF"
             {
               "Version": "2012-10-17",
               "Statement": [
@@ -433,7 +433,6 @@ jobs:
               ]
             }
             EOF
-            
             # Création du rôle
             ROLE_ARN=$(aws iam create-role --role-name LambdaS3Role --assume-role-policy-document file://trust-policy.json --query "Role.Arn" --output text)
             
@@ -470,7 +469,7 @@ jobs:
           mkdir -p lambda_function
           
           # Création du fichier index.js avec les mêmes optimisations
-          cat > lambda_function/index.js << 'EOF'
+          cat > lambda_function/index.js << "EOF"
           const AWS = require('aws-sdk');
           const sharp = require('sharp');
           const s3 = new AWS.S3();
@@ -528,7 +527,7 @@ jobs:
           EOF
           
           # Création du package.json
-          cat > lambda_function/package.json << 'EOF'
+          cat > lambda_function/package.json << "EOF"
           {
             "name": "flodrama-image-optimizer",
             "version": "1.0.0",
