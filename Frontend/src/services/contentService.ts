@@ -17,14 +17,6 @@ import bollywoodData from '../data/content/bollywood/index.json';
 import carouselsData from '../data/carousels.json';
 import heroBannersData from '../data/hero_banners.json';
 
-// Données locales structurées
-const localData: Record<ContentType, ContentItem[]> = {
-  drama: dramaData.items,
-  anime: animeData.items,
-  film: filmData.items,
-  bollywood: bollywoodData.items
-};
-
 // Importation des données statiques (générées par GitHub Actions)
 import metadata from '../data/metadata.json'
 
@@ -120,6 +112,178 @@ export interface Carousel {
 export interface HeroBanner {
   banners: ContentItem[]
 }
+
+// Constante pour le domaine CloudFront (définie en haut du fichier pour être réutilisée)
+const CLOUDFRONT_DOMAIN = 'https://d1gmx0yvfpqbgd.cloudfront.net';
+
+// Fonction utilitaire pour corriger les URLs des images
+function fixImageUrls<T extends { poster?: string }>(items: T[]): T[] {
+  return items.map(item => {
+    if (item.poster) {
+      // Liste des domaines externes à remplacer
+      const externalDomains = [
+        'dramacool.cr', 
+        'viki.com', 
+        'kocowa.com', 
+        'iqiyi.com', 
+        'wetv.com', 
+        'myasiantv.cc',
+        'voirdrama.org',
+        'vostfree.cx',
+        'gogoanime.tv',
+        'neko-sama.fr',
+        'voiranime.com',
+        'allocine.fr',
+        'imdb.com',
+        'themoviedb.org',
+        'cinepulse.com',
+        'dpstream.net',
+        'bollywoodmdb.com',
+        'hotstar.com',
+        'zee5.com'
+      ];
+      
+      // Vérifier si l'URL contient un domaine externe
+      const containsExternalDomain = externalDomains.some(domain => 
+        item.poster && item.poster.includes(domain)
+      );
+      
+      // Si l'URL est relative ou contient un domaine externe, la remplacer
+      if (!item.poster.startsWith('http') || containsExternalDomain) {
+        // Extraire le nom du fichier de l'URL
+        const fileName = item.poster.split('/').pop() || 'default.jpg';
+        
+        // Créer une nouvelle URL avec le domaine CloudFront
+        return {
+          ...item,
+          poster: `${CLOUDFRONT_DOMAIN}/images/${fileName}`
+        };
+      }
+    }
+    return item;
+  });
+}
+
+// Données locales structurées avec URLs d'images corrigées
+const localData: Record<ContentType, ContentItem[]> = {
+  drama: fixImageUrls(dramaData.items),
+  anime: fixImageUrls(animeData.items),
+  film: fixImageUrls(filmData.items),
+  bollywood: fixImageUrls(bollywoodData.items)
+};
+
+// Logs de débogage pour vérifier les données locales
+console.log('📊 Données locales chargées:');
+console.log('Drama:', localData.drama ? `${localData.drama.length} éléments` : 'Aucun élément');
+console.log('Anime:', localData.anime ? `${localData.anime.length} éléments` : 'Aucun élément');
+console.log('Film:', localData.film ? `${localData.film.length} éléments` : 'Aucun élément');
+console.log('Bollywood:', localData.bollywood ? `${localData.bollywood.length} éléments` : 'Aucun élément');
+
+// Fonction pour créer un objet ContentDetail vide
+function createEmptyContentDetail(contentId: string): ContentDetail {
+  return {
+    id: contentId,
+    title: 'Contenu non trouvé',
+    original_title: '',
+    poster: '/assets/images/placeholder.jpg',
+    year: new Date().getFullYear(),
+    rating: 0,
+    language: 'fr',
+    description: 'Ce contenu n\'est pas disponible actuellement.',
+    synopsis: 'Aucune information disponible.',
+    url: '',
+    genres: [],
+    tags: [],
+    actors: [],
+    director: '',
+    episode_count: 0,
+    episodes: 0,
+    seasons: 0,
+    duration: 0,
+    status: 'completed',
+    release_date: '',
+    source: 'unknown',
+    streaming_urls: [],
+    trailers: [],
+    images: [],
+    subtitles: [],
+    related_content: []
+  };
+}
+
+// Fonction pour récupérer les détails d'un contenu mockés
+const getMockContentDetail = (contentId: string): ContentDetail | null => {
+  const [source, id] = contentId.split('-');
+  
+  // Chercher dans les données mockées
+  let mockItem: ContentItem | undefined;
+  
+  if (source === 'drama') {
+    mockItem = mockData.drama.find(item => item.id === contentId);
+  } else if (source === 'anime') {
+    mockItem = mockData.anime.find(item => item.id === contentId);
+  } else if (source === 'film') {
+    mockItem = mockData.film.find(item => item.id === contentId);
+  } else if (source === 'bollywood') {
+    mockItem = mockData.bollywood.find(item => item.id === contentId);
+  }
+  
+  if (!mockItem) {
+    return null;
+  }
+  
+  // Convertir ContentItem en ContentDetail
+  return {
+    ...mockItem,
+    url: `https://example.com/watch/${contentId}`,
+    description: `Description détaillée pour ${mockItem.title}. Ce contenu est généré automatiquement à des fins de démonstration.`,
+    synopsis: `Synopsis détaillé pour ${mockItem.title}. Ce contenu est disponible en streaming.`,
+    genres: ['Action', 'Drame', 'Romance'],
+    tags: ['Populaire', 'Tendance'],
+    actors: ['Acteur 1', 'Acteur 2', 'Acteur 3'],
+    director: 'Réalisateur',
+    episode_count: source === 'drama' || source === 'anime' ? Math.floor(Math.random() * 24) + 1 : 1,
+    duration: Math.floor(Math.random() * 120) + 30,
+    episodes: source === 'drama' || source === 'anime' ? Math.floor(Math.random() * 24) + 1 : 0,
+    seasons: source === 'drama' || source === 'anime' ? Math.floor(Math.random() * 5) + 1 : 0,
+    status: 'completed',
+    release_date: `${mockItem.year}-01-01`,
+    streaming_urls: [
+      {
+        quality: 'HD',
+        url: `https://example.com/stream/${contentId}/hd`,
+        size: '1.2 GB'
+      }
+    ],
+    trailers: [
+      {
+        title: 'Bande-annonce',
+        url: `https://example.com/trailer/${contentId}`,
+        thumbnail: mockItem.poster
+      }
+    ],
+    images: [
+      {
+        url: mockItem.poster,
+        type: 'poster',
+        width: 300,
+        height: 450
+      }
+    ],
+    subtitles: [
+      {
+        language: 'fr',
+        url: `https://example.com/subtitles/${contentId}/fr`
+      }
+    ],
+    related_content: [],
+    gallery: [
+      mockItem.poster,
+      mockItem.poster.replace('.jpg', '-2.jpg'),
+      mockItem.poster.replace('.jpg', '-3.jpg')
+    ]
+  };
+};
 
 // Données de démonstration pour le développement
 const mockData: Record<string, ContentItem[]> = {
@@ -237,130 +401,6 @@ const mockData: Record<string, ContentItem[]> = {
       language: 'fr'
     }
   ]
-};
-
-// Constante pour le domaine CloudFront (définie en haut du fichier pour être réutilisée)
-const CLOUDFRONT_DOMAIN = 'https://d1gmx0yvfpqbgd.cloudfront.net';
-
-// Fonction utilitaire pour corriger les URLs des images
-function fixImageUrls<T extends { poster?: string }>(items: T[]): T[] {
-  return items.map(item => {
-    if (item.poster && !item.poster.startsWith('http')) {
-      return {
-        ...item,
-        poster: item.poster.startsWith('/') 
-          ? `${CLOUDFRONT_DOMAIN}${item.poster}`
-          : `${CLOUDFRONT_DOMAIN}/${item.poster}`
-      };
-    }
-    return item;
-  });
-}
-
-// Fonction pour créer un objet ContentDetail vide
-function createEmptyContentDetail(contentId: string): ContentDetail {
-  return {
-    id: contentId,
-    title: 'Contenu non trouvé',
-    original_title: '',
-    poster: '/assets/images/placeholder.jpg',
-    year: new Date().getFullYear(),
-    rating: 0,
-    language: 'fr',
-    description: 'Ce contenu n\'est pas disponible actuellement.',
-    synopsis: 'Aucune information disponible.',
-    url: '',
-    genres: [],
-    tags: [],
-    actors: [],
-    director: '',
-    episode_count: 0,
-    episodes: 0,
-    seasons: 0,
-    duration: 0,
-    status: 'completed',
-    release_date: '',
-    source: 'unknown',
-    streaming_urls: [],
-    trailers: [],
-    images: [],
-    subtitles: [],
-    related_content: []
-  };
-}
-
-// Fonction pour récupérer les détails d'un contenu mockés
-const getMockContentDetail = (contentId: string): ContentDetail | null => {
-  const [source, id] = contentId.split('-');
-  
-  // Chercher dans les données mockées
-  let mockItem: ContentItem | undefined;
-  
-  if (source === 'drama') {
-    mockItem = mockData.drama.find(item => item.id === contentId);
-  } else if (source === 'anime') {
-    mockItem = mockData.anime.find(item => item.id === contentId);
-  } else if (source === 'film') {
-    mockItem = mockData.film.find(item => item.id === contentId);
-  } else if (source === 'bollywood') {
-    mockItem = mockData.bollywood.find(item => item.id === contentId);
-  }
-  
-  if (!mockItem) {
-    return null;
-  }
-  
-  // Convertir ContentItem en ContentDetail
-  return {
-    ...mockItem,
-    url: `https://example.com/watch/${contentId}`,
-    description: `Description détaillée pour ${mockItem.title}. Ce contenu est généré automatiquement à des fins de démonstration.`,
-    synopsis: `Synopsis détaillé pour ${mockItem.title}. Ce contenu est disponible en streaming.`,
-    genres: ['Action', 'Drame', 'Romance'],
-    tags: ['Populaire', 'Tendance'],
-    actors: ['Acteur 1', 'Acteur 2', 'Acteur 3'],
-    director: 'Réalisateur',
-    episode_count: source === 'drama' || source === 'anime' ? Math.floor(Math.random() * 24) + 1 : 1,
-    duration: Math.floor(Math.random() * 120) + 30,
-    episodes: source === 'drama' || source === 'anime' ? Math.floor(Math.random() * 24) + 1 : 0,
-    seasons: source === 'drama' || source === 'anime' ? Math.floor(Math.random() * 5) + 1 : 0,
-    status: 'completed',
-    release_date: `${mockItem.year}-01-01`,
-    streaming_urls: [
-      {
-        quality: 'HD',
-        url: `https://example.com/stream/${contentId}/hd`,
-        size: '1.2 GB'
-      }
-    ],
-    trailers: [
-      {
-        title: 'Bande-annonce',
-        url: `https://example.com/trailer/${contentId}`,
-        thumbnail: mockItem.poster
-      }
-    ],
-    images: [
-      {
-        url: mockItem.poster,
-        type: 'poster',
-        width: 300,
-        height: 450
-      }
-    ],
-    subtitles: [
-      {
-        language: 'fr',
-        url: `https://example.com/subtitles/${contentId}/fr`
-      }
-    ],
-    related_content: [],
-    gallery: [
-      mockItem.poster,
-      mockItem.poster.replace('.jpg', '-2.jpg'),
-      mockItem.poster.replace('.jpg', '-3.jpg')
-    ]
-  };
 };
 
 // URL de l'API Gateway AWS
