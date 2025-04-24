@@ -203,7 +203,7 @@ function createEmptyContentDetail(contentId: string): ContentDetail {
     episodes: 0,
     seasons: 0,
     duration: 0,
-    status: 'completed',
+    status: '',
     release_date: '',
     source: 'unknown',
     streaming_urls: [],
@@ -414,7 +414,7 @@ const PROXY_URL = 'https://flodrama-cors-proxy.onrender.com/api';
 const API_PATH = '';
 
 // Variables pour le suivi des tentatives de connexion
-let isBackendAvailable = false; // Désactivé par défaut pour utiliser les données locales en priorité
+let isBackendAvailable = true; // Activé par défaut pour récupérer les données réelles depuis AWS
 let connectionAttempts = 0;
 let lastConnectionCheck = 0;
 
@@ -423,10 +423,53 @@ let lastConnectionCheck = 0;
  * @returns Promise<boolean>
  */
 export async function checkBackendAvailability(): Promise<boolean> {
-  // Désactivé pour éviter les erreurs CORS
-  console.log('🔄 Backend désactivé pour utiliser uniquement les données locales');
-  isBackendAvailable = false;
-  return false;
+  if (typeof window === 'undefined') {
+    return false;
+  }
+
+  // Si la dernière vérification a été effectuée il y a moins de 5 minutes, utiliser le résultat précédent
+  const now = Date.now();
+  if (lastConnectionCheck > 0 && now - lastConnectionCheck < 5 * 60 * 1000) {
+    return isBackendAvailable;
+  }
+
+  try {
+    // Tenter une requête simple vers le backend via le proxy CORS
+    console.log('🔄 Vérification de la disponibilité du backend...');
+    const response = await axios.get(`${PROXY_URL}/health`, { 
+      timeout: 5000,  // Timeout de 5 secondes
+      validateStatus: (status: number) => status >= 200 && status < 500 // Accepter les codes 2xx et 4xx, mais pas 5xx
+    });
+    
+    // Si le statut est 404, l'endpoint /health n'existe pas mais le backend pourrait être disponible
+    // Nous considérons que le backend est disponible pour tenter d'autres endpoints
+    if (response.status === 404) {
+      console.log('⚠️ Endpoint /health non trouvé, mais le backend est considéré comme disponible');
+      isBackendAvailable = true;
+      connectionAttempts = 0;
+      lastConnectionCheck = now;
+      return true;
+    }
+    
+    // Vérifier si la réponse est valide (code 2xx)
+    isBackendAvailable = response.status >= 200 && response.status < 300;
+    connectionAttempts = 0;
+    lastConnectionCheck = now;
+    
+    if (isBackendAvailable) {
+      console.log('✅ Connexion au backend établie avec succès');
+    } else {
+      console.warn(`⚠️ Le backend a répondu avec le code ${response.status}`);
+    }
+    
+    return isBackendAvailable;
+  } catch (error: unknown) {
+    connectionAttempts++;
+    isBackendAvailable = false;
+    lastConnectionCheck = now;
+    console.warn(`❌ Échec de connexion au backend (tentative ${connectionAttempts}): ${error instanceof Error ? error.message : 'Erreur inconnue'}`);
+    return false;
+  }
 }
 
 /**
@@ -437,9 +480,56 @@ export async function checkBackendAvailability(): Promise<boolean> {
  * @returns Promise<any>
  */
 async function apiRequest<T>(url: string, options: AxiosRequestConfig = {}, retries = 3): Promise<T> {
-  // Désactivé pour éviter les erreurs CORS
-  console.log('🔄 API désactivée, utilisation des données locales uniquement');
-  throw new Error('Backend indisponible');
+  try {
+    // Si le backend est indisponible, ne pas tenter la requête
+    if (!isBackendAvailable && retries === 3) {
+      throw new Error('Backend indisponible');
+    }
+
+    // Vérifier si l'URL commence par http ou https
+    // Si c'est le cas, utiliser l'URL telle quelle, sinon utiliser le proxy CORS
+    const requestUrl = url.startsWith('http') ? url : url.replace(API_URL, PROXY_URL);
+    
+    console.log(`🔄 Requête API: ${requestUrl}`);
+
+    // Effectuer la requête avec les options fournies
+    const response = await axios.get<T>(requestUrl, { 
+      timeout: options.timeout || 10000,
+      validateStatus: options.validateStatus,
+      headers: options.headers,
+      ...options
+    });
+    
+    return response.data;
+  } catch (error) {
+    console.error(`Erreur lors de la requête API: ${url}`, error);
+    
+    // Analyse détaillée de l'erreur pour le débogage
+    if (axios.isAxiosError(error) && error.response) {
+      // Erreur avec réponse du serveur (4xx, 5xx)
+      console.error(`Statut erreur: ${error.response.status}`);
+      console.error('Données erreur:', error.response.data);
+      console.error('Headers erreur:', error.response.headers);
+    } else if (axios.isAxiosError(error) && error.request) {
+      // Erreur sans réponse (timeout, problème réseau)
+      console.error('Erreur de connexion, pas de réponse reçue');
+    } else {
+      // Erreur lors de la configuration de la requête
+      console.error('Erreur de configuration:', error);
+    }
+    
+    if (retries > 0 && !(axios.isAxiosError(error) && error.code === 'ECONNABORTED')) {
+      // Attendre avant de réessayer (avec backoff exponentiel)
+      const backoffTime = 1000 * Math.pow(2, 3 - retries);
+      console.log(`Nouvelle tentative dans ${backoffTime}ms (${retries} restantes)`);
+      await new Promise(resolve => setTimeout(resolve, backoffTime));
+      return apiRequest<T>(url, options, retries - 1);
+    }
+    
+    // Si toutes les tentatives échouent, marquer le backend comme indisponible
+    isBackendAvailable = false;
+    throw error;
+  }
 }
 
 /**
@@ -555,7 +645,61 @@ export const getContentsByCategory = async (category: ContentType): Promise<Cont
     // Vérifier si le backend est disponible
     await checkBackendAvailability();
     
-    // Utiliser directement les données locales
+    if (isBackendAvailable) {
+      console.log(`🔄 Récupération des données pour ${category} depuis l'API...`);
+      
+      // Essayer plusieurs variantes de chemins d'API possibles
+      const possibleEndpoints = [
+        `/content/${category}`,
+        `/contents/${category}`,
+        `/api/content/${category}`,
+        `/api/contents/${category}`,
+        `/${category}`
+      ];
+      
+      let response: ContentItem[] = [];
+      let endpointFound = false;
+      
+      // Essayer chaque endpoint jusqu'à ce qu'un fonctionne
+      for (const endpoint of possibleEndpoints) {
+        try {
+          console.log(`🔍 Tentative avec l'endpoint: ${endpoint}`);
+          response = await apiRequest<ContentItem[]>(`${API_URL}${endpoint}`, {
+            timeout: 5000,
+            validateStatus: (status: number) => status >= 200 && status < 300
+          });
+          
+          // Vérifier si les données reçues sont valides
+          if (response && Array.isArray(response) && response.length > 0) {
+            console.log(`✅ Endpoint trouvé: ${endpoint}`);
+            console.log(`📊 Données reçues: ${response.length} éléments`);
+            
+            // Vérifier si les URLs des images sont complètes
+            const firstItem = response[0];
+            if (firstItem.poster && !firstItem.poster.startsWith('http')) {
+              console.warn(`⚠️ URL d'image incomplète détectée: ${firstItem.poster}`);
+              
+              // Corriger les URLs des images
+              response = fixImageUrls(response);
+              
+              console.log(`🔄 URLs d'images corrigées pour le contenu ${category}`);
+            }
+          }
+          
+          endpointFound = true;
+          return response;
+        } catch (endpointError: any) {
+          console.warn(`⚠️ Échec avec l'endpoint ${endpoint}: ${endpointError.message || 'Erreur inconnue'}`);
+          continue;
+        }
+      }
+      
+      if (!endpointFound) {
+        console.warn(`⚠️ Aucun endpoint API valide trouvé pour ${category}, utilisation des données locales`);
+      }
+    }
+    
+    // Si le backend n'est pas disponible ou si aucun endpoint n'a fonctionné, utiliser les données locales
     console.log(`📊 Utilisation des données locales pour ${category}`);
     
     // Vérifier si la catégorie existe dans les données locales
@@ -563,14 +707,20 @@ export const getContentsByCategory = async (category: ContentType): Promise<Cont
       return localData[category];
     }
     
-    // Fallback sur les données mockées
-    console.warn(`⚠️ Backend indisponible, utilisation des données mockées pour ${category}`);
+    // Fallback sur les données mockées en dernier recours
+    console.warn(`⚠️ Données locales non disponibles pour ${category}, utilisation des données mockées`);
     return mockData[category] || [];
   } catch (error) {
     console.error(`Erreur lors de la récupération des contenus pour ${category}:`, error);
     
-    // Fallback sur les données mockées
-    console.warn(`⚠️ Backend indisponible, utilisation des données mockées pour ${category}`);
+    // Fallback sur les données locales
+    if (localData[category] && localData[category].length > 0) {
+      console.warn(`⚠️ Utilisation des données locales pour ${category} (solution de repli)`);
+      return localData[category];
+    }
+    
+    // Fallback sur les données mockées en dernier recours
+    console.warn(`⚠️ Données locales non disponibles pour ${category}, utilisation des données mockées`);
     return mockData[category] || [];
   }
 }
@@ -610,15 +760,12 @@ export const getContentDetails = async (contentId: string): Promise<ContentDetai
           seasons: 0,
           status: '',
           release_date: '',
+          source: 'unknown',
           streaming_urls: [],
           trailers: [],
           images: [],
           subtitles: [],
-          related_content: [],
-          user_ratings: { average: 0, count: 0 },
-          popularity_score: 0,
-          is_premium: false,
-          gallery: []
+          related_content: []
         };
         
         return contentDetail;
@@ -761,6 +908,7 @@ export async function getCarousels(): Promise<Record<string, Carousel>> {
                   
                   // Corriger les URLs des images
                   response[key].items = fixImageUrls(response[key].items);
+                  
                   console.log(`🔄 URLs d'images corrigées pour le carousel ${key}`);
                 }
               }
