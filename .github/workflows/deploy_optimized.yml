@@ -148,20 +148,35 @@ jobs:
           
           echo "✅ Contenu agrégé généré et uploadé."
 
-      # Invalidation du cache CloudFront si l'ID est configuré
+      # Vérification de la configuration CloudFront
+      - name: Vérification de la configuration CloudFront
+        id: check-cloudfront
+        run: |
+          if [ -n "$CLOUDFRONT_ID" ]; then
+            echo "CLOUDFRONT_EXISTS=true" >> $GITHUB_OUTPUT
+          else
+            echo "CLOUDFRONT_EXISTS=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          CLOUDFRONT_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+          
+      # Invalidation du cache CloudFront
       - name: Invalidation du cache CloudFront
-        if: steps.check-s3-bucket.outputs.BUCKET_EXISTS == 'true'
+        if: steps.check-s3-bucket.outputs.BUCKET_EXISTS == 'true' && steps.check-cloudfront.outputs.CLOUDFRONT_EXISTS == 'true'
         run: |
           echo "☁️ Invalidation du cache CloudFront..."
-          # Vérifier si nous avons un ID de distribution CloudFront
-          if [ -n "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" ]; then
-            aws cloudfront create-invalidation \
-              --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
-              --paths "/*"
-            echo "✅ Cache CloudFront invalidé"
-          else
-            echo "⚠️ Aucun ID de distribution CloudFront spécifié dans les secrets"
-          fi
+          aws cloudfront create-invalidation \
+            --distribution-id "$CLOUDFRONT_ID" \
+            --paths "/*"
+          echo "✅ Cache CloudFront invalidé"
+        env:
+          CLOUDFRONT_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+          
+      - name: Notification CloudFront (pas d'ID)
+        if: steps.check-s3-bucket.outputs.BUCKET_EXISTS == 'true' && steps.check-cloudfront.outputs.CLOUDFRONT_EXISTS != 'true'
+        run: |
+          echo "⚠️ Aucun ID de distribution CloudFront trouvé dans les secrets"
+          echo "   Pour activer l'invalidation du cache, ajoutez le secret CLOUDFRONT_DISTRIBUTION_ID"
 
   # Job de déploiement du frontend
   deploy_frontend:
@@ -214,7 +229,7 @@ jobs:
           echo "✅ Frontend déployé avec succès sur https://flodrama.com"
           
       - name: Upload des fichiers frontend (pour le proxy)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: frontend-dist
           path: Frontend/dist
@@ -234,7 +249,7 @@ jobs:
           node-version: '18'
           
       - name: Téléchargement des fichiers frontend
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: frontend-dist
           path: frontend-dist
