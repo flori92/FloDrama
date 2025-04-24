@@ -1001,34 +1001,60 @@ export async function getCarousels(): Promise<Record<string, Carousel>> {
   
   console.warn('⚠️ Utilisation des données importées ou mockées pour les carousels (solution de repli)');
   
+  // Fonction helper pour créer un carousel correctement typé
+  const createCarousel = (title: string, type: string, items: any[]): Carousel => {
+    // S'assurer que chaque item a toutes les propriétés requises par ContentItem
+    const validItems: ContentItem[] = items.map(item => ({
+      id: item.id || `generated-${Math.random().toString(36).substring(2, 9)}`,
+      title: item.title || item.titre || 'Sans titre',
+      poster: item.poster || item.image || 'https://via.placeholder.com/300x450?text=No+Image',
+      year: item.year || item.annee || 2023,
+      rating: item.rating || 7.5,
+      language: item.language || 'fr',
+      source: item.source,
+      type: item.type,
+      original_title: item.original_title
+    }));
+    
+    return {
+      title,
+      type,
+      items: validItems
+    };
+  };
+  
   // Si les données importées sont disponibles et ont le bon format, les utiliser
   if (carouselsData && Object.keys(carouselsData).length > 0) {
-    return carouselsData;
+    // Adapter les données importées pour s'assurer qu'elles correspondent à l'interface Carousel
+    const adaptedImportedData: Record<string, Carousel> = {};
+    
+    // Parcourir chaque clé des données importées
+    for (const key of Object.keys(carouselsData)) {
+      const carouselData = (carouselsData as any)[key];
+      
+      if (carouselData && carouselData.title && carouselData.type && Array.isArray(carouselData.items)) {
+        // Utiliser la fonction helper pour créer un carousel correctement typé
+        adaptedImportedData[key] = createCarousel(
+          carouselData.title,
+          carouselData.type,
+          carouselData.items
+        );
+      }
+    }
+    
+    return adaptedImportedData;
   }
   
   // Sinon, utiliser les données mockées
-  return {
-    featured: {
-      title: "À la une",
-      type: "featured",
-      items: mockData.drama
-    },
-    trending: {
-      title: "Tendances",
-      type: "trending",
-      items: mockData.film
-    },
-    new_releases: {
-      title: "Nouveautés",
-      type: "new_releases",
-      items: mockData.anime
-    },
-    popular: {
-      title: "Populaires",
-      type: "popular",
-      items: mockData.bollywood
-    }
-  }
+  const adaptedMockData: Record<string, Carousel> = {};
+  
+  // Créer chaque carousel avec la fonction helper
+  adaptedMockData.featured = createCarousel("À la une", "featured", mockData.drama);
+  adaptedMockData.trending = createCarousel("Tendances", "trending", mockData.film);
+  adaptedMockData.new_releases = createCarousel("Nouveautés", "new_releases", mockData.anime);
+  adaptedMockData.popular = createCarousel("Populaires", "popular", mockData.bollywood);
+  
+  return adaptedMockData;
 }
 
 /**
