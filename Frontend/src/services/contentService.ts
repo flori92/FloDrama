@@ -407,25 +407,63 @@ const mockData: Record<string, ContentItem[]> = {
 };
 
 // URL de l'API Gateway AWS
-const API_URL = typeof window !== 'undefined' && window.location.hostname.endsWith('surge.sh')
-  ? 'https://flodrama-cors-proxy.onrender.com/api'  // URL du proxy CORS sur Render pour la production
-  : 'http://localhost:8080';  // URL du proxy CORS local pour le développement
-// Chemin de l'API (vide car nous utilisons désormais le proxy CORS)
-const API_PATH = '';
+const API_URL = 'https://7la2pq33ej.execute-api.us-east-1.amazonaws.com/production';
 
 // Variables pour le suivi des tentatives de connexion
-let isBackendAvailable = true; // Activé par défaut pour récupérer les données réelles depuis AWS
+let isBackendAvailable = true; // Activé par défaut pour récupérer les données réelles
 let connectionAttempts = 0;
 let lastConnectionCheck = 0;
 
-// Vérifier si nous sommes en développement local ou en production
-const isLocalDevelopment = typeof window !== 'undefined' && (
-  window.location.hostname === 'localhost' || 
-  window.location.hostname === '127.0.0.1'
-);
+/**
+ * Demande API avec gestion d'erreur robuste et fallback
+ */
+async function apiRequest<T>(endpoint: string, options: AxiosRequestConfig = {}, retries = 3): Promise<T> {
+  // Si le backend n'est pas disponible et que nous avons déjà essayé plusieurs fois
+  // Renvoyer immédiatement vers les données locales
+  if (!isBackendAvailable && connectionAttempts > 5) {
+    console.log(`⚠️ API indisponible, utilisation des données locales pour ${endpoint}`);
+    throw new Error('API indisponible');
+  }
 
-// Domaine de l'application en production
-const APP_DOMAIN = 'flodrama.surge.sh';
+  try {
+    // Configuration de la requête avec timeout court
+    const config: AxiosRequestConfig = {
+      ...options,
+      timeout: 5000,
+      headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+      },
+      validateStatus: (status) => status < 500 // Accepter les codes 2xx, 3xx, 4xx
+    };
+
+    // Tentative d'appel API
+    const response = await axios.get(`${API_URL}${endpoint}`, config);
+    return response.data as T;
+  } catch (error) {
+    console.error(`Erreur API pour ${endpoint}:`, error);
+    
+    // Gestion du nombre de tentatives
+    if (retries > 0) {
+      console.log(`🔄 Nouvelle tentative pour ${endpoint} (${retries} restantes)...`);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      return apiRequest<T>(endpoint, options, retries - 1);
+    }
+    
+    // Marquer le backend comme indisponible
+    isBackendAvailable = false;
+    connectionAttempts++;
+    
+    // Planifier une vérification de disponibilité plus tard
+    const now = Date.now();
+    if (now - lastConnectionCheck > 60000) { // 1 minute
+      lastConnectionCheck = now;
+      setTimeout(() => checkBackendAvailability(), 30000); // 30 secondes
+    }
+    
+    throw error;
+  }
+}
 
 /**
  * Vérifie si le backend est disponible
@@ -462,14 +500,14 @@ export async function checkBackendAvailability(): Promise<boolean> {
     
     for (const endpoint of testEndpoints) {
       try {
-        console.log(`🔍 Test de l'endpoint: ${API_URL}${endpoint}`);
+        console.log(`🔍 Test de l'endpoint: ${endpoint}`);
         const response = await axios.get(`${API_URL}${endpoint}`, { 
           timeout: 5000,  // Timeout augmenté pour donner plus de temps à l'API
           validateStatus: (status: number) => true, // Accepter tous les codes de statut pour le diagnostic
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Referer': isLocalDevelopment ? 'http://localhost:3002' : `https://${APP_DOMAIN}`
+            'Referer': 'https://flodrama.surge.sh'
           }
         });
         
@@ -515,100 +553,6 @@ export async function checkBackendAvailability(): Promise<boolean> {
     lastConnectionCheck = now;
     console.warn(`❌ Échec de connexion au backend (tentative ${connectionAttempts}): ${error instanceof Error ? error.message : 'Erreur inconnue'}`);
     return false;
-  }
-}
-
-/**
- * Effectue une requête API avec gestion des erreurs et retry
- * @param url URL de la requête
- * @param options Options de la requête axios (optionnel)
- * @param retries Nombre de tentatives restantes
- * @returns Promise<any>
- */
-async function apiRequest<T>(url: string, options: AxiosRequestConfig = {}, retries = 3): Promise<T> {
-  try {
-    // Si le backend est indisponible, lancer une erreur
-    if (!isBackendAvailable && retries === 3) {
-      throw new Error('Backend indisponible');
-    }
-
-    console.log(`🔄 Requête API: ${url}`);
-    
-    // Configuration des en-têtes pour CORS
-    const headers = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Referer': isLocalDevelopment ? 'http://localhost:3002' : `https://${APP_DOMAIN}`
-    };
-
-    // Effectuer la requête avec les options fournies
-    const response = await axios.get<T>(url, { 
-      timeout: options.timeout || 8000,
-      validateStatus: (status) => status >= 200 && status < 300, // N'accepter que les codes de succès
-      headers: {
-        ...headers,
-        ...options.headers
-      },
-      withCredentials: false, // Ne pas envoyer de cookies pour les requêtes cross-origin
-      ...options
-    });
-    
-    // Vérifier si la réponse est valide
-    if (response.data === null || response.data === undefined) {
-      throw new Error('Réponse API vide ou invalide');
-    }
-    
-    return response.data;
-  } catch (error) {
-    console.error(`Erreur lors de la requête API: ${url}`, error);
-    
-    // Analyse détaillée de l'erreur pour le débogage
-    if (axios.isAxiosError(error) && error.response) {
-      // Erreur avec réponse du serveur (4xx, 5xx)
-      console.error(`Statut erreur: ${error.response.status}`);
-      console.error('Données erreur:', error.response.data);
-      console.error('Headers erreur:', error.response.headers);
-      
-      // Vérifier si c'est une erreur CORS
-      if (error.response.status === 403 || error.message.includes('CORS')) {
-        console.error('⚠️ Erreur CORS détectée. Vérifiez la configuration CORS de l\'API Gateway.');
-        console.error('📝 Domaine de l\'application: ' + (isLocalDevelopment ? 'localhost:3002' : APP_DOMAIN));
-        console.error('📝 URL de l\'API: ' + url);
-        
-        // Si c'est la première tentative, essayer avec une approche différente
-        if (retries === 3) {
-          console.log('🔄 Tentative avec une approche différente...');
-          
-          // Essayer sans les en-têtes personnalisés
-          const newOptions = { ...options };
-          delete newOptions.headers;
-          
-          // Attendre un court instant avant de réessayer
-          await new Promise(resolve => setTimeout(resolve, 500));
-          
-          return apiRequest<T>(url, newOptions, retries - 1);
-        }
-      }
-    } else if (axios.isAxiosError(error) && error.request) {
-      // Erreur sans réponse (timeout, problème réseau)
-      console.error('Erreur de connexion, pas de réponse reçue');
-      console.error('Détails de la requête:', error.request);
-    } else {
-      // Erreur lors de la configuration de la requête
-      console.error('Erreur de configuration:', error);
-    }
-    
-    if (retries > 0 && !(axios.isAxiosError(error) && error.code === 'ECONNABORTED')) {
-      // Attendre avant de réessayer (avec backoff exponentiel)
-      const backoffTime = 1000 * Math.pow(2, 3 - retries);
-      console.log(`Nouvelle tentative dans ${backoffTime}ms (${retries} restantes)`);
-      await new Promise(resolve => setTimeout(resolve, backoffTime));
-      return apiRequest<T>(url, options, retries - 1);
-    }
-    
-    // Si toutes les tentatives échouent, marquer le backend comme indisponible
-    isBackendAvailable = false;
-    throw error;
   }
 }
 
