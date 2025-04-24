@@ -872,51 +872,71 @@ export async function getCarousels(): Promise<Record<string, Carousel>> {
     await checkBackendAvailability();
     
     if (isBackendAvailable) {
+      console.log('🔄 Récupération des carrousels depuis l\'API...');
+      
       // Essayer plusieurs variantes de chemins d'API possibles
       const possibleEndpoints = [
-        `/carousels`,
-        `/carousel`,
-        `/api/carousels`,
-        `/api/carousel`,
-        `/home/carousels`
+        '/carousels',
+        '/carousel',
+        '/api/carousels',
+        '/api/carousel',
+        '/home/carousels'
       ];
       
-      let response: Record<string, Carousel> = {};
+      let response: Record<string, any> = {};
       let endpointFound = false;
       
       // Essayer chaque endpoint jusqu'à ce qu'un fonctionne
       for (const endpoint of possibleEndpoints) {
         try {
           console.log(`🔍 Tentative avec l'endpoint: ${endpoint}`);
-          response = await apiRequest<Record<string, Carousel>>(`${API_URL}${endpoint}`, {
-            timeout: 3000,
+          response = await apiRequest<Record<string, any>>(`${API_URL}${endpoint}`, {
+            timeout: 5000,
             validateStatus: (status: number) => status >= 200 && status < 300
           });
-          console.log(`✅ Endpoint trouvé: ${endpoint}`);
           
-          // Vérifier et corriger les URLs des images dans les carousels
-          if (response) {
-            console.log(`📊 Données de carousel reçues:`, Object.keys(response));
+          // Vérifier si les données reçues sont valides
+          if (response && typeof response === 'object' && Object.keys(response).length > 0) {
+            console.log(`✅ Endpoint trouvé: ${endpoint}`);
+            console.log(`📊 Carrousels reçus: ${Object.keys(response).length} éléments`);
             
-            // Parcourir chaque carousel et corriger les URLs des images
+            // Vérifier le format des données et les adapter si nécessaire
+            const carousels: Record<string, Carousel> = {};
+            
             for (const key in response) {
-              if (response[key] && response[key].items && response[key].items.length > 0) {
-                // Vérifier si les URLs des images sont complètes
-                const firstItem = response[key].items[0];
-                if (firstItem.poster && !firstItem.poster.startsWith('http')) {
-                  console.warn(`⚠️ URL d'image incomplète détectée dans le carousel ${key}: ${firstItem.poster}`);
+              if (Object.prototype.hasOwnProperty.call(response, key)) {
+                const carousel = response[key];
+                
+                // Vérifier si le carousel a le format attendu
+                if (carousel && carousel.items && Array.isArray(carousel.items)) {
+                  console.log(`📊 Carousel "${key}" contient ${carousel.items.length} éléments`);
                   
-                  // Corriger les URLs des images
-                  response[key].items = fixImageUrls(response[key].items);
+                  // Vérifier si les URLs des images sont complètes
+                  if (carousel.items.length > 0) {
+                    const firstItem = carousel.items[0];
+                    if (firstItem.poster && !firstItem.poster.startsWith('http')) {
+                      console.warn(`⚠️ URL d'image incomplète détectée dans le carousel ${key}: ${firstItem.poster}`);
+                      
+                      // Corriger les URLs des images
+                      carousel.items = fixImageUrls(carousel.items);
+                      
+                      console.log(`🔄 URLs d'images corrigées pour le carousel ${key}`);
+                    }
+                  }
                   
-                  console.log(`🔄 URLs d'images corrigées pour le carousel ${key}`);
+                  // Créer un carousel correctement typé
+                  carousels[key] = createCarousel(
+                    carousel.title || key,
+                    carousel.type || 'mixed',
+                    carousel.items
+                  );
                 }
               }
             }
+            
+            endpointFound = true;
+            return carousels;
           }
-          
-          endpointFound = true;
-          return response;
         } catch (endpointError: any) {
           console.warn(`⚠️ Échec avec l'endpoint ${endpoint}: ${endpointError.message || 'Erreur inconnue'}`);
           continue;
@@ -924,69 +944,160 @@ export async function getCarousels(): Promise<Record<string, Carousel>> {
       }
       
       if (!endpointFound) {
-        console.warn('⚠️ Aucun endpoint n\'a fonctionné pour les carousels, utilisation des données importées ou mockées');
+        console.warn(`⚠️ Aucun endpoint API valide trouvé pour les carrousels, utilisation des données locales`);
       }
     }
-  } catch (error) {
-    console.error('Erreur lors de la récupération des carousels:', error);
-  }
-  
-  console.warn('⚠️ Utilisation des données importées ou mockées pour les carousels (solution de repli)');
-  
-  // Fonction helper pour créer un carousel correctement typé
-  const createCarousel = (title: string, type: string, items: any[]): Carousel => {
-    // S'assurer que chaque item a toutes les propriétés requises par ContentItem
-    const validItems: ContentItem[] = items.map(item => ({
-      id: item.id || `generated-${Math.random().toString(36).substring(2, 9)}`,
-      title: item.title || item.titre || 'Sans titre',
-      poster: item.poster || item.image || 'https://via.placeholder.com/300x450?text=No+Image',
-      year: item.year || item.annee || 2023,
-      rating: item.rating || 7.5,
-      language: item.language || 'fr',
-      source: item.source,
-      type: item.type,
-      original_title: item.original_title
-    }));
     
-    return {
-      title,
-      type,
-      items: validItems
-    };
-  };
-  
-  // Si les données importées sont disponibles et ont le bon format, les utiliser
-  if (carouselsData && Object.keys(carouselsData).length > 0) {
-    // Adapter les données importées pour s'assurer qu'elles correspondent à l'interface Carousel
-    const adaptedImportedData: Record<string, Carousel> = {};
+    // Si le backend n'est pas disponible ou si aucun endpoint n'a fonctionné, utiliser les données locales
+    console.log('📊 Utilisation des données locales pour les carrousels');
     
-    // Parcourir chaque clé des données importées
-    for (const key of Object.keys(carouselsData)) {
-      const carouselData = (carouselsData as any)[key];
+    // Vérifier si les données locales sont disponibles
+    if (carouselsData && typeof carouselsData === 'object' && Object.keys(carouselsData).length > 0) {
+      // Adapter les données au format attendu
+      const carousels: Record<string, Carousel> = {};
       
-      if (carouselData && carouselData.title && carouselData.type && Array.isArray(carouselData.items)) {
-        // Utiliser la fonction helper pour créer un carousel correctement typé
-        adaptedImportedData[key] = createCarousel(
-          carouselData.title,
-          carouselData.type,
-          carouselData.items
-        );
+      for (const key in carouselsData) {
+        if (Object.prototype.hasOwnProperty.call(carouselsData, key)) {
+          const carousel = carouselsData[key];
+          
+          // Vérifier si le carousel a le format attendu
+          if (carousel && carousel.items && Array.isArray(carousel.items)) {
+            // Corriger les URLs des images si nécessaire
+            const items = fixImageUrls(carousel.items);
+            
+            // Créer un carousel correctement typé
+            carousels[key] = createCarousel(
+              carousel.title || key,
+              carousel.type || 'mixed',
+              items
+            );
+          }
+        }
       }
+      
+      return carousels;
     }
     
-    return adaptedImportedData;
+    // Fallback sur les données mockées en dernier recours
+    console.warn('⚠️ Données locales non disponibles pour les carrousels, utilisation des données mockées');
+    
+    // Créer des carrousels à partir des données mockées
+    const mockCarousels: Record<string, Carousel> = {
+      trending: createCarousel(
+        'Tendances',
+        'trending',
+        [...mockData.drama.slice(0, 3), ...mockData.anime.slice(0, 3), ...mockData.film.slice(0, 3)]
+      ),
+      drama: createCarousel(
+        'Dramas populaires',
+        'drama',
+        mockData.drama
+      ),
+      anime: createCarousel(
+        'Animes à découvrir',
+        'anime',
+        mockData.anime
+      ),
+      film: createCarousel(
+        'Films recommandés',
+        'film',
+        mockData.film
+      )
+    };
+    
+    return mockCarousels;
+  } catch (error) {
+    console.error('Erreur lors de la récupération des carrousels:', error);
+    
+    // Fallback sur les données locales
+    if (carouselsData && typeof carouselsData === 'object' && Object.keys(carouselsData).length > 0) {
+      console.warn('⚠️ Utilisation des données locales pour les carrousels (solution de repli)');
+      
+      // Adapter les données au format attendu
+      const carousels: Record<string, Carousel> = {};
+      
+      for (const key in carouselsData) {
+        if (Object.prototype.hasOwnProperty.call(carouselsData, key)) {
+          const carousel = carouselsData[key];
+          
+          // Vérifier si le carousel a le format attendu
+          if (carousel && carousel.items && Array.isArray(carousel.items)) {
+            // Corriger les URLs des images si nécessaire
+            const items = fixImageUrls(carousel.items);
+            
+            // Créer un carousel correctement typé
+            carousels[key] = createCarousel(
+              carousel.title || key,
+              carousel.type || 'mixed',
+              items
+            );
+          }
+        }
+      }
+      
+      return carousels;
+    }
+    
+    // Fallback sur les données mockées en dernier recours
+    console.warn('⚠️ Données locales non disponibles pour les carrousels, utilisation des données mockées');
+    
+    // Créer des carrousels à partir des données mockées
+    const mockCarousels: Record<string, Carousel> = {
+      trending: createCarousel(
+        'Tendances',
+        'trending',
+        [...mockData.drama.slice(0, 3), ...mockData.anime.slice(0, 3), ...mockData.film.slice(0, 3)]
+      ),
+      drama: createCarousel(
+        'Dramas populaires',
+        'drama',
+        mockData.drama
+      ),
+      anime: createCarousel(
+        'Animes à découvrir',
+        'anime',
+        mockData.anime
+      ),
+      film: createCarousel(
+        'Films recommandés',
+        'film',
+        mockData.film
+      )
+    };
+    
+    return mockCarousels;
   }
+}
+
+/**
+ * Fonction helper pour créer un carousel correctement typé
+ */
+function createCarousel(title: string, type: string, items: any[]): Carousel {
+  // S'assurer que les items sont au format ContentItem
+  const contentItems = items.map(item => {
+    // Vérifier si l'item a déjà le format ContentItem
+    if (item.id && item.title && item.poster) {
+      return item as ContentItem;
+    }
+    
+    // Sinon, convertir l'item au format ContentItem
+    return {
+      id: item.id || `item-${Math.random().toString(36).substring(2, 9)}`,
+      title: item.title || 'Sans titre',
+      original_title: item.original_title || '',
+      poster: item.poster || item.image || 'https://via.placeholder.com/300x450?text=No+Image',
+      year: item.year || new Date().getFullYear(),
+      rating: item.rating || 0,
+      language: item.language || 'fr',
+      type: item.type || type
+    } as ContentItem;
+  });
   
-  // Sinon, utiliser les données mockées
-  const adaptedMockData: Record<string, Carousel> = {};
-  
-  // Créer chaque carousel avec la fonction helper
-  adaptedMockData.featured = createCarousel("À la une", "featured", mockData.drama);
-  adaptedMockData.trending = createCarousel("Tendances", "trending", mockData.film);
-  adaptedMockData.new_releases = createCarousel("Nouveautés", "new_releases", mockData.anime);
-  adaptedMockData.popular = createCarousel("Populaires", "popular", mockData.bollywood);
-  
-  return adaptedMockData;
+  return {
+    title,
+    type,
+    items: contentItems
+  };
 }
 
 /**
@@ -999,46 +1110,51 @@ export async function getHeroBanners(): Promise<HeroBanner> {
     await checkBackendAvailability();
     
     if (isBackendAvailable) {
+      console.log('🔄 Récupération des bannières depuis l\'API...');
+      
       // Essayer plusieurs variantes de chemins d'API possibles
       const possibleEndpoints = [
-        `/hero-banners`,
-        `/hero_banners`,
-        `/banners`,
-        `/api/hero-banners`,
-        `/api/banners`,
-        `/home/banners`
+        '/hero_banners',
+        '/hero-banners',
+        '/banners',
+        '/api/hero_banners',
+        '/api/hero-banners',
+        '/api/banners'
       ];
       
-      let response: HeroBanner;
+      let response: any = null;
       let endpointFound = false;
       
       // Essayer chaque endpoint jusqu'à ce qu'un fonctionne
       for (const endpoint of possibleEndpoints) {
         try {
           console.log(`🔍 Tentative avec l'endpoint: ${endpoint}`);
-          response = await apiRequest<HeroBanner>(`${API_URL}${endpoint}`, {
-            timeout: 3000,
+          response = await apiRequest<any>(`${API_URL}${endpoint}`, {
+            timeout: 5000,
             validateStatus: (status: number) => status >= 200 && status < 300
           });
-          console.log(`✅ Endpoint trouvé: ${endpoint}`);
           
-          // Vérifier et corriger les URLs des images dans les bannières
-          if (response && response.banners && response.banners.length > 0) {
-            console.log(`📊 Données de bannières reçues:`, response.banners.length);
+          // Vérifier si les données reçues sont valides
+          if (response && response.banners && Array.isArray(response.banners)) {
+            console.log(`✅ Endpoint trouvé: ${endpoint}`);
+            console.log(`📊 Bannières reçues: ${response.banners.length} éléments`);
             
             // Vérifier si les URLs des images sont complètes
-            const firstBanner = response.banners[0];
-            if (firstBanner.poster && !firstBanner.poster.startsWith('http')) {
-              console.warn(`⚠️ URL d'image incomplète détectée dans les bannières: ${firstBanner.poster}`);
-              
-              // Corriger les URLs des images
-              response.banners = fixImageUrls(response.banners);
-              console.log(`🔄 URLs d'images corrigées pour les bannières`);
+            if (response.banners.length > 0) {
+              const firstItem = response.banners[0];
+              if (firstItem.poster && !firstItem.poster.startsWith('http')) {
+                console.warn(`⚠️ URL d'image incomplète détectée: ${firstItem.poster}`);
+                
+                // Corriger les URLs des images
+                response.banners = fixImageUrls(response.banners);
+                
+                console.log('🔄 URLs d\'images corrigées pour les bannières');
+              }
             }
+            
+            endpointFound = true;
+            return response as HeroBanner;
           }
-          
-          endpointFound = true;
-          return response;
         } catch (endpointError: any) {
           console.warn(`⚠️ Échec avec l'endpoint ${endpoint}: ${endpointError.message || 'Erreur inconnue'}`);
           continue;
@@ -1046,47 +1162,53 @@ export async function getHeroBanners(): Promise<HeroBanner> {
       }
       
       if (!endpointFound) {
-        console.warn('⚠️ Aucun endpoint n\'a fonctionné pour les bannières, utilisation des données importées ou mockées');
+        console.warn('⚠️ Aucun endpoint API valide trouvé pour les bannières, utilisation des données locales');
       }
     }
+    
+    // Si le backend n'est pas disponible ou si aucun endpoint n'a fonctionné, utiliser les données locales
+    console.log('📊 Utilisation des données locales pour les bannières');
+    
+    // Vérifier si les données locales sont disponibles
+    if (heroBannersData && heroBannersData.banners && heroBannersData.banners.length > 0) {
+      // Corriger les URLs des images si nécessaire
+      const banners = fixImageUrls(heroBannersData.banners);
+      return { banners } as HeroBanner;
+    }
+    
+    // Fallback sur les données mockées en dernier recours
+    console.warn('⚠️ Données locales non disponibles pour les bannières, utilisation des données mockées');
+    
+    // Créer des bannières à partir des données mockées
+    const mockBanners = [
+      mockData.drama[0],
+      mockData.anime[0],
+      mockData.film[0]
+    ];
+    
+    return { banners: mockBanners };
   } catch (error) {
     console.error('Erreur lors de la récupération des bannières:', error);
-  }
-  
-  console.warn('⚠️ Utilisation des données importées ou mockées pour les bannières (solution de repli)');
-  
-  // Si les données importées sont vides, générer des données de démonstration
-  if (!heroBannersData || !heroBannersData.banners || heroBannersData.banners.length === 0) {
-    console.warn('⚠️ Utilisation des données mockées pour les bannières (solution de repli)');
-    return {
-      banners: [
-        mockData.drama[0],
-        mockData.anime[0],
-        mockData.film[0]
-      ]
+    
+    // Fallback sur les données locales
+    if (heroBannersData && heroBannersData.banners && heroBannersData.banners.length > 0) {
+      console.warn('⚠️ Utilisation des données locales pour les bannières (solution de repli)');
+      const banners = fixImageUrls(heroBannersData.banners);
+      return { banners } as HeroBanner;
     }
+    
+    // Fallback sur les données mockées en dernier recours
+    console.warn('⚠️ Données locales non disponibles pour les bannières, utilisation des données mockées');
+    
+    // Créer des bannières à partir des données mockées
+    const mockBanners = [
+      mockData.drama[0],
+      mockData.anime[0],
+      mockData.film[0]
+    ];
+    
+    return { banners: mockBanners };
   }
-  
-  // Si les bannières importées n'ont pas le bon format, les adapter
-  if (heroBannersData.banners && heroBannersData.banners.length > 0) {
-    // Vérifier si les bannières ont le format attendu
-    const firstBanner = heroBannersData.banners[0];
-    if (firstBanner && 'image' in firstBanner && !('poster' in firstBanner)) {
-      // Convertir les bannières au format ContentItem
-      const convertedBanners = heroBannersData.banners.map((banner: any) => ({
-        id: banner.id || `banner-${Math.random().toString(36).substring(2, 9)}`,
-        title: banner.title || 'Bannière sans titre',
-        poster: banner.image || 'https://via.placeholder.com/1280x720?text=Banner',
-        year: banner.year || new Date().getFullYear(),
-        rating: banner.rating || 8.0,
-        language: banner.language || 'fr'
-      }));
-      
-      return { banners: convertedBanners };
-    }
-  }
-  
-  return heroBannersData as unknown as HeroBanner;
 }
 
 /**
