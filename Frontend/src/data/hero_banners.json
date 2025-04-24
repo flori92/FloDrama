@@ -1,29 +1,72 @@
 {
   "banners": [
     {
-      "id": "drama-1b3e467f",
-      "title": "Moon Lovers: Scarlet Heart Ryeo",
-      "image": "https://d1n5vqbvnwvvrr.cloudfront.net/images/drama/drama-1b3e467f/poster.jpg"
+      "id": "demo-drama-1",
+      "title": "China Drama 1",
+      "original_title": "Original Title 1",
+      "description": "This is a drama from China released in 2019.",
+      "poster": "https://via.placeholder.com/300x450?text=drama%201",
+      "year": 2019,
+      "rating": 8.2,
+      "language": "ko",
+      "type": "drama",
+      "genres": [
+        "Action",
+        "Drama",
+        "Romance"
+      ],
+      "source": "generated"
     },
     {
-      "id": "drama-e96605aa",
-      "title": "Vincenzo (Japanese Version)",
-      "image": "https://d1n5vqbvnwvvrr.cloudfront.net/images/drama/drama-e96605aa/poster.jpg"
+      "id": "demo-anime-1",
+      "title": "India Anime 1",
+      "original_title": "Original Title 1",
+      "description": "This is a anime from India released in 2021.",
+      "poster": "https://via.placeholder.com/300x450?text=anime%201",
+      "year": 2021,
+      "rating": 4.6,
+      "language": "ja",
+      "type": "anime",
+      "genres": [
+        "Action",
+        "Drama",
+        "Romance"
+      ],
+      "source": "generated"
     },
     {
-      "id": "drama-2c25e128",
-      "title": "Vincenzo",
-      "image": "https://d1n5vqbvnwvvrr.cloudfront.net/images/drama/drama-2c25e128/poster.jpg"
+      "id": "demo-film-1",
+      "title": "India Film 1",
+      "original_title": "Original Title 1",
+      "description": "This is a film from India released in 2015.",
+      "poster": "https://via.placeholder.com/300x450?text=film%201",
+      "year": 2015,
+      "rating": 4.2,
+      "language": "ko",
+      "type": "film",
+      "genres": [
+        "Action",
+        "Drama",
+        "Romance"
+      ],
+      "source": "generated"
     },
     {
-      "id": "drama-0a704c1a",
-      "title": "Kingdom (Bollywood Remake)",
-      "image": "https://d1n5vqbvnwvvrr.cloudfront.net/images/drama/drama-0a704c1a/poster.jpg"
-    },
-    {
-      "id": "drama-b67bd629",
-      "title": "Crash Landing on You (Japanese Version)",
-      "image": "https://d1n5vqbvnwvvrr.cloudfront.net/images/drama/drama-b67bd629/poster.jpg"
+      "id": "demo-bollywood-1",
+      "title": "India Bollywood 1",
+      "original_title": "Original Title 1",
+      "description": "This is a bollywood from India released in 2012.",
+      "poster": "https://via.placeholder.com/300x450?text=bollywood%201",
+      "year": 2012,
+      "rating": 9.8,
+      "language": "hi",
+      "type": "bollywood",
+      "genres": [
+        "Action",
+        "Drama",
+        "Romance"
+      ],
+      "source": "generated"
     }
   ]
 }
