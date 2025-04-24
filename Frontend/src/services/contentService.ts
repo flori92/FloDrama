@@ -408,8 +408,8 @@ const mockData: Record<string, ContentItem[]> = {
 
 // URL de l'API Gateway AWS
 const API_URL = 'https://7la2pq33ej.execute-api.us-east-1.amazonaws.com/production';
-// URL du proxy CORS (conservée pour compatibilité avec le code existant)
-const PROXY_URL = 'https://flodrama-cors-proxy.onrender.com/api';
+// URL du proxy CORS (mise à jour pour utiliser l'URL correcte sans le /api final)
+const PROXY_URL = 'https://flodrama-cors-proxy.onrender.com';
 // Chemin de l'API (vide car nous utilisons directement l'API Gateway)
 const API_PATH = '';
 
@@ -436,33 +436,81 @@ export async function checkBackendAvailability(): Promise<boolean> {
   try {
     // Tenter une requête simple vers le backend via le proxy CORS
     console.log('🔄 Vérification de la disponibilité du backend...');
-    const response = await axios.get(`${PROXY_URL}/health`, { 
-      timeout: 5000,  // Timeout de 5 secondes
-      validateStatus: (status: number) => status >= 200 && status < 500 // Accepter les codes 2xx et 4xx, mais pas 5xx
-    });
+    console.log(`🔍 URL du proxy: ${PROXY_URL}`);
     
-    // Si le statut est 404, l'endpoint /health n'existe pas mais le backend pourrait être disponible
-    // Nous considérons que le backend est disponible pour tenter d'autres endpoints
-    if (response.status === 404) {
-      console.log('⚠️ Endpoint /health non trouvé, mais le backend est considéré comme disponible');
-      isBackendAvailable = true;
-      connectionAttempts = 0;
+    // Essayer plusieurs endpoints pour vérifier la disponibilité
+    const testEndpoints = [
+      '/health',
+      '/',
+      '/api/health',
+      '/api'
+    ];
+    
+    let proxyAvailable = false;
+    
+    for (const endpoint of testEndpoints) {
+      try {
+        console.log(`🔍 Test de l'endpoint: ${PROXY_URL}${endpoint}`);
+        const response = await axios.get(`${PROXY_URL}${endpoint}`, { 
+          timeout: 3000,  // Timeout réduit pour accélérer les tests
+          validateStatus: (status: number) => true // Accepter tous les codes de statut pour le diagnostic
+        });
+        
+        console.log(`📊 Réponse du proxy (${endpoint}): ${response.status}`);
+        
+        // Si on obtient une réponse (même 404), le proxy est disponible
+        proxyAvailable = true;
+        
+        // Si on obtient un 200, c'est encore mieux
+        if (response.status >= 200 && response.status < 300) {
+          break;
+        }
+      } catch (endpointError: any) {
+        console.warn(`⚠️ Échec avec l'endpoint ${endpoint}: ${endpointError.message || 'Erreur inconnue'}`);
+      }
+    }
+    
+    if (!proxyAvailable) {
+      console.error('❌ Le proxy CORS est inaccessible');
+      isBackendAvailable = false;
+      connectionAttempts++;
       lastConnectionCheck = now;
-      return true;
+      return false;
     }
     
-    // Vérifier si la réponse est valide (code 2xx)
-    isBackendAvailable = response.status >= 200 && response.status < 300;
-    connectionAttempts = 0;
-    lastConnectionCheck = now;
-    
-    if (isBackendAvailable) {
-      console.log('✅ Connexion au backend établie avec succès');
-    } else {
-      console.warn(`⚠️ Le backend a répondu avec le code ${response.status}`);
+    // Tester un endpoint réel de l'API via le proxy
+    try {
+      console.log(`🔍 Test d'un endpoint API réel via le proxy: ${PROXY_URL}/api/carousels`);
+      const apiResponse = await axios.get(`${PROXY_URL}/api/carousels`, { 
+        timeout: 5000,
+        validateStatus: (status: number) => true // Accepter tous les codes pour le diagnostic
+      });
+      
+      console.log(`📊 Réponse de l'API: ${apiResponse.status}`);
+      console.log(`📊 Type de données: ${typeof apiResponse.data}`);
+      
+      if (apiResponse.status === 200) {
+        console.log('✅ Connexion au backend établie avec succès');
+        isBackendAvailable = true;
+        connectionAttempts = 0;
+        lastConnectionCheck = now;
+        return true;
+      } else {
+        console.warn(`⚠️ L'API a répondu avec le code ${apiResponse.status}`);
+        // On considère que le backend est disponible même avec une erreur 4xx
+        // car cela pourrait être dû à un problème d'authentification ou de paramètres
+        isBackendAvailable = apiResponse.status < 500;
+        connectionAttempts = isBackendAvailable ? 0 : connectionAttempts + 1;
+        lastConnectionCheck = now;
+        return isBackendAvailable;
+      }
+    } catch (apiError: any) {
+      console.error(`❌ Échec de connexion à l'API: ${apiError.message || 'Erreur inconnue'}`);
+      isBackendAvailable = false;
+      connectionAttempts++;
+      lastConnectionCheck = now;
+      return false;
     }
-    
-    return isBackendAvailable;
   } catch (error: unknown) {
     connectionAttempts++;
     isBackendAvailable = false;
@@ -486,9 +534,16 @@ async function apiRequest<T>(url: string, options: AxiosRequestConfig = {}, retr
       throw new Error('Backend indisponible');
     }
 
-    // Vérifier si l'URL commence par http ou https
-    // Si c'est le cas, utiliser l'URL telle quelle, sinon utiliser le proxy CORS
-    const requestUrl = url.startsWith('http') ? url : url.replace(API_URL, PROXY_URL);
+    // Construire l'URL correcte pour le proxy CORS
+    let requestUrl = url;
+    
+    // Si l'URL commence par l'URL de l'API Gateway, la remplacer par l'URL du proxy
+    if (url.startsWith(API_URL)) {
+      // Extraire le chemin relatif après l'URL de base de l'API
+      const relativePath = url.substring(API_URL.length);
+      // Construire la nouvelle URL avec le proxy
+      requestUrl = `${PROXY_URL}/api${relativePath}`;
+    }
     
     console.log(`🔄 Requête API: ${requestUrl}`);
 
