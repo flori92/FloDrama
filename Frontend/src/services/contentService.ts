@@ -406,8 +406,10 @@ const mockData: Record<string, ContentItem[]> = {
   ]
 };
 
-// URL de l'API Gateway AWS
-const API_URL = 'https://7la2pq33ej.execute-api.us-east-1.amazonaws.com/production';
+// URL de l'API FloDrama Backend sur Render
+const API_URL = typeof window !== 'undefined' && window.location.hostname.endsWith('surge.sh')
+  ? 'https://flodrama-backend.onrender.com/api'
+  : 'http://localhost:8080/api';
 
 // Variables pour le suivi des tentatives de connexion
 let isBackendAvailable = true; // Activé par défaut pour récupérer les données réelles
