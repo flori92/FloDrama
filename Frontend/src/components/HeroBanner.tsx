@@ -1,3 +1,4 @@
+// Nouveau HeroBanner issu de 'A faire/HeroBanner.tsx'
 import React, { useState, useEffect } from 'react';
 import { Play, Info, Plus, ThumbsUp, ThumbsDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';

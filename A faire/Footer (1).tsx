@@ -1,4 +1,3 @@
-// Nouveau Footer issu de 'A faire/Footer (1).tsx'
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -45,6 +44,8 @@ const Footer: React.FC = () => {
             <ul className="space-y-3">
               <FooterLink to="/faq">FAQ</FooterLink>
               <FooterLink to="/support">Appareils compatibles</FooterLink>
+              {/* Added App download link here as per Recommendation 1.2 */}
+              <FooterLink to="/app">Télécharger l'application</FooterLink> 
               <FooterLink to="/privacy">Confidentialité</FooterLink>
             </ul>
           </div>
@@ -131,3 +132,4 @@ const FooterLink: React.FC<{ to: string; children: React.ReactNode }> = ({ to, c
 };
 
 export default Footer;
+
