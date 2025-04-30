@@ -788,6 +788,7 @@ export {
   setCache,
   getCache,
   getContentsByCategory,
+  getContentsByCategory as getCategoryContent,
   getContentDetails,
   getCarousels,
   getHeroBanners,
