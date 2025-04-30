@@ -133,13 +133,13 @@ function fixImageUrls<T extends {poster?: string; imageUrl?: string; posterUrl?:
  * Vérifie si la connexion à Supabase est disponible
  * @returns true si la connexion est disponible, false sinon
  */
-export async function isSupabaseAvailable(): Promise<boolean> {
+async function isSupabaseAvailable(): Promise<boolean> {
   try {
     const { data, error } = await supabase.from('health_check').select('*').limit(1);
-    return !error && !!data;
+    return !error && data !== null;
   } catch (error) {
     if (CONFIG.ENABLE_LOGGING) {
-      console.error('Erreur de connexion à Supabase:', error);
+      console.warn('Erreur lors de la vérification de la connexion Supabase:', error);
     }
     return false;
   }
@@ -152,11 +152,12 @@ export async function isSupabaseAvailable(): Promise<boolean> {
  * @param offset Position de départ pour la pagination
  * @returns Liste des contenus de la catégorie
  */
-export async function getContentsByCategory(category: ContentType, limit = 20, offset = 0): Promise<ContentItem[]> {
-  // Vérifier le cache
-  const cacheKey = `category_${category}_${limit}_${offset}`;
-  const cachedData = getCache<ContentItem[]>(cacheKey);
+async function getContentsByCategory(category: ContentType, limit = 20, offset = 0): Promise<ContentItem[]> {
+  // Clé de cache unique pour cette requête
+  const cacheKey = `content_${category}_${limit}_${offset}`;
   
+  // Vérifier le cache
+  const cachedData = getCache<ContentItem[]>(cacheKey);
   if (cachedData) {
     return cachedData;
   }
@@ -166,33 +167,38 @@ export async function getContentsByCategory(category: ContentType, limit = 20, o
     const supabaseAvailable = await isSupabaseAvailable();
     
     if (supabaseAvailable) {
-      // Table à utiliser en fonction de la catégorie
-      const table = category === 'trending' ? 'dramas' : `${category}s`;
-      
-      // Requête à Supabase
-      let query = supabase
-        .from(table)
-        .select('id, title, original_title, poster, backdrop, year, rating, language, source');
-      
-      // Ajouter un tri par popularité pour la catégorie "trending"
-      if (category === 'trending') {
-        query = query.order('popularity_score', { ascending: false });
-      } else {
-        query = query.order('created_at', { ascending: false });
+      // Déterminer la table Supabase en fonction de la catégorie
+      let table: string;
+      switch (category) {
+        case 'drama':
+          table = 'dramas';
+          break;
+        case 'anime':
+          table = 'animes';
+          break;
+        case 'film':
+          table = 'films';
+          break;
+        case 'bollywood':
+          table = 'bollywood';
+          break;
+        default:
+          throw new Error(`Catégorie non supportée: ${category}`);
       }
       
-      // Ajouter pagination
-      query = query.range(offset, offset + limit - 1);
-      
-      // Exécuter la requête
-      const { data, error } = await query;
+      // Récupérer les données depuis Supabase
+      const { data, error } = await supabase
+        .from(table)
+        .select('id, title, original_title, poster, backdrop, year, rating, language, source')
+        .order('year', { ascending: false })
+        .range(offset, offset + limit - 1);
       
       if (error) {
         throw error;
       }
       
       if (data && data.length > 0) {
-        // Transformer les données au format ContentItem
+        // Transformer les données en ContentItem
         const items: ContentItem[] = data.map(item => ({
           id: item.id,
           title: item.title,
@@ -223,37 +229,27 @@ export async function getContentsByCategory(category: ContentType, limit = 20, o
   
   // Fallback sur les données locales
   if (CONFIG.USE_LOCAL_FALLBACK) {
-    let localItems: ContentItem[] = [];
-    
-    // Sélectionner la source locale appropriée
+    let localData;
     switch (category) {
       case 'drama':
-        localItems = localDramaData?.items || [];
+        localData = localDramaData;
         break;
       case 'anime':
-        localItems = localAnimeData?.items || [];
+        localData = localAnimeData;
         break;
       case 'film':
-        localItems = localFilmData?.items || [];
+        localData = localFilmData;
         break;
       case 'bollywood':
-        localItems = localBollywoodData?.items || [];
+        localData = localBollywoodData;
         break;
-      case 'trending':
-        // Mélanger des éléments de toutes les catégories
-        const dramaItems = (localDramaData?.items || []).slice(0, 5);
-        const animeItems = (localAnimeData?.items || []).slice(0, 5);
-        const filmItems = (localFilmData?.items || []).slice(0, 5);
-        const bollywoodItems = (localBollywoodData?.items || []).slice(0, 5);
-        
-        localItems = [...dramaItems, ...animeItems, ...filmItems, ...bollywoodItems]
-          .sort(() => Math.random() - 0.5) // Mélanger
-          .slice(0, limit);
-        break;
+      default:
+        localData = { items: [] };
     }
     
-    // Pagination
-    const paginatedItems = localItems.slice(offset, offset + limit);
+    // Pagination des données locales
+    const items = localData?.items || [];
+    const paginatedItems = items.slice(offset, offset + limit);
     
     // Corriger les URLs des images
     const fixedItems = fixImageUrls(paginatedItems);
@@ -273,12 +269,13 @@ export async function getContentsByCategory(category: ContentType, limit = 20, o
  * @param contentId Identifiant du contenu
  * @returns Détails du contenu ou null si non trouvé
  */
-export async function getContentDetails(contentId: string): Promise<ContentDetail | null> {
-  // Vérifier le cache
-  const cacheKey = `content_details_${contentId}`;
-  const cachedData = getCache<ContentDetail>(cacheKey);
+async function getContentDetails(contentId: string): Promise<ContentDetail | null> {
+  // Clé de cache unique pour cette requête
+  const cacheKey = `content_detail_${contentId}`;
   
-  if (cachedData) {
+  // Vérifier le cache
+  const cachedData = getCache<ContentDetail | null>(cacheKey);
+  if (cachedData !== null) {
     return cachedData;
   }
   
@@ -287,11 +284,10 @@ export async function getContentDetails(contentId: string): Promise<ContentDetai
     const supabaseAvailable = await isSupabaseAvailable();
     
     if (supabaseAvailable) {
-      // Rechercher dans toutes les tables de contenu
-      const contentTables = ['dramas', 'animes', 'films', 'bollywood'];
+      // Essayer de récupérer le contenu depuis chaque table
+      const tables = ['dramas', 'animes', 'films', 'bollywood'];
       
-      // Vérifier chaque table
-      for (const table of contentTables) {
+      for (const table of tables) {
         const { data, error } = await supabase
           .from(table)
           .select('*')
@@ -299,25 +295,19 @@ export async function getContentDetails(contentId: string): Promise<ContentDetai
           .single();
         
         if (error) {
-          // Si l'erreur est "No rows found", continuer à la table suivante
-          if (error.code === 'PGRST116') {
-            continue;
+          if (error.code !== 'PGRST116') { // Code d'erreur pour "No rows found"
+            throw error;
           }
-          
-          // Pour les autres erreurs, journaliser et continuer
-          if (CONFIG.ENABLE_LOGGING) {
-            console.error(`Erreur lors de la recherche dans ${table}:`, error);
-          }
-          continue;
+          continue; // Essayer la table suivante
         }
         
         if (data) {
           // Déterminer le type en fonction de la table
           const type: ContentType = table === 'dramas' ? 'drama' : 
-                                   table === 'animes' ? 'anime' : 
-                                   table === 'films' ? 'film' : 'bollywood';
+                                  table === 'animes' ? 'anime' : 
+                                  table === 'films' ? 'film' : 'bollywood';
           
-          // Transformer au format ContentDetail
+          // Transformer les données en ContentDetail
           const contentDetail: ContentDetail = {
             id: data.id,
             title: data.title,
@@ -329,12 +319,11 @@ export async function getContentDetails(contentId: string): Promise<ContentDetai
             language: data.language,
             source: data.source,
             type,
-            url: `/${type}/${data.id}`,
             description: data.description || '',
             synopsis: data.synopsis || '',
-            genres: Array.isArray(data.genres) ? data.genres : [],
-            tags: Array.isArray(data.tags) ? data.tags : [],
-            actors: Array.isArray(data.actors) ? data.actors : [],
+            genres: data.genres || [],
+            tags: data.tags || undefined,
+            actors: data.actors || undefined,
             director: data.director || undefined,
             episode_count: data.episode_count || undefined,
             episodes: data.episodes || undefined,
@@ -342,24 +331,24 @@ export async function getContentDetails(contentId: string): Promise<ContentDetai
             duration: data.duration || undefined,
             status: data.status || undefined,
             release_date: data.release_date || undefined,
-            streaming_urls: Array.isArray(data.streaming_urls) ? data.streaming_urls : [],
-            trailers: Array.isArray(data.trailers) ? data.trailers : [],
-            images: Array.isArray(data.images) ? data.images : [],
-            subtitles: Array.isArray(data.subtitles) ? data.subtitles : [],
-            related_content: Array.isArray(data.related_content) ? data.related_content : [],
-            user_ratings: data.user_ratings || { average: 0, count: 0 },
-            popularity_score: data.popularity_score || 0,
-            is_premium: !!data.is_premium,
-            gallery: Array.isArray(data.gallery) ? data.gallery : []
+            streaming_urls: data.streaming_urls || undefined,
+            trailers: data.trailers || undefined,
+            images: data.images || undefined,
+            subtitles: data.subtitles || undefined,
+            related_content: data.related_content || undefined,
+            user_ratings: data.user_ratings || undefined,
+            popularity_score: data.popularity_score || undefined,
+            is_premium: data.is_premium || undefined,
+            gallery: data.gallery || undefined
           };
           
           // Corriger les URLs des images
-          const fixedDetail = fixImageUrls([contentDetail])[0];
+          const fixedItem = fixImageUrls([contentDetail])[0];
           
           // Mettre en cache
-          setCache(cacheKey, fixedDetail);
+          setCache(cacheKey, fixedItem);
           
-          return fixedDetail;
+          return fixedItem;
         }
       }
     }
@@ -369,10 +358,8 @@ export async function getContentDetails(contentId: string): Promise<ContentDetai
     }
   }
   
-  // Si Supabase n'est pas disponible ou si le contenu n'est pas trouvé,
-  // chercher dans les données locales
+  // Fallback sur les données locales
   if (CONFIG.USE_LOCAL_FALLBACK) {
-    // Chercher dans les données locales
     const allLocalItems = [
       ...(localDramaData?.items || []),
       ...(localAnimeData?.items || []),
@@ -383,32 +370,27 @@ export async function getContentDetails(contentId: string): Promise<ContentDetai
     const localItem = allLocalItems.find(item => item.id === contentId);
     
     if (localItem) {
-      // Créer un ContentDetail à partir de l'élément local
-      const localDetail: ContentDetail = {
+      // Transformer en ContentDetail
+      const contentDetail: ContentDetail = {
         ...localItem,
-        url: `/${localItem.type || 'drama'}/${localItem.id}`,
         description: localItem.description || '',
         synopsis: localItem.synopsis || '',
-        genres: [],
-        tags: [],
-        actors: [],
-        streaming_urls: [],
-        trailers: [],
-        images: [],
-        subtitles: [],
-        popularity_score: 0,
-        is_premium: false,
-        gallery: []
+        genres: localItem.genres || []
       };
       
-      // Mettre en cache
-      setCache(cacheKey, localDetail);
+      // Corriger les URLs des images
+      const fixedItem = fixImageUrls([contentDetail])[0];
       
-      return localDetail;
+      // Mettre en cache
+      setCache(cacheKey, fixedItem);
+      
+      return fixedItem;
     }
   }
   
-  // Si aucun contenu n'est trouvé, renvoyer null
+  // Si le contenu n'est pas trouvé, mettre null en cache pour éviter des requêtes répétées
+  setCache(cacheKey, null);
+  
   return null;
 }
 
@@ -416,11 +398,12 @@ export async function getContentDetails(contentId: string): Promise<ContentDetai
  * Récupère les carrousels pour la page d'accueil
  * @returns Liste des carrousels
  */
-export async function getCarousels(): Promise<Carousel[]> {
-  // Vérifier le cache
+async function getCarousels(): Promise<Carousel[]> {
+  // Clé de cache unique pour cette requête
   const cacheKey = 'carousels';
-  const cachedData = getCache<Carousel[]>(cacheKey);
   
+  // Vérifier le cache
+  const cachedData = getCache<Carousel[]>(cacheKey);
   if (cachedData) {
     return cachedData;
   }
@@ -430,23 +413,65 @@ export async function getCarousels(): Promise<Carousel[]> {
     const supabaseAvailable = await isSupabaseAvailable();
     
     if (supabaseAvailable) {
-      const { data, error } = await supabase
+      // Récupérer les carrousels depuis Supabase
+      const { data: carouselsData, error: carouselsError } = await supabase
         .from('carousels')
         .select('*')
-        .order('position', { ascending: true })
-        .eq('is_active', true);
+        .order('position', { ascending: true });
       
-      if (error) {
-        throw error;
+      if (carouselsError) {
+        throw carouselsError;
       }
       
-      if (data && data.length > 0) {
-        // Transformer au format Carousel
-        const carousels: Carousel[] = data.map(carousel => ({
-          title: carousel.title,
-          type: carousel.type,
-          items: fixImageUrls(carousel.items || [])
-        }));
+      if (carouselsData && carouselsData.length > 0) {
+        // Transformer les données en Carousel
+        const carousels: Carousel[] = [];
+        
+        for (const carousel of carouselsData) {
+          // Récupérer les éléments du carrousel
+          const { data: itemsData, error: itemsError } = await supabase
+            .from('carousel_items')
+            .select('content_id, content_type')
+            .eq('carousel_id', carousel.id);
+          
+          if (itemsError) {
+            throw itemsError;
+          }
+          
+          if (itemsData && itemsData.length > 0) {
+            // Récupérer les détails de chaque élément
+            const items: ContentItem[] = [];
+            
+            for (const item of itemsData) {
+              const contentDetail = await getContentDetails(item.content_id);
+              if (contentDetail) {
+                items.push({
+                  id: contentDetail.id,
+                  title: contentDetail.title,
+                  original_title: contentDetail.original_title,
+                  poster: contentDetail.poster,
+                  backdrop: contentDetail.backdrop,
+                  year: contentDetail.year,
+                  rating: contentDetail.rating,
+                  language: contentDetail.language,
+                  source: contentDetail.source,
+                  type: contentDetail.type
+                });
+              }
+            }
+            
+            if (items.length > 0) {
+              carousels.push({
+                id: carousel.id,
+                title: carousel.title,
+                type: carousel.type,
+                items: fixImageUrls(items),
+                position: carousel.position,
+                is_active: carousel.is_active
+              });
+            }
+          }
+        }
         
         // Mettre en cache
         setCache(cacheKey, carousels);
@@ -461,61 +486,63 @@ export async function getCarousels(): Promise<Carousel[]> {
   }
   
   // Fallback sur les données locales
-  if (CONFIG.USE_LOCAL_FALLBACK && localCarouselsData?.carousels) {
-    const localCarousels = localCarouselsData.carousels.map(carousel => ({
-      ...carousel,
-      items: fixImageUrls(carousel.items)
-    }));
+  if (CONFIG.USE_LOCAL_FALLBACK && localCarouselsData) {
+    const carousels: Carousel[] = [];
     
-    // Mettre en cache
-    setCache(cacheKey, localCarousels);
-    
-    return localCarousels;
-  }
-  
-  // Si aucun carrousel n'est trouvé, créer des carrousels par défaut
-  // basés sur les catégories
-  const defaultCarousels: Carousel[] = [];
-  
-  // Récupérer des éléments pour chaque catégorie
-  const categories: ContentType[] = ['drama', 'anime', 'film', 'bollywood', 'trending'];
-  
-  for (const category of categories) {
-    try {
-      const items = await getContentsByCategory(category, 10, 0);
+    for (const carousel of localCarouselsData) {
+      const items: ContentItem[] = [];
+      
+      // Récupérer les détails de chaque élément
+      for (const itemId of carousel.item_ids || []) {
+        const contentDetail = await getContentDetails(itemId);
+        if (contentDetail) {
+          items.push({
+            id: contentDetail.id,
+            title: contentDetail.title,
+            original_title: contentDetail.original_title,
+            poster: contentDetail.poster,
+            backdrop: contentDetail.backdrop,
+            year: contentDetail.year,
+            rating: contentDetail.rating,
+            language: contentDetail.language,
+            source: contentDetail.source,
+            type: contentDetail.type
+          });
+        }
+      }
       
       if (items.length > 0) {
-        defaultCarousels.push({
-          title: category === 'drama' ? 'Dramas populaires' :
-                category === 'anime' ? 'Animes à découvrir' :
-                category === 'film' ? 'Films à voir' :
-                category === 'bollywood' ? 'Bollywood' : 'Tendances',
-          type: category,
-          items
+        carousels.push({
+          id: carousel.id,
+          title: carousel.title,
+          type: carousel.type,
+          items: fixImageUrls(items),
+          position: carousel.position,
+          is_active: carousel.is_active
         });
       }
-    } catch (error) {
-      if (CONFIG.ENABLE_LOGGING) {
-        console.error(`Erreur lors de la création du carrousel par défaut pour ${category}:`, error);
-      }
     }
+    
+    // Mettre en cache
+    setCache(cacheKey, carousels);
+    
+    return carousels;
   }
   
-  // Mettre en cache
-  setCache(cacheKey, defaultCarousels);
-  
-  return defaultCarousels;
+  // Si tout échoue, renvoyer un tableau vide
+  return [];
 }
 
 /**
  * Récupère les bannières pour le hero banner
  * @returns Bannières pour le hero banner
  */
-export async function getHeroBanners(): Promise<HeroBanner> {
-  // Vérifier le cache
+async function getHeroBanners(): Promise<HeroBanner> {
+  // Clé de cache unique pour cette requête
   const cacheKey = 'hero_banners';
-  const cachedData = getCache<HeroBanner>(cacheKey);
   
+  // Vérifier le cache
+  const cachedData = getCache<HeroBanner>(cacheKey);
   if (cachedData) {
     return cachedData;
   }
@@ -525,50 +552,53 @@ export async function getHeroBanners(): Promise<HeroBanner> {
     const supabaseAvailable = await isSupabaseAvailable();
     
     if (supabaseAvailable) {
-      const { data, error } = await supabase
+      // Récupérer les bannières depuis Supabase
+      const { data: bannersData, error: bannersError } = await supabase
         .from('hero_banners')
         .select('*')
-        .order('position', { ascending: true })
-        .eq('is_active', true)
-        .lte('start_date', new Date().toISOString())
-        .gte('end_date', new Date().toISOString());
+        .single();
       
-      if (error) {
-        throw error;
+      if (bannersError) {
+        throw bannersError;
       }
       
-      if (data && data.length > 0) {
-        // Récupérer les détails complets pour chaque bannière
-        const bannerItems: ContentItem[] = [];
+      if (bannersData) {
+        // Récupérer les éléments de la bannière
+        const { data: itemsData, error: itemsError } = await supabase
+          .from('hero_banner_items')
+          .select('*')
+          .eq('banner_id', bannersData.id);
         
-        for (const banner of data) {
-          if (banner.content_id) {
-            // Récupérer les détails du contenu
-            const contentDetail = await getContentDetails(banner.content_id);
+        if (itemsError) {
+          throw itemsError;
+        }
+        
+        if (itemsData && itemsData.length > 0) {
+          // Transformer les données en HeroBanner
+          const heroBanner: HeroBanner = {
+            id: bannersData.id,
+            items: []
+          };
+          
+          for (const item of itemsData) {
+            // Récupérer les détails du contenu associé
+            const contentDetail = await getContentDetails(item.content_id);
             
             if (contentDetail) {
-              bannerItems.push({
-                id: contentDetail.id,
-                title: contentDetail.title,
-                original_title: contentDetail.original_title,
-                poster: contentDetail.poster,
-                backdrop: banner.image || contentDetail.backdrop || contentDetail.poster,
-                year: contentDetail.year,
-                rating: contentDetail.rating,
-                language: contentDetail.language,
-                source: contentDetail.source,
+              heroBanner.items.push({
+                id: item.id,
+                title: item.title || contentDetail.title,
+                description: item.description || contentDetail.description,
+                backdrop: item.backdrop || contentDetail.backdrop || '',
+                poster: item.poster || contentDetail.poster,
                 type: contentDetail.type,
-                description: banner.description || contentDetail.synopsis
+                content_id: item.content_id
               });
             }
           }
-        }
-        
-        // Si des éléments ont été trouvés, créer la bannière
-        if (bannerItems.length > 0) {
-          const heroBanner: HeroBanner = {
-            banners: fixImageUrls(bannerItems)
-          };
+          
+          // Corriger les URLs des images
+          heroBanner.items = fixImageUrls(heroBanner.items);
           
           // Mettre en cache
           setCache(cacheKey, heroBanner);
@@ -584,40 +614,40 @@ export async function getHeroBanners(): Promise<HeroBanner> {
   }
   
   // Fallback sur les données locales
-  if (CONFIG.USE_LOCAL_FALLBACK && localHeroBannersData?.banners) {
-    const localBanners: HeroBanner = {
-      banners: fixImageUrls(localHeroBannersData.banners)
+  if (CONFIG.USE_LOCAL_FALLBACK && localHeroBannersData) {
+    const heroBanner: HeroBanner = {
+      id: localHeroBannersData.id || 'local_hero_banner',
+      items: []
     };
     
+    for (const item of localHeroBannersData.items || []) {
+      // Récupérer les détails du contenu associé
+      const contentDetail = await getContentDetails(item.content_id);
+      
+      if (contentDetail) {
+        heroBanner.items.push({
+          id: item.id,
+          title: item.title || contentDetail.title,
+          description: item.description || contentDetail.description,
+          backdrop: item.backdrop || contentDetail.backdrop || '',
+          poster: item.poster || contentDetail.poster,
+          type: contentDetail.type,
+          content_id: item.content_id
+        });
+      }
+    }
+    
+    // Corriger les URLs des images
+    heroBanner.items = fixImageUrls(heroBanner.items);
+    
     // Mettre en cache
-    setCache(cacheKey, localBanners);
+    setCache(cacheKey, heroBanner);
     
-    return localBanners;
+    return heroBanner;
   }
   
-  // Si aucune bannière n'est trouvée, créer des bannières par défaut
-  // basées sur les contenus populaires
-  try {
-    const trendingItems = await getContentsByCategory('trending', 5, 0);
-    
-    if (trendingItems.length > 0) {
-      const defaultBanners: HeroBanner = {
-        banners: trendingItems
-      };
-      
-      // Mettre en cache
-      setCache(cacheKey, defaultBanners);
-      
-      return defaultBanners;
-    }
-  } catch (error) {
-    if (CONFIG.ENABLE_LOGGING) {
-      console.error('Erreur lors de la création des bannières par défaut:', error);
-    }
-  }
-  
-  // Si tout échoue, renvoyer un tableau vide
-  return { banners: [] };
+  // Si tout échoue, renvoyer une bannière vide
+  return { id: 'empty_banner', items: [] };
 }
 
 /**
@@ -627,13 +657,15 @@ export async function getHeroBanners(): Promise<HeroBanner> {
  * @param offset Position de départ pour la pagination
  * @returns Résultats de la recherche
  */
-export async function searchContent(query: string, limit = 20, offset = 0): Promise<SearchResponse> {
+async function searchContent(query: string, limit = 20, offset = 0): Promise<SearchResponse> {
   if (!query || query.trim() === '') {
-    return { results: [], resultsCount: 0 };
+    return { results: [], resultsCount: 0, status: 'completed' };
   }
   
+  // Clé de cache unique pour cette requête
+  const cacheKey = `search_${query.toLowerCase()}_${limit}_${offset}`;
+  
   // Vérifier le cache
-  const cacheKey = `search_${query.toLowerCase().trim()}_${limit}_${offset}`;
   const cachedData = getCache<SearchResponse>(cacheKey);
   
   if (cachedData) {
@@ -755,15 +787,12 @@ export {
   fixImageUrls,
   setCache,
   getCache,
-  getContentsByCategory as getCategoryContent,
+  getContentsByCategory,
   getContentDetails,
   getCarousels,
   getHeroBanners,
-  searchContent,
-  ContentItem,
-  ContentDetail,
-  ContentType,
-  Carousel,
-  HeroBanner,
-  SearchResponse
+  searchContent
 };
+
+// Ré-exporter les types depuis le module de types
+export type { ContentItem, ContentDetail, ContentType, Carousel, HeroBanner, SearchResponse };
