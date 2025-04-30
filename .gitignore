@@ -1,0 +1,60 @@
+# Fichiers générés par le scraping
+Backend/data/
+Backend/.env
+Backend/reports/
+exported_data/
+
+# Données exportées pour le frontend
+# Note: On garde la structure mais pas les données
+Frontend/public/data/*.json
+Frontend/public/recherche/*.txt
+
+# Environnement Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Environnement Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.pnp/
+.pnp.js
+
+# Environnement de développement
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Fichiers de configuration sensibles
+aws_temp_config.sh
+**/aws_config.*
+**/aws_credentials.*
+**/.env.local
+**/.env.production
+
+# Fichiers de logs
+*.log
+logs/
+Backend/api/.env

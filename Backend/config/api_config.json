@@ -1,0 +1,6 @@
+{
+  "bucket": "flodrama-content-1745269660",
+  "lambda": "FloDramaContentScraper",
+  "api_endpoint": "https://flodrama-content-1745269660.s3.us-east-1.amazonaws.com",
+  "deployed_at": "2025-04-21T23:08:15.096342"
+}

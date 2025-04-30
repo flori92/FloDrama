@@ -1,0 +1,128 @@
+name: Déploiement Vercel
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Frontend/**'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Frontend
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: Frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+        
+      - name: Create types directory if it doesn't exist
+        run: mkdir -p src/types
+        
+      - name: Create content types file if it doesn't exist
+        run: |
+          if [ ! -f src/types/content.types.ts ]; then
+            cat > src/types/content.types.ts << 'EOL'
+            // Types pour les contenus de l'application
+            export type ContentType = 'drama' | 'anime' | 'film' | 'bollywood';
+
+            export interface ContentItem {
+              id: string;
+              title: string;
+              original_title?: string;
+              poster: string;
+              backdrop?: string;
+              year: number;
+              rating: number;
+              language: string;
+              source: string;
+              type: ContentType;
+            }
+
+            export interface ContentDetail extends ContentItem {
+              description: string;
+              synopsis: string;
+              genres: string[];
+              tags?: string[];
+              actors?: string[];
+              director?: string;
+              episode_count?: number;
+              episodes?: any[];
+              seasons?: any[];
+              duration?: number;
+              status?: string;
+              release_date?: string;
+              streaming_urls?: { quality: string; url: string }[];
+              trailers?: { title?: string; url: string }[];
+              images?: string[];
+              subtitles?: { language: string; url: string }[];
+              related_content?: ContentItem[];
+              user_ratings?: any;
+              popularity_score?: number;
+              is_premium?: boolean;
+              gallery?: string[];
+            }
+
+            export interface Carousel {
+              id: string;
+              title: string;
+              type: string;
+              items: ContentItem[];
+              position?: number;
+              is_active?: boolean;
+            }
+
+            export interface HeroBanner {
+              id: string;
+              items: {
+                id: string;
+                title: string;
+                description: string;
+                backdrop: string;
+                poster?: string;
+                type: ContentType;
+                content_id: string;
+              }[];
+            }
+
+            export interface SearchResponse {
+              results: ContentItem[];
+              resultsCount: number;
+              status?: 'loading' | 'completed' | 'error';
+            }
+            EOL
+          fi
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel@latest
+
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+        run: |
+          echo "VITE_SUPABASE_URL=$VITE_SUPABASE_URL" > .env
+          echo "VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY" >> .env
+          
+          # Déploiement en production si c'est la branche main
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            vercel deploy --prod --token=$VERCEL_TOKEN --yes
+          else
+            vercel deploy --token=$VERCEL_TOKEN --yes
+          fi

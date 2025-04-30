@@ -1,0 +1,133 @@
+// Styles pour les animations de réactions
+.reaction-animation {
+  position: absolute;
+  font-size: 2rem;
+  animation: float-up 1.5s ease-out forwards;
+  opacity: 0;
+  z-index: 10;
+  user-select: none;
+  pointer-events: none;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  
+  // Effet de grossissement au début de l'animation
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    z-index: -1;
+    animation: pulse 0.8s ease-out;
+  }
+}
+
+// Animation pour faire flotter les émojis vers le haut
+@keyframes float-up {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0;
+  }
+  10% {
+    transform: translateY(-10px) scale(1.2);
+    opacity: 1;
+  }
+  20% {
+    transform: translateY(-20px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) scale(0.8);
+    opacity: 0;
+  }
+}
+
+// Animation de pulsation pour l'effet de grossissement
+@keyframes pulse {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+// Styles spécifiques pour les différentes catégories d'émojis
+.reaction-animation {
+  // Émotions (visages souriants, etc.)
+  &[data-category="emotions"] {
+    animation-duration: 1.8s;
+    animation-timing-function: cubic-bezier(0.1, 0.8, 0.2, 1);
+  }
+  
+  // Gestes (pouces, mains, etc.)
+  &[data-category="gestures"] {
+    animation-duration: 1.6s;
+    animation-timing-function: cubic-bezier(0.2, 0.6, 0.3, 1);
+  }
+  
+  // Symboles (cœurs, étoiles, etc.)
+  &[data-category="symbols"] {
+    animation-duration: 2s;
+    animation-timing-function: cubic-bezier(0, 0.9, 0.1, 1);
+    
+    // Effet de rotation pour les symboles
+    animation-name: float-up-rotate;
+  }
+}
+
+// Animation avec rotation pour certains émojis
+@keyframes float-up-rotate {
+  0% {
+    transform: translateY(0) scale(0.5) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    transform: translateY(-10px) scale(1.2) rotate(20deg);
+    opacity: 1;
+  }
+  20% {
+    transform: translateY(-20px) scale(1) rotate(10deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) scale(0.8) rotate(-20deg);
+    opacity: 0;
+  }
+}
+
+// Styles pour les réactions multiples
+.reaction-group {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  z-index: 10;
+  
+  .reaction-count {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 0.8rem;
+    margin-left: 5px;
+  }
+  
+  .reaction-emoji {
+    font-size: 1.2rem;
+    margin-left: 2px;
+    transition: transform 0.2s ease;
+    
+    &:hover {
+      transform: scale(1.3);
+    }
+  }
+}

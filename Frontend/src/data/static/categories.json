@@ -1,0 +1,134 @@
+[
+  {
+    "id": "dramas",
+    "name": "Dramas",
+    "description": "Séries dramatiques asiatiques avec des histoires captivantes",
+    "icon": "film",
+    "color": "from-blue-500 to-purple-600",
+    "sources": [
+      {
+        "id": "korean",
+        "name": "Coréens",
+        "count": 245,
+        "image": "https://flodrama-content-1745269660.s3.amazonaws.com/images/categories/korean.jpg"
+      },
+      {
+        "id": "chinese",
+        "name": "Chinois",
+        "count": 178,
+        "image": "https://flodrama-content-1745269660.s3.amazonaws.com/images/categories/chinese.jpg"
+      },
+      {
+        "id": "japanese",
+        "name": "Japonais",
+        "count": 132,
+        "image": "https://flodrama-content-1745269660.s3.amazonaws.com/images/categories/japanese.jpg"
+      },
+      {
+        "id": "taiwanese",
+        "name": "Taïwanais",
+        "count": 89,
+        "image": "https://flodrama-content-1745269660.s3.amazonaws.com/images/categories/taiwanese.jpg"
+      }
+    ]
+  },
+  {
+    "id": "anime",
+    "name": "Anime",
+    "description": "Animation japonaise pour tous les âges et tous les goûts",
+    "icon": "sparkles",
+    "color": "from-red-500 to-yellow-500",
+    "sources": [
+      {
+        "id": "shonen",
+        "name": "Shōnen",
+        "count": 187,
+        "image": "https://flodrama-content-1745269660.s3.amazonaws.com/images/categories/shonen.jpg"
+      },
+      {
+        "id": "seinen",
+        "name": "Seinen",
+        "count": 124,
+        "image": "https://flodrama-content-1745269660.s3.amazonaws.com/images/categories/seinen.jpg"
+      },
+      {
+        "id": "shojo",
+        "name": "Shōjo",
+        "count": 98,
+        "image": "https://flodrama-content-1745269660.s3.amazonaws.com/images/categories/shojo.jpg"
+      },
+      {
+        "id": "josei",
+        "name": "Josei",
+        "count": 67,
+        "image": "https://flodrama-content-1745269660.s3.amazonaws.com/images/categories/josei.jpg"
+      }
+    ]
+  },
+  {
+    "id": "movies",
+    "name": "Films",
+    "description": "Films asiatiques de tous genres et de toutes époques",
+    "icon": "clapperboard",
+    "color": "from-green-500 to-teal-500",
+    "sources": [
+      {
+        "id": "action",
+        "name": "Action",
+        "count": 134,
+        "image": "https://flodrama-content-1745269660.s3.amazonaws.com/images/categories/action.jpg"
+      },
+      {
+        "id": "romance",
+        "name": "Romance",
+        "count": 156,
+        "image": "https://flodrama-content-1745269660.s3.amazonaws.com/images/categories/romance.jpg"
+      },
+      {
+        "id": "horror",
+        "name": "Horreur",
+        "count": 78,
+        "image": "https://flodrama-content-1745269660.s3.amazonaws.com/images/categories/horror.jpg"
+      },
+      {
+        "id": "comedy",
+        "name": "Comédie",
+        "count": 112,
+        "image": "https://flodrama-content-1745269660.s3.amazonaws.com/images/categories/comedy.jpg"
+      }
+    ]
+  },
+  {
+    "id": "variety",
+    "name": "Émissions",
+    "description": "Émissions de variétés et de divertissement asiatiques",
+    "icon": "tv",
+    "color": "from-purple-500 to-pink-500",
+    "sources": [
+      {
+        "id": "kvariety",
+        "name": "Coréennes",
+        "count": 89,
+        "image": "https://flodrama-content-1745269660.s3.amazonaws.com/images/categories/kvariety.jpg"
+      },
+      {
+        "id": "jvariety",
+        "name": "Japonaises",
+        "count": 67,
+        "image": "https://flodrama-content-1745269660.s3.amazonaws.com/images/categories/jvariety.jpg"
+      },
+      {
+        "id": "cvariety",
+        "name": "Chinoises",
+        "count": 45,
+        "image": "https://flodrama-content-1745269660.s3.amazonaws.com/images/categories/cvariety.jpg"
+      },
+      {
+        "id": "tvariety",
+        "name": "Taïwanaises",
+        "count": 32,
+        "image": "https://flodrama-content-1745269660.s3.amazonaws.com/images/categories/tvariety.jpg"
+      }
+    ]
+  }
+]

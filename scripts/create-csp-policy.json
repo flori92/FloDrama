@@ -1,0 +1,54 @@
+{
+  "ResponseHeadersPolicyConfig": {
+    "Name": "FloDrama-CSP-Policy",
+    "Comment": "Politique d'en-têtes de sécurité pour FloDrama",
+    "CorsConfig": {
+      "AccessControlAllowOrigins": {
+        "Items": ["*"],
+        "Quantity": 1
+      },
+      "AccessControlAllowHeaders": {
+        "Items": ["*"],
+        "Quantity": 1
+      },
+      "AccessControlAllowMethods": {
+        "Items": ["GET", "HEAD", "OPTIONS", "PUT", "POST", "DELETE", "PATCH"],
+        "Quantity": 7
+      },
+      "AccessControlAllowCredentials": false,
+      "AccessControlExposeHeaders": {
+        "Items": ["*"],
+        "Quantity": 1
+      },
+      "OriginOverride": true
+    },
+    "SecurityHeadersConfig": {
+      "ContentSecurityPolicy": {
+        "Override": true,
+        "ContentSecurityPolicy": "default-src 'self' *.flodrama.com *.cloudfront.net *.amazonaws.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.flodrama.com *.cloudfront.net *.amazonaws.com; style-src 'self' 'unsafe-inline' *.flodrama.com *.cloudfront.net *.amazonaws.com; img-src 'self' data: *.flodrama.com *.cloudfront.net *.amazonaws.com; font-src 'self' data: *.flodrama.com *.cloudfront.net *.amazonaws.com; connect-src 'self' *.flodrama.com *.cloudfront.net *.amazonaws.com;"
+      },
+      "ContentTypeOptions": {
+        "Override": true
+      },
+      "FrameOptions": {
+        "Override": true,
+        "FrameOption": "DENY"
+      },
+      "ReferrerPolicy": {
+        "Override": true,
+        "ReferrerPolicy": "strict-origin-when-cross-origin"
+      },
+      "StrictTransportSecurity": {
+        "Override": true,
+        "IncludeSubdomains": true,
+        "Preload": true,
+        "AccessControlMaxAgeSec": 63072000
+      },
+      "XSSProtection": {
+        "Override": true,
+        "Protection": true,
+        "ModeBlock": true
+      }
+    }
+  }
+}
