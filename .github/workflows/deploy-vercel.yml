@@ -35,7 +35,7 @@ jobs:
       - name: Create content types file if it doesn't exist
         run: |
           if [ ! -f src/types/content.types.ts ]; then
-            cat > src/types/content.types.ts << 'EOL'
+            cat > src/types/content.types.ts << EOF
             // Types pour les contenus de l'application
             export type ContentType = 'drama' | 'anime' | 'film' | 'bollywood';
 
@@ -103,7 +103,7 @@ jobs:
               resultsCount: number;
               status?: 'loading' | 'completed' | 'error';
             }
-            EOL
+EOF
           fi
 
       - name: Install Vercel CLI
