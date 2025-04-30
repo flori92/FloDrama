@@ -32,37 +32,14 @@ jobs:
       - name: Create types directory if it doesn't exist
         run: mkdir -p src/types
         
-      - name: Setup types and configuration
+      - name: Setup types
         run: bash scripts/create-types.sh
 
-      - name: Create vercel.json for simplified deployment
-        run: |
-          echo '{' > vercel.json
-          echo '  "buildCommand": "vite build --mode production",' >> vercel.json
-          echo '  "outputDirectory": "dist",' >> vercel.json
-          echo '  "framework": "vite",' >> vercel.json
-          echo '  "rewrites": [' >> vercel.json
-          echo '    { "source": "/(.*)", "destination": "/index.html" }' >> vercel.json
-          echo '  ]' >> vercel.json
-          echo '}' >> vercel.json
-
-      - name: Install Vercel CLI
-        run: npm install -g vercel@latest
-
-      - name: Deploy to Vercel
+      - name: Exécuter le script de déploiement direct
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
-        run: |
-          echo "VITE_SUPABASE_URL=$VITE_SUPABASE_URL" > .env
-          echo "VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY" >> .env
-          
-          # Déploiement en production si c'est la branche main
-          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
-            vercel deploy --prod --token=$VERCEL_TOKEN --yes
-          else
-            vercel deploy --token=$VERCEL_TOKEN --yes
-          fi
+        run: bash scripts/deploy-vercel-direct.sh
