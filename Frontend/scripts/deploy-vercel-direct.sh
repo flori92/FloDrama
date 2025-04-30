@@ -73,16 +73,28 @@ fi
 
 # Déploiement vers Vercel
 echo "🚀 Déploiement vers Vercel..."
-vercel deploy --prod --token=$VERCEL_TOKEN --yes
-
-# Vérification du résultat du déploiement
+# Capture de la sortie de la commande de déploiement pour extraire l'URL
+DEPLOY_OUTPUT=$(vercel deploy --prod --token=$VERCEL_TOKEN --yes)
 DEPLOY_RESULT=$?
+
+# Extraction de l'URL de déploiement
+DEPLOYMENT_URL=$(echo "$DEPLOY_OUTPUT" | grep -o "https://.*vercel.app" | head -n 1)
+
 if [ $DEPLOY_RESULT -eq 0 ]; then
   echo "✅ Déploiement terminé avec succès!"
+  echo "🌐 URL de l'application: $DEPLOYMENT_URL"
 else
   echo "❌ Échec du déploiement. Code de sortie: $DEPLOY_RESULT"
-  echo "🔍 Vérification des logs Vercel pour plus d'informations..."
-  vercel logs --token=$VERCEL_TOKEN
+  echo "🔍 Sortie du déploiement:"
+  echo "$DEPLOY_OUTPUT"
+  
+  if [ ! -z "$DEPLOYMENT_URL" ]; then
+    echo "🔍 Vérification des logs pour $DEPLOYMENT_URL..."
+    vercel logs $DEPLOYMENT_URL --token=$VERCEL_TOKEN
+  else
+    echo "⚠️ Impossible de récupérer l'URL de déploiement pour afficher les logs."
+  fi
+  
   exit $DEPLOY_RESULT
 fi
 
