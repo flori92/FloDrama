@@ -47,6 +47,13 @@ yarn-error.log
 .DS_Store
 Thumbs.db
 
+# Fichiers de configuration sensibles
+aws_temp_config.sh
+**/aws_config.*
+**/aws_credentials.*
+**/.env.local
+**/.env.production
+
 # Fichiers de logs
 *.log
 logs/
