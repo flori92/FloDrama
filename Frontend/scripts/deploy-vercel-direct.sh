@@ -1,32 +1,20 @@
 #!/bin/bash
-
 # Script de déploiement direct vers Vercel contournant les vérifications TypeScript
+set -e
+
 echo "🚀 Déploiement direct vers Vercel..."
-
-# Vérification des variables d'environnement nécessaires
-if [ -z "$VERCEL_TOKEN" ]; then
-  echo "❌ La variable d'environnement VERCEL_TOKEN n'est pas définie."
-  echo "Veuillez exécuter: export VERCEL_TOKEN=votre_token_vercel"
-  exit 1
-fi
-
-if [ -z "$VERCEL_ORG_ID" ]; then
-  echo "❌ La variable d'environnement VERCEL_ORG_ID n'est pas définie."
-  echo "Veuillez exécuter: export VERCEL_ORG_ID=votre_org_id_vercel"
-  exit 1
-fi
-
-if [ -z "$VERCEL_PROJECT_ID" ]; then
-  echo "❌ La variable d'environnement VERCEL_PROJECT_ID n'est pas définie."
-  echo "Veuillez exécuter: export VERCEL_PROJECT_ID=votre_project_id_vercel"
-  exit 1
-fi
+echo "===================================="
 
 # Vérification de l'installation de Vercel CLI
 if ! command -v vercel &> /dev/null; then
   echo "📦 Installation de Vercel CLI..."
   npm install -g vercel
 fi
+
+# Création du répertoire de logs
+mkdir -p "logs"
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+LOG_FILE="logs/deploy_${TIMESTAMP}.log"
 
 # Création du fichier .env avec les variables Supabase
 echo "🔑 Configuration des variables d'environnement Supabase..."
@@ -43,7 +31,7 @@ fi
 echo "📝 Création de la configuration Vercel..."
 cat > vercel.json << EOF
 {
-  "buildCommand": "npm run build-skip-ts",
+  "buildCommand": "vite build --mode production",
   "outputDirectory": "dist",
   "framework": "vite",
   "rewrites": [
@@ -56,50 +44,31 @@ cat > vercel.json << EOF
 }
 EOF
 
-# Ajout d'un script de build sans vérification TypeScript dans package.json
-echo "🔧 Ajout du script de build sans vérification TypeScript..."
-# Sauvegarde du package.json original
-cp package.json package.json.original
-
-# Vérification si jq est installé
-if ! command -v jq &> /dev/null; then
-  echo "⚠️ jq n'est pas installé, modification manuelle du package.json"
-  # Modification manuelle du package.json
-  sed -i.bak 's/"build": "tsc && vite build"/"build": "tsc && vite build","build-skip-ts": "vite build --mode production"/' package.json
+# Vérification si l'utilisateur est connecté à Vercel
+if [ -z "$VERCEL_TOKEN" ]; then
+  echo "❌ Token Vercel non défini. Tentative de connexion..."
+  vercel login
 else
-  # Utilisation de jq pour modifier le package.json
-  jq '.scripts["build-skip-ts"] = "vite build --mode production"' package.json > package.json.tmp && mv package.json.tmp package.json
+  echo "🔑 Utilisation du token Vercel fourni"
 fi
 
 # Déploiement vers Vercel
 echo "🚀 Déploiement vers Vercel..."
-# Capture de la sortie de la commande de déploiement pour extraire l'URL
-DEPLOY_OUTPUT=$(vercel deploy --prod --token=$VERCEL_TOKEN --yes)
-DEPLOY_RESULT=$?
-
-# Extraction de l'URL de déploiement
-DEPLOYMENT_URL=$(echo "$DEPLOY_OUTPUT" | grep -o "https://.*vercel.app" | head -n 1)
-
-if [ $DEPLOY_RESULT -eq 0 ]; then
-  echo "✅ Déploiement terminé avec succès!"
-  echo "🌐 URL de l'application: $DEPLOYMENT_URL"
+if [ -n "$VERCEL_TOKEN" ]; then
+  vercel deploy --prod --token=$VERCEL_TOKEN --yes | tee -a "$LOG_FILE"
 else
-  echo "❌ Échec du déploiement. Code de sortie: $DEPLOY_RESULT"
-  echo "🔍 Sortie du déploiement:"
-  echo "$DEPLOY_OUTPUT"
-  
-  if [ ! -z "$DEPLOYMENT_URL" ]; then
-    echo "🔍 Vérification des logs pour $DEPLOYMENT_URL..."
-    vercel logs $DEPLOYMENT_URL --token=$VERCEL_TOKEN
-  else
-    echo "⚠️ Impossible de récupérer l'URL de déploiement pour afficher les logs."
-  fi
-  
-  exit $DEPLOY_RESULT
+  vercel --prod | tee -a "$LOG_FILE"
 fi
 
-# Restauration du package.json original
-echo "🔄 Restauration du package.json original..."
-mv package.json.original package.json
+# Récupération de l'URL de déploiement
+DEPLOY_URL=$(grep -o 'https://.*vercel.app' "$LOG_FILE" | tail -1)
 
-echo "🎉 Processus de déploiement terminé!"
+echo "===================================="
+if [ -n "$DEPLOY_URL" ]; then
+  echo "✅ Déploiement terminé avec succès !"
+  echo "🌐 Le site est accessible à l'adresse : $DEPLOY_URL"
+else
+  echo "⚠️ Déploiement terminé, mais impossible de récupérer l'URL."
+  echo "🌐 Vérifiez votre tableau de bord Vercel pour l'URL de déploiement."
+fi
+echo "===================================="
