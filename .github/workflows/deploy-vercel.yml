@@ -35,7 +35,7 @@ jobs:
       - name: Create content types file if it doesn't exist
         run: |
           if [ ! -f src/types/content.types.ts ]; then
-            cat > src/types/content.types.ts << EOF
+            cat > src/types/content.types.ts << "EOF"
             // Types pour les contenus de l'application
             export type ContentType = 'drama' | 'anime' | 'film' | 'bollywood';
 
@@ -103,8 +103,21 @@ jobs:
               resultsCount: number;
               status?: 'loading' | 'completed' | 'error';
             }
-EOF
+            EOF
           fi
+
+      - name: Create vercel.json for simplified deployment
+        run: |
+          cat > vercel.json << "EOF"
+          {
+            "buildCommand": "vite build --mode production",
+            "outputDirectory": "dist",
+            "framework": "vite",
+            "rewrites": [
+              { "source": "/(.*)", "destination": "/index.html" }
+            ]
+          }
+          EOF
 
       - name: Install Vercel CLI
         run: npm install -g vercel@latest
