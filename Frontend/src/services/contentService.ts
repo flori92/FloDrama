@@ -135,13 +135,11 @@ function fixImageUrls<T extends { poster?: string | null; backdrop?: string | nu
  * Vérifie si la connexion à Supabase est disponible
  * @returns true si la connexion est disponible, false sinon
  */
-async function isSupabaseAvailable(): Promise<boolean> {
+export async function isSupabaseAvailable(): Promise<boolean> {
   try {
-    const { data, error } = await supabase
-      .from('health_check')
-      .select('*')
-      .limit(1);
-      
+    // Utiliser une requête générique qui ne dépend pas d'une table spécifique
+    const { data, error } = await supabase.auth.getSession();
+    
     if (error) {
       if (CONFIG.ENABLE_LOGGING) {
         console.warn('[Supabase] Connexion indisponible:', error.message);

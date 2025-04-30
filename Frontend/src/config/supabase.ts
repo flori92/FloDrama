@@ -5,10 +5,23 @@ import { Database } from '../types/supabase.types';
 // Utilisation de variables d'environnement pour les informations sensibles
 // ces valeurs seront remplacées par les variables d'environnement en production
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://fffgoqubrbgppcqqkyod.supabase.co';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''; // À définir dans le .env
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZmZmdvcXVicmJncHBjcXFreW9kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU2ODM1MDQsImV4cCI6MjA2MTI1OTUwNH0.lxpg0D4vmAbCAR-tHxUSFCvayNQFEe98Qii32YsCnJI';
 
 // Création du client Supabase typé
 export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
+
+// Type helper pour les requêtes Supabase
+export type Tables = Database['public']['Tables'];
+
+// Fonction helper pour contourner les problèmes de typage
+export function fromTable<T extends keyof Tables>(table: T) {
+  return supabase.from(table);
+}
+
+// Fonction helper pour le typage des données
+export function typedData<T>(data: any): T {
+  return data as T;
+}
 
 // Fonction utilitaire pour vérifier la connexion
 export async function checkSupabaseConnection(): Promise<boolean> {
