@@ -29,14 +29,16 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
+    emptyOutDir: true,
     sourcemap: true,
     rollupOptions: {
       output: {
         manualChunks: {
-          'vendor': ['react', 'react-dom', 'react-router-dom']
-        }
-      }
-    }
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          ui: ['styled-components', 'framer-motion'],
+        },
+      },
+    },
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom'],

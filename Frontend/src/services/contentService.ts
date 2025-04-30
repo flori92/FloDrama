@@ -754,5 +754,16 @@ export {
   CONFIG,
   fixImageUrls,
   setCache,
-  getCache
+  getCache,
+  getContentsByCategory as getCategoryContent,
+  getContentDetails,
+  getCarousels,
+  getHeroBanners,
+  searchContent,
+  ContentItem,
+  ContentDetail,
+  ContentType,
+  Carousel,
+  HeroBanner,
+  SearchResponse
 };
