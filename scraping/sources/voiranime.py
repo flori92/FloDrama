@@ -56,9 +56,13 @@ MIN_ITEMS = int(os.environ.get("MIN_ITEMS", "200"))
 
 # Catégories d'animés sur VoirAnime
 CATEGORIES = {
-    "recent": f"{BASE_URL}/animes/",
-    "popular": f"{BASE_URL}/animes/",
-    "movies": f"{BASE_URL}/films/",
+    "recent": f"{BASE_URL}/nouveaux-ajouts/",
+    "liste": f"{BASE_URL}/liste-danimes/",
+    "action": f"{BASE_URL}/anime-genre/action/",
+    "adventure": f"{BASE_URL}/anime-genre/adventure/",
+    "comedy": f"{BASE_URL}/anime-genre/comedy/",
+    "drama": f"{BASE_URL}/anime-genre/drama/",
+    "ecchi": f"{BASE_URL}/anime-genre/ecchi/",
 }
 
 # Variables globales pour suivre les éléments scrapés
@@ -135,166 +139,162 @@ def fetch_page(url, referer=None, retries=MAX_RETRIES):
 
 def extract_anime_details(anime_url):
     """Extrait les détails d'un animé à partir de son URL"""
+    logger.info(f"Extraction des détails de l'animé: {anime_url}")
+    
     try:
-        html_content = fetch_page(anime_url)
-        if not html_content:
+        html = fetch_page(anime_url)
+        
+        if not html:
+            logger.error(f"Impossible de récupérer la page {anime_url}")
             return None
             
-        soup = BeautifulSoup(html_content, 'html.parser')
+        soup = BeautifulSoup(html, 'html.parser')
         
         # Extraction du titre
-        title_element = soup.select_one('h1.title')
-        if not title_element:
-            title_element = soup.select_one('h1.entry-title')
-        if not title_element:
+        title_tag = soup.select_one('div.post-title h1') or soup.select_one('h1.entry-title')
+        title = title_tag.text.strip() if title_tag else ""
+        
+        if not title:
             logger.warning(f"Titre non trouvé pour {anime_url}")
             return None
             
-        title = title_element.text.strip()
+        logger.info(f"Titre trouvé: {title}")
         
         # Extraction de l'image du poster
-        poster_element = soup.select_one('.poster img')
-        if not poster_element:
-            poster_element = soup.select_one('.thumb img')
-        poster_url = poster_element['src'] if poster_element and 'src' in poster_element.attrs else ""
+        poster_tag = soup.select_one('div.summary_image img') or soup.select_one('div.thumb img')
+        poster_url = poster_tag.get('src') or poster_tag.get('data-src') or "" if poster_tag else ""
         
         # Extraction de la description
-        description_element = soup.select_one('.synopsis')
-        if not description_element:
-            description_element = soup.select_one('.entry-content')
-        description = description_element.text.strip() if description_element else ""
+        description_tag = soup.select_one('div.description-summary div.summary__content') or soup.select_one('div.summary__content')
+        description = ""
+        if description_tag:
+            # Supprimer les balises script et style
+            for script in description_tag.select('script, style'):
+                script.decompose()
+            description = description_tag.text.strip()
         
-        # Extraction des informations supplémentaires
-        info_elements = soup.select('.info .info-item')
-        if not info_elements:
-            info_elements = soup.select('.anime-info .info-item')
-        
-        # Initialisation des valeurs par défaut
-        year = None
+        # Extraction des genres
         genres = []
-        status = ""
-        episodes_count = None
-        studio = ""
-        
-        for item in info_elements:
-            label = item.select_one('.info-label')
-            value = item.select_one('.info-value')
-            
-            if not label or not value:
-                continue
+        genres_tags = soup.select('div.genres-content a') or soup.select('div.generes a')
+        for tag in genres_tags:
+            genre = tag.text.strip()
+            if genre:
+                genres.append(genre)
                 
-            label_text = label.text.strip().lower()
-            value_text = value.text.strip()
-            
-            if "année" in label_text:
-                try:
-                    year = int(value_text)
-                except ValueError:
-                    year = None
-            elif "genres" in label_text:
-                genres = [g.strip() for g in value_text.split(',')]
-            elif "status" in label_text or "statut" in label_text:
-                status = value_text
-            elif "épisodes" in label_text:
-                try:
-                    episodes_count = int(value_text.split()[0])
-                except (ValueError, IndexError):
-                    episodes_count = None
-            elif "studio" in label_text:
-                studio = value_text
+        # Extraction de la note
+        rating_tag = soup.select_one('div.post-rating span.score') or soup.select_one('div.rating span.total_votes')
+        rating = 0.0
+        if rating_tag:
+            try:
+                rating_text = rating_tag.text.strip().replace(',', '.')
+                rating = float(rating_text)
+            except ValueError:
+                logger.warning(f"Impossible de convertir la note: {rating_tag.text}")
+                
+        # Extraction de l'année
+        year = 0
+        year_tag = soup.select_one('div.post-content_item:contains("Année") span.summary-content') or soup.select_one('div.post-content_item:contains("Date de sortie") span.summary-content')
+        if year_tag:
+            year_text = year_tag.text.strip()
+            # Extraction de l'année (4 chiffres)
+            year_match = re.search(r'\b(19|20)\d{2}\b', year_text)
+            if year_match:
+                year = int(year_match.group(0))
+                
+        # Extraction du statut
+        status_tag = soup.select_one('div.post-content_item:contains("Statut") span.summary-content') or soup.select_one('div.post-status span.summary-content')
+        status = status_tag.text.strip() if status_tag else "Inconnu"
         
-        # Création du modèle de données unifié
+        # Extraction du type (TV, OVA, etc.)
+        type_tag = soup.select_one('div.post-content_item:contains("Type") span.summary-content') or soup.select_one('div.post-content_item:contains("Format") span.summary-content')
+        anime_type = type_tag.text.strip() if type_tag else "TV"
+        
+        # Création du modèle de données
         anime_data = create_drama_model(
             title=title,
-            source="voiranime",
-            source_url=anime_url,
-            original_title="",
-            poster=poster_url,
-            backdrop="",
-            year=year,
-            rating=None,
-            language="Japonais",
+            original_title="",  # Pas disponible sur VoirAnime
             description=description,
+            poster=poster_url,
+            backdrop="",  # Pas disponible sur VoirAnime
             genres=genres,
-            episodes_count=episodes_count,
-            duration=None,
-            country="Japon",
-            trailer_url="",
-            watch_url=anime_url,
+            tags=[],  # Pas disponible sur VoirAnime
+            year=year,
             status=status,
-            actors=[],
-            director="",
-            studio=studio,
-            tags=genres,
-            popularity=None,
-            season=None,
-            age_rating="",
-            has_subtitles=True,
-            is_featured=False,
-            is_trending=False,
-            synopsis=description
+            type=anime_type,
+            rating=rating,
+            source_url=anime_url,
+            source="voiranime"
         )
         
+        logger.info(f"Détails extraits avec succès pour {title}")
         return anime_data
         
     except Exception as e:
-        logger.error(f"Erreur lors de l'extraction des détails pour {anime_url}: {str(e)}")
+        logger.error(f"Erreur lors de l'extraction des détails de {anime_url}: {str(e)}")
         logger.exception(e)
         return None
 
 def get_recently_added_animes(page_count=5):
     """Récupère les animés récemment ajoutés depuis VoirAnime"""
-    anime_urls = []
-    seen_urls = set()
+    logger.info(f"Récupération des animés récemment ajoutés (jusqu'à {page_count} pages)")
     
-    # Parcours des catégories
-    for category_name, category_url in CATEGORIES.items():
-        logger.info(f"Exploration de la catégorie: {category_url}")
-        
+    anime_urls = []
+    category_url = CATEGORIES["recent"]
+    
+    try:
         # Parcours des pages de la catégorie
         for page in range(1, page_count + 1):
-            # Correction du double slash dans l'URL
-            page_url = f"{category_url}page/{page}/" if page > 1 else category_url
-            # S'assurer que l'URL est correcte
-            page_url = page_url.replace("v6.voiranime.com", "voiranime.com")
+            page_url = f"{category_url}?page={page}" if page > 1 else category_url
             logger.info(f"Tentative de récupération: {page_url}")
             html = fetch_page(page_url)
             
             if not html:
+                logger.error(f"Échec après {MAX_RETRIES} tentatives pour {page_url}")
                 continue
                 
             soup = BeautifulSoup(html, 'html.parser')
             
-            # Extraction des liens vers les animés - mise à jour des sélecteurs
-            anime_links = soup.select('div.anime-item a.anime-title')
-            if not anime_links:
-                anime_links = soup.select('article.post h2.entry-title a')
-            if not anime_links:
-                anime_links = soup.select('div.item a.title')
+            # Recherche des items d'anime dans la page
+            anime_items = soup.select('div.page-listing-item')
             
-            if not anime_links:
-                logger.warning(f"Aucun lien d'animé trouvé sur {page_url}")
-                continue
+            if not anime_items:
+                logger.warning(f"Aucun animé trouvé sur la page {page_url}")
+                # Essayer un autre sélecteur si le premier ne fonctionne pas
+                anime_items = soup.select('div.page-item-detail')
                 
-            logger.info(f"Trouvé {len(anime_links)} liens d'animés sur {page_url}")
+                if not anime_items:
+                    logger.warning("Aucun animé trouvé avec le sélecteur alternatif")
+                    continue
             
-            # Ajout des URLs uniques
-            for link in anime_links:
-                anime_url = link.get('href')
-                # S'assurer que l'URL utilise le bon domaine
-                if anime_url:
-                    anime_url = anime_url.replace("v6.voiranime.com", "voiranime.com")
-                    if anime_url not in seen_urls:
-                        seen_urls.add(anime_url)
+            logger.info(f"Trouvé {len(anime_items)} animés sur la page {page}")
+            
+            # Extraction des URLs d'anime
+            for item in anime_items:
+                # Recherche du lien vers la page de détails de l'anime
+                title_tag = item.select_one('h3.h5 a') or item.select_one('h3 a') or item.select_one('a.h5')
+                
+                if title_tag and title_tag.has_attr('href'):
+                    anime_url = title_tag['href']
+                    # S'assurer que l'URL est complète
+                    if not anime_url.startswith(('http://', 'https://')):
+                        anime_url = urljoin(BASE_URL, anime_url)
+                        
+                    logger.info(f"URL d'animé trouvée: {anime_url}")
+                    
+                    if anime_url not in anime_urls:
                         anime_urls.append(anime_url)
             
             if page < page_count:
-                logger.info(f"Exploration de la page {page+1}: {category_url}page/{page+1}/")
+                logger.info(f"Exploration de la page {page+1}: {category_url}?page={page+1}")
                 
             # Pause pour éviter de surcharger le serveur
             time.sleep(RATE_LIMIT_DELAY)
-    
-    logger.info(f"Total: {len(anime_urls)} URLs d'animés uniques trouvées")
+                
+    except Exception as e:
+        logger.error(f"Erreur lors de la récupération des animés récents: {str(e)}")
+        logger.exception(e)
+        
+    logger.info(f"Total d'URLs d'animés récupérées: {len(anime_urls)}")
     return anime_urls
 
 def scrape_and_upload_animes():
