@@ -1,13 +1,13 @@
 import React from 'react';
 import { ChevronRight, Heart, ThumbsDown, Star } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { getContentsByCategory, ContentItem as ServiceContentItem, ContentType } from '../services/contentService';
+import { getContentByCategory } from '../services/apiService';
 import { useUserPreferences } from '../hooks/useUserPreferences';
 import { useTrailerPreview } from '../hooks/useTrailerPreview';
 
 interface ContentGridProps {
   title: string;
-  category?: ContentType;
+  category?: string;
   searchQuery?: string;
   userId: string;
   token: string;
@@ -41,23 +41,23 @@ const ContentGrid: React.FC<ContentGridProps> = ({ title, category, searchQuery,
   const trailerPreview = useTrailerPreview(1000);
 
   // Fonction pour adapter les éléments du service au format attendu par le composant
-  const adaptContentItems = (items: ServiceContentItem[]): GridContentItem[] => {
+  const adaptContentItems = (items: any[]): GridContentItem[] => {
     return items.map(item => ({
       id: item.id,
       titre: item.title,
-      imageUrl: item.poster,
+      imageUrl: item.image || item.poster || item.poster_url || '',
       type: item.type || 'unknown',
-      genres: ['drama'], // Valeur par défaut car ContentItem n'a pas de propriété genres
-      trailerUrl: undefined // ContentItem n'a pas de propriété trailers
+      genres: item.genres || ['drama'],
+      trailerUrl: item.trailer_url || undefined
     }));
   };
 
   React.useEffect(() => {
     let isMounted = true;
     setIsLoading(true);
-    getContentsByCategory(category as ContentType || 'drama')
+    getContentByCategory(category || 'drama')
       .then(data => {
-        if (isMounted) setContentItems(adaptContentItems(data));
+        if (isMounted) setContentItems(adaptContentItems(data.items || []));
       })
       .catch(() => setContentItems([]))
       .finally(() => { if (isMounted) setIsLoading(false); });
