@@ -266,8 +266,16 @@ class ContentLayoutService:
             return json.loads(cached_page)
 
         try:
+            # Gestion des alias de catégories pour robustesse frontend/backend
+            category_aliases = {
+                'dramas': 'drama',
+                'movies': 'film',
+                'trending': 'popular',
+                'popular': 'popular'
+            }
+            mapped_category = category_aliases.get(category, category)
             # Configuration des filtres de base
-            base_query = {'type': category}
+            base_query = {'type': mapped_category}
             
             # Récupération du contenu paginé
             skip = (page - 1) * limit

@@ -2,11 +2,11 @@ import { API_BASE_URL, CDN_BASE_URL } from '../config';
 
 // Mappage des catégories frontend vers les catégories backend
 const CATEGORY_MAPPING: Record<string, string> = {
-  'dramas': 'dramas',
-  'movies': 'movies',
+  'dramas': 'drama',      // Correction : doit pointer vers la catégorie backend "drama"
+  'movies': 'film',       // Correction : doit pointer vers la catégorie backend "film"
   'anime': 'anime',
   'bollywood': 'bollywood',
-  'trending': 'popular', // Le backend utilise "popular" au lieu de "trending"
+  'trending': 'popular',  // Le backend utilise "popular" au lieu de "trending"
   'popular': 'popular',
   'recently': 'recently',
   'topRated': 'topRated'
@@ -54,7 +54,11 @@ export const getContentByCategory = async (
 ): Promise<CategoryResponse> => {
   try {
     // Mappage de la catégorie frontend vers la catégorie backend
-    const mappedCategory = CATEGORY_MAPPING[category] || category;
+    let mappedCategory = CATEGORY_MAPPING[category];
+    if (!mappedCategory) {
+      console.warn(`Catégorie frontend "${category}" non mappée vers le backend. Fallback sur "popular".`);
+      mappedCategory = 'popular';
+    }
     
     const response = await fetch(
       `${API_BASE_URL}/api/content/?category=${mappedCategory}&page=${page}&limit=${limit}`
