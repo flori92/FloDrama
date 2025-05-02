@@ -49,13 +49,19 @@ jobs:
             echo "<html><head><title>FloDrama - Site en maintenance</title></head><body style='background:#121118;color:white;font-family:sans-serif;text-align:center;padding-top:50px;'><h1 style='color:#3b82f6;'>FloDrama</h1><p>Site en cours de déploiement - Merci de votre patience</p></body></html>" > dist/index.html
             echo "⚠️ Page d'attente créée"
           fi
-      - name: Installation de Surge
-        run: npm install -g surge
-      - name: Déploiement sur flodrama.com
-        run: |
-          cd Frontend/dist
-          surge --project ./ --domain flodrama.com --token ${{ secrets.SURGE_TOKEN }}
-          echo "✅ Frontend déployé avec succès sur https://flodrama.com"
+
+      # Suppression de Surge, remplacement par déploiement Vercel
+      - name: Déploiement sur Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: ./Frontend
+          vercel-args: '--prod'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
       - name: Upload des fichiers frontend (pour le proxy)
         uses: actions/upload-artifact@v4
         with:
