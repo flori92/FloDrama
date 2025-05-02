@@ -88,10 +88,6 @@ def load_scraping_sources():
             'base_url': 'https://neko-sama.to',
             'type': 'anime'
         },
-        'bollywoodmdb': {
-            'base_url': 'https://www.bollywoodmdb.com',
-            'type': 'bollywood'
-        },
         'zee5': {
             'base_url': 'https://www.zee5.com/global',
             'fallback_urls': [
@@ -415,7 +411,6 @@ def generate_streaming_urls(source_name, content_type, index):
         'gogoanime': ['ww5.gogoanime.co.cz', 'gogoanime.by', 'gogoanime.org.vc'],
         'voiranime': ['v6.voiranime.com', 'voiranime.to'],
         'neko-sama': ['neko-sama.to', 'neko-sama.fr'],
-        'bollywoodmdb': ['www.bollywoodmdb.com'],
         'zee5': ['www.zee5.com/global', 'www.zee5.com'],
         'hotstar': ['www.hotstar.com'],
         'viki': ['www.viki.com'],

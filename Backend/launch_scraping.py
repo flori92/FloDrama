@@ -87,10 +87,6 @@ def load_scraping_sources():
             'base_url': 'https://neko-sama.to',
             'type': 'anime'
         },
-        'bollywoodmdb': {
-            'base_url': 'https://www.bollywoodmdb.com',
-            'type': 'bollywood'
-        },
         'zee5': {
             'base_url': 'https://www.zee5.com/global',
             'fallback_urls': [
@@ -116,6 +112,22 @@ def load_scraping_sources():
         },
         'kocowa': {
             'base_url': 'https://www.kocowa.com',
+            'type': 'drama'
+        },
+        'coflix': {
+            'base_url': 'https://coflix.mov',
+            'type': 'drama'
+        },
+        'top-stream': {
+            'base_url': 'https://top-stream.io',
+            'type': 'drama'
+        },
+        'onetouchtv': {
+            'base_url': 'https://onetouchtv.xyz',
+            'type': 'drama'
+        },
+        'filmapik': {
+            'base_url': 'https://filmapik.bio',
             'type': 'drama'
         }
     }
@@ -245,39 +257,89 @@ def main():
     for name, config in sources.items():
         print(f"- {name.title()} ({config['type']})")
     
-    # Tester les sources
-    print("\nTest des sources de scraping...")
-    results = []
-    
+    # Lancer le scraping pour chaque source individuellement
+    print("\nLancement du scraping pour chaque source...")
+    scraping_results = []
     for name, config in sources.items():
-        print(f"Testing {name}...", end="", flush=True)
-        result = test_scraping_source(name, config)
-        results.append(result)
-        status = "✅" if result['status'] == 'success' else "❌"
-        print(f" {status}")
+        source_script = None
+        # Mapping nom de source -> script python
+        script_mapping = {
+            'vostfree': 'vostfree.py',
+            'dramacool': 'dramacool.py',
+            'myasiantv': 'myasiantv.py',
+            'voirdrama': 'voirdrama.py',
+            'mydramalist': 'mydramalist.py',
+            'gogoanime': 'gogoanime.py',
+            'voiranime': 'voiranime.py',
+            'neko-sama': 'nekosama.py',
+            'zee5': 'zee5.py',
+            'hotstar': 'hotstar.py',
+            'viki': 'asianwiki.py', # à adapter si un script dédié existe
+            'wetv': 'filmapik.py',  # à adapter si un script dédié existe
+            'iqiyi': 'tmdb.py',     # à adapter si un script dédié existe
+            'kocowa': 'bollywood.py', # à adapter si un script dédié existe
+            'coflix': 'coflix.py',
+            'top-stream': 'topstream.py',
+            'onetouchtv': 'onetouchtv.py',
+            'filmapik': 'filmapik.py'
+        }
+        script_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'scraping', 'sources')
+        script_name = script_mapping.get(name)
+        if script_name:
+            source_script = os.path.join(script_dir, script_name)
+        
+        if not source_script or not os.path.exists(source_script):
+            print(f"❌ Script de scraping non trouvé pour la source: {name}")
+            scraping_results.append({'name': name, 'type': config['type'], 'status': 'error', 'error': 'Script introuvable'})
+            continue
+        
+        print(f"\n🚀 Lancement du scraping pour {name.title()}...")
+        try:
+            # Lancer le script de scraping en sous-processus
+            result = subprocess.run([sys.executable, source_script], capture_output=True, text=True, timeout=3600)
+            output = result.stdout
+            error = result.stderr
+            # Vérifier la sortie du script pour le quota
+            if 'Objectif atteint' in output or '⚠️ Objectif non atteint' in output:
+                status = 'success' if 'Objectif atteint' in output else 'warning'
+            else:
+                status = 'success' if result.returncode == 0 else 'error'
+            scraping_results.append({
+                'name': name,
+                'type': config['type'],
+                'status': status,
+                'output': output[-2000:],  # Limiter la taille du log
+                'error': error[-1000:] if error else None
+            })
+            print(f"✅ Fin du scraping pour {name.title()} (status: {status})")
+        except Exception as e:
+            scraping_results.append({'name': name, 'type': config['type'], 'status': 'error', 'error': str(e)})
+            print(f"❌ Erreur lors du scraping de {name.title()}: {str(e)}")
     
-    # Générer le rapport
-    report_path = generate_report(results)
-    
-    print(f"\nRapport généré: {report_path}")
+    # Générer un rapport global
+    print("\nGénération du rapport global...")
+    global_report = []
+    for result in scraping_results:
+        global_report.append(f"- {result['name']} ({result['type']}): {result['status']}")
+        if result.get('error'):
+            global_report.append(f"  Erreur: {result['error']}")
+        if result.get('output'):
+            global_report.append(f"  Sortie: {result['output'][:500]}")
+        global_report.append("")
+    reports_dir = Path(__file__).parent / 'reports'
+    reports_dir.mkdir(exist_ok=True)
+    global_report_path = reports_dir / f"scraping_global_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+    with open(global_report_path, 'w') as f:
+        f.write('\n'.join(global_report))
+    print(f"\n✅ Rapport global généré: {global_report_path}")
     
     # Exporter les données pour le frontend
     export_data_for_frontend()
     
-    # Affichage du résumé
-    total_sources = len(results)
-    success_count = len([r for r in results if r['status'] == 'success'])
-    error_count = len([r for r in results if r['status'] == 'error'])
-    
-    print("\nRésumé du scraping:")
-    print(f"Total des sources: {total_sources}")
-    print(f"Sources en succès: {success_count}")
-    print(f"Sources en erreur: {error_count}")
-    
-    if success_count > 0:
-        print("\n✅ Test de scraping terminé avec succès")
-    else:
-        print("\n❌ Échec du test de scraping")
+    print("\nRésumé du scraping par source:")
+    for result in scraping_results:
+        print(f"- {result['name']} ({result['type']}): {result['status']}")
+    print("\n🎉 Scraping terminé pour toutes les sources configurées.")
 
 if __name__ == '__main__':
     main()

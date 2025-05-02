@@ -1,7 +1,7 @@
 # Fichiers générés par le scraping
 Backend/data/
 Backend/.env
-Backend/reports/
+#Backend/reports/
 exported_data/
 
 # Données exportées pour le frontend

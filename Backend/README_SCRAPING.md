@@ -82,6 +82,8 @@ Le système est configuré pour scraper les sources suivantes :
 - **Films** : Diverses sources
 - **Bollywood** : Zee5, Hotstar
 
+- [x] La source Senpai-Stream a été retirée du projet car l'accès aux contenus nécessite une authentification ou n'est pas exploitable sans compte. Toutes les références, scripts et utilitaires associés ont été supprimés conformément à la politique de scraping.
+
 ## Statistiques et Monitoring
 
 Le système collecte les statistiques suivantes :

@@ -1,6 +1,7 @@
 // Types pour les contenus de l'application
 export type ContentType = 'drama' | 'anime' | 'film' | 'bollywood';
 
+// Interface pour les éléments de contenu de base
 export interface ContentItem {
   id: string;
   title: string;
@@ -14,6 +15,12 @@ export interface ContentItem {
   type: ContentType;
 }
 
+// Interface pour les éléments de contenu avec backdrop obligatoire
+export interface ContentItemWithBackdrop extends ContentItem {
+  backdrop: string;
+}
+
+// Interface pour les détails d'un contenu
 export interface ContentDetail extends ContentItem {
   description: string;
   synopsis: string;
@@ -36,8 +43,12 @@ export interface ContentDetail extends ContentItem {
   popularity_score?: number;
   is_premium?: boolean;
   gallery?: string[];
+  image?: string;
+  content_id?: string;
+  content_type?: string;
 }
 
+// Interface pour un carousel
 export interface Carousel {
   id: string;
   title: string;
@@ -47,19 +58,24 @@ export interface Carousel {
   is_active?: boolean;
 }
 
-export interface HeroBanner {
+// Interface pour un élément de bannière
+export interface HeroBannerItem {
   id: string;
-  items: {
-    id: string;
-    title: string;
-    description: string;
-    backdrop: string;
-    poster?: string;
-    type: ContentType;
-    content_id: string;
-  }[];
+  title: string;
+  description: string;
+  backdrop: string;
+  poster?: string;
+  type: ContentType;
+  content_id: string;
 }
 
+// Interface pour une bannière
+export interface HeroBanner {
+  id: string;
+  items: HeroBannerItem[];
+}
+
+// Interface pour les résultats de recherche
 export interface SearchResponse {
   results: ContentItem[];
   resultsCount: number;

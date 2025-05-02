@@ -12,12 +12,26 @@ import json
 import time
 import random
 import logging
+import uuid
 from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
 import re
 from supabase import create_client, Client
 from urllib.parse import urljoin
+from dotenv import load_dotenv
+from pathlib import Path
+
+# Import de l'utilitaire de stockage Supabase
+try:
+    from scraping.utils.supabase_storage import download_and_upload_image
+    from scraping.utils.supabase_database import supabase_db
+except ImportError:
+    # En cas d'import direct depuis le dossier sources
+    import sys
+    sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+    from scraping.utils.supabase_storage import download_and_upload_image
+    from scraping.utils.supabase_database import supabase_db
 
 # Configuration du logging
 logging.basicConfig(
@@ -25,6 +39,9 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger('voirdrama_scraper')
+
+# Chargement des variables d'environnement
+load_dotenv()
 
 # Configuration des constantes
 BASE_URL = "https://voirdrama.org"
@@ -35,14 +52,53 @@ USER_AGENTS = [
 ]
 RATE_LIMIT_DELAY = 2  # secondes entre les requêtes
 MAX_RETRIES = 3  # nombre maximal de tentatives en cas d'échec
+MIN_ITEMS = int(os.environ.get("MIN_ITEMS", "200"))  # Minimum d'items à récupérer
 
-# Récupération des variables d'environnement
+# Récupération des variables d'environnement Supabase
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
-SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
+SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_KEY")  # Utiliser la clé de service
 TARGET_TABLE = os.environ.get("TARGET_TABLE", "dramas")
+SOURCE_ID = os.environ.get("SOURCE_ID", "voirdrama")
 
-# Initialisation du client Supabase
-supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+# Variables globales pour suivre les éléments scrapés
+scraped_ids = set()
+scraped_titles = set()
+seen_ids = set()
+seen_titles = set()
+
+def set_seen_ids(ids):
+    """Définit les IDs déjà vus par d'autres scrapers"""
+    global seen_ids
+    seen_ids = set(ids)
+
+def set_seen_titles(titles):
+    """Définit les titres déjà vus par d'autres scrapers"""
+    global seen_titles
+    seen_titles = set(titles)
+
+def get_scraped_ids():
+    """Retourne les IDs scrapés par ce module"""
+    global scraped_ids
+    return scraped_ids
+
+def get_scraped_titles():
+    """Retourne les titres scrapés par ce module"""
+    global scraped_titles
+    return scraped_titles
+
+def init_supabase_client():
+    """Initialise le client Supabase avec gestion d'erreurs"""
+    if not SUPABASE_URL or not SUPABASE_KEY:
+        logger.error("Les variables d'environnement SUPABASE_URL et SUPABASE_SERVICE_KEY doivent être définies")
+        return None
+    
+    try:
+        supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+        logger.info(f"Client Supabase initialisé pour {SUPABASE_URL}")
+        return supabase
+    except Exception as e:
+        logger.error(f"Erreur lors de l'initialisation du client Supabase: {str(e)}")
+        return None
 
 def get_random_headers():
     """Génère des en-têtes aléatoires pour les requêtes HTTP"""
@@ -83,195 +139,431 @@ def extract_drama_details(drama_url):
     
     soup = BeautifulSoup(html, 'html.parser')
     
-    # Extraction des informations de base
-    title_elem = soup.select_one('h1.entry-title')
+    # Extraction du titre - Nouveaux sélecteurs adaptés à la structure actuelle
+    title_elem = None
+    
+    # Essayer plusieurs sélecteurs pour le titre
+    title_selectors = [
+        'h1.entry-title',
+        'header h1',
+        '.entry-title',
+        '.post-title h1',
+        '.film-name',
+        'h1.title',
+        '.info-title',
+        '.detail-title'
+    ]
+    
+    for selector in title_selectors:
+        title_elem = soup.select_one(selector)
+        if title_elem:
+            break
+    
+    # Si toujours pas de titre, chercher le premier h1 de la page
+    if not title_elem:
+        title_elem = soup.find('h1')
+    
     title = title_elem.text.strip() if title_elem else "Titre inconnu"
     
-    # Image du poster
-    poster_elem = soup.select_one('.thumb img')
-    poster = poster_elem.get('src') if poster_elem else None
+    # Ajouter un logging pour déboguer le problème des titres
+    logger.info(f"Titre extrait: '{title}' depuis {drama_url}")
     
-    # Information de base
-    info_div = soup.select_one('.info')
+    # Image du poster - adaptation aux nouveaux sélecteurs
+    poster_selectors = [
+        '.sheader .poster img',
+        '.poster img',
+        '.bigcontent .poster img',
+        '.entry-content img',
+        '.cover img',
+        'img.cover',
+        'img[src*="poster"]',
+        'img[src*="cover"]',
+        'img.wp-post-image',
+        'img[src*=".jpg"]',
+        'img[src*=".png"]'
+    ]
+    
+    poster_url = None
+    for selector in poster_selectors:
+        poster_elem = soup.select_one(selector)
+        if poster_elem and poster_elem.get('src'):
+            poster_url = poster_elem.get('src')
+            if not poster_url.startswith(('http://', 'https://')):
+                poster_url = urljoin(BASE_URL, poster_url)
+            break
+    
+    # Si aucun poster n'est trouvé, vérifier les attributs data-src pour les images lazy-loaded
+    if not poster_url:
+        lazy_img = soup.select_one('img[data-src]')
+        if lazy_img:
+            poster_url = lazy_img.get('data-src')
+            if not poster_url.startswith(('http://', 'https://')):
+                poster_url = urljoin(BASE_URL, poster_url)
+    
+    if not poster_url:
+        logger.warning(f"Aucune image trouvée pour {drama_url}")
+    
+    # Génération d'un identifiant unique pour le contenu
+    content_id = str(uuid.uuid4())
+    
+    # Téléchargement et upload du poster vers Supabase Storage si disponible
+    if poster_url:
+        poster = download_and_upload_image(
+            image_url=poster_url,
+            content_type="drama",
+            content_id=content_id,
+            image_type="poster"
+        )
+    else:
+        poster = None
+    
+    # Information de base - adaptation aux nouveaux sélecteurs
+    info_div = None
+    info_selectors = [
+        '.info',
+        '.entry-content',
+        '.film-info',
+        '.drama-details',
+        '.content-area'
+    ]
+    
+    for selector in info_selectors:
+        info_div = soup.select_one(selector)
+        if info_div:
+            break
+    
     info_text = info_div.text if info_div else ""
     
-    # Extraction des métadonnées avec regex
-    year_match = re.search(r'Année: (\d{4})', info_text)
-    year = int(year_match.group(1)) if year_match else None
+    # Extraction des métadonnées avec regex améliorés
+    year_match = re.search(r'Année:?\s*(\d{4})|(\d{4})\)|Date:?\s*(\d{4})', info_text)
+    year = None
+    if year_match:
+        for group in year_match.groups():
+            if group:
+                try:
+                    year = int(group)
+                    break
+                except:
+                    pass
     
-    # Note
-    rating_elem = soup.select_one('.rtg')
-    rating = float(rating_elem.text) if rating_elem and rating_elem.text.strip() else None
+    # Pays d'origine
+    country_match = re.search(r'Pays:?\s*([^,\n]+)|Origine:?\s*([^,\n]+)|Nationalité:?\s*([^,\n]+)', info_text)
+    country = "Inconnu"
+    if country_match:
+        for group in country_match.groups():
+            if group:
+                country = group.strip()
+                break
+    
+    # Langue basée sur le pays
+    language = "ko"  # Par défaut coréen
+    if "japon" in country.lower() or "japan" in country.lower():
+        language = "ja"
+    elif "chine" in country.lower() or "china" in country.lower() or "taiwan" in country.lower() or "hong kong" in country.lower():
+        language = "zh"
+    elif "thaïlande" in country.lower() or "thailand" in country.lower():
+        language = "th"
+    elif "inde" in country.lower() or "india" in country.lower():
+        language = "hi"
     
     # Synopsis
-    synopsis_elem = soup.select_one('.entry-content')
-    synopsis = synopsis_elem.text.strip() if synopsis_elem else ""
+    synopsis_elem = None
+    synopsis_selectors = [
+        '.entry-content .content',
+        '.entry-content p',
+        '.synopsis',
+        '.film-description',
+        '.plot-summary'
+    ]
+    
+    for selector in synopsis_selectors:
+        synopsis_elem = soup.select_one(selector)
+        if synopsis_elem:
+            break
+    
+    synopsis = ""
+    if synopsis_elem:
+        synopsis = synopsis_elem.text.strip()
+    else:
+        # Si pas de contenu spécifique, prendre tout le contenu et filtrer
+        all_content = soup.select_one('.entry-content')
+        if all_content:
+            all_text = all_content.text
+            # Extraire le texte entre "Synopsis" et la prochaine section (si elle existe)
+            synopsis_match = re.search(r'Synopsis[^\n]*\n(.*?)(?:\n\w+:|$)', all_text, re.DOTALL)
+            if synopsis_match:
+                synopsis = synopsis_match.group(1).strip()
     
     # Genres
-    genres_elem = soup.select('.genxed a')
-    genres = [genre.text.strip() for genre in genres_elem] if genres_elem else []
+    genres = []
+    # Essayer différents sélecteurs pour les genres
+    genres_selectors = [
+        '.genxed a',
+        '.genres a',
+        '.entry-content a[href*="genre"]',
+        '.tags a',
+        '.categories a'
+    ]
     
-    # Episodes
-    episodes_match = re.search(r'Episodes: (\d+)', info_text)
-    episodes = int(episodes_match.group(1)) if episodes_match else None
+    for selector in genres_selectors:
+        genres_elem = soup.select(selector)
+        for elem in genres_elem:
+            genre = elem.text.strip()
+            if genre and genre not in genres:
+                genres.append(genre)
+    
+    # Si aucun genre trouvé avec les sélecteurs, essayer une extraction par regex
+    if not genres:
+        genres_match = re.search(r'Genres?:?\s*([^,\n]+),?', info_text)
+        if genres_match:
+            genres_str = genres_match.group(1).strip()
+            genres = [g.strip() for g in genres_str.split(',') if g.strip()]
+    
+    # Nombre d'épisodes
+    episodes_match = re.search(r'Épisodes?:?\s*(\d+)|Episodes?:?\s*(\d+)', info_text)
+    episodes = None
+    if episodes_match:
+        for group in episodes_match.groups():
+            if group:
+                try:
+                    episodes = int(group)
+                    break
+                except:
+                    pass
     
     # Statut
-    status_match = re.search(r'Statut: ([^\n]+)', info_text)
-    status = status_match.group(1).strip() if status_match else None
+    status_match = re.search(r'Statut:?\s*([^,\n]+)|Status:?\s*([^,\n]+)', info_text)
+    status = "Inconnu"
+    if status_match:
+        for group in status_match.groups():
+            if group:
+                status = group.strip()
+                break
     
-    # Données structurées pour Supabase
+    # Notation - VoirDrama n'a pas de note explicite, on met une valeur par défaut
+    rating = None
+    
+    # Constitution du dictionnaire final
     drama_data = {
+        "id": content_id,
         "title": title,
-        "poster": poster,
         "year": year,
-        "rating": rating,
-        "language": "ko",  # Valeur par défaut pour les dramas coréens
-        "description": synopsis[:200] + "..." if len(synopsis) > 200 else synopsis,
+        "country": country,
+        "language": language,
         "synopsis": synopsis,
         "genres": genres,
-        "episodes": episodes,
+        "episodes_count": episodes,
         "status": status,
-        "streaming_urls": [{"quality": "HD", "url": drama_url}],
-        "source": "voirdrama",
-        "created_at": datetime.now().isoformat(),
+        "rating": rating,
+        "image_url": poster,
+        "source_url": drama_url,
+        "source": SOURCE_ID,
+        "scraped_at": datetime.now().isoformat()
     }
-    
-    # Détection de la langue à partir des genres ou du titre
-    if any(g.lower() in ["coréen", "korean"] for g in genres):
-        drama_data["language"] = "ko"
-    elif any(g.lower() in ["japonais", "japanese"] for g in genres):
-        drama_data["language"] = "ja"
-    elif any(g.lower() in ["chinois", "chinese"] for g in genres):
-        drama_data["language"] = "zh"
-    elif any(g.lower() in ["thaïlandais", "thai"] for g in genres):
-        drama_data["language"] = "th"
     
     return drama_data
 
-def get_recently_added_dramas(page_count=2):
-    """Récupère les dramas récemment ajoutés depuis la page d'accueil"""
-    drama_urls = []
-    
-    for page in range(1, page_count + 1):
-        page_url = f"{BASE_URL}/page/{page}/" if page > 1 else BASE_URL
-        html = fetch_page(page_url)
+def get_category_drama_urls(category_path, quota, max_pages=10):
+    """
+    Récupère jusqu'à `quota` URLs de dramas pour une catégorie donnée en parcourant jusqu'à `max_pages` pages.
+    Utilise la pagination /page/X/ et sélecteur robuste.
+    """
+    urls = []
+    seen = set()
+    for page in range(1, max_pages + 1):
+        if page == 1:
+            url = urljoin(BASE_URL, category_path)
+        else:
+            url = urljoin(BASE_URL, category_path.rstrip('/') + f"/page/{page}/")
+        logger.info(f"[CAT] Récupération page {page}: {url}")
+        html = fetch_page(url)
         if not html:
-            continue
-        
+            logger.warning(f"[CAT] Page vide ou erreur pour {url}")
+            break
         soup = BeautifulSoup(html, 'html.parser')
-        article_items = soup.select('article.item')
-        
-        for item in article_items:
-            link = item.select_one('h3 a')
-            if link and link.get('href'):
-                drama_urls.append(link.get('href'))
-    
-    logger.info(f"Trouvé {len(drama_urls)} dramas récents")
+        drama_links = soup.select('h3 a[href*="/drama/"]')
+        logger.info(f"[CAT] {len(drama_links)} liens de dramas trouvés sur {url}")
+        if not drama_links:
+            logger.warning(f"[CAT] Aucun drama trouvé sur {url}, arrêt de la catégorie.")
+            break
+        for a in drama_links:
+            link = a.get('href')
+            if link and '/drama/' in link and not re.search(r'/drama/[^/]+/[^/]+', link):
+                if not link.startswith('http'):
+                    link = urljoin(BASE_URL, link)
+                if link not in seen:
+                    urls.append(link)
+                    seen.add(link)
+                    logger.info(f"[CAT] + {link}")
+                    if len(urls) >= quota:
+                        logger.info(f"[CAT] Quota atteint ({len(urls)}/{quota})")
+                        return urls
+    return urls
+
+
+def get_recently_added_dramas(page_count=10):
+    """
+    Refonte : collecte les URLs de dramas par catégorie avec pagination robuste et logs détaillés.
+    """
+    drama_urls = []
+    seen_urls = set()
+    # Catégories principales
+    categories = [
+        "liste-de-dramas/",
+        "categorie/kdrama/",
+        "categorie/cdrama/",
+        "categorie/tdrama/",
+        "categorie/jdrama/",
+        "categorie/hdrama/",
+        "categorie/thdrama/",
+    ]
+    quota = MIN_ITEMS // len(categories)
+    for cat in categories:
+        urls = get_category_drama_urls(cat, quota, max_pages=10)
+        logger.info(f"[CAT:{cat}] {len(urls)}/{quota} URLs collectées")
+        for u in urls:
+            if u not in seen_urls:
+                drama_urls.append(u)
+                seen_urls.add(u)
+    # Compléter si besoin avec la catégorie générale
+    if len(drama_urls) < MIN_ITEMS:
+        logger.info(f"Complément avec 'liste-de-dramas/' ({len(drama_urls)}/{MIN_ITEMS})")
+        urls = get_category_drama_urls('liste-de-dramas/', MIN_ITEMS - len(drama_urls), max_pages=10)
+        for u in urls:
+            if u not in seen_urls:
+                drama_urls.append(u)
+                seen_urls.add(u)
+    logger.info(f"[TOTAL] {len(drama_urls)} URLs de dramas collectées.")
     return drama_urls
 
 def scrape_and_upload_dramas():
     """Processus principal: scraping et upload vers Supabase"""
-    start_time = time.time()
+    global scraped_ids, scraped_titles
+    
+    # Initialisation des collections pour suivre les éléments scrapés
+    scraped_ids = set()
+    scraped_titles = set()
+    
+    # Récupération des URLs des dramas
     drama_urls = get_recently_added_dramas()
     
-    # Initialisation des compteurs pour le rapport
-    total_dramas = len(drama_urls)
+    # Récupération des dramas existants pour éviter les doublons
+    try:
+        existing_dramas = supabase_db.get_existing_content('dramas', 'drama')
+        existing_ids = [drama.get('id') for drama in existing_dramas if drama.get('id')]
+        existing_titles = [drama.get('title', '').lower() for drama in existing_dramas if drama.get('title')]
+        
+        logger.info(f"Trouvé {len(existing_dramas)} dramas existants dans la base de données")
+        
+    except Exception as e:
+        logger.error(f"Erreur lors de la récupération des dramas existants: {str(e)}")
+        existing_dramas = []
+        existing_ids = []
+        existing_titles = []
+    
+    # Mise à jour de nos collections avec les dramas existants
+    scraped_ids.update(existing_ids)
+    scraped_titles.update(existing_titles)
+    
+    # Mise à jour avec les IDs et titres déjà vus par d'autres scrapers
+    if seen_ids:
+        scraped_ids.update(seen_ids)
+    if seen_titles:
+        scraped_titles.update(seen_titles)
+    
+    logger.info(f"Début du scraping de {len(drama_urls)} dramas depuis VoirDrama")
+    
+    # Enregistrement de la session de scraping
+    session_id = supabase_db.log_scraping_start('dramas', 'voirdrama')
+    
+    start_time = time.time()
     scraped_count = 0
-    success_count = 0
     error_count = 0
     
-    # Journalisation de début
-    logger.info(f"Début du scraping de {total_dramas} dramas depuis VoirDrama")
-    
-    # Enregistrement du début du scraping dans Supabase
-    scraping_log = {
-        "source": "voirdrama",
-        "content_type": TARGET_TABLE,
-        "items_count": 0,
-        "status": "processing",
-        "started_at": datetime.now().isoformat(),
-    }
-    scraping_log_response = supabase.table("scraping_logs").insert(scraping_log).execute()
-    scraping_log_id = scraping_log_response.data[0]["id"] if scraping_log_response.data else None
-    
-    # Traitement de chaque drama
-    for drama_url in drama_urls:
-        scraped_count += 1
-        logger.info(f"Traitement du drama {scraped_count}/{total_dramas}: {drama_url}")
-        
+    # Pour chaque URL de drama, on récupère les détails et on les sauvegarde
+    for i, drama_url in enumerate(drama_urls, 1):
         try:
             drama_data = extract_drama_details(drama_url)
+            
             if not drama_data:
-                error_count += 1
                 continue
+                
+            # Vérifier si ce drama a déjà été vu (par titre)
+            drama_title = drama_data.get('title', '').lower()
+            if drama_title in scraped_titles:
+                logger.info(f"Drama '{drama_data.get('title')}' déjà scrapé, ignoré")
+                continue
+                
+            # Télécharger et sauvegarder l'image du poster si disponible
+            poster_url = drama_data.get('poster_url')
+            if poster_url:
+                try:
+                    image_path = supabase_storage.download_and_upload_image(poster_url, 'drama')
+                    if image_path:
+                        drama_data['image_url'] = image_path
+                except Exception as e:
+                    logger.error(f"Erreur lors du téléchargement/upload de l'image {poster_url}: {str(e)}")
             
-            # Vérification si le drama existe déjà (par titre et année)
-            existing_query = supabase.table(TARGET_TABLE) \
-                .select("id") \
-                .eq("title", drama_data["title"]) \
-                .eq("year", drama_data["year"] or 0) \
-                .execute()
+            # Ajout des informations de source
+            drama_data['source'] = 'voirdrama'
+            drama_data['source_url'] = drama_url
             
-            if existing_query.data:
-                # Mise à jour du drama existant
-                drama_id = existing_query.data[0]["id"]
-                logger.info(f"Mise à jour du drama existant: {drama_data['title']} (ID: {drama_id})")
-                supabase.table(TARGET_TABLE).update(drama_data).eq("id", drama_id).execute()
-            else:
-                # Insertion d'un nouveau drama
-                logger.info(f"Ajout d'un nouveau drama: {drama_data['title']}")
-                supabase.table(TARGET_TABLE).insert(drama_data).execute()
+            # Sauvegarde dans Supabase
+            result = supabase_db.store_content('dramas', drama_data)
             
-            success_count += 1
+            if result and result.get('id'):
+                scraped_count += 1
+                scraped_ids.add(result.get('id'))
+                scraped_titles.add(drama_title)
+                logger.info(f"Drama '{drama_data.get('title')}' enregistré avec succès ({scraped_count}/{len(drama_urls)})")
+                
         except Exception as e:
-            logger.error(f"Erreur lors du traitement de {drama_url}: {str(e)}")
             error_count += 1
+            logger.error(f"Erreur lors du traitement de {drama_url}: {str(e)}")
+            logger.exception(e)
     
-    # Mise à jour du log de scraping
-    duration = time.time() - start_time
-    supabase.table("scraping_logs").update({
-        "items_count": success_count,
-        "status": "completed",
-        "error_message": f"{error_count} erreurs" if error_count > 0 else None,
-        "duration_seconds": duration,
-        "finished_at": datetime.now().isoformat(),
-        "details": {
-            "total": total_dramas,
-            "scraped": scraped_count,
-            "success": success_count,
-            "errors": error_count
-        }
-    }).eq("id", scraping_log_id).execute()
+    # Mise à jour du log de scraping avec les résultats
+    execution_time = time.time() - start_time
+    supabase_db.update_scraping_log(session_id, {
+        'items_scraped': scraped_count,
+        'errors': error_count,
+        'execution_time': execution_time
+    })
     
-    # Rapport final
-    logger.info(f"Scraping terminé en {duration:.2f} secondes")
-    logger.info(f"Résultats: {success_count} dramas ajoutés/mis à jour, {error_count} erreurs")
+    logger.info(f"Fin du scraping: {scraped_count} dramas récupérés, {error_count} erreurs")
+    logger.info(f"Durée totale: {execution_time:.2f} secondes")
     
-    return {
-        "success": success_count,
-        "errors": error_count,
-        "total": total_dramas,
-        "duration": duration
-    }
-
-if __name__ == "__main__":
-    # Vérification de la configuration
-    if not SUPABASE_URL or not SUPABASE_KEY:
-        logger.error("Les variables d'environnement SUPABASE_URL et SUPABASE_KEY doivent être définies")
-        exit(1)
-    
-    # Exécution du scraping
-    results = scrape_and_upload_dramas()
-    
-    # Génération d'un rapport JSON
+    # Génération du rapport de scraping
     report = {
-        "source": "voirdrama",
-        "table": TARGET_TABLE,
-        "timestamp": datetime.now().isoformat(),
-        "results": results
+        'source': 'voirdrama',
+        'category': 'dramas',
+        'date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'items_scraped': scraped_count,
+        'errors': error_count,
+        'execution_time': execution_time,
+        'session_id': session_id
     }
     
-    with open("scraping/voirdrama_report.json", "w") as f:
-        json.dump(report, f, indent=4)
+    # Enregistrement du rapport dans un fichier JSON
+    log_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logs')
+    os.makedirs(log_dir, exist_ok=True)
+    report_file = os.path.join(log_dir, f"voirdrama_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
     
-    logger.info("Rapport généré: scraping/voirdrama_report.json")
+    with open(report_file, 'w', encoding='utf-8') as f:
+        json.dump(report, f, indent=2, ensure_ascii=False)
+    
+    logger.info(f"Rapport généré: {report_file}")
+    
+    # Vérification de l'objectif minimum
+    if scraped_count < MIN_ITEMS:
+        logger.warning(f"⚠️ Objectif non atteint: {scraped_count}/{MIN_ITEMS} dramas récupérés")
+    
+    return scraped_count
+
+# Point d'entrée principal
+if __name__ == "__main__":
+    # Initialisation du client Supabase
+    supabase_db.initialize_client()
+    
+    # Lancement du scraping
+    scrape_and_upload_dramas()

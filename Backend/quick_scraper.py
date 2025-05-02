@@ -99,12 +99,6 @@ SOURCES = {
     },
     
     # Bollywood sources
-    'bollywoodmdb': {
-        'base_url': 'https://www.bollywoodmdb.com',
-        'recent_url': '/movies/latest',
-        'popular_url': '/movies/popular',
-        'type': 'bollywood'
-    },
     'zee5': {
         'base_url': 'https://www.zee5.com',
         'recent_url': '/movies',

@@ -222,7 +222,7 @@ def prepare_scraper_package(temp_dir, backend_dir):
                         this.sources = [
                             'vostfree', 'dramacool', 'myasiantv', 'voirdrama', 'viki',
                             'wetv', 'iqiyi', 'kocowa', 'gogoanime', 'voiranime',
-                            'neko-sama', 'bollywoodmdb', 'zee5', 'hotstar', 'mydramalist'
+                            'neko-sama', 'zee5', 'hotstar', 'mydramalist'
                         ];
                         this.sourceUrls = {
                             'vostfree': 'https://vostfree.cx',
@@ -236,7 +236,6 @@ def prepare_scraper_package(temp_dir, backend_dir):
                             'gogoanime': 'https://gogoanime.cl',
                             'voiranime': 'https://voiranime.com',
                             'neko-sama': 'https://neko-sama.fr',
-                            'bollywoodmdb': 'https://www.bollywoodmdb.com',
                             'zee5': 'https://www.zee5.com',
                             'hotstar': 'https://www.hotstar.com',
                             'mydramalist': 'https://mydramalist.com'
@@ -274,7 +273,7 @@ def prepare_scraper_package(temp_dir, backend_dir):
                     
                     _getContentType(source) {
                         const animeTypes = ['gogoanime', 'voiranime', 'neko-sama'];
-                        const bollywoodTypes = ['bollywoodmdb', 'zee5', 'hotstar'];
+                        const bollywoodTypes = ['zee5', 'hotstar'];
                         
                         if (animeTypes.includes(source)) return 'anime';
                         if (bollywoodTypes.includes(source)) return 'bollywood';
@@ -294,7 +293,6 @@ def prepare_scraper_package(temp_dir, backend_dir):
                             'gogoanime': 'ja',
                             'voiranime': 'ja',
                             'neko-sama': 'ja',
-                            'bollywoodmdb': 'hi',
                             'zee5': 'hi',
                             'hotstar': 'hi',
                             'mydramalist': 'en'
@@ -534,7 +532,7 @@ def analyze_and_structure_data(s3_client, bucket, prefix='content/'):
                     }
                 ],
                 'data_structure': {
-                    'collections': ['dramas', 'anime', 'movies', 'bollywood'],
+                    'collections': ['dramas', 'anime', 'movies'],
                     'indexes': ['category', 'year', 'type', 'rating'],
                     'featured_fields': ['title', 'image', 'year', 'rating', 'categories']
                 }

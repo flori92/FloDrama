@@ -128,20 +128,6 @@ STREAMING_SOURCES = {
             'episodes': 'div.episodes'
         }
     },
-    'bollywoodmdb': {
-        'base_url': 'https://www.bollywoodmdb.com',
-        'search_url': '{base_url}/search',
-        'latest_url': '{base_url}/new-releases',
-        'popular_url': '{base_url}/movies',
-        'type': 'bollywood',
-        'selectors': {
-            'title': 'h1.title',
-            'poster': 'div.poster img',
-            'info': 'div.info',
-            'rating': 'div.rating',
-            'details': 'div.movie-details'
-        }
-    },
     'zee5': {
         'base_url': 'https://www.zee5.com/global',
         'fallback_urls': [
@@ -194,7 +180,6 @@ ALLOWED_STREAMING_DOMAINS = [
     'voirdrama.org',
     'dramaday.net',
     'mydramalist.com',
-    'bollywoodmdb.com',
     'www.zee5.com/global',
     'www.zee5.com',
     'streamtape.com',

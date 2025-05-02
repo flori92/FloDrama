@@ -104,7 +104,7 @@ def main():
     sources = {
         'drama': ['vostfree', 'dramacool', 'myasiantv', 'voirdrama', 'viki', 'wetv', 'iqiyi', 'kocowa'],
         'anime': ['gogoanime', 'voiranime', 'neko-sama'],
-        'bollywood': ['bollywoodmdb', 'zee5', 'hotstar'],
+        'bollywood': ['zee5', 'hotstar'],
         'metadata': ['mydramalist']
     }
     

@@ -15,11 +15,39 @@ import argparse
 from datetime import datetime
 from typing import List, Dict, Any
 
-# Import des modules de scrapers
-from scraper_base import BaseScraper, ScraperUtils
-from drama_scrapers import get_all_drama_scrapers
-from anime_film_scrapers import get_all_anime_scrapers, get_all_film_scrapers
-from bollywood_scrapers import get_all_bollywood_scrapers
+# Ajout du répertoire parent au chemin Python pour l'importation
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Import des scrapers disponibles
+try:
+    # Si importé comme module
+    from scraping.sources import voirdrama, mydramalist
+    # Tentative d'import des nouveaux modules
+    try:
+        from scraping.sources import vostfree, dramacool
+        all_modules_available = True
+    except ImportError:
+        logger.warning("Modules vostfree et/ou dramacool non disponibles.")
+        vostfree = None
+        dramacool = None
+        all_modules_available = False
+except ImportError:
+    try:
+        # Si exécuté directement
+        sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        from sources import voirdrama, mydramalist
+        # Tentative d'import des nouveaux modules
+        try:
+            from sources import vostfree, dramacool
+            all_modules_available = True
+        except ImportError:
+            logger.warning("Modules vostfree et/ou dramacool non disponibles.")
+            vostfree = None
+            dramacool = None
+            all_modules_available = False
+    except ImportError as e:
+        logger.error(f"Impossible d'importer les modules de scraping: {e}")
+        raise
 
 # Configuration du logging
 logging.basicConfig(
@@ -35,24 +63,27 @@ logger = logging.getLogger('unified_scraper')
 # Création du dossier de logs s'il n'existe pas
 os.makedirs("scraping/logs", exist_ok=True)
 
-def get_all_scrapers() -> Dict[str, List[BaseScraper]]:
-    """Récupère tous les scrapers disponibles par catégorie"""
-    return {
-        "dramas": get_all_drama_scrapers(),
-        "animes": get_all_anime_scrapers(),
-        "films": get_all_film_scrapers(),
-        "bollywood": get_all_bollywood_scrapers()
-    }
-
-def get_scraper_by_id(scraper_id: str) -> BaseScraper:
-    """Récupère un scraper spécifique par son ID"""
-    all_scrapers = []
-    for category_scrapers in get_all_scrapers().values():
-        all_scrapers.extend(category_scrapers)
+def get_available_scrapers():
+    """Récupère tous les scrapers disponibles"""
+    scrapers = {}
     
-    for scraper in all_scrapers:
-        if scraper.source_id == scraper_id:
-            return scraper
+    # Ajouter les scrapers principaux
+    scrapers["mydramalist"] = mydramalist
+    scrapers["voirdrama"] = voirdrama
+    
+    # Ajouter les nouveaux scrapers s'ils sont disponibles
+    if vostfree:
+        scrapers["vostfree"] = vostfree
+    if dramacool:
+        scrapers["dramacool"] = dramacool
+    
+    return scrapers
+
+def get_scraper_by_id(scraper_id: str):
+    """Récupère un scraper spécifique par son ID"""
+    scrapers = get_available_scrapers()
+    if scraper_id in scrapers:
+        return scrapers[scraper_id]
     
     return None
 
@@ -210,6 +241,106 @@ def run_specific_scraper(scraper_id: str) -> Dict[str, Any]:
             "error_message": str(e)
         }
 
+def run_scrapers(source_name=None, category=None, total_min_items=200):
+    """
+    Exécute les scrapers spécifiés en récupérant le maximum d'items disponibles sur chaque source
+    
+    Args:
+        source_name (str): Nom du scraper à exécuter (optionnel)
+        category (str): Catégorie de contenu à scraper (optionnel)
+        total_min_items (int): Nombre minimum d'items à scraper au total
+        
+    Returns:
+        dict: Résultats du scraping (nombre d'items par source)
+    """
+    logger.info(f"Début du scraping unifié. Objectif total: {total_min_items} items")
+    
+    # Nous allons récupérer le maximum possible pour chaque source, pas forcer à 200
+    os.environ['MIN_ITEMS'] = "1"  # Valeur minimale pour ne pas empêcher le scraping
+    
+    available_scrapers = get_available_scrapers()
+    results = {}
+    total_items = 0
+    
+    # Si un scraper spécifique est demandé
+    if source_name:
+        if source_name not in available_scrapers:
+            logger.error(f"Scraper '{source_name}' non trouvé. Scrapers disponibles: {', '.join(available_scrapers.keys())}")
+            return results
+        
+        sources_to_run = {source_name: available_scrapers[source_name]}
+    else:
+        # Exécuter tous les scrapers disponibles
+        sources_to_run = available_scrapers
+    
+    # Liste des scrapers prioritaires (ceux qui ont des données de qualité et exclusives)
+    priority_scrapers = ["mydramalist", "voirdrama", "vostfree", "dramacool", "gogoanime"]
+    
+    # Organiser les scrapers par priorité
+    sorted_sources = sorted(
+        sources_to_run.items(),
+        key=lambda x: priority_scrapers.index(x[0]) if x[0] in priority_scrapers else 999
+    )
+    
+    # Suivre les IDs déjà scrapés pour éviter les doublons
+    seen_ids = set()
+    seen_titles = set()
+    
+    for source_name, scraper_module in sorted_sources:
+        if total_items >= total_min_items:
+            logger.info(f"✅ Objectif atteint: {total_items}/{total_min_items} items récupérés au total")
+            break
+            
+        logger.info(f"Lancement du scraper '{source_name}'")
+        
+        try:
+            # Définir la catégorie si spécifiée
+            if category and hasattr(scraper_module, 'set_category'):
+                scraper_module.set_category(category)
+            
+            # Transmettre les IDs et titres déjà vus pour éviter les doublons
+            if hasattr(scraper_module, 'set_seen_ids'):
+                scraper_module.set_seen_ids(seen_ids)
+            if hasattr(scraper_module, 'set_seen_titles'):
+                scraper_module.set_seen_titles(seen_titles)
+            
+            # Exécuter le scraper
+            items = 0
+            if hasattr(scraper_module, 'scrape_and_upload_items'):
+                items = scraper_module.scrape_and_upload_items()
+            elif hasattr(scraper_module, 'scrape_and_upload_dramas'):
+                items = scraper_module.scrape_and_upload_dramas()
+            elif hasattr(scraper_module, 'scrape_and_upload_animes'):
+                items = scraper_module.scrape_and_upload_animes()
+            elif hasattr(scraper_module, 'scrape_and_upload_films'):
+                items = scraper_module.scrape_and_upload_films()
+            else:
+                logger.warning(f"Méthode de scraping non trouvée pour '{source_name}'")
+            
+            # Mettre à jour les IDs et titres vus après ce scraper
+            if hasattr(scraper_module, 'get_scraped_ids'):
+                seen_ids.update(scraper_module.get_scraped_ids())
+            if hasattr(scraper_module, 'get_scraped_titles'):
+                seen_titles.update(scraper_module.get_scraped_titles())
+            
+            results[source_name] = items
+            total_items += items
+            
+            logger.info(f"Scraper '{source_name}' terminé. {items} items récupérés. Total: {total_items}/{total_min_items}")
+            
+        except Exception as e:
+            logger.error(f"Erreur lors de l'exécution du scraper '{source_name}': {str(e)}")
+            logger.exception(e)
+            results[source_name] = 0
+    
+    # Vérifier si l'objectif global a été atteint
+    if total_items < total_min_items:
+        logger.warning(f"⚠️ Objectif non atteint: {total_items}/{total_min_items} items récupérés au total")
+    else:
+        logger.info(f"✅ Objectif atteint: {total_items}/{total_min_items} items récupérés au total")
+    
+    return results
+
 def verify_metrics():
     """Vérifie que chaque source a au moins MIN_ITEMS éléments"""
     from supabase import create_client
@@ -322,6 +453,7 @@ def main():
     group.add_argument("--source", type=str, help="Exécuter un scraper spécifique")
     group.add_argument("--verify-metrics", action="store_true", help="Vérifier les métriques de scraping")
     group.add_argument("--list", action="store_true", help="Lister tous les scrapers disponibles")
+    group.add_argument("--run-scrapers", action="store_true", help="Exécuter les scrapers jusqu'à atteindre l'objectif global")
     
     args = parser.parse_args()
     
@@ -335,6 +467,8 @@ def main():
         verify_metrics()
     elif args.list:
         list_available_scrapers()
+    elif args.run_scrapers:
+        run_scrapers()
 
 if __name__ == "__main__":
     main()

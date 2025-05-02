@@ -38,11 +38,15 @@ USER_AGENTS = [
 
 # Récupération des variables d'environnement
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
-SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
+SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_KEY")  # Utilisation de la clé de service
 MIN_ITEMS = int(os.environ.get("MIN_ITEMS", "200"))
 
-# Initialisation du client Supabase
-supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+# Initialisation du client Supabase (si les variables d'environnement sont définies)
+supabase = None
+if SUPABASE_URL and SUPABASE_KEY:
+    supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+else:
+    logger.warning("Variables d'environnement SUPABASE_URL et SUPABASE_SERVICE_KEY non définies. Connexion à Supabase désactivée.")
 
 class ScraperUtils:
     """Classe utilitaire avec des méthodes statiques pour les scrapers"""

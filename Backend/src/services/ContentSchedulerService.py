@@ -65,6 +65,7 @@ class ContentSchedulerService:
             },
             'bollywood': {
                 'sources': [
+                    # 'name': 'bollywoodmdb',
                     {
                         'name': 'bollywoodmdb',
                         'priority': 1,

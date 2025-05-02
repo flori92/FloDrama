@@ -814,7 +814,6 @@ const VALIDATED_SOURCES = {
   "neko-sama": { url: "https://neko-sama.fr", type: "anime", language: "ja" },
   
   // Bollywood sources
-  "bollywoodmdb": { url: "https://www.bollywoodmdb.com", type: "bollywood", language: "hi" },
   "zee5": { url: "https://www.zee5.com", type: "bollywood", language: "hi" },
   "hotstar": { url: "https://www.hotstar.com", type: "bollywood", language: "hi" },
   

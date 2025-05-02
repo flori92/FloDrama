@@ -9,8 +9,13 @@ echo "✨ [CHORE] Vérification et gestion des buckets S3 pour FloDrama"
 REGION="eu-west-3"  # Région Paris (même région que le bucket flodrama-assets existant)
 BUCKETS=(
   "flodrama-content"
-  "flodrama-images"
+  # "flodrama-images" # Déjà existant sur Supabase, ne pas tenter de le recréer
   "flodrama-assets"
+)
+
+# Buckets existants à ne pas recréer mais à utiliser directement
+EXISTING_BUCKETS=(
+  "flodrama-images"
 )
 
 # Fonction pour vérifier si un bucket existe
@@ -112,6 +117,20 @@ for bucket in "${BUCKETS[@]}"; do
   
   # Lister le contenu du bucket
   list_bucket_content "$bucket"
+  echo ""
+done
+
+# Vérifier et lister les buckets existants
+echo "📋 Vérification des buckets existants"
+for bucket in "${EXISTING_BUCKETS[@]}"; do
+  if check_bucket_exists "$bucket"; then
+    echo "✅ Utilisation du bucket existant: $bucket"
+    # Lister le contenu du bucket
+    list_bucket_content "$bucket"
+  else
+    echo "⚠️ ATTENTION: Le bucket $bucket est marqué comme existant mais n'a pas été trouvé."
+    echo "   Vérifiez les permissions et la configuration."
+  fi
   echo ""
 done
 

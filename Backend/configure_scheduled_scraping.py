@@ -227,7 +227,7 @@ def lambda_handler(event, context):
         sources = [
             'vostfree', 'dramacool', 'myasiantv', 'voirdrama', 'viki', 
             'wetv', 'iqiyi', 'kocowa', 'gogoanime', 'voiranime', 
-            'neko-sama', 'bollywoodmdb', 'zee5', 'hotstar', 'mydramalist'
+            'neko-sama', 'zee5', 'hotstar', 'mydramalist'
         ]
         
         for source in sources:

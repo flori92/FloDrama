@@ -80,11 +80,6 @@ VALIDATED_SOURCES = {
         "language": "ja"
     },
     # Bollywood sources
-    "bollywoodmdb": {
-        "url": "https://www.bollywoodmdb.com",
-        "type": "bollywood",
-        "language": "hi"
-    },
     "zee5": {
         "url": "https://www.zee5.com",
         "type": "bollywood",
