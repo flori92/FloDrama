@@ -38,7 +38,7 @@ const cache: Record<string, CacheItem<any>> = {};
  * @param key Clé d'identification du cache
  * @param data Données à mettre en cache
  */
-function setCache<T>(key: string, data: T): void {
+const setCache = <T>(key: string, data: T): void => {
   cache[key] = {
     data,
     timestamp: Date.now()
@@ -63,7 +63,7 @@ function setCache<T>(key: string, data: T): void {
  * @param key Clé d'identification du cache
  * @returns Les données du cache ou null si pas de cache valide
  */
-function getCache<T>(key: string): T | null {
+const getCache = <T>(key: string): T | null => {
   // Vérifier le cache en mémoire
   const memoryCache = cache[key];
   if (memoryCache && (Date.now() - memoryCache.timestamp) < CONFIG.CACHE_DURATION) {
@@ -99,7 +99,7 @@ function getCache<T>(key: string): T | null {
  * @param items Éléments contenant des URLs d'images
  * @returns Éléments avec les URLs d'images corrigées
  */
-function fixImageUrls<T extends { poster?: string | null; backdrop?: string | null; [key: string]: any }>(items: T[]): T[] {
+const fixImageUrls = <T extends { poster?: string | null; backdrop?: string | null; [key: string]: any }>(items: T[]): T[] => {
   if (!items || !Array.isArray(items) || items.length === 0) return [];
 
   return items.map(item => {
@@ -135,7 +135,7 @@ function fixImageUrls<T extends { poster?: string | null; backdrop?: string | nu
  * Vérifie si la connexion à Supabase est disponible
  * @returns true si la connexion est disponible, false sinon
  */
-export async function isSupabaseAvailable(): Promise<boolean> {
+export const isSupabaseAvailable = async (): Promise<boolean> => {
   try {
     // Utiliser une requête générique qui ne dépend pas d'une table spécifique
     const { data, error } = await supabase.auth.getSession();
@@ -334,11 +334,16 @@ export const getContentsByCategory = async (
 };
 
 /**
+ * Alias pour compatibilité ascendante avec les anciens composants/hooks
+ */
+export const getCategoryContent = getContentsByCategory;
+
+/**
  * Récupère les détails d'un contenu spécifique
  * @param contentId Identifiant du contenu
  * @returns Détails du contenu ou null si non trouvé
  */
-async function getContentDetails(contentId: string): Promise<ContentDetail | null> {
+const getContentDetails = async (contentId: string): Promise<ContentDetail | null> => {
   // Clé de cache unique pour cette requête
   const cacheKey = `content_details_${contentId}`;
   
@@ -510,7 +515,7 @@ async function getContentDetails(contentId: string): Promise<ContentDetail | nul
  * Récupère les carrousels pour la page d'accueil
  * @returns Liste des carrousels
  */
-async function getCarousels(): Promise<Carousel[]> {
+const getCarousels = async (): Promise<Carousel[]> => {
   // Clé de cache unique pour cette requête
   const cacheKey = 'carousels';
   
@@ -735,7 +740,7 @@ async function getCarousels(): Promise<Carousel[]> {
  * Récupère les bannières pour le hero banner
  * @returns Bannières pour le hero banner
  */
-async function getHeroBanners(): Promise<HeroBanner> {
+const getHeroBanners = async (): Promise<HeroBanner> => {
   // Clé de cache unique pour cette requête
   const cacheKey = 'hero_banners';
   
@@ -921,7 +926,7 @@ async function getHeroBanners(): Promise<HeroBanner> {
  * @param offset Position de départ pour la pagination
  * @returns Résultats de la recherche
  */
-async function searchContent(query: string, limit = 20, offset = 0): Promise<SearchResponse> {
+const searchContent = async (query: string, limit = 20, offset = 0): Promise<SearchResponse> => {
   // Clé de cache unique pour cette requête
   const cacheKey = `search_${query}_${limit}_${offset}`;
   
@@ -1104,7 +1109,7 @@ type SupabaseTable = 'dramas' | 'animes' | 'films' | 'bollywood' | 'carousels' |
  * @param obj Objet à vérifier
  * @returns true si l'objet est un carousel valide
  */
-function isCarousel(obj: any): obj is { id: string; title: string; type: string; items: any[]; position?: number; is_active?: boolean } {
+const isCarousel = (obj: any): obj is { id: string; title: string; type: string; items: any[]; position?: number; is_active?: boolean } => {
   return obj && typeof obj === 'object' && 'id' in obj && 'title' in obj && 'type' in obj;
 }
 
@@ -1113,7 +1118,7 @@ function isCarousel(obj: any): obj is { id: string; title: string; type: string;
  * @param obj Objet à vérifier
  * @returns true si l'objet est une bannière héro valide
  */
-function isHeroBanner(obj: any): obj is { id: string; items: any[] } {
+const isHeroBanner = (obj: any): obj is { id: string; items: any[] } => {
   return obj && typeof obj === 'object' && 'id' in obj && 'items' in obj && Array.isArray(obj.items);
 }
 
@@ -1122,16 +1127,16 @@ function isHeroBanner(obj: any): obj is { id: string; items: any[] } {
  * @param obj Objet à vérifier
  * @returns true si l'objet est une bannière héro item valide
  */
-function isHeroBannerItem(obj: any): obj is { id: string; title: string; description: string; backdrop?: string; image?: string; poster?: string; type: string; content_id?: string } {
+const isHeroBannerItem = (obj: any): obj is { id: string; title: string; description: string; backdrop?: string; image?: string; poster?: string; type: string; content_id?: string } => {
   return obj && typeof obj === 'object' && 'id' in obj && 'title' in obj;
 }
 
-function isSupabaseTable(table: string): table is SupabaseTable {
+const isSupabaseTable = (table: string): table is SupabaseTable => {
   return ['dramas', 'animes', 'films', 'bollywood', 'carousels', 'hero_banners', 'scraping_logs', 'health_check'].includes(table);
 }
 
 // Correction des erreurs d'accès aux propriétés dans les résultats Supabase
-function isCarouselData(obj: any): obj is { items: any[] } {
+const isCarouselData = (obj: any): obj is { items: any[] } => {
   return obj && typeof obj === 'object' && 'items' in obj && Array.isArray(obj.items);
 }
 

@@ -1,3 +1,7 @@
+// ATTENTION : Ce test est désactivé car le composant CarouselRecommandations n'existe plus dans le projet.
+// Si le composant est recréé, réactivez ou réécrivez ce test.
+
+/*
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -158,3 +162,4 @@ describe('useRecommandations', () => {
     // TODO: Ajouter les tests du hook
   });
 });
+*/

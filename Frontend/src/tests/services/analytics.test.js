@@ -1,6 +1,10 @@
 // Test du service d'analytics
 import analytics from '@services/analytics';
 
+// Mock process.env pour les variables utilisées dans analytics
+process.env.VITE_SUPABASE_URL = 'https://example.supabase.co';
+process.env.VITE_SUPABASE_ANON_KEY = 'example-anon-key';
+
 // Mock de createClient et des méthodes Supabase
 jest.mock('@supabase/supabase-js', () => ({
   createClient: jest.fn(() => ({

@@ -1,5 +1,6 @@
 // src/services/analytics/index.ts
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { getEnv } from '@/utils/env';
 
 // Types pour les événements analytics
 export type AnalyticsEvent = {
@@ -14,19 +15,6 @@ export type AnalyticsEvent = {
   browser: string;
 };
 
-// Fonction pour récupérer les variables d'environnement de manière compatible avec Jest
-const getEnvVariable = (key: string): string => {
-  // Pour l'environnement de test (Jest)
-  if (typeof process !== 'undefined' && process.env && process.env[key]) {
-    return process.env[key] as string;
-  }
-  // Pour l'environnement Vite
-  if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env[key]) {
-    return import.meta.env[key] as string;
-  }
-  return '';
-};
-
 // Configuration de l'analytics
 class AnalyticsService {
   private supabase: SupabaseClient | null = null;
@@ -35,8 +23,8 @@ class AnalyticsService {
 
   constructor() {
     // Création du client Supabase
-    const supabaseUrl = getEnvVariable('VITE_SUPABASE_URL');
-    const supabaseKey = getEnvVariable('VITE_SUPABASE_ANON_KEY');
+    const supabaseUrl = getEnv('VITE_SUPABASE_URL');
+    const supabaseKey = getEnv('VITE_SUPABASE_ANON_KEY');
     
     if (!supabaseUrl || !supabaseKey) {
       console.error('Variables d\'environnement Supabase manquantes');

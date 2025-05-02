@@ -80,7 +80,7 @@ def init_supabase_client():
     """Initialise le client Supabase avec gestion d'erreurs"""
     global supabase
     
-    if not SUPABASE_URL or not SUPABASE_KEY:
+    if not (SUPABASE_URL and SUPABASE_KEY):
         logger.error("Les variables d'environnement SUPABASE_URL et SUPABASE_SERVICE_KEY doivent être définies")
         return None
     

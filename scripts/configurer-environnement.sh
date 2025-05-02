@@ -33,19 +33,6 @@ verifier_prerequis() {
     fi
 }
 
-# Installation des dépendances globales
-installer_deps_globales() {
-    log_info "Installation des dépendances globales..."
-    
-    npm install -g jest lynx-cli
-    
-    if [ $? -eq 0 ]; then
-        log_info "Dépendances globales installées avec succès"
-    else
-        log_error "Erreur lors de l'installation des dépendances globales"
-    fi
-}
-
 # Configuration de Git
 configurer_git() {
     log_info "Configuration de Git..."
@@ -53,7 +40,7 @@ configurer_git() {
     if [ ! -d .git ]; then
         git init
         git add .
-        git commit -m "✨ [INIT] Configuration initiale de la migration Lynx.js"
+        git commit -m "✨ [INIT] Configuration initiale de la migration"
         log_info "Dépôt Git initialisé"
     else
         log_info "Dépôt Git déjà initialisé"
@@ -63,17 +50,17 @@ configurer_git() {
     git branch -M main
 }
 
-# Configuration du token Lynx
+# Configuration du token
 configurer_token() {
-    log_info "Configuration du token Lynx..."
+    log_info "Configuration du token..."
     
-    if [ -z "$LYNX_NPM_TOKEN" ]; then
-        read -p "Veuillez entrer votre token Lynx: " token
-        echo "export LYNX_NPM_TOKEN=$token" >> ~/.zshrc
-        export LYNX_NPM_TOKEN=$token
-        log_info "Token Lynx configuré"
+    if [ -z "$NPM_TOKEN" ]; then
+        read -p "Veuillez entrer votre token : " token
+        echo "export NPM_TOKEN=$token" >> ~/.zshrc
+        export NPM_TOKEN=$token
+        log_info "Token configuré"
     else
-        log_info "Token Lynx déjà configuré"
+        log_info "Token déjà configuré"
     fi
 }
 
@@ -108,7 +95,7 @@ sauvegarder_config() {
     BACKUP_DIR="backups/${TIMESTAMP}_config_backup"
     
     mkdir -p "$BACKUP_DIR"
-    cp package.json lynx.config.js .npmrc "$BACKUP_DIR"
+    cp package.json .npmrc "$BACKUP_DIR"
     
     log_info "Configuration sauvegardée dans $BACKUP_DIR"
 }
@@ -118,7 +105,6 @@ echo "🚀 Démarrage de la configuration de l'environnement..."
 echo "=================================================="
 
 verifier_prerequis
-installer_deps_globales
 configurer_git
 configurer_token
 installer_deps_projet

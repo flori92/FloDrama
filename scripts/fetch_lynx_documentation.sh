@@ -24,10 +24,6 @@ source $VENV_DIR/bin/activate
 echo "📦 Installation des dépendances..."
 pip install -r $REQUIREMENTS_FILE
 
-# Exécution du script de récupération
-echo "🚀 Récupération des informations des repos Lynx..."
-python3 scripts/fetch_lynx_repos.py
-
 # Désactivation de l'environnement virtuel
 deactivate
 

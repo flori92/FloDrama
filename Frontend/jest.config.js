@@ -4,6 +4,8 @@ module.exports = {
     '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'] }],
   },
   moduleNameMapper: {
+    // Redirection spécifique pour Jest : '@/utils/env' => env.node.ts
+    '^@/utils/env$': '<rootDir>/src/utils/env.node.ts',
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@components/(.*)$': '<rootDir>/src/components/$1',
     '^@services/(.*)$': '<rootDir>/src/services/$1',

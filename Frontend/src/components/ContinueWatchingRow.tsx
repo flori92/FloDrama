@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useWatchlist } from '../hooks/useWatchlist';
-import { getContentDetail } from '../services/contentService';
+import { getContentDetail } from '../services/contentDetailService';
 import { useNavigate } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 
@@ -30,20 +30,32 @@ const ContinueWatchingRow: React.FC<ContinueWatchingRowProps> = ({ userId, token
   useEffect(() => {
     let isMounted = true;
     if (!watchlist.length) {
-      setEnriched([]); setLoadingMeta(false); return;
+      setEnriched([]);
+      setLoadingMeta(false);
+      return;
     }
     setLoadingMeta(true);
     Promise.all(
       watchlist.map(async item => {
         try {
-          const meta = await getContentDetail(item.contenuId, token);
-          return { ...item, titre: meta.titre, imageUrl: meta.imageUrl, type: meta.type };
+          const details = await getContentDetail(item.contenuId);
+          return { ...item, titre: details.titre, imageUrl: details.imageUrl, type: details.type };
         } catch {
           return { ...item };
         }
       })
-    ).then(result => { if (isMounted) setEnriched(result); })
-     .finally(() => { if (isMounted) setLoadingMeta(false); });
+    ).then(result => { 
+      if (!isMounted) {
+        return;
+      }
+      setEnriched(result); 
+    })
+     .finally(() => { 
+      if (!isMounted) {
+        return;
+      }
+      setLoadingMeta(false); 
+    });
     return () => { isMounted = false; };
   }, [watchlist, token]);
 

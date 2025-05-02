@@ -9,12 +9,10 @@ import theme from './theme';
  * Génère des classes CSS pour un bouton selon le thème FloDrama
  * @param variant Variante du bouton
  * @param size Taille du bouton
- * @param isLynx Indique si le composant est rendu via Lynx
  */
 export function getButtonStyles(
   variant: 'primary' | 'secondary' | 'outline' | 'ghost' | 'link' | 'danger' = 'primary',
   size: 'small' | 'medium' | 'large' | 'icon' = 'medium',
-  isLynx: boolean = false
 ): string {
   // Styles de base communs
   let baseStyles = `
@@ -144,23 +142,15 @@ export function getButtonStyles(
     }
   `;
 
-  // Adapter les styles pour Lynx si nécessaire
-  if (isLynx) {
-    // Ajustements spécifiques pour Lynx
-    // (à compléter selon les spécificités de Lynx)
-  }
-
   return `${baseStyles} ${variantStyles} ${sizeStyles} ${stateStyles} ${rippleEffect}`;
 }
 
 /**
  * Génère des classes CSS pour une carte de contenu selon le thème FloDrama
  * @param variant Variante de la carte
- * @param isLynx Indique si le composant est rendu via Lynx
  */
 export function getCardStyles(
   variant: 'default' | 'featured' | 'minimal' = 'default',
-  isLynx: boolean = false
 ): string {
   // Styles de base communs
   let baseStyles = `
@@ -200,12 +190,6 @@ export function getCardStyles(
     }
   `;
 
-  // Adapter les styles pour Lynx si nécessaire
-  if (isLynx) {
-    // Ajustements spécifiques pour Lynx
-    // (à compléter selon les spécificités de Lynx)
-  }
-
   return `${baseStyles} ${variantStyles} ${stateStyles}`;
 }
 
@@ -213,12 +197,10 @@ export function getCardStyles(
  * Génère des classes CSS pour une section héro selon le thème FloDrama
  * @param height Hauteur de la section
  * @param alignment Alignement du contenu
- * @param isLynx Indique si le composant est rendu via Lynx
  */
 export function getHeroStyles(
   height: 'small' | 'medium' | 'large' | 'full' = 'medium',
   alignment: 'left' | 'center' | 'right' = 'center',
-  isLynx: boolean = false
 ): string {
   // Styles de base communs
   let baseStyles = `
@@ -294,12 +276,6 @@ export function getHeroStyles(
     }
   `;
 
-  // Adapter les styles pour Lynx si nécessaire
-  if (isLynx) {
-    // Ajustements spécifiques pour Lynx
-    // (à compléter selon les spécificités de Lynx)
-  }
-
   return `${baseStyles} ${heightStyles} ${alignmentStyles} ${overlayStyles}`;
 }
 
@@ -307,12 +283,10 @@ export function getHeroStyles(
  * Génère des classes CSS pour une animation de texte selon le thème FloDrama
  * @param variant Variante de l'animation
  * @param speed Vitesse de l'animation
- * @param isLynx Indique si le composant est rendu via Lynx
  */
 export function getTextAnimationStyles(
   variant: 'typing' | 'fade' | 'wave' | 'gradient' = 'typing',
   speed: 'slow' | 'medium' | 'fast' = 'medium',
-  isLynx: boolean = false
 ): string {
   // Déterminer la durée selon la vitesse
   let duration = '';
@@ -397,12 +371,6 @@ export function getTextAnimationStyles(
       break;
   }
 
-  // Adapter les styles pour Lynx si nécessaire
-  if (isLynx) {
-    // Ajustements spécifiques pour Lynx
-    // (à compléter selon les spécificités de Lynx)
-  }
-
   return `${baseStyles} ${variantStyles}`;
 }
 
@@ -410,12 +378,10 @@ export function getTextAnimationStyles(
  * Génère des classes CSS pour un spinner de chargement selon le thème FloDrama
  * @param size Taille du spinner
  * @param variant Variante de couleur
- * @param isLynx Indique si le composant est rendu via Lynx
  */
 export function getSpinnerStyles(
   size: 'small' | 'medium' | 'large' = 'medium',
   variant: 'primary' | 'white' | 'gray' = 'primary',
-  isLynx: boolean = false
 ): string {
   // Déterminer la taille
   let sizeValue = '';
@@ -458,12 +424,6 @@ export function getSpinnerStyles(
       to { transform: rotate(360deg); }
     }
   `;
-
-  // Adapter les styles pour Lynx si nécessaire
-  if (isLynx) {
-    // Ajustements spécifiques pour Lynx
-    // (à compléter selon les spécificités de Lynx)
-  }
 
   return baseStyles;
 }

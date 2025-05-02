@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChevronRight, Heart, ThumbsDown, Star } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { getCategoryContent, ContentItem as ServiceContentItem, ContentType } from '../services/contentService';
+import { getContentsByCategory, ContentItem as ServiceContentItem, ContentType } from '../services/contentService';
 import { useUserPreferences } from '../hooks/useUserPreferences';
 import { useTrailerPreview } from '../hooks/useTrailerPreview';
 
@@ -55,7 +55,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({ title, category, searchQuery,
   React.useEffect(() => {
     let isMounted = true;
     setIsLoading(true);
-    getCategoryContent(category as ContentType || 'drama')
+    getContentsByCategory(category as ContentType || 'drama')
       .then(data => {
         if (isMounted) setContentItems(adaptContentItems(data));
       })
