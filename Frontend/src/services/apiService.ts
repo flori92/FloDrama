@@ -1,5 +1,5 @@
 // Constantes pour l'API
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://flodrama-8m6icfhjl-flodrama-projects.vercel.app/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://flodrama-2a5s2f9jo-flodrama-projects.vercel.app/api';
 const CDN_BASE_URL = 'https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content';
 
 // Année courante et année précédente pour le filtre des contenus récents

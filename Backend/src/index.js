@@ -265,8 +265,28 @@ app.get('/api/streams/:contentId', async (req, res) => {
 // Endpoint de santé
 app.get('/api/health', (req, res) => res.json({ status: 'ok', uptime: process.uptime() }));
 
+// Route racine pour vérifier que le serveur fonctionne
+app.get('/', (req, res) => {
+  res.json({ 
+    status: 'ok', 
+    message: 'API FloDrama fonctionnelle',
+    version: '1.0.0',
+    endpoints: [
+      '/api/health',
+      '/api/dramas',
+      '/api/films',
+      '/api/animes',
+      '/api/bollywood',
+      '/api/trending',
+      '/api/featured',
+      '/api/content/:id',
+      '/api/streams/:contentId'
+    ]
+  });
+});
+
 // Gestion des routes non trouvées
-app.use((req, res) => res.status(404).json({ error: 'Not found' }));
+app.use((req, res) => res.status(404).json({ error: 'Not found', path: req.path }));
 
 // Démarrage du serveur
 app.listen(PORT, () => {
