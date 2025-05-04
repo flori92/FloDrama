@@ -14,7 +14,7 @@ export const contentColors = {
 } as const;
 
 export const apiConfig = {
-  baseUrl: process.env.NEXT_PUBLIC_API_URL || 'https://fffgoqubrbgppcqqkyod.supabase.co/rest/v1',
+  baseUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api',
   cdnUrl: process.env.NEXT_PUBLIC_CDN_URL || 'https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content',
   timeout: 10000,
   retryAttempts: 3,
