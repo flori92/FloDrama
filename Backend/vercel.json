@@ -20,5 +20,9 @@
         "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With"
       }
     }
-  ]
+  ],
+  "env": {
+    "DATABASE_URL": "postgres://postgres:Apollonf@vi92@db.fffgoqubrbgppcqqkyod.supabase.co:6543/postgres",
+    "PORT": "5000"
+  }
 }
