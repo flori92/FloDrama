@@ -27,6 +27,6 @@
     }
   ],
   "env": {
-    "NEXT_PUBLIC_API_URL": "https://flodrama-p1r0r7c2s-flodrama-projects.vercel.app/api"
+    "NEXT_PUBLIC_API_URL": "https://flodrama-br9zvxw2r-flodrama-projects.vercel.app/api"
   }
 }
