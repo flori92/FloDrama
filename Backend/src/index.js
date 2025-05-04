@@ -10,8 +10,13 @@ const PORT = process.env.PORT || 5000;
 app.use(cors({
   origin: [
     'https://flodrama-np8jmkaop-flodrama-projects.vercel.app',
+    'https://flodrama-gxwe86irb-flodrama-projects.vercel.app',
+    'https://flodrama-eandk7o3h-flodrama-projects.vercel.app',
+    'https://flodrama.vercel.app',
     'http://localhost:3000'
-  ]
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());
