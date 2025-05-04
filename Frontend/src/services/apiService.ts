@@ -90,7 +90,11 @@ export const getContentByCategory = async (
     
     // Utilisation de fetch pour récupérer les données
     const response = await fetch(url, {
-      credentials: 'omit' // Éviter d'envoyer les cookies pour éviter les problèmes CORS
+      credentials: 'include', // Inclure les cookies pour l'authentification si nécessaire
+      mode: 'cors', // Mode CORS explicite
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
     
     if (!response.ok) {
@@ -160,7 +164,11 @@ export const getFeaturedContent = async (limit: number = 10): Promise<FeaturedRe
     
     // Utilisation de fetch pour récupérer les données
     const response = await fetch(url, {
-      credentials: 'omit' // Éviter d'envoyer les cookies pour éviter les problèmes CORS
+      credentials: 'include', // Inclure les cookies pour l'authentification si nécessaire
+      mode: 'cors', // Mode CORS explicite
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
     
     if (!response.ok) {
@@ -225,7 +233,11 @@ export const getContentDetails = async (id: string): Promise<ContentDetails | nu
     
     // Utilisation de fetch pour récupérer les données
     const response = await fetch(url, {
-      credentials: 'omit' // Éviter d'envoyer les cookies pour éviter les problèmes CORS
+      credentials: 'include', // Inclure les cookies pour l'authentification si nécessaire
+      mode: 'cors', // Mode CORS explicite
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
     
     if (!response.ok) {
@@ -274,7 +286,11 @@ export const getStreamUrls = async (contentId: string): Promise<StreamInfo[]> =>
     
     // Utilisation de fetch pour récupérer les données
     const response = await fetch(url, {
-      credentials: 'omit' // Éviter d'envoyer les cookies pour éviter les problèmes CORS
+      credentials: 'include', // Inclure les cookies pour l'authentification si nécessaire
+      mode: 'cors', // Mode CORS explicite
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
     
     if (!response.ok) {

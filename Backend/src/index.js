@@ -6,17 +6,33 @@ const db = require('./db');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// CORS : autorise Vercel + local
+// CORS : autorise toutes les origines Vercel + local
 app.use(cors({
-  origin: [
-    'https://flodrama-np8jmkaop-flodrama-projects.vercel.app',
-    'https://flodrama-gxwe86irb-flodrama-projects.vercel.app',
-    'https://flodrama-eandk7o3h-flodrama-projects.vercel.app',
-    'https://flodrama.vercel.app',
-    'http://localhost:3000'
-  ],
+  origin: function(origin, callback) {
+    // Autoriser les requêtes sans origine (comme les appels API directs)
+    if (!origin) {
+      return callback(null, true);
+    }
+    
+    // Liste des origines autorisées
+    const allowedOrigins = [
+      /^https:\/\/flodrama.*\.vercel\.app$/,  // Tous les sous-domaines Vercel de flodrama
+      /^http:\/\/localhost:[0-9]+$/           // Localhost sur n'importe quel port
+    ];
+    
+    // Vérifier si l'origine correspond à l'une des expressions régulières
+    const allowed = allowedOrigins.some(pattern => pattern.test(origin));
+    
+    if (allowed) {
+      callback(null, true);
+    } else {
+      callback(new Error(`Origine non autorisée: ${origin}`));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  credentials: true,
+  maxAge: 86400 // 24 heures
 }));
 
 app.use(express.json());
