@@ -11,6 +11,23 @@ if (process.env.DATABASE_URL) {
   console.error('Veuillez définir DATABASE_URL dans le fichier .env ou dans les variables d\'environnement Vercel');
 }
 
+// Vérification de la connectivité au serveur de base de données
+const checkDatabaseConnectivity = () => {
+  return new Promise((resolve) => {
+    const dns = require('dns');
+    const dbUrl = new URL(process.env.DATABASE_URL);
+    dns.lookup(dbUrl.hostname, (err) => {
+      if (err) {
+        console.error(`Erreur de résolution DNS pour ${dbUrl.hostname}:`, err.message);
+        resolve(false);
+      } else {
+        console.log(`Résolution DNS réussie pour ${dbUrl.hostname}`);
+        resolve(true);
+      }
+    });
+  });
+};
+
 // Configuration de la connexion au Transaction pooler de Supabase
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -22,6 +39,13 @@ const pool = new Pool({
 pool.query('SELECT NOW()', (err, res) => {
   if (err) {
     console.error('Erreur de connexion à la base de données:', err);
+    
+    // Vérifier si c'est un problème de résolution DNS
+    checkDatabaseConnectivity().then(isConnected => {
+      if (!isConnected) {
+        console.error('Problème de résolution DNS détecté. Vérifiez que le serveur de base de données est accessible.');
+      }
+    });
   } else {
     console.log('Connexion à la base de données établie:', res.rows[0]);
     
@@ -47,11 +71,19 @@ const query = async (text, params) => {
     console.error('Erreur lors de l\'exécution de la requête:', error);
     console.error('Requête:', text);
     console.error('Paramètres:', params);
+    
+    // Vérifier si c'est un problème de résolution DNS
+    const isConnected = await checkDatabaseConnectivity();
+    if (!isConnected) {
+      console.error('Problème de résolution DNS détecté. Utilisation des données mockées.');
+    }
+    
     throw error;
   }
 };
 
 module.exports = {
   query,
-  pool
+  pool,
+  checkDatabaseConnectivity
 };
