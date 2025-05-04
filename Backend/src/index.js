@@ -84,6 +84,29 @@ app.get('/api/films', async (req, res) => {
   try {
     const { limit = 20, offset = 0, year } = req.query;
     
+    // Vérification des tables disponibles
+    try {
+      const tablesResult = await db.query('SELECT table_name FROM information_schema.tables WHERE table_schema = \'public\'', []);
+      console.log('Tables disponibles pour la route /api/films:', tablesResult.rows.map(row => row.table_name));
+      
+      // Vérifier si la table films existe
+      const filmTableExists = tablesResult.rows.some(row => row.table_name === 'films');
+      if (!filmTableExists) {
+        console.warn('La table "films" n\'existe pas dans la base de données');
+        
+        // Essayer de trouver une table alternative
+        const possibleTables = tablesResult.rows.map(row => row.table_name)
+          .filter(name => name.includes('film') || name.includes('movie') || name.includes('content'));
+        
+        if (possibleTables.length > 0) {
+          console.log('Tables alternatives possibles:', possibleTables);
+        }
+      }
+    } catch (tableError) {
+      console.error('Erreur lors de la vérification des tables:', tableError);
+    }
+    
+    // Essayer d'abord la requête sur la table 'films'
     let query = 'SELECT * FROM films';
     const params = [];
     
@@ -106,21 +129,39 @@ app.get('/api/films', async (req, res) => {
     
     try {
       const result = await db.query(query, params);
-      res.json(result.rows);
+      console.log(`Récupération réussie de ${result.rowCount} films depuis la table 'films'`);
+      return res.json(result.rows);
     } catch (dbError) {
-      console.error('Erreur de base de données pour films:', dbError);
-      // Renvoyer des données mockées en cas d'erreur de base de données
-      res.json(Array(parseInt(limit)).fill(0).map((_, i) => ({
-        id: `mock-film-${i}`,
-        title: `Film ${i+1}`,
-        description: "Contenu temporaire pendant la maintenance de l'API",
-        poster: `https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/movie-${i % 5 + 1}.jpg`,
-        backdrop: `https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/movie-${i % 5 + 1}.jpg`,
-        rating: 4.5,
-        year: new Date().getFullYear(),
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      })));
+      console.error('Erreur avec la table films, tentative avec la table content:', dbError);
+      
+      // Tentative alternative avec la table 'content' si elle existe
+      try {
+        const contentQuery = `
+          SELECT * FROM content 
+          WHERE type = 'film' OR type = 'movie'
+          ORDER BY created_at DESC 
+          LIMIT $1 OFFSET $2
+        `;
+        const contentResult = await db.query(contentQuery, [parseInt(limit), parseInt(offset)]);
+        console.log(`Récupération réussie de ${contentResult.rowCount} films depuis la table 'content'`);
+        return res.json(contentResult.rows);
+      } catch (contentError) {
+        console.error('Erreur avec la table content:', contentError);
+        
+        // Si toutes les tentatives échouent, renvoyer des données mockées
+        console.warn('Toutes les tentatives de récupération ont échoué, renvoi de données mockées');
+        return res.json(Array(parseInt(limit)).fill(0).map((_, i) => ({
+          id: `mock-film-${i}`,
+          title: `Film ${i+1}`,
+          description: "Contenu temporaire pendant la maintenance de l'API",
+          poster: `https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/movie-${i % 5 + 1}.jpg`,
+          backdrop: `https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/movie-${i % 5 + 1}.jpg`,
+          rating: 4.5,
+          year: new Date().getFullYear(),
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        })));
+      }
     }
   } catch (error) {
     console.error('Erreur lors de la récupération des films:', error);
