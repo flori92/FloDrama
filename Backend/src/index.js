@@ -440,6 +440,61 @@ app.get('/', (req, res) => {
   });
 });
 
+// Route de diagnostic pour vérifier la structure de la base de données
+app.get('/api/diagnostic', async (req, res) => {
+  try {
+    // Récupérer la liste des tables
+    const tablesResult = await db.query('SELECT table_name FROM information_schema.tables WHERE table_schema = \'public\'', []);
+    const tables = tablesResult.rows.map(row => row.table_name);
+    
+    // Récupérer la structure de chaque table
+    const tableStructures = {};
+    for (const table of tables) {
+      try {
+        const columnsResult = await db.query(`
+          SELECT column_name, data_type, is_nullable
+          FROM information_schema.columns
+          WHERE table_schema = 'public' AND table_name = $1
+          ORDER BY ordinal_position
+        `, [table]);
+        
+        // Récupérer un échantillon de données pour chaque table
+        const sampleResult = await db.query(`SELECT * FROM "${table}" LIMIT 1`, []);
+        
+        tableStructures[table] = {
+          columns: columnsResult.rows,
+          sample: sampleResult.rows.length > 0 ? sampleResult.rows[0] : null,
+          count: 0
+        };
+        
+        // Compter le nombre d'enregistrements dans la table
+        const countResult = await db.query(`SELECT COUNT(*) FROM "${table}"`, []);
+        tableStructures[table].count = parseInt(countResult.rows[0].count);
+      } catch (error) {
+        console.error(`Erreur lors de l'analyse de la table ${table}:`, error);
+        tableStructures[table] = { error: error.message };
+      }
+    }
+    
+    // Renvoyer les résultats
+    res.json({
+      tables,
+      tableStructures,
+      connectionInfo: {
+        database: process.env.DATABASE_URL ? 'Configurée' : 'Non configurée',
+        ssl: false
+      }
+    });
+  } catch (error) {
+    console.error('Erreur lors du diagnostic de la base de données:', error);
+    res.status(500).json({ 
+      error: 'Erreur lors du diagnostic de la base de données',
+      message: error.message,
+      stack: process.env.NODE_ENV === 'production' ? undefined : error.stack
+    });
+  }
+});
+
 // Gestion des routes non trouvées
 app.use((req, res) => res.status(404).json({ error: 'Not found', path: req.path }));
 
