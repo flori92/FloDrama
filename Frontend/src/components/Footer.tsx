@@ -33,6 +33,8 @@ const Footer: React.FC = () => {
               <FooterLink to="/category/movies">Films</FooterLink>
               <FooterLink to="/category/anime">Animés</FooterLink>
               <FooterLink to="/category/bollywood">Bollywood</FooterLink>
+              <FooterLink to="/app">App</FooterLink>
+              <FooterLink to="/watchparty">WatchParty</FooterLink>
             </ul>
           </div>
           

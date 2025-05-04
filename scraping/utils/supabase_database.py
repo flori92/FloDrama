@@ -87,8 +87,8 @@ class SupabaseDatabase:
             return None
 
         try:
-            content_id = self._find_existing_content(table_name, content_data)
-            if content_id:
+            # Utilisation d'une expression nommée (walrus operator) pour simplifier l'assignation et la condition
+            if content_id := self._find_existing_content(table_name, content_data):
                 logger.info(f"Contenu '{content_data['title']}' trouvé avec l'ID: {content_id}. Mise à jour...")
                 return self._update_content(table_name, content_id, content_data)
             else:
@@ -342,8 +342,7 @@ def main():
     
     if args.action == 'test':
         # Test de création d'un log de scraping
-        log_id = db.log_scraping_start("test_source", "dramas")
-        if log_id:
+        if log_id := db.log_scraping_start("test_source", "dramas"):
             logger.info(f"Log créé avec l'ID: {log_id}")
             
             # Simuler un délai

@@ -195,13 +195,13 @@ def extract_anime_details(url):
     
     # Extraction de l'image
     poster = ""
-    img_tag = soup.select_one('div.summary_image img') or soup.select_one('div.thumb img')
-    if img_tag and img_tag.has_attr('src'):
-        poster = img_tag['src']
-    elif img_tag and img_tag.has_attr('data-src'):
-        poster = img_tag['data-src']
-    elif img_tag and img_tag.has_attr('data-lazy-src'):
-        poster = img_tag['data-lazy-src']
+    if img_tag := (soup.select_one('div.summary_image img') or soup.select_one('div.thumb img')):
+        if img_tag.has_attr('src'):
+            poster = img_tag['src']
+        elif img_tag.has_attr('data-src'):
+            poster = img_tag['data-src']
+        elif img_tag.has_attr('data-lazy-src'):
+            poster = img_tag['data-lazy-src']
         
     # Extraction de la description
     description = ""
@@ -236,9 +236,8 @@ def extract_anime_details(url):
                 info_dict["year"] = int(value)
             except ValueError:
                 # Essayer d'extraire l'année d'une chaîne comme "Automne 2023"
-                year_match = re.search(r'(\d{4})', value)
-                if year_match:
-                    info_dict["year"] = int(year_match.group(1))
+                if year_match := re.search(r'(\d{4})', value):
+                    info_dict["year"] = int(year_match[1])
         elif "statut" in label or "status" in label:
             info_dict["status"] = value
         elif "studio" in label:
@@ -247,17 +246,16 @@ def extract_anime_details(url):
             # Extraction de la durée en minutes
             duration_match = re.search(r'(\d+)', value)
             if duration_match:
-                info_dict["duration"] = int(duration_match.group(1))
+                info_dict["duration"] = int(duration_match[1])
         elif "genre" in label:
             # Extraction des genres
             genres = [g.strip() for g in value.split(',')]
             info_dict["genres"] = genres
         elif "score" in label or "note" in label or "rating" in label:
             # Extraction de la note
-            rating_match = re.search(r'([\d.,]+)', value)
-            if rating_match:
+            if rating_match := re.search(r'(\d+[,.]?\d*)', value):
                 try:
-                    rating = float(rating_match.group(1).replace(',', '.'))
+                    rating = float(rating_match[1].replace(',', '.'))
                     info_dict["rating"] = min(10.0, rating)  # Limiter à 10
                 except ValueError:
                     pass
@@ -265,12 +263,11 @@ def extract_anime_details(url):
             # Extraction de la saison
             season_match = re.search(r'(\d+)', value)
             if season_match:
-                info_dict["season"] = int(season_match.group(1))
+                info_dict["season"] = int(season_match[1])
         elif "épisode" in label or "episode" in label:
-            # Extraction du nombre d'épisodes
-            episodes_match = re.search(r'(\d+)', value)
-            if episodes_match:
-                info_dict["episodes_count"] = int(episodes_match.group(1))
+            # Extraction du nombre d'épisodes avec opérateur walrus et notation m[x]
+            if episodes_match := re.search(r'(\d+)', value):
+                info_dict["episodes_count"] = int(episodes_match[1])
     
     # Extraction des tags (mots-clés)
     tags = []
@@ -351,10 +348,7 @@ def get_genre_anime_urls(genre, quota, max_pages=10):
     base_url = CATEGORIES[genre]
     logger.info(f"[GENRE] {genre} | Quota : {quota} | URL : {base_url}")
     for page in range(1, max_pages + 1):
-        if page == 1:
-            url = base_url
-        else:
-            url = base_url.rstrip('/') + f"/page/{page}/"
+        url = base_url if page == 1 else base_url.rstrip('/') + f"/page/{page}/"
         logger.info(f"[GENRE:{genre}] Récupération page {page} : {url}")
         try:
             html = fetch_page(url)
@@ -537,8 +531,8 @@ def scrape_and_upload_animes():
                     # Extraction du nom du champ problématique
                     import re
                     field_match = re.search(r"Could not find the '([^']+)' column", error_message)
-                    if field_match and field_match.group(1) not in problematic_fields:
-                        new_field = field_match.group(1)
+                    if field_match and field_match[1] not in problematic_fields:
+                        new_field = field_match[1]
                         problematic_fields.append(new_field)
                         logger.warning(f"Ajout du champ '{new_field}' à la liste des champs problématiques")
                 

@@ -1,4 +1,4 @@
-import { API_BASE_URL, CDN_BASE_URL } from '../config';
+import { API_BASE_URL, CDN_BASE_URL, apiConfig } from '../config.ts';
 
 // Mappage des catégories frontend vers les catégories backend
 const CATEGORY_MAPPING: Record<string, string> = {
@@ -40,6 +40,10 @@ export interface FeaturedResponse {
   total: number;
 }
 
+// Log de debug pour diagnostic API
+console.log('[API DEBUG] API_BASE_URL =', API_BASE_URL);
+console.log('[API DEBUG] Utilisation de Supabase pour les données');
+
 /**
  * Récupère les contenus par catégorie
  * @param category Catégorie à récupérer (frontend)
@@ -60,9 +64,22 @@ export const getContentByCategory = async (
       mappedCategory = 'popular';
     }
     
-    const response = await fetch(
-      `${API_BASE_URL}/api/content/?category=${mappedCategory}&page=${page}&limit=${limit}`
-    );
+    // Calcul de l'offset pour la pagination
+    const offset = (page - 1) * limit;
+    
+    // Construction de l'URL pour l'API Supabase
+    const url = `${API_BASE_URL}/content?category=eq.${mappedCategory}&order=created_at.desc&limit=${limit}&offset=${offset}`;
+    console.log(`[API DEBUG] Fetching category: ${category} (mapped: ${mappedCategory}) URL:`, url);
+    
+    // Ajout des en-têtes nécessaires pour Supabase
+    const response = await fetch(url, {
+      headers: {
+        'apikey': apiConfig.supabaseKey,
+        'Authorization': `Bearer ${apiConfig.supabaseKey}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'count=exact'
+      }
+    });
     
     if (!response.ok) {
       // Fallback de sécurité pour éviter les erreurs 404
@@ -74,7 +91,7 @@ export const getContentByCategory = async (
           id: `mock-${category}-${i}`,
           title: `Contenu ${category} ${i+1}`,
           description: "Description temporaire pendant la maintenance de l'API",
-          image: `${CDN_BASE_URL}/static/placeholders/${category}-${i % 5 + 1}.jpg`,
+          image: `${CDN_BASE_URL}/placeholders/${category}-${i % 5 + 1}.jpg`,
           categories: [category],
           year: 2025,
           rating: "4.5"
@@ -84,14 +101,36 @@ export const getContentByCategory = async (
       };
     }
     
+    // Récupération du nombre total d'éléments depuis les en-têtes
+    const totalCount = parseInt(response.headers.get('content-range')?.split('/')[1] || '0');
+    
     const data = await response.json();
+    console.log(`[API DEBUG] Response for ${category}:`, data);
+    
+    // Transformation des données Supabase au format attendu par le frontend
+    const items = data.map((item: any) => ({
+      id: item.id,
+      title: item.title,
+      description: item.description || '',
+      image: item.poster_url || `${CDN_BASE_URL}/placeholders/${category}-1.jpg`,
+      streamUrl: item.stream_url,
+      trailerUrl: item.trailer_url,
+      year: item.year,
+      rating: item.rating,
+      duration: item.duration,
+      categories: item.categories || [mappedCategory],
+      actors: item.actors,
+      director: item.director,
+      match: item.match
+    }));
+    
     return {
-      items: data.items || [],
-      total: data.total || 0,
+      items,
+      total: totalCount || items.length,
       category
     };
   } catch (error) {
-    console.error(`Error fetching content for category ${category}:`, error);
+    console.error(`[API ERROR] Error fetching content for category ${category}:`, error);
     // Renvoyer un objet vide plutôt que de provoquer une erreur
     return { items: [], total: 0, category };
   }
@@ -104,7 +143,19 @@ export const getContentByCategory = async (
  */
 export const getFeaturedContent = async (limit: number = 6): Promise<FeaturedResponse> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/content/?category=featured&limit=${limit}`);
+    // Construction de l'URL pour l'API Supabase avec filtre sur featured=true
+    const url = `${API_BASE_URL}/content?featured=eq.true&order=created_at.desc&limit=${limit}`;
+    console.log(`[API DEBUG] Fetching featured content URL:`, url);
+    
+    // Ajout des en-têtes nécessaires pour Supabase
+    const response = await fetch(url, {
+      headers: {
+        'apikey': apiConfig.supabaseKey,
+        'Authorization': `Bearer ${apiConfig.supabaseKey}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'count=exact'
+      }
+    });
     
     if (!response.ok) {
       // Fallback de sécurité pour éviter les erreurs 404
@@ -116,7 +167,7 @@ export const getFeaturedContent = async (limit: number = 6): Promise<FeaturedRes
           id: `mock-featured-${i}`,
           title: `Contenu à découvrir ${i+1}`,
           description: "Description temporaire pendant la maintenance de l'API",
-          image: `${CDN_BASE_URL}/static/placeholders/featured-${i % 5 + 1}.jpg`,
+          image: `${CDN_BASE_URL}/placeholders/featured-${i % 5 + 1}.jpg`,
           categories: ["featured", i % 2 === 0 ? "dramas" : "movies"],
           year: 2025,
           rating: "4.8"
@@ -125,13 +176,34 @@ export const getFeaturedContent = async (limit: number = 6): Promise<FeaturedRes
       };
     }
     
+    // Récupération du nombre total d'éléments depuis les en-têtes
+    const totalCount = parseInt(response.headers.get('content-range')?.split('/')[1] || '0');
+    
     const data = await response.json();
+    
+    // Transformation des données Supabase au format attendu par le frontend
+    const items = data.map((item: any) => ({
+      id: item.id,
+      title: item.title,
+      description: item.description || '',
+      image: item.poster_url || `${CDN_BASE_URL}/placeholders/featured-1.jpg`,
+      streamUrl: item.stream_url,
+      trailerUrl: item.trailer_url,
+      year: item.year,
+      rating: item.rating,
+      duration: item.duration,
+      categories: item.categories || ['featured'],
+      actors: item.actors,
+      director: item.director,
+      match: item.match
+    }));
+    
     return {
-      items: data.items || [],
-      total: data.total || 0
+      items,
+      total: totalCount || items.length
     };
   } catch (error) {
-    console.error('Error fetching featured content:', error);
+    console.error('[API ERROR] Error fetching featured content:', error);
     return { items: [], total: 0 };
   }
 };
@@ -143,15 +215,48 @@ export const getFeaturedContent = async (limit: number = 6): Promise<FeaturedRes
  */
 export const getContentDetails = async (id: string): Promise<ContentItem | null> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/content/${id}`);
+    // Construction de l'URL pour l'API Supabase
+    const url = `${API_BASE_URL}/content?id=eq.${id}`;
+    console.log(`[API DEBUG] Fetching content details URL:`, url);
+    
+    // Ajout des en-têtes nécessaires pour Supabase
+    const response = await fetch(url, {
+      headers: {
+        'apikey': apiConfig.supabaseKey,
+        'Authorization': `Bearer ${apiConfig.supabaseKey}`,
+        'Content-Type': 'application/json'
+      }
+    });
     
     if (!response.ok) {
       return null;
     }
     
-    return await response.json();
+    const data = await response.json();
+    
+    if (!data || data.length === 0) {
+      return null;
+    }
+    
+    // Transformation des données Supabase au format attendu par le frontend
+    const item = data[0];
+    return {
+      id: item.id,
+      title: item.title,
+      description: item.description || '',
+      image: item.poster_url || `${CDN_BASE_URL}/placeholders/default.jpg`,
+      streamUrl: item.stream_url,
+      trailerUrl: item.trailer_url,
+      year: item.year,
+      rating: item.rating,
+      duration: item.duration,
+      categories: item.categories || [],
+      actors: item.actors,
+      director: item.director,
+      match: item.match
+    };
   } catch (error) {
-    console.error(`Error fetching content details for ID ${id}:`, error);
+    console.error(`[API ERROR] Error fetching content details for ID ${id}:`, error);
     return null;
   }
 };
@@ -163,16 +268,32 @@ export const getContentDetails = async (id: string): Promise<ContentItem | null>
  */
 export const getStreamUrl = async (id: string): Promise<string | null> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/content/${id}/stream`);
+    // Construction de l'URL pour l'API Supabase
+    const url = `${API_BASE_URL}/content?id=eq.${id}&select=stream_url`;
+    console.log(`[API DEBUG] Fetching stream URL:`, url);
+    
+    // Ajout des en-têtes nécessaires pour Supabase
+    const response = await fetch(url, {
+      headers: {
+        'apikey': apiConfig.supabaseKey,
+        'Authorization': `Bearer ${apiConfig.supabaseKey}`,
+        'Content-Type': 'application/json'
+      }
+    });
     
     if (!response.ok) {
       return null;
     }
     
     const data = await response.json();
-    return data.streamUrl || null;
+    
+    if (!data || data.length === 0) {
+      return null;
+    }
+    
+    return data[0].stream_url || null;
   } catch (error) {
-    console.error(`Error fetching stream URL for ID ${id}:`, error);
+    console.error(`[API ERROR] Error fetching stream URL for ID ${id}:`, error);
     return null;
   }
 };

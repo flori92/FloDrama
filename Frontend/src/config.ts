@@ -14,10 +14,11 @@ export const contentColors = {
 } as const;
 
 export const apiConfig = {
-  baseUrl: process.env.NEXT_PUBLIC_API_URL || 'https://flodrama-content-1745266734.s3.us-east-1.amazonaws.com',
-  cdnUrl: process.env.NEXT_PUBLIC_S3_BUCKET || 'https://d1pbqs2b6em4ha.cloudfront.net',
+  baseUrl: process.env.NEXT_PUBLIC_API_URL || 'https://fffgoqubrbgppcqqkyod.supabase.co/rest/v1',
+  cdnUrl: process.env.NEXT_PUBLIC_CDN_URL || 'https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content',
   timeout: 10000,
-  retryAttempts: 3
+  retryAttempts: 3,
+  supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZmZmdvcXVicmJncHBjcXFreW9kIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODI5NjQ0MDAsImV4cCI6MTk5ODU0MDQwMH0.KkGMbBzGAEoUKyqwE4QXiKKUFUPzm-kn7zXBIcFLWEY'
 } as const;
 
 // Export API_BASE_URL pour compatibilité avec les services
@@ -26,5 +27,5 @@ export const CDN_BASE_URL = apiConfig.cdnUrl;
 
 export const cacheConfig = {
   ttl: 1000 * 60 * 60, // 1 heure
-  maxSize: 100 // Nombre maximum d'élééments en cache
+  maxSize: 100 // Nombre maximum d'éléments en cache
 } as const; 
