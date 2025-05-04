@@ -14,7 +14,8 @@ if (process.env.DATABASE_URL) {
 // Configuration de la connexion au Transaction pooler de Supabase
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
+  // Désactivation de SSL pour résoudre l'erreur "The server does not support SSL connections"
+  ssl: false
 });
 
 // Test de la connexion
