@@ -1,5 +1,5 @@
 // Constantes pour l'API
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://flodrama-mm3h9ab4l-flodrama-projects.vercel.app/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://flodrama-8m6icfhjl-flodrama-projects.vercel.app/api';
 const CDN_BASE_URL = 'https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content';
 
 // Année courante et année précédente pour le filtre des contenus récents
@@ -90,8 +90,7 @@ export const getContentByCategory = async (
     
     // Utilisation de fetch pour récupérer les données
     const response = await fetch(url, {
-      credentials: 'include', // Inclure les cookies pour l'authentification si nécessaire
-      mode: 'cors', // Mode CORS explicite
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       }
@@ -164,8 +163,7 @@ export const getFeaturedContent = async (limit: number = 10): Promise<FeaturedRe
     
     // Utilisation de fetch pour récupérer les données
     const response = await fetch(url, {
-      credentials: 'include', // Inclure les cookies pour l'authentification si nécessaire
-      mode: 'cors', // Mode CORS explicite
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       }
@@ -233,8 +231,7 @@ export const getContentDetails = async (id: string): Promise<ContentDetails | nu
     
     // Utilisation de fetch pour récupérer les données
     const response = await fetch(url, {
-      credentials: 'include', // Inclure les cookies pour l'authentification si nécessaire
-      mode: 'cors', // Mode CORS explicite
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       }
@@ -286,8 +283,7 @@ export const getStreamUrls = async (contentId: string): Promise<StreamInfo[]> =>
     
     // Utilisation de fetch pour récupérer les données
     const response = await fetch(url, {
-      credentials: 'include', // Inclure les cookies pour l'authentification si nécessaire
-      mode: 'cors', // Mode CORS explicite
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       }

@@ -6,34 +6,27 @@ const db = require('./db');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// CORS : autorise toutes les origines Vercel + local
+// Configuration CORS simplifiée - autorise toutes les origines pour le déploiement
 app.use(cors({
-  origin: function(origin, callback) {
-    // Autoriser les requêtes sans origine (comme les appels API directs)
-    if (!origin) {
-      return callback(null, true);
-    }
-    
-    // Liste des origines autorisées
-    const allowedOrigins = [
-      /^https:\/\/flodrama.*\.vercel\.app$/,  // Tous les sous-domaines Vercel de flodrama
-      /^http:\/\/localhost:[0-9]+$/           // Localhost sur n'importe quel port
-    ];
-    
-    // Vérifier si l'origine correspond à l'une des expressions régulières
-    const allowed = allowedOrigins.some(pattern => pattern.test(origin));
-    
-    if (allowed) {
-      callback(null, true);
-    } else {
-      callback(new Error(`Origine non autorisée: ${origin}`));
-    }
-  },
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-  credentials: true,
   maxAge: 86400 // 24 heures
 }));
+
+// Middleware pour les en-têtes CORS manuels (fallback)
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  
+  // Répondre immédiatement aux requêtes OPTIONS
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  
+  next();
+});
 
 app.use(express.json());
 
