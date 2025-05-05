@@ -1,0 +1,23 @@
+# Fichiers d'environnement
+# .env  # Commenté temporairement pour permettre l'édition
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Dossiers de dépendances
+node_modules/
+dist/
+.wrangler/
+.output/
+
+# Fichiers de build
+.DS_Store
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Fichiers de configuration locaux
+# wrangler.toml  # Commenté pour permettre le partage des configurations
+.dev.vars

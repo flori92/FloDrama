@@ -1,0 +1,8 @@
+# Configuration des variables d'environnement pour Cloudflare Pages
+# À configurer dans l'interface Cloudflare Pages > Settings > Environment variables
+
+# URL de l'API (utiliser le domaine personnalisé)
+VITE_API_URL=https://api.flodrama.com
+
+# Domaine Cloudflare Stream
+VITE_STREAM_DOMAIN=customer-ehlynuge6dnzfnfd.cloudflarestream.com

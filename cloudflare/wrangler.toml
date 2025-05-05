@@ -1,0 +1,8 @@
+name = "flodrama"
+account_id = "42fc982266a2c31b942593b18097e4b3"
+compatibility_date = "2023-09-04"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "flodrama-db"
+database_id = "39a4a8fd-f1fd-49ab-abcc-290fd473a311"

@@ -1,0 +1,18 @@
+{
+  "name": "flodrama-migration",
+  "version": "1.0.0",
+  "description": "Outils de migration pour FloDrama de Supabase vers Cloudflare",
+  "main": "migrate-data.js",
+  "scripts": {
+    "migrate": "node migrate-data.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "FloDrama Team",
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.21.0",
+    "dotenv": "^16.0.3",
+    "node-fetch": "^3.3.2",
+    "pg": "^8.10.0"
+  }
+}

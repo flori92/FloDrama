@@ -1,0 +1,23 @@
+{
+  "name": "flodrama-scraper",
+  "version": "1.0.0",
+  "description": "Système de scraping FloDrama sur Cloudflare Workers",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler publish",
+    "format": "prettier --write '**/*.{js,json}'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "FloDrama Team",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "node-fetch": "^3.3.1",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.8",
+    "wrangler": "^3.0.0"
+  }
+}

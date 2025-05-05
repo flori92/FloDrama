@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test FloDrama</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #141414;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      color: #e50914;
+    }
+    button {
+      background-color: #e50914;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 20px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    #result {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      max-width: 80%;
+    }
+  </style>
+</head>
+<body>
+  <h1>FloDrama - Test de déploiement</h1>
+  <p>Cette page permet de tester la connexion à l'API backend</p>
+  
+  <button id="testApi">Tester l'API</button>
+  <div id="result"></div>
+
+  <script>
+    document.getElementById('testApi').addEventListener('click', async () => {
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = "Connexion à l'API en cours...";
+      
+      try {
+        const response = await fetch('https://flodrama-api-prod.florifavi.workers.dev/');
+        const data = await response.json();
+        
+        resultDiv.innerHTML = `
+          <h3>Connexion réussie !</h3>
+          <p>Status: ${data.status}</p>
+          <p>Message: ${data.message}</p>
+          <p>Version: ${data.version}</p>
+          <p>Environnement: ${data.environment}</p>
+        `;
+      } catch (error) {
+        resultDiv.innerHTML = `
+          <h3>Erreur de connexion</h3>
+          <p>${error.message}</p>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>

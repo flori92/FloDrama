@@ -1,0 +1,29 @@
+name = "flodrama-api"
+main = "src/index.js"
+compatibility_date = "2023-09-04"
+account_id = "42fc982266a2c31b942593b18097e4b3"
+workers_dev = true
+
+# Configuration pour le déploiement sur un domaine personnalisé
+routes = [
+  { pattern = "api.flodrama.com/*", zone_name = "flodrama.com" }
+]
+
+# Configuration D1 (base de données)
+[[d1_databases]]
+binding = "DB"
+database_name = "flodrama-db"
+database_id = "39a4a8fd-f1fd-49ab-abcc-290fd473a311"
+
+# Configuration R2 (stockage)
+[[r2_buckets]]
+binding = "STORAGE"
+bucket_name = "flodrama-storage"
+
+# Configuration KV (métadonnées)
+[[kv_namespaces]]
+binding = "METADATA"
+id = "7388919bd83241cfab509b44f819bb2f"
+
+[vars]
+ENVIRONMENT = "production"
