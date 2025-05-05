@@ -1,0 +1,176 @@
+/**
+ * Styles globaux pour FloDrama
+ * 
+ * Ce fichier définit les styles de base pour l'application, notamment
+ * les couleurs de texte et les effets de survol.
+ */
+
+/* Variables de couleurs */
+:root {
+  --flo-dark: #0f0f14;
+  --flo-secondary: #1a1a24;
+  --flo-blue: #3b82f6;
+  --flo-violet: #8b5cf6;
+  --flo-fuchsia: #d946ef;
+  --flo-gold: #f59e0b;
+  --flo-white: #f9fafb;
+}
+
+/* Styles de base */
+body {
+  background-color: var(--flo-dark);
+  color: var(--flo-white);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Couleur de texte par défaut - TOUS les textes sont en blanc */
+h1, h2, h3, h4, h5, h6, p, span, a, button, input, textarea, select, li, label, 
+.category-name, .content-title, .content-description, .menu-item, .footer-text, 
+.sidebar-text, .header-text, .section-title, .card-title, .card-description {
+  color: var(--flo-white);
+}
+
+/* Effets de survol - application des effets existants */
+a:hover, button:hover, .nav-item:hover, .menu-item:hover, .category-item:hover, 
+.sidebar-item:hover, .content-card:hover .card-title, .content-card:hover .category-name {
+  color: var(--flo-blue);
+  transition: color 0.3s ease;
+}
+
+/* Effets de survol spécifiques pour certains éléments */
+.nav-link:hover {
+  color: var(--flo-violet);
+}
+
+.category-link:hover {
+  color: var(--flo-fuchsia);
+}
+
+.action-button:hover {
+  color: var(--flo-gold);
+}
+
+/* Classes utilitaires pour les couleurs */
+.text-flo-white {
+  color: var(--flo-white);
+}
+
+.text-flo-blue {
+  color: var(--flo-blue);
+}
+
+.text-flo-violet {
+  color: var(--flo-violet);
+}
+
+.text-flo-fuchsia {
+  color: var(--flo-fuchsia);
+}
+
+.text-flo-gold {
+  color: var(--flo-gold);
+}
+
+.bg-flo-dark {
+  background-color: var(--flo-dark);
+}
+
+.bg-flo-secondary {
+  background-color: var(--flo-secondary);
+}
+
+/* Effets de survol pour les cartes */
+.content-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.content-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* Effets de survol pour les boutons */
+.btn {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background-color: var(--flo-blue);
+  color: var(--flo-white);
+}
+
+.btn-primary:hover {
+  background-color: var(--flo-violet);
+}
+
+/* Animations pour les prévisualisations */
+.preview-enter {
+  opacity: 0;
+}
+
+.preview-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+.preview-exit {
+  opacity: 1;
+}
+
+.preview-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+/* Styles pour le lecteur vidéo */
+.video-player {
+  width: 100%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Styles pour les sections de contenu */
+.content-section {
+  margin-bottom: 2rem;
+}
+
+.content-section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--flo-white);
+}
+
+/* Styles pour les catégories */
+.category-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--flo-white);
+  transition: color 0.3s ease;
+}
+
+.category-name:hover {
+  color: var(--flo-fuchsia);
+}
+
+/* Styles pour la navigation */
+.nav-link {
+  color: var(--flo-white);
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--flo-blue);
+}
+
+.nav-link.active {
+  color: var(--flo-fuchsia);
+  font-weight: 600;
+}

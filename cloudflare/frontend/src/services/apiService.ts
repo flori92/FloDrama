@@ -6,7 +6,7 @@
  */
 
 // Constantes pour l'API
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://flodrama-api.florifavi.workers.dev';
+const API_BASE_URL = process.env.VITE_API_URL || 'https://flodrama-api.florifavi.workers.dev';
 const CDN_BASE_URL = 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com';
 
 // Types de contenu
@@ -23,6 +23,10 @@ export interface ContentItem {
   year?: number;
   created_at?: string;
   updated_at?: string;
+  // Propriétés additionnelles pour la prévisualisation et les catégories
+  trailerUrl?: string;
+  category?: string;
+  genres?: string[];
 }
 
 // Fonction fetch avec gestion d'erreur
@@ -50,28 +54,36 @@ async function fetchWithErrorHandling(url: string, options: RequestInit = {}) {
 // Fonctions API pour les différentes catégories
 export async function fetchDramas(page = 1, limit = 20, year?: string): Promise<ContentItem[]> {
   const params = new URLSearchParams({ page: page.toString(), limit: limit.toString() });
-  if (year) params.append('year', year);
+  if (year) {
+    params.append('year', year);
+  }
   
   return fetchWithErrorHandling(`${API_BASE_URL}/dramas?${params}`);
 }
 
 export async function fetchFilms(page = 1, limit = 20, year?: string): Promise<ContentItem[]> {
   const params = new URLSearchParams({ page: page.toString(), limit: limit.toString() });
-  if (year) params.append('year', year);
+  if (year) {
+    params.append('year', year);
+  }
   
   return fetchWithErrorHandling(`${API_BASE_URL}/films?${params}`);
 }
 
 export async function fetchAnimes(page = 1, limit = 20, year?: string): Promise<ContentItem[]> {
   const params = new URLSearchParams({ page: page.toString(), limit: limit.toString() });
-  if (year) params.append('year', year);
+  if (year) {
+    params.append('year', year);
+  }
   
   return fetchWithErrorHandling(`${API_BASE_URL}/animes?${params}`);
 }
 
 export async function fetchBollywood(page = 1, limit = 20, year?: string): Promise<ContentItem[]> {
   const params = new URLSearchParams({ page: page.toString(), limit: limit.toString() });
-  if (year) params.append('year', year);
+  if (year) {
+    params.append('year', year);
+  }
   
   return fetchWithErrorHandling(`${API_BASE_URL}/bollywood?${params}`);
 }

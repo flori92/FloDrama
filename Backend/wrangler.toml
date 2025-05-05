@@ -1,0 +1,38 @@
+name = "flodrama-api-prod"
+main = "src/index.ts"
+compatibility_date = "2023-12-01"
+
+# Bindings pour Cloudflare D1
+[[d1_databases]]
+binding = "DB"
+database_name = "flodrama-db"
+database_id = "flodrama-db-id"
+
+# Bindings pour Cloudflare R2
+[[r2_buckets]]
+binding = "STORAGE"
+bucket_name = "flodrama-assets"
+
+# Bindings pour Cloudflare KV
+[[kv_namespaces]]
+binding = "CACHE"
+id = "flodrama-cache-id"
+
+# Variables d'environnement
+[vars]
+ENVIRONMENT = "production"
+API_VERSION = "1.0.0"
+
+# Configuration des routes
+[routes]
+pattern = "flodrama-api-prod.florifavi.workers.dev/*"
+zone_name = "florifavi.workers.dev"
+
+# Configuration des triggers
+[triggers]
+crons = ["0 */6 * * *"] # Toutes les 6 heures
+
+# Configuration du développement local
+[dev]
+port = 8787
+local_protocol = "http"
