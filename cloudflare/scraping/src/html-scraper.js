@@ -8,6 +8,9 @@
 import RelayClient from './relay-client';
 import { parseHTML } from './html-parser';
 
+// Alias pour parseHTML pour utiliser la syntaxe jQuery
+const $ = parseHTML;
+
 /**
  * Classe de base pour les scrapers
  */
@@ -59,20 +62,20 @@ class MyDramaListScraper extends BaseScraper {
       const html = await this.relayClient.fetchMyDramaList('/shows/recent/');
       
       // Parser le HTML
-      const $ = parseHTML(html);
+      const $$ = $(html);
       
       // Extraire les informations des dramas
       const dramas = [];
       
       // Sélectionner les éléments de la liste des dramas
-      const dramaElements = $('.box');
+      const dramaElements = $$('.box');
       
       for (let i = 0; i < Math.min(dramaElements.length, limit); i++) {
         const element = dramaElements[i];
         
         try {
           // Extraire les informations de base
-          const titleElement = $(element).find('h6 a');
+          const titleElement = $$(element).find('h6 a');
           const title = titleElement.text().trim();
           const path = titleElement.attr('href');
           const url = path ? `${this.baseUrl}${path}` : null;
@@ -81,11 +84,11 @@ class MyDramaListScraper extends BaseScraper {
           const id = path ? path.split('/')[2] : null;
           
           // Extraire l'image
-          const imgElement = $(element).find('img.lazy');
+          const imgElement = $$(element).find('img.lazy');
           const imgSrc = imgElement.attr('data-src') || imgElement.attr('src');
           
           // Extraire les informations supplémentaires
-          const infoElement = $(element).find('.text-muted');
+          const infoElement = $$(element).find('.text-muted');
           const info = infoElement.text().trim();
           
           // Extraire l'année et le pays
@@ -132,22 +135,22 @@ class MyDramaListScraper extends BaseScraper {
       const html = await this.relayClient.fetchMyDramaList(`/id/${dramaId}`);
       
       // Parser le HTML
-      const $ = parseHTML(html);
+      const $$ = $(html);
       
       // Extraire les informations de base
-      const title = $('.box-header h1.title').text().trim();
-      const nativeTitle = $('.show-native-title').text().trim();
-      const synopsis = $('.show-synopsis p').text().trim();
+      const title = $$('.box-header h1.title').text().trim();
+      const nativeTitle = $$('.show-native-title').text().trim();
+      const synopsis = $$('.show-synopsis p').text().trim();
       
       // Extraire l'image
-      const imgElement = $('.cover img');
+      const imgElement = $$('.cover img');
       const imgSrc = imgElement.attr('src') || imgElement.attr('data-src');
       
       // Extraire les informations supplémentaires
       const details = {};
-      $('.show-details .box-body dl').each((i, element) => {
-        const dt = $(element).find('dt').text().trim();
-        const dd = $(element).find('dd').text().trim();
+      $$('.show-details .box-body dl').each((i, element) => {
+        const dt = $$(element).find('dt').text().trim();
+        const dd = $$(element).find('dd').text().trim();
         
         if (dt && dd) {
           details[dt.toLowerCase().replace(':', '')] = dd;
@@ -156,12 +159,12 @@ class MyDramaListScraper extends BaseScraper {
       
       // Extraire les genres
       const genres = [];
-      $('.show-genres a').each((i, element) => {
-        genres.push($(element).text().trim());
+      $$('.show-genres a').each((i, element) => {
+        genres.push($$(element).text().trim());
       });
       
       // Extraire la note
-      const ratingText = $('.score').text().trim();
+      const ratingText = $$('.score').text().trim();
       const rating = ratingText ? parseFloat(ratingText) : null;
       
       // Créer l'objet drama détaillé
@@ -255,20 +258,20 @@ class MyDramaListScraper extends BaseScraper {
       const html = await this.relayClient.fetchMyDramaList(`/search?q=${encodeURIComponent(query)}`);
       
       // Parser le HTML
-      const $ = parseHTML(html);
+      const $$ = $(html);
       
       // Extraire les résultats de recherche
       const results = [];
       
       // Sélectionner les éléments de la liste des résultats
-      const resultElements = $('.box');
+      const resultElements = $$('.box');
       
       for (let i = 0; i < Math.min(resultElements.length, limit); i++) {
         const element = resultElements[i];
         
         try {
           // Extraire les informations de base
-          const titleElement = $(element).find('h6 a');
+          const titleElement = $$(element).find('h6 a');
           const title = titleElement.text().trim();
           const path = titleElement.attr('href');
           const url = path ? `${this.baseUrl}${path}` : null;
@@ -277,7 +280,7 @@ class MyDramaListScraper extends BaseScraper {
           const id = path ? path.split('/')[2] : null;
           
           // Extraire l'image
-          const imgElement = $(element).find('img.lazy');
+          const imgElement = $$(element).find('img.lazy');
           const imgSrc = imgElement.attr('data-src') || imgElement.attr('src');
           
           // Créer l'objet résultat
@@ -343,20 +346,20 @@ class VoirAnimeScraper extends BaseScraper {
       const html = await this.relayClient.fetchVoirAnime('/');
       
       // Parser le HTML
-      const $ = parseHTML(html);
+      const $$ = $(html);
       
       // Extraire les informations des animes
       const animes = [];
       
       // Sélectionner les éléments de la liste des animes
-      const animeElements = $('.items .item');
+      const animeElements = $$('.items .item');
       
       for (let i = 0; i < Math.min(animeElements.length, limit); i++) {
         const element = animeElements[i];
         
         try {
           // Extraire les informations de base
-          const titleElement = $(element).find('.data h3 a');
+          const titleElement = $$(element).find('.data h3 a');
           const title = titleElement.text().trim();
           const path = titleElement.attr('href');
           const url = path || null;
@@ -365,15 +368,15 @@ class VoirAnimeScraper extends BaseScraper {
           const id = path ? path.split('/').pop() : null;
           
           // Extraire l'image
-          const imgElement = $(element).find('.poster img');
+          const imgElement = $$(element).find('.poster img');
           const imgSrc = imgElement.attr('data-src') || imgElement.attr('src');
           
           // Extraire les informations supplémentaires
-          const typeElement = $(element).find('.data .meta .type');
+          const typeElement = $$(element).find('.data .meta .type');
           const type = typeElement.text().trim();
           
           // Extraire la note
-          const ratingElement = $(element).find('.rating');
+          const ratingElement = $$(element).find('.rating');
           const ratingText = ratingElement.text().trim();
           const rating = ratingText ? parseFloat(ratingText) : null;
           
@@ -412,21 +415,21 @@ class VoirAnimeScraper extends BaseScraper {
       const html = await this.relayClient.fetchHtml(animeUrl);
       
       // Parser le HTML
-      const $ = parseHTML(html);
+      const $$ = $(html);
       
       // Extraire les informations de base
-      const title = $('.sheader .data h1').text().trim();
-      const synopsis = $('.wp-content .wp-content p').first().text().trim();
+      const title = $$('.sheader .data h1').text().trim();
+      const synopsis = $$('.wp-content .wp-content p').first().text().trim();
       
       // Extraire l'image
-      const imgElement = $('.poster img');
+      const imgElement = $$('.poster img');
       const imgSrc = imgElement.attr('src') || imgElement.attr('data-src');
       
       // Extraire les informations supplémentaires
       const details = {};
-      $('.wp-content .custom_fields .info').each((i, element) => {
-        const label = $(element).find('.name').text().trim();
-        const value = $(element).find('.value').text().trim();
+      $$('.wp-content .custom_fields .info').each((i, element) => {
+        const label = $$(element).find('.name').text().trim();
+        const value = $$(element).find('.value').text().trim();
         
         if (label && value) {
           details[label.toLowerCase().replace(':', '')] = value;
@@ -435,12 +438,12 @@ class VoirAnimeScraper extends BaseScraper {
       
       // Extraire les genres
       const genres = [];
-      $('.genres a').each((i, element) => {
-        genres.push($(element).text().trim());
+      $$('.genres a').each((i, element) => {
+        genres.push($$(element).text().trim());
       });
       
       // Extraire la note
-      const ratingText = $('.rating').text().trim();
+      const ratingText = $$('.rating').text().trim();
       const rating = ratingText ? parseFloat(ratingText) : null;
       
       // Créer l'objet anime détaillé
