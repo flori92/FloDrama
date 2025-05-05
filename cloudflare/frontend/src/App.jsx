@@ -1,14 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { checkApiStatus } from './services/apiService';
+import VideoProvider from './components/VideoProvider';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import './App.css';
+import './styles/global.css';
+import './styles/identity.css';
 
-// Pages (à implémenter)
-const Home = () => <div className="page">Page d'accueil</div>;
-const Films = () => <div className="page">Films</div>;
-const Dramas = () => <div className="page">Dramas</div>;
-const Animes = () => <div className="page">Animes</div>;
-const Bollywood = () => <div className="page">Bollywood</div>;
+// Import des pages existantes avec lazy loading
+const HomePage = lazy(() => import('./pages/HomePage'));
+
+// Composants temporaires pour les pages non encore implémentées
+const PageFallback = ({ title }) => (
+  <div className="page-fallback">
+    <h2 className="flo-section-title flo-text-gradient">Page {title} en cours de développement</h2>
+    <p>Cette section sera bientôt disponible.</p>
+  </div>
+);
+
+const FilmsPage = () => <PageFallback title="Films" />;
+const DramasPage = () => <PageFallback title="Dramas" />;
+const AnimesPage = () => <PageFallback title="Animes" />;
+const BollywoodPage = () => <PageFallback title="Bollywood" />;
+
+// Composant de chargement
+const LoadingFallback = () => (
+  <div className="loading-fallback">
+    <div className="loading-spinner"></div>
+    <p>Chargement...</p>
+  </div>
+);
 
 function App() {
   const [apiStatus, setApiStatus] = useState({ status: 'loading', message: 'Connexion à l\'API...' });
@@ -34,35 +56,29 @@ function App() {
   }, []);
 
   return (
-    <div className="app">
-      <header className="header">
-        <div className="logo">FloDrama</div>
-        <nav className="nav">
-          <Link to="/">Accueil</Link>
-          <Link to="/films">Films</Link>
-          <Link to="/dramas">Dramas</Link>
-          <Link to="/animes">Animes</Link>
-          <Link to="/bollywood">Bollywood</Link>
-        </nav>
-        <div className={`api-status ${apiStatus.status}`}>
-          {apiStatus.message}
-        </div>
-      </header>
+    <VideoProvider>
+      <div className="app">
+        <Header />
+        
+        <main className="main-content">
+          <div className={`api-status ${apiStatus.status}`}>
+            {apiStatus.message}
+          </div>
+          
+          <Suspense fallback={<LoadingFallback />}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/films" element={<FilmsPage />} />
+              <Route path="/dramas" element={<DramasPage />} />
+              <Route path="/animes" element={<AnimesPage />} />
+              <Route path="/bollywood" element={<BollywoodPage />} />
+            </Routes>
+          </Suspense>
+        </main>
 
-      <main className="main">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/films" element={<Films />} />
-          <Route path="/dramas" element={<Dramas />} />
-          <Route path="/animes" element={<Animes />} />
-          <Route path="/bollywood" element={<Bollywood />} />
-        </Routes>
-      </main>
-
-      <footer className="footer">
-        <p>FloDrama &copy; {new Date().getFullYear()} - Propulsé par Cloudflare</p>
-      </footer>
-    </div>
+        <Footer />
+      </div>
+    </VideoProvider>
   );
 }
 

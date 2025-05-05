@@ -1,0 +1,144 @@
+.continue-watching-section {
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.section-title:hover {
+  background: linear-gradient(90deg, #3b82f6, #d946ef);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.continue-watching-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.continue-watching-card {
+  position: relative;
+  transition: transform 0.3s ease;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: rgba(30, 30, 30, 0.7);
+}
+
+.continue-watching-card:hover {
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+.continue-watching-poster {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2/3;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+}
+
+.poster-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.continue-watching-card:hover .poster-image {
+  transform: scale(1.1);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.continue-watching-card:hover .overlay {
+  opacity: 1;
+}
+
+.progress-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #d946ef);
+  transition: width 0.3s ease;
+}
+
+.continue-watching-info {
+  padding: 0.75rem;
+}
+
+.content-title {
+  display: block;
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.content-title:hover {
+  background: linear-gradient(90deg, #3b82f6, #d946ef);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.watching-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.time-ago, .remaining-time {
+  display: block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .continue-watching-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+  
+  .content-title {
+    font-size: 0.8rem;
+  }
+  
+  .watching-meta {
+    font-size: 0.7rem;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .continue-watching-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+}

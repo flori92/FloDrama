@@ -1,0 +1,135 @@
+/**
+ * Identité visuelle de FloDrama
+ * Ce fichier définit les styles principaux de l'identité visuelle de FloDrama
+ */
+
+:root {
+  /* Couleurs principales */
+  --flo-primary: #3b82f6;   /* Bleu */
+  --flo-secondary: #d946ef; /* Fuchsia */
+  --flo-violet: #8b5cf6;    /* Violet (pour les accents) */
+  --flo-background: #000000; /* Noir */
+  --flo-text: #FFFFFF;      /* Blanc */
+  
+  /* Dégradés */
+  --flo-gradient: linear-gradient(90deg, var(--flo-primary), var(--flo-secondary));
+  
+  /* Opacités */
+  --flo-text-secondary: rgba(255, 255, 255, 0.7);
+  --flo-text-tertiary: rgba(255, 255, 255, 0.5);
+  --flo-border: rgba(255, 255, 255, 0.1);
+  --flo-border-hover: rgba(255, 255, 255, 0.3);
+}
+
+/* Styles de base */
+body {
+  background-color: var(--flo-background);
+  color: var(--flo-text);
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Logo FloDrama */
+.flo-logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: var(--flo-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Boutons */
+.flo-button-primary {
+  background: var(--flo-gradient);
+  color: var(--flo-text);
+  border: none;
+  border-radius: 9999px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.flo-button-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.flo-button-secondary {
+  background-color: transparent;
+  border: 1px solid var(--flo-border-hover);
+  color: var(--flo-text);
+  border-radius: 9999px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.flo-button-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+}
+
+/* Liens */
+.flo-link {
+  color: var(--flo-text);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.flo-link:hover {
+  background: var(--flo-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Éléments interactifs */
+.flo-interactive {
+  transition: all 0.3s ease;
+}
+
+.flo-interactive:hover {
+  transform: scale(1.05);
+}
+
+/* Titres de section */
+.flo-section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.flo-section-title:hover {
+  background: var(--flo-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Cartes de contenu */
+.flo-card {
+  background-color: rgba(30, 30, 30, 0.7);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.flo-card:hover {
+  transform: scale(1.05);
+}
+
+/* Utilitaires de couleur */
+.flo-bg-gradient {
+  background: var(--flo-gradient);
+}
+
+.flo-text-gradient {
+  background: var(--flo-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}

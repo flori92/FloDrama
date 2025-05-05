@@ -1,0 +1,132 @@
+/**
+ * Styles pour le bouton de lecture vidéo FloDrama
+ */
+
+.video-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 9999px; /* rounded-full */
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Tailles de bouton */
+.video-button.small {
+  width: 40px;
+  height: 40px;
+}
+
+.video-button.medium {
+  width: 60px;
+  height: 60px;
+}
+
+.video-button.large {
+  width: 80px;
+  height: 80px;
+}
+
+/* Variante primaire (bouton avec dégradé signature) */
+.video-button.primary {
+  background: linear-gradient(135deg, #3b82f6, #d946ef);
+  color: #fff;
+}
+
+.video-button.primary:hover {
+  transform: scale(1.05);
+}
+
+.video-button.primary:active {
+  transform: scale(0.95);
+}
+
+/* Variante secondaire (bouton transparent avec bordure) */
+.video-button.secondary {
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.video-button.secondary:hover {
+  background: rgba(59, 130, 246, 0.3);
+  border-color: #3b82f6;
+}
+
+/* Icône de lecture */
+.play-icon {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 0 8px 16px;
+  border-color: transparent transparent transparent currentColor;
+}
+
+.video-button.small .play-icon {
+  border-width: 6px 0 6px 12px;
+}
+
+.video-button.large .play-icon {
+  border-width: 10px 0 10px 20px;
+}
+
+/* Variante overlay (bouton semi-transparent sur une image) */
+.video-button.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: transparent;
+  border: none;
+}
+
+.play-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.video-button.overlay:hover .play-icon-container {
+  background-color: rgba(59, 130, 246, 0.8);
+  transform: scale(1.1);
+}
+
+/* Variante inline (bouton dans un texte) */
+.video-button.inline {
+  display: inline-flex;
+  vertical-align: middle;
+  margin: 0 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .video-button.responsive.medium {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .video-button.responsive.large {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-button.responsive.medium {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .video-button.responsive.large {
+    width: 50px;
+    height: 50px;
+  }
+}

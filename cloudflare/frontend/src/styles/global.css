@@ -7,20 +7,21 @@
 
 /* Variables de couleurs */
 :root {
+  --flo-black: #000000;
   --flo-dark: #0f0f14;
   --flo-secondary: #1a1a24;
   --flo-blue: #3b82f6;
   --flo-violet: #8b5cf6;
   --flo-fuchsia: #d946ef;
-  --flo-gold: #f59e0b;
   --flo-white: #f9fafb;
+  --gradient-signature: linear-gradient(90deg, var(--flo-blue), var(--flo-fuchsia));
 }
 
 /* Styles de base */
 body {
-  background-color: var(--flo-dark);
+  background-color: var(--flo-black);
   color: var(--flo-white);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 /* Couleur de texte par défaut - TOUS les textes sont en blanc */
@@ -33,21 +34,29 @@ h1, h2, h3, h4, h5, h6, p, span, a, button, input, textarea, select, li, label,
 /* Effets de survol - application des effets existants */
 a:hover, button:hover, .nav-item:hover, .menu-item:hover, .category-item:hover, 
 .sidebar-item:hover, .content-card:hover .card-title, .content-card:hover .category-name {
-  color: var(--flo-blue);
-  transition: color 0.3s ease;
+  background: var(--gradient-signature);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  transition: all 0.3s ease;
 }
 
 /* Effets de survol spécifiques pour certains éléments */
 .nav-link:hover {
-  color: var(--flo-violet);
+  background: var(--gradient-signature);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 .category-link:hover {
-  color: var(--flo-fuchsia);
-}
-
-.action-button:hover {
-  color: var(--flo-gold);
+  background: var(--gradient-signature);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Classes utilitaires pour les couleurs */
@@ -67,8 +76,8 @@ a:hover, button:hover, .nav-item:hover, .menu-item:hover, .category-item:hover,
   color: var(--flo-fuchsia);
 }
 
-.text-flo-gold {
-  color: var(--flo-gold);
+.bg-flo-black {
+  background-color: var(--flo-black);
 }
 
 .bg-flo-dark {
@@ -77,6 +86,18 @@ a:hover, button:hover, .nav-item:hover, .menu-item:hover, .category-item:hover,
 
 .bg-flo-secondary {
   background-color: var(--flo-secondary);
+}
+
+.bg-gradient-signature {
+  background: var(--gradient-signature);
+}
+
+.text-gradient-signature {
+  background: var(--gradient-signature);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Effets de survol pour les cartes */
@@ -91,7 +112,8 @@ a:hover, button:hover, .nav-item:hover, .menu-item:hover, .category-item:hover,
 
 /* Effets de survol pour les boutons */
 .btn {
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: all 0.3s ease;
+  border-radius: 9999px; /* rounded-full */
 }
 
 .btn:hover {
@@ -99,12 +121,31 @@ a:hover, button:hover, .nav-item:hover, .menu-item:hover, .category-item:hover,
 }
 
 .btn-primary {
-  background-color: var(--flo-blue);
-  color: var(--flo-white);
+  background-color: var(--flo-white);
+  color: var(--flo-black);
 }
 
 .btn-primary:hover {
-  background-color: var(--flo-violet);
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-action {
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: transparent;
+}
+
+.btn-action:hover {
+  background: var(--gradient-signature);
 }
 
 /* Animations pour les prévisualisations */
@@ -146,6 +187,14 @@ a:hover, button:hover, .nav-item:hover, .menu-item:hover, .category-item:hover,
   color: var(--flo-white);
 }
 
+.content-section-title:hover {
+  background: var(--gradient-signature);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
 /* Styles pour les catégories */
 .category-name {
   font-size: 0.875rem;
@@ -157,20 +206,32 @@ a:hover, button:hover, .nav-item:hover, .menu-item:hover, .category-item:hover,
 }
 
 .category-name:hover {
-  color: var(--flo-fuchsia);
+  background: var(--gradient-signature);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Styles pour la navigation */
 .nav-link {
   color: var(--flo-white);
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .nav-link:hover {
-  color: var(--flo-blue);
+  background: var(--gradient-signature);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 .nav-link.active {
-  color: var(--flo-fuchsia);
+  background: var(--gradient-signature);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
   font-weight: 600;
 }

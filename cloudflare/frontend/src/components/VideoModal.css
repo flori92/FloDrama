@@ -1,0 +1,155 @@
+/**
+ * Styles pour la modal du lecteur vidéo FloDrama
+ */
+
+.video-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, #3B82F6 0%, #C51077 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(5px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.video-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.video-modal-container {
+  width: 90%;
+  max-width: 1200px;
+  max-height: 90vh;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transform: scale(0.9);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.video-modal-overlay.active .video-modal-container {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.video-modal-content {
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  position: relative;
+  background-color: #000;
+}
+
+.video-modal-player-container {
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* Ratio 16:9 */
+  position: relative;
+}
+
+.video-modal-player-container .flodrama-video-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+
+.video-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(59, 130, 246, 0.6);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.video-modal-close:hover {
+  background-color: rgba(59, 130, 246, 0.8);
+  transform: scale(1.1);
+}
+
+.video-modal-close svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Animation d'entrée */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Animation de sortie */
+@keyframes modalFadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+.modal-enter {
+  animation: modalFadeIn 0.3s forwards;
+}
+
+.modal-exit {
+  animation: modalFadeOut 0.3s forwards;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .video-modal-container {
+    width: 95%;
+  }
+  
+  .video-modal-close {
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-modal-container {
+    width: 100%;
+    height: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+  
+  .video-modal-content {
+    height: 100%;
+    padding-bottom: 0;
+  }
+}

@@ -5,14 +5,13 @@
  * en utilisant un serveur relais Python hébergé sur Render.
  */
 
-import { MyDramaListScraper, MyDramaListParseHubScraper } from './html-scraper';
-import { VoirAnimeScraper, VoirAnimeParseHubScraper } from './html-scraper';
+import { MyDramaListScraper } from './html-scraper';
+import { VoirAnimeScraper } from './html-scraper';
 import { VoirDramaScraper, AsianWikiScraper } from './drama-scrapers';
 import { NekoSamaScraper, AnimeSamaScraper } from './anime-scrapers';
 import { CoflixScraper, VostFreeScraper, TopStreamScraper } from './film-scrapers';
 import { Zee5Scraper } from './bollywood-scrapers';
 import { RelayClient } from './relay-client';
-import { ParseHubClient } from './parsehub-client';
 import ScrapingQueueManager from './queue-manager';
 import ScrapingMonitor from './scraping-monitor';
 
@@ -21,13 +20,11 @@ const SOURCES = {
   mydramalist: {
     name: 'MyDramaList',
     scraper: MyDramaListScraper,
-    parsehubScraper: MyDramaListParseHubScraper,
     contentType: 'drama'
   },
   voiranime: {
     name: 'VoirAnime',
     scraper: VoirAnimeScraper,
-    parsehubScraper: VoirAnimeParseHubScraper,
     contentType: 'anime'
   },
   voirdrama: {
@@ -85,16 +82,6 @@ const RELAY_URL = 'https://flodrama-scraper.onrender.com';
 // Intervalle de ping en millisecondes (10 minutes)
 const PING_INTERVAL = 10 * 60 * 1000;
 
-// Configuration des projets ParseHub
-const PARSEHUB_PROJECTS = {
-  mydramalist: {
-    scrape: 'YOUR_PROJECT_TOKEN_HERE'
-  },
-  voiranime: {
-    scrape: 'YOUR_PROJECT_TOKEN_HERE'
-  }
-};
-
 /**
  * Maintient le serveur relais actif en envoyant des pings périodiques
  * @param {string} relayUrl - URL du serveur relais
@@ -119,7 +106,7 @@ async function keepRelayAlive(relayUrl, monitor = null) {
     
     // Enregistrer l'erreur dans le moniteur si disponible
     if (monitor) {
-      await monitor.recordError('relay_ping', error.message, { relayUrl });
+      await monitor.logError('relay_ping', error.message, { relayUrl });
     }
     
     return false;
@@ -239,7 +226,6 @@ async function handleRequest(request, env, ctx) {
   const id = url.searchParams.get('id') || '';
   const limit = parseInt(url.searchParams.get('limit') || '20', 10);
   const debug = url.searchParams.get('debug') === 'true';
-  const useParseHub = url.searchParams.get('parsehub') === 'true';
   const async = url.searchParams.get('async') === 'true';
   const noCache = url.searchParams.get('no_cache') === 'true';
   
@@ -300,9 +286,6 @@ async function handleRequest(request, env, ctx) {
     });
   }
   
-  // Vérifier si ParseHub est disponible pour cette source
-  const useParseHubClient = useParseHub && PARSEHUB_PROJECTS[source] && PARSEHUB_PROJECTS[source][action];
-  
   // Générer la clé de cache
   const cacheKey = generateCacheKey({ source, action, query, id, limit });
   
@@ -341,7 +324,6 @@ async function handleRequest(request, env, ctx) {
         id,
         limit,
         debug,
-        use_parsehub: useParseHubClient,
         created_at: new Date().toISOString()
       });
       
@@ -381,12 +363,10 @@ async function handleRequest(request, env, ctx) {
     await monitor.recordOperationStart(source, action);
     
     // Initialiser le scraper approprié
-    const ScraperClass = useParseHubClient ? 
-      SOURCES[source].parsehubScraper : 
-      SOURCES[source].scraper;
+    const ScraperClass = SOURCES[source].scraper;
     
     if (!ScraperClass) {
-      throw new Error(`Scraper non disponible pour ${source}${useParseHubClient ? ' avec ParseHub' : ''}`);
+      throw new Error(`Scraper non disponible pour ${source}`);
     }
     
     const scraper = new ScraperClass(debug);
@@ -439,7 +419,7 @@ async function handleRequest(request, env, ctx) {
     console.error(`Erreur lors de l'exécution de l'action ${action} pour la source ${source}: ${error.message}`);
     
     // Enregistrer l'erreur dans le moniteur
-    await monitor.recordError(`${source}_${action}`, error.message);
+    await monitor.logError(`${source}_${action}`, error.message);
     
     return new Response(JSON.stringify({
       success: false,
@@ -472,7 +452,7 @@ async function processQueuedTasks(env) {
     const { source, action, query, id, limit, debug } = task;
     
     // Initialiser le scraper
-    const scraperClass = task.use_parsehub ? SOURCES[source].parsehubScraper : SOURCES[source].scraper;
+    const scraperClass = SOURCES[source].scraper;
     const scraper = new scraperClass(debug);
     
     // Exécuter l'action demandée
@@ -505,7 +485,7 @@ async function processQueuedTasks(env) {
  * Gestionnaire de tâches planifiées
  */
 async function handleScheduled(event, env, ctx) {
-  console.log('Scheduled event triggered', event);
+  console.log('Événement planifié déclenché', event);
 
   // Récupérer les sources à scraper
   const sources = [
