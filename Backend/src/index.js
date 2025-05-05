@@ -324,17 +324,63 @@ function generateMockContent(limit, offset, type) {
   
   const label = typeLabels[type] || type.charAt(0).toUpperCase() + type.slice(1);
   
-  return Array(limit).fill(0).map((_, i) => ({
-    id: `mock-${type}-${i + offset}`,
-    title: `${label} ${i + offset + 1}`,
-    description: `Contenu temporaire ${type} pendant la maintenance de l'API`,
-    poster: `https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/${type}-${(i + offset) % 5 + 1}.jpg`,
-    backdrop: `https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/${type}-${(i + offset) % 5 + 1}.jpg`,
-    rating: 4.5,
-    year: new Date().getFullYear(),
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString()
-  }));
+  // Données mockées plus réalistes
+  const mockData = {
+    'film': [
+      { title: "La légende du guerrier", description: "Un guerrier légendaire doit faire face à son plus grand défi : protéger son village et retrouver sa famille disparue. Une épopée captivante mêlant arts martiaux et spiritualité.", rating: 4.8, year: 2023 },
+      { title: "Sous les cerisiers en fleurs", description: "Quand un jeune architecte retourne dans sa ville natale, il redécouvre son premier amour. Une histoire touchante de seconde chance dans un cadre magnifique du Japon rural.", rating: 4.6, year: 2022 },
+      { title: "L'énigme du temps", description: "Un physicien découvre accidentellement comment voyager dans le temps et tente de corriger les erreurs du passé. Un thriller scientifique qui questionne notre rapport au destin.", rating: 4.7, year: 2024 },
+      { title: "Les mystères de Paris", description: "Dans le Paris des années 1920, un détective privé enquête sur une série de disparitions mystérieuses. Une plongée dans les secrets de la haute société parisienne.", rating: 4.5, year: 2023 },
+      { title: "Au-delà des étoiles", description: "L'équipage d'un vaisseau spatial découvre une forme de vie extraterrestre qui remet en question tout ce que nous savons sur l'univers. Un voyage interstellaire fascinant.", rating: 4.9, year: 2024 }
+    ],
+    'drama': [
+      { title: "Les mystères de l'Empire", description: "Dans la Chine ancienne, une jeune femme devient enquêtrice pour résoudre des mystères qui menacent l'empire. Entre complots politiques et aventures romantiques, suivez son parcours extraordinaire.", rating: 4.9, year: 2023 },
+      { title: "Destins croisés", description: "Trois familles que tout oppose voient leurs vies bouleversées par un événement tragique. Une exploration profonde des relations humaines et du pardon.", rating: 4.7, year: 2022 },
+      { title: "Le prix du pouvoir", description: "L'ascension et la chute d'un homme politique prêt à tout pour atteindre les sommets. Un regard sans concession sur la corruption et l'ambition.", rating: 4.8, year: 2024 },
+      { title: "Médecin de campagne", description: "Un jeune médecin idéaliste s'installe dans un village reculé et doit faire face aux défis de la médecine rurale. Une série touchante sur le dévouement et la compassion.", rating: 4.6, year: 2023 },
+      { title: "Secrets de famille", description: "Après la mort de leur père, trois sœurs découvrent des secrets familiaux qui remettent en question toute leur existence. Un drame psychologique intense.", rating: 4.5, year: 2022 }
+    ],
+    'anime': [
+      { title: "Le royaume des esprits", description: "Une jeune fille se retrouve piégée dans un monde peuplé d'esprits et doit trouver un moyen de rentrer chez elle. Une aventure magique et émouvante.", rating: 4.9, year: 2023 },
+      { title: "Chasseurs de démons", description: "Après le massacre de sa famille, un jeune homme devient chasseur de démons pour venger les siens et protéger l'humanité. Une quête épique remplie d'action.", rating: 4.8, year: 2022 },
+      { title: "L'académie des héros", description: "Dans un monde où 80% de la population possède des super-pouvoirs, un jeune garçon sans don rêve de devenir un héros. Une histoire inspirante de persévérance.", rating: 4.7, year: 2024 },
+      { title: "Pirates des cieux", description: "À bord de leur vaisseau volant, un équipage de pirates parcourt les cieux à la recherche d'un trésor légendaire. Une aventure steampunk pleine de rebondissements.", rating: 4.6, year: 2023 },
+      { title: "Le pacte des alchimistes", description: "Deux frères utilisent l'alchimie interdite pour ressusciter leur mère et en paient le prix fort. Leur quête pour retrouver leurs corps les mènera aux confins de la science et de la magie.", rating: 4.9, year: 2022 }
+    ],
+    'bollywood': [
+      { title: "Amour éternel", description: "Une histoire d'amour qui transcende les barrières sociales et culturelles dans l'Inde contemporaine. Un conte romantique vibrant et coloré.", rating: 4.7, year: 2023 },
+      { title: "Le destin de Raj", description: "Un jeune homme issu d'un bidonville devient une star de Bollywood et doit faire face aux défis de la célébrité. Une ascension fulgurante semée d'embûches.", rating: 4.6, year: 2022 },
+      { title: "Danses et traditions", description: "Une danseuse classique indienne lutte pour préserver les traditions face à la modernisation. Un hommage vibrant à la culture indienne.", rating: 4.8, year: 2024 },
+      { title: "Le mariage arrangé", description: "Une jeune femme moderne doit composer avec un mariage arrangé par sa famille traditionnelle. Une comédie romantique qui explore le choc des générations.", rating: 4.5, year: 2023 },
+      { title: "L'honneur de la famille", description: "Deux familles rivales s'affrontent dans une lutte de pouvoir qui s'étend sur plusieurs générations. Un drame épique sur l'honneur et la vengeance.", rating: 4.7, year: 2022 }
+    ]
+  };
+  
+  // Sélection des données en fonction du type
+  const contentData = mockData[type] || [];
+  
+  // Génération des données avec pagination
+  return Array(limit).fill(0).map((_, i) => {
+    const index = (i + offset) % contentData.length;
+    const content = contentData[index] || { 
+      title: `${label} ${i + offset + 1}`, 
+      description: `Contenu temporaire ${type} pendant la maintenance de l'API`,
+      rating: 4.5,
+      year: new Date().getFullYear()
+    };
+    
+    return {
+      id: `mock-${type}-${i + offset}`,
+      title: content.title,
+      description: content.description,
+      poster: `https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/${type}-${(i + offset) % 5 + 1}.jpg`,
+      backdrop: `https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/${type}-${(i + offset) % 5 + 1}.jpg`,
+      rating: content.rating,
+      year: content.year,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+  });
 }
 
 // Route pour un contenu spécifique
