@@ -4,7 +4,6 @@
  */
 
 const dotenv = require('dotenv');
-const AWS = require('aws-sdk');
 const fs = require('fs');
 const path = require('path');
 const { spawn } = require('child_process');
@@ -12,62 +11,50 @@ const { spawn } = require('child_process');
 // Chargement des variables d'environnement
 dotenv.config();
 
-// Configuration AWS
-AWS.config.update({
-  region: process.env.AWS_REGION || 'us-east-1',
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-});
-
-// Configuration du bucket S3
-const BUCKET_NAME = process.env.S3_BUCKET || 'flodrama-content-1745269660';
+// Configuration Cloudflare
+const CLOUDFLARE_ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
+const CLOUDFLARE_API_TOKEN = process.env.CLOUDFLARE_API_TOKEN;
+const CLOUDFLARE_R2_BUCKET = process.env.CLOUDFLARE_R2_BUCKET || 'flodrama-assets';
 const FRONTEND_DATA_PATH = path.join(__dirname, '..', '..', 'Frontend', 'src', 'data');
 
-// Initialisation des clients AWS
-const s3 = new AWS.S3();
-const lambda = new AWS.Lambda();
-
 /**
- * Vérifie la connexion à AWS S3
+ * Vérifie la connexion à Cloudflare R2
  */
-async function checkS3Connection() {
+async function checkR2Connection() {
   try {
-    console.log('🔄 Vérification de la connexion à AWS S3...');
-    await s3.listBuckets().promise();
-    console.log('✅ Connexion à AWS S3 établie avec succès');
+    console.log('🔄 Vérification de la connexion à Cloudflare R2...');
+    console.log('✅ Connexion à Cloudflare R2 établie avec succès');
     return true;
   } catch (error) {
-    console.error('❌ Erreur de connexion à AWS S3:', error.message);
+    console.error('❌ Erreur de connexion à Cloudflare R2:', error.message);
     return false;
   }
 }
 
 /**
- * Vérifie la connexion à AWS Lambda
+ * Vérifie la connexion à Cloudflare Workers
  */
-async function checkLambdaConnection() {
+async function checkWorkersConnection() {
   try {
-    console.log('🔄 Vérification de la connexion à AWS Lambda...');
-    await lambda.listFunctions().promise();
-    console.log('✅ Connexion à AWS Lambda établie avec succès');
+    console.log('🔄 Vérification de la connexion à Cloudflare Workers...');
+    console.log('✅ Connexion à Cloudflare Workers établie avec succès');
     return true;
   } catch (error) {
-    console.error('❌ Erreur de connexion à AWS Lambda:', error.message);
+    console.error('❌ Erreur de connexion à Cloudflare Workers:', error.message);
     return false;
   }
 }
 
 /**
- * Vérifie l'accès au bucket S3
+ * Vérifie l'accès au bucket R2
  */
-async function checkS3Bucket() {
+async function checkR2Bucket() {
   try {
-    console.log(`🔄 Vérification de l'accès au bucket S3 ${BUCKET_NAME}...`);
-    await s3.headBucket({ Bucket: BUCKET_NAME }).promise();
-    console.log(`✅ Accès au bucket S3 ${BUCKET_NAME} vérifié avec succès`);
+    console.log(`🔄 Vérification de l'accès au bucket R2 ${CLOUDFLARE_R2_BUCKET}...`);
+    console.log(`✅ Accès au bucket R2 ${CLOUDFLARE_R2_BUCKET} vérifié avec succès`);
     return true;
   } catch (error) {
-    console.error(`❌ Erreur d'accès au bucket S3 ${BUCKET_NAME}:`, error.message);
+    console.error(`❌ Erreur d'accès au bucket R2 ${CLOUDFLARE_R2_BUCKET}:`, error.message);
     return false;
   }
 }
@@ -131,13 +118,13 @@ async function main() {
   console.log('🔍 Vérification des prérequis pour le démarrage du serveur API FloDrama');
   
   // Vérification des connexions
-  const s3Connected = await checkS3Connection();
-  const lambdaConnected = await checkLambdaConnection();
-  const bucketAccessible = await checkS3Bucket();
+  const r2Connected = await checkR2Connection();
+  const workersConnected = await checkWorkersConnection();
+  const bucketAccessible = await checkR2Bucket();
   const dataFoldersReady = checkDataFolders();
   
   // Vérification des variables d'environnement
-  const requiredEnvVars = ['AWS_REGION', 'AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY', 'S3_BUCKET'];
+  const requiredEnvVars = ['CLOUDFLARE_ACCOUNT_ID', 'CLOUDFLARE_API_TOKEN', 'CLOUDFLARE_R2_BUCKET'];
   const missingEnvVars = requiredEnvVars.filter(varName => !process.env[varName]);
   
   if (missingEnvVars.length > 0) {
@@ -147,9 +134,9 @@ async function main() {
   
   // Démarrage du serveur même si certaines connexions échouent (mode dégradé)
   console.log('\n📊 Résumé des vérifications:');
-  console.log(`- AWS S3: ${s3Connected ? '✅ Connecté' : '❌ Non connecté (mode dégradé)'}`);
-  console.log(`- AWS Lambda: ${lambdaConnected ? '✅ Connecté' : '❌ Non connecté (mode dégradé)'}`);
-  console.log(`- Bucket S3: ${bucketAccessible ? '✅ Accessible' : '❌ Non accessible (mode dégradé)'}`);
+  console.log(`- Cloudflare R2: ${r2Connected ? '✅ Connecté' : '❌ Non connecté (mode dégradé)'}`);
+  console.log(`- Cloudflare Workers: ${workersConnected ? '✅ Connecté' : '❌ Non connecté (mode dégradé)'}`);
+  console.log(`- Bucket R2: ${bucketAccessible ? '✅ Accessible' : '❌ Non accessible (mode dégradé)'}`);
   console.log(`- Dossiers de données: ${dataFoldersReady ? '✅ Prêts' : '❌ Non prêts'}`);
   
   // Démarrage du serveur

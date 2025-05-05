@@ -1,25 +1,74 @@
 /**
  * FloDrama Scraper Worker
  * 
- * Ce worker permet de scraper les données de MyDramaList et VoirAnime
+ * Ce worker permet de scraper les données de différentes sources
  * en utilisant un serveur relais Python hébergé sur Render.
  */
 
-import { MyDramaListScraper, VoirAnimeScraper } from './html-scraper';
+import { MyDramaListScraper, MyDramaListParseHubScraper } from './html-scraper';
+import { VoirAnimeScraper, VoirAnimeParseHubScraper } from './html-scraper';
+import { VoirDramaScraper, AsianWikiScraper } from './drama-scrapers';
+import { NekoSamaScraper, AnimeSamaScraper } from './anime-scrapers';
+import { CoflixScraper, VostFreeScraper, TopStreamScraper } from './film-scrapers';
+import { Zee5Scraper } from './bollywood-scrapers';
+import { RelayClient } from './relay-client';
+import { ParseHubClient } from './parsehub-client';
 import ScrapingQueueManager from './queue-manager';
-import ScrapingMonitor from './monitoring';
+import ScrapingMonitor from './scraping-monitor';
 
 // Configuration des sources
 const SOURCES = {
   mydramalist: {
     name: 'MyDramaList',
     scraper: MyDramaListScraper,
+    parsehubScraper: MyDramaListParseHubScraper,
     contentType: 'drama'
   },
   voiranime: {
     name: 'VoirAnime',
     scraper: VoirAnimeScraper,
+    parsehubScraper: VoirAnimeParseHubScraper,
     contentType: 'anime'
+  },
+  voirdrama: {
+    name: 'VoirDrama',
+    scraper: VoirDramaScraper,
+    contentType: 'drama'
+  },
+  asianwiki: {
+    name: 'AsianWiki',
+    scraper: AsianWikiScraper,
+    contentType: 'drama'
+  },
+  nekosama: {
+    name: 'NekoSama',
+    scraper: NekoSamaScraper,
+    contentType: 'anime'
+  },
+  animesama: {
+    name: 'AnimeSama',
+    scraper: AnimeSamaScraper,
+    contentType: 'anime'
+  },
+  coflix: {
+    name: 'Coflix',
+    scraper: CoflixScraper,
+    contentType: 'film'
+  },
+  vostfree: {
+    name: 'VostFree',
+    scraper: VostFreeScraper,
+    contentType: 'film'
+  },
+  topstream: {
+    name: 'TopStream',
+    scraper: TopStreamScraper,
+    contentType: 'film'
+  },
+  zee5: {
+    name: 'Zee5',
+    scraper: Zee5Scraper,
+    contentType: 'bollywood'
   }
 };
 
@@ -35,6 +84,16 @@ const RELAY_URL = 'https://flodrama-scraper.onrender.com';
 
 // Intervalle de ping en millisecondes (10 minutes)
 const PING_INTERVAL = 10 * 60 * 1000;
+
+// Configuration des projets ParseHub
+const PARSEHUB_PROJECTS = {
+  mydramalist: {
+    scrape: 'YOUR_PROJECT_TOKEN_HERE'
+  },
+  voiranime: {
+    scrape: 'YOUR_PROJECT_TOKEN_HERE'
+  }
+};
 
 /**
  * Maintient le serveur relais actif en envoyant des pings périodiques
@@ -122,242 +181,276 @@ async function handleRequest(request, env, ctx) {
   // Configurer le ping périodique
   setupPeriodicPing(env, ctx);
   
-  // Récupérer l'URL de la requête
+  // Vérifier si c'est une requête de ping
   const url = new URL(request.url);
-  
-  // Vérifier si c'est une requête de debug
-  const debug = url.searchParams.get('debug') === 'true';
-  
-  // Récupérer la source à scraper
-  const source = url.searchParams.get('source') || 'mydramalist';
-  
-  // Récupérer l'action à effectuer
-  const action = url.searchParams.get('action') || 'scrape';
-  
-  // Récupérer la limite de résultats
-  const limit = parseInt(url.searchParams.get('limit') || '20', 10);
-  
-  // Récupérer le terme de recherche (pour l'action search)
-  const query = url.searchParams.get('query') || '';
-  
-  // Récupérer l'ID du contenu (pour l'action details)
-  const id = url.searchParams.get('id') || '';
-  
-  // Vérifier si c'est une requête de statut de tâche
-  const taskId = url.searchParams.get('task_id');
-  
-  // Vérifier si c'est une requête de statistiques
-  const statsRequested = url.searchParams.get('stats') === 'true';
-  
-  // Vérifier si c'est une requête asynchrone
-  const async = url.searchParams.get('async') === 'true';
-  
-  // Paramètres pour la génération de la clé de cache
-  const cacheParams = { source, action, query, id, limit };
-  
-  // Mesurer le temps d'exécution
-  const startTime = Date.now();
-  
-  // Vérifier si c'est une requête de statistiques
-  if (statsRequested) {
-    const stats = await monitor.getScrapingStats();
-    
+  if (url.pathname === '/ping') {
     return new Response(JSON.stringify({
-      success: true,
-      stats
+      status: 'ok',
+      timestamp: new Date().toISOString()
     }), {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       }
     });
   }
   
-  // Vérifier si c'est une requête de statut de tâche
+  // Vérifier si c'est une requête pour les statistiques
+  if (url.pathname === '/stats') {
+    const stats = await monitor.getStats();
+    return new Response(JSON.stringify(stats), {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
+  }
+  
+  // Vérifier si c'est une requête pour vérifier le statut d'une tâche
+  const taskId = url.searchParams.get('task_id');
   if (taskId) {
-    const task = await queueManager.getTask(taskId);
+    const task = await queueManager.getTaskStatus(taskId);
     
     if (!task) {
       return new Response(JSON.stringify({
         success: false,
-        error: `Tâche non trouvée: ${taskId}`
+        error: 'Tâche non trouvée'
       }), {
         status: 404,
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
         }
       });
     }
     
-    return new Response(JSON.stringify({
-      success: true,
-      task
-    }), {
+    return new Response(JSON.stringify(task), {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       }
     });
   }
+  
+  // Extraire les paramètres de la requête
+  const source = url.searchParams.get('source') || 'mydramalist';
+  const action = url.searchParams.get('action') || 'scrape';
+  const query = url.searchParams.get('query') || '';
+  const id = url.searchParams.get('id') || '';
+  const limit = parseInt(url.searchParams.get('limit') || '20', 10);
+  const debug = url.searchParams.get('debug') === 'true';
+  const useParseHub = url.searchParams.get('parsehub') === 'true';
+  const async = url.searchParams.get('async') === 'true';
+  const noCache = url.searchParams.get('no_cache') === 'true';
   
   // Vérifier si la source est valide
   if (!SOURCES[source]) {
     return new Response(JSON.stringify({
       success: false,
-      error: `Source invalide: ${source}. Sources disponibles: ${Object.keys(SOURCES).join(', ')}`
+      error: `Source inconnue: ${source}`,
+      available_sources: Object.keys(SOURCES)
     }), {
       status: 400,
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       }
     });
   }
   
-  try {
-    // Si c'est une requête asynchrone, ajouter la tâche à la file d'attente
-    if (async) {
-      const task = {
+  // Vérifier si l'action est valide
+  if (!['scrape', 'search', 'details'].includes(action)) {
+    return new Response(JSON.stringify({
+      success: false,
+      error: `Action inconnue: ${action}`,
+      available_actions: ['scrape', 'search', 'details']
+    }), {
+      status: 400,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
+  }
+  
+  // Vérifier les paramètres requis
+  if (action === 'search' && !query) {
+    return new Response(JSON.stringify({
+      success: false,
+      error: 'Le paramètre "query" est requis pour l\'action "search"'
+    }), {
+      status: 400,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
+  }
+  
+  if (action === 'details' && !id) {
+    return new Response(JSON.stringify({
+      success: false,
+      error: 'Le paramètre "id" est requis pour l\'action "details"'
+    }), {
+      status: 400,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
+  }
+  
+  // Vérifier si ParseHub est disponible pour cette source
+  const useParseHubClient = useParseHub && PARSEHUB_PROJECTS[source] && PARSEHUB_PROJECTS[source][action];
+  
+  // Générer la clé de cache
+  const cacheKey = generateCacheKey({ source, action, query, id, limit });
+  
+  // Vérifier si le résultat est en cache
+  if (!noCache && env.SCRAPING_CACHE) {
+    try {
+      const cachedResult = await env.SCRAPING_CACHE.get(cacheKey, { type: 'json' });
+      
+      if (cachedResult) {
+        console.log(`Résultat trouvé en cache pour ${cacheKey}`);
+        
+        // Ajouter des informations sur le cache
+        cachedResult.cached = true;
+        cachedResult.cache_key = cacheKey;
+        
+        return new Response(JSON.stringify(cachedResult), {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Cache-Control': 'max-age=3600'
+          }
+        });
+      }
+    } catch (error) {
+      console.error(`Erreur lors de la récupération du cache: ${error.message}`);
+    }
+  }
+  
+  // Si mode asynchrone, ajouter la tâche à la file d'attente
+  if (async) {
+    try {
+      const taskId = await queueManager.addTask({
         source,
         action,
         query,
         id,
         limit,
-        debug
-      };
-      
-      const taskId = await queueManager.enqueue(task);
+        debug,
+        use_parsehub: useParseHubClient,
+        created_at: new Date().toISOString()
+      });
       
       return new Response(JSON.stringify({
         success: true,
+        task_id: taskId,
         message: 'Tâche ajoutée à la file d\'attente',
-        task_id: taskId
+        status: 'pending',
+        check_url: `${url.origin}${url.pathname}?task_id=${taskId}`
       }), {
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        }
+      });
+    } catch (error) {
+      console.error(`Erreur lors de l'ajout de la tâche à la file d'attente: ${error.message}`);
+      
+      return new Response(JSON.stringify({
+        success: false,
+        error: `Erreur lors de l'ajout de la tâche à la file d'attente: ${error.message}`
+      }), {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
         }
       });
     }
+  }
+  
+  // Exécution synchrone
+  try {
+    console.log(`Exécution de l'action ${action} pour la source ${source}`);
     
-    // Générer la clé de cache
-    const cacheKey = generateCacheKey(cacheParams);
+    // Enregistrer le début de l'opération dans le moniteur
+    await monitor.recordOperationStart(source, action);
     
-    // Vérifier si les données sont en cache
-    if (env.SCRAPING_RESULTS && !debug) {
-      const cachedData = await env.SCRAPING_RESULTS.get(cacheKey);
-      
-      if (cachedData) {
-        console.log(`Données récupérées depuis le cache pour la clé: ${cacheKey}`);
-        
-        // Mettre à jour les statistiques de cache
-        await monitor.updateCacheStats(true);
-        
-        // Enregistrer la requête dans le moniteur
-        const duration = Date.now() - startTime;
-        await monitor.recordScrapingRequest(source, action, true, duration, true);
-        
-        return new Response(cachedData, {
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Cache': 'HIT'
-          }
-        });
-      }
+    // Initialiser le scraper approprié
+    const ScraperClass = useParseHubClient ? 
+      SOURCES[source].parsehubScraper : 
+      SOURCES[source].scraper;
+    
+    if (!ScraperClass) {
+      throw new Error(`Scraper non disponible pour ${source}${useParseHubClient ? ' avec ParseHub' : ''}`);
     }
     
-    // Initialiser le scraper
-    const scraperClass = SOURCES[source].scraper;
-    const scraper = new scraperClass(debug);
+    const scraper = new ScraperClass(debug);
     
     // Exécuter l'action demandée
     let result;
     
     if (action === 'search') {
-      // Action de recherche
-      if (!query) {
-        return new Response(JSON.stringify({
-          success: false,
-          error: 'Paramètre query requis pour l\'action search'
-        }), {
-          status: 400,
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-      }
-      
-      result = await scraper.search(query, limit);
+      result = await scraper.search(query, limit, env);
     } else if (action === 'details') {
-      // Action de récupération des détails
-      if (!id) {
-        return new Response(JSON.stringify({
-          success: false,
-          error: 'Paramètre id requis pour l\'action details'
-        }), {
-          status: 400,
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-      }
-      
-      if (source === 'mydramalist') {
-        result = await scraper.getDramaDetails(id);
-      } else if (source === 'voiranime') {
-        result = await scraper.getAnimeDetails(id);
+      if (source === 'mydramalist' || source === 'voirdrama' || source === 'asianwiki') {
+        result = await scraper.getDramaDetails(id, env);
+      } else if (source === 'voiranime' || source === 'animesama' || source === 'nekosama') {
+        result = await scraper.getAnimeDetails(id, env);
+      } else if (source === 'coflix' || source === 'vostfree' || source === 'topstream') {
+        result = await scraper.getFilmDetails(id, env);
+      } else if (source === 'zee5') {
+        result = await scraper.getBollywoodDetails(id, env);
       }
     } else {
-      // Action de scraping par défaut
-      result = await scraper.scrape(limit);
+      result = await scraper.scrape(limit, env);
     }
     
-    // Convertir le résultat en JSON
-    const resultJson = JSON.stringify(result);
+    // Enregistrer la fin de l'opération dans le moniteur
+    await monitor.recordOperationEnd(source, action, result.success, result.items_count, result.errors_count);
     
-    // Stocker les données dans le cache
-    if (env.SCRAPING_RESULTS && result.success !== false) {
-      const ttl = CACHE_TTL[action] || CACHE_TTL.scrape;
-      await env.SCRAPING_RESULTS.put(cacheKey, resultJson, { expirationTtl: ttl });
-      console.log(`Données mises en cache pour la clé: ${cacheKey} (TTL: ${ttl} secondes)`);
+    // Mettre en cache le résultat si disponible
+    if (result.success && env.SCRAPING_CACHE) {
+      const ttl = CACHE_TTL[action] || 3600;
+      
+      try {
+        await env.SCRAPING_CACHE.put(cacheKey, JSON.stringify(result), {
+          expirationTtl: ttl
+        });
+        
+        console.log(`Résultat mis en cache pour ${cacheKey} (TTL: ${ttl}s)`);
+      } catch (error) {
+        console.error(`Erreur lors de la mise en cache: ${error.message}`);
+      }
     }
     
-    // Calculer la durée d'exécution
-    const duration = Date.now() - startTime;
-    
-    // Mettre à jour la durée moyenne
-    await monitor.updateAverageDuration(duration);
-    
-    // Enregistrer la requête dans le moniteur
-    await monitor.recordScrapingRequest(source, action, true, duration, false);
-    
-    // Retourner le résultat
-    return new Response(resultJson, {
+    return new Response(JSON.stringify(result), {
       headers: {
         'Content-Type': 'application/json',
-        'X-Cache': 'MISS',
-        'X-Duration': duration.toString()
+        'Access-Control-Allow-Origin': '*',
+        'Cache-Control': 'max-age=3600'
       }
     });
   } catch (error) {
-    // En cas d'erreur, retourner une réponse d'erreur
-    console.error(`Erreur lors du scraping: ${error.message}`);
-    
-    // Calculer la durée d'exécution
-    const duration = Date.now() - startTime;
+    console.error(`Erreur lors de l'exécution de l'action ${action} pour la source ${source}: ${error.message}`);
     
     // Enregistrer l'erreur dans le moniteur
-    await monitor.recordError(source, error.message, { action, query, id, limit });
-    
-    // Enregistrer la requête dans le moniteur
-    await monitor.recordScrapingRequest(source, action, false, duration, false);
+    await monitor.recordError(`${source}_${action}`, error.message);
     
     return new Response(JSON.stringify({
       success: false,
       source,
-      error: error.message,
-      stack: debug ? error.stack : undefined
+      action,
+      error: error.message
     }), {
       status: 500,
       headers: {
         'Content-Type': 'application/json',
-        'X-Duration': duration.toString()
+        'Access-Control-Allow-Origin': '*'
       }
     });
   }
@@ -379,22 +472,26 @@ async function processQueuedTasks(env) {
     const { source, action, query, id, limit, debug } = task;
     
     // Initialiser le scraper
-    const scraperClass = SOURCES[source].scraper;
+    const scraperClass = task.use_parsehub ? SOURCES[source].parsehubScraper : SOURCES[source].scraper;
     const scraper = new scraperClass(debug);
     
     // Exécuter l'action demandée
     let result;
     
     if (action === 'search') {
-      result = await scraper.search(query, limit);
+      result = await scraper.search(query, limit, env);
     } else if (action === 'details') {
-      if (source === 'mydramalist') {
-        result = await scraper.getDramaDetails(id);
-      } else if (source === 'voiranime') {
-        result = await scraper.getAnimeDetails(id);
+      if (source === 'mydramalist' || source === 'voirdrama' || source === 'asianwiki') {
+        result = await scraper.getDramaDetails(id, env);
+      } else if (source === 'voiranime' || source === 'animesama' || source === 'nekosama') {
+        result = await scraper.getAnimeDetails(id, env);
+      } else if (source === 'coflix' || source === 'vostfree' || source === 'topstream') {
+        result = await scraper.getFilmDetails(id, env);
+      } else if (source === 'zee5') {
+        result = await scraper.getBollywoodDetails(id, env);
       }
     } else {
-      result = await scraper.scrape(limit);
+      result = await scraper.scrape(limit, env);
     }
     
     return result;
@@ -408,67 +505,71 @@ async function processQueuedTasks(env) {
  * Gestionnaire de tâches planifiées
  */
 async function handleScheduled(event, env, ctx) {
-  console.log('Exécution de la tâche planifiée de scraping');
-  
+  console.log('Scheduled event triggered', event);
+
+  // Récupérer les sources à scraper
+  const sources = [
+    'mydramalist',
+    'voiranime',
+    'voirdrama',
+    'asianwiki',
+    'nekosama',
+    'animesama',
+    'coflix',
+    'vostfree',
+    'topstream',
+    'zee5'
+  ];
+
   // Initialiser le moniteur de scraping
   const monitor = new ScrapingMonitor(env);
   
-  // Ping le serveur relais pour le maintenir actif
-  await keepRelayAlive(RELAY_URL, monitor);
+  // Enregistrer le début du scraping
+  const scrapingId = await monitor.startScraping();
   
   try {
-    // Traiter les tâches en file d'attente
-    const queueResults = await processQueuedTasks(env);
-    console.log(`Traitement des tâches en file d'attente: ${JSON.stringify(queueResults)}`);
+    console.log(`Début du scraping planifié (ID: ${scrapingId})`);
     
-    // Scraper MyDramaList
-    const mdlScraper = new MyDramaListScraper(true);
-    const mdlResult = await mdlScraper.scrape(20);
-    
-    console.log(`Scraping MyDramaList terminé: ${mdlResult.items_count} dramas récupérés`);
-    
-    // Scraper VoirAnime
-    const vaScraper = new VoirAnimeScraper(true);
-    const vaResult = await vaScraper.scrape(20);
-    
-    console.log(`Scraping VoirAnime terminé: ${vaResult.items_count} animes récupérés`);
-    
-    // Stocker les résultats dans KV (si disponible)
-    if (env.SCRAPING_RESULTS) {
-      await env.SCRAPING_RESULTS.put('mydramalist_latest', JSON.stringify(mdlResult), { expirationTtl: CACHE_TTL.scrape });
-      await env.SCRAPING_RESULTS.put('voiranime_latest', JSON.stringify(vaResult), { expirationTtl: CACHE_TTL.scrape });
-      await env.SCRAPING_RESULTS.put('last_scraping', new Date().toISOString(), { expirationTtl: 60 * 60 * 24 * 7 });
+    // Scraper chaque source
+    for (const source of sources) {
+      try {
+        console.log(`Scraping de la source: ${source}`);
+        
+        // Récupérer le scraper
+        const scraperConfig = SOURCES[source];
+        if (!scraperConfig) {
+          console.error(`Source inconnue: ${source}`);
+          await monitor.logError(scrapingId, `Source inconnue: ${source}`);
+          continue;
+        }
+        
+        // Créer une instance du scraper
+        const scraperClass = scraperConfig.scraper;
+        const scraper = new scraperClass();
+        
+        // Activer le mode debug
+        scraper.enableDebug(true);
+        
+        // Scraper la source
+        const result = await scraper.scrape(50, env);
+        
+        // Enregistrer les résultats
+        await monitor.logSourceResult(scrapingId, source, result);
+        
+        console.log(`Scraping de ${source} terminé: ${result.items_count} éléments trouvés`);
+      } catch (error) {
+        console.error(`Erreur lors du scraping de ${source}: ${error.message}`);
+        await monitor.logError(scrapingId, `Erreur lors du scraping de ${source}: ${error.message}`);
+      }
     }
     
-    // Enregistrer les métriques de scraping
-    await monitor.recordMetric('scheduled_scraping', mdlResult.items_count + vaResult.items_count, {
-      mydramalist_count: mdlResult.items_count,
-      voiranime_count: vaResult.items_count
-    });
+    // Enregistrer la fin du scraping
+    await monitor.completeScraping(scrapingId);
     
-    return {
-      success: true,
-      queue_results: queueResults,
-      mydramalist: {
-        items_count: mdlResult.items_count,
-        errors_count: mdlResult.errors_count
-      },
-      voiranime: {
-        items_count: vaResult.items_count,
-        errors_count: vaResult.errors_count
-      },
-      timestamp: new Date().toISOString()
-    };
+    console.log(`Scraping planifié terminé (ID: ${scrapingId})`);
   } catch (error) {
-    console.error(`Erreur lors de l'exécution de la tâche planifiée: ${error.message}`);
-    
-    // Enregistrer l'erreur dans le moniteur
-    await monitor.recordError('scheduled_task', error.message);
-    
-    return {
-      success: false,
-      error: error.message
-    };
+    console.error(`Erreur lors du scraping planifié: ${error.message}`);
+    await monitor.failScraping(scrapingId, error.message);
   }
 }
 

@@ -1,8 +1,11 @@
 name = "flodrama-scraper"
-main = "src/main-worker.js"
+main = "src/index.js"
 compatibility_date = "2023-09-04"
 account_id = "42fc982266a2c31b942593b18097e4b3"
 workers_dev = true
+
+# Configuration du format de module
+compatibility_flags = ["nodejs_compat"]
 
 # Planification (toutes les 24 heures à minuit)
 [triggers]
@@ -27,3 +30,5 @@ id = "7388919bd83241cfab509b44f819bb2f"
 [vars]
 ENVIRONMENT = "production"
 CLOUDFLARE_STREAM_TOKEN = "mGa7n-h-E9RJi3q9IGfpwF1JjPQx57hhRxQuGC0a"
+SCRAPINGBEE_API_KEY = "API_KEY_SCRAPINGBEE"
+PARSEHUB_API_KEY = "tZAo7B3UOrM7"

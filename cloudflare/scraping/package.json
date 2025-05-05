@@ -12,7 +12,7 @@
   "author": "FloDrama Team",
   "license": "MIT",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.12",
+    "cheerio": "^1.0.0",
     "node-fetch": "^3.3.1",
     "uuid": "^9.0.0"
   },

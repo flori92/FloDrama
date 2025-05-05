@@ -1,27 +1,22 @@
 /**
- * Scrapers avancés pour MyDramaList et VoirAnime
+ * Scrapers supplémentaires pour les dramas
  * 
- * Ces scrapers utilisent ScrapingBee pour récupérer le HTML
- * et parser les données avec Cheerio, une implémentation légère de jQuery.
+ * Ces scrapers utilisent le serveur relais pour récupérer le HTML
+ * et parser les données avec Cheerio.
  */
 
 import { RelayClient } from './relay-client';
-import { ScrapingBeeClient } from './scrapingbee-client';
 import * as cheerio from 'cheerio';
 
-// La clé API ScrapingBee sera récupérée depuis les variables d'environnement
-
 /**
- * Scraper pour MyDramaList
+ * Scraper pour VoirDrama
  */
-class MyDramaListScraper {
+class VoirDramaScraper {
   constructor(debug = false) {
     this.debug = debug;
-    this.name = 'mydramalist';
-    this.baseUrl = 'https://mydramalist.com';
+    this.name = 'voirdrama';
+    this.baseUrl = 'https://voirdrama.org';
     this.relayClient = new RelayClient();
-    // La clé API sera injectée lors de l'exécution
-    this.scrapingBeeClient = null;
   }
   
   /**
@@ -30,19 +25,7 @@ class MyDramaListScraper {
   enableDebug(debug = true) {
     this.debug = debug;
     this.relayClient.enableDebug(debug);
-    if (this.scrapingBeeClient) {
-      this.scrapingBeeClient.enableDebug(debug);
-    }
     return this;
-  }
-  
-  /**
-   * Initialise le client ScrapingBee avec la clé API
-   */
-  initScrapingBeeClient(env) {
-    if (!this.scrapingBeeClient && env && env.SCRAPINGBEE_API_KEY) {
-      this.scrapingBeeClient = new ScrapingBeeClient(env.SCRAPINGBEE_API_KEY, this.debug);
-    }
   }
   
   /**
@@ -65,28 +48,8 @@ class MyDramaListScraper {
     
     this.debugLog(`Récupération du HTML de ${fullUrl}`);
     
-    // Initialiser le client ScrapingBee si nécessaire
-    this.initScrapingBeeClient(env);
-    
     try {
-      // Essayer d'abord avec ScrapingBee si disponible
-      if (this.scrapingBeeClient) {
-        try {
-          this.debugLog(`Tentative avec ScrapingBee...`);
-          const html = await this.scrapingBeeClient.fetchHtml(fullUrl);
-          
-          if (!html) {
-            throw new Error('HTML vide');
-          }
-          
-          return html;
-        } catch (scrapingBeeError) {
-          // Si ScrapingBee échoue, essayer avec le serveur relais
-          this.debugLog(`ScrapingBee a échoué: ${scrapingBeeError.message}, tentative avec le serveur relais...`);
-        }
-      }
-      
-      // Fallback sur le serveur relais
+      // Utiliser le serveur relais
       const html = await this.relayClient.fetchHtml(fullUrl);
       
       if (!html) {
@@ -108,8 +71,8 @@ class MyDramaListScraper {
       this.debugLog(`Début du scraping (limite: ${limit})`);
       const startTime = Date.now();
       
-      // Récupérer la page d'accueil
-      const html = await this.fetchHtml('/shows/recent/', env);
+      // Récupérer la page des dramas
+      const html = await this.fetchHtml('/drama/', env);
       
       // Parser le HTML avec Cheerio
       const $ = cheerio.load(html);
@@ -118,28 +81,35 @@ class MyDramaListScraper {
       const dramas = [];
       
       // Sélectionner les éléments de la liste des dramas
-      $('.box').each((i, element) => {
+      $('.page-item-detail').each((i, element) => {
         if (i >= limit) {
           return false; // Limiter le nombre de résultats
         }
         
         try {
           // Extraire les informations de base
-          const titleElement = $(element).find('h6.title a');
+          const titleElement = $(element).find('h3.h5 a, h5.post-title a');
           const title = titleElement.text().trim();
-          const path = titleElement.attr('href');
-          const url = path ? `${this.baseUrl}${path}` : null;
+          const url = titleElement.attr('href');
           
           // Extraire l'image
-          const imgElement = $(element).find('img.lazy');
-          const imgSrc = imgElement.attr('data-src') || imgElement.attr('src');
+          const imgElement = $(element).find('img, img.img-responsive');
+          const imgSrc = imgElement.attr('src') || imgElement.attr('data-src');
+          
+          // Extraire la note si disponible
+          const rating = $(element).find('.rating .score').text().trim();
+          
+          // Extraire l'année si disponible
+          const year = $(element).find('.year').text().trim().replace(/[()]/g, '');
           
           // Créer l'objet drama
           const drama = {
             title,
             url,
             image: imgSrc,
-            source: 'mydramalist'
+            rating: rating || null,
+            year: year || null,
+            source: 'voirdrama'
           };
           
           dramas.push(drama);
@@ -151,7 +121,7 @@ class MyDramaListScraper {
       const endTime = Date.now();
       const durationSeconds = (endTime - startTime) / 1000;
       
-      this.debugLog(`Fin du scraping: ${dramas.length} dramas récupérés, durée: ${durationSeconds.toFixed(3)} secondes`);
+      this.debugLog(`Fin du scraping: ${dramas.length} dramas trouvés, durée: ${durationSeconds.toFixed(3)} secondes`);
       
       return {
         success: dramas.length > 0,
@@ -182,11 +152,11 @@ class MyDramaListScraper {
    */
   async search(query, limit = 20, env) {
     try {
-      this.debugLog(`Recherche de "${query}" (limite: ${limit})`);
+      this.debugLog(`Début de la recherche pour "${query}" (limite: ${limit})`);
       const startTime = Date.now();
       
       // Récupérer la page de recherche
-      const html = await this.fetchHtml(`/search?q=${encodeURIComponent(query)}`, env);
+      const html = await this.fetchHtml(`/?s=${encodeURIComponent(query)}`, env);
       
       // Parser le HTML avec Cheerio
       const $ = cheerio.load(html);
@@ -195,28 +165,27 @@ class MyDramaListScraper {
       const dramas = [];
       
       // Sélectionner les éléments de la liste des résultats
-      $('.box').each((i, element) => {
+      $('.c-tabs-item__content').each((i, element) => {
         if (i >= limit) {
           return false; // Limiter le nombre de résultats
         }
         
         try {
           // Extraire les informations de base
-          const titleElement = $(element).find('h6.title a');
+          const titleElement = $(element).find('h3.h5 a, h5.post-title a');
           const title = titleElement.text().trim();
-          const path = titleElement.attr('href');
-          const url = path ? `${this.baseUrl}${path}` : null;
+          const url = titleElement.attr('href');
           
           // Extraire l'image
-          const imgElement = $(element).find('img.lazy');
-          const imgSrc = imgElement.attr('data-src') || imgElement.attr('src');
+          const imgElement = $(element).find('img, img.img-responsive');
+          const imgSrc = imgElement.attr('src') || imgElement.attr('data-src');
           
           // Créer l'objet drama
           const drama = {
             title,
             url,
             image: imgSrc,
-            source: 'mydramalist'
+            source: 'voirdrama'
           };
           
           dramas.push(drama);
@@ -259,35 +228,49 @@ class MyDramaListScraper {
    */
   async getDramaDetails(id, env) {
     try {
-      this.debugLog(`Récupération des détails du drama ${id}`);
+      this.debugLog(`Récupération des détails du drama avec l'URL: ${id}`);
       const startTime = Date.now();
       
       // Récupérer la page du drama
-      const html = await this.fetchHtml(`/id/${id}`, env);
+      const html = await this.fetchHtml(id, env);
       
       // Parser le HTML avec Cheerio
       const $ = cheerio.load(html);
       
       // Extraire les informations du drama
-      const title = $('.film-title').text().trim();
-      const description = $('.show-synopsis').text().trim();
-      const image = $('.img-responsive').attr('src');
+      const title = $('.entry-title').text().trim();
+      const description = $('.description-summary').text().trim();
+      const image = $('.thumb img').attr('src');
       
       // Extraire les informations supplémentaires
       const details = {};
-      $('.show-details .box-body dl').each((i, element) => {
-        const dt = $(element).find('dt').text().trim();
-        const dd = $(element).find('dd').text().trim();
+      $('.post-content_item').each((i, element) => {
+        const label = $(element).find('.summary-heading h5').text().trim();
+        const value = $(element).find('.summary-content').text().trim();
         
-        if (dt && dd) {
-          details[dt.toLowerCase().replace(':', '')] = dd;
+        if (label && value) {
+          details[label.toLowerCase().replace(':', '')] = value;
         }
       });
       
       // Extraire les genres
       const genres = [];
-      $('.show-genres a').each((i, element) => {
+      $('.genres-content a').each((i, element) => {
         genres.push($(element).text().trim());
+      });
+      
+      // Extraire les épisodes
+      const episodes = [];
+      $('#manga-chapters-holder li.wp-manga-chapter').each((i, element) => {
+        const episodeTitle = $(element).find('a').text().trim();
+        const episodeUrl = $(element).find('a').attr('href');
+        const episodeDate = $(element).find('.chapter-release-date').text().trim();
+        
+        episodes.push({
+          title: episodeTitle,
+          url: episodeUrl,
+          date: episodeDate
+        });
       });
       
       const drama = {
@@ -297,8 +280,9 @@ class MyDramaListScraper {
         image,
         genres,
         details,
-        url: `${this.baseUrl}/id/${id}`,
-        source: 'mydramalist'
+        episodes,
+        url: id.startsWith('http') ? id : `${this.baseUrl}${id}`,
+        source: 'voirdrama'
       };
       
       const endTime = Date.now();
@@ -332,16 +316,14 @@ class MyDramaListScraper {
 }
 
 /**
- * Scraper pour VoirAnime
+ * Scraper pour AsianWiki
  */
-class VoirAnimeScraper {
+class AsianWikiScraper {
   constructor(debug = false) {
     this.debug = debug;
-    this.name = 'voiranime';
-    this.baseUrl = 'https://v5.voiranime.com';
+    this.name = 'asianwiki';
+    this.baseUrl = 'https://asianwiki.com';
     this.relayClient = new RelayClient();
-    // La clé API sera injectée lors de l'exécution
-    this.scrapingBeeClient = null;
   }
   
   /**
@@ -350,19 +332,7 @@ class VoirAnimeScraper {
   enableDebug(debug = true) {
     this.debug = debug;
     this.relayClient.enableDebug(debug);
-    if (this.scrapingBeeClient) {
-      this.scrapingBeeClient.enableDebug(debug);
-    }
     return this;
-  }
-  
-  /**
-   * Initialise le client ScrapingBee avec la clé API
-   */
-  initScrapingBeeClient(env) {
-    if (!this.scrapingBeeClient && env && env.SCRAPINGBEE_API_KEY) {
-      this.scrapingBeeClient = new ScrapingBeeClient(env.SCRAPINGBEE_API_KEY, this.debug);
-    }
   }
   
   /**
@@ -385,28 +355,8 @@ class VoirAnimeScraper {
     
     this.debugLog(`Récupération du HTML de ${fullUrl}`);
     
-    // Initialiser le client ScrapingBee si nécessaire
-    this.initScrapingBeeClient(env);
-    
     try {
-      // Essayer d'abord avec ScrapingBee si disponible
-      if (this.scrapingBeeClient) {
-        try {
-          this.debugLog(`Tentative avec ScrapingBee...`);
-          const html = await this.scrapingBeeClient.fetchHtml(fullUrl);
-          
-          if (!html) {
-            throw new Error('HTML vide');
-          }
-          
-          return html;
-        } catch (scrapingBeeError) {
-          // Si ScrapingBee échoue, essayer avec le serveur relais
-          this.debugLog(`ScrapingBee a échoué: ${scrapingBeeError.message}, tentative avec le serveur relais...`);
-        }
-      }
-      
-      // Fallback sur le serveur relais
+      // Utiliser le serveur relais
       const html = await this.relayClient.fetchHtml(fullUrl);
       
       if (!html) {
@@ -421,63 +371,59 @@ class VoirAnimeScraper {
   }
   
   /**
-   * Extrait des informations de base des animes récents
+   * Extrait des informations de base des dramas récents
    */
   async scrape(limit = 20, env) {
     try {
       this.debugLog(`Début du scraping (limite: ${limit})`);
       const startTime = Date.now();
       
-      // Récupérer la page d'accueil
-      const html = await this.fetchHtml('/', env);
+      // Récupérer la page des dramas coréens
+      const html = await this.fetchHtml('/wiki/Category:Korean_Movies', env);
       
       // Parser le HTML avec Cheerio
       const $ = cheerio.load(html);
       
-      // Extraire les informations des animes
-      const animes = [];
+      // Extraire les informations des dramas
+      const dramas = [];
       
-      // Sélectionner les éléments de la liste des animes
-      $('.items .item').each((i, element) => {
+      // Sélectionner les éléments de la liste des dramas
+      $('.category-page__member').each((i, element) => {
         if (i >= limit) {
           return false; // Limiter le nombre de résultats
         }
         
         try {
           // Extraire les informations de base
-          const titleElement = $(element).find('.data h3 a');
+          const titleElement = $(element).find('.category-page__member-link');
           const title = titleElement.text().trim();
-          const url = titleElement.attr('href');
+          const path = titleElement.attr('href');
+          const url = path ? `${this.baseUrl}${path}` : null;
           
-          // Extraire l'image
-          const imgElement = $(element).find('.poster img');
-          const imgSrc = imgElement.attr('src') || imgElement.attr('data-src');
-          
-          // Créer l'objet anime
-          const anime = {
+          // Créer l'objet drama
+          const drama = {
             title,
             url,
-            image: imgSrc,
-            source: 'voiranime'
+            source: 'asianwiki'
           };
           
-          animes.push(anime);
+          dramas.push(drama);
         } catch (error) {
-          console.error(`Erreur lors de l'extraction des informations de l'anime #${i}: ${error.message}`);
+          console.error(`Erreur lors de l'extraction des informations du drama #${i}: ${error.message}`);
         }
       });
       
       const endTime = Date.now();
       const durationSeconds = (endTime - startTime) / 1000;
       
-      this.debugLog(`Fin du scraping: ${animes.length} animes récupérés, durée: ${durationSeconds.toFixed(3)} secondes`);
+      this.debugLog(`Fin du scraping: ${dramas.length} dramas trouvés, durée: ${durationSeconds.toFixed(3)} secondes`);
       
       return {
-        success: animes.length > 0,
+        success: dramas.length > 0,
         source: this.name,
-        content_type: 'anime',
-        items: animes,
-        items_count: animes.length,
+        content_type: 'drama',
+        items: dramas,
+        items_count: dramas.length,
         errors_count: 0,
         duration_seconds: durationSeconds
       };
@@ -487,7 +433,7 @@ class VoirAnimeScraper {
       return {
         success: false,
         source: this.name,
-        content_type: 'anime',
+        content_type: 'drama',
         items_count: 0,
         errors_count: 1,
         duration_seconds: 0,
@@ -497,47 +443,47 @@ class VoirAnimeScraper {
   }
   
   /**
-   * Recherche des animes
+   * Recherche des dramas
    */
   async search(query, limit = 20, env) {
     try {
-      this.debugLog(`Recherche de "${query}" (limite: ${limit})`);
+      this.debugLog(`Début de la recherche pour "${query}" (limite: ${limit})`);
       const startTime = Date.now();
       
       // Récupérer la page de recherche
-      const html = await this.fetchHtml(`/?s=${encodeURIComponent(query)}`, env);
+      const html = await this.fetchHtml(`/index.php?search=${encodeURIComponent(query)}`, env);
       
       // Parser le HTML avec Cheerio
       const $ = cheerio.load(html);
       
-      // Extraire les informations des animes
-      const animes = [];
+      // Extraire les informations des dramas
+      const dramas = [];
       
       // Sélectionner les éléments de la liste des résultats
-      $('.items .item').each((i, element) => {
+      $('.mw-search-result').each((i, element) => {
         if (i >= limit) {
           return false; // Limiter le nombre de résultats
         }
         
         try {
           // Extraire les informations de base
-          const titleElement = $(element).find('.data h3 a');
+          const titleElement = $(element).find('.mw-search-result-heading a');
           const title = titleElement.text().trim();
-          const url = titleElement.attr('href');
+          const path = titleElement.attr('href');
+          const url = path ? `${this.baseUrl}${path}` : null;
           
-          // Extraire l'image
-          const imgElement = $(element).find('.poster img');
-          const imgSrc = imgElement.attr('src') || imgElement.attr('data-src');
+          // Extraire la description
+          const description = $(element).find('.searchresult').text().trim();
           
-          // Créer l'objet anime
-          const anime = {
+          // Créer l'objet drama
+          const drama = {
             title,
             url,
-            image: imgSrc,
-            source: 'voiranime'
+            description,
+            source: 'asianwiki'
           };
           
-          animes.push(anime);
+          dramas.push(drama);
         } catch (error) {
           console.error(`Erreur lors de l'extraction des informations du résultat #${i}: ${error.message}`);
         }
@@ -546,14 +492,14 @@ class VoirAnimeScraper {
       const endTime = Date.now();
       const durationSeconds = (endTime - startTime) / 1000;
       
-      this.debugLog(`Fin de la recherche: ${animes.length} animes trouvés, durée: ${durationSeconds.toFixed(3)} secondes`);
+      this.debugLog(`Fin de la recherche: ${dramas.length} dramas trouvés, durée: ${durationSeconds.toFixed(3)} secondes`);
       
       return {
-        success: animes.length > 0,
+        success: dramas.length > 0,
         source: this.name,
-        content_type: 'anime',
-        items: animes,
-        items_count: animes.length,
+        content_type: 'drama',
+        items: dramas,
+        items_count: dramas.length,
         errors_count: 0,
         duration_seconds: durationSeconds
       };
@@ -563,7 +509,7 @@ class VoirAnimeScraper {
       return {
         success: false,
         source: this.name,
-        content_type: 'anime',
+        content_type: 'drama',
         items_count: 0,
         errors_count: 1,
         duration_seconds: 0,
@@ -573,50 +519,63 @@ class VoirAnimeScraper {
   }
   
   /**
-   * Récupère les détails d'un anime
+   * Récupère les détails d'un drama
    */
-  async getAnimeDetails(id, env) {
+  async getDramaDetails(id, env) {
     try {
-      this.debugLog(`Récupération des détails de l'anime avec l'URL: ${id}`);
+      this.debugLog(`Récupération des détails du drama avec l'URL: ${id}`);
       const startTime = Date.now();
       
-      // Récupérer la page de l'anime
+      // Récupérer la page du drama
       const html = await this.fetchHtml(id, env);
       
       // Parser le HTML avec Cheerio
       const $ = cheerio.load(html);
       
-      // Extraire les informations de l'anime
-      const title = $('.entry-title').text().trim();
-      const description = $('.synps').text().trim();
-      const image = $('.poster').attr('src');
+      // Extraire les informations du drama
+      const title = $('#firstHeading').text().trim();
+      const content = $('#mw-content-text');
+      
+      // Extraire l'image
+      const image = content.find('.thumbimage').attr('src');
+      
+      // Extraire la description
+      const description = content.find('p').first().text().trim();
       
       // Extraire les informations supplémentaires
       const details = {};
-      $('.custom_fields .info').each((i, element) => {
-        const label = $(element).find('.name').text().trim();
-        const value = $(element).find('.value').text().trim();
+      content.find('table.infobox tr').each((i, element) => {
+        const label = $(element).find('th').text().trim();
+        const value = $(element).find('td').text().trim();
         
         if (label && value) {
           details[label.toLowerCase().replace(':', '')] = value;
         }
       });
       
-      // Extraire les genres
-      const genres = [];
-      $('.genres a').each((i, element) => {
-        genres.push($(element).text().trim());
+      // Extraire le casting
+      const cast = [];
+      content.find('div.cast').each((i, element) => {
+        const actorName = $(element).find('.cast-name').text().trim();
+        const role = $(element).find('.cast-role').text().trim();
+        
+        if (actorName) {
+          cast.push({
+            name: actorName,
+            role: role || null
+          });
+        }
       });
       
-      const anime = {
+      const drama = {
         id,
         title,
         description,
-        image,
-        genres,
+        image: image ? `${this.baseUrl}${image}` : null,
         details,
+        cast,
         url: id.startsWith('http') ? id : `${this.baseUrl}${id}`,
-        source: 'voiranime'
+        source: 'asianwiki'
       };
       
       const endTime = Date.now();
@@ -625,10 +584,10 @@ class VoirAnimeScraper {
       this.debugLog(`Fin de la récupération des détails, durée: ${durationSeconds.toFixed(3)} secondes`);
       
       return {
-        success: !!anime.title,
+        success: !!drama.title,
         source: this.name,
-        content_type: 'anime',
-        item: anime,
+        content_type: 'drama',
+        item: drama,
         items_count: 1,
         errors_count: 0,
         duration_seconds: durationSeconds
@@ -639,7 +598,7 @@ class VoirAnimeScraper {
       return {
         success: false,
         source: this.name,
-        content_type: 'anime',
+        content_type: 'drama',
         items_count: 0,
         errors_count: 1,
         duration_seconds: 0,
@@ -649,4 +608,4 @@ class VoirAnimeScraper {
   }
 }
 
-export { MyDramaListScraper, VoirAnimeScraper };
+export { VoirDramaScraper, AsianWikiScraper };

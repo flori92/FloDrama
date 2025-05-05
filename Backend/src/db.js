@@ -8,7 +8,7 @@ if (process.env.DATABASE_URL) {
   console.log('DATABASE_URL est définie:', maskedUrl);
 } else {
   console.error('ERREUR: La variable d\'environnement DATABASE_URL n\'est pas définie');
-  console.error('Veuillez définir DATABASE_URL dans le fichier .env ou dans les variables d\'environnement Vercel');
+  console.error('Veuillez définir DATABASE_URL dans le fichier .env ou dans les variables d\'environnement Cloudflare');
 }
 
 // Vérification de la connectivité au serveur de base de données
@@ -28,7 +28,7 @@ const checkDatabaseConnectivity = () => {
   });
 };
 
-// Configuration de la connexion au Transaction pooler de Supabase
+// Configuration de la connexion à Cloudflare D1
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   // Désactivation de SSL pour résoudre l'erreur "The server does not support SSL connections"
