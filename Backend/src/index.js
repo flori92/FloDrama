@@ -30,10 +30,83 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-// Routes pour les différentes catégories
+// Route pour les animes
+app.get('/api/animes', async (req, res) => {
+  try {
+    const { limit = 20, offset = 0, year } = req.query;
+    
+    // Vérifier la connectivité à la base de données
+    const isConnected = await db.checkDatabaseConnectivity();
+    
+    if (!isConnected) {
+      console.warn('Problème de connectivité à la base de données. Utilisation des données mockées pour les animes.');
+      return res.json(generateMockContent(parseInt(limit), parseInt(offset), 'anime'));
+    }
+    
+    let query = 'SELECT * FROM animes';
+    const params = [];
+    
+    // Filtre sur l'année si spécifié
+    if (year) {
+      const currentYear = new Date().getFullYear();
+      const previousYear = currentYear - 1;
+      
+      if (year === 'recent') {
+        query += ' WHERE year = $1 OR year = $2';
+        params.push(currentYear, previousYear);
+      } else {
+        query += ' WHERE year = $1';
+        params.push(parseInt(year));
+      }
+    }
+    
+    query += ' ORDER BY created_at DESC LIMIT $' + (params.length + 1) + ' OFFSET $' + (params.length + 2);
+    params.push(parseInt(limit), parseInt(offset));
+    
+    try {
+      const result = await db.query(query, params);
+      console.log(`Récupération réussie de ${result.rowCount} animes`);
+      return res.json(result.rows);
+    } catch (dbError) {
+      console.error('Erreur de base de données pour animes:', dbError);
+      
+      // Tentative alternative avec la table 'content' si elle existe
+      try {
+        const contentQuery = `
+          SELECT * FROM content 
+          WHERE type = 'anime'
+          ORDER BY created_at DESC 
+          LIMIT $1 OFFSET $2
+        `;
+        const contentResult = await db.query(contentQuery, [parseInt(limit), parseInt(offset)]);
+        console.log(`Récupération réussie de ${contentResult.rowCount} animes depuis la table 'content'`);
+        return res.json(contentResult.rows);
+      } catch (contentError) {
+        console.error('Erreur avec la table content pour les animes:', contentError);
+        
+        // Renvoyer des données mockées en cas d'erreur de base de données
+        console.warn('Toutes les tentatives de récupération ont échoué, renvoi de données mockées pour les animes');
+        return res.json(generateMockContent(parseInt(limit), parseInt(offset), 'anime'));
+      }
+    }
+  } catch (error) {
+    console.error('Erreur lors de la récupération des animes:', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+// Route pour les dramas
 app.get('/api/dramas', async (req, res) => {
   try {
     const { limit = 20, offset = 0, year } = req.query;
+    
+    // Vérifier la connectivité à la base de données
+    const isConnected = await db.checkDatabaseConnectivity();
+    
+    if (!isConnected) {
+      console.warn('Problème de connectivité à la base de données. Utilisation des données mockées pour les dramas.');
+      return res.json(generateMockContent(parseInt(limit), parseInt(offset), 'drama'));
+    }
     
     let query = 'SELECT * FROM dramas';
     const params = [];
@@ -57,24 +130,97 @@ app.get('/api/dramas', async (req, res) => {
     
     try {
       const result = await db.query(query, params);
-      res.json(result.rows);
+      console.log(`Récupération réussie de ${result.rowCount} dramas`);
+      return res.json(result.rows);
     } catch (dbError) {
       console.error('Erreur de base de données pour dramas:', dbError);
-      // Renvoyer des données mockées en cas d'erreur de base de données
-      res.json(Array(parseInt(limit)).fill(0).map((_, i) => ({
-        id: `mock-drama-${i}`,
-        title: `Drama ${i+1}`,
-        description: "Contenu temporaire pendant la maintenance de l'API",
-        poster: `https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/drama-${i % 5 + 1}.jpg`,
-        backdrop: `https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/drama-${i % 5 + 1}.jpg`,
-        rating: 4.5,
-        year: new Date().getFullYear(),
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      })));
+      
+      // Tentative alternative avec la table 'content' si elle existe
+      try {
+        const contentQuery = `
+          SELECT * FROM content 
+          WHERE type = 'drama'
+          ORDER BY created_at DESC 
+          LIMIT $1 OFFSET $2
+        `;
+        const contentResult = await db.query(contentQuery, [parseInt(limit), parseInt(offset)]);
+        console.log(`Récupération réussie de ${contentResult.rowCount} dramas depuis la table 'content'`);
+        return res.json(contentResult.rows);
+      } catch (contentError) {
+        console.error('Erreur avec la table content pour les dramas:', contentError);
+        
+        // Renvoyer des données mockées en cas d'erreur de base de données
+        console.warn('Toutes les tentatives de récupération ont échoué, renvoi de données mockées pour les dramas');
+        return res.json(generateMockContent(parseInt(limit), parseInt(offset), 'drama'));
+      }
     }
   } catch (error) {
     console.error('Erreur lors de la récupération des dramas:', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+// Route pour les contenus bollywood
+app.get('/api/bollywood', async (req, res) => {
+  try {
+    const { limit = 20, offset = 0, year } = req.query;
+    
+    // Vérifier la connectivité à la base de données
+    const isConnected = await db.checkDatabaseConnectivity();
+    
+    if (!isConnected) {
+      console.warn('Problème de connectivité à la base de données. Utilisation des données mockées pour bollywood.');
+      return res.json(generateMockContent(parseInt(limit), parseInt(offset), 'bollywood'));
+    }
+    
+    let query = 'SELECT * FROM bollywood';
+    const params = [];
+    
+    // Filtre sur l'année si spécifié
+    if (year) {
+      const currentYear = new Date().getFullYear();
+      const previousYear = currentYear - 1;
+      
+      if (year === 'recent') {
+        query += ' WHERE year = $1 OR year = $2';
+        params.push(currentYear, previousYear);
+      } else {
+        query += ' WHERE year = $1';
+        params.push(parseInt(year));
+      }
+    }
+    
+    query += ' ORDER BY created_at DESC LIMIT $' + (params.length + 1) + ' OFFSET $' + (params.length + 2);
+    params.push(parseInt(limit), parseInt(offset));
+    
+    try {
+      const result = await db.query(query, params);
+      console.log(`Récupération réussie de ${result.rowCount} contenus bollywood`);
+      return res.json(result.rows);
+    } catch (dbError) {
+      console.error('Erreur de base de données pour bollywood:', dbError);
+      
+      // Tentative alternative avec la table 'content' si elle existe
+      try {
+        const contentQuery = `
+          SELECT * FROM content 
+          WHERE type = 'bollywood'
+          ORDER BY created_at DESC 
+          LIMIT $1 OFFSET $2
+        `;
+        const contentResult = await db.query(contentQuery, [parseInt(limit), parseInt(offset)]);
+        console.log(`Récupération réussie de ${contentResult.rowCount} contenus bollywood depuis la table 'content'`);
+        return res.json(contentResult.rows);
+      } catch (contentError) {
+        console.error('Erreur avec la table content pour bollywood:', contentError);
+        
+        // Renvoyer des données mockées en cas d'erreur de base de données
+        console.warn('Toutes les tentatives de récupération ont échoué, renvoi de données mockées pour bollywood');
+        return res.json(generateMockContent(parseInt(limit), parseInt(offset), 'bollywood'));
+      }
+    }
+  } catch (error) {
+    console.error('Erreur lors de la récupération des contenus bollywood:', error);
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
@@ -104,6 +250,14 @@ app.get('/api/films', async (req, res) => {
       }
     } catch (tableError) {
       console.error('Erreur lors de la vérification des tables:', tableError);
+    }
+    
+    // Vérifier la connectivité à la base de données
+    const isConnected = await db.checkDatabaseConnectivity();
+    
+    if (!isConnected) {
+      console.warn('Problème de connectivité à la base de données. Utilisation des données mockées pour les films.');
+      return res.json(generateMockContent(parseInt(limit), parseInt(offset), 'film'));
     }
     
     // Essayer d'abord la requête sur la table 'films'
@@ -150,17 +304,7 @@ app.get('/api/films', async (req, res) => {
         
         // Si toutes les tentatives échouent, renvoyer des données mockées
         console.warn('Toutes les tentatives de récupération ont échoué, renvoi de données mockées');
-        return res.json(Array(parseInt(limit)).fill(0).map((_, i) => ({
-          id: `mock-film-${i}`,
-          title: `Film ${i+1}`,
-          description: "Contenu temporaire pendant la maintenance de l'API",
-          poster: `https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/movie-${i % 5 + 1}.jpg`,
-          backdrop: `https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/movie-${i % 5 + 1}.jpg`,
-          rating: 4.5,
-          year: new Date().getFullYear(),
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        })));
+        return res.json(generateMockContent(parseInt(limit), parseInt(offset), 'film'));
       }
     }
   } catch (error) {
@@ -169,105 +313,31 @@ app.get('/api/films', async (req, res) => {
   }
 });
 
-// Route pour les animes
-app.get('/api/animes', async (req, res) => {
-  try {
-    const { limit = 20, offset = 0, year } = req.query;
-    
-    let query = 'SELECT * FROM animes';
-    const params = [];
-    
-    // Filtre sur l'année si spécifié
-    if (year) {
-      const currentYear = new Date().getFullYear();
-      const previousYear = currentYear - 1;
-      
-      if (year === 'recent') {
-        query += ' WHERE year = $1 OR year = $2';
-        params.push(currentYear, previousYear);
-      } else {
-        query += ' WHERE year = $1';
-        params.push(parseInt(year));
-      }
-    }
-    
-    query += ' ORDER BY created_at DESC LIMIT $' + (params.length + 1) + ' OFFSET $' + (params.length + 2);
-    params.push(parseInt(limit), parseInt(offset));
-    
-    try {
-      const result = await db.query(query, params);
-      res.json(result.rows);
-    } catch (dbError) {
-      console.error('Erreur de base de données pour animes:', dbError);
-      // Renvoyer des données mockées en cas d'erreur de base de données
-      res.json(Array(parseInt(limit)).fill(0).map((_, i) => ({
-        id: `mock-anime-${i}`,
-        title: `Anime ${i+1}`,
-        description: "Contenu temporaire pendant la maintenance de l'API",
-        poster: `https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/anime-${i % 5 + 1}.jpg`,
-        backdrop: `https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/anime-${i % 5 + 1}.jpg`,
-        rating: 4.5,
-        year: new Date().getFullYear(),
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      })));
-    }
-  } catch (error) {
-    console.error('Erreur lors de la récupération des animes:', error);
-    res.status(500).json({ error: 'Erreur serveur' });
-  }
-});
+// Fonction pour générer des données mockées pour différents types de contenu
+function generateMockContent(limit, offset, type) {
+  const typeLabels = {
+    'film': 'Film',
+    'drama': 'Drama',
+    'anime': 'Anime',
+    'bollywood': 'Bollywood'
+  };
+  
+  const label = typeLabels[type] || type.charAt(0).toUpperCase() + type.slice(1);
+  
+  return Array(limit).fill(0).map((_, i) => ({
+    id: `mock-${type}-${i + offset}`,
+    title: `${label} ${i + offset + 1}`,
+    description: `Contenu temporaire ${type} pendant la maintenance de l'API`,
+    poster: `https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/${type}-${(i + offset) % 5 + 1}.jpg`,
+    backdrop: `https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/${type}-${(i + offset) % 5 + 1}.jpg`,
+    rating: 4.5,
+    year: new Date().getFullYear(),
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
+  }));
+}
 
-// Route pour les contenus bollywood
-app.get('/api/bollywood', async (req, res) => {
-  try {
-    const { limit = 20, offset = 0, year } = req.query;
-    
-    let query = 'SELECT * FROM bollywood';
-    const params = [];
-    
-    // Filtre sur l'année si spécifié
-    if (year) {
-      const currentYear = new Date().getFullYear();
-      const previousYear = currentYear - 1;
-      
-      if (year === 'recent') {
-        query += ' WHERE year = $1 OR year = $2';
-        params.push(currentYear, previousYear);
-      } else {
-        query += ' WHERE year = $1';
-        params.push(parseInt(year));
-      }
-    }
-    
-    query += ' ORDER BY created_at DESC LIMIT $' + (params.length + 1) + ' OFFSET $' + (params.length + 2);
-    params.push(parseInt(limit), parseInt(offset));
-    
-    try {
-      const result = await db.query(query, params);
-      res.json(result.rows);
-    } catch (dbError) {
-      console.error('Erreur de base de données pour bollywood:', dbError);
-      // Renvoyer des données mockées en cas d'erreur de base de données
-      res.json(Array(parseInt(limit)).fill(0).map((_, i) => ({
-        id: `mock-bollywood-${i}`,
-        title: `Bollywood ${i+1}`,
-        description: "Contenu temporaire pendant la maintenance de l'API",
-        poster: `https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/bollywood-${i % 5 + 1}.jpg`,
-        backdrop: `https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/bollywood-${i % 5 + 1}.jpg`,
-        rating: 4.5,
-        year: new Date().getFullYear(),
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      })));
-    }
-  } catch (error) {
-    console.error('Erreur lors de la récupération des contenus bollywood:', error);
-    res.status(500).json({ error: 'Erreur serveur' });
-  }
-});
-
-// Route pour récupérer un contenu spécifique
+// Route pour un contenu spécifique
 app.get('/api/content/:id', async (req, res) => {
   try {
     const { id } = req.params;
