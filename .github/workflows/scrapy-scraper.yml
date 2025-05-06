@@ -1,111 +1,254 @@
 name: FloDrama Scraper
 
 on:
-  schedule:
-    # Exécution tous les jours à 2h du matin
-    - cron: '0 2 * * *'
   workflow_dispatch:
     inputs:
       source:
-        description: 'Source à scraper (mydramalist, voiranime, voirdrama, dramavostfr, animesama)'
+        description: "Source à scraper (laisser vide pour utiliser la source par défaut)"
         required: false
-        default: 'mydramalist'
+        type: string
       limit:
-        description: "Nombre d'éléments à récupérer"
+        description: "Nombre d'éléments à récupérer par source"
         required: false
-        default: '20'
+        default: '100'
+        type: string
+      all_sources:
+        description: "Scraper toutes les sources disponibles"
+        required: false
+        default: false
+        type: boolean
+      pages:
+        description: "Nombre maximum de pages à scraper par source"
+        required: false
+        default: '10'
+        type: string
       debug:
-        description: "Mode debug (affiche plus d'informations)"
+        description: "Activer le mode debug"
+        required: false
+        default: false
+        type: boolean
+      send_to_d1:
+        description: "Envoyer les données vers Cloudflare D1"
         required: false
         default: true
         type: boolean
+      remote_d1:
+        description: "Utiliser la base de données D1 distante (production)"
+        required: false
+        default: false
+        type: boolean
+      monitoring:
+        description: "Activer le monitoring et les alertes"
+        required: false
+        default: true
+        type: boolean
+  schedule:
+    # Exécution tous les jours à 2h du matin
+    - cron: '0 2 * * *'
 
 jobs:
   scrape:
+    name: Scrape Content
     runs-on: ubuntu-latest
-    name: Scraper FloDrama
-    
+    timeout-minutes: 30  # Augmentation du timeout à 30 minutes pour gérer toutes les sources
+
     steps:
-      - name: Checkout du code
+      - name: Checkout repository
         uses: actions/checkout@v4
-      
-      - name: Configuration de Node.js
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: 'cloudflare/scraping/package.json'
-      
-      - name: Installation des dépendances
+          cache-dependency-path: 'cloudflare/scraping/package-lock.json'
+
+      - name: Install dependencies
         run: |
           cd cloudflare/scraping
-          npm install
-      
-      - name: Exécution du scraper
+          npm ci
+
+      - name: Run scraper
         env:
           CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          # Création du dossier pour les résultats
           mkdir -p scraping-results
+          cd cloudflare/scraping
           
-          # Détermination de la source à scraper
-          SOURCE="${{ github.event.inputs.source || 'mydramalist' }}"
-          LIMIT="${{ github.event.inputs.limit || '20' }}"
-          DEBUG="${{ github.event.inputs.debug || 'true' }}"
+          # Construire la commande de scraping
+          CMD="node src/cli-scraper.js --output=../../scraping-results"
           
-          echo "Démarrage du scraping pour la source: $SOURCE avec une limite de $LIMIT éléments"
-          echo "URL du Worker Cloudflare: ${CLOUDFLARE_WORKER_URL}"
+          # Ajouter les paramètres selon les inputs
+          if [ "${{ github.event.inputs.all_sources }}" == "true" ] || [ "${{ github.event_name }}" == "schedule" ]; then
+            CMD="$CMD --all"
+            echo "Mode: Scraping de toutes les sources"
+          elif [ -n "${{ github.event.inputs.source }}" ]; then
+            CMD="$CMD --source=${{ github.event.inputs.source }}"
+            echo "Mode: Scraping de la source ${{ github.event.inputs.source }}"
+          else
+            CMD="$CMD --source=mydramalist"
+            echo "Mode: Scraping de la source par défaut (mydramalist)"
+          fi
           
-          # Vérification de l'URL du Worker
-          if [ -z "$CLOUDFLARE_WORKER_URL" ]; then
-            echo "ERREUR: La variable CLOUDFLARE_WORKER_URL n'est pas définie"
+          # Ajouter la limite
+          if [ -n "${{ github.event.inputs.limit }}" ]; then
+            CMD="$CMD --limit=${{ github.event.inputs.limit }}"
+          else
+            CMD="$CMD --limit=100"
+          fi
+          
+          # Ajouter le nombre de pages
+          if [ -n "${{ github.event.inputs.pages }}" ]; then
+            CMD="$CMD --pages=${{ github.event.inputs.pages }}"
+          else
+            CMD="$CMD --pages=10"
+          fi
+          
+          # Ajouter le mode debug si activé
+          if [ "${{ github.event.inputs.debug }}" == "true" ]; then
+            CMD="$CMD --debug"
+            echo "Mode debug activé"
+          fi
+          
+          echo "Exécution de la commande: $CMD"
+          eval $CMD
+          
+          # Vérifier si des fichiers ont été générés
+          if [ -z "$(ls -A ../../scraping-results)" ]; then
+            echo "Erreur: Aucun fichier de résultat généré"
             exit 1
           fi
           
-          # Exécution du script de scraping avec un timeout de 5 minutes
+          echo "Scraping terminé avec succès"
+          ls -la ../../scraping-results
+
+      - name: Send data to Cloudflare D1
+        if: ${{ github.event.inputs.send_to_d1 != 'false' && (github.event_name == 'schedule' || github.event.inputs.send_to_d1 == 'true') }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          echo "Envoi des données vers Cloudflare D1..."
           cd cloudflare/scraping
-          timeout 300s node src/cli-scraper.js --source=$SOURCE --limit=$LIMIT --output=../../scraping-results
           
-          # Vérification du code de retour
-          EXIT_CODE=$?
-          if [ $EXIT_CODE -eq 124 ]; then
-            echo "ATTENTION: Le script a été interrompu après 5 minutes d'exécution (timeout)"
-          elif [ $EXIT_CODE -ne 0 ]; then
-            echo "ERREUR: Le script s'est terminé avec le code d'erreur $EXIT_CODE"
-            # Ne pas échouer le workflow, car nous avons un mécanisme de fallback
+          # Construire la commande d'envoi
+          CMD="node scripts/send-to-d1.js --input=../../scraping-results"
+          
+          # Ajouter le flag remote si nécessaire
+          if [ "${{ github.event.inputs.remote_d1 }}" == "true" ] || [ "${{ github.event_name }}" == "schedule" ]; then
+            CMD="$CMD --remote"
+            echo "Mode: Envoi vers la base de données distante (production)"
+          else
+            echo "Mode: Envoi vers la base de données locale (développement)"
           fi
           
-          # Vérification des résultats
-          cd ../../
-          echo "Contenu du dossier scraping-results:"
-          ls -la scraping-results/
+          echo "Exécution de la commande: $CMD"
+          eval $CMD
           
-          # Afficher le contenu du dernier fichier JSON généré (pour débogage)
-          if [ "$DEBUG" = "true" ]; then
-            LATEST_FILE=$(ls -t scraping-results/*.json | head -n1)
-            if [ -n "$LATEST_FILE" ]; then
-              echo "Aperçu du dernier fichier généré ($LATEST_FILE):"
-              head -n 30 "$LATEST_FILE"
-            else
-              echo "Aucun fichier JSON trouvé dans le dossier scraping-results"
-            fi
-          fi
-      
-      - name: Archivage des résultats
+          echo "Envoi des données terminé"
+
+      - name: Run monitoring
+        if: ${{ github.event.inputs.monitoring != 'false' && (github.event_name == 'schedule' || github.event.inputs.monitoring == 'true') }}
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          echo "Exécution du monitoring..."
+          cd cloudflare/scraping
+          
+          # Exécuter le script de monitoring
+          node scripts/monitor-scraping.js --input=../../scraping-results
+          
+          echo "Monitoring terminé"
+
+      - name: Upload results
         uses: actions/upload-artifact@v4
         with:
           name: scraping-results
           path: scraping-results/
           retention-days: 7
-      
-      - name: Notification de réussite
-        if: success()
+
+      - name: Create summary
         run: |
-          echo "Scraping terminé avec succès"
-          echo "Les résultats sont disponibles dans les artifacts du workflow"
-      
-      - name: Notification d'échec
-        if: failure()
-        run: |
-          echo "Erreur lors du scraping"
-          echo "Vérifiez les logs pour plus d'informations"
+          echo "## Résultats du scraping" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Afficher le résumé du scraping s'il existe
+          SUMMARY_FILE=$(ls -t scraping-results/scraping_summary_*.json 2>/dev/null | head -n 1)
+          if [ -n "$SUMMARY_FILE" ]; then
+            echo "### Résumé global" >> $GITHUB_STEP_SUMMARY
+            echo '```json' >> $GITHUB_STEP_SUMMARY
+            cat "$SUMMARY_FILE" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          # Afficher le résumé de l'envoi vers D1 s'il existe
+          D1_SUMMARY_FILE=$(ls -t scraping-results/d1_import_summary_*.json 2>/dev/null | head -n 1)
+          if [ -n "$D1_SUMMARY_FILE" ]; then
+            echo "### Résumé de l'envoi vers Cloudflare D1" >> $GITHUB_STEP_SUMMARY
+            echo '```json' >> $GITHUB_STEP_SUMMARY
+            cat "$D1_SUMMARY_FILE" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          # Afficher le rapport de monitoring s'il existe
+          MONITORING_FILE=$(ls -t scraping-results/monitoring_report_*.json 2>/dev/null | head -n 1)
+          if [ -n "$MONITORING_FILE" ]; then
+            echo "### Rapport de monitoring" >> $GITHUB_STEP_SUMMARY
+            echo '```json' >> $GITHUB_STEP_SUMMARY
+            cat "$MONITORING_FILE" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          # Afficher les fichiers générés
+          echo "### Fichiers générés" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          ls -la scraping-results/ >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          
+          # Afficher les statistiques pour chaque source
+          echo "### Statistiques par source" >> $GITHUB_STEP_SUMMARY
+          echo "| Source | Éléments | Type | Statut | D1 | Monitoring |" >> $GITHUB_STEP_SUMMARY
+          echo "| ------ | -------- | ---- | ------ | -- | ---------- |" >> $GITHUB_STEP_SUMMARY
+          
+          for FILE in scraping-results/*.json; do
+            if [[ "$FILE" != *"summary"* && "$FILE" != *"report"* ]]; then
+              SOURCE=$(basename "$FILE" | cut -d'_' -f1)
+              COUNT=$(grep -o '"count":[0-9]*' "$FILE" | cut -d':' -f2)
+              IS_MOCK=$(grep -o '"is_mock":\(true\|false\)' "$FILE" | cut -d':' -f2)
+              
+              if [ "$IS_MOCK" == "true" ]; then
+                STATUS="⚠️ Mock"
+              else
+                STATUS="✅ Réel"
+              fi
+              
+              CONTENT_TYPE=$(grep -o '"content_type":"[^"]*"' "$FILE" | cut -d'"' -f4)
+              
+              # Vérifier si les données ont été envoyées vers D1
+              if [ -n "$D1_SUMMARY_FILE" ] && grep -q "\"file\":\"$FILE\"" "$D1_SUMMARY_FILE"; then
+                D1_STATUS="✅"
+              else
+                D1_STATUS="❌"
+              fi
+              
+              # Vérifier le statut du monitoring
+              if [ -n "$MONITORING_FILE" ]; then
+                if grep -q "\"source\":\"$SOURCE\"" "$MONITORING_FILE" && grep -q "\"count\":$COUNT" "$MONITORING_FILE"; then
+                  if [ $COUNT -lt 100 ]; then
+                    MONITORING_STATUS="⚠️"
+                  else
+                    MONITORING_STATUS="✅"
+                  fi
+                else
+                  MONITORING_STATUS="❓"
+                fi
+              else
+                MONITORING_STATUS="❌"
+              fi
+              
+              echo "| $SOURCE | $COUNT | $CONTENT_TYPE | $STATUS | $D1_STATUS | $MONITORING_STATUS |" >> $GITHUB_STEP_SUMMARY
+            fi
+          done

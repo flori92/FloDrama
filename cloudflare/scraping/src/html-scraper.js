@@ -108,8 +108,34 @@ class MyDramaListScraper {
       this.debugLog(`Début du scraping (limite: ${limit})`);
       const startTime = Date.now();
       
-      // Récupérer la page d'accueil
-      const html = await this.fetchHtml('/shows/recent/', env);
+      // Récupérer la page d'accueil ou la page des dramas récents
+      const urls = [
+        '/shows/recent/',
+        '/shows/top/',
+        '/shows/popular/',
+        '/shows/'
+      ];
+      
+      let html = null;
+      let error = null;
+      
+      // Essayer chaque URL jusqu'à ce qu'une fonctionne
+      for (const url of urls) {
+        try {
+          html = await this.fetchHtml(url, env);
+          if (html) {
+            this.debugLog(`Succès avec l'URL: ${url}`);
+            break;
+          }
+        } catch (err) {
+          error = err;
+          this.debugLog(`Échec avec l'URL: ${url}, erreur: ${err.message}`);
+        }
+      }
+      
+      if (!html) {
+        throw error || new Error('Impossible de récupérer le HTML des dramas récents');
+      }
       
       // Parser le HTML avec Cheerio
       const $ = cheerio.load(html);
@@ -117,41 +143,99 @@ class MyDramaListScraper {
       // Extraire les informations des dramas
       const dramas = [];
       
-      // Sélectionner les éléments de la liste des dramas
-      $('.box').each((i, element) => {
-        if (i >= limit) {
-          return false; // Limiter le nombre de résultats
-        }
+      // Essayer différents sélecteurs pour s'adapter aux changements de structure
+      const selectors = [
+        '.box', // Ancien sélecteur
+        '.mdl-card', // Nouveau sélecteur possible
+        '.card', // Alternative
+        '.drama-card', // Alternative
+        '.show-card', // Alternative
+        '[data-role="drama-card"]', // Alternative avec attribut data
+        '.list-item' // Alternative générique
+      ];
+      
+      // Essayer chaque sélecteur jusqu'à ce qu'on trouve des résultats
+      for (const selector of selectors) {
+        const elements = $(selector);
+        this.debugLog(`Essai du sélecteur "${selector}": ${elements.length} éléments trouvés`);
         
-        try {
-          // Extraire les informations de base
-          const titleElement = $(element).find('h6.title a');
-          const title = titleElement.text().trim();
-          const path = titleElement.attr('href');
-          const url = path ? `${this.baseUrl}${path}` : null;
+        if (elements.length > 0) {
+          elements.each((i, element) => {
+            if (i >= limit) {
+              return false; // Limiter le nombre de résultats
+            }
+            
+            try {
+              // Essayer différents sélecteurs pour le titre
+              const titleSelectors = ['h6.title a', 'h6 a', '.title a', 'a.title', '.caption a', 'a[itemprop="url"]'];
+              let title = null;
+              let path = null;
+              
+              for (const titleSelector of titleSelectors) {
+                const titleElement = $(element).find(titleSelector);
+                if (titleElement.length > 0) {
+                  title = titleElement.text().trim();
+                  path = titleElement.attr('href');
+                  break;
+                }
+              }
+              
+              if (!title || !path) {
+                this.debugLog(`Titre ou chemin non trouvé pour l'élément #${i}`);
+                return; // Passer à l'élément suivant
+              }
+              
+              const url = path ? `${this.baseUrl}${path}` : null;
+              
+              // Essayer différents sélecteurs pour l'image
+              const imgSelectors = ['img.lazy', 'img[data-src]', 'img.poster', '.poster img', 'img'];
+              let imgSrc = null;
+              
+              for (const imgSelector of imgSelectors) {
+                const imgElement = $(element).find(imgSelector);
+                if (imgElement.length > 0) {
+                  imgSrc = imgElement.attr('data-src') || imgElement.attr('src');
+                  break;
+                }
+              }
+              
+              // Essayer différents sélecteurs pour la note
+              const ratingSelectors = ['.score', '.rating', '[itemprop="ratingValue"]', '.score-container'];
+              let rating = null;
+              
+              for (const ratingSelector of ratingSelectors) {
+                const ratingElement = $(element).find(ratingSelector);
+                if (ratingElement.length > 0) {
+                  rating = ratingElement.text().trim();
+                  break;
+                }
+              }
+              
+              // Créer l'objet drama
+              const drama = {
+                title,
+                url,
+                image: imgSrc,
+                rating: rating || null,
+                source: 'mydramalist'
+              };
+              
+              dramas.push(drama);
+            } catch (error) {
+              console.error(`Erreur lors de l'extraction des informations du drama #${i}: ${error.message}`);
+            }
+          });
           
-          // Extraire l'image
-          const imgElement = $(element).find('img.lazy');
-          const imgSrc = imgElement.attr('data-src') || imgElement.attr('src');
-          
-          // Créer l'objet drama
-          const drama = {
-            title,
-            url,
-            image: imgSrc,
-            source: 'mydramalist'
-          };
-          
-          dramas.push(drama);
-        } catch (error) {
-          console.error(`Erreur lors de l'extraction des informations du drama #${i}: ${error.message}`);
+          if (dramas.length > 0) {
+            break; // Sortir de la boucle si on a trouvé des dramas
+          }
         }
-      });
+      }
       
       const endTime = Date.now();
       const durationSeconds = (endTime - startTime) / 1000;
       
-      this.debugLog(`Fin du scraping: ${dramas.length} dramas récupérés, durée: ${durationSeconds.toFixed(3)} secondes`);
+      this.debugLog(`Fin du scraping: ${dramas.length} dramas trouvés, durée: ${durationSeconds.toFixed(3)} secondes`);
       
       return {
         success: dramas.length > 0,
@@ -182,11 +266,14 @@ class MyDramaListScraper {
    */
   async search(query, limit = 20, env) {
     try {
-      this.debugLog(`Recherche de "${query}" (limite: ${limit})`);
+      this.debugLog(`Début de la recherche pour "${query}" (limite: ${limit})`);
       const startTime = Date.now();
       
+      // Encoder la requête
+      const encodedQuery = encodeURIComponent(query);
+      
       // Récupérer la page de recherche
-      const html = await this.fetchHtml(`/search?q=${encodeURIComponent(query)}`, env);
+      const html = await this.fetchHtml(`/search?q=${encodedQuery}&type=titles`, env);
       
       // Parser le HTML avec Cheerio
       const $ = cheerio.load(html);
@@ -194,36 +281,81 @@ class MyDramaListScraper {
       // Extraire les informations des dramas
       const dramas = [];
       
-      // Sélectionner les éléments de la liste des résultats
-      $('.box').each((i, element) => {
-        if (i >= limit) {
-          return false; // Limiter le nombre de résultats
-        }
+      // Essayer différents sélecteurs pour s'adapter aux changements de structure
+      const selectors = [
+        '.box', // Ancien sélecteur
+        '.mdl-card', // Nouveau sélecteur possible
+        '.card', // Alternative
+        '.drama-card', // Alternative
+        '.show-card', // Alternative
+        '.search-result', // Sélecteur spécifique pour les résultats de recherche
+        '.list-item' // Alternative générique
+      ];
+      
+      // Essayer chaque sélecteur jusqu'à ce qu'on trouve des résultats
+      for (const selector of selectors) {
+        const elements = $(selector);
+        this.debugLog(`Essai du sélecteur "${selector}": ${elements.length} éléments trouvés`);
         
-        try {
-          // Extraire les informations de base
-          const titleElement = $(element).find('h6.title a');
-          const title = titleElement.text().trim();
-          const path = titleElement.attr('href');
-          const url = path ? `${this.baseUrl}${path}` : null;
+        if (elements.length > 0) {
+          elements.each((i, element) => {
+            if (i >= limit) {
+              return false; // Limiter le nombre de résultats
+            }
+            
+            try {
+              // Essayer différents sélecteurs pour le titre
+              const titleSelectors = ['h6.title a', 'h6 a', '.title a', 'a.title', '.caption a', 'a[itemprop="url"]'];
+              let title = null;
+              let path = null;
+              
+              for (const titleSelector of titleSelectors) {
+                const titleElement = $(element).find(titleSelector);
+                if (titleElement.length > 0) {
+                  title = titleElement.text().trim();
+                  path = titleElement.attr('href');
+                  break;
+                }
+              }
+              
+              if (!title || !path) {
+                this.debugLog(`Titre ou chemin non trouvé pour l'élément #${i}`);
+                return; // Passer à l'élément suivant
+              }
+              
+              const url = path ? `${this.baseUrl}${path}` : null;
+              
+              // Essayer différents sélecteurs pour l'image
+              const imgSelectors = ['img.lazy', 'img[data-src]', 'img.poster', '.poster img', 'img'];
+              let imgSrc = null;
+              
+              for (const imgSelector of imgSelectors) {
+                const imgElement = $(element).find(imgSelector);
+                if (imgElement.length > 0) {
+                  imgSrc = imgElement.attr('data-src') || imgElement.attr('src');
+                  break;
+                }
+              }
+              
+              // Créer l'objet drama
+              const drama = {
+                title,
+                url,
+                image: imgSrc,
+                source: 'mydramalist'
+              };
+              
+              dramas.push(drama);
+            } catch (error) {
+              console.error(`Erreur lors de l'extraction des informations du résultat #${i}: ${error.message}`);
+            }
+          });
           
-          // Extraire l'image
-          const imgElement = $(element).find('img.lazy');
-          const imgSrc = imgElement.attr('data-src') || imgElement.attr('src');
-          
-          // Créer l'objet drama
-          const drama = {
-            title,
-            url,
-            image: imgSrc,
-            source: 'mydramalist'
-          };
-          
-          dramas.push(drama);
-        } catch (error) {
-          console.error(`Erreur lors de l'extraction des informations du résultat #${i}: ${error.message}`);
+          if (dramas.length > 0) {
+            break; // Sortir de la boucle si on a trouvé des dramas
+          }
         }
-      });
+      }
       
       const endTime = Date.now();
       const durationSeconds = (endTime - startTime) / 1000;
@@ -259,45 +391,109 @@ class MyDramaListScraper {
    */
   async getDramaDetails(id, env) {
     try {
-      this.debugLog(`Récupération des détails du drama ${id}`);
+      this.debugLog(`Récupération des détails du drama avec l'ID: ${id}`);
       const startTime = Date.now();
       
       // Récupérer la page du drama
-      const html = await this.fetchHtml(`/id/${id}`, env);
+      const html = await this.fetchHtml(id, env);
       
       // Parser le HTML avec Cheerio
       const $ = cheerio.load(html);
       
       // Extraire les informations du drama
-      const title = $('.film-title').text().trim();
-      const description = $('.show-synopsis').text().trim();
-      const image = $('.img-responsive').attr('src');
+      // Essayer différents sélecteurs pour le titre
+      const titleSelectors = ['h1.film-title', 'h1[itemprop="name"]', '.film-header h1', '.title-wrapper h1', 'h1'];
+      let title = null;
+      
+      for (const titleSelector of titleSelectors) {
+        const titleElement = $(titleSelector);
+        if (titleElement.length > 0) {
+          title = titleElement.text().trim();
+          break;
+        }
+      }
+      
+      if (!title) {
+        throw new Error('Titre non trouvé');
+      }
+      
+      // Essayer différents sélecteurs pour l'image
+      const imgSelectors = ['.film-cover img', '.poster img', 'img[itemprop="image"]', '.cover-image img'];
+      let image = null;
+      
+      for (const imgSelector of imgSelectors) {
+        const imgElement = $(imgSelector);
+        if (imgElement.length > 0) {
+          image = imgElement.attr('data-src') || imgElement.attr('src');
+          break;
+        }
+      }
+      
+      // Essayer différents sélecteurs pour la description
+      const descSelectors = ['.show-synopsis', '[itemprop="description"]', '.synopsis', '.summary'];
+      let description = null;
+      
+      for (const descSelector of descSelectors) {
+        const descElement = $(descSelector);
+        if (descElement.length > 0) {
+          description = descElement.text().trim();
+          break;
+        }
+      }
       
       // Extraire les informations supplémentaires
       const details = {};
-      $('.show-details .box-body dl').each((i, element) => {
-        const dt = $(element).find('dt').text().trim();
-        const dd = $(element).find('dd').text().trim();
-        
-        if (dt && dd) {
-          details[dt.toLowerCase().replace(':', '')] = dd;
+      
+      // Essayer différents sélecteurs pour les détails
+      const detailsSelectors = ['.show-details .box-body', '.box-body', '.details-table', '.info-table'];
+      
+      for (const detailsSelector of detailsSelectors) {
+        const detailsElement = $(detailsSelector);
+        if (detailsElement.length > 0) {
+          detailsElement.find('li, tr').each((i, element) => {
+            const label = $(element).find('.mdl-label, .info-label, th').text().trim().replace(':', '').toLowerCase();
+            const value = $(element).find('.mdl-info, .info-value, td').text().trim();
+            
+            if (label && value) {
+              details[label] = value;
+            }
+          });
+          
+          if (Object.keys(details).length > 0) {
+            break;
+          }
         }
-      });
+      }
       
       // Extraire les genres
       const genres = [];
-      $('.show-genres a').each((i, element) => {
+      $('.show-genres a, [itemprop="genre"]').each((i, element) => {
         genres.push($(element).text().trim());
+      });
+      
+      // Extraire le casting
+      const cast = [];
+      $('.credits .role-card, .cast-credits .cast-card').each((i, element) => {
+        const actorName = $(element).find('.text-primary, .actor-name').text().trim();
+        const role = $(element).find('.text-muted, .role-name').text().trim();
+        
+        if (actorName) {
+          cast.push({
+            name: actorName,
+            role: role || null
+          });
+        }
       });
       
       const drama = {
         id,
         title,
-        description,
+        description: description || null,
         image,
         genres,
         details,
-        url: `${this.baseUrl}/id/${id}`,
+        cast,
+        url: id.startsWith('http') ? id : `${this.baseUrl}${id}`,
         source: 'mydramalist'
       };
       
