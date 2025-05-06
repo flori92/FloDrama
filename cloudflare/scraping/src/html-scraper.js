@@ -855,9 +855,16 @@ class VoirAnimeScraper {
  */
 function scrapeGenericDramas(html, sourceName, limit = 20, debug = false) {
   try {
+    if (!html) {
+      console.error(`[GENERIC_SCRAPER] HTML vide pour ${sourceName}`);
+      return [];
+    }
+    
     if (debug) {
       console.log(`[GENERIC_SCRAPER] Début du scraping générique pour ${sourceName}`);
+      console.log(`[GENERIC_SCRAPER] Taille du HTML: ${html.length} caractères`);
     }
+    
     const $ = cheerio.load(html);
     const results = [];
     
@@ -865,10 +872,8 @@ function scrapeGenericDramas(html, sourceName, limit = 20, debug = false) {
     const cards = $('div, li, article').filter(function() {
       const hasImage = $(this).find('img').length > 0;
       const hasLink = $(this).find('a').length > 0;
-      const hasTitle = $(this).find('h1, h2, h3, h4, h5, h6, .title, .name').length > 0 || 
-                      $(this).find('a').text().trim().length > 0;
       
-      return hasImage && hasLink && hasTitle;
+      return hasImage && hasLink;
     });
     
     if (debug) {
@@ -912,45 +917,44 @@ function scrapeGenericDramas(html, sourceName, limit = 20, debug = false) {
           }
         }
         
-        if (!title || !link) {
-          if (debug) {
-            console.log(`[GENERIC_SCRAPER] Titre ou lien non trouvé pour l'élément ${index}`);
+        if (!title) {
+          // Essayer de trouver le titre à partir de l'attribut alt de l'image
+          const imgElement = $card.find('img').first();
+          if (imgElement.length > 0) {
+            title = imgElement.attr('alt') || '';
           }
-          return; // Passer à l'élément suivant
         }
         
-        // Essayer différents sélecteurs pour l'image
-        const imageSelectors = [
-          'img.lazy', 'img[data-src]', 'img.lazyload', 
-          '.poster img', '.cover img', '.thumbnail img', 
-          'img[src*="poster"]', 'img[src*="cover"]', 'img'
-        ];
+        if (!title || !link) {
+          if (debug) {
+            console.log(`[GENERIC_SCRAPER] Élément ${index} ignoré: titre ou lien manquant`);
+          }
+          return;
+        }
         
+        // Essayer de trouver l'image
+        const imgSelectors = ['img.lazy', 'img[data-src]', 'img.poster', '.poster img', 'img'];
         let posterPath = '';
         
-        for (const selector of imageSelectors) {
+        for (const selector of imgSelectors) {
           const imgElement = $card.find(selector).first();
           if (imgElement.length > 0) {
-            posterPath = imgElement.attr('data-src') || imgElement.attr('data-original') || imgElement.attr('src');
+            posterPath = imgElement.attr('data-src') || imgElement.attr('src') || '';
             if (posterPath) {
               break;
             }
           }
         }
         
-        // Essayer différents sélecteurs pour la note
-        const ratingSelectors = [
-          '.score', '.rating', '.note', '.stars', 
-          '[itemprop="ratingValue"]', '.score-point', '.point'
-        ];
-        
+        // Essayer de trouver la note
+        const ratingSelectors = ['.rating', '.score', '.note', '.stars', '.rate'];
         let rating = null;
         
         for (const selector of ratingSelectors) {
           const ratingElement = $card.find(selector).first();
           if (ratingElement.length > 0) {
             const ratingText = ratingElement.text().trim();
-            const ratingMatch = ratingText.match(/([0-9.]+)/);
+            const ratingMatch = ratingText.match(/(\d+(\.\d+)?)/);
             if (ratingMatch) {
               rating = parseFloat(ratingMatch[1]);
               break;
@@ -958,8 +962,8 @@ function scrapeGenericDramas(html, sourceName, limit = 20, debug = false) {
           }
         }
         
-        // Essayer différents sélecteurs pour l'année
-        const yearSelectors = ['.year', '.date', '.release', '.info'];
+        // Essayer de trouver l'année
+        const yearSelectors = ['.year', '.date', '.release-date'];
         let year = null;
         
         for (const selector of yearSelectors) {
@@ -974,8 +978,8 @@ function scrapeGenericDramas(html, sourceName, limit = 20, debug = false) {
           }
         }
         
-        // Essayer de trouver l'année dans le texte de la carte si ce n'est pas trouvé
         if (!year) {
+          // Essayer de trouver l'année dans le texte de la carte
           const cardText = $card.text();
           const yearMatch = cardText.match(/\b(19|20)\d{2}\b/);
           if (yearMatch) {
@@ -995,7 +999,7 @@ function scrapeGenericDramas(html, sourceName, limit = 20, debug = false) {
         };
         
         // Essayer de trouver le nombre d'épisodes
-        const episodesSelectors = ['.eps', '.episodes', '.episode-count', '.ep-count'];
+        const episodesSelectors = ['.episodes', '.eps', '.episode-count'];
         
         for (const selector of episodesSelectors) {
           const episodesElement = $card.find(selector).first();
@@ -1007,6 +1011,10 @@ function scrapeGenericDramas(html, sourceName, limit = 20, debug = false) {
               break;
             }
           }
+        }
+        
+        if (debug) {
+          console.log(`[GENERIC_SCRAPER] Drama extrait: ${drama.title}`);
         }
         
         results.push(drama);
@@ -1035,9 +1043,16 @@ function scrapeGenericDramas(html, sourceName, limit = 20, debug = false) {
  */
 function scrapeGenericAnimes(html, sourceName, limit = 20, debug = false) {
   try {
+    if (!html) {
+      console.error(`[GENERIC_SCRAPER] HTML vide pour ${sourceName}`);
+      return [];
+    }
+    
     if (debug) {
       console.log(`[GENERIC_SCRAPER] Début du scraping générique pour ${sourceName}`);
+      console.log(`[GENERIC_SCRAPER] Taille du HTML: ${html.length} caractères`);
     }
+    
     const $ = cheerio.load(html);
     const results = [];
     
@@ -1100,43 +1115,34 @@ function scrapeGenericAnimes(html, sourceName, limit = 20, debug = false) {
         
         if (!title || !link) {
           if (debug) {
-            console.log(`[GENERIC_SCRAPER] Titre ou lien non trouvé pour l'élément ${index}`);
+            console.log(`[GENERIC_SCRAPER] Élément ${index} ignoré: titre ou lien manquant`);
           }
-          return; // Passer à l'élément suivant
+          return;
         }
         
-        // Essayer différents sélecteurs pour l'image
-        const imageSelectors = [
-          'img.lazy', 'img[data-src]', 'img.lazyload', 
-          '.poster img', '.cover img', '.thumbnail img', 
-          'img[src*="poster"]', 'img[src*="cover"]', 'img'
-        ];
-        
+        // Essayer de trouver l'image
+        const imgSelectors = ['img.lazy', 'img[data-src]', 'img.poster', '.poster img', 'img'];
         let posterPath = '';
         
-        for (const selector of imageSelectors) {
+        for (const selector of imgSelectors) {
           const imgElement = $card.find(selector).first();
           if (imgElement.length > 0) {
-            posterPath = imgElement.attr('data-src') || imgElement.attr('data-original') || imgElement.attr('src');
+            posterPath = imgElement.attr('data-src') || imgElement.attr('src') || '';
             if (posterPath) {
               break;
             }
           }
         }
         
-        // Essayer différents sélecteurs pour la note
-        const ratingSelectors = [
-          '.score', '.rating', '.note', '.stars', 
-          '[itemprop="ratingValue"]', '.score-point', '.point'
-        ];
-        
+        // Essayer de trouver la note
+        const ratingSelectors = ['.rating', '.score', '.note', '.stars', '.rate'];
         let rating = null;
         
         for (const selector of ratingSelectors) {
           const ratingElement = $card.find(selector).first();
           if (ratingElement.length > 0) {
             const ratingText = ratingElement.text().trim();
-            const ratingMatch = ratingText.match(/([0-9.]+)/);
+            const ratingMatch = ratingText.match(/(\d+(\.\d+)?)/);
             if (ratingMatch) {
               rating = parseFloat(ratingMatch[1]);
               break;
@@ -1144,8 +1150,8 @@ function scrapeGenericAnimes(html, sourceName, limit = 20, debug = false) {
           }
         }
         
-        // Essayer différents sélecteurs pour l'année
-        const yearSelectors = ['.year', '.date', '.release', '.info'];
+        // Essayer de trouver l'année
+        const yearSelectors = ['.year', '.date', '.release-date'];
         let year = null;
         
         for (const selector of yearSelectors) {
@@ -1160,8 +1166,8 @@ function scrapeGenericAnimes(html, sourceName, limit = 20, debug = false) {
           }
         }
         
-        // Essayer de trouver l'année dans le texte de la carte si ce n'est pas trouvé
         if (!year) {
+          // Essayer de trouver l'année dans le texte de la carte
           const cardText = $card.text();
           const yearMatch = cardText.match(/\b(19|20)\d{2}\b/);
           if (yearMatch) {
@@ -1181,7 +1187,7 @@ function scrapeGenericAnimes(html, sourceName, limit = 20, debug = false) {
         };
         
         // Essayer de trouver le nombre d'épisodes
-        const episodesSelectors = ['.eps', '.episodes', '.episode-count', '.ep-count'];
+        const episodesSelectors = ['.episodes', '.eps', '.episode-count'];
         
         for (const selector of episodesSelectors) {
           const episodesElement = $card.find(selector).first();
@@ -1189,10 +1195,14 @@ function scrapeGenericAnimes(html, sourceName, limit = 20, debug = false) {
             const episodesText = episodesElement.text().trim();
             const episodesMatch = episodesText.match(/(\d+)/);
             if (episodesMatch) {
-              anime.episodes = parseInt(episodesMatch[1]);
+              anime.episodes_count = parseInt(episodesMatch[1]);
               break;
             }
           }
+        }
+        
+        if (debug) {
+          console.log(`[GENERIC_SCRAPER] Anime extrait: ${anime.title}`);
         }
         
         results.push(anime);
@@ -1221,9 +1231,16 @@ function scrapeGenericAnimes(html, sourceName, limit = 20, debug = false) {
  */
 function scrapeGenericMovies(html, sourceName, limit = 20, debug = false) {
   try {
+    if (!html) {
+      console.error(`[GENERIC_SCRAPER] HTML vide pour ${sourceName}`);
+      return [];
+    }
+    
     if (debug) {
       console.log(`[GENERIC_SCRAPER] Début du scraping générique pour ${sourceName}`);
+      console.log(`[GENERIC_SCRAPER] Taille du HTML: ${html.length} caractères`);
     }
+    
     const $ = cheerio.load(html);
     const results = [];
     
@@ -1286,43 +1303,34 @@ function scrapeGenericMovies(html, sourceName, limit = 20, debug = false) {
         
         if (!title || !link) {
           if (debug) {
-            console.log(`[GENERIC_SCRAPER] Titre ou lien non trouvé pour l'élément ${index}`);
+            console.log(`[GENERIC_SCRAPER] Élément ${index} ignoré: titre ou lien manquant`);
           }
-          return; // Passer à l'élément suivant
+          return;
         }
         
-        // Essayer différents sélecteurs pour l'image
-        const imageSelectors = [
-          'img.lazy', 'img[data-src]', 'img.lazyload', 
-          '.poster img', '.cover img', '.thumbnail img', 
-          'img[src*="poster"]', 'img[src*="cover"]', 'img'
-        ];
-        
+        // Essayer de trouver l'image
+        const imgSelectors = ['img.lazy', 'img[data-src]', 'img.poster', '.poster img', 'img'];
         let posterPath = '';
         
-        for (const selector of imageSelectors) {
+        for (const selector of imgSelectors) {
           const imgElement = $card.find(selector).first();
           if (imgElement.length > 0) {
-            posterPath = imgElement.attr('data-src') || imgElement.attr('data-original') || imgElement.attr('src');
+            posterPath = imgElement.attr('data-src') || imgElement.attr('src') || '';
             if (posterPath) {
               break;
             }
           }
         }
         
-        // Essayer différents sélecteurs pour la note
-        const ratingSelectors = [
-          '.score', '.rating', '.note', '.stars', 
-          '[itemprop="ratingValue"]', '.score-point', '.point'
-        ];
-        
+        // Essayer de trouver la note
+        const ratingSelectors = ['.rating', '.score', '.note', '.stars', '.rate'];
         let rating = null;
         
         for (const selector of ratingSelectors) {
           const ratingElement = $card.find(selector).first();
           if (ratingElement.length > 0) {
             const ratingText = ratingElement.text().trim();
-            const ratingMatch = ratingText.match(/([0-9.]+)/);
+            const ratingMatch = ratingText.match(/(\d+(\.\d+)?)/);
             if (ratingMatch) {
               rating = parseFloat(ratingMatch[1]);
               break;
@@ -1330,8 +1338,8 @@ function scrapeGenericMovies(html, sourceName, limit = 20, debug = false) {
           }
         }
         
-        // Essayer différents sélecteurs pour l'année
-        const yearSelectors = ['.year', '.date', '.release', '.info'];
+        // Essayer de trouver l'année
+        const yearSelectors = ['.year', '.date', '.release-date'];
         let year = null;
         
         for (const selector of yearSelectors) {
@@ -1346,8 +1354,8 @@ function scrapeGenericMovies(html, sourceName, limit = 20, debug = false) {
           }
         }
         
-        // Essayer de trouver l'année dans le texte de la carte si ce n'est pas trouvé
         if (!year) {
+          // Essayer de trouver l'année dans le texte de la carte
           const cardText = $card.text();
           const yearMatch = cardText.match(/\b(19|20)\d{2}\b/);
           if (yearMatch) {
@@ -1379,6 +1387,10 @@ function scrapeGenericMovies(html, sourceName, limit = 20, debug = false) {
               break;
             }
           }
+        }
+        
+        if (debug) {
+          console.log(`[GENERIC_SCRAPER] Film extrait: ${movie.title}`);
         }
         
         results.push(movie);
