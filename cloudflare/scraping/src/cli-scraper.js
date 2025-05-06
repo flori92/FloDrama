@@ -32,7 +32,7 @@ const SOURCES = {
   },
   dramavostfr: {
     name: 'DramaVostfr',
-    baseUrl: 'https://dramavostfr.com',
+    baseUrl: 'https://dramavostfr.tv',
     contentType: 'drama'
   },
   asianwiki: {
@@ -42,19 +42,19 @@ const SOURCES = {
   },
   dramacore: {
     name: 'DramaCore',
-    baseUrl: 'https://dramacore.co',
+    baseUrl: 'https://dramacore.city',
     contentType: 'drama'
   },
   dramacool: {
     name: 'DramaCool',
-    baseUrl: 'https://dramacool.com.pa',
+    baseUrl: 'https://dramacool.cr',
     contentType: 'drama'
   },
   
   // Animes
   voiranime: {
     name: 'VoirAnime',
-    baseUrl: 'https://v6.voiranime.com',
+    baseUrl: 'https://voiranime.com',
     contentType: 'anime'
   },
   animesama: {
@@ -86,17 +86,17 @@ const SOURCES = {
   },
   streamingdivx: {
     name: 'StreamingDivx',
-    baseUrl: 'https://streamingdivx.co',
+    baseUrl: 'https://streaming-films.net',
     contentType: 'film'
   },
   filmcomplet: {
     name: 'FilmComplet',
-    baseUrl: 'https://www.filmcomplet.tv',
+    baseUrl: 'https://www.film-complet.cc',
     contentType: 'film'
   },
   streamingcommunity: {
     name: 'StreamingCommunity',
-    baseUrl: 'https://streamingcommunity.best',
+    baseUrl: 'https://streamingcommunity.bike',
     contentType: 'film'
   },
   filmapik: {
@@ -108,12 +108,12 @@ const SOURCES = {
   // Bollywood
   bollyplay: {
     name: 'BollyPlay',
-    baseUrl: 'https://bollyplay.co',
+    baseUrl: 'https://bollyplay.app',
     contentType: 'bollywood'
   },
   hindilinks4u: {
     name: 'HindiLinks4u',
-    baseUrl: 'https://www.hindilinks4u.to',
+    baseUrl: 'https://hindilinks4u.skin',
     contentType: 'bollywood'
   }
 };
@@ -276,24 +276,163 @@ async function fetchUrl(url, options = {}) {
 }
 
 // Fonction pour récupérer le HTML d'une URL
-async function fetchHtml(url, debug = false) {
-  try {
-    if (debug) {
-      console.log(`[DEBUG] Récupération du HTML de ${url}`);
-    }
-    
-    // Utiliser la fonction fetchUrl existante
-    const html = await fetchUrl(url);
-    
-    if (!html) {
-      throw new Error('HTML vide');
-    }
-    
-    return html;
-  } catch (error) {
-    console.error(`[ERROR] Erreur lors de la récupération du HTML de ${url}:`, error.message);
-    throw error;
+async function fetchHtml(url, debug = false, retryCount = 0) {
+  if (debug) {
+    console.log(`[DEBUG] Récupération du HTML de ${url}`);
   }
+
+  // Liste de User-Agents à utiliser de manière aléatoire
+  const userAgents = [
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0',
+    'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36',
+    'Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1',
+    'Mozilla/5.0 (iPad; CPU OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Edg/91.0.864.59',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 OPR/78.0.4093.112'
+  ];
+  
+  // Sélectionner un User-Agent aléatoire
+  const randomUserAgent = userAgents[Math.floor(Math.random() * userAgents.length)];
+  
+  // Créer des en-têtes sophistiqués pour ressembler à un navigateur réel
+  const headers = {
+    'User-Agent': randomUserAgent,
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Language': 'fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'DNT': '1',
+    'Connection': 'keep-alive',
+    'Upgrade-Insecure-Requests': '1',
+    'Cache-Control': 'max-age=0',
+    'TE': 'Trailers',
+    'Referer': 'https://www.google.com/'
+  };
+
+  return new Promise((resolve, reject) => {
+    try {
+      // Analyser l'URL
+      const parsedUrl = new URL(url);
+      
+      // Configurer les options de la requête
+      const options = {
+        hostname: parsedUrl.hostname,
+        path: parsedUrl.pathname + parsedUrl.search,
+        method: 'GET',
+        headers: headers,
+        timeout: 30000, // 30 secondes de timeout
+        rejectUnauthorized: false // Ignorer les erreurs de certificat SSL
+      };
+      
+      // Choisir le protocole en fonction de l'URL
+      const protocol = parsedUrl.protocol === 'https:' ? https : require('http');
+      
+      // Créer la requête
+      const req = protocol.request(options, (res) => {
+        // Gérer les redirections
+        if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+          if (debug) {
+            console.log(`Redirection vers: ${res.headers.location}`);
+          }
+          
+          // Construire l'URL de redirection
+          let redirectUrl = res.headers.location;
+          if (!redirectUrl.startsWith('http')) {
+            redirectUrl = new URL(redirectUrl, url).href;
+          }
+          
+          // Suivre la redirection avec un délai aléatoire pour simuler un comportement humain
+          setTimeout(() => {
+            fetchHtml(redirectUrl, debug, retryCount)
+              .then(resolve)
+              .catch(reject);
+          }, Math.random() * 1000 + 500); // Délai aléatoire entre 500ms et 1500ms
+          
+          return;
+        }
+        
+        // Gérer les erreurs HTTP
+        if (res.statusCode !== 200) {
+          reject(new Error(`Erreur HTTP ${res.statusCode}`));
+          return;
+        }
+        
+        // Configurer l'encodage
+        res.setEncoding('utf8');
+        
+        // Récupérer les données
+        let data = '';
+        res.on('data', (chunk) => {
+          data += chunk;
+        });
+        
+        res.on('end', () => {
+          // Vérifier si la page contient des indications de blocage
+          if (data.includes('captcha') || 
+              data.includes('Cloudflare') && data.includes('challenge') ||
+              data.includes('Access Denied') ||
+              data.includes('DDoS protection') ||
+              data.includes('blocked') && data.includes('security')) {
+            
+            if (debug) {
+              console.log(`[DEBUG] Détection de protection anti-bot sur ${url}`);
+            }
+            
+            // Réessayer avec un autre User-Agent si possible
+            if (retryCount < 3) {
+              if (debug) {
+                console.log(`[DEBUG] Nouvelle tentative (${retryCount + 1}/3) pour ${url}`);
+              }
+              
+              // Attendre un délai aléatoire avant de réessayer
+              setTimeout(() => {
+                fetchHtml(url, debug, retryCount + 1)
+                  .then(resolve)
+                  .catch(reject);
+              }, Math.random() * 2000 + 1000); // Délai aléatoire entre 1s et 3s
+              
+              return;
+            } else {
+              reject(new Error('Site protégé contre le scraping après 3 tentatives'));
+              return;
+            }
+          }
+          
+          resolve(data);
+        });
+      });
+      
+      // Gérer les erreurs de requête
+      req.on('error', (error) => {
+        if (retryCount < 3) {
+          if (debug) {
+            console.log(`[DEBUG] Erreur de connexion, nouvelle tentative (${retryCount + 1}/3) pour ${url}: ${error.message}`);
+          }
+          
+          // Attendre un délai aléatoire avant de réessayer
+          setTimeout(() => {
+            fetchHtml(url, debug, retryCount + 1)
+              .then(resolve)
+              .catch(reject);
+          }, Math.random() * 2000 + 1000); // Délai aléatoire entre 1s et 3s
+        } else {
+          reject(error);
+        }
+      });
+      
+      // Gérer le timeout
+      req.on('timeout', () => {
+        req.destroy();
+        reject(new Error('Timeout de la requête après 30 secondes'));
+      });
+      
+      // Terminer la requête
+      req.end();
+    } catch (error) {
+      reject(error);
+    }
+  });
 }
 
 // Fonction pour scraper via le Worker Cloudflare
@@ -330,7 +469,7 @@ async function scrapeViaWorker(sourceName, page = 1) {
     // Ajouter des en-têtes pour simuler un navigateur
     const options = {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
         'Accept': 'application/json',
         'Accept-Language': 'fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7',
         'Referer': new URL(workerUrl).origin,
@@ -758,142 +897,168 @@ function getSourceUrls(source) {
         'https://mydramalist.com/shows/upcoming'
       );
       break;
-    case 'dramacool':
-      // Utilisation d'un domaine alternatif qui fonctionne mieux
-      baseUrls.push(
-        'https://www.dramacool9.co/drama-list',
-        'https://www.dramacool9.co/most-popular-drama',
-        'https://www.dramacool9.co/ongoing-drama',
-        'https://www.dramacool9.co/completed-drama',
-        'https://www.dramacool9.co/drama-list/top-rated'
-      );
-      break;
     case 'voirdrama':
       baseUrls.push(
         'https://voirdrama.org/drama-vostfr',
         'https://voirdrama.org/drama-vostfr/page/2',
-        'https://voirdrama.org/drama-vostfr/page/3'
+        'https://voirdrama.org/drama-vostfr/page/3',
+        'https://voirdrama.org/drama-vostfr/page/4',
+        'https://voirdrama.org/drama-vostfr/page/5'
       );
       break;
     case 'dramavostfr':
       baseUrls.push(
-        'https://www.dramavostfr.cc/dramas',
-        'https://www.dramavostfr.cc/dramas/page/2',
-        'https://www.dramavostfr.cc/dramas/page/3'
+        'https://dramavostfr.tv/dramas',
+        'https://dramavostfr.tv/dramas/page/2',
+        'https://dramavostfr.tv/dramas/page/3',
+        'https://dramavostfr.tv/dramas/page/4',
+        'https://dramavostfr.tv/dramas/page/5'
       );
       break;
     case 'asianwiki':
-      // Utilisation de pages moins susceptibles d'être bloquées
       baseUrls.push(
+        'https://asianwiki.com/Category:Korean_Drama_-_2025',
         'https://asianwiki.com/Category:Korean_Drama_-_2024',
         'https://asianwiki.com/Category:Korean_Drama_-_2023',
-        'https://asianwiki.com/Category:Korean_Drama_-_2022'
+        'https://asianwiki.com/Category:Korean_Drama_-_2022',
+        'https://asianwiki.com/Category:Korean_Drama_-_2021'
       );
       break;
     case 'dramacore':
-      // Réduction du nombre d'URLs pour éviter les timeouts
       baseUrls.push(
-        'https://dramacore.co'
+        'https://dramacore.city',
+        'https://dramacore.city/page/2',
+        'https://dramacore.city/page/3',
+        'https://dramacore.city/page/4',
+        'https://dramacore.city/page/5'
+      );
+      break;
+    case 'dramacool':
+      baseUrls.push(
+        'https://dramacool.cr/drama-list',
+        'https://dramacool.cr/most-popular-drama',
+        'https://dramacool.cr/ongoing-drama',
+        'https://dramacool.cr/completed-drama',
+        'https://dramacool.cr/drama-list/page/2'
       );
       break;
     case 'voiranime':
       baseUrls.push(
         'https://voiranime.com/animes-vostfr',
         'https://voiranime.com/animes-vostfr/page/2',
-        'https://voiranime.com/animes-vostfr/page/3'
+        'https://voiranime.com/animes-vostfr/page/3',
+        'https://voiranime.com/animes-vostfr/page/4',
+        'https://voiranime.com/animes-vostfr/page/5'
       );
       break;
     case 'animesama':
       baseUrls.push(
         'https://anime-sama.fr/catalogue',
         'https://anime-sama.fr/catalogue/page/2',
-        'https://anime-sama.fr/catalogue/page/3'
+        'https://anime-sama.fr/catalogue/page/3',
+        'https://anime-sama.fr/catalogue/page/4',
+        'https://anime-sama.fr/catalogue/page/5'
       );
       break;
     case 'nekosama':
       baseUrls.push(
         'https://neko-sama.fr/anime',
         'https://neko-sama.fr/anime/page/2',
-        'https://neko-sama.fr/anime/page/3'
+        'https://neko-sama.fr/anime/page/3',
+        'https://neko-sama.fr/anime/page/4',
+        'https://neko-sama.fr/anime/page/5'
       );
       break;
     case 'animevostfr':
       baseUrls.push(
-        'https://animevostfr.tv/animes-vostfr',
-        'https://animevostfr.tv/animes-vostfr/page/2',
-        'https://animevostfr.tv/animes-vostfr/page/3'
+        'https://animevostfr.tv/animes',
+        'https://animevostfr.tv/animes/page/2',
+        'https://animevostfr.tv/animes/page/3',
+        'https://animevostfr.tv/animes/page/4',
+        'https://animevostfr.tv/animes/page/5'
       );
       break;
     case 'otakufr':
-      // Remplacement par un domaine alternatif qui fonctionne en HTTPS
       baseUrls.push(
-        'https://www.otakufr.com/anime-list',
-        'https://www.otakufr.com/anime-list/page/2',
-        'https://www.otakufr.com/anime-list/page/3'
+        'https://otakufr.co',
+        'https://otakufr.co/page/2',
+        'https://otakufr.co/page/3',
+        'https://otakufr.co/page/4',
+        'https://otakufr.co/page/5'
       );
       break;
     case 'vostfree':
-      // Remplacement par un domaine alternatif qui fonctionne en HTTPS
       baseUrls.push(
-        'https://vostfr.tv/animes',
-        'https://vostfr.tv/animes/page/2',
-        'https://vostfr.tv/animes/page/3'
+        'https://vostfree.cx/films-vf-vostfr',
+        'https://vostfree.cx/films-vf-vostfr/page/2',
+        'https://vostfree.cx/films-vf-vostfr/page/3',
+        'https://vostfree.cx/films-vf-vostfr/page/4',
+        'https://vostfree.cx/films-vf-vostfr/page/5'
       );
       break;
     case 'streamingdivx':
       baseUrls.push(
-        'https://www.streamingdivx.ch',
-        'https://www.streamingdivx.ch/films',
-        'https://www.streamingdivx.ch/films/page/2'
-      );
-      break;
-    case 'streamingcommunity':
-      baseUrls.push(
-        'https://streamingcommunity.best/browse',
-        'https://streamingcommunity.best/browse?page=2',
-        'https://streamingcommunity.best/browse?page=3'
+        'https://streaming-films.net',
+        'https://streaming-films.net/page/2',
+        'https://streaming-films.net/page/3',
+        'https://streaming-films.net/page/4',
+        'https://streaming-films.net/page/5'
       );
       break;
     case 'filmcomplet':
       baseUrls.push(
-        'https://www.filmcomplet.tv/films',
-        'https://www.filmcomplet.tv/films/page/2',
-        'https://www.filmcomplet.tv/films/page/3'
+        'https://www.film-complet.cc',
+        'https://www.film-complet.cc/page/2',
+        'https://www.film-complet.cc/page/3',
+        'https://www.film-complet.cc/page/4',
+        'https://www.film-complet.cc/page/5'
+      );
+      break;
+    case 'streamingcommunity':
+      baseUrls.push(
+        'https://streamingcommunity.bike/browse',
+        'https://streamingcommunity.bike/browse?page=2',
+        'https://streamingcommunity.bike/browse?page=3',
+        'https://streamingcommunity.bike/browse?page=4',
+        'https://streamingcommunity.bike/browse?page=5'
       );
       break;
     case 'filmapik':
       baseUrls.push(
         'https://filmapik.bio',
-        'https://filmapik.bio/latest',
-        'https://filmapik.bio/popular'
+        'https://filmapik.bio/page/2',
+        'https://filmapik.bio/page/3',
+        'https://filmapik.bio/page/4',
+        'https://filmapik.bio/page/5'
       );
       break;
     case 'bollyplay':
-      // Remplacement par un domaine alternatif qui fonctionne
       baseUrls.push(
-        'https://bollyflix.guru',
-        'https://bollyflix.guru/movies',
-        'https://bollyflix.guru/web-series'
+        'https://bollyplay.app',
+        'https://bollyplay.app/page/2',
+        'https://bollyplay.app/page/3',
+        'https://bollyplay.app/page/4',
+        'https://bollyplay.app/page/5'
       );
       break;
     case 'hindilinks4u':
-      // Remplacement par un domaine alternatif qui fonctionne en HTTPS
       baseUrls.push(
-        'https://hindilinks4u.team',
-        'https://hindilinks4u.team/category/movies',
-        'https://hindilinks4u.team/category/tv-shows'
+        'https://hindilinks4u.skin',
+        'https://hindilinks4u.skin/page/2',
+        'https://hindilinks4u.skin/page/3',
+        'https://hindilinks4u.skin/page/4',
+        'https://hindilinks4u.skin/page/5'
       );
       break;
     default:
-      // Si la source n'est pas reconnue, utiliser une URL générique
-      if (source.includes('http')) {
-        baseUrls.push(source);
+      // Si la source n'est pas reconnue, utiliser l'URL de base du SOURCES
+      if (SOURCES[source]) {
+        baseUrls.push(SOURCES[source].baseUrl);
       } else {
-        baseUrls.push(`https://${source}`);
+        console.warn(`Source inconnue: ${source}`);
       }
       break;
   }
-  
   return baseUrls;
 }
 

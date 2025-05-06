@@ -57,22 +57,22 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'npm'
-          cache-dependency-path: 'cloudflare/scraping/package-lock.json'
 
       - name: Install dependencies
         run: |
           cd cloudflare/scraping
-          npm ci
+          npm install
 
       - name: Run scraper
         env:
-          CLOUDFLARE_WORKER_URL: "${{ secrets.CLOUDFLARE_WORKER_URL }}"
-          CLOUDFLARE_API_TOKEN: "${{ secrets.CLOUDFLARE_API_TOKEN }}"
-          CLOUDFLARE_ACCOUNT_ID: "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}"
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           mkdir -p scraping-results
           cd cloudflare/scraping
@@ -127,8 +127,8 @@ jobs:
       - name: Send data to Cloudflare D1
         if: github.event.inputs.send_to_d1 != 'false' && (github.event_name == 'schedule' || github.event.inputs.send_to_d1 == 'true')
         env:
-          CLOUDFLARE_API_TOKEN: "${{ secrets.CLOUDFLARE_API_TOKEN }}"
-          CLOUDFLARE_ACCOUNT_ID: "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}"
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           echo "Envoi des données vers Cloudflare D1..."
           cd cloudflare/scraping
@@ -152,8 +152,8 @@ jobs:
       - name: Run monitoring
         if: github.event.inputs.monitoring != 'false' && (github.event_name == 'schedule' || github.event.inputs.monitoring == 'true')
         env:
-          DISCORD_WEBHOOK_URL: "${{ secrets.DISCORD_WEBHOOK_URL }}"
-          SLACK_WEBHOOK_URL: "${{ secrets.SLACK_WEBHOOK_URL }}"
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           echo "Exécution du monitoring..."
           cd cloudflare/scraping
