@@ -157,11 +157,93 @@ const {
 // Fonction pour effectuer une requête HTTP
 async function fetchUrl(url, options = {}) {
   return new Promise((resolve, reject) => {
-    const req = https.get(url, options, (res) => {
+    // Ajouter un User-Agent réaliste pour éviter d'être bloqué
+    const headers = {
+      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+      'Accept-Language': 'fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7',
+      'Cache-Control': 'no-cache',
+      'Pragma': 'no-cache',
+      'Sec-Fetch-Dest': 'document',
+      'Sec-Fetch-Mode': 'navigate',
+      'Sec-Fetch-Site': 'none',
+      'Sec-Fetch-User': '?1',
+      'Upgrade-Insecure-Requests': '1',
+      ...options.headers
+    };
+    
+    // Analyser l'URL pour déterminer le protocole
+    let parsedUrl;
+    try {
+      parsedUrl = new URL(url);
+    } catch (error) {
+      return reject(new Error(`URL invalide: ${url}`));
+    }
+    
+    // Configurer la requête
+    const requestOptions = {
+      headers,
+      timeout: 30000, // 30 secondes
+      ...options
+    };
+    
+    // Choisir le bon module en fonction du protocole
+    const httpModule = parsedUrl.protocol === 'https:' ? https : require('http');
+    
+    const req = httpModule.get(url, requestOptions, (res) => {
       if (res.statusCode === 301 || res.statusCode === 302) {
         // Suivre la redirection
-        console.log(`Redirection vers: ${res.headers.location}`);
-        return fetchUrl(res.headers.location, options)
+        const location = res.headers.location;
+        console.log(`Redirection vers: ${location}`);
+        
+        // Si la redirection est vers HTTP mais que nous sommes en HTTPS, gérer cette situation
+        if (location.startsWith('http:') && url.startsWith('https:')) {
+          // Convertir l'URL en HTTPS
+          const httpsLocation = location.replace('http:', 'https:');
+          console.log(`Tentative avec HTTPS: ${httpsLocation}`);
+          
+          // Essayer d'abord avec HTTPS
+          return fetchUrl(httpsLocation, options)
+            .then(resolve)
+            .catch(() => {
+              // Si HTTPS échoue, essayer avec un module HTTP
+              console.log(`HTTPS a échoué, tentative avec l'URL d'origine: ${location}`);
+              
+              // Utiliser directement l'URL HTTP
+              const httpOptions = { ...options, followRedirects: false };
+              const http = require('http');
+              
+              const httpReq = http.get(location, httpOptions, (httpRes) => {
+                if (httpRes.statusCode !== 200) {
+                  reject(new Error(`Erreur HTTP ${httpRes.statusCode}`));
+                  return;
+                }
+                
+                let data = '';
+                httpRes.on('data', (chunk) => {
+                  data += chunk;
+                });
+                httpRes.on('end', () => {
+                  try {
+                    resolve(data);
+                  } catch (error) {
+                    reject(error);
+                  }
+                });
+              }).on('error', (err) => {
+                reject(err);
+              });
+              
+              // Timeout après 30 secondes
+              httpReq.setTimeout(30000, () => {
+                httpReq.destroy();
+                reject(new Error('Timeout de la requête après 30 secondes'));
+              });
+            });
+        }
+        
+        // Redirection normale
+        return fetchUrl(location, options)
           .then(resolve)
           .catch(reject);
       }
@@ -791,137 +873,138 @@ function getSourceUrls(source) {
       );
       break;
     case 'dramacool':
+      // Utilisation d'un domaine alternatif qui fonctionne mieux
       baseUrls.push(
-        'https://dramacool.com.pa/drama-list',
-        'https://dramacool.com.pa/most-popular-drama',
-        'https://dramacool.com.pa/ongoing-drama',
-        'https://dramacool.com.pa/completed-drama',
-        'https://dramacool.com.pa/drama-list/top-rated'
+        'https://www.dramacool9.co/drama-list',
+        'https://www.dramacool9.co/most-popular-drama',
+        'https://www.dramacool9.co/ongoing-drama',
+        'https://www.dramacool9.co/completed-drama',
+        'https://www.dramacool9.co/drama-list/top-rated'
       );
       break;
     case 'voirdrama':
       baseUrls.push(
-        'https://voirdrama.org',
-        'https://voirdrama.org/drama',
-        'https://voirdrama.org/drama/populaires',
-        'https://voirdrama.org/drama/recents'
+        'https://voirdrama.org/drama-vostfr',
+        'https://voirdrama.org/drama-vostfr/page/2',
+        'https://voirdrama.org/drama-vostfr/page/3'
       );
       break;
     case 'dramavostfr':
       baseUrls.push(
-        'https://dramavostfr.com',
-        'https://dramavostfr.com/dramas',
-        'https://dramavostfr.com/dramas/populaires',
-        'https://dramavostfr.com/dramas/recents'
+        'https://www.dramavostfr.cc/dramas',
+        'https://www.dramavostfr.cc/dramas/page/2',
+        'https://www.dramavostfr.cc/dramas/page/3'
       );
       break;
     case 'asianwiki':
+      // Utilisation de pages moins susceptibles d'être bloquées
       baseUrls.push(
-        'https://asianwiki.com/Main_Page',
-        'https://asianwiki.com/Category:Drama',
-        'https://asianwiki.com/Category:Korean_Drama'
+        'https://asianwiki.com/Category:Korean_Drama_-_2024',
+        'https://asianwiki.com/Category:Korean_Drama_-_2023',
+        'https://asianwiki.com/Category:Korean_Drama_-_2022'
       );
       break;
     case 'dramacore':
+      // Réduction du nombre d'URLs pour éviter les timeouts
       baseUrls.push(
-        'https://dramacore.co',
-        'https://dramacore.co/dramas',
-        'https://dramacore.co/dramas/populaires'
+        'https://dramacore.co'
       );
       break;
     case 'voiranime':
       baseUrls.push(
-        'https://v6.voiranime.com',
-        'https://v6.voiranime.com/animes',
-        'https://v6.voiranime.com/animes/populaires',
-        'https://v6.voiranime.com/animes/recents',
-        'https://v6.voiranime.com/animes/en-cours'
+        'https://voiranime.com/animes-vostfr',
+        'https://voiranime.com/animes-vostfr/page/2',
+        'https://voiranime.com/animes-vostfr/page/3'
       );
       break;
     case 'animesama':
       baseUrls.push(
-        'https://anime-sama.fr',
         'https://anime-sama.fr/catalogue',
-        'https://anime-sama.fr/catalogue/populaires',
-        'https://anime-sama.fr/catalogue/recents'
+        'https://anime-sama.fr/catalogue/page/2',
+        'https://anime-sama.fr/catalogue/page/3'
       );
       break;
     case 'nekosama':
       baseUrls.push(
-        'https://neko-sama.fr',
         'https://neko-sama.fr/anime',
-        'https://neko-sama.fr/anime/populaire'
+        'https://neko-sama.fr/anime/page/2',
+        'https://neko-sama.fr/anime/page/3'
       );
       break;
     case 'animevostfr':
       baseUrls.push(
-        'https://animevostfr.tv',
-        'https://animevostfr.tv/animes',
-        'https://animevostfr.tv/animes/populaires'
+        'https://animevostfr.tv/animes-vostfr',
+        'https://animevostfr.tv/animes-vostfr/page/2',
+        'https://animevostfr.tv/animes-vostfr/page/3'
       );
       break;
     case 'otakufr':
+      // Remplacement par un domaine alternatif qui fonctionne en HTTPS
       baseUrls.push(
-        'https://otakufr.co',
-        'https://otakufr.co/anime',
-        'https://otakufr.co/anime/populaire'
+        'https://www.otakufr.com/anime-list',
+        'https://www.otakufr.com/anime-list/page/2',
+        'https://www.otakufr.com/anime-list/page/3'
       );
       break;
     case 'vostfree':
+      // Remplacement par un domaine alternatif qui fonctionne en HTTPS
       baseUrls.push(
-        'https://vostfree.cx',
-        'https://vostfree.cx/animes-vostfr',
-        'https://vostfree.cx/films-vostfr'
+        'https://vostfr.tv/animes',
+        'https://vostfr.tv/animes/page/2',
+        'https://vostfr.tv/animes/page/3'
       );
       break;
     case 'streamingdivx':
       baseUrls.push(
-        'https://streamingdivx.co',
-        'https://streamingdivx.co/films',
-        'https://streamingdivx.co/series'
+        'https://www.streamingdivx.ch',
+        'https://www.streamingdivx.ch/films',
+        'https://www.streamingdivx.ch/films/page/2'
       );
       break;
     case 'streamingcommunity':
       baseUrls.push(
-        'https://streamingcommunity.best',
-        'https://streamingcommunity.best/browse?type=movie',
-        'https://streamingcommunity.best/browse?type=tv'
+        'https://streamingcommunity.best/browse',
+        'https://streamingcommunity.best/browse?page=2',
+        'https://streamingcommunity.best/browse?page=3'
       );
       break;
     case 'filmcomplet':
       baseUrls.push(
-        'https://www.filmcomplet.tv',
         'https://www.filmcomplet.tv/films',
-        'https://www.filmcomplet.tv/films/populaires',
-        'https://www.filmcomplet.tv/films/recents'
+        'https://www.filmcomplet.tv/films/page/2',
+        'https://www.filmcomplet.tv/films/page/3'
       );
       break;
     case 'filmapik':
       baseUrls.push(
         'https://filmapik.bio',
-        'https://filmapik.bio/movies',
-        'https://filmapik.bio/most-viewed',
-        'https://filmapik.bio/most-rating',
-        'https://filmapik.bio/most-favorite'
+        'https://filmapik.bio/latest',
+        'https://filmapik.bio/popular'
       );
       break;
     case 'bollyplay':
+      // Remplacement par un domaine alternatif qui fonctionne
       baseUrls.push(
-        'https://bollyplay.co',
-        'https://bollyplay.co/movies',
-        'https://bollyplay.co/tv-shows'
+        'https://bollyflix.guru',
+        'https://bollyflix.guru/movies',
+        'https://bollyflix.guru/web-series'
       );
       break;
     case 'hindilinks4u':
+      // Remplacement par un domaine alternatif qui fonctionne en HTTPS
       baseUrls.push(
-        'https://www.hindilinks4u.to',
-        'https://www.hindilinks4u.to/category/hindi-movies',
-        'https://www.hindilinks4u.to/category/bollywood-movies'
+        'https://hindilinks4u.team',
+        'https://hindilinks4u.team/category/movies',
+        'https://hindilinks4u.team/category/tv-shows'
       );
       break;
     default:
       // Si la source n'est pas reconnue, utiliser une URL générique
-      baseUrls.push(`https://${source}`);
+      if (source.includes('http')) {
+        baseUrls.push(source);
+      } else {
+        baseUrls.push(`https://${source}`);
+      }
       break;
   }
   
