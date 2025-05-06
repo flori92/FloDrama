@@ -194,6 +194,27 @@ async function fetchUrl(url, options = {}) {
   });
 }
 
+// Fonction pour récupérer le HTML d'une URL
+async function fetchHtml(url, debug = false) {
+  try {
+    if (debug) {
+      console.log(`[DEBUG] Récupération du HTML de ${url}`);
+    }
+    
+    // Utiliser la fonction fetchUrl existante
+    const html = await fetchUrl(url);
+    
+    if (!html) {
+      throw new Error('HTML vide');
+    }
+    
+    return html;
+  } catch (error) {
+    console.error(`[ERROR] Erreur lors de la récupération du HTML de ${url}:`, error.message);
+    throw error;
+  }
+}
+
 // Fonction pour scraper via le Worker Cloudflare
 async function scrapeViaWorker(sourceName, page = 1) {
   const workerUrl = process.env.CLOUDFLARE_WORKER_URL;
