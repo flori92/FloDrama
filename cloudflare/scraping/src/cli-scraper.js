@@ -130,7 +130,7 @@ const allArg = args.find(arg => arg === '--all');
 const debugArg = args.find(arg => arg === '--debug');
 const debug = debugArg !== undefined;
 const pagesArg = args.find(arg => arg.startsWith('--pages='));
-const pages = pagesArg ? parseInt(pagesArg.split('=')[1]) : 5; // Nombre de pages à scraper par défaut
+const maxPages = pagesArg ? parseInt(pagesArg.split('=')[1]) : 5; // Nombre de pages à scraper par défaut
 const retryArg = args.find(arg => arg.startsWith('--retry='));
 const maxRetries = retryArg ? parseInt(retryArg.split('=')[1]) : 3; // Nombre de tentatives par défaut
 
@@ -577,11 +577,11 @@ async function scrapeSource(sourceName) {
   console.log(`\n=== Démarrage du scraping pour la source: ${sourceName} ===`);
   console.log(`Source: ${SOURCES[sourceName].name} (${SOURCES[sourceName].contentType})`);
   console.log(`URL de base: ${SOURCES[sourceName].baseUrl}`);
-  console.log(`Objectif: ${limit} éléments uniques sur ${pages} pages maximum`);
+  console.log(`Objectif: ${limit} éléments uniques sur ${maxPages} pages maximum`);
   
   try {
     // Utiliser le Worker Cloudflare pour effectuer le scraping multi-pages
-    const results = await scrapeMultiplePages(sourceName, pages, limit);
+    const results = await scrapeMultiplePages(sourceName, maxPages, limit);
     
     if (results) {
       const { results: resultsData = [] } = results || {};
@@ -638,82 +638,111 @@ async function scrapeSource(sourceName) {
 
 // Fonction principale
 async function main() {
-  const startTime = Date.now();
-  console.log(`Démarrage du scraping à ${new Date().toISOString()}`);
-  
-  // Déterminer les sources à scraper
-  const sourcesToScrape = allArg ? Object.keys(SOURCES) : [source];
-  
-  console.log(`Sources à scraper: ${sourcesToScrape.join(', ')}`);
-  console.log(`Limite par source: ${limit} éléments`);
-  console.log(`Pages maximum par source: ${pages}`);
-  
-  const results = [];
-  const errors = [];
-  
-  // Scraper chaque source
-  for (const sourceName of sourcesToScrape) {
-    try {
-      const result = await scrapeSource(sourceName);
-      results.push(result);
-      
-      if (!result.success) {
+  try {
+    const startTime = Date.now();
+    
+    // Déterminer les sources à scraper
+    const sourcesToScrape = allArg ? Object.keys(SOURCES) : [source];
+    
+    console.log(`Démarrage du scraping à ${new Date().toISOString()}`);
+    console.log(`Sources à scraper: ${sourcesToScrape.join(', ')}`);
+    console.log(`Limite par source: ${limit} éléments`);
+    console.log(`Pages maximum par source: ${maxPages}`);
+    
+    const results = [];
+    const errors = [];
+    
+    // Créer le dossier de sortie s'il n'existe pas
+    if (!fs.existsSync(outputPath)) {
+      fs.mkdirSync(outputPath, { recursive: true });
+    }
+    
+    // Scraper chaque source
+    for (const source of sourcesToScrape) {
+      try {
+        console.log(`\nScraping de ${source}...`);
+        
+        // Scraper la source
+        const result = await scrapeSource(source, limit, maxPages, debug);
+        
+        // Vérifier si le scraping a réussi
+        if (result.success) {
+          console.log(`✅ ${source}: ${result.count} éléments trouvés en ${result.duration_seconds.toFixed(2)} secondes`);
+          
+          // Sauvegarder les résultats dans un fichier JSON
+          const outputFile = path.join(outputPath, `${source}_${new Date().toISOString().replace(/:/g, '-')}.json`);
+          fs.writeFileSync(outputFile, JSON.stringify(result.items, null, 2));
+          
+          console.log(`Résultats sauvegardés dans: ${outputFile}`);
+          
+          // Ajouter les résultats à la liste
+          results.push({
+            source,
+            count: result.count,
+            file: outputFile,
+            duration: result.duration_seconds
+          });
+        } else {
+          console.error(`❌ ${source}: Échec du scraping (${result.error || 'erreur inconnue'})`);
+          
+          // Ajouter l'erreur à la liste
+          errors.push({
+            source,
+            error: result.error || 'erreur inconnue'
+          });
+        }
+      } catch (error) {
+        console.error(`❌ ${source}: Erreur lors du scraping:`, error);
+        
+        // Ajouter l'erreur à la liste
         errors.push({
-          source: sourceName,
-          error: result.error
+          source,
+          error: error.message
         });
       }
-    } catch (error) {
-      console.error(`Erreur non gérée lors du scraping de ${sourceName}:`, error);
-      errors.push({
-        source: sourceName,
-        error: error.message
-      });
     }
-  }
-  
-  // Afficher le résumé
-  const endTime = Date.now();
-  const duration = (endTime - startTime) / 1000;
-  
-  console.log(`\n=== Résumé du scraping ===`);
-  console.log(`Durée totale: ${duration.toFixed(2)} secondes`);
-  console.log(`Sources scrapées: ${results.length} / ${sourcesToScrape.length}`);
-  console.log(`Erreurs: ${errors.length}`);
-  
-  // Détails des sources scrapées
-  console.log(`\nDétails des sources scrapées:`);
-  results.forEach(result => {
-    if (result.success) {
-      console.log(`- ${result.source}: ${result.count} éléments${result.is_mock ? ' (mock)' : ''}`);
-    } else {
-      console.log(`- ${result.source}: ÉCHEC (${result.error})`);
+    
+    // Calculer la durée totale
+    const endTime = Date.now();
+    const duration = (endTime - startTime) / 1000;
+    
+    // Afficher un résumé
+    console.log(`\n=== Résumé du scraping ===`);
+    console.log(`Durée totale: ${duration.toFixed(2)} secondes`);
+    console.log(`Sources scrapées: ${results.length} / ${sourcesToScrape.length}`);
+    console.log(`Erreurs: ${errors.length}`);
+    
+    console.log(`\nDétails des sources scrapées:`);
+    for (const result of results) {
+      console.log(`- ${result.source}: ${result.count} éléments`);
     }
-  });
-  
-  // Détails des erreurs
-  if (errors.length > 0) {
-    console.log(`\nDétails des erreurs:`);
-    errors.forEach(error => {
-      console.log(`- ${error.source}: ${error.error}`);
-    });
-  }
-  
-  // Écrire le résumé dans un fichier
-  const summaryFile = path.join(outputPath, `scraping_summary_${new Date().toISOString().replace(/:/g, '-')}.json`);
-  fs.writeFileSync(summaryFile, JSON.stringify({
-    timestamp: new Date().toISOString(),
-    duration,
-    sources: sourcesToScrape,
-    results,
-    errors
-  }, null, 2));
-  
-  console.log(`\nRésumé sauvegardé dans: ${summaryFile}`);
-  
-  // Retourner un code d'erreur si toutes les sources ont échoué
-  if (errors.length === sourcesToScrape.length) {
-    console.error('Toutes les sources ont échoué');
+    
+    if (errors.length > 0) {
+      console.log(`\nDétails des erreurs:`);
+      for (const error of errors) {
+        console.log(`- ${error.source}: ${error.error}`);
+      }
+    }
+    
+    // Sauvegarder le résumé dans un fichier JSON
+    const summaryFile = path.join(outputPath, `scraping_summary_${new Date().toISOString().replace(/:/g, '-')}.json`);
+    fs.writeFileSync(summaryFile, JSON.stringify({
+      timestamp: new Date().toISOString(),
+      duration,
+      sources: sourcesToScrape,
+      results,
+      errors
+    }, null, 2));
+    
+    console.log(`\nRésumé sauvegardé dans: ${summaryFile}`);
+    
+    // Retourner un code d'erreur si toutes les sources ont échoué
+    if (errors.length === sourcesToScrape.length) {
+      console.error('Toutes les sources ont échoué');
+      process.exit(1);
+    }
+  } catch (error) {
+    console.error('Erreur non gérée:', error);
     process.exit(1);
   }
 }
