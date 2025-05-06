@@ -137,13 +137,68 @@ export async function checkApiStatus(): Promise<{ status: string; version: strin
   }
 }
 
-// Fonction pour récupérer le contenu par catégorie
-export async function fetchContentByCategory(
-  category: string,
-  page: number = 1,
-  limit: number = 20
-): Promise<ContentItem[]> {
-  return fetchWithErrorHandling(`${API_BASE_URL}/${category}?page=${page}&limit=${limit}`);
+// Fonction pour récupérer du contenu par catégorie
+export async function fetchContentByCategory(category: ContentType, params: Record<string, string> = {}): Promise<ContentItem[]> {
+  try {
+    // Construire les paramètres de requête
+    const queryParams = new URLSearchParams();
+    Object.entries(params).forEach(([key, value]) => {
+      queryParams.append(key, value);
+    });
+    
+    // Déterminer l'URL en fonction de la catégorie
+    let endpoint = '';
+    switch (category) {
+      case 'film':
+        endpoint = '/films';
+        break;
+      case 'drama':
+        endpoint = '/dramas';
+        break;
+      case 'anime':
+        endpoint = '/animes';
+        break;
+      case 'bollywood':
+        endpoint = '/bollywood';
+        break;
+      default:
+        endpoint = '/dramas'; // Par défaut
+    }
+    
+    // Construire l'URL complète
+    const url = `${API_BASE_URL}${endpoint}?${queryParams}`;
+    
+    // Récupérer les données
+    const data = await fetchWithErrorHandling(url);
+    
+    // Adapter le format des données si nécessaire
+    return data.map((item: any) => {
+      return {
+        id: item.id || '',
+        title: item.title || '',
+        description: item.description || '',
+        posterUrl: item.poster || '', // Adapter le nom du champ
+        releaseDate: item.year ? `${item.year}` : '', // Convertir l'année en chaîne
+        rating: item.rating || 0,
+        duration: item.duration || 0,
+        trailerUrl: item.trailerUrl || '',
+        videoId: item.videoId || '',
+        category: category,
+        genres: item.genres || [],
+        episodeCount: item.episodeCount || 0,
+        seasonCount: item.seasonCount || 0,
+        language: item.language || '',
+        country: item.country || '',
+        status: item.status || 'completed',
+        progress: item.progress || 0
+      };
+    });
+  } catch (error) {
+    console.error(`Erreur lors de la récupération des ${category}:`, error);
+    
+    // En cas d'erreur, retourner un tableau vide
+    return [];
+  }
 }
 
 // Fonction pour récupérer un élément par ID
@@ -215,7 +270,7 @@ export const apiService = {
     if (USE_MOCK_DATA) {
       return mockDataService.getContentByType(type) as unknown as ContentItem[];
     } else {
-      return fetchContentByCategory(type, page, limit);
+      return fetchContentByCategory(type, { page: page.toString(), limit: limit.toString() });
     }
   },
   
