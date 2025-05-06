@@ -58,3 +58,6 @@ aws_temp_config.sh
 *.log
 logs/
 Backend/api/.env
+
+# Dossier de résultats de scraping
+scraping-results/
