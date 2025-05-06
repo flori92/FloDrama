@@ -119,11 +119,13 @@ async function scrapeViaWorker(source) {
   
   // Construire l'URL avec les paramètres attendus par le Worker
   const url = new URL(workerUrl);
+  
+  // Paramètres obligatoires
   url.searchParams.append('source', source);
   url.searchParams.append('action', 'scrape');
   url.searchParams.append('limit', limit.toString());
   
-  // Ajouter des paramètres supplémentaires pour le débogage et le cache
+  // Paramètres optionnels pour améliorer les chances de succès
   url.searchParams.append('debug', 'true');
   url.searchParams.append('no_cache', 'true');
   
@@ -136,21 +138,40 @@ async function scrapeViaWorker(source) {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Accept': 'application/json',
         'Accept-Language': 'fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7',
-        'Referer': 'https://flodrama.com/'
-      }
+        'Referer': 'https://flodrama.com/',
+        'Origin': 'https://flodrama.com'
+      },
+      timeout: 60000 // 60 secondes de timeout
     };
     
+    console.log(`Tentative de récupération des données depuis ${source}...`);
     const data = await fetchUrl(url.toString(), options);
     
     try {
-      return JSON.parse(data);
+      // Afficher les 200 premiers caractères de la réponse pour le débogage
+      console.log(`Réponse reçue (début): ${data.substring(0, 200)}...`);
+      
+      const parsedData = JSON.parse(data);
+      
+      // Vérifier si la réponse indique une erreur
+      if (parsedData.success === false) {
+        console.error(`Erreur retournée par le Worker: ${parsedData.error}`);
+        throw new Error(parsedData.error || 'Erreur inconnue du Worker');
+      }
+      
+      return parsedData;
     } catch (error) {
       console.error('Erreur lors du parsing de la réponse JSON:', error.message);
-      console.error('Réponse brute:', data.substring(0, 500) + '...');
+      console.error('Réponse brute (début):', data.substring(0, 500) + '...');
       throw new Error('Format de réponse invalide');
     }
   } catch (error) {
     console.error(`Erreur lors de la requête au Worker: ${error.message}`);
+    
+    // Vérifier si l'erreur est due à un problème de réseau ou de configuration
+    if (error.code === 'ENOTFOUND' || error.code === 'ECONNREFUSED') {
+      console.error(`Erreur de connexion: Impossible de joindre ${workerUrl}`);
+    }
     
     // En cas d'échec, utiliser des données mockées pour éviter l'échec complet du workflow
     console.log('Utilisation de données mockées en fallback...');
@@ -252,7 +273,8 @@ async function main() {
     const results = await scrapeViaWorker(source);
     
     if (results) {
-      const count = Array.isArray(results.results) ? results.results.length : (Array.isArray(results) ? results.length : 0);
+      const { results: resultsData = [] } = results || {};
+      const count = Array.isArray(resultsData) ? resultsData.length : (Array.isArray(results) ? results.length : 0);
       console.log(`${count} éléments récupérés depuis ${source}`);
       
       const savedFile = await saveResults(results, source);

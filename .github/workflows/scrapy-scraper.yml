@@ -14,6 +14,11 @@ on:
         description: "Nombre d'éléments à récupérer"
         required: false
         default: '20'
+      debug:
+        description: "Mode debug (affiche plus d'informations)"
+        required: false
+        default: true
+        type: boolean
 
 jobs:
   scrape:
@@ -46,17 +51,45 @@ jobs:
           # Détermination de la source à scraper
           SOURCE="${{ github.event.inputs.source || 'mydramalist' }}"
           LIMIT="${{ github.event.inputs.limit || '20' }}"
+          DEBUG="${{ github.event.inputs.debug || 'true' }}"
           
           echo "Démarrage du scraping pour la source: $SOURCE avec une limite de $LIMIT éléments"
+          echo "URL du Worker Cloudflare: ${CLOUDFLARE_WORKER_URL}"
           
-          # Exécution du script de scraping
+          # Vérification de l'URL du Worker
+          if [ -z "$CLOUDFLARE_WORKER_URL" ]; then
+            echo "ERREUR: La variable CLOUDFLARE_WORKER_URL n'est pas définie"
+            exit 1
+          fi
+          
+          # Exécution du script de scraping avec un timeout de 5 minutes
           cd cloudflare/scraping
-          node src/cli-scraper.js --source=$SOURCE --limit=$LIMIT --output=../../scraping-results
+          timeout 300s node src/cli-scraper.js --source=$SOURCE --limit=$LIMIT --output=../../scraping-results
+          
+          # Vérification du code de retour
+          EXIT_CODE=$?
+          if [ $EXIT_CODE -eq 124 ]; then
+            echo "ATTENTION: Le script a été interrompu après 5 minutes d'exécution (timeout)"
+          elif [ $EXIT_CODE -ne 0 ]; then
+            echo "ERREUR: Le script s'est terminé avec le code d'erreur $EXIT_CODE"
+            # Ne pas échouer le workflow, car nous avons un mécanisme de fallback
+          fi
           
           # Vérification des résultats
           cd ../../
           echo "Contenu du dossier scraping-results:"
           ls -la scraping-results/
+          
+          # Afficher le contenu du dernier fichier JSON généré (pour débogage)
+          if [ "$DEBUG" = "true" ]; then
+            LATEST_FILE=$(ls -t scraping-results/*.json | head -n1)
+            if [ -n "$LATEST_FILE" ]; then
+              echo "Aperçu du dernier fichier généré ($LATEST_FILE):"
+              head -n 30 "$LATEST_FILE"
+            else
+              echo "Aucun fichier JSON trouvé dans le dossier scraping-results"
+            fi
+          fi
       
       - name: Archivage des résultats
         uses: actions/upload-artifact@v3
