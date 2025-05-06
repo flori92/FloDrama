@@ -2,58 +2,77 @@ name: FloDrama Scraper
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Exécution quotidienne à minuit
-  workflow_dispatch:  # Permet l'exécution manuelle
+    # Exécution tous les jours à 2h du matin
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'Source à scraper (mydramalist, voiranime, voirdrama, dramavostfr, animesama)'
+        required: false
+        default: 'mydramalist'
+      limit:
+        description: "Nombre d'éléments à récupérer"
+        required: false
+        default: '20'
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
+    name: Scraper FloDrama
     
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Checkout du code
+        uses: actions/checkout@v3
       
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Configuration de Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'cloudflare/scraping/package.json'
       
-      - name: Install dependencies
+      - name: Installation des dépendances
         run: |
           cd cloudflare/scraping
           npm install
       
-      - name: Run VoirDrama spider
-        run: |
-          cd cloudflare/scraping
-          node src/cli-scraper.js --source=voirdrama
+      - name: Exécution du scraper
         env:
           CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
+        run: |
+          # Création du dossier pour les résultats
+          mkdir -p scraping-results
+          
+          # Détermination de la source à scraper
+          SOURCE="${{ github.event.inputs.source || 'mydramalist' }}"
+          LIMIT="${{ github.event.inputs.limit || '20' }}"
+          
+          echo "Démarrage du scraping pour la source: $SOURCE avec une limite de $LIMIT éléments"
+          
+          # Exécution du script de scraping
+          cd cloudflare/scraping
+          node src/cli-scraper.js --source=$SOURCE --limit=$LIMIT --output=../../scraping-results
+          
+          # Vérification des résultats
+          cd ../../
+          echo "Contenu du dossier scraping-results:"
+          ls -la scraping-results/
       
-      - name: Run MyDramaList spider
-        run: |
-          cd cloudflare/scraping
-          node src/cli-scraper.js --source=mydramalist
-        env:
-          CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
+      - name: Archivage des résultats
+        uses: actions/upload-artifact@v3
+        with:
+          name: scraping-results
+          path: scraping-results/
+          retention-days: 7
       
-      - name: Run VoirAnime spider
+      - name: Notification de réussite
+        if: success()
         run: |
-          cd cloudflare/scraping
-          node src/cli-scraper.js --source=voiranime
-        env:
-          CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
+          echo "Scraping terminé avec succès"
+          echo "Les résultats sont disponibles dans les artifacts du workflow"
       
-      - name: Run DramaVostfr spider
+      - name: Notification d'échec
+        if: failure()
         run: |
-          cd cloudflare/scraping
-          node src/cli-scraper.js --source=dramavostfr
-        env:
-          CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
-      
-      - name: Run AnimeSama spider
-        run: |
-          cd cloudflare/scraping
-          node src/cli-scraper.js --source=animesama
-        env:
-          CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
+          echo "Erreur lors du scraping"
+          echo "Vérifiez les logs pour plus d'informations"
