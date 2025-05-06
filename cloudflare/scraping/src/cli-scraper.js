@@ -26,6 +26,10 @@ const {
   generateFakeData
 } = require('./robust-scraper');
 
+// Import du client proxy
+const WebshareProxyClient = require('./proxy-client').default;
+const proxyClient = new WebshareProxyClient(undefined, true); // Activer le debug
+
 // Configuration des sources et scrapers
 const SOURCES = {
   // Dramas
@@ -308,7 +312,7 @@ async function fetchHtml(url, debug = false, retryCount = 0) {
   // Créer des en-têtes sophistiqués pour ressembler à un navigateur réel
   const headers = {
     'User-Agent': randomUserAgent,
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
     'Accept-Language': 'fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3',
     'Accept-Encoding': 'gzip, deflate, br',
     'DNT': '1',
@@ -318,7 +322,72 @@ async function fetchHtml(url, debug = false, retryCount = 0) {
     'TE': 'Trailers',
     'Referer': 'https://www.google.com/'
   };
+  
+  try {
+    // Essayer d'abord la méthode standard
+    const htmlContent = await standardFetch(url, headers, debug);
+    return htmlContent;
+  } catch (error) {
+    if (debug) {
+      console.log(`[DEBUG] Échec de la méthode standard: ${error.message}`);
+    }
+    
+    // Si la méthode standard échoue, essayer avec le proxy
+    if (retryCount < 3) {
+      if (debug) {
+        console.log(`[DEBUG] Tentative avec proxy (${retryCount + 1}/3)`);
+      }
+      
+      try {
+        // Utiliser le client proxy pour contourner les protections
+        const response = await proxyClient.fetch(url, {
+          headers: {
+            'User-Agent': randomUserAgent,
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+            'Accept-Language': 'fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3',
+            'Referer': 'https://www.google.com/'
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Erreur HTTP ${response.status}`);
+        }
+        
+        const htmlContent = await response.text();
+        
+        // Vérifier si la page contient des indications de blocage
+        if (htmlContent.includes('captcha') || 
+            htmlContent.includes('Cloudflare') && htmlContent.includes('challenge') ||
+            htmlContent.includes('Access Denied') ||
+            htmlContent.includes('DDoS protection') ||
+            htmlContent.includes('blocked') && htmlContent.includes('security')) {
+          
+          if (debug) {
+            console.log(`[DEBUG] Détection de protection anti-bot sur ${url} malgré l'utilisation du proxy`);
+          }
+          
+          // Réessayer avec un autre proxy
+          return fetchHtml(url, debug, retryCount + 1);
+        }
+        
+        return htmlContent;
+      } catch (proxyError) {
+        if (debug) {
+          console.log(`[DEBUG] Échec avec proxy: ${proxyError.message}`);
+        }
+        
+        // Réessayer avec un autre proxy
+        return fetchHtml(url, debug, retryCount + 1);
+      }
+    } else {
+      // Toutes les tentatives ont échoué
+      throw new Error(`Échec de récupération du HTML après 3 tentatives: ${error.message}`);
+    }
+  }
+}
 
+// Fonction de récupération standard (sans proxy)
+async function standardFetch(url, headers, debug = false) {
   return new Promise((resolve, reject) => {
     try {
       // Analyser l'URL
@@ -365,7 +434,6 @@ async function fetchHtml(url, debug = false, retryCount = 0) {
       // Choisir le protocole en fonction de l'URL
       const protocol = parsedUrl.protocol === 'https:' ? https : http;
       
-      // Créer la requête
       const req = protocol.request(options, (res) => {
         // Gérer les redirections
         if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
@@ -395,7 +463,7 @@ async function fetchHtml(url, debug = false, retryCount = 0) {
           
           // Suivre la redirection avec un délai aléatoire pour simuler un comportement humain
           setTimeout(() => {
-            fetchHtml(redirectUrl, debug, retryCount)
+            standardFetch(redirectUrl, headers, debug)
               .then(resolve)
               .catch(reject);
           }, Math.random() * 1000 + 500); // Délai aléatoire entre 500ms et 1500ms
@@ -430,55 +498,22 @@ async function fetchHtml(url, debug = false, retryCount = 0) {
               console.log(`[DEBUG] Détection de protection anti-bot sur ${url}`);
             }
             
-            // Réessayer avec un autre User-Agent si possible
-            if (retryCount < 3) {
-              if (debug) {
-                console.log(`[DEBUG] Nouvelle tentative (${retryCount + 1}/3) pour ${url}`);
-              }
-              
-              // Attendre un délai aléatoire avant de réessayer
-              setTimeout(() => {
-                fetchHtml(url, debug, retryCount + 1)
-                  .then(resolve)
-                  .catch(reject);
-              }, Math.random() * 2000 + 1000); // Délai aléatoire entre 1s et 3s
-              
-              return;
-            } else {
-              reject(new Error('Site protégé contre le scraping après 3 tentatives'));
-              return;
-            }
+            reject(new Error('Site protégé contre le scraping'));
+            return;
           }
           
           resolve(data);
         });
+      }).on('error', (err) => {
+        reject(err);
       });
       
-      // Gérer les erreurs de requête
-      req.on('error', (error) => {
-        if (retryCount < 3) {
-          if (debug) {
-            console.log(`[DEBUG] Erreur de connexion, nouvelle tentative (${retryCount + 1}/3) pour ${url}: ${error.message}`);
-          }
-          
-          // Attendre un délai aléatoire avant de réessayer
-          setTimeout(() => {
-            fetchHtml(url, debug, retryCount + 1)
-              .then(resolve)
-              .catch(reject);
-          }, Math.random() * 2000 + 1000); // Délai aléatoire entre 1s et 3s
-        } else {
-          reject(error);
-        }
-      });
-      
-      // Gérer le timeout
-      req.on('timeout', () => {
+      // Timeout après 30 secondes
+      req.setTimeout(30000, () => {
         req.destroy();
         reject(new Error('Timeout de la requête après 30 secondes'));
       });
       
-      // Terminer la requête
       req.end();
     } catch (error) {
       reject(error);
@@ -980,29 +1015,39 @@ function getSourceUrls(source) {
       break;
     case 'voirdrama':
       baseUrls.push(
-        'https://voirdrama.org/drama-vostfr',
-        'https://voirdrama.org/drama-vostfr/page/2',
-        'https://voirdrama.org/drama-vostfr/page/3',
-        'https://voirdrama.org/drama-vostfr/page/4',
-        'https://voirdrama.org/drama-vostfr/page/5'
+        'https://voirdrama.org/drama/',
+        'https://voirdrama.org/drama/page/2/',
+        'https://voirdrama.org/drama/page/3/',
+        'https://voirdrama.org/drama/page/4/',
+        'https://voirdrama.org/drama/page/5/'
       );
       break;
     case 'dramavostfr':
       baseUrls.push(
         'https://dramavostfr.tv/dramas',
-        'https://dramavostfr.tv/dramas/page/2',
-        'https://dramavostfr.tv/dramas/page/3',
-        'https://dramavostfr.tv/dramas/page/4',
-        'https://dramavostfr.tv/dramas/page/5'
+        'https://dramavostfr.tv/dramas?page=2',
+        'https://dramavostfr.tv/dramas?page=3',
+        'https://dramavostfr.tv/dramas?page=4',
+        'https://dramavostfr.tv/dramas?page=5',
+        // URLs alternatives
+        'https://drama-vostfr.co/dramas',
+        'https://drama-vostfr.co/dramas/page/2',
+        'https://dramavostfr.cc/dramas',
+        'https://dramavostfr.cc/dramas/page/2'
       );
       break;
     case 'asianwiki':
       baseUrls.push(
-        'https://asianwiki.com/Category:Korean_Drama_-_2025',
         'https://asianwiki.com/Category:Korean_Drama_-_2024',
         'https://asianwiki.com/Category:Korean_Drama_-_2023',
         'https://asianwiki.com/Category:Korean_Drama_-_2022',
-        'https://asianwiki.com/Category:Korean_Drama_-_2021'
+        'https://asianwiki.com/Category:Korean_Drama_-_2021',
+        'https://asianwiki.com/Category:Korean_Drama_-_2020',
+        // URLs alternatives
+        'https://asianwiki.com/Drama_2024',
+        'https://asianwiki.com/Drama_2023',
+        'https://asianwiki.com/index.php?title=Special%3ASearch&search=drama+2023',
+        'https://asianwiki.com/index.php?title=Special%3ASearch&search=drama+2022'
       );
       break;
     case 'dramacore':
@@ -1011,7 +1056,14 @@ function getSourceUrls(source) {
         'https://dramacore.city/page/2',
         'https://dramacore.city/page/3',
         'https://dramacore.city/page/4',
-        'https://dramacore.city/page/5'
+        'https://dramacore.city/page/5',
+        // URLs alternatives
+        'https://dramacore.io',
+        'https://dramacore.io/page/2',
+        'https://dramacore.cc',
+        'https://dramacore.cc/page/2',
+        'https://dramacorehd.com',
+        'https://dramacorehd.com/page/2'
       );
       break;
     case 'dramacool':
@@ -1020,7 +1072,14 @@ function getSourceUrls(source) {
         'https://dramacool.com.pa/most-popular-drama',
         'https://dramacool.com.pa/ongoing-drama',
         'https://dramacool.com.pa/completed-drama',
-        'https://dramacool.com.pa/drama-list/page/2'
+        'https://dramacool.com.pa/drama-list/page/2',
+        // URLs alternatives
+        'https://dramacool9.co/drama-list',
+        'https://dramacool9.co/most-popular-drama',
+        'https://dramacool.cr/drama-list',
+        'https://dramacool.sr/drama-list',
+        'https://dramacoolfree.io/drama-list',
+        'https://dramacool.bid/drama-list'
       );
       break;
     case 'voiranime':
@@ -1029,16 +1088,23 @@ function getSourceUrls(source) {
         'https://voiranime.com/animes-vostfr/page/2',
         'https://voiranime.com/animes-vostfr/page/3',
         'https://voiranime.com/animes-vostfr/page/4',
-        'https://voiranime.com/animes-vostfr/page/5'
+        'https://voiranime.com/animes-vostfr/page/5',
+        // URLs alternatives
+        'https://voiranime.tv/animes-vostfr',
+        'https://voiranime.tv/animes-vostfr/page/2',
+        'https://voiranime.org/animes-vostfr',
+        'https://voiranime.org/animes-vostfr/page/2',
+        'https://voiranime.to/animes-vostfr',
+        'https://voiranime.to/animes-vostfr/page/2'
       );
       break;
     case 'animesama':
       baseUrls.push(
-        'https://anime-sama.fr/catalogue',
-        'https://anime-sama.fr/catalogue/page/2',
-        'https://anime-sama.fr/catalogue/page/3',
-        'https://anime-sama.fr/catalogue/page/4',
-        'https://anime-sama.fr/catalogue/page/5'
+        'https://anime-sama.fr/catalogue/',
+        'https://anime-sama.fr/catalogue/page/2/',
+        'https://anime-sama.fr/catalogue/page/3/',
+        'https://anime-sama.fr/catalogue/page/4/',
+        'https://anime-sama.fr/catalogue/page/5/'
       );
       break;
     case 'nekosama':
@@ -1047,43 +1113,50 @@ function getSourceUrls(source) {
         'https://neko-sama.fr/anime/page/2',
         'https://neko-sama.fr/anime/page/3',
         'https://neko-sama.fr/anime/page/4',
-        'https://neko-sama.fr/anime/page/5'
+        'https://neko-sama.fr/anime/page/5',
+        // URLs alternatives
+        'https://neko-sama.io/anime',
+        'https://neko-sama.io/anime/page/2',
+        'https://nekosama.tv/anime',
+        'https://nekosama.tv/anime/page/2',
+        'https://nekosama.org/anime',
+        'https://nekosama.org/anime/page/2'
       );
       break;
     case 'animevostfr':
       baseUrls.push(
-        'https://animevostfr.tv/animes',
-        'https://animevostfr.tv/animes/page/2',
-        'https://animevostfr.tv/animes/page/3',
-        'https://animevostfr.tv/animes/page/4',
-        'https://animevostfr.tv/animes/page/5'
+        'https://animevostfr.tv/animes-vostfr/',
+        'https://animevostfr.tv/animes-vostfr/page/2/',
+        'https://animevostfr.tv/animes-vostfr/page/3/',
+        'https://animevostfr.tv/animes-vostfr/page/4/',
+        'https://animevostfr.tv/animes-vostfr/page/5/'
       );
       break;
     case 'otakufr':
       baseUrls.push(
-        'https://otakufr.co',
-        'https://otakufr.co/page/2',
-        'https://otakufr.co/page/3',
-        'https://otakufr.co/page/4',
-        'https://otakufr.co/page/5'
+        'https://otakufr.co/',
+        'https://otakufr.co/page/2/',
+        'https://otakufr.co/page/3/',
+        'https://otakufr.co/page/4/',
+        'https://otakufr.co/page/5/'
       );
       break;
     case 'vostfree':
       baseUrls.push(
-        'https://vostfree.cx/films-vf-vostfr',
-        'https://vostfree.cx/films-vf-vostfr/page/2',
-        'https://vostfree.cx/films-vf-vostfr/page/3',
-        'https://vostfree.cx/films-vf-vostfr/page/4',
-        'https://vostfree.cx/films-vf-vostfr/page/5'
+        'https://vostfree.cx/films-vf-vostfr/',
+        'https://vostfree.cx/films-vf-vostfr/page/2/',
+        'https://vostfree.cx/films-vf-vostfr/page/3/',
+        'https://vostfree.cx/films-vf-vostfr/page/4/',
+        'https://vostfree.cx/films-vf-vostfr/page/5/'
       );
       break;
     case 'streamingdivx':
       baseUrls.push(
-        'https://streaming-films.net',
-        'https://streaming-films.net/page/2',
-        'https://streaming-films.net/page/3',
-        'https://streaming-films.net/page/4',
-        'https://streaming-films.net/page/5'
+        'https://streamingdivx.co/films/',
+        'https://streamingdivx.co/films/page/2/',
+        'https://streamingdivx.co/films/page/3/',
+        'https://streamingdivx.co/films/page/4/',
+        'https://streamingdivx.co/films/page/5/'
       );
       break;
     case 'filmcomplet':
@@ -1092,16 +1165,25 @@ function getSourceUrls(source) {
         'https://www.film-complet.cc/page/2',
         'https://www.film-complet.cc/page/3',
         'https://www.film-complet.cc/page/4',
-        'https://www.film-complet.cc/page/5'
+        'https://www.film-complet.cc/page/5',
+        // URLs alternatives
+        'https://film-complet.tv',
+        'https://film-complet.tv/page/2',
+        'https://film-complet.co',
+        'https://film-complet.co/page/2',
+        'https://filmcomplet.me',
+        'https://filmcomplet.me/page/2',
+        'https://www.filmcomplet.me',
+        'https://www.filmcomplet.me/page/2'
       );
       break;
     case 'streamingcommunity':
       baseUrls.push(
-        'https://streamingcommunity.bike/browse',
-        'https://streamingcommunity.bike/browse?page=2',
-        'https://streamingcommunity.bike/browse?page=3',
-        'https://streamingcommunity.bike/browse?page=4',
-        'https://streamingcommunity.bike/browse?page=5'
+        'https://streamingcommunity.bike/browse?type=movie',
+        'https://streamingcommunity.bike/browse?type=movie&page=2',
+        'https://streamingcommunity.bike/browse?type=movie&page=3',
+        'https://streamingcommunity.bike/browse?type=movie&page=4',
+        'https://streamingcommunity.bike/browse?type=movie&page=5'
       );
       break;
     case 'filmapik':
@@ -1119,25 +1201,29 @@ function getSourceUrls(source) {
         'https://bollyplay.app/page/2',
         'https://bollyplay.app/page/3',
         'https://bollyplay.app/page/4',
-        'https://bollyplay.app/page/5'
+        'https://bollyplay.app/page/5',
+        // URLs alternatives
+        'https://bollyplay.co',
+        'https://bollyplay.co/page/2',
+        'https://bollyplay.cc',
+        'https://bollyplay.cc/page/2',
+        'https://bollyplayhd.com',
+        'https://bollyplayhd.com/page/2',
+        'https://bollyplayhd.cc',
+        'https://bollyplayhd.cc/page/2'
       );
       break;
     case 'hindilinks4u':
       baseUrls.push(
-        'https://hindilinks4u.skin',
-        'https://hindilinks4u.skin/page/2',
-        'https://hindilinks4u.skin/page/3',
-        'https://hindilinks4u.skin/page/4',
-        'https://hindilinks4u.skin/page/5'
+        'https://hindilinks4u.to',
+        'https://hindilinks4u.to/page/2',
+        'https://hindilinks4u.to/page/3',
+        'https://hindilinks4u.to/page/4',
+        'https://hindilinks4u.to/page/5'
       );
       break;
     default:
-      // Si la source n'est pas reconnue, utiliser l'URL de base du SOURCES
-      if (SOURCES[source]) {
-        baseUrls.push(SOURCES[source].baseUrl);
-      } else {
-        console.warn(`Source inconnue: ${source}`);
-      }
+      console.warn(`Source inconnue: ${source}`);
       break;
   }
   return baseUrls;
