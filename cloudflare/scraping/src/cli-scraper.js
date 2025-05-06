@@ -775,17 +775,38 @@ async function scrapeSource(source, limit = 100, maxPages = 10, debug = false) {
         // Scraper le HTML en fonction du type de contenu
         let scrapedItems = [];
         
+        if (debug) {
+          console.log(`[DEBUG] Type de contenu détecté: ${contentType}`);
+        }
+        
         if (contentType === 'drama') {
+          if (debug) {
+            console.log(`[DEBUG] Appel de scrapeGenericDramas pour ${url}`);
+          }
           scrapedItems = scrapeGenericDramas(html, source, limit, debug);
         } else if (contentType === 'anime') {
+          if (debug) {
+            console.log(`[DEBUG] Appel de scrapeGenericAnimes pour ${url}`);
+          }
           scrapedItems = scrapeGenericAnimes(html, source, limit, debug);
         } else if (contentType === 'film' || contentType === 'bollywood') {
+          if (debug) {
+            console.log(`[DEBUG] Appel de scrapeGenericMovies pour ${url}`);
+          }
           scrapedItems = scrapeGenericMovies(html, source, limit, debug);
         } else {
           // Si le type de contenu n'est pas déterminé, essayer les trois types
+          if (debug) {
+            console.log(`[DEBUG] Type de contenu inconnu, essai des trois types de scraping pour ${url}`);
+          }
+          
           const dramaItems = scrapeGenericDramas(html, source, limit, debug);
           const animeItems = scrapeGenericAnimes(html, source, limit, debug);
           const movieItems = scrapeGenericMovies(html, source, limit, debug);
+          
+          if (debug) {
+            console.log(`[DEBUG] Résultats: ${dramaItems.length} dramas, ${animeItems.length} animes, ${movieItems.length} films`);
+          }
           
           // Utiliser le type qui a donné le plus de résultats
           if (dramaItems.length >= animeItems.length && dramaItems.length >= movieItems.length) {
@@ -800,8 +821,22 @@ async function scrapeSource(source, limit = 100, maxPages = 10, debug = false) {
           }
         }
 
+        if (debug) {
+          console.log(`[DEBUG] Nombre d'éléments scrapés avant nettoyage: ${scrapedItems ? scrapedItems.length : 'undefined'}`);
+          if (scrapedItems && scrapedItems.length > 0) {
+            console.log(`[DEBUG] Premier élément scrapé:`, JSON.stringify(scrapedItems[0], null, 2));
+          } else {
+            console.log(`[DEBUG] Aucun élément scrapé pour ${url}`);
+          }
+        }
+
         // Nettoyer et ajouter les éléments scrapés aux résultats
         const cleanedItems = cleanScrapedData(scrapedItems, debug);
+        
+        if (debug) {
+          console.log(`[DEBUG] Nombre d'éléments après nettoyage: ${cleanedItems ? cleanedItems.length : 'undefined'}`);
+        }
+        
         results.push(...cleanedItems);
 
         if (debug) {
