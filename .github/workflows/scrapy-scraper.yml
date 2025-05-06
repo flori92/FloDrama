@@ -73,6 +73,7 @@ jobs:
           CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SCRAPEOWL_API_KEY: ${{ secrets.SCRAPEOWL_API_KEY }}
         run: |
           mkdir -p scraping-results
           cd cloudflare/scraping

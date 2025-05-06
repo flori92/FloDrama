@@ -424,48 +424,60 @@ function scrapeRobustMovies(html, source, limit = 100, debug = false) {
 /**
  * Génère des données factices pour une source
  * @param {string} source - Nom de la source
+ * @param {string} contentType - Type de contenu ('drama', 'anime', 'movie')
  * @param {number} limit - Nombre d'éléments à générer
  * @param {boolean} debug - Activer le mode debug
  * @returns {Array} - Liste des éléments générés
  */
-function generateFakeData(source, limit = 100, debug = false) {
+function generateFakeData(source, contentType = 'drama', limit = 200, debug = false) {
   if (debug) {
-    console.log(`[ROBUST_SCRAPER] Génération de ${limit} éléments factices pour ${source}`);
+    console.log(`[FAKE_DATA] Génération de ${limit} éléments factices pour ${source} (type: ${contentType})`);
   }
   
   const items = [];
-  const contentTypes = ['drama', 'anime', 'film'];
-  const contentType = source.includes('drama') ? 'drama' : 
-                      source.includes('anime') ? 'anime' : 
-                      source.includes('film') || source.includes('movie') ? 'film' : 
-                      contentTypes[Math.floor(Math.random() * contentTypes.length)];
   
-  // Liste de titres génériques pour chaque type de contenu
+  // Listes de titres pour chaque type de contenu
   const dramaTitles = [
-    "Love in Seoul", "Secret Garden", "My Sunshine", "Winter Sonata", "Boys Over Flowers",
-    "City Hunter", "Dream High", "Heirs", "Goblin", "Descendants of the Sun",
-    "It's Okay to Not Be Okay", "Crash Landing on You", "Reply 1988", "Hospital Playlist",
-    "Signal", "Kingdom", "Mr. Sunshine", "My Mister", "Itaewon Class", "True Beauty",
-    "Start-Up", "Vincenzo", "Move to Heaven", "Law School", "Youth of May",
-    "Nevertheless", "Hometown Cha-Cha-Cha", "Squid Game", "My Name", "Hellbound",
-    "All of Us Are Dead", "Twenty-Five Twenty-One", "Business Proposal", "Pachinko",
-    "Our Blues", "The Sound of Magic", "Extraordinary Attorney Woo", "Little Women",
-    "Reborn Rich", "The Glory", "Moving", "Mask Girl", "The Worst of Evil", "Song of the Bandits",
-    "Daily Dose of Sunshine", "Castaway Diva", "A Time Called You", "My Dearest", "The Killing Vote",
-    "Behind Your Touch", "Destined With You", "King the Land", "Bloodhounds", "Celebrity"
+    "Crash Landing on You", "Goblin", "Descendants of the Sun", "It's Okay to Not Be Okay", "Hospital Playlist",
+    "Reply 1988", "Signal", "My Mister", "Kingdom", "Mr. Sunshine",
+    "Hotel Del Luna", "The World of the Married", "Sky Castle", "Itaewon Class", "Vincenzo",
+    "True Beauty", "Start-Up", "What's Wrong with Secretary Kim", "Strong Woman Do Bong Soon", "Weightlifting Fairy Kim Bok Joo",
+    "Moon Lovers: Scarlet Heart Ryeo", "Flower of Evil", "Healer", "Chicago Typewriter", "My Love from the Star",
+    "The Legend of the Blue Sea", "W: Two Worlds", "While You Were Sleeping", "Suspicious Partner", "Fight for My Way",
+    "Because This Is My First Life", "Her Private Life", "Touch Your Heart", "The King: Eternal Monarch", "Tale of the Nine-Tailed",
+    "Sweet Home", "Mystic Pop-up Bar", "The Uncanny Counter", "Run On", "Lovestruck in the City",
+    "Hometown Cha-Cha-Cha", "Move to Heaven", "Law School", "Youth of May", "Navillera",
+    "The Penthouse", "Mouse", "Beyond Evil", "Taxi Driver", "Doom at Your Service",
+    "Nevertheless", "Hospital Playlist 2", "Mine", "Racket Boys", "At a Distance, Spring Is Green",
+    "You Are My Spring", "The Devil Judge", "Police University", "D.P.", "Hometown",
+    "Squid Game", "Yumi's Cells", "One the Woman", "Lost", "Dali and the Cocky Prince",
+    "My Name", "The King's Affection", "Jirisan", "Happiness", "Now We Are Breaking Up",
+    "Hellbound", "School 2021", "Our Beloved Summer", "The Silent Sea", "Bad and Crazy",
+    "All of Us Are Dead", "Through the Darkness", "Forecasting Love and Weather", "Twenty-Five Twenty-One", "Business Proposal",
+    "Pachinko", "Thirty-Nine", "Grid", "Tomorrow", "Our Blues",
+    "My Liberation Notes", "Again My Life", "The Sound of Magic", "Woori the Virgin", "Eve",
+    "Link: Eat, Love, Kill", "Alchemy of Souls", "Extraordinary Attorney Woo", "Big Mouth", "Little Women"
   ];
   
   const animeTitles = [
-    "Attack on Titan", "Demon Slayer", "My Hero Academia", "One Piece", "Naruto",
-    "Dragon Ball", "Death Note", "Fullmetal Alchemist", "Hunter x Hunter", "Tokyo Ghoul",
-    "Sword Art Online", "One Punch Man", "Jujutsu Kaisen", "Chainsaw Man", "Spy x Family",
-    "Your Name", "Spirited Away", "Princess Mononoke", "Howl's Moving Castle", "My Neighbor Totoro",
-    "Violet Evergarden", "Your Lie in April", "Anohana", "Clannad", "Angel Beats",
-    "Steins;Gate", "Re:Zero", "Overlord", "Konosuba", "That Time I Got Reincarnated as a Slime",
-    "Vinland Saga", "Dororo", "Banana Fish", "Given", "Fruits Basket",
-    "Haikyuu!!", "Kuroko's Basketball", "Free!", "Yuri!!! on Ice", "Run with the Wind",
-    "Food Wars", "Kakegurui", "The Promised Neverland", "Made in Abyss", "Mushoku Tensei",
-    "86", "Vivy: Fluorite Eye's Song", "To Your Eternity", "Wonder Egg Priority", "Link Click"
+    "Attack on Titan", "Demon Slayer", "My Hero Academia", "Jujutsu Kaisen", "One Piece",
+    "Naruto", "Death Note", "Fullmetal Alchemist: Brotherhood", "Hunter x Hunter", "One Punch Man",
+    "Tokyo Ghoul", "Sword Art Online", "Mob Psycho 100", "The Promised Neverland", "Dr. Stone",
+    "Black Clover", "Haikyuu!!", "Fairy Tail", "Bleach", "Dragon Ball Z",
+    "Cowboy Bebop", "Neon Genesis Evangelion", "Code Geass", "Steins;Gate", "Your Lie in April",
+    "Violet Evergarden", "A Silent Voice", "Your Name", "Spirited Away", "Princess Mononoke",
+    "Howl's Moving Castle", "My Neighbor Totoro", "Grave of the Fireflies", "Akira", "Ghost in the Shell",
+    "Parasyte", "Tokyo Revengers", "Vinland Saga", "Dororo", "Banana Fish",
+    "Given", "Fruits Basket", "Kuroko's Basketball", "Free!", "Yuri!!! on Ice",
+    "Run with the Wind", "Food Wars", "Kakegurui", "Made in Abyss", "Mushoku Tensei",
+    "86", "Vivy: Fluorite Eye's Song", "To Your Eternity", "Wonder Egg Priority", "Link Click",
+    "Spy x Family", "Chainsaw Man", "Cyberpunk: Edgerunners", "Lycoris Recoil", "Summer Time Rendering",
+    "Bocchi the Rock!", "Blue Lock", "Oshi no Ko", "Frieren: Beyond Journey's End", "Jujutsu Kaisen 0",
+    "Demon Slayer: Mugen Train", "Suzume", "The First Slam Dunk", "The Boy and the Heron", "Pluto",
+    "Zom 100: Bucket List of the Dead", "Hell's Paradise", "Dandadan", "Kaiju No. 8", "Solo Leveling",
+    "Undead Unluck", "Mashle: Magic and Muscles", "Delicious in Dungeon", "Sakamoto Days", "Choujin X",
+    "Witch Hat Atelier", "Sousou no Frieren", "Blue Period", "Look Back", "Goodbye, Eri",
+    "Chainsaw Man Part 2", "Jujutsu Kaisen Season 2", "Demon Slayer Season 3", "Attack on Titan Final Season", "My Hero Academia Season 7"
   ];
   
   const movieTitles = [
@@ -477,7 +489,17 @@ function generateFakeData(source, limit = 100, debug = false) {
     "Along with the Gods", "Extreme Job", "Veteran", "The Thieves", "The Pirates",
     "Ode to My Father", "Miracle in Cell No. 7", "Sunny", "Miss Granny", "My Sassy Girl",
     "The Classic", "Il Mare", "A Werewolf Boy", "Always", "Architecture 101",
-    "Little Forest", "Be With You", "On Your Wedding Day", "Tune in for Love", "Midnight Runners"
+    "Little Forest", "Be With You", "On Your Wedding Day", "Tune in for Love", "Midnight Runners",
+    "Decision to Leave", "Broker", "The Roundup", "Emergency Declaration", "Hunt",
+    "Concrete Utopia", "The Point Men", "The Night Owl", "The Devil's Deal", "Kill Boksoon",
+    "Smugglers", "Exhuma", "12.12: The Day", "The Moon", "Sleep",
+    "Alienoid", "Project Wolf Hunting", "The Witch: Part 2", "Peninsula", "Space Sweepers",
+    "Seobok", "The 8th Night", "Night in Paradise", "Time to Hunt", "The Call",
+    "Sweet & Sour", "Space Sweepers", "#Alive", "The Divine Fury", "Svaha: The Sixth Finger",
+    "Rampant", "Gonjiam: Haunted Asylum", "The Witch: Part 1", "1987: When the Day Comes", "The Fortress",
+    "Okja", "The Villainess", "The Age of Shadows", "The Handmaiden", "The Wailing",
+    "Inside Men", "The Beauty Inside", "Assassination", "Ode to My Father", "The Admiral: Roaring Currents",
+    "Kundo: Age of the Rampant", "The Face Reader", "Secretly, Greatly", "The Berlin File", "Nameless Gangster: Rules of the Time"
   ];
   
   // Sélectionner la liste de titres en fonction du type de contenu
@@ -498,14 +520,16 @@ function generateFakeData(source, limit = 100, debug = false) {
     const id = `${source.toLowerCase().replace(/\s+/g, '')}_${crypto.randomBytes(6).toString('hex')}`;
     
     // Générer une URL source
-    const sourceDomain = source.includes('http') 
-      ? new URL(source).origin 
-      : `https://${source.toLowerCase().replace(/\s+/g, '')}.com`;
+    const sourceDomain = source.toLowerCase().includes('http') 
+      ? new URL(source).hostname
+      : `${source.toLowerCase().replace(/\s+/g, '')}.com`;
     
-    const link = `${sourceDomain}/${contentType}/${title.toLowerCase().replace(/\s+/g, '-')}`;
+    const link = `https://${sourceDomain}/${contentType}/${title.toLowerCase().replace(/\s+/g, '-')}`;
     
     // Générer une URL d'image
-    const imgSrc = `https://via.placeholder.com/300x450.png?text=${encodeURIComponent(title.substring(0, 20))}`;
+    const imgWidth = 300;
+    const imgHeight = 450;
+    const imgSrc = `https://picsum.photos/seed/${encodeURIComponent(title)}/${imgWidth}/${imgHeight}`;
     
     // Ajouter l'élément à la liste
     items.push({
@@ -515,16 +539,17 @@ function generateFakeData(source, limit = 100, debug = false) {
       poster: imgSrc,
       content_type: contentType,
       rating,
-      year: Math.floor(Math.random() * 6) + 2020 // Année aléatoire entre 2020 et 2025
+      year: Math.floor(Math.random() * 6) + 2020, // Année aléatoire entre 2020 et 2025
+      source: source
     });
     
-    if (debug && i % 10 === 0) {
-      console.log(`[ROBUST_SCRAPER] Élément factice généré: ${title}`);
+    if (debug && i % 20 === 0) {
+      console.log(`[FAKE_DATA] Élément factice généré: ${title}`);
     }
   }
   
   if (debug) {
-    console.log(`[ROBUST_SCRAPER] ${items.length} éléments factices générés pour ${source}`);
+    console.log(`[FAKE_DATA] ${items.length} éléments factices générés pour ${source}`);
   }
   
   return items;

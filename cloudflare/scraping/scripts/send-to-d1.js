@@ -73,7 +73,7 @@ function generateInsertQuery(tableName, items) {
   );
   
   // Générer la requête SQL
-  let query = `INSERT INTO ${tableName} (${fields.join(', ')}) VALUES\n`;
+  let query = `INSERT OR REPLACE INTO ${tableName} (${fields.join(', ')}) VALUES\n`;
   
   // Ajouter les valeurs pour chaque élément
   const values = items.map(item => {
@@ -96,16 +96,6 @@ function generateInsertQuery(tableName, items) {
   }).join(',\n');
   
   query += values;
-  
-  // Ajouter la clause ON CONFLICT pour mettre à jour les enregistrements existants
-  query += `\nON CONFLICT(id) DO UPDATE SET\n`;
-  
-  const updates = fields
-    .filter(field => field !== 'id')
-    .map(field => `${field} = excluded.${field}`)
-    .join(',\n');
-  
-  query += updates;
   
   return query;
 }
@@ -130,7 +120,7 @@ async function executeD1Query(query, databaseName) {
   
   try {
     // Construire la commande wrangler
-    let command = `cd .. && npx wrangler d1 execute ${databaseName} --file=${path.basename(sqlFile)}`;
+    let command = `npx wrangler d1 execute ${databaseName} --file=${sqlFile}`;
     
     // Ajouter le flag --remote si nécessaire
     if (isRemote) {
@@ -141,7 +131,7 @@ async function executeD1Query(query, databaseName) {
     
     // Exécuter la commande
     const output = execSync(command, { 
-      cwd: path.dirname(sqlFile),
+      cwd: __dirname,
       stdio: 'pipe',
       encoding: 'utf8'
     });
@@ -187,7 +177,22 @@ async function processJsonFile(filePath) {
     }
     
     // Déterminer le type de contenu
-    const contentType = data.content_type || (data.data[0] && data.data[0].content_type);
+    let contentType = data.content_type;
+    if (!contentType && data.data[0]) {
+      contentType = data.data[0].content_type;
+    }
+    if (!contentType && filePath.includes('_')) {
+      // Essayer de déterminer le type à partir du nom de fichier
+      const sourceName = path.basename(filePath).split('_')[0];
+      if (sourceName === 'voiranime' || sourceName === 'animesama' || sourceName === 'nekosama') {
+        contentType = 'anime';
+      } else if (sourceName === 'voirdrama' || sourceName === 'dramavostfr' || sourceName === 'mydramalist' || sourceName === 'asianwiki') {
+        contentType = 'drama';
+      } else if (sourceName === 'vostfree') {
+        contentType = 'film';
+      }
+    }
+    
     if (!contentType) {
       console.warn(`Impossible de déterminer le type de contenu pour ${filePath}`);
       return { success: false, error: 'Type de contenu inconnu' };
@@ -218,7 +223,9 @@ async function processJsonFile(filePath) {
     const items = data.data.map(item => {
       // Générer un ID unique si nécessaire
       if (!item.id) {
-        item.id = `${item.source || data.source}_${item.title}_${Date.now()}`;
+        const sourceName = data.source || path.basename(filePath).split('_')[0];
+        const titleSlug = (item.title || 'unknown').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        item.id = `${sourceName}_${titleSlug}_${Date.now()}`;
       }
       
       // Ajouter des champs obligatoires
@@ -237,6 +244,11 @@ async function processJsonFile(filePath) {
       if (item.backdrop_path && !item.backdrop) {
         item.backdrop = item.backdrop_path;
         delete item.backdrop_path;
+      }
+      
+      // Ajouter le type de contenu si manquant
+      if (!item.content_type) {
+        item.content_type = contentType.toLowerCase();
       }
       
       return item;
@@ -268,6 +280,16 @@ async function processJsonFile(filePath) {
       result
     }, null, 2));
     
+    // Enregistrer également un log dans le dossier de résultats
+    const summaryFile = path.join(path.dirname(filePath), `d1_import_${path.basename(filePath)}`);
+    fs.writeFileSync(summaryFile, JSON.stringify({
+      timestamp: new Date().toISOString(),
+      file: filePath,
+      table: tableName,
+      items_count: items.length,
+      result
+    }, null, 2));
+    
     return result;
   } catch (error) {
     console.error(`Erreur lors du traitement du fichier ${filePath}: ${error.message}`);
@@ -283,7 +305,7 @@ async function main() {
   
   // Récupérer tous les fichiers JSON du dossier d'entrée
   const files = fs.readdirSync(inputPath)
-    .filter(file => file.endsWith('.json') && !file.includes('summary'))
+    .filter(file => file.endsWith('.json') && !file.includes('summary') && !file.includes('d1_import'))
     .map(file => path.join(inputPath, file));
   
   console.log(`${files.length} fichiers JSON trouvés dans ${inputPath}`);
