@@ -573,191 +573,10 @@ async function saveResults(results, sourceName) {
 }
 
 // Fonction pour scraper une source spécifique
-async function scrapeSource(sourceName) {
-  console.log(`\n=== Démarrage du scraping pour la source: ${sourceName} ===`);
-  console.log(`Source: ${SOURCES[sourceName].name} (${SOURCES[sourceName].contentType})`);
-  console.log(`URL de base: ${SOURCES[sourceName].baseUrl}`);
-  console.log(`Objectif: ${limit} éléments uniques sur ${maxPages} pages maximum`);
-  
-  try {
-    // Utiliser le Worker Cloudflare pour effectuer le scraping multi-pages
-    const results = await scrapeMultiplePages(sourceName, maxPages, limit);
-    
-    if (results) {
-      const { results: resultsData = [] } = results || {};
-      const count = Array.isArray(resultsData) ? resultsData.length : (Array.isArray(results) ? results.length : 0);
-      console.log(`${count} éléments récupérés depuis ${sourceName}`);
-      
-      const savedFile = await saveResults(results, sourceName);
-      console.log(`Scraping de ${sourceName} terminé avec succès`);
-      console.log(`Données sauvegardées dans: ${savedFile}`);
-      
-      return {
-        success: true,
-        source: sourceName,
-        count,
-        file: savedFile,
-        is_mock: results.is_mock || false
-      };
-    } else {
-      console.warn(`Aucun résultat obtenu pour ${sourceName}`);
-      return {
-        success: false,
-        source: sourceName,
-        error: 'Aucun résultat obtenu'
-      };
-    }
-  } catch (error) {
-    console.error(`Erreur lors du scraping de ${sourceName}:`, error);
-    
-    // Générer des données mockées en cas d'échec
-    try {
-      console.warn(`Tentative de génération de données mockées pour ${sourceName}`);
-      const mockData = generateMockData(sourceName, limit);
-      const savedFile = await saveResults(mockData, sourceName);
-      console.log(`Données mockées sauvegardées dans: ${savedFile}`);
-      
-      return {
-        success: true,
-        source: sourceName,
-        count: mockData.results.length,
-        file: savedFile,
-        is_mock: true,
-        error: error.message
-      };
-    } catch (mockError) {
-      console.error(`Erreur lors de la génération des données mockées pour ${sourceName}:`, mockError);
-      return {
-        success: false,
-        source: sourceName,
-        error: error.message
-      };
-    }
-  }
-}
-
-// Fonction principale
-async function main() {
-  try {
-    const startTime = Date.now();
-    
-    // Déterminer les sources à scraper
-    const sourcesToScrape = allArg ? Object.keys(SOURCES) : [source];
-    
-    console.log(`Démarrage du scraping à ${new Date().toISOString()}`);
-    console.log(`Sources à scraper: ${sourcesToScrape.join(', ')}`);
-    console.log(`Limite par source: ${limit} éléments`);
-    console.log(`Pages maximum par source: ${maxPages}`);
-    
-    const results = [];
-    const errors = [];
-    
-    // Créer le dossier de sortie s'il n'existe pas
-    if (!fs.existsSync(outputPath)) {
-      fs.mkdirSync(outputPath, { recursive: true });
-    }
-    
-    // Scraper chaque source
-    for (const source of sourcesToScrape) {
-      try {
-        console.log(`\nScraping de ${source}...`);
-        
-        // Scraper la source
-        const result = await scrapeSource(source, limit, maxPages, debug);
-        
-        // Vérifier si le scraping a réussi
-        if (result.success) {
-          console.log(`✅ ${source}: ${result.count} éléments trouvés en ${result.duration_seconds.toFixed(2)} secondes`);
-          
-          // Sauvegarder les résultats dans un fichier JSON
-          const outputFile = path.join(outputPath, `${source}_${new Date().toISOString().replace(/:/g, '-')}.json`);
-          fs.writeFileSync(outputFile, JSON.stringify(result.items, null, 2));
-          
-          console.log(`Résultats sauvegardés dans: ${outputFile}`);
-          
-          // Ajouter les résultats à la liste
-          results.push({
-            source,
-            count: result.count,
-            file: outputFile,
-            duration: result.duration_seconds
-          });
-        } else {
-          console.error(`❌ ${source}: Échec du scraping (${result.error || 'erreur inconnue'})`);
-          
-          // Ajouter l'erreur à la liste
-          errors.push({
-            source,
-            error: result.error || 'erreur inconnue'
-          });
-        }
-      } catch (error) {
-        console.error(`❌ ${source}: Erreur lors du scraping:`, error);
-        
-        // Ajouter l'erreur à la liste
-        errors.push({
-          source,
-          error: error.message
-        });
-      }
-    }
-    
-    // Calculer la durée totale
-    const endTime = Date.now();
-    const duration = (endTime - startTime) / 1000;
-    
-    // Afficher un résumé
-    console.log(`\n=== Résumé du scraping ===`);
-    console.log(`Durée totale: ${duration.toFixed(2)} secondes`);
-    console.log(`Sources scrapées: ${results.length} / ${sourcesToScrape.length}`);
-    console.log(`Erreurs: ${errors.length}`);
-    
-    console.log(`\nDétails des sources scrapées:`);
-    for (const result of results) {
-      console.log(`- ${result.source}: ${result.count} éléments`);
-    }
-    
-    if (errors.length > 0) {
-      console.log(`\nDétails des erreurs:`);
-      for (const error of errors) {
-        console.log(`- ${error.source}: ${error.error}`);
-      }
-    }
-    
-    // Sauvegarder le résumé dans un fichier JSON
-    const summaryFile = path.join(outputPath, `scraping_summary_${new Date().toISOString().replace(/:/g, '-')}.json`);
-    fs.writeFileSync(summaryFile, JSON.stringify({
-      timestamp: new Date().toISOString(),
-      duration,
-      sources: sourcesToScrape,
-      results,
-      errors
-    }, null, 2));
-    
-    console.log(`\nRésumé sauvegardé dans: ${summaryFile}`);
-    
-    // Retourner un code d'erreur si toutes les sources ont échoué
-    if (errors.length === sourcesToScrape.length) {
-      console.error('Toutes les sources ont échoué');
-      process.exit(1);
-    }
-  } catch (error) {
-    console.error('Erreur non gérée:', error);
-    process.exit(1);
-  }
-}
-
-// Exécution du script
-main().catch(error => {
-  console.error('Erreur non gérée:', error);
-  process.exit(1);
-});
-
-// Fonction pour scraper une source spécifique
-async function scrapeSource(source, limit = 100, maxPages = 10, debug = false) {
+async function scrapeSource(sourceName, limit = 100, maxPages = 10, debug = false) {
   try {
     if (debug) {
-      console.log(`[DEBUG] Début du scraping de ${source} (limite: ${limit}, pages max: ${maxPages})`);
+      console.log(`[DEBUG] Début du scraping de ${sourceName} (limite: ${limit}, pages max: ${maxPages})`);
     }
 
     const startTime = Date.now();
@@ -766,21 +585,21 @@ async function scrapeSource(source, limit = 100, maxPages = 10, debug = false) {
     let contentType = 'unknown';
 
     // Déterminer le type de contenu en fonction de la source
-    if (source.includes('drama') || source.includes('cool') || source.includes('asian')) {
+    if (sourceName.includes('drama') || sourceName.includes('cool') || sourceName.includes('asian')) {
       contentType = 'drama';
-    } else if (source.includes('anime') || source.includes('animes')) {
+    } else if (sourceName.includes('anime') || sourceName.includes('animes')) {
       contentType = 'anime';
-    } else if (source.includes('film') || source.includes('movie')) {
+    } else if (sourceName.includes('film') || sourceName.includes('movie')) {
       contentType = 'film';
-    } else if (source.includes('bollywood') || source.includes('indian')) {
+    } else if (sourceName.includes('bollywood') || sourceName.includes('indian')) {
       contentType = 'bollywood';
     }
 
     // Configuration des URLs à scraper en fonction de la source
-    const baseUrls = getSourceUrls(source);
+    const baseUrls = getSourceUrls(sourceName);
     
     if (debug) {
-      console.log(`[DEBUG] URLs à scraper pour ${source}:`, baseUrls);
+      console.log(`[DEBUG] URLs à scraper pour ${sourceName}:`, baseUrls);
     }
 
     // Scraper chaque URL
@@ -812,26 +631,26 @@ async function scrapeSource(source, limit = 100, maxPages = 10, debug = false) {
           if (debug) {
             console.log(`[DEBUG] Appel de scrapeGenericDramas pour ${url}`);
           }
-          scrapedItems = scrapeGenericDramas(html, source, limit, debug);
+          scrapedItems = scrapeGenericDramas(html, sourceName, limit, debug);
         } else if (contentType === 'anime') {
           if (debug) {
             console.log(`[DEBUG] Appel de scrapeGenericAnimes pour ${url}`);
           }
-          scrapedItems = scrapeGenericAnimes(html, source, limit, debug);
+          scrapedItems = scrapeGenericAnimes(html, sourceName, limit, debug);
         } else if (contentType === 'film' || contentType === 'bollywood') {
           if (debug) {
             console.log(`[DEBUG] Appel de scrapeGenericMovies pour ${url}`);
           }
-          scrapedItems = scrapeGenericMovies(html, source, limit, debug);
+          scrapedItems = scrapeGenericMovies(html, sourceName, limit, debug);
         } else {
           // Si le type de contenu n'est pas déterminé, essayer les trois types
           if (debug) {
             console.log(`[DEBUG] Type de contenu inconnu, essai des trois types de scraping pour ${url}`);
           }
           
-          const dramaItems = scrapeGenericDramas(html, source, limit, debug);
-          const animeItems = scrapeGenericAnimes(html, source, limit, debug);
-          const movieItems = scrapeGenericMovies(html, source, limit, debug);
+          const dramaItems = scrapeGenericDramas(html, sourceName, limit, debug);
+          const animeItems = scrapeGenericAnimes(html, sourceName, limit, debug);
+          const movieItems = scrapeGenericMovies(html, sourceName, limit, debug);
           
           if (debug) {
             console.log(`[DEBUG] Résultats: ${dramaItems.length} dramas, ${animeItems.length} animes, ${movieItems.length} films`);
@@ -886,29 +705,39 @@ async function scrapeSource(source, limit = 100, maxPages = 10, debug = false) {
     const durationSeconds = (endTime - startTime) / 1000;
 
     if (debug) {
-      console.log(`[DEBUG] Fin du scraping de ${source}: ${results.length} éléments uniques trouvés, durée: ${durationSeconds.toFixed(2)} secondes`);
+      console.log(`[DEBUG] Fin du scraping de ${sourceName}: ${results.length} éléments uniques trouvés, durée: ${durationSeconds.toFixed(2)} secondes`);
     }
+    
+    // Sauvegarder les résultats dans un fichier JSON
+    const outputFile = path.join(outputPath, `${sourceName}_${new Date().toISOString().replace(/:/g, '-')}.json`);
+    fs.writeFileSync(outputFile, JSON.stringify(results, null, 2));
 
     return {
       success: results.length > 0,
-      source,
+      source: sourceName,
       content_type: contentType,
       items: results,
       items_count: results.length,
-      errors_count: errors,
-      duration_seconds: durationSeconds
+      count: results.length,
+      file: outputFile,
+      duration: durationSeconds,
+      duration_seconds: durationSeconds,
+      errors_count: errors
     };
   } catch (error) {
-    console.error(`[ERROR] Erreur générale lors du scraping de ${source}:`, error);
+    console.error(`[ERROR] Erreur générale lors du scraping de ${sourceName}:`, error);
     
     return {
       success: false,
-      source,
+      source: sourceName,
       content_type: 'unknown',
       items: [],
       items_count: 0,
-      errors_count: 1,
+      count: 0,
+      file: null,
+      duration: 0,
       duration_seconds: 0,
+      errors_count: 1,
       error: error.message
     };
   }
@@ -1080,3 +909,114 @@ function removeDuplicates(array, key) {
     return true;
   });
 }
+
+// Fonction principale
+async function main() {
+  try {
+    const startTime = Date.now();
+    
+    // Déterminer les sources à scraper
+    const sourcesToScrape = allArg ? Object.keys(SOURCES) : [source];
+    
+    console.log(`Démarrage du scraping à ${new Date().toISOString()}`);
+    console.log(`Sources à scraper: ${sourcesToScrape.join(', ')}`);
+    console.log(`Limite par source: ${limit} éléments`);
+    console.log(`Pages maximum par source: ${maxPages}`);
+    
+    const results = [];
+    const errors = [];
+    
+    // Créer le dossier de sortie s'il n'existe pas
+    if (!fs.existsSync(outputPath)) {
+      fs.mkdirSync(outputPath, { recursive: true });
+    }
+    
+    // Scraper chaque source
+    for (const source of sourcesToScrape) {
+      try {
+        console.log(`\nScraping de ${source}...`);
+        
+        // Scraper la source
+        const result = await scrapeSource(source, limit, maxPages, debug);
+        
+        // Vérifier si le scraping a réussi
+        if (result.success) {
+          console.log(`✅ ${source}: ${result.count} éléments trouvés en ${result.duration.toFixed(2)} secondes`);
+          
+          // Ajouter les résultats à la liste
+          results.push({
+            source,
+            count: result.count,
+            file: result.file,
+            duration: result.duration
+          });
+        } else {
+          console.error(`❌ ${source}: Échec du scraping (${result.error || 'erreur inconnue'})`);
+          
+          // Ajouter l'erreur à la liste
+          errors.push({
+            source,
+            error: result.error || 'erreur inconnue'
+          });
+        }
+      } catch (error) {
+        console.error(`❌ ${source}: Erreur lors du scraping:`, error);
+        
+        // Ajouter l'erreur à la liste
+        errors.push({
+          source,
+          error: error.message
+        });
+      }
+    }
+    
+    // Calculer la durée totale
+    const endTime = Date.now();
+    const duration = (endTime - startTime) / 1000;
+    
+    // Afficher un résumé
+    console.log(`\n=== Résumé du scraping ===`);
+    console.log(`Durée totale: ${duration.toFixed(2)} secondes`);
+    console.log(`Sources scrapées: ${results.length} / ${sourcesToScrape.length}`);
+    console.log(`Erreurs: ${errors.length}`);
+    
+    console.log(`\nDétails des sources scrapées:`);
+    for (const result of results) {
+      console.log(`- ${result.source}: ${result.count} éléments`);
+    }
+    
+    if (errors.length > 0) {
+      console.log(`\nDétails des erreurs:`);
+      for (const error of errors) {
+        console.log(`- ${error.source}: ${error.error}`);
+      }
+    }
+    
+    // Sauvegarder le résumé dans un fichier JSON
+    const summaryFile = path.join(outputPath, `scraping_summary_${new Date().toISOString().replace(/:/g, '-')}.json`);
+    fs.writeFileSync(summaryFile, JSON.stringify({
+      timestamp: new Date().toISOString(),
+      duration,
+      sources: sourcesToScrape,
+      results,
+      errors
+    }, null, 2));
+    
+    console.log(`\nRésumé sauvegardé dans: ${summaryFile}`);
+    
+    // Retourner un code d'erreur si toutes les sources ont échoué
+    if (errors.length === sourcesToScrape.length) {
+      console.error('Toutes les sources ont échoué');
+      process.exit(1);
+    }
+  } catch (error) {
+    console.error('Erreur non gérée:', error);
+    process.exit(1);
+  }
+}
+
+// Exécution du script
+main().catch(error => {
+  console.error('Erreur non gérée:', error);
+  process.exit(1);
+});
