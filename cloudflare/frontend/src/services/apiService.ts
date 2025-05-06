@@ -14,7 +14,7 @@ export type ContentType = 'film' | 'drama' | 'anime' | 'bollywood';
 
 // Configuration de l'API
 const API_BASE_URL = 'https://flodrama-api.florifavi.workers.dev';
-const USE_MOCK_DATA = false; // Désactiver les données de démonstration pour utiliser l'API réelle
+const USE_MOCK_DATA = true; // Activer les données de démonstration temporairement jusqu'à ce que toutes les routes API soient implémentées
 
 // Fonction utilitaire pour gérer les erreurs de fetch
 async function fetchWithErrorHandling(url: string, options: RequestInit = {}): Promise<any> {

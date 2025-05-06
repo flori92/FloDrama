@@ -10,7 +10,7 @@ import mockDataService from './mockDataService';
 
 // Base URL de l'API
 const API_BASE_URL = 'https://flodrama-api.florifavi.workers.dev';
-const USE_MOCK_DATA = false; // Désactiver les données de démonstration pour utiliser l'API réelle
+const USE_MOCK_DATA = true; // Activer les données de démonstration temporairement jusqu'à ce que toutes les routes API soient implémentées
 
 // Interface pour les préférences utilisateur
 export interface UserPreferences {
