@@ -47,7 +47,7 @@ const SOURCES = {
   },
   dramacool: {
     name: 'DramaCool',
-    baseUrl: 'https://dramacool.cr',
+    baseUrl: 'https://dramacool.com.pa',
     contentType: 'drama'
   },
   
@@ -315,6 +315,34 @@ async function fetchHtml(url, debug = false, retryCount = 0) {
       // Analyser l'URL
       const parsedUrl = new URL(url);
       
+      // Liste de domaines suspects (redirections malveillantes)
+      const suspiciousDomains = [
+        'difficultyanthonymode.com',
+        'anthonydomain',
+        'difficulty',
+        'cloudfront-',
+        'amazonaws.com',
+        'cdn-',
+        'redirect',
+        'tracking',
+        'advert',
+        'click',
+        'analytics'
+      ];
+      
+      // Vérifier si l'URL est suspecte
+      const isSuspiciousDomain = suspiciousDomains.some(domain => 
+        parsedUrl.hostname.includes(domain)
+      );
+      
+      if (isSuspiciousDomain) {
+        if (debug) {
+          console.log(`[DEBUG] Domaine suspect détecté: ${parsedUrl.hostname}`);
+        }
+        reject(new Error('Redirection vers un domaine suspect'));
+        return;
+      }
+      
       // Configurer les options de la requête
       const options = {
         hostname: parsedUrl.hostname,
@@ -340,6 +368,20 @@ async function fetchHtml(url, debug = false, retryCount = 0) {
           let redirectUrl = res.headers.location;
           if (!redirectUrl.startsWith('http')) {
             redirectUrl = new URL(redirectUrl, url).href;
+          }
+          
+          // Vérifier si l'URL de redirection est suspecte
+          const redirectParsedUrl = new URL(redirectUrl);
+          const isRedirectSuspicious = suspiciousDomains.some(domain => 
+            redirectParsedUrl.hostname.includes(domain)
+          );
+          
+          if (isRedirectSuspicious) {
+            if (debug) {
+              console.log(`[DEBUG] Redirection vers un domaine suspect: ${redirectParsedUrl.hostname}`);
+            }
+            reject(new Error('Redirection vers un domaine suspect'));
+            return;
           }
           
           // Suivre la redirection avec un délai aléatoire pour simuler un comportement humain
@@ -935,11 +977,11 @@ function getSourceUrls(source) {
       break;
     case 'dramacool':
       baseUrls.push(
-        'https://dramacool.cr/drama-list',
-        'https://dramacool.cr/most-popular-drama',
-        'https://dramacool.cr/ongoing-drama',
-        'https://dramacool.cr/completed-drama',
-        'https://dramacool.cr/drama-list/page/2'
+        'https://dramacool.com.pa/drama-list',
+        'https://dramacool.com.pa/most-popular-drama',
+        'https://dramacool.com.pa/ongoing-drama',
+        'https://dramacool.com.pa/completed-drama',
+        'https://dramacool.com.pa/drama-list/page/2'
       );
       break;
     case 'voiranime':
