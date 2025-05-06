@@ -104,74 +104,176 @@ class ScrapingMonitor {
       try {
         await this.env.DB.prepare(`
           INSERT INTO scraping_source_logs (
-            scraping_id, 
-            source, 
-            content_type, 
-            items_count, 
-            errors_count, 
-            duration, 
-            success, 
-            details, 
+            scraping_id,
+            source,
+            success,
+            items_count,
+            errors_count,
+            duration,
+            details,
             created_at
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         `).bind(
           scrapingId,
           source,
-          result.content_type || 'unknown',
+          result.success ? 1 : 0,
           result.items_count || 0,
           result.errors_count || 0,
-          result.duration_seconds || 0,
-          result.success ? 1 : 0,
+          result.duration || 0,
           JSON.stringify(result),
           new Date().toISOString()
         ).run();
         
-        this.debugLog(`Résultat de la source ${source} enregistré dans la base de données (ID: ${scrapingId})`);
+        this.debugLog(`Résultat pour la source ${source} enregistré dans la base de données (ID: ${scrapingId})`);
       } catch (error) {
-        console.error(`Erreur lors de l'enregistrement du résultat de la source ${source}: ${error.message}`);
-      }
-    }
-    
-    // Stocker les résultats dans KV (si disponible)
-    if (this.env.SCRAPING_RESULTS && result.success) {
-      try {
-        await this.env.SCRAPING_RESULTS.put(`${source}_latest`, JSON.stringify(result), { 
-          expirationTtl: 60 * 60 * 24 * 7 // 7 jours
-        });
-        
-        this.debugLog(`Résultat de la source ${source} enregistré dans KV`);
-      } catch (error) {
-        console.error(`Erreur lors de l'enregistrement du résultat de la source ${source} dans KV: ${error.message}`);
+        console.error(`Erreur lors de l'enregistrement du résultat pour la source ${source}: ${error.message}`);
       }
     }
   }
 
   /**
-   * Enregistre une erreur
-   * @param {string} scrapingId - L'identifiant de la session
-   * @param {string} errorMessage - Le message d'erreur
+   * Enregistre le début d'une opération de scraping
+   * @param {string} source - La source à scraper
+   * @param {string} action - L'action à effectuer
+   * @returns {Object} - Informations sur l'opération
    */
-  async logError(scrapingId, errorMessage) {
-    this.debugLog(`Enregistrement d'une erreur (ID: ${scrapingId}): ${errorMessage}`);
+  async recordOperationStart(source, action) {
+    const startTime = Date.now();
+    const operationId = `${source}_${action}_${startTime}`;
+    
+    this.debugLog(`Début de l'opération ${action} pour la source ${source} (ID: ${operationId})`);
+    
+    // Stocker les informations de l'opération dans KV si disponible
+    if (this.env.METADATA) {
+      try {
+        const operationInfo = {
+          id: operationId,
+          source,
+          action,
+          start_time: startTime,
+          status: 'running'
+        };
+        
+        await this.env.METADATA.put(`operation_${operationId}`, JSON.stringify(operationInfo), {
+          expirationTtl: 86400 // 24 heures
+        });
+        
+        this.debugLog(`Informations de l'opération enregistrées dans KV (ID: ${operationId})`, operationInfo);
+        
+        return operationInfo;
+      } catch (error) {
+        console.error(`Erreur lors de l'enregistrement du début de l'opération: ${error.message}`);
+      }
+    }
+    
+    return {
+      id: operationId,
+      source,
+      action,
+      start_time: startTime,
+      status: 'running'
+    };
+  }
+
+  /**
+   * Enregistre la fin d'une opération de scraping
+   * @param {string} source - La source scrapée
+   * @param {string} action - L'action effectuée
+   * @param {boolean} success - Si l'opération a réussi
+   * @param {number} itemsCount - Nombre d'éléments récupérés
+   * @param {number} errorsCount - Nombre d'erreurs rencontrées
+   * @returns {Object} - Informations sur l'opération
+   */
+  async recordOperationEnd(source, action, success, itemsCount = 0, errorsCount = 0) {
+    const endTime = Date.now();
+    const operationId = `${source}_${action}_${endTime}`;
+    
+    this.debugLog(`Fin de l'opération ${action} pour la source ${source} (ID: ${operationId})`);
+    
+    // Récupérer les informations de l'opération depuis KV si disponible
+    let operationInfo = {
+      id: operationId,
+      source,
+      action,
+      end_time: endTime,
+      status: success ? 'completed' : 'failed',
+      success,
+      items_count: itemsCount,
+      errors_count: errorsCount
+    };
+    
+    if (this.env.METADATA) {
+      try {
+        // Chercher l'opération correspondante
+        const keys = await this.env.METADATA.list({ prefix: `operation_${source}_${action}_` });
+        
+        if (keys.keys.length > 0) {
+          // Trier par date de création (la plus récente en premier)
+          keys.keys.sort((a, b) => b.name.localeCompare(a.name));
+          
+          // Récupérer l'opération la plus récente
+          const latestOperation = await this.env.METADATA.get(keys.keys[0].name, 'json');
+          
+          if (latestOperation && latestOperation.status === 'running') {
+            operationInfo = {
+              ...latestOperation,
+              end_time: endTime,
+              duration: endTime - latestOperation.start_time,
+              status: success ? 'completed' : 'failed',
+              success,
+              items_count: itemsCount,
+              errors_count: errorsCount
+            };
+            
+            // Mettre à jour l'opération dans KV
+            await this.env.METADATA.put(keys.keys[0].name, JSON.stringify(operationInfo), {
+              expirationTtl: 86400 // 24 heures
+            });
+            
+            this.debugLog(`Informations de l'opération mises à jour dans KV (ID: ${operationInfo.id})`, operationInfo);
+          }
+        }
+      } catch (error) {
+        console.error(`Erreur lors de l'enregistrement de la fin de l'opération: ${error.message}`);
+      }
+    }
+    
+    return operationInfo;
+  }
+
+  /**
+   * Enregistre une erreur de scraping
+   * @param {string} source - La source concernée
+   * @param {string} message - Le message d'erreur
+   * @param {Object} details - Détails supplémentaires
+   */
+  async logError(source, message, details = {}) {
+    console.error(`[SCRAPING_ERROR] [${source}] ${message}`);
+    
+    if (this.debug && details) {
+      console.error(JSON.stringify(details, null, 2));
+    }
     
     // Enregistrer l'erreur dans la base de données
     if (this.env.DB) {
       try {
         await this.env.DB.prepare(`
           INSERT INTO scraping_errors (
-            scraping_id, 
-            error_message, 
+            source,
+            message,
+            details,
             created_at
-          ) VALUES (?, ?, ?)
+          ) VALUES (?, ?, ?, ?)
         `).bind(
-          scrapingId,
-          errorMessage,
+          source,
+          message,
+          JSON.stringify(details),
           new Date().toISOString()
         ).run();
         
-        this.debugLog(`Erreur enregistrée dans la base de données (ID: ${scrapingId})`);
+        this.debugLog(`Erreur pour la source ${source} enregistrée dans la base de données`);
       } catch (error) {
-        console.error(`Erreur lors de l'enregistrement de l'erreur: ${error.message}`);
+        console.error(`Erreur lors de l'enregistrement de l'erreur pour la source ${source}: ${error.message}`);
       }
     }
   }

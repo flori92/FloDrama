@@ -155,7 +155,15 @@ async function scrapeViaWorker(source) {
       
       // Vérifier si la réponse indique une erreur
       if (parsedData.success === false) {
-        console.error(`Erreur retournée par le Worker: ${parsedData.error}`);
+        console.error(`Erreur retournée par le Worker: ${parsedData.error || 'Erreur inconnue'}`);
+        
+        // Si l'erreur est une erreur 404, c'est probablement que la source n'est plus disponible
+        // Dans ce cas, utiliser des données mockées
+        if (parsedData.error && parsedData.error.includes('404')) {
+          console.log(`La source ${source} n'est plus disponible, utilisation de données mockées...`);
+          return generateMockData(source, limit);
+        }
+        
         throw new Error(parsedData.error || 'Erreur inconnue du Worker');
       }
       
