@@ -67,6 +67,54 @@ const mockData = {
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
     }
+  ],
+  'anime': [
+    { 
+      id: "anime-1",
+      title: "Le monde des esprits", 
+      description: "Une jeune fille découvre un monde parallèle peuplé d'esprits et doit trouver un moyen de sauver ses parents transformés en créatures mystiques. Une aventure fantastique inoubliable.", 
+      poster: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/anime-1.jpg",
+      backdrop: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/anime-1.jpg",
+      rating: 4.9, 
+      year: 2021,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    },
+    { 
+      id: "anime-2",
+      title: "Chasseurs de démons", 
+      description: "Après la tragédie qui a frappé sa famille, un jeune homme décide de devenir chasseur de démons pour venger les siens et protéger l'humanité. Un récit épique de courage et de détermination.", 
+      poster: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/anime-2.jpg",
+      backdrop: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/anime-2.jpg",
+      rating: 4.8, 
+      year: 2022,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    }
+  ],
+  'bollywood': [
+    { 
+      id: "bollywood-1",
+      title: "Amour éternel", 
+      description: "Une histoire d'amour qui transcende les classes sociales et les traditions dans l'Inde moderne. Entre danses colorées et émotions intenses, suivez ce couple qui défie tous les obstacles.", 
+      poster: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/bollywood-1.jpg",
+      backdrop: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/bollywood-1.jpg",
+      rating: 4.7, 
+      year: 2023,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    },
+    { 
+      id: "bollywood-2",
+      title: "Le destin d'un héros", 
+      description: "Un homme ordinaire se retrouve dans des circonstances extraordinaires et doit devenir le héros que son pays attend. Un spectacle grandiose mêlant action, drame et moments musicaux.", 
+      poster: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/bollywood-2.jpg",
+      backdrop: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/bollywood-2.jpg",
+      rating: 4.6, 
+      year: 2022,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    }
   ]
 };
 
@@ -143,6 +191,102 @@ router.get('/films', async (request) => {
     
     // Filtrage par année si nécessaire
     let filteredData = mockData['film'];
+    if (year) {
+      if (year === 'recent') {
+        const currentYear = new Date().getFullYear();
+        const previousYear = currentYear - 1;
+        filteredData = filteredData.filter(item => item.year === currentYear || item.year === previousYear);
+      } else {
+        filteredData = filteredData.filter(item => item.year === parseInt(year));
+      }
+    }
+    
+    // Pagination
+    const paginatedData = filteredData.slice(offset, offset + limit);
+    
+    return new Response(JSON.stringify(paginatedData), {
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  } catch (error) {
+    console.error('Erreur:', error);
+    
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
+});
+
+// Route alternative pour les films (sans 's' pour compatibilité avec le frontend)
+router.get('/film', async (request) => {
+  // Rediriger vers la route avec 's'
+  return await router.handle({
+    ...request,
+    url: request.url.replace('/film', '/films')
+  });
+});
+
+// Route pour les animes
+router.get('/animes', async (request) => {
+  const url = new URL(request.url);
+  const page = parseInt(url.searchParams.get('page') || '1');
+  const limit = parseInt(url.searchParams.get('limit') || '20');
+  const year = url.searchParams.get('year');
+  
+  try {
+    // À remplacer par une requête D1
+    const offset = (page - 1) * limit;
+    
+    // Filtrage par année si nécessaire
+    let filteredData = mockData['anime'];
+    if (year) {
+      if (year === 'recent') {
+        const currentYear = new Date().getFullYear();
+        const previousYear = currentYear - 1;
+        filteredData = filteredData.filter(item => item.year === currentYear || item.year === previousYear);
+      } else {
+        filteredData = filteredData.filter(item => item.year === parseInt(year));
+      }
+    }
+    
+    // Pagination
+    const paginatedData = filteredData.slice(offset, offset + limit);
+    
+    return new Response(JSON.stringify(paginatedData), {
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  } catch (error) {
+    console.error('Erreur:', error);
+    
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
+});
+
+// Route alternative pour les animes (sans 's' pour compatibilité avec le frontend)
+router.get('/anime', async (request) => {
+  // Rediriger vers la route avec 's'
+  return await router.handle({
+    ...request,
+    url: request.url.replace('/anime', '/animes')
+  });
+});
+
+// Route pour les bollywood
+router.get('/bollywood', async (request) => {
+  const url = new URL(request.url);
+  const page = parseInt(url.searchParams.get('page') || '1');
+  const limit = parseInt(url.searchParams.get('limit') || '20');
+  const year = url.searchParams.get('year');
+  
+  try {
+    // À remplacer par une requête D1
+    const offset = (page - 1) * limit;
+    
+    // Filtrage par année si nécessaire
+    let filteredData = mockData['bollywood'];
     if (year) {
       if (year === 'recent') {
         const currentYear = new Date().getFullYear();
