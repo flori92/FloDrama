@@ -26,39 +26,34 @@ jobs:
       - name: Run VoirDrama spider
         run: |
           cd cloudflare/scraping
-          npx wrangler dev src/index.js --local --env=dev --var SOURCE:voirdrama
+          node src/cli-scraper.js --source=voirdrama
         env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
       
       - name: Run MyDramaList spider
         run: |
           cd cloudflare/scraping
-          npx wrangler dev src/index.js --local --env=dev --var SOURCE:mydramalist
+          node src/cli-scraper.js --source=mydramalist
         env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
       
       - name: Run VoirAnime spider
         run: |
           cd cloudflare/scraping
-          npx wrangler dev src/index.js --local --env=dev --var SOURCE:voiranime
+          node src/cli-scraper.js --source=voiranime
         env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
       
       - name: Run DramaVostfr spider
         run: |
           cd cloudflare/scraping
-          npx wrangler dev src/index.js --local --env=dev --var SOURCE:dramavostfr
+          node src/cli-scraper.js --source=dramavostfr
         env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
       
       - name: Run AnimeSama spider
         run: |
           cd cloudflare/scraping
-          npx wrangler dev src/index.js --local --env=dev --var SOURCE:animesama
+          node src/cli-scraper.js --source=animesama
         env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
