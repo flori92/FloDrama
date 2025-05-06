@@ -8,6 +8,10 @@
 // Importation des dépendances
 import { Router } from 'itty-router';
 
+// Importation des services
+import { mockData } from './mock-data';
+import * as d1Service from './d1-service';
+
 // Création du router
 const router = Router();
 
@@ -18,145 +22,43 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
 };
 
-// Données mockées (à remplacer par D1 plus tard)
-const mockData = {
-  'film': [
-    { 
-      id: "film-1",
-      title: "La légende du guerrier", 
-      description: "Un guerrier légendaire doit faire face à son plus grand défi : protéger son village et retrouver sa famille disparue. Une épopée captivante mêlant arts martiaux et spiritualité.", 
-      poster: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/film-1.jpg",
-      backdrop: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/film-1.jpg",
-      rating: 4.8, 
-      year: 2023,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    },
-    { 
-      id: "film-2",
-      title: "Sous les cerisiers en fleurs", 
-      description: "Quand un jeune architecte retourne dans sa ville natale, il redécouvre son premier amour. Une histoire touchante de seconde chance dans un cadre magnifique du Japon rural.", 
-      poster: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/film-2.jpg",
-      backdrop: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/film-2.jpg",
-      rating: 4.6, 
-      year: 2022,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    }
-  ],
-  'drama': [
-    { 
-      id: "drama-1",
-      title: "Les mystères de l'Empire", 
-      description: "Dans la Chine ancienne, une jeune femme devient enquêtrice pour résoudre des mystères qui menacent l'empire. Entre complots politiques et aventures romantiques, suivez son parcours extraordinaire.", 
-      poster: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/drama-1.jpg",
-      backdrop: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/drama-1.jpg",
-      rating: 4.9, 
-      year: 2023,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    },
-    { 
-      id: "drama-2",
-      title: "Destins croisés", 
-      description: "Trois familles que tout oppose voient leurs vies bouleversées par un événement tragique. Une exploration profonde des relations humaines et du pardon.", 
-      poster: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/drama-2.jpg",
-      backdrop: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/drama-2.jpg",
-      rating: 4.7, 
-      year: 2022,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    }
-  ],
-  'anime': [
-    { 
-      id: "anime-1",
-      title: "Le monde des esprits", 
-      description: "Une jeune fille découvre un monde parallèle peuplé d'esprits et doit trouver un moyen de sauver ses parents transformés en créatures mystiques. Une aventure fantastique inoubliable.", 
-      poster: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/anime-1.jpg",
-      backdrop: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/anime-1.jpg",
-      rating: 4.9, 
-      year: 2021,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    },
-    { 
-      id: "anime-2",
-      title: "Chasseurs de démons", 
-      description: "Après la tragédie qui a frappé sa famille, un jeune homme décide de devenir chasseur de démons pour venger les siens et protéger l'humanité. Un récit épique de courage et de détermination.", 
-      poster: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/anime-2.jpg",
-      backdrop: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/anime-2.jpg",
-      rating: 4.8, 
-      year: 2022,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    }
-  ],
-  'bollywood': [
-    { 
-      id: "bollywood-1",
-      title: "Amour éternel", 
-      description: "Une histoire d'amour qui transcende les classes sociales et les traditions dans l'Inde moderne. Entre danses colorées et émotions intenses, suivez ce couple qui défie tous les obstacles.", 
-      poster: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/bollywood-1.jpg",
-      backdrop: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/bollywood-1.jpg",
-      rating: 4.7, 
-      year: 2023,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    },
-    { 
-      id: "bollywood-2",
-      title: "Le destin d'un héros", 
-      description: "Un homme ordinaire se retrouve dans des circonstances extraordinaires et doit devenir le héros que son pays attend. Un spectacle grandiose mêlant action, drame et moments musicaux.", 
-      poster: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/bollywood-2.jpg",
-      backdrop: "https://fffgoqubrbgppcqqkyod.supabase.co/storage/v1/object/public/flodrama-content/placeholders/bollywood-2.jpg",
-      rating: 4.6, 
-      year: 2022,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
-    }
-  ]
-};
-
-// Route racine
-router.get('/', () => {
-  return new Response(JSON.stringify({ 
-    status: 'ok', 
-    message: 'FloDrama API', 
-    version: '1.0.0',
-    environment: 'cloudflare'
-  }), {
-    headers: { 'Content-Type': 'application/json', ...corsHeaders },
-  });
+// Route pour vérifier le statut de l'API
+router.get('/status', async (request, env) => {
+  try {
+    // Vérifier la disponibilité de D1
+    const d1Status = await d1Service.getD1Status(env.DB);
+    
+    return new Response(JSON.stringify({
+      status: 'online',
+      version: '1.0.0',
+      timestamp: new Date().toISOString(),
+      database: d1Status.available ? 'D1' : 'mock',
+      d1: d1Status,
+      mock_categories: Object.keys(mockData),
+      mock_items_count: Object.values(mockData).reduce((acc, items) => acc + items.length, 0)
+    }), {
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  } catch (error) {
+    console.error('Erreur lors de la vérification du statut:', error);
+    
+    return new Response(JSON.stringify({ 
+      status: 'error',
+      error: error.message,
+      timestamp: new Date().toISOString()
+    }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
 });
 
-// Route pour les dramas (avec et sans 's' pour compatibilité)
-router.get('/dramas', async (request) => {
-  const url = new URL(request.url);
-  const page = parseInt(url.searchParams.get('page') || '1');
-  const limit = parseInt(url.searchParams.get('limit') || '20');
-  const year = url.searchParams.get('year');
-  
+// Route pour les dramas (avec alias /drama)
+router.get('/dramas', async (request, env) => {
   try {
-    // À remplacer par une requête D1
-    const offset = (page - 1) * limit;
+    const dramas = await d1Service.getAllItems(env.DB, 'dramas', mockData.drama);
     
-    // Filtrage par année si nécessaire
-    let filteredData = mockData['drama'];
-    if (year) {
-      if (year === 'recent') {
-        const currentYear = new Date().getFullYear();
-        const previousYear = currentYear - 1;
-        filteredData = filteredData.filter(item => item.year === currentYear || item.year === previousYear);
-      } else {
-        filteredData = filteredData.filter(item => item.year === parseInt(year));
-      }
-    }
-    
-    // Pagination
-    const paginatedData = filteredData.slice(offset, offset + limit);
-    
-    return new Response(JSON.stringify(paginatedData), {
+    return new Response(JSON.stringify(dramas), {
       headers: { 'Content-Type': 'application/json', ...corsHeaders },
     });
   } catch (error) {
@@ -169,42 +71,12 @@ router.get('/dramas', async (request) => {
   }
 });
 
-// Route alternative pour les dramas (sans 's' pour compatibilité avec le frontend)
-router.get('/drama', async (request) => {
-  // Rediriger vers la route avec 's'
-  return await router.handle({
-    ...request,
-    url: request.url.replace('/drama', '/dramas')
-  });
-});
-
-// Route pour les films
-router.get('/films', async (request) => {
-  const url = new URL(request.url);
-  const page = parseInt(url.searchParams.get('page') || '1');
-  const limit = parseInt(url.searchParams.get('limit') || '20');
-  const year = url.searchParams.get('year');
-  
+// Alias pour /drama (redirige vers /dramas)
+router.get('/drama', async (request, env) => {
   try {
-    // À remplacer par une requête D1
-    const offset = (page - 1) * limit;
+    const dramas = await d1Service.getAllItems(env.DB, 'dramas', mockData.drama);
     
-    // Filtrage par année si nécessaire
-    let filteredData = mockData['film'];
-    if (year) {
-      if (year === 'recent') {
-        const currentYear = new Date().getFullYear();
-        const previousYear = currentYear - 1;
-        filteredData = filteredData.filter(item => item.year === currentYear || item.year === previousYear);
-      } else {
-        filteredData = filteredData.filter(item => item.year === parseInt(year));
-      }
-    }
-    
-    // Pagination
-    const paginatedData = filteredData.slice(offset, offset + limit);
-    
-    return new Response(JSON.stringify(paginatedData), {
+    return new Response(JSON.stringify(dramas), {
       headers: { 'Content-Type': 'application/json', ...corsHeaders },
     });
   } catch (error) {
@@ -217,120 +89,183 @@ router.get('/films', async (request) => {
   }
 });
 
-// Route alternative pour les films (sans 's' pour compatibilité avec le frontend)
-router.get('/film', async (request) => {
-  // Rediriger vers la route avec 's'
-  return await router.handle({
-    ...request,
-    url: request.url.replace('/film', '/films')
-  });
-});
-
-// Route pour les animes
-router.get('/animes', async (request) => {
-  const url = new URL(request.url);
-  const page = parseInt(url.searchParams.get('page') || '1');
-  const limit = parseInt(url.searchParams.get('limit') || '20');
-  const year = url.searchParams.get('year');
-  
-  try {
-    // À remplacer par une requête D1
-    const offset = (page - 1) * limit;
-    
-    // Filtrage par année si nécessaire
-    let filteredData = mockData['anime'];
-    if (year) {
-      if (year === 'recent') {
-        const currentYear = new Date().getFullYear();
-        const previousYear = currentYear - 1;
-        filteredData = filteredData.filter(item => item.year === currentYear || item.year === previousYear);
-      } else {
-        filteredData = filteredData.filter(item => item.year === parseInt(year));
-      }
-    }
-    
-    // Pagination
-    const paginatedData = filteredData.slice(offset, offset + limit);
-    
-    return new Response(JSON.stringify(paginatedData), {
-      headers: { 'Content-Type': 'application/json', ...corsHeaders },
-    });
-  } catch (error) {
-    console.error('Erreur:', error);
-    
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders },
-    });
-  }
-});
-
-// Route alternative pour les animes (sans 's' pour compatibilité avec le frontend)
-router.get('/anime', async (request) => {
-  // Rediriger vers la route avec 's'
-  return await router.handle({
-    ...request,
-    url: request.url.replace('/anime', '/animes')
-  });
-});
-
-// Route pour les bollywood
-router.get('/bollywood', async (request) => {
-  const url = new URL(request.url);
-  const page = parseInt(url.searchParams.get('page') || '1');
-  const limit = parseInt(url.searchParams.get('limit') || '20');
-  const year = url.searchParams.get('year');
-  
-  try {
-    // À remplacer par une requête D1
-    const offset = (page - 1) * limit;
-    
-    // Filtrage par année si nécessaire
-    let filteredData = mockData['bollywood'];
-    if (year) {
-      if (year === 'recent') {
-        const currentYear = new Date().getFullYear();
-        const previousYear = currentYear - 1;
-        filteredData = filteredData.filter(item => item.year === currentYear || item.year === previousYear);
-      } else {
-        filteredData = filteredData.filter(item => item.year === parseInt(year));
-      }
-    }
-    
-    // Pagination
-    const paginatedData = filteredData.slice(offset, offset + limit);
-    
-    return new Response(JSON.stringify(paginatedData), {
-      headers: { 'Content-Type': 'application/json', ...corsHeaders },
-    });
-  } catch (error) {
-    console.error('Erreur:', error);
-    
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders },
-    });
-  }
-});
-
-// Route pour un contenu spécifique
-router.get('/content/:id', async (request) => {
+// Route pour un drama spécifique
+router.get('/dramas/:id', async (request, env) => {
   const { id } = request.params;
   
   try {
-    // Recherche dans toutes les catégories
-    for (const [category, items] of Object.entries(mockData)) {
-      const item = items.find(item => item.id === id);
-      if (item) {
-        return new Response(JSON.stringify(item), {
-          headers: { 'Content-Type': 'application/json', ...corsHeaders },
-        });
-      }
+    const drama = await d1Service.getItemById(env.DB, 'dramas', id, mockData.drama);
+    
+    if (!drama) {
+      return new Response(JSON.stringify({ error: 'Drama non trouvé' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json', ...corsHeaders },
+      });
     }
     
-    // Si non trouvé
-    return new Response(JSON.stringify({ error: 'Contenu non trouvé' }), {
-      status: 404,
+    return new Response(JSON.stringify(drama), {
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  } catch (error) {
+    console.error('Erreur:', error);
+    
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
+});
+
+// Alias pour /drama/:id (redirige vers /dramas/:id)
+router.get('/drama/:id', async (request, env) => {
+  const { id } = request.params;
+  
+  try {
+    const drama = await d1Service.getItemById(env.DB, 'dramas', id, mockData.drama);
+    
+    if (!drama) {
+      return new Response(JSON.stringify({ error: 'Drama non trouvé' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json', ...corsHeaders },
+      });
+    }
+    
+    return new Response(JSON.stringify(drama), {
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  } catch (error) {
+    console.error('Erreur:', error);
+    
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
+});
+
+// Route pour les films
+router.get('/films', async (request, env) => {
+  try {
+    const films = await d1Service.getAllItems(env.DB, 'films', mockData.film);
+    
+    return new Response(JSON.stringify(films), {
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  } catch (error) {
+    console.error('Erreur:', error);
+    
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
+});
+
+// Route pour un film spécifique
+router.get('/films/:id', async (request, env) => {
+  const { id } = request.params;
+  
+  try {
+    const film = await d1Service.getItemById(env.DB, 'films', id, mockData.film);
+    
+    if (!film) {
+      return new Response(JSON.stringify({ error: 'Film non trouvé' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json', ...corsHeaders },
+      });
+    }
+    
+    return new Response(JSON.stringify(film), {
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  } catch (error) {
+    console.error('Erreur:', error);
+    
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
+});
+
+// Route pour les animes
+router.get('/animes', async (request, env) => {
+  try {
+    const animes = await d1Service.getAllItems(env.DB, 'animes', mockData.anime);
+    
+    return new Response(JSON.stringify(animes), {
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  } catch (error) {
+    console.error('Erreur:', error);
+    
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
+});
+
+// Route pour un anime spécifique
+router.get('/animes/:id', async (request, env) => {
+  const { id } = request.params;
+  
+  try {
+    const anime = await d1Service.getItemById(env.DB, 'animes', id, mockData.anime);
+    
+    if (!anime) {
+      return new Response(JSON.stringify({ error: 'Anime non trouvé' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json', ...corsHeaders },
+      });
+    }
+    
+    return new Response(JSON.stringify(anime), {
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  } catch (error) {
+    console.error('Erreur:', error);
+    
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
+});
+
+// Route pour les contenus bollywood
+router.get('/bollywood', async (request, env) => {
+  try {
+    const bollywood = await d1Service.getAllItems(env.DB, 'bollywood', mockData.bollywood);
+    
+    return new Response(JSON.stringify(bollywood), {
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  } catch (error) {
+    console.error('Erreur:', error);
+    
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
+});
+
+// Route pour un contenu bollywood spécifique
+router.get('/bollywood/:id', async (request, env) => {
+  const { id } = request.params;
+  
+  try {
+    const bollywood = await d1Service.getItemById(env.DB, 'bollywood', id, mockData.bollywood);
+    
+    if (!bollywood) {
+      return new Response(JSON.stringify({ error: 'Contenu bollywood non trouvé' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json', ...corsHeaders },
+      });
+    }
+    
+    return new Response(JSON.stringify(bollywood), {
       headers: { 'Content-Type': 'application/json', ...corsHeaders },
     });
   } catch (error) {
@@ -344,33 +279,9 @@ router.get('/content/:id', async (request) => {
 });
 
 // Route pour les recommandations
-router.get('/recommendations', async (request) => {
-  const url = new URL(request.url);
-  const userId = url.searchParams.get('userId') || 'anonymous';
-  const limit = parseInt(url.searchParams.get('limit') || '10');
-  const genres = url.searchParams.get('genres')?.split(',') || [];
-  
+router.get('/recommendations', async (request, env) => {
   try {
-    // Logique simplifiée pour les recommandations
-    // À remplacer par une logique plus complexe plus tard
-    
-    // Récupérer un mélange de contenu de différentes catégories
-    let recommendations = [];
-    
-    for (const [category, items] of Object.entries(mockData)) {
-      // Filtrer par genre si spécifié
-      let categoryItems = items;
-      if (genres.length > 0) {
-        // Simulation de filtrage par genre (à implémenter réellement plus tard)
-        categoryItems = items.slice(0, 3); // Simplification pour la démo
-      }
-      
-      // Ajouter quelques éléments de chaque catégorie
-      recommendations = recommendations.concat(categoryItems.slice(0, 3));
-    }
-    
-    // Limiter le nombre de résultats
-    recommendations = recommendations.slice(0, limit);
+    const recommendations = await d1Service.getRecommendations(env.DB);
     
     return new Response(JSON.stringify(recommendations), {
       headers: { 'Content-Type': 'application/json', ...corsHeaders },
@@ -385,25 +296,12 @@ router.get('/recommendations', async (request) => {
   }
 });
 
-// Route pour le contenu mis en avant
-router.get('/featured', async (request) => {
-  const url = new URL(request.url);
-  const limit = parseInt(url.searchParams.get('limit') || '5');
-  
+// Route pour les contenus mis en avant
+router.get('/featured', async (request, env) => {
   try {
-    // Sélectionner quelques éléments de chaque catégorie pour le contenu mis en avant
-    let featuredContent = [];
+    const featured = await d1Service.getFeatured(env.DB);
     
-    for (const [category, items] of Object.entries(mockData)) {
-      // Prendre les éléments avec les meilleures notes
-      const sortedItems = [...items].sort((a, b) => b.rating - a.rating);
-      featuredContent = featuredContent.concat(sortedItems.slice(0, 2));
-    }
-    
-    // Limiter le nombre de résultats
-    featuredContent = featuredContent.slice(0, limit);
-    
-    return new Response(JSON.stringify(featuredContent), {
+    return new Response(JSON.stringify(featured), {
       headers: { 'Content-Type': 'application/json', ...corsHeaders },
     });
   } catch (error) {
@@ -416,25 +314,12 @@ router.get('/featured', async (request) => {
   }
 });
 
-// Route pour le contenu récent
-router.get('/recent', async (request) => {
-  const url = new URL(request.url);
-  const limit = parseInt(url.searchParams.get('limit') || '10');
-  
+// Route pour les contenus récents
+router.get('/recent', async (request, env) => {
   try {
-    // Récupérer le contenu le plus récent de toutes les catégories
-    let recentContent = [];
+    const recent = await d1Service.getRecent(env.DB);
     
-    for (const [category, items] of Object.entries(mockData)) {
-      // Trier par année (du plus récent au plus ancien)
-      const sortedItems = [...items].sort((a, b) => b.year - a.year);
-      recentContent = recentContent.concat(sortedItems.slice(0, 3));
-    }
-    
-    // Limiter le nombre de résultats
-    recentContent = recentContent.slice(0, limit);
-    
-    return new Response(JSON.stringify(recentContent), {
+    return new Response(JSON.stringify(recent), {
       headers: { 'Content-Type': 'application/json', ...corsHeaders },
     });
   } catch (error) {
@@ -447,34 +332,12 @@ router.get('/recent', async (request) => {
   }
 });
 
-// Route pour la liste "Continuer à regarder"
-router.get('/continue-watching', async (request) => {
-  const url = new URL(request.url);
-  const userId = url.searchParams.get('userId') || 'anonymous';
-  const limit = parseInt(url.searchParams.get('limit') || '5');
-  
+// Route pour les contenus en cours de visionnage
+router.get('/continue-watching', async (request, env) => {
   try {
-    // Simuler une liste de contenu en cours de visionnage
-    // À remplacer par une vraie logique de récupération de l'historique utilisateur
-    let continueWatchingContent = [];
+    const continueWatching = await d1Service.getContinueWatching(env.DB);
     
-    for (const [category, items] of Object.entries(mockData)) {
-      // Prendre quelques éléments aléatoires de chaque catégorie
-      const randomItems = items.sort(() => 0.5 - Math.random()).slice(0, 2);
-      
-      // Ajouter une propriété de progression aléatoire pour la démo
-      const itemsWithProgress = randomItems.map(item => ({
-        ...item,
-        progress: Math.floor(Math.random() * 90) + 10, // Progression entre 10% et 99%
-      }));
-      
-      continueWatchingContent = continueWatchingContent.concat(itemsWithProgress);
-    }
-    
-    // Limiter le nombre de résultats
-    continueWatchingContent = continueWatchingContent.slice(0, limit);
-    
-    return new Response(JSON.stringify(continueWatchingContent), {
+    return new Response(JSON.stringify(continueWatching), {
       headers: { 'Content-Type': 'application/json', ...corsHeaders },
     });
   } catch (error) {
@@ -488,30 +351,21 @@ router.get('/continue-watching', async (request) => {
 });
 
 // Route pour la recherche
-router.post('/search', async (request) => {
+router.get('/search', async (request, env) => {
+  const url = new URL(request.url);
+  const query = url.searchParams.get('q') || '';
+  
+  if (!query) {
+    return new Response(JSON.stringify({ error: 'Paramètre de recherche manquant' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
+  
   try {
-    const { query } = await request.json();
+    const results = await d1Service.searchItems(env.DB, query);
     
-    if (!query) {
-      return new Response(JSON.stringify({ error: 'Requête de recherche manquante' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders },
-      });
-    }
-    
-    // Recherche dans toutes les catégories
-    let searchResults = [];
-    
-    for (const [category, items] of Object.entries(mockData)) {
-      const matchingItems = items.filter(item => 
-        item.title.toLowerCase().includes(query.toLowerCase()) || 
-        item.description.toLowerCase().includes(query.toLowerCase())
-      );
-      
-      searchResults = searchResults.concat(matchingItems);
-    }
-    
-    return new Response(JSON.stringify(searchResults), {
+    return new Response(JSON.stringify(results), {
       headers: { 'Content-Type': 'application/json', ...corsHeaders },
     });
   } catch (error) {
@@ -525,7 +379,7 @@ router.post('/search', async (request) => {
 });
 
 // Route pour les contenus similaires
-router.get('/similar', async (request) => {
+router.get('/similar', async (request, env) => {
   const url = new URL(request.url);
   const contentId = url.searchParams.get('contentId');
   const limit = parseInt(url.searchParams.get('limit') || '6');
@@ -538,31 +392,7 @@ router.get('/similar', async (request) => {
   }
   
   try {
-    // Trouver le contenu de référence
-    let referenceContent = null;
-    let referenceCategory = '';
-    
-    for (const [category, items] of Object.entries(mockData)) {
-      const item = items.find(item => item.id === contentId);
-      if (item) {
-        referenceContent = item;
-        referenceCategory = category;
-        break;
-      }
-    }
-    
-    if (!referenceContent) {
-      return new Response(JSON.stringify({ error: 'Contenu non trouvé' }), {
-        status: 404,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders },
-      });
-    }
-    
-    // Trouver des contenus similaires (même catégorie, pour simplifier)
-    let similarContent = mockData[referenceCategory]
-      .filter(item => item.id !== contentId) // Exclure le contenu de référence
-      .sort(() => 0.5 - Math.random()) // Mélanger aléatoirement
-      .slice(0, limit); // Limiter le nombre de résultats
+    const similarContent = await d1Service.getSimilarContent(env.DB, contentId, limit);
     
     return new Response(JSON.stringify(similarContent), {
       headers: { 'Content-Type': 'application/json', ...corsHeaders },
@@ -578,24 +408,15 @@ router.get('/similar', async (request) => {
 });
 
 // Route pour les tendances
-router.get('/trending', async (request) => {
+router.get('/trending', async (request, env) => {
   const url = new URL(request.url);
   const limit = parseInt(url.searchParams.get('limit') || '10');
   
   try {
-    // Récupérer le contenu tendance (simulé par les meilleures notes)
-    let trendingContent = [];
+    // Pour l'instant, nous utilisons les contenus mis en avant comme tendances
+    const trending = await d1Service.getFeatured(env.DB);
     
-    for (const [category, items] of Object.entries(mockData)) {
-      // Trier par note (du plus élevé au plus bas)
-      const sortedItems = [...items].sort((a, b) => b.rating - a.rating);
-      trendingContent = trendingContent.concat(sortedItems.slice(0, 2));
-    }
-    
-    // Limiter le nombre de résultats
-    trendingContent = trendingContent.slice(0, limit);
-    
-    return new Response(JSON.stringify(trendingContent), {
+    return new Response(JSON.stringify(trending.slice(0, limit)), {
       headers: { 'Content-Type': 'application/json', ...corsHeaders },
     });
   } catch (error) {
@@ -610,16 +431,30 @@ router.get('/trending', async (request) => {
 
 // Route de diagnostic
 router.get('/diagnostic', async (request, env) => {
-  return new Response(JSON.stringify({
-    status: 'ok',
-    environment: 'cloudflare',
-    timestamp: new Date().toISOString(),
-    account_id: env.ACCOUNT_ID || '42fc982266a2c31b942593b18097e4b3',
-    mock_categories: Object.keys(mockData),
-    mock_items_count: Object.values(mockData).reduce((acc, items) => acc + items.length, 0)
-  }), {
-    headers: { 'Content-Type': 'application/json', ...corsHeaders },
-  });
+  try {
+    // Vérifier la disponibilité de D1
+    const d1Status = await d1Service.getD1Status(env.DB);
+    
+    return new Response(JSON.stringify({
+      status: 'ok',
+      environment: 'cloudflare',
+      timestamp: new Date().toISOString(),
+      account_id: env.ACCOUNT_ID || '42fc982266a2c31b942593b18097e4b3',
+      database: d1Status.available ? 'D1' : 'mock',
+      d1: d1Status,
+      mock_categories: Object.keys(mockData),
+      mock_items_count: Object.values(mockData).reduce((acc, items) => acc + items.length, 0)
+    }), {
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  } catch (error) {
+    console.error('Erreur:', error);
+    
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
 });
 
 // Gestion des requêtes OPTIONS (CORS preflight)

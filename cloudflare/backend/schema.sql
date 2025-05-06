@@ -10,6 +10,12 @@ CREATE TABLE IF NOT EXISTS dramas (
   backdrop TEXT,
   rating REAL DEFAULT 0,
   year INTEGER,
+  episode_count INTEGER DEFAULT 0,
+  season_count INTEGER DEFAULT 1,
+  genres TEXT, -- Stocké en JSON: ["Genre1", "Genre2"]
+  language TEXT,
+  country TEXT,
+  status TEXT DEFAULT 'completed',
   created_at TEXT,
   updated_at TEXT
 );
@@ -23,6 +29,10 @@ CREATE TABLE IF NOT EXISTS films (
   backdrop TEXT,
   rating REAL DEFAULT 0,
   year INTEGER,
+  duration INTEGER DEFAULT 0, -- Durée en minutes
+  genres TEXT, -- Stocké en JSON: ["Genre1", "Genre2"]
+  language TEXT,
+  country TEXT,
   created_at TEXT,
   updated_at TEXT
 );
@@ -36,6 +46,12 @@ CREATE TABLE IF NOT EXISTS animes (
   backdrop TEXT,
   rating REAL DEFAULT 0,
   year INTEGER,
+  episode_count INTEGER DEFAULT 0,
+  season_count INTEGER DEFAULT 1,
+  genres TEXT, -- Stocké en JSON: ["Genre1", "Genre2"]
+  language TEXT,
+  country TEXT,
+  status TEXT DEFAULT 'completed',
   created_at TEXT,
   updated_at TEXT
 );
@@ -49,6 +65,10 @@ CREATE TABLE IF NOT EXISTS bollywood (
   backdrop TEXT,
   rating REAL DEFAULT 0,
   year INTEGER,
+  duration INTEGER DEFAULT 0, -- Durée en minutes
+  genres TEXT, -- Stocké en JSON: ["Genre1", "Genre2"]
+  language TEXT,
+  country TEXT,
   created_at TEXT,
   updated_at TEXT
 );
@@ -76,6 +96,7 @@ CREATE TABLE IF NOT EXISTS users (
   email TEXT UNIQUE NOT NULL,
   name TEXT,
   avatar TEXT,
+  preferences TEXT, -- Stocké en JSON pour les préférences utilisateur
   created_at TEXT,
   updated_at TEXT
 );
@@ -102,6 +123,18 @@ CREATE TABLE IF NOT EXISTS views (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+-- Table des recommandations
+CREATE TABLE IF NOT EXISTS recommendations (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL,
+  content_id TEXT NOT NULL,
+  content_type TEXT NOT NULL,
+  score REAL DEFAULT 0,
+  reason TEXT,
+  created_at TEXT,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
 -- Index pour améliorer les performances
 CREATE INDEX IF NOT EXISTS idx_dramas_year ON dramas(year);
 CREATE INDEX IF NOT EXISTS idx_films_year ON films(year);
@@ -110,3 +143,4 @@ CREATE INDEX IF NOT EXISTS idx_bollywood_year ON bollywood(year);
 CREATE INDEX IF NOT EXISTS idx_favorites_user ON favorites(user_id);
 CREATE INDEX IF NOT EXISTS idx_views_user ON views(user_id);
 CREATE INDEX IF NOT EXISTS idx_views_content ON views(content_id, content_type);
+CREATE INDEX IF NOT EXISTS idx_recommendations_user ON recommendations(user_id);
