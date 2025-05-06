@@ -82,7 +82,7 @@ router.get('/', () => {
   });
 });
 
-// Route pour les dramas
+// Route pour les dramas (avec et sans 's' pour compatibilité)
 router.get('/dramas', async (request) => {
   const url = new URL(request.url);
   const page = parseInt(url.searchParams.get('page') || '1');
@@ -119,6 +119,15 @@ router.get('/dramas', async (request) => {
       headers: { 'Content-Type': 'application/json', ...corsHeaders },
     });
   }
+});
+
+// Route alternative pour les dramas (sans 's' pour compatibilité avec le frontend)
+router.get('/drama', async (request) => {
+  // Rediriger vers la route avec 's'
+  return await router.handle({
+    ...request,
+    url: request.url.replace('/drama', '/dramas')
+  });
 });
 
 // Route pour les films
@@ -178,6 +187,271 @@ router.get('/content/:id', async (request) => {
     // Si non trouvé
     return new Response(JSON.stringify({ error: 'Contenu non trouvé' }), {
       status: 404,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  } catch (error) {
+    console.error('Erreur:', error);
+    
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
+});
+
+// Route pour les recommandations
+router.get('/recommendations', async (request) => {
+  const url = new URL(request.url);
+  const userId = url.searchParams.get('userId') || 'anonymous';
+  const limit = parseInt(url.searchParams.get('limit') || '10');
+  const genres = url.searchParams.get('genres')?.split(',') || [];
+  
+  try {
+    // Logique simplifiée pour les recommandations
+    // À remplacer par une logique plus complexe plus tard
+    
+    // Récupérer un mélange de contenu de différentes catégories
+    let recommendations = [];
+    
+    for (const [category, items] of Object.entries(mockData)) {
+      // Filtrer par genre si spécifié
+      let categoryItems = items;
+      if (genres.length > 0) {
+        // Simulation de filtrage par genre (à implémenter réellement plus tard)
+        categoryItems = items.slice(0, 3); // Simplification pour la démo
+      }
+      
+      // Ajouter quelques éléments de chaque catégorie
+      recommendations = recommendations.concat(categoryItems.slice(0, 3));
+    }
+    
+    // Limiter le nombre de résultats
+    recommendations = recommendations.slice(0, limit);
+    
+    return new Response(JSON.stringify(recommendations), {
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  } catch (error) {
+    console.error('Erreur:', error);
+    
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
+});
+
+// Route pour le contenu mis en avant
+router.get('/featured', async (request) => {
+  const url = new URL(request.url);
+  const limit = parseInt(url.searchParams.get('limit') || '5');
+  
+  try {
+    // Sélectionner quelques éléments de chaque catégorie pour le contenu mis en avant
+    let featuredContent = [];
+    
+    for (const [category, items] of Object.entries(mockData)) {
+      // Prendre les éléments avec les meilleures notes
+      const sortedItems = [...items].sort((a, b) => b.rating - a.rating);
+      featuredContent = featuredContent.concat(sortedItems.slice(0, 2));
+    }
+    
+    // Limiter le nombre de résultats
+    featuredContent = featuredContent.slice(0, limit);
+    
+    return new Response(JSON.stringify(featuredContent), {
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  } catch (error) {
+    console.error('Erreur:', error);
+    
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
+});
+
+// Route pour le contenu récent
+router.get('/recent', async (request) => {
+  const url = new URL(request.url);
+  const limit = parseInt(url.searchParams.get('limit') || '10');
+  
+  try {
+    // Récupérer le contenu le plus récent de toutes les catégories
+    let recentContent = [];
+    
+    for (const [category, items] of Object.entries(mockData)) {
+      // Trier par année (du plus récent au plus ancien)
+      const sortedItems = [...items].sort((a, b) => b.year - a.year);
+      recentContent = recentContent.concat(sortedItems.slice(0, 3));
+    }
+    
+    // Limiter le nombre de résultats
+    recentContent = recentContent.slice(0, limit);
+    
+    return new Response(JSON.stringify(recentContent), {
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  } catch (error) {
+    console.error('Erreur:', error);
+    
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
+});
+
+// Route pour la liste "Continuer à regarder"
+router.get('/continue-watching', async (request) => {
+  const url = new URL(request.url);
+  const userId = url.searchParams.get('userId') || 'anonymous';
+  const limit = parseInt(url.searchParams.get('limit') || '5');
+  
+  try {
+    // Simuler une liste de contenu en cours de visionnage
+    // À remplacer par une vraie logique de récupération de l'historique utilisateur
+    let continueWatchingContent = [];
+    
+    for (const [category, items] of Object.entries(mockData)) {
+      // Prendre quelques éléments aléatoires de chaque catégorie
+      const randomItems = items.sort(() => 0.5 - Math.random()).slice(0, 2);
+      
+      // Ajouter une propriété de progression aléatoire pour la démo
+      const itemsWithProgress = randomItems.map(item => ({
+        ...item,
+        progress: Math.floor(Math.random() * 90) + 10, // Progression entre 10% et 99%
+      }));
+      
+      continueWatchingContent = continueWatchingContent.concat(itemsWithProgress);
+    }
+    
+    // Limiter le nombre de résultats
+    continueWatchingContent = continueWatchingContent.slice(0, limit);
+    
+    return new Response(JSON.stringify(continueWatchingContent), {
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  } catch (error) {
+    console.error('Erreur:', error);
+    
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
+});
+
+// Route pour la recherche
+router.post('/search', async (request) => {
+  try {
+    const { query } = await request.json();
+    
+    if (!query) {
+      return new Response(JSON.stringify({ error: 'Requête de recherche manquante' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json', ...corsHeaders },
+      });
+    }
+    
+    // Recherche dans toutes les catégories
+    let searchResults = [];
+    
+    for (const [category, items] of Object.entries(mockData)) {
+      const matchingItems = items.filter(item => 
+        item.title.toLowerCase().includes(query.toLowerCase()) || 
+        item.description.toLowerCase().includes(query.toLowerCase())
+      );
+      
+      searchResults = searchResults.concat(matchingItems);
+    }
+    
+    return new Response(JSON.stringify(searchResults), {
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  } catch (error) {
+    console.error('Erreur:', error);
+    
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
+});
+
+// Route pour les contenus similaires
+router.get('/similar', async (request) => {
+  const url = new URL(request.url);
+  const contentId = url.searchParams.get('contentId');
+  const limit = parseInt(url.searchParams.get('limit') || '6');
+  
+  if (!contentId) {
+    return new Response(JSON.stringify({ error: 'ID de contenu manquant' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
+  
+  try {
+    // Trouver le contenu de référence
+    let referenceContent = null;
+    let referenceCategory = '';
+    
+    for (const [category, items] of Object.entries(mockData)) {
+      const item = items.find(item => item.id === contentId);
+      if (item) {
+        referenceContent = item;
+        referenceCategory = category;
+        break;
+      }
+    }
+    
+    if (!referenceContent) {
+      return new Response(JSON.stringify({ error: 'Contenu non trouvé' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json', ...corsHeaders },
+      });
+    }
+    
+    // Trouver des contenus similaires (même catégorie, pour simplifier)
+    let similarContent = mockData[referenceCategory]
+      .filter(item => item.id !== contentId) // Exclure le contenu de référence
+      .sort(() => 0.5 - Math.random()) // Mélanger aléatoirement
+      .slice(0, limit); // Limiter le nombre de résultats
+    
+    return new Response(JSON.stringify(similarContent), {
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  } catch (error) {
+    console.error('Erreur:', error);
+    
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json', ...corsHeaders },
+    });
+  }
+});
+
+// Route pour les tendances
+router.get('/trending', async (request) => {
+  const url = new URL(request.url);
+  const limit = parseInt(url.searchParams.get('limit') || '10');
+  
+  try {
+    // Récupérer le contenu tendance (simulé par les meilleures notes)
+    let trendingContent = [];
+    
+    for (const [category, items] of Object.entries(mockData)) {
+      // Trier par note (du plus élevé au plus bas)
+      const sortedItems = [...items].sort((a, b) => b.rating - a.rating);
+      trendingContent = trendingContent.concat(sortedItems.slice(0, 2));
+    }
+    
+    // Limiter le nombre de résultats
+    trendingContent = trendingContent.slice(0, limit);
+    
+    return new Response(JSON.stringify(trendingContent), {
       headers: { 'Content-Type': 'application/json', ...corsHeaders },
     });
   } catch (error) {

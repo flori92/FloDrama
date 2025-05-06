@@ -14,7 +14,7 @@ export type ContentType = 'film' | 'drama' | 'anime' | 'bollywood';
 
 // Configuration de l'API
 const API_BASE_URL = 'https://flodrama-api.florifavi.workers.dev';
-const USE_MOCK_DATA = true; // Activer les données de démonstration temporairement jusqu'à ce que toutes les routes API soient implémentées
+const USE_MOCK_DATA = false; // Utiliser l'API réelle maintenant que toutes les routes sont implémentées
 
 // Fonction utilitaire pour gérer les erreurs de fetch
 async function fetchWithErrorHandling(url: string, options: RequestInit = {}): Promise<any> {
@@ -26,7 +26,7 @@ async function fetchWithErrorHandling(url: string, options: RequestInit = {}): P
       // Déterminer quel type de données mockées retourner en fonction de l'URL
       if (url.includes('/films')) {
         return mockDataService.getContentByType('film');
-      } else if (url.includes('/dramas')) {
+      } else if (url.includes('/dramas') || url.includes('/drama')) {
         return mockDataService.getContentByType('drama');
       } else if (url.includes('/animes')) {
         return mockDataService.getContentByType('anime');
@@ -49,33 +49,45 @@ async function fetchWithErrorHandling(url: string, options: RequestInit = {}): P
           JSON.parse(options.body as string).query : 
           new URL(url).searchParams.get('q') || '';
         return mockDataService.searchContent(query);
+      } else if (url.includes('/similar')) {
+        return mockDataService.getRecommendations();
+      } else if (url.includes('/trending')) {
+        return mockDataService.getRecommendations();
       }
       
-      // Par défaut, retourner un tableau vide
+      // Fallback pour les autres routes
       return [];
     }
     
-    // Effectuer la requête API réelle
+    // Sinon, faire l'appel API réel
     const response = await fetch(url, options);
     
-    // Vérifier si la requête a réussi
     if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      // Essayer de récupérer les détails de l'erreur depuis la réponse
+      let errorDetails = '';
+      try {
+        const errorData = await response.json();
+        errorDetails = errorData.error || errorData.message || '';
+      } catch {
+        // Si on ne peut pas parser la réponse, utiliser le statut HTTP
+        errorDetails = `Statut HTTP: ${response.status}`;
+      }
+      
+      throw new Error(`Erreur HTTP: ${response.status}${errorDetails ? ` - ${errorDetails}` : ''}`);
     }
     
-    // Analyser la réponse JSON
     return await response.json();
   } catch (error) {
     console.error('Erreur API:', error);
     
-    // En cas d'erreur, utiliser les données de démonstration si activées
+    // Si l'API échoue et que les données de démonstration sont activées, utiliser les données mockées comme fallback
     if (USE_MOCK_DATA) {
       console.log(`Utilisation des données de démonstration après erreur pour ${url}`);
       
-      // Déterminer quel type de données mockées retourner en fonction de l'URL
+      // Même logique que ci-dessus pour déterminer le type de données mockées
       if (url.includes('/films')) {
         return mockDataService.getContentByType('film');
-      } else if (url.includes('/dramas')) {
+      } else if (url.includes('/dramas') || url.includes('/drama')) {
         return mockDataService.getContentByType('drama');
       } else if (url.includes('/animes')) {
         return mockDataService.getContentByType('anime');
@@ -93,12 +105,18 @@ async function fetchWithErrorHandling(url: string, options: RequestInit = {}): P
         const id = url.split('/').pop() || '';
         return mockDataService.getContentById(id);
       } else if (url.includes('/search')) {
-        // Extraire la requête de recherche de l'URL ou des options
         const query = options.body ? 
           JSON.parse(options.body as string).query : 
           new URL(url).searchParams.get('q') || '';
         return mockDataService.searchContent(query);
+      } else if (url.includes('/similar')) {
+        return mockDataService.getRecommendations();
+      } else if (url.includes('/trending')) {
+        return mockDataService.getRecommendations();
       }
+      
+      // Fallback pour les autres routes
+      return [];
     }
     
     // Si les données de démonstration ne sont pas activées, propager l'erreur

@@ -6,11 +6,9 @@
  */
 
 import { ContentItem } from '../types/content';
-import mockDataService from './mockDataService';
 
 // Base URL de l'API
 const API_BASE_URL = 'https://flodrama-api.florifavi.workers.dev';
-const USE_MOCK_DATA = true; // Activer les données de démonstration temporairement jusqu'à ce que toutes les routes API soient implémentées
 
 // Interface pour les préférences utilisateur
 export interface UserPreferences {
@@ -40,12 +38,6 @@ export async function getPersonalizedRecommendations(
   params: RecommendationParams = {}
 ): Promise<ContentItem[]> {
   try {
-    // Si les données de démonstration sont activées, utiliser les données mockées
-    if (USE_MOCK_DATA) {
-      console.log(`Utilisation des données de démonstration pour les recommandations`);
-      return mockDataService.getRecommendations() as unknown as ContentItem[];
-    }
-    
     // Construction des paramètres de requête
     const queryParams = new URLSearchParams();
     queryParams.append('userId', userId);
@@ -81,13 +73,7 @@ export async function getPersonalizedRecommendations(
   } catch (error) {
     console.error('Erreur lors de la récupération des recommandations:', error);
     
-    // En cas d'erreur, utiliser les données de démonstration si activées
-    if (USE_MOCK_DATA) {
-      console.log(`Utilisation des données de démonstration après erreur pour les recommandations`);
-      return mockDataService.getRecommendations() as unknown as ContentItem[];
-    }
-    
-    // Si les données de démonstration ne sont pas activées, retourner un tableau vide
+    // En cas d'erreur, retourner un tableau vide
     return [];
   }
 }
@@ -179,12 +165,6 @@ export async function getSimilarContent(
   limit: number = 6
 ): Promise<ContentItem[]> {
   try {
-    // Si les données de démonstration sont activées, utiliser les données mockées
-    if (USE_MOCK_DATA) {
-      console.log(`Utilisation des données de démonstration pour les contenus similaires`);
-      return mockDataService.getRecommendations() as unknown as ContentItem[];
-    }
-    
     const url = new URL(`${API_BASE_URL}/similar`);
     url.searchParams.append('contentId', contentId);
     url.searchParams.append('limit', limit.toString());
@@ -199,13 +179,7 @@ export async function getSimilarContent(
   } catch (error) {
     console.error('Erreur lors de la récupération des contenus similaires:', error);
     
-    // En cas d'erreur, utiliser les données de démonstration si activées
-    if (USE_MOCK_DATA) {
-      console.log(`Utilisation des données de démonstration après erreur pour les contenus similaires`);
-      return mockDataService.getRecommendations() as unknown as ContentItem[];
-    }
-    
-    // Si les données de démonstration ne sont pas activées, retourner un tableau vide
+    // En cas d'erreur, retourner un tableau vide
     return [];
   }
 }
@@ -217,12 +191,6 @@ export async function getSimilarContent(
  */
 export async function getTrendingContent(limit: number = 10): Promise<ContentItem[]> {
   try {
-    // Si les données de démonstration sont activées, utiliser les données mockées
-    if (USE_MOCK_DATA) {
-      console.log(`Utilisation des données de démonstration pour les tendances`);
-      return mockDataService.getRecommendations() as unknown as ContentItem[];
-    }
-    
     const url = new URL(`${API_BASE_URL}/trending`);
     url.searchParams.append('limit', limit.toString());
     
@@ -236,13 +204,7 @@ export async function getTrendingContent(limit: number = 10): Promise<ContentIte
   } catch (error) {
     console.error('Erreur lors de la récupération des tendances:', error);
     
-    // En cas d'erreur, utiliser les données de démonstration si activées
-    if (USE_MOCK_DATA) {
-      console.log(`Utilisation des données de démonstration après erreur pour les tendances`);
-      return mockDataService.getRecommendations() as unknown as ContentItem[];
-    }
-    
-    // Si les données de démonstration ne sont pas activées, retourner un tableau vide
+    // En cas d'erreur, retourner un tableau vide
     return [];
   }
 }
