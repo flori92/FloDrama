@@ -8,6 +8,7 @@ export interface ContentItem {
   title: string;
   description: string;
   posterUrl: string;
+  backdrop?: string;
   releaseDate: string;
   rating: number;
   duration: number;

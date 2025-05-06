@@ -3,31 +3,26 @@
  * 
  * Cette page présente les recommandations personnalisées, les contenus populaires
  * et les dernières sorties avec prévisualisation des trailers au survol.
+ * Utilise le service de distribution de contenu optimisé pour Cloudflare.
  */
 
 import React, { useState, useEffect } from 'react';
-import { ContentItem, fetchContentByCategory } from '../services/apiService';
 import HeroBanner from '../components/HeroBanner';
-import ContentGrid from '../components/ContentGrid';
-import useRecommendations from '../hooks/useRecommendations';
+import ContentCarousel from '../components/ContentCarousel';
 import ContinueWatching, { WatchHistoryItem } from '../components/ContinueWatching';
 import { fetchWatchHistory } from '../services/videoService';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { ContentItem } from '../types/content';
+import { getHomePageContent } from '../services/contentDistributionService';
 
 const HomePage: React.FC = () => {
   // ID utilisateur fictif pour la démo
   const userId = 'user123';
   
-  // Récupération des recommandations personnalisées
-  const { recommendations } = useRecommendations({
-    userId,
-    initialParams: { limit: 10 }
-  });
-  
-  // État pour les autres catégories de contenu
-  const [recentContent, setRecentContent] = useState<ContentItem[]>([]);
-  const [featuredContent, setFeaturedContent] = useState<ContentItem[]>([]);
+  // États pour les contenus
+  const [heroBannerItems, setHeroBannerItems] = useState<ContentItem[]>([]);
+  const [carousels, setCarousels] = useState<{title: string, items: ContentItem[]}[]>([]);
   const [watchHistory, setWatchHistory] = useState<WatchHistoryItem[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -46,28 +41,18 @@ const HomePage: React.FC = () => {
     loadWatchHistory();
   }, [userId]);
   
+  // Chargement du contenu de la page d'accueil
   useEffect(() => {
     const loadContent = async () => {
       try {
         setLoading(true);
         
-        // Charger le contenu par catégorie
-        const dramas = await fetchContentByCategory('drama');
-        const animes = await fetchContentByCategory('anime');
-        const films = await fetchContentByCategory('film');
-        const bollywood = await fetchContentByCategory('bollywood');
+        // Utiliser le nouveau service de distribution de contenu
+        const { heroBanner, carousels: contentCarousels } = await getHomePageContent();
         
-        // Combiner tous les contenus
-        const allContent = [...dramas, ...animes, ...films, ...bollywood];
-        
-        // Sélectionner les contenus mis en avant pour le hero banner
-        const featured = allContent
-          .filter(item => item.trailerUrl || item.posterUrl)
-          .slice(0, 4);
-        setFeaturedContent(featured);
-        
-        // Utiliser tous les contenus pour les grilles
-        setRecentContent(allContent);
+        // Mettre à jour les états
+        setHeroBannerItems(heroBanner);
+        setCarousels(contentCarousels);
         
         setLoading(false);
       } catch (err) {
@@ -123,13 +108,16 @@ const HomePage: React.FC = () => {
   ];
 
   // Utiliser les données de démonstration si aucune donnée n'est disponible
-  const heroItems = featuredContent.length > 0 ? featuredContent : demoFeaturedContent;
+  const heroItems = heroBannerItems.length > 0 ? heroBannerItems : demoFeaturedContent;
 
   if (loading) {
     return (
       <>
         <Header />
-        <div className="loading">Chargement du contenu...</div>
+        <div className="flex justify-center items-center min-h-[50vh]">
+          <div className="loading-spinner"></div>
+          <p className="ml-3 text-white text-lg">Chargement du contenu...</p>
+        </div>
         <Footer />
       </>
     );
@@ -139,7 +127,18 @@ const HomePage: React.FC = () => {
     return (
       <>
         <Header />
-        <div className="error">{error}</div>
+        <div className="container mx-auto px-4 py-12">
+          <div className="bg-red-500/20 border border-red-500 text-white p-6 rounded-xl text-center">
+            <h2 className="text-xl font-bold mb-2">Erreur</h2>
+            <p>{error}</p>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="mt-4 bg-flo-violet hover:bg-flo-fuchsia text-white px-4 py-2 rounded-lg transition-colors duration-300"
+            >
+              Réessayer
+            </button>
+          </div>
+        </div>
         <Footer />
       </>
     );
@@ -159,61 +158,53 @@ const HomePage: React.FC = () => {
         )}
         
         <div className="container mx-auto px-4 pb-12">
-          {/* Grilles de contenu */}
-          <div className="content-sections">
-            {/* Section Continuer la lecture - placée en premier pour une meilleure accessibilité */}
-            {watchHistory.length > 0 && (
-              <ContinueWatching items={watchHistory} />
-            )}
-            
-            {recommendations.length > 0 && (
-              <ContentGrid 
-                title="Recommandations pour vous" 
-                items={recommendations}
-                contentType="drama"
-              />
-            )}
-            
-            <ContentGrid 
-              title="Nouveautés" 
-              items={recentContent.filter(item => {
-                if (!item.releaseDate) {
-                  return false;
-                }
-                
-                const releaseDate = new Date(item.releaseDate);
-                const currentYear = new Date().getFullYear();
-                const releaseYear = releaseDate.getFullYear();
-                
-                // Inclure uniquement les contenus de l'année en cours ou de l'année précédente
-                return releaseYear >= currentYear - 1;
-              })}
-              contentType="drama"
+          {/* Section Continuer la lecture */}
+          {watchHistory.length > 0 && (
+            <ContinueWatching items={watchHistory} />
+          )}
+          
+          {/* Carrousels de contenu */}
+          {carousels.map((carousel, index) => (
+            <ContentCarousel
+              key={`carousel-${index}`}
+              title={carousel.title}
+              items={carousel.items}
+              viewAllLink={getViewAllLink(carousel.title)}
             />
-            
-            <ContentGrid 
-              title="Dramas Populaires" 
-              items={recentContent.filter(item => item.category === 'drama')}
-              contentType="drama"
-            />
-            
-            <ContentGrid 
-              title="Animes Tendance" 
-              items={recentContent.filter(item => item.category === 'anime')}
-              contentType="anime"
-            />
-            
-            <ContentGrid 
-              title="Bollywood" 
-              items={recentContent.filter(item => item.category === 'bollywood')}
-              contentType="bollywood"
-            />
-          </div>
+          ))}
+          
+          {/* Message si aucun carrousel n'est disponible */}
+          {carousels.length === 0 && (
+            <div className="text-center text-white opacity-70 my-12 p-12">
+              <p>Aucun contenu disponible pour le moment.</p>
+            </div>
+          )}
         </div>
       </div>
       <Footer />
     </>
   );
 };
+
+// Fonction pour déterminer le lien "Voir tout" en fonction du titre du carrousel
+function getViewAllLink(title: string): string {
+  const titleLower = title.toLowerCase();
+  
+  if (titleLower.includes('drama')) {
+    return '/dramas';
+  } else if (titleLower.includes('anime')) {
+    return '/animes';
+  } else if (titleLower.includes('film')) {
+    return '/films';
+  } else if (titleLower.includes('bollywood')) {
+    return '/bollywood';
+  } else if (titleLower.includes('tendance') || titleLower.includes('populaire')) {
+    return '/trending';
+  } else if (titleLower.includes('récent')) {
+    return '/recent';
+  }
+  
+  return '/browse';
+}
 
 export default HomePage;

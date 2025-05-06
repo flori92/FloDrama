@@ -1,0 +1,99 @@
+{
+  "source": "dramacool",
+  "timestamp": "2025-05-06T18:05:04.951Z",
+  "count": 10,
+  "data": [
+    {
+      "id": "dramacool_564b65c15896",
+      "title": "Crash Landing on You",
+      "source_url": "https://dramacool.com/drama/crash-landing-on-you",
+      "poster": "https://picsum.photos/seed/Crash%20Landing%20on%20You/300/450",
+      "content_type": "drama",
+      "rating": 4.6,
+      "year": 2023
+    },
+    {
+      "id": "dramacool_3b4458f0cb4a",
+      "title": "Goblin",
+      "source_url": "https://dramacool.com/drama/goblin",
+      "poster": "https://picsum.photos/seed/Goblin/300/450",
+      "content_type": "drama",
+      "rating": 4.1,
+      "year": 2020
+    },
+    {
+      "id": "dramacool_7ef4acf82428",
+      "title": "Descendants of the Sun",
+      "source_url": "https://dramacool.com/drama/descendants-of-the-sun",
+      "poster": "https://picsum.photos/seed/Descendants%20of%20the%20Sun/300/450",
+      "content_type": "drama",
+      "rating": 3.8,
+      "year": 2020
+    },
+    {
+      "id": "dramacool_e1bb1f65f321",
+      "title": "It's Okay to Not Be Okay",
+      "source_url": "https://dramacool.com/drama/it's-okay-to-not-be-okay",
+      "poster": "https://picsum.photos/seed/It's%20Okay%20to%20Not%20Be%20Okay/300/450",
+      "content_type": "drama",
+      "rating": 4.3,
+      "year": 2025
+    },
+    {
+      "id": "dramacool_dbe22e396cb4",
+      "title": "Hospital Playlist",
+      "source_url": "https://dramacool.com/drama/hospital-playlist",
+      "poster": "https://picsum.photos/seed/Hospital%20Playlist/300/450",
+      "content_type": "drama",
+      "rating": 3.9,
+      "year": 2022
+    },
+    {
+      "id": "dramacool_73f6a01f240c",
+      "title": "Reply 1988",
+      "source_url": "https://dramacool.com/drama/reply-1988",
+      "poster": "https://picsum.photos/seed/Reply%201988/300/450",
+      "content_type": "drama",
+      "rating": 3.9,
+      "year": 2022
+    },
+    {
+      "id": "dramacool_ce570687ed5f",
+      "title": "Signal",
+      "source_url": "https://dramacool.com/drama/signal",
+      "poster": "https://picsum.photos/seed/Signal/300/450",
+      "content_type": "drama",
+      "rating": 3.9,
+      "year": 2022
+    },
+    {
+      "id": "dramacool_14f7acaeaa55",
+      "title": "My Mister",
+      "source_url": "https://dramacool.com/drama/my-mister",
+      "poster": "https://picsum.photos/seed/My%20Mister/300/450",
+      "content_type": "drama",
+      "rating": 3.9,
+      "year": 2025
+    },
+    {
+      "id": "dramacool_359da3400819",
+      "title": "Kingdom",
+      "source_url": "https://dramacool.com/drama/kingdom",
+      "poster": "https://picsum.photos/seed/Kingdom/300/450",
+      "content_type": "drama",
+      "rating": 3.9,
+      "year": 2020
+    },
+    {
+      "id": "dramacool_31087797ab3b",
+      "title": "Mr. Sunshine",
+      "source_url": "https://dramacool.com/drama/mr.-sunshine",
+      "poster": "https://picsum.photos/seed/Mr.%20Sunshine/300/450",
+      "content_type": "drama",
+      "rating": 3.5,
+      "year": 2024
+    }
+  ],
+  "is_mock": false,
+  "content_type": "drama"
+}

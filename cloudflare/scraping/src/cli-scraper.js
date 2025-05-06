@@ -184,7 +184,7 @@ const args = process.argv.slice(2);
 const sourceArg = args.find(arg => arg.startsWith('--source='));
 const source = sourceArg ? sourceArg.split('=')[1] : null;
 const outputArg = args.find(arg => arg.startsWith('--output='));
-const outputPath = outputArg ? outputArg.split('=')[1] : './scraping-results';
+const outputPath = outputArg ? outputArg.split('=')[1] : '../scraping-results';
 const limitArg = args.find(arg => arg.startsWith('--limit='));
 const limit = limitArg ? parseInt(limitArg.split('=')[1]) : 100; // Augmentation de la limite par défaut à 100
 const allArg = args.find(arg => arg === '--all');
@@ -1019,7 +1019,15 @@ async function scrapeSource(source, minLimit = 100, maxLimit = 200, specificUrl 
       console.log(`[DEBUG] Fin du scraping de ${source}: ${uniqueResults.length} éléments uniques trouvés, durée: ${((Date.now() - startTime) / 1000).toFixed(2)} secondes`);
     }
     
-    return uniqueResults;
+    // Formater les résultats pour être compatibles avec le script d'envoi à D1
+    return {
+      source: source,
+      timestamp: new Date().toISOString(),
+      count: uniqueResults.length,
+      data: uniqueResults,
+      is_mock: false,
+      content_type: contentType
+    };
   } catch (error) {
     console.error(`[ERROR] Erreur lors du scraping de ${source}: ${error.message}`);
     
@@ -1308,161 +1316,139 @@ function removeDuplicates(array, key) {
   });
 }
 
+// Fonction pour récupérer le type de contenu d'une source
+function getContentType(sourceName) {
+  if (!SOURCES[sourceName]) {
+    return 'unknown';
+  }
+  return SOURCES[sourceName].contentType || 'unknown';
+}
+
 // Fonction principale
 async function main() {
   try {
+    console.log(`FloDrama CLI Scraper - ${new Date().toISOString()}`);
+    
+    // Analyser les arguments de la ligne de commande
+    const args = process.argv.slice(2);
+    const sourceArg = args.find(arg => arg.startsWith('--source='));
+    const source = sourceArg ? sourceArg.split('=')[1] : null;
+    const outputArg = args.find(arg => arg.startsWith('--output='));
+    let outputPath = outputArg ? outputArg.split('=')[1] : '../scraping-results';
+    const limitArg = args.find(arg => arg.startsWith('--limit='));
+    const limit = limitArg ? parseInt(limitArg.split('=')[1]) : 100;
+    const allArg = args.includes('--all');
+    const debugArg = args.includes('--debug');
+    const debug = debugArg !== undefined;
+    const pagesArg = args.find(arg => arg.startsWith('--pages='));
+    const maxPages = pagesArg ? parseInt(pagesArg.split('=')[1]) : 5;
+    const specificUrlArg = args.find(arg => arg.startsWith('--url='));
+    const specificUrl = specificUrlArg ? specificUrlArg.split('=')[1] : null;
+    
     // Créer le dossier de sortie s'il n'existe pas
     if (!fs.existsSync(outputPath)) {
       fs.mkdirSync(outputPath, { recursive: true });
     }
 
-    // Analyser les arguments de la ligne de commande
-    const args = process.argv.slice(2);
-    const sourceArg = args.find(arg => arg.startsWith('--source='));
-    const limitArg = args.find(arg => arg.startsWith('--limit='));
-    const maxPagesArg = args.find(arg => arg.startsWith('--pages='));
-    const outputArg = args.find(arg => arg.startsWith('--output='));
-    const specificUrlArg = args.find(arg => arg.startsWith('--url='));
-    const debugArg = args.includes('--debug');
-    const saveArg = args.includes('--save');
-    const allArg = args.includes('--all');
-    const fakeArg = args.includes('--fake');
-
-    // Extraire les valeurs des arguments
-    const source = sourceArg ? sourceArg.split('=')[1] : null;
-    const limit = limitArg ? parseInt(limitArg.split('=')[1]) : 100;
-    const maxPages = maxPagesArg ? parseInt(maxPagesArg.split('=')[1]) : 20;
-    const specificUrl = specificUrlArg ? specificUrlArg.split('=')[1] : null;
-
-    // Si l'option --output est spécifiée, utiliser ce chemin
-    if (outputArg) {
-      outputPath = outputArg.split('=')[1];
-      
-      // Créer le dossier de sortie s'il n'existe pas
-      if (!fs.existsSync(outputPath)) {
-        fs.mkdirSync(outputPath, { recursive: true });
-      }
+    // Vérification des arguments
+    if (!source && !allArg) {
+      console.error('Erreur: Veuillez spécifier une source avec --source=<nom_source> ou utiliser --all pour toutes les sources');
+      console.error('Sources disponibles: ' + Object.keys(SOURCES).join(', '));
+      process.exit(1);
     }
 
-    if (debugArg) {
+    // Vérification de la source si spécifiée
+    if (source && !SOURCES[source] && !allArg) {
+      console.error(`Erreur: Source non reconnue: ${source}`);
+      console.error('Sources disponibles: ' + Object.keys(SOURCES).join(', '));
+      process.exit(1);
+    }
+
+    if (debug) {
       console.log(`[DEBUG] Arguments: ${args}`);
       console.log(`[DEBUG] Paramètres: ${JSON.stringify({
         source,
         limit,
         maxPages,
         specificUrl,
-        debug: debugArg,
-        fake: fakeArg,
+        debug,
+        outputPath,
         all: allArg
       }, null, 2)}`);
     }
 
-    // Tableau pour stocker les résultats
-    const allItems = [];
-    const allResults = [];
-
-    // Mesurer le temps total d'exécution
-    const startTime = Date.now();
-    const results = [];
-    let totalCount = 0;
-    let successCount = 0;
-    let errorCount = 0;
-
-    // Si une source spécifique est demandée
+    // Récupérer la liste des sources à scraper
+    let sources = [];
     if (source) {
-      console.log(`\nScraping de ${source}...`);
-      
-      // Scraper la source
-      const items = await scrapeSource(source, 100, 200, specificUrl, debugArg);
-      
-      // Sauvegarder les résultats
-      let outputFile;
-      if (saveArg) {
-        outputFile = path.join(outputPath, `${source}_${new Date().toISOString().replace(/:/g, '-')}.json`);
-        fs.writeFileSync(outputFile, JSON.stringify(items, null, 2));
-        console.log(`Résultats sauvegardés dans: ${outputFile}`);
-      }
-      
-      // Afficher le résultat
-      console.log(`✅ ${source}: ${items.length} éléments trouvés en ${((Date.now() - startTime) / 1000).toFixed(2)} secondes`);
-      
-      // Ajouter les résultats au résumé
-      results.push({
-        source,
-        count: items.length,
-        duration: ((Date.now() - startTime) / 1000).toFixed(2),
-        file: outputFile,
-        is_mock: false,
-        content_type: getContentType(source)
-      });
-      
-      // Ajouter les items au tableau global
-      allItems.push(...items);
-      
-      // Mettre à jour les compteurs
-      totalCount += items.length;
-      successCount++;
+      sources = [source];
+    } else if (allArg) {
+      sources = Object.keys(SOURCES);
     }
-    // Si l'option --all est spécifiée, scraper toutes les sources
-    else if (allArg) {
-      // Liste des sources à scraper
-      const sources = [
-        'mydramalist',
-        'voirdrama',
-        'asianwiki',
-        'dramacool',
-        'voiranime',
-        'animesama',
-        'nekosama',
-        'animevostfr',
-        'otakufr',
-        'vostfree',
-        'streamingdivx',
-        'filmcomplet',
-        'streamingcommunity',
-        'filmapik',
-        'bollyplay',
-        'hindilinks4u'
-      ];
+    
+    // Si des sources sont spécifiées, les scraper
+    if (sources.length > 0) {
+      console.log(`Scraping de ${sources.length} sources...`);
+      
+      // Initialiser les variables pour le suivi
+      const startTime = Date.now();
+      const allResults = [];
+      const allItems = [];
+      let successCount = 0;
+      let errorCount = 0;
+      let totalCount = 0;
       
       // Scraper chaque source
       for (const src of sources) {
+        const sourceStartTime = Date.now();
         console.log(`\nScraping de ${src}...`);
         
         try {
           // Scraper la source
-          const items = await scrapeSource(src, 100, 200, null, debugArg);
+          const result = await scrapeSource(src, 100, 200, null, debug);
           
           // Sauvegarder les résultats
           let outputFile;
-          if (saveArg) {
+          if (args.includes('--save')) {
             outputFile = path.join(outputPath, `${src}_${new Date().toISOString().replace(/:/g, '-')}.json`);
-            fs.writeFileSync(outputFile, JSON.stringify(items, null, 2));
+            fs.writeFileSync(outputFile, JSON.stringify(result, null, 2));
           }
           
           // Ajouter les items au tableau global
-          allItems.push(...items);
+          allItems.push(...result.data);
           
           // Ajouter les résultats au résumé
           allResults.push({
             source: src,
-            count: items.length,
-            duration: ((Date.now() - startTime) / 1000).toFixed(2),
+            count: result.data.length,
+            duration: ((Date.now() - sourceStartTime) / 1000).toFixed(2),
             file: outputFile,
             is_mock: false,
             content_type: getContentType(src)
           });
           
           // Afficher le résultat
-          console.log(`✅ ${src}: ${items.length} éléments trouvés en ${((Date.now() - startTime) / 1000).toFixed(2)} secondes`);
+          console.log(`✅ ${src}: ${result.data.length} éléments trouvés en ${((Date.now() - sourceStartTime) / 1000).toFixed(2)} secondes`);
           
           // Mettre à jour les compteurs
-          totalCount += items.length;
+          totalCount += result.data.length;
           successCount++;
         } catch (error) {
           console.error(`❌ ${src}: ${error.message}`);
           errorCount++;
         }
+      }
+      
+      // Sauvegarder tous les résultats dans un seul fichier
+      if (args.includes('--save')) {
+        const allSourcesFile = path.join(outputPath, `all_sources_${new Date().toISOString().replace(/:/g, '-')}.json`);
+        const allSourcesData = {
+          timestamp: new Date().toISOString(),
+          count: allItems.length,
+          sources: sources,
+          data: allItems
+        };
+        fs.writeFileSync(allSourcesFile, JSON.stringify(allSourcesData, null, 2));
+        console.log(`\nTous les résultats sauvegardés dans: ${allSourcesFile}`);
       }
       
       // Afficher le résumé
@@ -1477,7 +1463,7 @@ async function main() {
       });
       
       // Sauvegarder le résumé
-      if (saveArg) {
+      if (args.includes('--save')) {
         const summaryFile = path.join(outputPath, `scraping_summary_${new Date().toISOString().replace(/:/g, '-')}.json`);
         fs.writeFileSync(summaryFile, JSON.stringify({
           total_duration: ((Date.now() - startTime) / 1000).toFixed(2),
@@ -1523,7 +1509,7 @@ Sources disponibles:
       `);
     }
   } catch (error) {
-    console.error(`Erreur: ${error.message}`);
+    console.error('Erreur: ' + error.message);
     process.exit(1);
   }
 }
