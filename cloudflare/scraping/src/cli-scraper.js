@@ -8,7 +8,14 @@
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
-const { URL } = require('url');
+const url = require('url');
+const crypto = require('crypto');
+const { 
+  scrapeGenericDramas, 
+  scrapeGenericAnimes, 
+  scrapeGenericMovies, 
+  cleanScrapedData 
+} = require('./html-scraper.js');
 
 // Configuration des sources et scrapers
 const SOURCES = {
@@ -1021,5 +1028,63 @@ function removeDuplicates(array, key) {
     }
     seen.add(value);
     return true;
+  });
+}
+
+/**
+ * Nettoie les données scrapées pour assurer la cohérence
+ * @param {Array} items - Éléments scrapés
+ * @param {boolean} debug - Activer le mode debug
+ * @returns {Array} - Éléments nettoyés
+ */
+function cleanScrapedData(items, debug = false) {
+  if (!items || !Array.isArray(items)) {
+    if (debug) {
+      console.log(`[DEBUG] cleanScrapedData: items n'est pas un tableau ou est undefined:`, items);
+    }
+    return [];
+  }
+
+  if (debug) {
+    console.log(`[DEBUG] cleanScrapedData: Nettoyage de ${items.length} éléments`);
+  }
+
+  return items.map(item => {
+    // Générer un ID unique si non présent
+    if (!item.id) {
+      item.id = crypto.createHash('md5').update(item.title + (item.link || '')).digest('hex');
+    }
+
+    // Normaliser les URLs
+    if (item.link && !item.link.startsWith('http')) {
+      item.link = item.link.startsWith('/') ? `https://${new URL(item.source_url).hostname}${item.link}` : `https://${new URL(item.source_url).hostname}/${item.link}`;
+    }
+
+    if (item.image && !item.image.startsWith('http')) {
+      item.image = item.image.startsWith('/') ? `https://${new URL(item.source_url).hostname}${item.image}` : `https://${new URL(item.source_url).hostname}/${item.image}`;
+    }
+
+    // Nettoyer le titre
+    if (item.title) {
+      item.title = item.title.replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+    }
+
+    // Assurer que les champs numériques sont des nombres
+    if (item.year && typeof item.year === 'string') {
+      const yearMatch = item.year.match(/\d{4}/);
+      item.year = yearMatch ? parseInt(yearMatch[0]) : null;
+    }
+
+    if (item.rating && typeof item.rating === 'string') {
+      const ratingMatch = item.rating.match(/(\d+(\.\d+)?)/);
+      item.rating = ratingMatch ? parseFloat(ratingMatch[1]) : null;
+    }
+
+    if (item.episodes_count && typeof item.episodes_count === 'string') {
+      const episodesMatch = item.episodes_count.match(/\d+/);
+      item.episodes_count = episodesMatch ? parseInt(episodesMatch[0]) : null;
+    }
+
+    return item;
   });
 }
