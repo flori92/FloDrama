@@ -15,7 +15,7 @@ const {
   scrapeGenericAnimes, 
   scrapeGenericMovies, 
   cleanScrapedData 
-} = require('./html-scraper.js');
+} = require('./html-scraper');
 
 // Configuration des sources et scrapers
 const SOURCES = {
@@ -152,14 +152,6 @@ if (source && !SOURCES[source] && !allArg) {
 if (!fs.existsSync(outputPath)) {
   fs.mkdirSync(outputPath, { recursive: true });
 }
-
-// Importer les scrapers génériques
-const { 
-  scrapeGenericDramas, 
-  scrapeGenericAnimes, 
-  scrapeGenericMovies, 
-  cleanScrapedData 
-} = require('./html-scraper.js');
 
 // Fonction pour effectuer une requête HTTP
 async function fetchUrl(url, options = {}) {
