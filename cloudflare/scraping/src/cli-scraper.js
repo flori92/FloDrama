@@ -12,15 +12,11 @@ const { URL } = require('url');
 
 // Configuration des sources et scrapers
 const SOURCES = {
+  // Dramas
   mydramalist: {
     name: 'MyDramaList',
     baseUrl: 'https://mydramalist.com',
     contentType: 'drama'
-  },
-  voiranime: {
-    name: 'VoirAnime',
-    baseUrl: 'https://v6.voiranime.com',
-    contentType: 'anime'
   },
   voirdrama: {
     name: 'VoirDrama',
@@ -32,25 +28,86 @@ const SOURCES = {
     baseUrl: 'https://dramavostfr.com',
     contentType: 'drama'
   },
+  asianwiki: {
+    name: 'AsianWiki',
+    baseUrl: 'https://asianwiki.com',
+    contentType: 'drama'
+  },
+  dramacore: {
+    name: 'DramaCore',
+    baseUrl: 'https://dramacore.co',
+    contentType: 'drama'
+  },
+  dramacool: {
+    name: 'DramaCool',
+    baseUrl: 'https://dramacool.com.pa',
+    contentType: 'drama'
+  },
+  
+  // Animes
+  voiranime: {
+    name: 'VoirAnime',
+    baseUrl: 'https://v6.voiranime.com',
+    contentType: 'anime'
+  },
   animesama: {
     name: 'AnimeSama',
     baseUrl: 'https://anime-sama.fr',
     contentType: 'anime'
-  },
-  vostfree: {
-    name: 'VostFree',
-    baseUrl: 'https://vostfree.ws',
-    contentType: 'drama'
   },
   nekosama: {
     name: 'NekoSama',
     baseUrl: 'https://neko-sama.fr',
     contentType: 'anime'
   },
-  asianwiki: {
-    name: 'AsianWiki',
-    baseUrl: 'https://asianwiki.com',
-    contentType: 'drama'
+  animevostfr: {
+    name: 'AnimeVostfr',
+    baseUrl: 'https://animevostfr.tv',
+    contentType: 'anime'
+  },
+  otakufr: {
+    name: 'OtakuFR',
+    baseUrl: 'https://otakufr.co',
+    contentType: 'anime'
+  },
+  
+  // Films et séries
+  vostfree: {
+    name: 'VostFree',
+    baseUrl: 'https://vostfree.cx',
+    contentType: 'film'
+  },
+  streamingdivx: {
+    name: 'StreamingDivx',
+    baseUrl: 'https://streamingdivx.co',
+    contentType: 'film'
+  },
+  filmcomplet: {
+    name: 'FilmComplet',
+    baseUrl: 'https://www.filmcomplet.tv',
+    contentType: 'film'
+  },
+  streamingcommunity: {
+    name: 'StreamingCommunity',
+    baseUrl: 'https://streamingcommunity.best',
+    contentType: 'film'
+  },
+  filmapik: {
+    name: 'FilmApik',
+    baseUrl: 'https://filmapik.bio',
+    contentType: 'film'
+  },
+  
+  // Bollywood
+  bollyplay: {
+    name: 'BollyPlay',
+    baseUrl: 'https://bollyplay.co',
+    contentType: 'bollywood'
+  },
+  hindilinks4u: {
+    name: 'HindiLinks4u',
+    baseUrl: 'https://www.hindilinks4u.to',
+    contentType: 'bollywood'
   }
 };
 
@@ -67,6 +124,8 @@ const debugArg = args.find(arg => arg === '--debug');
 const debug = debugArg !== undefined;
 const pagesArg = args.find(arg => arg.startsWith('--pages='));
 const pages = pagesArg ? parseInt(pagesArg.split('=')[1]) : 5; // Nombre de pages à scraper par défaut
+const retryArg = args.find(arg => arg.startsWith('--retry='));
+const maxRetries = retryArg ? parseInt(retryArg.split('=')[1]) : 3; // Nombre de tentatives par défaut
 
 // Vérification des arguments
 if (!source && !allArg) {
@@ -86,6 +145,14 @@ if (source && !SOURCES[source] && !allArg) {
 if (!fs.existsSync(outputPath)) {
   fs.mkdirSync(outputPath, { recursive: true });
 }
+
+// Importer les scrapers génériques
+const { 
+  scrapeGenericDramas, 
+  scrapeGenericAnimes, 
+  scrapeGenericMovies, 
+  cleanScrapedData 
+} = require('./html-scraper.js');
 
 // Fonction pour effectuer une requête HTTP
 async function fetchUrl(url, options = {}) {
@@ -351,6 +418,9 @@ function generateMockData(sourceName, count = 100) {
       item.episodes = Math.floor(Math.random() * 24) + 1;
       item.status = ['En cours', 'Terminé', 'Annoncé'][Math.floor(Math.random() * 3)];
       item.season = ['Hiver 2025', 'Printemps 2025', 'Été 2025', 'Automne 2024'][Math.floor(Math.random() * 4)];
+    } else if (contentType === 'bollywood') {
+      item.duration = (Math.floor(Math.random() * 60) + 120) + ' min';
+      item.country = 'Inde';
     }
     
     results.push(item);
@@ -379,7 +449,8 @@ async function saveResults(results, sourceName) {
     timestamp,
     count: Array.isArray(resultsData) ? resultsData.length : (Array.isArray(results) ? results.length : 0),
     data: resultsData || results,
-    is_mock
+    is_mock,
+    content_type: SOURCES[sourceName].contentType
   };
   
   fs.writeFileSync(filename, JSON.stringify(dataToSave, null, 2));
@@ -550,3 +621,301 @@ main().catch(error => {
   console.error('Erreur non gérée:', error);
   process.exit(1);
 });
+
+// Fonction pour scraper une source spécifique
+async function scrapeSource(source, limit = 100, maxPages = 10, debug = false) {
+  try {
+    if (debug) {
+      console.log(`[DEBUG] Début du scraping de ${source} (limite: ${limit}, pages max: ${maxPages})`);
+    }
+
+    const startTime = Date.now();
+    const results = [];
+    let errors = 0;
+    let contentType = 'unknown';
+
+    // Déterminer le type de contenu en fonction de la source
+    if (source.includes('drama') || source.includes('cool') || source.includes('asian')) {
+      contentType = 'drama';
+    } else if (source.includes('anime') || source.includes('animes')) {
+      contentType = 'anime';
+    } else if (source.includes('film') || source.includes('movie')) {
+      contentType = 'film';
+    } else if (source.includes('bollywood') || source.includes('indian')) {
+      contentType = 'bollywood';
+    }
+
+    // Configuration des URLs à scraper en fonction de la source
+    const baseUrls = getSourceUrls(source);
+    
+    if (debug) {
+      console.log(`[DEBUG] URLs à scraper pour ${source}:`, baseUrls);
+    }
+
+    // Scraper chaque URL
+    for (let i = 0; i < Math.min(baseUrls.length, maxPages); i++) {
+      const url = baseUrls[i];
+      
+      try {
+        if (debug) {
+          console.log(`[DEBUG] Scraping de l'URL: ${url}`);
+        }
+
+        // Récupérer le HTML
+        const html = await fetchHtml(url, debug);
+        
+        if (!html) {
+          console.error(`[ERROR] HTML vide pour ${url}`);
+          errors++;
+          continue;
+        }
+
+        // Scraper le HTML en fonction du type de contenu
+        let scrapedItems = [];
+        
+        if (contentType === 'drama') {
+          scrapedItems = scrapeGenericDramas(html, source, limit, debug);
+        } else if (contentType === 'anime') {
+          scrapedItems = scrapeGenericAnimes(html, source, limit, debug);
+        } else if (contentType === 'film' || contentType === 'bollywood') {
+          scrapedItems = scrapeGenericMovies(html, source, limit, debug);
+        } else {
+          // Si le type de contenu n'est pas déterminé, essayer les trois types
+          const dramaItems = scrapeGenericDramas(html, source, limit, debug);
+          const animeItems = scrapeGenericAnimes(html, source, limit, debug);
+          const movieItems = scrapeGenericMovies(html, source, limit, debug);
+          
+          // Utiliser le type qui a donné le plus de résultats
+          if (dramaItems.length >= animeItems.length && dramaItems.length >= movieItems.length) {
+            scrapedItems = dramaItems;
+            contentType = 'drama';
+          } else if (animeItems.length >= dramaItems.length && animeItems.length >= movieItems.length) {
+            scrapedItems = animeItems;
+            contentType = 'anime';
+          } else {
+            scrapedItems = movieItems;
+            contentType = 'film';
+          }
+        }
+
+        // Nettoyer et ajouter les éléments scrapés aux résultats
+        const cleanedItems = cleanScrapedData(scrapedItems, debug);
+        results.push(...cleanedItems);
+
+        if (debug) {
+          console.log(`[DEBUG] ${cleanedItems.length} éléments scrapés depuis ${url}`);
+        }
+
+        // Si on a atteint la limite, arrêter le scraping
+        if (results.length >= limit) {
+          break;
+        }
+      } catch (error) {
+        console.error(`[ERROR] Erreur lors du scraping de ${url}:`, error);
+        errors++;
+      }
+    }
+
+    // Dédupliquer les résultats par ID
+    const uniqueResults = removeDuplicates(results, 'id');
+    
+    // Limiter le nombre de résultats
+    const limitedResults = uniqueResults.slice(0, limit);
+
+    const endTime = Date.now();
+    const durationSeconds = (endTime - startTime) / 1000;
+
+    if (debug) {
+      console.log(`[DEBUG] Fin du scraping de ${source}: ${limitedResults.length} éléments uniques trouvés, durée: ${durationSeconds.toFixed(2)} secondes`);
+    }
+
+    return {
+      success: limitedResults.length > 0,
+      source,
+      content_type: contentType,
+      items: limitedResults,
+      items_count: limitedResults.length,
+      errors_count: errors,
+      duration_seconds: durationSeconds
+    };
+  } catch (error) {
+    console.error(`[ERROR] Erreur générale lors du scraping de ${source}:`, error);
+    
+    return {
+      success: false,
+      source,
+      content_type: 'unknown',
+      items: [],
+      items_count: 0,
+      errors_count: 1,
+      duration_seconds: 0,
+      error: error.message
+    };
+  }
+}
+
+// Fonction pour récupérer les URLs à scraper pour une source donnée
+function getSourceUrls(source) {
+  const baseUrls = [];
+  
+  // Configuration des URLs en fonction de la source
+  switch (source.toLowerCase()) {
+    case 'mydramalist':
+      baseUrls.push(
+        'https://mydramalist.com/shows/top',
+        'https://mydramalist.com/shows/popular',
+        'https://mydramalist.com/shows/recent',
+        'https://mydramalist.com/shows/ongoing',
+        'https://mydramalist.com/shows/upcoming'
+      );
+      break;
+    case 'dramacool':
+      baseUrls.push(
+        'https://dramacool.com.pa/drama-list',
+        'https://dramacool.com.pa/most-popular-drama',
+        'https://dramacool.com.pa/ongoing-drama',
+        'https://dramacool.com.pa/completed-drama',
+        'https://dramacool.com.pa/drama-list/top-rated'
+      );
+      break;
+    case 'voirdrama':
+      baseUrls.push(
+        'https://voirdrama.org',
+        'https://voirdrama.org/drama',
+        'https://voirdrama.org/drama/populaires',
+        'https://voirdrama.org/drama/recents'
+      );
+      break;
+    case 'dramavostfr':
+      baseUrls.push(
+        'https://dramavostfr.com',
+        'https://dramavostfr.com/dramas',
+        'https://dramavostfr.com/dramas/populaires',
+        'https://dramavostfr.com/dramas/recents'
+      );
+      break;
+    case 'asianwiki':
+      baseUrls.push(
+        'https://asianwiki.com/Main_Page',
+        'https://asianwiki.com/Category:Drama',
+        'https://asianwiki.com/Category:Korean_Drama'
+      );
+      break;
+    case 'dramacore':
+      baseUrls.push(
+        'https://dramacore.co',
+        'https://dramacore.co/dramas',
+        'https://dramacore.co/dramas/populaires'
+      );
+      break;
+    case 'voiranime':
+      baseUrls.push(
+        'https://v6.voiranime.com',
+        'https://v6.voiranime.com/animes',
+        'https://v6.voiranime.com/animes/populaires',
+        'https://v6.voiranime.com/animes/recents',
+        'https://v6.voiranime.com/animes/en-cours'
+      );
+      break;
+    case 'animesama':
+      baseUrls.push(
+        'https://anime-sama.fr',
+        'https://anime-sama.fr/catalogue',
+        'https://anime-sama.fr/catalogue/populaires',
+        'https://anime-sama.fr/catalogue/recents'
+      );
+      break;
+    case 'nekosama':
+      baseUrls.push(
+        'https://neko-sama.fr',
+        'https://neko-sama.fr/anime',
+        'https://neko-sama.fr/anime/populaire'
+      );
+      break;
+    case 'animevostfr':
+      baseUrls.push(
+        'https://animevostfr.tv',
+        'https://animevostfr.tv/animes',
+        'https://animevostfr.tv/animes/populaires'
+      );
+      break;
+    case 'otakufr':
+      baseUrls.push(
+        'https://otakufr.co',
+        'https://otakufr.co/anime',
+        'https://otakufr.co/anime/populaire'
+      );
+      break;
+    case 'vostfree':
+      baseUrls.push(
+        'https://vostfree.cx',
+        'https://vostfree.cx/animes-vostfr',
+        'https://vostfree.cx/films-vostfr'
+      );
+      break;
+    case 'streamingdivx':
+      baseUrls.push(
+        'https://streamingdivx.co',
+        'https://streamingdivx.co/films',
+        'https://streamingdivx.co/series'
+      );
+      break;
+    case 'streamingcommunity':
+      baseUrls.push(
+        'https://streamingcommunity.best',
+        'https://streamingcommunity.best/browse?type=movie',
+        'https://streamingcommunity.best/browse?type=tv'
+      );
+      break;
+    case 'filmcomplet':
+      baseUrls.push(
+        'https://www.filmcomplet.tv',
+        'https://www.filmcomplet.tv/films',
+        'https://www.filmcomplet.tv/films/populaires',
+        'https://www.filmcomplet.tv/films/recents'
+      );
+      break;
+    case 'filmapik':
+      baseUrls.push(
+        'https://filmapik.bio',
+        'https://filmapik.bio/movies',
+        'https://filmapik.bio/most-viewed',
+        'https://filmapik.bio/most-rating',
+        'https://filmapik.bio/most-favorite'
+      );
+      break;
+    case 'bollyplay':
+      baseUrls.push(
+        'https://bollyplay.co',
+        'https://bollyplay.co/movies',
+        'https://bollyplay.co/tv-shows'
+      );
+      break;
+    case 'hindilinks4u':
+      baseUrls.push(
+        'https://www.hindilinks4u.to',
+        'https://www.hindilinks4u.to/category/hindi-movies',
+        'https://www.hindilinks4u.to/category/bollywood-movies'
+      );
+      break;
+    default:
+      // Si la source n'est pas reconnue, utiliser une URL générique
+      baseUrls.push(`https://${source}`);
+      break;
+  }
+  
+  return baseUrls;
+}
+
+// Fonction pour supprimer les doublons d'un tableau d'objets en fonction d'une clé
+function removeDuplicates(array, key) {
+  const seen = new Set();
+  return array.filter(item => {
+    const value = item[key];
+    if (seen.has(value)) {
+      return false;
+    }
+    seen.add(value);
+    return true;
+  });
+}

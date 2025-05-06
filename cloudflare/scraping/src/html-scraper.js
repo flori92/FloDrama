@@ -5,9 +5,9 @@
  * et parser les données avec Cheerio, une implémentation légère de jQuery.
  */
 
-import { RelayClient } from './relay-client';
-import { ScrapingBeeClient } from './scrapingbee-client';
-import * as cheerio from 'cheerio';
+const { RelayClient } = require('./relay-client');
+const { ScrapingBeeClient } = require('./scrapingbee-client');
+const cheerio = require('cheerio');
 
 // La clé API ScrapingBee sera récupérée depuis les variables d'environnement
 
@@ -845,4 +845,627 @@ class VoirAnimeScraper {
   }
 }
 
-export { MyDramaListScraper, VoirAnimeScraper };
+/**
+ * Scraper générique pour extraire des dramas de n'importe quelle source
+ * @param {string} html - Le contenu HTML à scraper
+ * @param {string} sourceName - Nom de la source
+ * @param {number} limit - Nombre maximum d'éléments à extraire
+ * @param {boolean} debug - Activer le mode debug
+ * @returns {Array} - Liste des dramas extraits
+ */
+function scrapeGenericDramas(html, sourceName, limit = 20, debug = false) {
+  try {
+    if (debug) {
+      console.log(`[GENERIC_SCRAPER] Début du scraping générique pour ${sourceName}`);
+    }
+    const $ = cheerio.load(html);
+    const results = [];
+    
+    // Rechercher tous les éléments qui contiennent potentiellement des dramas
+    const cards = $('div, li, article').filter(function() {
+      const hasImage = $(this).find('img').length > 0;
+      const hasLink = $(this).find('a').length > 0;
+      const hasTitle = $(this).find('h1, h2, h3, h4, h5, h6, .title, .name').length > 0 || 
+                      $(this).find('a').text().trim().length > 0;
+      
+      return hasImage && hasLink && hasTitle;
+    });
+    
+    if (debug) {
+      console.log(`[GENERIC_SCRAPER] ${cards.length} éléments potentiels trouvés`);
+    }
+    
+    // Extraire les informations de chaque carte
+    cards.slice(0, limit).each((index, card) => {
+      try {
+        const $card = $(card);
+        
+        // Essayer différents sélecteurs pour le titre
+        const titleSelectors = [
+          'h1 a', 'h2 a', 'h3 a', 'h4 a', 'h5 a', 'h6 a', 
+          '.title a', '.name a', 'a.title', 'a.name', 
+          'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 
+          '.title', '.name'
+        ];
+        
+        let title = '';
+        let link = '';
+        
+        for (const selector of titleSelectors) {
+          const titleElement = $card.find(selector).first();
+          if (titleElement.length > 0) {
+            title = titleElement.text().trim();
+            
+            if (titleElement.is('a')) {
+              link = titleElement.attr('href');
+            } else {
+              // Si le titre n'est pas un lien, chercher un lien dans la carte
+              const linkElement = $card.find('a').first();
+              if (linkElement.length > 0) {
+                link = linkElement.attr('href');
+              }
+            }
+            
+            if (title && link) {
+              break;
+            }
+          }
+        }
+        
+        if (!title || !link) {
+          if (debug) {
+            console.log(`[GENERIC_SCRAPER] Titre ou lien non trouvé pour l'élément ${index}`);
+          }
+          return; // Passer à l'élément suivant
+        }
+        
+        // Essayer différents sélecteurs pour l'image
+        const imageSelectors = [
+          'img.lazy', 'img[data-src]', 'img.lazyload', 
+          '.poster img', '.cover img', '.thumbnail img', 
+          'img[src*="poster"]', 'img[src*="cover"]', 'img'
+        ];
+        
+        let posterPath = '';
+        
+        for (const selector of imageSelectors) {
+          const imgElement = $card.find(selector).first();
+          if (imgElement.length > 0) {
+            posterPath = imgElement.attr('data-src') || imgElement.attr('data-original') || imgElement.attr('src');
+            if (posterPath) {
+              break;
+            }
+          }
+        }
+        
+        // Essayer différents sélecteurs pour la note
+        const ratingSelectors = [
+          '.score', '.rating', '.note', '.stars', 
+          '[itemprop="ratingValue"]', '.score-point', '.point'
+        ];
+        
+        let rating = null;
+        
+        for (const selector of ratingSelectors) {
+          const ratingElement = $card.find(selector).first();
+          if (ratingElement.length > 0) {
+            const ratingText = ratingElement.text().trim();
+            const ratingMatch = ratingText.match(/([0-9.]+)/);
+            if (ratingMatch) {
+              rating = parseFloat(ratingMatch[1]);
+              break;
+            }
+          }
+        }
+        
+        // Essayer différents sélecteurs pour l'année
+        const yearSelectors = ['.year', '.date', '.release', '.info'];
+        let year = null;
+        
+        for (const selector of yearSelectors) {
+          const yearElement = $card.find(selector).first();
+          if (yearElement.length > 0) {
+            const yearText = yearElement.text().trim();
+            const yearMatch = yearText.match(/\b(19|20)\d{2}\b/);
+            if (yearMatch) {
+              year = parseInt(yearMatch[0]);
+              break;
+            }
+          }
+        }
+        
+        // Essayer de trouver l'année dans le texte de la carte si ce n'est pas trouvé
+        if (!year) {
+          const cardText = $card.text();
+          const yearMatch = cardText.match(/\b(19|20)\d{2}\b/);
+          if (yearMatch) {
+            year = parseInt(yearMatch[0]);
+          }
+        }
+        
+        // Construire l'objet drama
+        const drama = {
+          id: `${sourceName}_${link.split('/').pop() || Math.random().toString(36).substring(2, 15)}`,
+          title,
+          source_url: link.startsWith('http') ? link : `https://${sourceName}${link.startsWith('/') ? '' : '/'}${link}`,
+          poster: posterPath,
+          content_type: 'drama',
+          rating,
+          year
+        };
+        
+        // Essayer de trouver le nombre d'épisodes
+        const episodesSelectors = ['.eps', '.episodes', '.episode-count', '.ep-count'];
+        
+        for (const selector of episodesSelectors) {
+          const episodesElement = $card.find(selector).first();
+          if (episodesElement.length > 0) {
+            const episodesText = episodesElement.text().trim();
+            const episodesMatch = episodesText.match(/(\d+)/);
+            if (episodesMatch) {
+              drama.episodes_count = parseInt(episodesMatch[1]);
+              break;
+            }
+          }
+        }
+        
+        results.push(drama);
+      } catch (error) {
+        console.error(`[GENERIC_SCRAPER] Erreur lors du traitement de la carte ${index}:`, error);
+      }
+    });
+    
+    if (debug) {
+      console.log(`[GENERIC_SCRAPER] ${results.length} dramas extraits de ${sourceName}`);
+    }
+    return results;
+  } catch (error) {
+    console.error(`[GENERIC_SCRAPER] Erreur lors du scraping générique:`, error);
+    return [];
+  }
+}
+
+/**
+ * Scraper générique pour extraire des animes de n'importe quelle source
+ * @param {string} html - Le contenu HTML à scraper
+ * @param {string} sourceName - Nom de la source
+ * @param {number} limit - Nombre maximum d'éléments à extraire
+ * @param {boolean} debug - Activer le mode debug
+ * @returns {Array} - Liste des animes extraits
+ */
+function scrapeGenericAnimes(html, sourceName, limit = 20, debug = false) {
+  try {
+    if (debug) {
+      console.log(`[GENERIC_SCRAPER] Début du scraping générique pour ${sourceName}`);
+    }
+    const $ = cheerio.load(html);
+    const results = [];
+    
+    // Rechercher tous les éléments qui contiennent potentiellement des animes
+    const cards = $('div, li, article').filter(function() {
+      const hasImage = $(this).find('img').length > 0;
+      const hasLink = $(this).find('a').length > 0;
+      
+      return hasImage && hasLink;
+    });
+    
+    if (debug) {
+      console.log(`[GENERIC_SCRAPER] ${cards.length} éléments potentiels trouvés`);
+    }
+    
+    // Extraire les informations de chaque carte
+    cards.slice(0, limit).each((index, card) => {
+      try {
+        const $card = $(card);
+        
+        // Essayer différents sélecteurs pour le titre
+        const titleSelectors = [
+          'h1 a', 'h2 a', 'h3 a', 'h4 a', 'h5 a', 'h6 a', 
+          '.title a', '.name a', 'a.title', 'a.name', 
+          'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 
+          '.title', '.name'
+        ];
+        
+        let title = '';
+        let link = '';
+        
+        for (const selector of titleSelectors) {
+          const titleElement = $card.find(selector).first();
+          if (titleElement.length > 0) {
+            title = titleElement.text().trim();
+            
+            if (titleElement.is('a')) {
+              link = titleElement.attr('href');
+            } else {
+              // Si le titre n'est pas un lien, chercher un lien dans la carte
+              const linkElement = $card.find('a').first();
+              if (linkElement.length > 0) {
+                link = linkElement.attr('href');
+              }
+            }
+            
+            if (title && link) {
+              break;
+            }
+          }
+        }
+        
+        if (!title) {
+          // Essayer de trouver le titre à partir de l'attribut alt de l'image
+          const imgElement = $card.find('img').first();
+          if (imgElement.length > 0) {
+            title = imgElement.attr('alt') || '';
+          }
+        }
+        
+        if (!title || !link) {
+          if (debug) {
+            console.log(`[GENERIC_SCRAPER] Titre ou lien non trouvé pour l'élément ${index}`);
+          }
+          return; // Passer à l'élément suivant
+        }
+        
+        // Essayer différents sélecteurs pour l'image
+        const imageSelectors = [
+          'img.lazy', 'img[data-src]', 'img.lazyload', 
+          '.poster img', '.cover img', '.thumbnail img', 
+          'img[src*="poster"]', 'img[src*="cover"]', 'img'
+        ];
+        
+        let posterPath = '';
+        
+        for (const selector of imageSelectors) {
+          const imgElement = $card.find(selector).first();
+          if (imgElement.length > 0) {
+            posterPath = imgElement.attr('data-src') || imgElement.attr('data-original') || imgElement.attr('src');
+            if (posterPath) {
+              break;
+            }
+          }
+        }
+        
+        // Essayer différents sélecteurs pour la note
+        const ratingSelectors = [
+          '.score', '.rating', '.note', '.stars', 
+          '[itemprop="ratingValue"]', '.score-point', '.point'
+        ];
+        
+        let rating = null;
+        
+        for (const selector of ratingSelectors) {
+          const ratingElement = $card.find(selector).first();
+          if (ratingElement.length > 0) {
+            const ratingText = ratingElement.text().trim();
+            const ratingMatch = ratingText.match(/([0-9.]+)/);
+            if (ratingMatch) {
+              rating = parseFloat(ratingMatch[1]);
+              break;
+            }
+          }
+        }
+        
+        // Essayer différents sélecteurs pour l'année
+        const yearSelectors = ['.year', '.date', '.release', '.info'];
+        let year = null;
+        
+        for (const selector of yearSelectors) {
+          const yearElement = $card.find(selector).first();
+          if (yearElement.length > 0) {
+            const yearText = yearElement.text().trim();
+            const yearMatch = yearText.match(/\b(19|20)\d{2}\b/);
+            if (yearMatch) {
+              year = parseInt(yearMatch[0]);
+              break;
+            }
+          }
+        }
+        
+        // Essayer de trouver l'année dans le texte de la carte si ce n'est pas trouvé
+        if (!year) {
+          const cardText = $card.text();
+          const yearMatch = cardText.match(/\b(19|20)\d{2}\b/);
+          if (yearMatch) {
+            year = parseInt(yearMatch[0]);
+          }
+        }
+        
+        // Construire l'objet anime
+        const anime = {
+          id: `${sourceName}_${link.split('/').pop() || Math.random().toString(36).substring(2, 15)}`,
+          title,
+          source_url: link.startsWith('http') ? link : `https://${sourceName}${link.startsWith('/') ? '' : '/'}${link}`,
+          poster: posterPath,
+          content_type: 'anime',
+          rating,
+          year
+        };
+        
+        // Essayer de trouver le nombre d'épisodes
+        const episodesSelectors = ['.eps', '.episodes', '.episode-count', '.ep-count'];
+        
+        for (const selector of episodesSelectors) {
+          const episodesElement = $card.find(selector).first();
+          if (episodesElement.length > 0) {
+            const episodesText = episodesElement.text().trim();
+            const episodesMatch = episodesText.match(/(\d+)/);
+            if (episodesMatch) {
+              anime.episodes = parseInt(episodesMatch[1]);
+              break;
+            }
+          }
+        }
+        
+        results.push(anime);
+      } catch (error) {
+        console.error(`[GENERIC_SCRAPER] Erreur lors du traitement de la carte ${index}:`, error);
+      }
+    });
+    
+    if (debug) {
+      console.log(`[GENERIC_SCRAPER] ${results.length} animes extraits de ${sourceName}`);
+    }
+    return results;
+  } catch (error) {
+    console.error(`[GENERIC_SCRAPER] Erreur lors du scraping générique:`, error);
+    return [];
+  }
+}
+
+/**
+ * Scraper générique pour extraire des films de n'importe quelle source
+ * @param {string} html - Le contenu HTML à scraper
+ * @param {string} sourceName - Nom de la source
+ * @param {number} limit - Nombre maximum d'éléments à extraire
+ * @param {boolean} debug - Activer le mode debug
+ * @returns {Array} - Liste des films extraits
+ */
+function scrapeGenericMovies(html, sourceName, limit = 20, debug = false) {
+  try {
+    if (debug) {
+      console.log(`[GENERIC_SCRAPER] Début du scraping générique pour ${sourceName}`);
+    }
+    const $ = cheerio.load(html);
+    const results = [];
+    
+    // Rechercher tous les éléments qui contiennent potentiellement des films
+    const cards = $('div, li, article').filter(function() {
+      const hasImage = $(this).find('img').length > 0;
+      const hasLink = $(this).find('a').length > 0;
+      
+      return hasImage && hasLink;
+    });
+    
+    if (debug) {
+      console.log(`[GENERIC_SCRAPER] ${cards.length} éléments potentiels trouvés`);
+    }
+    
+    // Extraire les informations de chaque carte
+    cards.slice(0, limit).each((index, card) => {
+      try {
+        const $card = $(card);
+        
+        // Essayer différents sélecteurs pour le titre
+        const titleSelectors = [
+          'h1 a', 'h2 a', 'h3 a', 'h4 a', 'h5 a', 'h6 a', 
+          '.title a', '.name a', 'a.title', 'a.name', 
+          'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 
+          '.title', '.name'
+        ];
+        
+        let title = '';
+        let link = '';
+        
+        for (const selector of titleSelectors) {
+          const titleElement = $card.find(selector).first();
+          if (titleElement.length > 0) {
+            title = titleElement.text().trim();
+            
+            if (titleElement.is('a')) {
+              link = titleElement.attr('href');
+            } else {
+              // Si le titre n'est pas un lien, chercher un lien dans la carte
+              const linkElement = $card.find('a').first();
+              if (linkElement.length > 0) {
+                link = linkElement.attr('href');
+              }
+            }
+            
+            if (title && link) {
+              break;
+            }
+          }
+        }
+        
+        if (!title) {
+          // Essayer de trouver le titre à partir de l'attribut alt de l'image
+          const imgElement = $card.find('img').first();
+          if (imgElement.length > 0) {
+            title = imgElement.attr('alt') || '';
+          }
+        }
+        
+        if (!title || !link) {
+          if (debug) {
+            console.log(`[GENERIC_SCRAPER] Titre ou lien non trouvé pour l'élément ${index}`);
+          }
+          return; // Passer à l'élément suivant
+        }
+        
+        // Essayer différents sélecteurs pour l'image
+        const imageSelectors = [
+          'img.lazy', 'img[data-src]', 'img.lazyload', 
+          '.poster img', '.cover img', '.thumbnail img', 
+          'img[src*="poster"]', 'img[src*="cover"]', 'img'
+        ];
+        
+        let posterPath = '';
+        
+        for (const selector of imageSelectors) {
+          const imgElement = $card.find(selector).first();
+          if (imgElement.length > 0) {
+            posterPath = imgElement.attr('data-src') || imgElement.attr('data-original') || imgElement.attr('src');
+            if (posterPath) {
+              break;
+            }
+          }
+        }
+        
+        // Essayer différents sélecteurs pour la note
+        const ratingSelectors = [
+          '.score', '.rating', '.note', '.stars', 
+          '[itemprop="ratingValue"]', '.score-point', '.point'
+        ];
+        
+        let rating = null;
+        
+        for (const selector of ratingSelectors) {
+          const ratingElement = $card.find(selector).first();
+          if (ratingElement.length > 0) {
+            const ratingText = ratingElement.text().trim();
+            const ratingMatch = ratingText.match(/([0-9.]+)/);
+            if (ratingMatch) {
+              rating = parseFloat(ratingMatch[1]);
+              break;
+            }
+          }
+        }
+        
+        // Essayer différents sélecteurs pour l'année
+        const yearSelectors = ['.year', '.date', '.release', '.info'];
+        let year = null;
+        
+        for (const selector of yearSelectors) {
+          const yearElement = $card.find(selector).first();
+          if (yearElement.length > 0) {
+            const yearText = yearElement.text().trim();
+            const yearMatch = yearText.match(/\b(19|20)\d{2}\b/);
+            if (yearMatch) {
+              year = parseInt(yearMatch[0]);
+              break;
+            }
+          }
+        }
+        
+        // Essayer de trouver l'année dans le texte de la carte si ce n'est pas trouvé
+        if (!year) {
+          const cardText = $card.text();
+          const yearMatch = cardText.match(/\b(19|20)\d{2}\b/);
+          if (yearMatch) {
+            year = parseInt(yearMatch[0]);
+          }
+        }
+        
+        // Construire l'objet film
+        const movie = {
+          id: `${sourceName}_${link.split('/').pop() || Math.random().toString(36).substring(2, 15)}`,
+          title,
+          source_url: link.startsWith('http') ? link : `https://${sourceName}${link.startsWith('/') ? '' : '/'}${link}`,
+          poster: posterPath,
+          content_type: 'film',
+          rating,
+          year
+        };
+        
+        // Essayer de trouver la durée
+        const durationSelectors = ['.duration', '.runtime', '.length', '.time'];
+        
+        for (const selector of durationSelectors) {
+          const durationElement = $card.find(selector).first();
+          if (durationElement.length > 0) {
+            const durationText = durationElement.text().trim();
+            const durationMatch = durationText.match(/(\d+)/);
+            if (durationMatch) {
+              movie.duration = parseInt(durationMatch[1]);
+              break;
+            }
+          }
+        }
+        
+        results.push(movie);
+      } catch (error) {
+        console.error(`[GENERIC_SCRAPER] Erreur lors du traitement de la carte ${index}:`, error);
+      }
+    });
+    
+    if (debug) {
+      console.log(`[GENERIC_SCRAPER] ${results.length} films extraits de ${sourceName}`);
+    }
+    return results;
+  } catch (error) {
+    console.error(`[GENERIC_SCRAPER] Erreur lors du scraping générique:`, error);
+    return [];
+  }
+}
+
+/**
+ * Fonction utilitaire pour nettoyer les données scrapées
+ * @param {Array} items - Les éléments à nettoyer
+ * @param {boolean} debug - Activer le mode debug
+ * @returns {Array} - Les éléments nettoyés
+ */
+function cleanScrapedData(items, debug = false) {
+  if (debug) {
+    console.log(`[CLEANER] Nettoyage de ${items.length} éléments`);
+  }
+  
+  return items.map(item => {
+    // S'assurer que tous les champs requis sont présents
+    const cleanedItem = {
+      id: item.id || `generic_${Math.random().toString(36).substring(2, 15)}`,
+      title: item.title || 'Sans titre',
+      source_url: item.source_url || item.url || '',
+      poster: item.poster || item.image || '',
+      content_type: item.content_type || 'unknown',
+      rating: item.rating ? parseFloat(item.rating) : null,
+      year: item.year ? parseInt(item.year) : null
+    };
+    
+    // Nettoyer l'URL de la source
+    if (cleanedItem.source_url && !cleanedItem.source_url.startsWith('http')) {
+      cleanedItem.source_url = `https://${cleanedItem.source_url}`;
+    }
+    
+    // Nettoyer l'URL de l'image
+    if (cleanedItem.poster && !cleanedItem.poster.startsWith('http')) {
+      cleanedItem.poster = `https:${cleanedItem.poster.startsWith('//') ? '' : '//'}${cleanedItem.poster}`;
+    }
+    
+    // Ajouter d'autres champs si présents
+    if (item.episodes_count) {
+      cleanedItem.episodes_count = parseInt(item.episodes_count);
+    }
+    if (item.episodes) {
+      cleanedItem.episodes_count = parseInt(item.episodes);
+    }
+    if (item.duration) {
+      cleanedItem.duration = parseInt(item.duration);
+    }
+    if (item.country) {
+      cleanedItem.country = item.country;
+    }
+    if (item.genres) {
+      cleanedItem.genres = item.genres;
+    }
+    if (item.status) {
+      cleanedItem.status = item.status;
+    }
+    
+    return cleanedItem;
+  }).filter(item => {
+    // Filtrer les éléments invalides
+    const isValid = item.title && item.source_url;
+    if (!isValid && debug) {
+      console.log(`[CLEANER] Élément invalide supprimé:`, item);
+    }
+    return isValid;
+  });
+}
+
+module.exports = {
+  MyDramaListScraper,
+  VoirAnimeScraper,
+  scrapeGenericDramas,
+  scrapeGenericAnimes,
+  scrapeGenericMovies,
+  cleanScrapedData
+};
