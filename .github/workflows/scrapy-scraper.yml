@@ -1,4 +1,4 @@
-name: Scrapy Scraper
+name: FloDrama Scraper
 
 on:
   schedule:
@@ -11,49 +11,54 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          python-version: '3.10'
+          node-version: '18'
       
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install scrapy requests scrapy-user-agents
+          cd cloudflare/scraping
+          npm install
       
       - name: Run VoirDrama spider
         run: |
-          cd scrapy_project/flodrama_scraper
-          scrapy crawl voirdrama -s CLOSESPIDER_ITEMCOUNT=250
+          cd cloudflare/scraping
+          npx wrangler dev src/index.js --local --env=dev --var SOURCE:voirdrama
         env:
-          CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       
       - name: Run MyDramaList spider
         run: |
-          cd scrapy_project/flodrama_scraper
-          scrapy crawl mydramalist -s CLOSESPIDER_ITEMCOUNT=250
+          cd cloudflare/scraping
+          npx wrangler dev src/index.js --local --env=dev --var SOURCE:mydramalist
         env:
-          CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       
       - name: Run VoirAnime spider
         run: |
-          cd scrapy_project/flodrama_scraper
-          scrapy crawl voiranime -s CLOSESPIDER_ITEMCOUNT=250
+          cd cloudflare/scraping
+          npx wrangler dev src/index.js --local --env=dev --var SOURCE:voiranime
         env:
-          CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       
       - name: Run DramaVostfr spider
         run: |
-          cd scrapy_project/flodrama_scraper
-          scrapy crawl dramavostfr -s CLOSESPIDER_ITEMCOUNT=250
+          cd cloudflare/scraping
+          npx wrangler dev src/index.js --local --env=dev --var SOURCE:dramavostfr
         env:
-          CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       
       - name: Run AnimeSama spider
         run: |
-          cd scrapy_project/flodrama_scraper
-          scrapy crawl animesama -s CLOSESPIDER_ITEMCOUNT=250
+          cd cloudflare/scraping
+          npx wrangler dev src/index.js --local --env=dev --var SOURCE:animesama
         env:
-          CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
