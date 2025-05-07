@@ -9,6 +9,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ContentItem } from '../types/content';
 import { openVideoPlayer } from '../services/videoService';
 import OptimizedImage from './OptimizedImage';
+import { loadMedia, MediaType } from '../services/mediaGatewayService';
 import './HeroBanner.css';
 
 interface HeroBannerProps {
@@ -25,12 +26,41 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [trailerUrls, setTrailerUrls] = useState<string[]>([]);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const autoplayTimerRef = useRef<number | null>(null);
   
   // Initialiser les références vidéo
   useEffect(() => {
     videoRefs.current = videoRefs.current.slice(0, items.length);
+    
+    // Charger et optimiser les URLs de bandes-annonces via l'API Gateway
+    const loadTrailerUrls = async () => {
+      const urls = await Promise.all(items.map(async (item) => {
+        if (!item.trailerUrl) return '';
+        
+        // Si l'URL est de Cloudflare Stream, utiliser l'API Gateway
+        if (item.trailerUrl.includes('cloudflarestream.com')) {
+          try {
+            // Extraire l'ID du stream
+            const matches = item.trailerUrl.match(/\/([a-z0-9]+)\/watch/i);
+            if (matches && matches[1]) {
+              const mediaId = matches[1];
+              // Utiliser l'API Gateway pour récupérer l'URL optimisée
+              return await loadMedia(mediaId, { type: MediaType.TRAILER });
+            }
+          } catch (error) {
+            console.error('Erreur lors du chargement de la bande-annonce:', error);
+          }
+        }
+        
+        return item.trailerUrl;
+      }));
+      
+      setTrailerUrls(urls);
+    };
+    
+    loadTrailerUrls();
   }, [items]);
   
   // Gérer l'autoplay du carrousel
@@ -153,15 +183,17 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
               {/* Contenu du slide */}
               <div className="hero-slide-content">
                 {/* Arrière-plan (image ou vidéo) */}
-                {showTrailer ? (
-                  <div className="hero-slide-video-container">
+                {hasTrailer(index) && showTrailer ? (
+                  <div className="hero-slide-trailer">
+                    {/* Utilisation de l'API Gateway pour optimiser la diffusion des vidéos */}
                     <video
-                      ref={el => videoRefs.current[index] = el}
+                      ref={(el) => videoRefs.current[index] = el}
                       className="hero-slide-video"
-                      src={item.trailerUrl}
-                      poster={item.posterUrl}
+                      src={trailerUrls[index] || item.trailerUrl}
+                      poster={item.posterUrl || item.poster}
                       muted
                       playsInline
+                      controls={false}
                       loop={false}
                       autoPlay={isActive}
                       onPlay={handleVideoPlay}

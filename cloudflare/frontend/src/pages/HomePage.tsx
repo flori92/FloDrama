@@ -11,7 +11,7 @@ import HeroBanner from '../components/HeroBanner';
 import ContentCarousel from '../components/ContentCarousel';
 import ContinueWatching, { WatchHistoryItem } from '../components/ContinueWatching';
 import { fetchWatchHistory } from '../services/videoService';
-import Header from '../components/Header';
+
 import Footer from '../components/Footer';
 import { ContentItem } from '../types/content';
 import { getHomePageContent } from '../services/contentDistributionService';
@@ -113,7 +113,7 @@ const HomePage: React.FC = () => {
   if (loading) {
     return (
       <>
-        <Header />
+        
         <div className="flex justify-center items-center min-h-[50vh]">
           <div className="loading-spinner"></div>
           <p className="ml-3 text-white text-lg">Chargement du contenu...</p>
@@ -126,7 +126,7 @@ const HomePage: React.FC = () => {
   if (error) {
     return (
       <>
-        <Header />
+        
         <div className="container mx-auto px-4 py-12">
           <div className="bg-red-500/20 border border-red-500 text-white p-6 rounded-xl text-center">
             <h2 className="text-xl font-bold mb-2">Erreur</h2>
@@ -146,7 +146,7 @@ const HomePage: React.FC = () => {
 
   return (
     <>
-      <Header />
+      
       <div className="bg-flo-dark min-h-screen">
         {/* Bannière héro */}
         {heroItems.length > 0 && (

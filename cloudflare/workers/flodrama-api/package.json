@@ -1,0 +1,37 @@
+{
+  "name": "flodrama-api",
+  "version": "1.0.0",
+  "description": "API Gateway pour FloDrama - Centralisation des accès aux médias et contenus",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy:dev": "wrangler deploy --env development",
+    "deploy:staging": "wrangler deploy --env staging",
+    "deploy:prod": "wrangler deploy --env production",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail",
+    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
+    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
+    "test": "jest"
+  },
+  "keywords": [
+    "cloudflare",
+    "workers",
+    "api-gateway",
+    "streaming",
+    "flodrama"
+  ],
+  "author": "FloDrama Team",
+  "license": "UNLICENSED",
+  "private": true,
+  "devDependencies": {
+    "eslint": "^8.54.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.1.0",
+    "wrangler": "^3.15.0"
+  },
+  "dependencies": {
+    "itty-router": "^4.0.23"
+  }
+}
