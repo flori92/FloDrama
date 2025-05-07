@@ -28,14 +28,26 @@
   z-index: 1;
 }
 
-.hero-slide-bg {
+.hero-slide-image-container {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
   z-index: -1;
+  overflow: hidden;
+}
+
+.hero-slide-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.5s ease;
+}
+
+.hero-slide.active .hero-slide-image {
+  transform: scale(1.05);
 }
 
 .hero-slide-video {

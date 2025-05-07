@@ -7,9 +7,10 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ContentItem } from '../services/apiService';
+import { ContentItem } from '../types/content';
 import useTrailerPreview from '../hooks/useTrailerPreview';
 import VideoButton from './VideoButton';
+import OptimizedImage from './OptimizedImage';
 import { motion } from 'framer-motion';
 
 interface ContentCardProps {
@@ -42,12 +43,13 @@ const ContentCard: React.FC<ContentCardProps> = ({
       data-trailer-url={item.trailerUrl || ''}
       {...trailerPreview.bind}
     >
-      {/* Image principale */}
+      {/* Image principale avec OptimizedImage */}
       <div className="relative aspect-[2/3] overflow-hidden">
-        <img
-          src={item.poster || '/placeholder-poster.jpg'}
+        <OptimizedImage
+          src={item.poster || item.posterUrl || item.imageUrl || ''}
           alt={item.title}
-          className="w-full h-full object-cover group-hover:brightness-110 transition-all duration-300"
+          className="w-full h-full group-hover:brightness-110 transition-all duration-300"
+          fallbackSrc="/images/placeholder-poster.jpg"
         />
         
         {/* Bouton de lecture vidéo */}
@@ -149,7 +151,7 @@ const ContentCard: React.FC<ContentCardProps> = ({
         {/* Genres */}
         {item.genres && item.genres.length > 0 && (
           <div className="mt-2 flex flex-wrap gap-1">
-            {item.genres.slice(0, 3).map((genre, index) => (
+            {item.genres.slice(0, 3).map((genre: string, index: number) => (
               <span 
                 key={index} 
                 className="text-white text-xs px-2 py-0.5 bg-black/30 rounded-full hover:text-flo-violet transition-colors duration-300"
@@ -171,4 +173,14 @@ const ContentCard: React.FC<ContentCardProps> = ({
   );
 };
 
-export default ContentCard;
+// Utilisation de React.memo pour éviter les rendus inutiles
+// Le composant ne sera re-rendu que si ses props changent
+export default React.memo(ContentCard, (prevProps, nextProps) => {
+  // Comparaison personnalisée pour optimiser les performances
+  return (
+    prevProps.item.id === nextProps.item.id &&
+    prevProps.isLiked === nextProps.isLiked &&
+    prevProps.isDisliked === nextProps.isDisliked &&
+    prevProps.isFavorite === nextProps.isFavorite
+  );
+});

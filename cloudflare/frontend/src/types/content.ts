@@ -7,9 +7,12 @@ export interface ContentItem {
   id: string;
   title: string;
   description: string;
-  posterUrl: string;
+  posterUrl?: string;
+  poster?: string; // Alias pour posterUrl dans certains contextes
+  imageUrl?: string; // URL alternative pour l'image
   backdrop?: string;
   releaseDate: string;
+  year?: string | number; // Année de sortie (peut être extraite de releaseDate)
   rating: number;
   duration: number;
   trailerUrl?: string;

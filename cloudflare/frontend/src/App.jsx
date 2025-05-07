@@ -7,9 +7,11 @@ import Footer from './components/Footer';
 import './App.css';
 import './styles/global.css';
 import './styles/identity.css';
+import './styles/diagnostic.css';
 
 // Import des pages existantes avec lazy loading
 const HomePage = lazy(() => import('./pages/HomePage'));
+const DiagnosticPage = lazy(() => import('./pages/DiagnosticPage'));
 
 // Composants temporaires pour les pages non encore implémentées
 const PageFallback = ({ title }) => (
@@ -72,6 +74,7 @@ function App() {
               <Route path="/dramas" element={<DramasPage />} />
               <Route path="/animes" element={<AnimesPage />} />
               <Route path="/bollywood" element={<BollywoodPage />} />
+              <Route path="/diagnostic" element={<DiagnosticPage />} />
             </Routes>
           </Suspense>
         </main>

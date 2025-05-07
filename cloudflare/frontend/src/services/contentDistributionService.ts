@@ -8,7 +8,7 @@
 import { ContentItem } from '../types/content';
 
 // URL de l'API Cloudflare Workers
-const API_BASE_URL = 'https://flodrama-api.florifavi.workers.dev';
+const API_BASE_URL = 'https://flodrama-api-prod.florifavi.workers.dev';
 const API_TIMEOUT = 8000; // 8 secondes
 
 // Interface pour le cache
@@ -137,10 +137,16 @@ function setCachedData<T>(key: string, data: T): void {
 function logApiError(endpoint: string, error: any, params?: Record<string, any>) {
   console.error(`Erreur API [${endpoint}]:`, error);
   
+  // Message d'erreur en français
+  let errorMessage = error.message || String(error);
+  if (errorMessage.includes('HTTP')) {
+    errorMessage = errorMessage.replace('Erreur HTTP', 'Erreur HTTP');
+  }
+  
   apiErrors.unshift({
     endpoint,
     timestamp: Date.now(),
-    error: error.message || String(error),
+    error: errorMessage,
     params
   });
   
@@ -192,7 +198,7 @@ export async function getHeroBannerContent(options: HeroBannerOptions = {}): Pro
     params.append('sort', 'rating:desc');
     
     // Faire la requête à l'API avec timeout
-    const endpoint = `/hero-banner?${params}`;
+    const endpoint = `/api/hero?${params}`;
     const response = await fetchWithTimeout(`${API_BASE_URL}${endpoint}`);
     
     if (!response.ok) {
@@ -271,7 +277,7 @@ export async function getCarouselContent(options: CarouselOptions): Promise<{ ti
     params.append('sort', sort);
     
     // Faire la requête à l'API avec timeout
-    const endpoint = `/carousel?${params}`;
+    const endpoint = `/api/carousel?${params}`;
     const response = await fetchWithTimeout(`${API_BASE_URL}${endpoint}`);
     
     if (!response.ok) {
@@ -465,7 +471,7 @@ export async function getCategoryContent(
     queryParams.append('content_type', contentType);
     
     // Faire la requête à l'API avec timeout
-    const endpoint = `/content?${queryParams}`;
+    const endpoint = `/api/content?${queryParams}`;
     const response = await fetchWithTimeout(`${API_BASE_URL}${endpoint}`);
     
     if (!response.ok) {
@@ -499,18 +505,19 @@ export function optimizeContentItem(item: ContentItem): ContentItem {
   // Copier l'élément pour éviter de modifier l'original
   const optimizedItem = { ...item };
   
-  // Vérifier et corriger les URLs des images
+  // Si l'URL de l'image est relative, ajouter le domaine R2 de Cloudflare
   if (optimizedItem.posterUrl && !optimizedItem.posterUrl.startsWith('http')) {
-    optimizedItem.posterUrl = `https://d1gmx0yvfpqbgd.cloudfront.net${optimizedItem.posterUrl}`;
+    optimizedItem.posterUrl = `https://flodrama-storage.florifavi.workers.dev${optimizedItem.posterUrl}`;
   }
   
+  // Si l'URL du backdrop est relative, ajouter le domaine R2 de Cloudflare
   if (optimizedItem.backdrop && !optimizedItem.backdrop.startsWith('http')) {
-    optimizedItem.backdrop = `https://d1gmx0yvfpqbgd.cloudfront.net${optimizedItem.backdrop}`;
+    optimizedItem.backdrop = `https://flodrama-storage.florifavi.workers.dev${optimizedItem.backdrop}`;
   }
   
   // Vérifier et corriger les URLs des vidéos
   if (optimizedItem.trailerUrl && !optimizedItem.trailerUrl.startsWith('http')) {
-    optimizedItem.trailerUrl = `https://customer-ehlynuge6dnzfnfd.cloudflarestream.com${optimizedItem.trailerUrl}`;
+    optimizedItem.trailerUrl = `https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/watch${optimizedItem.trailerUrl}`;
   }
   
   return optimizedItem;
@@ -537,12 +544,12 @@ function getFallbackHeroBannerContent(): ContentItem[] {
       id: 'drama_001',
       title: 'Crash Landing on You',
       description: 'Une héritière sud-coréenne atterrit accidentellement en Corée du Nord après un accident de parapente.',
-      posterUrl: 'https://d1gmx0yvfpqbgd.cloudfront.net/posters/drama/crash_landing_on_you.jpg',
-      backdrop: 'https://d1gmx0yvfpqbgd.cloudfront.net/backdrops/drama/crash_landing_on_you_backdrop.jpg',
+      posterUrl: 'https://flodrama-storage.florifavi.workers.dev/posters/drama/crash_landing_on_you.jpg',
+      backdrop: 'https://flodrama-storage.florifavi.workers.dev/backdrops/drama/crash_landing_on_you_backdrop.jpg',
       releaseDate: '2019-12-14',
       rating: 9.2,
       duration: 60,
-      trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/trailers/crash_landing_on_you_trailer.mp4',
+      trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/watch/crash_landing_on_you_trailer.mp4',
       videoId: 'drama_001_video',
       category: 'drama',
       genres: ['Romance', 'Comédie', 'Action'],
@@ -555,12 +562,12 @@ function getFallbackHeroBannerContent(): ContentItem[] {
       id: 'anime_001',
       title: 'Demon Slayer',
       description: 'Tanjiro Kamado et ses amis du Demon Slayer Corps accompagnent Kyojuro Rengoku pour enquêter sur une mystérieuse série de disparitions.',
-      posterUrl: 'https://d1gmx0yvfpqbgd.cloudfront.net/posters/anime/demon_slayer.jpg',
-      backdrop: 'https://d1gmx0yvfpqbgd.cloudfront.net/backdrops/anime/demon_slayer_backdrop.jpg',
+      posterUrl: 'https://flodrama-storage.florifavi.workers.dev/posters/anime/demon_slayer.jpg',
+      backdrop: 'https://flodrama-storage.florifavi.workers.dev/backdrops/anime/demon_slayer_backdrop.jpg',
       releaseDate: '2020-10-16',
       rating: 8.9,
       duration: 117,
-      trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/trailers/demon_slayer_trailer.mp4',
+      trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/watch/demon_slayer_trailer.mp4',
       videoId: 'anime_001_video',
       category: 'anime',
       genres: ['Action', 'Fantasy', 'Adventure'],
@@ -572,12 +579,12 @@ function getFallbackHeroBannerContent(): ContentItem[] {
       id: 'movie_001',
       title: 'Parasite',
       description: 'Toute la famille de Ki-taek est au chômage. Elle s\'intéresse particulièrement au train de vie de la richissime famille Park.',
-      posterUrl: 'https://d1gmx0yvfpqbgd.cloudfront.net/posters/movie/parasite.jpg',
-      backdrop: 'https://d1gmx0yvfpqbgd.cloudfront.net/backdrops/movie/parasite_backdrop.jpg',
+      posterUrl: 'https://flodrama-storage.florifavi.workers.dev/posters/movie/parasite.jpg',
+      backdrop: 'https://flodrama-storage.florifavi.workers.dev/backdrops/movie/parasite_backdrop.jpg',
       releaseDate: '2019-05-30',
       rating: 8.6,
       duration: 132,
-      trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/trailers/parasite_trailer.mp4',
+      trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/watch/parasite_trailer.mp4',
       videoId: 'movie_001_video',
       category: 'movie',
       genres: ['Thriller', 'Drama', 'Comedy'],
@@ -605,12 +612,12 @@ function getFallbackCarouselContent(options: CarouselOptions | string, limit: nu
         id: 'drama_001',
         title: 'Crash Landing on You',
         description: 'Une héritière sud-coréenne fait un atterrissage forcé en Corée du Nord après un accident de parapente.',
-        posterUrl: 'https://d1gmx0yvfpqbgd.cloudfront.net/posters/drama/cloy.jpg',
-        backdrop: 'https://d1gmx0yvfpqbgd.cloudfront.net/backdrops/drama/cloy_backdrop.jpg',
+        posterUrl: 'https://flodrama-storage.florifavi.workers.dev/posters/drama/cloy.jpg',
+        backdrop: 'https://flodrama-storage.florifavi.workers.dev/backdrops/drama/cloy_backdrop.jpg',
         releaseDate: '2019-12-14',
         rating: 9.2,
         duration: 70,
-        trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/trailers/cloy_trailer.mp4',
+        trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/watch/cloy_trailer.mp4',
         videoId: 'drama_001_video',
         category: 'drama',
         genres: ['Romance', 'Comedy', 'Drama'],
@@ -622,12 +629,12 @@ function getFallbackCarouselContent(options: CarouselOptions | string, limit: nu
         id: 'drama_002',
         title: 'Goblin',
         description: 'Un gobelin immortel cherche sa fiancée pour mettre fin à sa vie éternelle.',
-        posterUrl: 'https://d1gmx0yvfpqbgd.cloudfront.net/posters/drama/goblin.jpg',
-        backdrop: 'https://d1gmx0yvfpqbgd.cloudfront.net/backdrops/drama/goblin_backdrop.jpg',
+        posterUrl: 'https://flodrama-storage.florifavi.workers.dev/posters/drama/goblin.jpg',
+        backdrop: 'https://flodrama-storage.florifavi.workers.dev/backdrops/drama/goblin_backdrop.jpg',
         releaseDate: '2016-12-02',
         rating: 8.9,
         duration: 70,
-        trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/trailers/goblin_trailer.mp4',
+        trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/watch/goblin_trailer.mp4',
         videoId: 'drama_002_video',
         category: 'drama',
         genres: ['Fantasy', 'Romance', 'Drama'],
@@ -639,12 +646,12 @@ function getFallbackCarouselContent(options: CarouselOptions | string, limit: nu
         id: 'drama_003',
         title: 'Itaewon Class',
         description: 'Un ex-détenu et ses amis luttent pour réussir dans le quartier branché d\'Itaewon.',
-        posterUrl: 'https://d1gmx0yvfpqbgd.cloudfront.net/posters/drama/itaewon.jpg',
-        backdrop: 'https://d1gmx0yvfpqbgd.cloudfront.net/backdrops/drama/itaewon_backdrop.jpg',
+        posterUrl: 'https://flodrama-storage.florifavi.workers.dev/posters/drama/itaewon.jpg',
+        backdrop: 'https://flodrama-storage.florifavi.workers.dev/backdrops/drama/itaewon_backdrop.jpg',
         releaseDate: '2020-01-31',
         rating: 8.7,
         duration: 70,
-        trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/trailers/itaewon_trailer.mp4',
+        trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/watch/itaewon_trailer.mp4',
         videoId: 'drama_003_video',
         category: 'drama',
         genres: ['Drama', 'Business', 'Revenge'],
@@ -658,12 +665,12 @@ function getFallbackCarouselContent(options: CarouselOptions | string, limit: nu
         id: 'anime_001',
         title: 'Attack on Titan',
         description: 'Dans un monde ravagé par des titans mangeurs d\'hommes, les derniers humains se battent pour leur survie.',
-        posterUrl: 'https://d1gmx0yvfpqbgd.cloudfront.net/posters/anime/aot.jpg',
-        backdrop: 'https://d1gmx0yvfpqbgd.cloudfront.net/backdrops/anime/aot_backdrop.jpg',
+        posterUrl: 'https://flodrama-storage.florifavi.workers.dev/posters/anime/aot.jpg',
+        backdrop: 'https://flodrama-storage.florifavi.workers.dev/backdrops/anime/aot_backdrop.jpg',
         releaseDate: '2013-04-07',
         rating: 9.0,
         duration: 24,
-        trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/trailers/aot_trailer.mp4',
+        trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/watch/aot_trailer.mp4',
         videoId: 'anime_001_video',
         category: 'anime',
         genres: ['Action', 'Drama', 'Fantasy'],
@@ -675,12 +682,12 @@ function getFallbackCarouselContent(options: CarouselOptions | string, limit: nu
         id: 'anime_002',
         title: 'Demon Slayer',
         description: 'Tanjiro devient un chasseur de démons après que sa famille a été massacrée et sa sœur transformée en démon.',
-        posterUrl: 'https://d1gmx0yvfpqbgd.cloudfront.net/posters/anime/demonslayer.jpg',
-        backdrop: 'https://d1gmx0yvfpqbgd.cloudfront.net/backdrops/anime/demonslayer_backdrop.jpg',
+        posterUrl: 'https://flodrama-storage.florifavi.workers.dev/posters/anime/demonslayer.jpg',
+        backdrop: 'https://flodrama-storage.florifavi.workers.dev/backdrops/anime/demonslayer_backdrop.jpg',
         releaseDate: '2019-04-06',
         rating: 8.8,
         duration: 24,
-        trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/trailers/demonslayer_trailer.mp4',
+        trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/watch/demonslayer_trailer.mp4',
         videoId: 'anime_002_video',
         category: 'anime',
         genres: ['Action', 'Fantasy', 'Historical'],
@@ -694,12 +701,12 @@ function getFallbackCarouselContent(options: CarouselOptions | string, limit: nu
         id: 'movie_001',
         title: 'Parasite',
         description: 'Toute la famille de Ki-taek est au chômage. Elle s\'intéresse particulièrement au train de vie de la richissime famille Park.',
-        posterUrl: 'https://d1gmx0yvfpqbgd.cloudfront.net/posters/movie/parasite.jpg',
-        backdrop: 'https://d1gmx0yvfpqbgd.cloudfront.net/backdrops/movie/parasite_backdrop.jpg',
+        posterUrl: 'https://flodrama-storage.florifavi.workers.dev/posters/movie/parasite.jpg',
+        backdrop: 'https://flodrama-storage.florifavi.workers.dev/backdrops/movie/parasite_backdrop.jpg',
         releaseDate: '2019-05-30',
         rating: 8.6,
         duration: 132,
-        trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/trailers/parasite_trailer.mp4',
+        trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/watch/parasite_trailer.mp4',
         videoId: 'movie_001_video',
         category: 'movie',
         genres: ['Thriller', 'Drama', 'Comedy'],
@@ -711,12 +718,12 @@ function getFallbackCarouselContent(options: CarouselOptions | string, limit: nu
         id: 'movie_002',
         title: 'Train to Busan',
         description: 'Un virus zombie se propage en Corée du Sud, tandis que des passagers luttent pour leur survie dans un train à destination de Busan.',
-        posterUrl: 'https://d1gmx0yvfpqbgd.cloudfront.net/posters/movie/traintobusan.jpg',
-        backdrop: 'https://d1gmx0yvfpqbgd.cloudfront.net/backdrops/movie/traintobusan_backdrop.jpg',
+        posterUrl: 'https://flodrama-storage.florifavi.workers.dev/posters/movie/traintobusan.jpg',
+        backdrop: 'https://flodrama-storage.florifavi.workers.dev/backdrops/movie/traintobusan_backdrop.jpg',
         releaseDate: '2016-07-20',
         rating: 7.9,
         duration: 118,
-        trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/trailers/traintobusan_trailer.mp4',
+        trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/watch/traintobusan_trailer.mp4',
         videoId: 'movie_002_video',
         category: 'movie',
         genres: ['Action', 'Horror', 'Thriller'],
@@ -730,12 +737,12 @@ function getFallbackCarouselContent(options: CarouselOptions | string, limit: nu
         id: 'bollywood_001',
         title: '3 Idiots',
         description: 'Deux amis partent à la recherche de leur camarade d\'université disparu.',
-        posterUrl: 'https://d1gmx0yvfpqbgd.cloudfront.net/posters/bollywood/3idiots.jpg',
-        backdrop: 'https://d1gmx0yvfpqbgd.cloudfront.net/backdrops/bollywood/3idiots_backdrop.jpg',
+        posterUrl: 'https://flodrama-storage.florifavi.workers.dev/posters/bollywood/3idiots.jpg',
+        backdrop: 'https://flodrama-storage.florifavi.workers.dev/backdrops/bollywood/3idiots_backdrop.jpg',
         releaseDate: '2009-12-25',
         rating: 8.4,
         duration: 170,
-        trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/trailers/3idiots_trailer.mp4',
+        trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/watch/3idiots_trailer.mp4',
         videoId: 'bollywood_001_video',
         category: 'bollywood',
         genres: ['Comedy', 'Drama'],
@@ -747,12 +754,12 @@ function getFallbackCarouselContent(options: CarouselOptions | string, limit: nu
         id: 'bollywood_002',
         title: 'Dangal',
         description: 'L\'histoire vraie de Mahavir Singh Phogat, qui a entraîné ses filles à devenir des championnes de lutte.',
-        posterUrl: 'https://d1gmx0yvfpqbgd.cloudfront.net/posters/bollywood/dangal.jpg',
-        backdrop: 'https://d1gmx0yvfpqbgd.cloudfront.net/backdrops/bollywood/dangal_backdrop.jpg',
+        posterUrl: 'https://flodrama-storage.florifavi.workers.dev/posters/bollywood/dangal.jpg',
+        backdrop: 'https://flodrama-storage.florifavi.workers.dev/backdrops/bollywood/dangal_backdrop.jpg',
         releaseDate: '2016-12-21',
         rating: 8.3,
         duration: 161,
-        trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/trailers/dangal_trailer.mp4',
+        trailerUrl: 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/watch/dangal_trailer.mp4',
         videoId: 'bollywood_002_video',
         category: 'bollywood',
         genres: ['Biography', 'Drama', 'Sport'],
@@ -800,7 +807,7 @@ export async function getContentDetails(contentId: string): Promise<ContentItem 
 
   try {
     // Faire la requête à l'API avec timeout
-    const endpoint = `/content/${contentId}`;
+    const endpoint = `/api/content/${contentId}`;
     const response = await fetchWithTimeout(`${API_BASE_URL}${endpoint}`);
     
     if (!response.ok) {
@@ -840,7 +847,7 @@ export async function getAvailableGenres(contentType?: string): Promise<string[]
     }
     
     // Faire la requête à l'API avec timeout
-    const endpoint = `/genres?${params}`;
+    const endpoint = `/api/genres?${params}`;
     const response = await fetchWithTimeout(`${API_BASE_URL}${endpoint}`);
     
     if (!response.ok) {
@@ -886,7 +893,7 @@ export async function getAvailableLanguages(contentType?: string): Promise<strin
     }
     
     // Faire la requête à l'API avec timeout
-    const endpoint = `/languages?${params}`;
+    const endpoint = `/api/languages?${params}`;
     const response = await fetchWithTimeout(`${API_BASE_URL}${endpoint}`);
     
     if (!response.ok) {
@@ -931,7 +938,7 @@ export async function getAvailableYears(contentType?: string): Promise<number[]>
     }
     
     // Faire la requête à l'API avec timeout
-    const endpoint = `/years?${params}`;
+    const endpoint = `/api/years?${params}`;
     const response = await fetchWithTimeout(`${API_BASE_URL}${endpoint}`);
     
     if (!response.ok) {

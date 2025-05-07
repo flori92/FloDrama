@@ -6,8 +6,9 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { ContentItem } from '../services/apiService';
+import { ContentItem } from '../types/content';
 import { openVideoPlayer } from '../services/videoService';
+import OptimizedImage from './OptimizedImage';
 import './HeroBanner.css';
 
 interface HeroBannerProps {
@@ -168,10 +169,14 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
                     />
                   </div>
                 ) : (
-                  <div 
-                    className="hero-slide-image" 
-                    style={{ backgroundImage: `url(${item.posterUrl})` }}
-                  />
+                  <div className="hero-slide-image-container">
+                    <OptimizedImage
+                      src={item.posterUrl || item.poster || item.imageUrl || ''}
+                      alt={item.title}
+                      className="hero-slide-image"
+                      fallbackSrc="/images/placeholder-backdrop.jpg"
+                    />
+                  </div>
                 )}
                 
                 {/* Overlay avec dégradé */}
@@ -183,7 +188,7 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
                   
                   {item.genres && (
                     <div className="hero-slide-genres">
-                      {item.genres.map(genre => (
+                      {item.genres.map((genre: string) => (
                         <span key={genre} className="hero-slide-genre">{genre}</span>
                       ))}
                     </div>

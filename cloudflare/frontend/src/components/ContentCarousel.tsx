@@ -257,4 +257,33 @@ const ContentCarousel: React.FC<ContentCarouselProps> = ({
   );
 };
 
-export default ContentCarousel;
+// Utilisation de React.memo pour éviter les rendus inutiles
+// Le composant ne sera re-rendu que si ses props changent de manière significative
+export default React.memo(ContentCarousel, (prevProps, nextProps) => {
+  // Vérifier si le titre a changé
+  if (prevProps.title !== nextProps.title) {
+    return false;
+  }
+  
+  // Vérifier si l'état de chargement a changé
+  if (prevProps.loading !== nextProps.loading) {
+    return false;
+  }
+  
+  // Vérifier si le lien "Voir tout" a changé
+  if (prevProps.viewAllLink !== nextProps.viewAllLink) {
+    return false;
+  }
+  
+  // Vérifier si le nombre d'éléments a changé
+  if (prevProps.items.length !== nextProps.items.length) {
+    return false;
+  }
+  
+  // Vérifier si les IDs des éléments ont changé
+  // Cette vérification est plus rapide que de comparer tous les objets en profondeur
+  const prevIds = prevProps.items.map(item => item.id).join(',');
+  const nextIds = nextProps.items.map(item => item.id).join(',');
+  
+  return prevIds === nextIds;
+});
