@@ -1,9 +1,9 @@
 /**
  * Page d'accueil de FloDrama
  * 
- * Cette page présente les recommandations personnalisées, les contenus populaires
- * et les dernières sorties avec prévisualisation des trailers au survol.
- * Utilise le service de distribution de contenu optimisé pour Cloudflare.
+ * Présentation élégante et performante des contenus phares de la plateforme,
+ * intégrant un hero banner dynamique, des carrousels thématiques,
+ * et une expérience utilisateur digne des plateformes de streaming premium.
  */
 
 import React, { useState, useEffect } from 'react';
@@ -11,10 +11,14 @@ import HeroBanner from '../components/HeroBanner';
 import ContentCarousel from '../components/ContentCarousel';
 import ContinueWatching, { WatchHistoryItem } from '../components/ContinueWatching';
 import { fetchWatchHistory } from '../services/videoService';
+import { getContentByCategory } from '../services/contentService';
 
+// Composants partagés
 import Footer from '../components/Footer';
+
+// Services et utilitaires
 import { ContentItem } from '../types/content';
-import { getHomePageContent } from '../services/contentDistributionService';
+import { CONTENT_TYPES } from '../services/contentDistributionService';
 
 const HomePage: React.FC = () => {
   // ID utilisateur fictif pour la démo
@@ -47,13 +51,31 @@ const HomePage: React.FC = () => {
       try {
         setLoading(true);
         
-        // Utiliser le nouveau service de distribution de contenu
-        const { heroBanner, carousels: contentCarousels } = await getHomePageContent();
+        // Charger les contenus du hero banner depuis les différentes catégories
+        const dramas = await getContentByCategory(CONTENT_TYPES.DRAMA, { sort_by: 'rating' });
+        const animes = await getContentByCategory(CONTENT_TYPES.ANIME, { sort_by: 'rating' });
+        const movies = await getContentByCategory(CONTENT_TYPES.MOVIE, { sort_by: 'rating' });
         
-        // Mettre à jour les états
-        setHeroBannerItems(heroBanner);
+        // Sélectionner les meilleurs éléments pour le hero banner
+        const topItems = [
+          ...dramas.slice(0, 2),
+          ...animes.slice(0, 2),
+          ...movies.slice(0, 2)
+        ].sort((a, b) => (b.rating || 0) - (a.rating || 0)).slice(0, 5);
+        
+        setHeroBannerItems(topItems);
+        
+        // Construire les carrousels thématiques
+        const contentCarousels = [
+          { title: 'Films populaires', items: movies.slice(0, 12) },
+          { title: 'Dramas asiatiques', items: dramas.slice(0, 12) },
+          { title: 'Animes à découvrir', items: animes.slice(0, 12) },
+          { title: 'Dernières sorties', items: [...movies, ...dramas, ...animes]
+              .sort((a, b) => new Date(b.releaseDate || '').getTime() - new Date(a.releaseDate || '').getTime())
+              .slice(0, 12) }
+        ];
+        
         setCarousels(contentCarousels);
-        
         setLoading(false);
       } catch (err) {
         console.error('Erreur lors du chargement du contenu:', err);
@@ -145,44 +167,77 @@ const HomePage: React.FC = () => {
   }
 
   return (
-    <>
+    <div className="bg-gradient-to-b from-flo-dark-blue to-flo-dark min-h-screen">
+      {/* En-tête avec dégradé subtil */}
+      <div className="bg-gradient-to-b from-black/60 to-transparent absolute top-0 left-0 right-0 h-32 z-10" />
       
-      <div className="bg-flo-dark min-h-screen">
-        {/* Bannière héro */}
-        {heroItems.length > 0 && (
+      {/* Bannière héro avec animations et transitions fluides */}
+      <section className="relative">
+        {heroItems.length > 0 ? (
           <HeroBanner 
             items={heroItems}
-            autoplayInterval={10000}
+            autoplayInterval={8000}
             showTrailers={true}
           />
+        ) : loading ? (
+          <div className="hero-placeholder animate-pulse" />
+        ) : (
+          <div className="hero-error flex items-center justify-center h-[70vh]">
+            <div className="text-center text-white">
+              <div className="inline-block p-4 rounded-full bg-red-500/20 mb-4">
+                <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold mb-2">Contenu temporairement indisponible</h3>
+              <p>Nous travaillons à résoudre le problème.</p>
+            </div>
+          </div>
         )}
-        
-        <div className="container mx-auto px-4 pb-12">
-          {/* Section Continuer la lecture */}
+      </section>
+      
+      <main className="relative z-10 -mt-16 pt-16">
+        <div className="container mx-auto px-4 pb-16">
+          {/* Section Continuer la lecture avec animations d'entrée */}
           {watchHistory.length > 0 && (
-            <ContinueWatching items={watchHistory} />
+            <section className="mb-12 animate-fadeIn">
+              <ContinueWatching items={watchHistory} />
+            </section>
           )}
           
-          {/* Carrousels de contenu */}
+          {/* Carrousels de contenu avec transitions fluides */}
           {carousels.map((carousel, index) => (
-            <ContentCarousel
-              key={`carousel-${index}`}
-              title={carousel.title}
-              items={carousel.items}
-              viewAllLink={getViewAllLink(carousel.title)}
-            />
+            <section 
+              key={`carousel-${index}`} 
+              className="mb-10 animate-fadeIn" 
+              style={{ animationDelay: `${index * 150}ms` }}
+            >
+              <ContentCarousel
+                title={carousel.title}
+                items={carousel.items}
+                viewAllLink={getViewAllLink(carousel.title)}
+              />
+            </section>
           ))}
           
           {/* Message si aucun carrousel n'est disponible */}
-          {carousels.length === 0 && (
-            <div className="text-center text-white opacity-70 my-12 p-12">
-              <p>Aucun contenu disponible pour le moment.</p>
+          {!loading && carousels.length === 0 && (
+            <div className="flex flex-col items-center justify-center py-16 text-center">
+              <div className="mb-8">
+                <svg className="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2">Aucun contenu disponible</h3>
+              <p className="text-gray-400 max-w-md">Nous sommes en train d'ajouter du nouveau contenu. Revenez bientôt pour découvrir nos nouveautés !</p>
             </div>
           )}
         </div>
-      </div>
+      </main>
+      
+      {/* Footer avec animation d'apparition */}
       <Footer />
-    </>
+    </div>
   );
 };
 

@@ -11,8 +11,8 @@ import { ContentItem } from '../types/content';
 const API_BASE_URL = 'https://flodrama-api-prod.florifavi.workers.dev';
 const API_TIMEOUT = 8000; // 8 secondes
 
-// URL du service Cloudflare Stream
-const STREAM_BASE_URL = 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com';
+// URL de l'API Gateway
+const API_GATEWAY_URL = 'https://flodrama-api.florifavi.workers.dev';
 
 // Utiliser les données locales en cas d'échec de l'API ou si la variable d'environnement est définie
 const useLocalData = process.env.VITE_USE_LOCAL_DATA === 'true' || true; // Par défaut, utiliser les données locales
@@ -622,30 +622,53 @@ export function optimizeContentItem(item: ContentItem): ContentItem {
   
   // Optimiser l'URL du poster si présente
   if (optimizedItem.poster && !optimizedItem.poster.startsWith('http')) {
-    optimizedItem.poster = `https://flodrama-content-1745269660.s3.amazonaws.com/images/${optimizedItem.poster}`;
+    // Utiliser l'API Gateway pour les images
+    optimizedItem.poster = `${API_GATEWAY_URL}/media/${optimizedItem.poster}?type=poster`;
+  } else if (optimizedItem.poster && optimizedItem.poster.includes('amazon') || optimizedItem.poster && optimizedItem.poster.includes('myanimelist')) {
+    // Convertir les URLs externes en URLs de l'API Gateway
+    const id = optimizedItem.id || `content_${Math.random().toString(36).substring(2, 9)}`;
+    optimizedItem.poster = `${API_GATEWAY_URL}/media/${id}_poster?type=poster`;
   }
   
   // Optimiser l'URL du backdrop si présente
   if (optimizedItem.backdrop && !optimizedItem.backdrop.startsWith('http')) {
-    optimizedItem.backdrop = `https://flodrama-content-1745269660.s3.amazonaws.com/images/${optimizedItem.backdrop}`;
+    // Utiliser l'API Gateway pour les images
+    optimizedItem.backdrop = `${API_GATEWAY_URL}/media/${optimizedItem.backdrop}?type=backdrop`;
+  } else if (optimizedItem.backdrop && optimizedItem.backdrop.includes('amazon') || optimizedItem.backdrop && optimizedItem.backdrop.includes('myanimelist')) {
+    // Convertir les URLs externes en URLs de l'API Gateway
+    const id = optimizedItem.id || `content_${Math.random().toString(36).substring(2, 9)}`;
+    optimizedItem.backdrop = `${API_GATEWAY_URL}/media/${id}_backdrop?type=backdrop`;
   }
   
   // Optimiser l'URL de la bande-annonce si présente (format trailer_url)
   if (optimizedItem.trailer_url && !optimizedItem.trailer_url.startsWith('http')) {
-    // Utiliser le format /watch/ au lieu de /trailers/ pour Cloudflare Stream
-    optimizedItem.trailer_url = `${STREAM_BASE_URL}/watch/${optimizedItem.trailer_url}`;
+    // Utiliser l'API Gateway pour les vidéos
+    optimizedItem.trailer_url = `${API_GATEWAY_URL}/media/${optimizedItem.trailer_url}?type=trailer`;
+  } else if (optimizedItem.trailer_url && optimizedItem.trailer_url.includes('youtube')) {
+    // Convertir les URLs YouTube en URLs de l'API Gateway
+    const id = optimizedItem.id || `content_${Math.random().toString(36).substring(2, 9)}`;
+    optimizedItem.trailer_url = `${API_GATEWAY_URL}/media/${id}_trailer?type=trailer`;
   }
   
   // Optimiser l'URL de la bande-annonce si présente (format trailerUrl)
   if (optimizedItem.trailerUrl && !optimizedItem.trailerUrl.startsWith('http')) {
-    // Utiliser le format /watch/ pour Cloudflare Stream
-    optimizedItem.trailerUrl = `${STREAM_BASE_URL}/watch/${optimizedItem.trailerUrl}`;
+    // Utiliser l'API Gateway pour les vidéos
+    optimizedItem.trailerUrl = `${API_GATEWAY_URL}/media/${optimizedItem.trailerUrl}?type=trailer`;
+  } else if (optimizedItem.trailerUrl && optimizedItem.trailerUrl.includes('youtube')) {
+    // Convertir les URLs YouTube en URLs de l'API Gateway
+    const id = optimizedItem.id || `content_${Math.random().toString(36).substring(2, 9)}`;
+    optimizedItem.trailerUrl = `${API_GATEWAY_URL}/media/${id}_trailer?type=trailer`;
   }
   
   // Optimiser l'URL de visionnage si présente
   if (optimizedItem.watch_url && !optimizedItem.watch_url.startsWith('http')) {
-    // Utiliser le format /watch/ pour Cloudflare Stream
-    optimizedItem.watch_url = `${STREAM_BASE_URL}/watch/${optimizedItem.watch_url}`;
+    // Utiliser l'API Gateway pour les vidéos
+    optimizedItem.watch_url = `${API_GATEWAY_URL}/media/${optimizedItem.watch_url}?type=movie`;
+  } else if (optimizedItem.watch_url && optimizedItem.watch_url.includes('youtube') || 
+             optimizedItem.watch_url && optimizedItem.watch_url.includes('cloudflarestream')) {
+    // Convertir les URLs externes en URLs de l'API Gateway
+    const id = optimizedItem.id || `content_${Math.random().toString(36).substring(2, 9)}`;
+    optimizedItem.watch_url = `${API_GATEWAY_URL}/media/${id}_full?type=movie`;
   }
   
   return optimizedItem;
