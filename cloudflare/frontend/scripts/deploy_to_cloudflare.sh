@@ -105,20 +105,27 @@ load_env_vars() {
   if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
     error "Variable CLOUDFLARE_API_TOKEN non définie dans le fichier .env"
     exit 1
-  }
+  fi
   
   # Définir les variables spécifiques à l'environnement
   case "$env" in
     dev)
       API_URL="https://flodrama-api-dev.florifavi.workers.dev"
+      WRANGLER_ENV="development"
       ;;
     staging)
       API_URL="https://flodrama-api-staging.florifavi.workers.dev"
+      WRANGLER_ENV="staging"
       ;;
     prod|*)
       API_URL="https://flodrama-api-prod.florifavi.workers.dev"
+      WRANGLER_ENV="production"
       ;;
   esac
+  
+  # Exporter les variables pour wrangler
+  export CLOUDFLARE_ACCOUNT_ID
+  export CLOUDFLARE_API_TOKEN
   
   success "Variables d'environnement chargées avec succès."
 }
@@ -133,11 +140,28 @@ build_app() {
   # Nettoyer le répertoire de build
   rm -rf "${PROJECT_DIR}/dist"
   
+  # Vérifier si le dossier node_modules existe
+  if [ ! -d "${PROJECT_DIR}/node_modules" ]; then
+    info "Installation des dépendances..."
+    cd "$PROJECT_DIR" && npm install
+    
+    if [ $? -ne 0 ]; then
+      error "Échec de l'installation des dépendances."
+      exit 1
+    fi
+  fi
+  
   # Construire l'application
   cd "$PROJECT_DIR" && npm run build
   
   if [ $? -ne 0 ]; then
     error "Échec de la construction de l'application."
+    exit 1
+  fi
+  
+  # Vérifier que le répertoire dist a été créé
+  if [ ! -d "${PROJECT_DIR}/dist" ]; then
+    error "Le répertoire de build 'dist' n'a pas été créé."
     exit 1
   fi
   
@@ -156,15 +180,49 @@ deploy_to_cloudflare() {
   local branch_flag=""
   if [ -n "$BRANCH" ]; then
     branch_flag="--branch $BRANCH"
+  else
+    branch_flag="--branch main" # Par défaut, utiliser la branche main
   fi
   
-  # Déployer l'application
+  # Vérifier si wrangler.toml existe
+  if [ -f "${PROJECT_DIR}/wrangler.toml" ]; then
+    info "Utilisation du fichier wrangler.toml pour le déploiement"
+  else
+    warning "Fichier wrangler.toml non trouvé. Utilisation des paramètres par défaut."
+  fi
+  
+  # Désactiver temporairement les variables d'environnement Cloudflare pour utiliser OAuth
+  local temp_account_id=$CLOUDFLARE_ACCOUNT_ID
+  local temp_api_token=$CLOUDFLARE_API_TOKEN
+  unset CLOUDFLARE_ACCOUNT_ID
+  unset CLOUDFLARE_API_TOKEN
+  
+  # Déployer l'application avec authentification OAuth
+  info "Tentative de déploiement avec authentification OAuth..."
+  cd "$PROJECT_DIR" && $WRANGLER_CMD login
+  
+  if [ $? -ne 0 ]; then
+    error "Impossible de se connecter à Cloudflare avec OAuth."
+    # Restaurer les variables d'environnement
+    export CLOUDFLARE_ACCOUNT_ID=$temp_account_id
+    export CLOUDFLARE_API_TOKEN=$temp_api_token
+    exit 1
+  fi
+  
+  # Déployer avec OAuth
   cd "$PROJECT_DIR" && $WRANGLER_CMD pages deploy dist $project_flag $branch_flag
   
   if [ $? -ne 0 ]; then
     error "Échec du déploiement sur Cloudflare Pages."
+    # Restaurer les variables d'environnement
+    export CLOUDFLARE_ACCOUNT_ID=$temp_account_id
+    export CLOUDFLARE_API_TOKEN=$temp_api_token
     exit 1
   fi
+  
+  # Restaurer les variables d'environnement
+  export CLOUDFLARE_ACCOUNT_ID=$temp_account_id
+  export CLOUDFLARE_API_TOKEN=$temp_api_token
   
   success "Application déployée avec succès sur Cloudflare Pages."
 }

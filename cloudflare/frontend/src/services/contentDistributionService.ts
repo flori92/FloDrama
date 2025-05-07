@@ -11,6 +11,15 @@ import { ContentItem } from '../types/content';
 const API_BASE_URL = 'https://flodrama-api-prod.florifavi.workers.dev';
 const API_TIMEOUT = 8000; // 8 secondes
 
+// URL du service Cloudflare Stream
+const STREAM_BASE_URL = 'https://customer-ehlynuge6dnzfnfd.cloudflarestream.com';
+
+// Utiliser les données locales en cas d'échec de l'API ou si la variable d'environnement est définie
+const useLocalData = process.env.VITE_USE_LOCAL_DATA === 'true' || true; // Par défaut, utiliser les données locales
+
+// URL pour les données locales
+const LOCAL_DATA_URL = '/src/data/content.json';
+
 // Interface pour le cache
 interface CacheItem<T> {
   data: T;
@@ -169,55 +178,92 @@ export async function getHeroBannerContent(options: HeroBannerOptions = {}): Pro
     contentTypes = [CONTENT_TYPES.DRAMA, CONTENT_TYPES.MOVIE],
     limit = 5
   } = options;
-
+  
   // Vérifier si les données sont en cache
-  const cacheKey = `heroBanner_${JSON.stringify(options)}`;
+  const cacheKey = `hero_${minRating}_${withBackdrop}_${withTrailer}_${contentTypes.join('_')}_${limit}`;
   const cachedData = getCachedData<ContentItem[]>(cacheKey);
+  
   if (cachedData) {
     return cachedData;
   }
 
   try {
-    // Construire les paramètres de requête
-    const params = new URLSearchParams();
-    params.append('limit', limit.toString());
-    params.append('rating_min', minRating.toString());
-    
-    if (withBackdrop) {
-      params.append('with_backdrop', 'true');
+    if (useLocalData) {
+      // Utiliser les données locales
+      const response = await fetch(LOCAL_DATA_URL);
+      
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP: ${response.status}`);
+      }
+      
+      const contentData = await response.json();
+      
+      // Filtrer les données selon les critères
+      let filteredData = contentData.data.filter((item: ContentItem) => {
+        return (
+          item.rating >= minRating &&
+          (!withBackdrop || item.backdrop) &&
+          (!withTrailer || item.trailer_url || item.trailerUrl) &&
+          (contentTypes.length === 0 || (item.content_type && contentTypes.includes(item.content_type)))
+        );
+      });
+      
+      // Trier par note décroissante
+      filteredData.sort((a: ContentItem, b: ContentItem) => b.rating - a.rating);
+      
+      // Limiter le nombre de résultats
+      filteredData = filteredData.slice(0, limit);
+      
+      // Optimiser les URLs des images
+      const optimizedData = optimizeContentItems(filteredData);
+      
+      // Mettre en cache les données
+      setCachedData(cacheKey, optimizedData);
+      
+      return optimizedData;
+    } else {
+      // Construire les paramètres de requête
+      const params = new URLSearchParams();
+      params.append('limit', limit.toString());
+      params.append('rating_min', minRating.toString());
+      
+      if (withBackdrop) {
+        params.append('with_backdrop', 'true');
+      }
+      
+      if (withTrailer) {
+        params.append('with_trailer', 'true');
+      }
+      
+      if (contentTypes.length > 0) {
+        params.append('content_types', contentTypes.join(','));
+      }
+      
+      params.append('sort', 'rating:desc');
+      
+      // Faire la requête à l'API avec timeout
+      const endpoint = `/api/hero?${params}`;
+      const response = await fetchWithTimeout(`${API_BASE_URL}${endpoint}`);
+      
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      // Optimiser les URLs des images
+      const optimizedData = optimizeContentItems(data);
+      
+      // Mettre en cache les données
+      setCachedData(cacheKey, optimizedData);
+      
+      return optimizedData;
     }
-    
-    if (withTrailer) {
-      params.append('with_trailer', 'true');
-    }
-    
-    if (contentTypes.length > 0) {
-      params.append('content_types', contentTypes.join(','));
-    }
-    
-    params.append('sort', 'rating:desc');
-    
-    // Faire la requête à l'API avec timeout
-    const endpoint = `/api/hero?${params}`;
-    const response = await fetchWithTimeout(`${API_BASE_URL}${endpoint}`);
-    
-    if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
-    }
-    
-    const data = await response.json();
-    
-    // Optimiser les URLs des images
-    const optimizedData = optimizeContentItems(data);
-    
-    // Mettre en cache les données
-    setCachedData(cacheKey, optimizedData);
-    
-    return optimizedData;
   } catch (error) {
     // Enregistrer l'erreur
     logApiError('/hero-banner', error, options);
     
+    // Utiliser des données de secours
     return getFallbackHeroBannerContent();
   }
 }
@@ -233,77 +279,146 @@ export async function getCarouselContent(options: CarouselOptions): Promise<{ ti
     contentType,
     genre,
     year,
-    sortBy = 'rating',
-    limit = 10
+    sortBy = 'popularity',
+    limit = 20
   } = options;
-
+  
   // Vérifier si les données sont en cache
-  const cacheKey = `carousel_${JSON.stringify(options)}`;
+  const cacheKey = `carousel_${contentType || 'all'}_${genre || 'all'}_${year || 'all'}_${sortBy}_${limit}`;
   const cachedData = getCachedData<{ title: string, items: ContentItem[] }>(cacheKey);
+  
   if (cachedData) {
     return cachedData;
   }
 
   try {
-    // Construire les paramètres de requête
-    const params = new URLSearchParams();
-    params.append('limit', limit.toString());
-    
-    if (contentType) {
-      params.append('content_type', contentType);
+    if (useLocalData) {
+      // Utiliser les données locales
+      const response = await fetch(LOCAL_DATA_URL);
+      
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP: ${response.status}`);
+      }
+      
+      const contentData = await response.json();
+      
+      // Filtrer les données selon les critères
+      let filteredData = contentData.data.filter((item: ContentItem) => {
+        return (
+          (!contentType || (item.content_type && item.content_type === contentType)) &&
+          (!genre || (item.genres && item.genres.includes(genre))) &&
+          (!year || (item.year !== undefined && (typeof item.year === 'number' ? item.year : parseInt(item.year.toString())) === (typeof year === 'number' ? year : parseInt(year.toString()))))
+        );
+      });
+      
+      // Trier selon le critère demandé
+      switch (sortBy) {
+        case 'rating':
+          filteredData.sort((a: ContentItem, b: ContentItem) => b.rating - a.rating);
+          break;
+        case 'release_date':
+          filteredData.sort((a: ContentItem, b: ContentItem) => {
+            const yearA = typeof a.year === 'number' ? a.year : (a.year ? parseInt(a.year.toString()) : 0);
+            const yearB = typeof b.year === 'number' ? b.year : (b.year ? parseInt(b.year.toString()) : 0);
+            return yearB - yearA;
+          });
+          break;
+        case 'recently_added':
+          // Pas de date de création dans nos données locales, on utilise l'ordre par défaut
+          break;
+        case 'popularity':
+        default:
+          // Trier par popularité si disponible, sinon par note
+          filteredData.sort((a: ContentItem, b: ContentItem) => {
+            if (a.popularity !== undefined && b.popularity !== undefined) {
+              return b.popularity - a.popularity;
+            }
+            return b.rating - a.rating;
+          });
+          break;
+      }
+      
+      // Limiter le nombre de résultats
+      filteredData = filteredData.slice(0, limit);
+      
+      // Optimiser les URLs des images
+      const optimizedData = optimizeContentItems(filteredData);
+      
+      const result = {
+        title,
+        items: optimizedData
+      };
+      
+      // Mettre en cache les données
+      setCachedData(cacheKey, result);
+      
+      return result;
+    } else {
+      // Construire les paramètres de requête
+      const params = new URLSearchParams();
+      params.append('limit', limit.toString());
+      
+      if (contentType) {
+        params.append('content_type', contentType);
+      }
+      
+      if (genre) {
+        params.append('genre', genre);
+      }
+      
+      if (year) {
+        params.append('year', year.toString());
+      }
+      
+      // Convertir le type de tri en format API
+      let sortParam = '';
+      switch (sortBy) {
+        case 'rating':
+          sortParam = 'rating:desc';
+          break;
+        case 'release_date':
+          sortParam = 'year:desc';
+          break;
+        case 'popularity':
+          sortParam = 'popularity:desc';
+          break;
+        case 'recently_added':
+          sortParam = 'created_at:desc';
+          break;
+        default:
+          sortParam = 'popularity:desc';
+      }
+      
+      params.append('sort', sortParam);
+      
+      // Faire la requête à l'API avec timeout
+      const endpoint = `/api/carousel?${params}`;
+      const response = await fetchWithTimeout(`${API_BASE_URL}${endpoint}`);
+      
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      // Optimiser les URLs des images
+      const optimizedData = optimizeContentItems(data);
+      
+      const result = {
+        title,
+        items: optimizedData
+      };
+      
+      // Mettre en cache les données
+      setCachedData(cacheKey, result);
+      
+      return result;
     }
-    
-    if (genre) {
-      params.append('genre', genre);
-    }
-    
-    if (year) {
-      params.append('year', year.toString());
-    }
-    
-    // Mapper le tri
-    let sort = 'rating:desc';
-    switch (sortBy) {
-      case 'release_date':
-        sort = 'year:desc';
-        break;
-      case 'popularity':
-        sort = 'popularity:desc';
-        break;
-      case 'recently_added':
-        sort = 'created_at:desc';
-        break;
-    }
-    params.append('sort', sort);
-    
-    // Faire la requête à l'API avec timeout
-    const endpoint = `/api/carousel?${params}`;
-    const response = await fetchWithTimeout(`${API_BASE_URL}${endpoint}`);
-    
-    if (!response.ok) {
-      throw new Error(`Erreur HTTP: ${response.status}`);
-    }
-    
-    const data = await response.json();
-    
-    // Optimiser les URLs des images
-    const optimizedData = optimizeContentItems(data);
-    
-    // Créer l'objet de réponse
-    const result = {
-      title,
-      items: optimizedData
-    };
-    
-    // Mettre en cache les données
-    setCachedData(cacheKey, result);
-    
-    return result;
   } catch (error) {
     // Enregistrer l'erreur
     logApiError('/carousel', error, options);
     
-    // Retourner les données de secours
+    // Utiliser des données de secours
     return {
       title,
       items: getFallbackCarouselContent(options)
@@ -502,22 +617,35 @@ export async function getCategoryContent(
  * @returns Élément de contenu optimisé
  */
 export function optimizeContentItem(item: ContentItem): ContentItem {
-  // Copier l'élément pour éviter de modifier l'original
+  // Créer une copie de l'élément pour éviter de modifier l'original
   const optimizedItem = { ...item };
   
-  // Si l'URL de l'image est relative, ajouter le domaine R2 de Cloudflare
-  if (optimizedItem.posterUrl && !optimizedItem.posterUrl.startsWith('http')) {
-    optimizedItem.posterUrl = `https://flodrama-storage.florifavi.workers.dev${optimizedItem.posterUrl}`;
+  // Optimiser l'URL du poster si présente
+  if (optimizedItem.poster && !optimizedItem.poster.startsWith('http')) {
+    optimizedItem.poster = `https://flodrama-content-1745269660.s3.amazonaws.com/images/${optimizedItem.poster}`;
   }
   
-  // Si l'URL du backdrop est relative, ajouter le domaine R2 de Cloudflare
+  // Optimiser l'URL du backdrop si présente
   if (optimizedItem.backdrop && !optimizedItem.backdrop.startsWith('http')) {
-    optimizedItem.backdrop = `https://flodrama-storage.florifavi.workers.dev${optimizedItem.backdrop}`;
+    optimizedItem.backdrop = `https://flodrama-content-1745269660.s3.amazonaws.com/images/${optimizedItem.backdrop}`;
   }
   
-  // Vérifier et corriger les URLs des vidéos
+  // Optimiser l'URL de la bande-annonce si présente (format trailer_url)
+  if (optimizedItem.trailer_url && !optimizedItem.trailer_url.startsWith('http')) {
+    // Utiliser le format /watch/ au lieu de /trailers/ pour Cloudflare Stream
+    optimizedItem.trailer_url = `${STREAM_BASE_URL}/watch/${optimizedItem.trailer_url}`;
+  }
+  
+  // Optimiser l'URL de la bande-annonce si présente (format trailerUrl)
   if (optimizedItem.trailerUrl && !optimizedItem.trailerUrl.startsWith('http')) {
-    optimizedItem.trailerUrl = `https://customer-ehlynuge6dnzfnfd.cloudflarestream.com/watch${optimizedItem.trailerUrl}`;
+    // Utiliser le format /watch/ pour Cloudflare Stream
+    optimizedItem.trailerUrl = `${STREAM_BASE_URL}/watch/${optimizedItem.trailerUrl}`;
+  }
+  
+  // Optimiser l'URL de visionnage si présente
+  if (optimizedItem.watch_url && !optimizedItem.watch_url.startsWith('http')) {
+    // Utiliser le format /watch/ pour Cloudflare Stream
+    optimizedItem.watch_url = `${STREAM_BASE_URL}/watch/${optimizedItem.watch_url}`;
   }
   
   return optimizedItem;

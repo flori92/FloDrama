@@ -1,0 +1,32 @@
+# Configuration Wrangler pour FloDrama Frontend
+name = "flodrama-frontend"
+compatibility_date = "2023-10-30"
+
+# Configuration pour Cloudflare Pages
+[site]
+bucket = "./dist"
+entry-point = "."
+
+# Configuration de construction
+[build]
+command = "npm run build"
+output_dir = "dist"
+
+# Configuration spécifique pour Pages
+pages_build_output_dir = "dist"
+
+# Configuration des variables d'environnement
+[env.production]
+VITE_API_URL = "https://flodrama-api-prod.florifavi.workers.dev"
+
+[env.staging]
+VITE_API_URL = "https://flodrama-api-staging.florifavi.workers.dev"
+
+[env.development]
+VITE_API_URL = "https://flodrama-api-dev.florifavi.workers.dev"
+
+# Configuration du cache
+[cache]
+caching = "on"
+cache_by_device_type = true
+cache_by_location = false

@@ -16,8 +16,11 @@ export interface ContentItem {
   rating: number;
   duration: number;
   trailerUrl?: string;
+  trailer_url?: string; // Format alternatif pour trailerUrl
   videoId?: string; // ID de la vidéo pour la lecture
+  watch_url?: string; // URL pour regarder le contenu
   category?: string;
+  content_type?: string; // Type de contenu (drama, anime, movie, bollywood)
   genres?: string[];
   episodeCount?: number;
   seasonCount?: number;
@@ -25,6 +28,7 @@ export interface ContentItem {
   country?: string;
   status?: 'ongoing' | 'completed' | 'upcoming';
   progress?: number; // Pour le contenu "Continuer à regarder"
+  popularity?: number; // Score de popularité
 }
 
 // Type pour les réponses de l'API
