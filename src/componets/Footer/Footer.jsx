@@ -20,14 +20,14 @@ function Footer2() {
               "Mon compte", "Comment regarder", "Informations légales", "iOS", "Android"
             ].map((item, index) => (
               <li key={index} className="transition duration-300 ease-in-out cursor-pointer">
-                <span className="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-flodrama-blue hover:to-flodrama-fuchsia transition-all duration-300">
+                <span className="hover:text-flodrama-fuchsia transition-all duration-300">
                   {item}
                 </span>
               </li>
             ))}
           </ul>
           <div className={styles.security}>
-            <div className="transition duration-300 ease-in-out hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-flodrama-blue hover:to-flodrama-fuchsia cursor-pointer">Français</div>
+            <div className="transition duration-300 ease-in-out hover:text-flodrama-fuchsia cursor-pointer">Français</div>
             <span>© 2025 FloDrama, Tous droits réservés.</span>
           </div>
         </div>
