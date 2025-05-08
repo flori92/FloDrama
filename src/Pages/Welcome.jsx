@@ -3,11 +3,12 @@ import { useEffect } from "react";
 
 import Footer from "../componets/Footer/Footer";
 
-import WelcomePageImage1 from "../images/WelcomePageImage1.png";
-import WelcomePageImage2 from "../images/WelcomePageImage2.png";
-import WelcomePageImage3 from "../images/WelcomePageImage3.png";
-import WelcomePageImage4 from "../images/WelcomePageImage4.png";
-import WelcomePageBanner from "../images/WelcomePageBanner.jpg";
+// Utilisation des images depuis le dossier public
+const WelcomePageImage1 = "/images/WelcomePageImage1.png";
+const WelcomePageImage2 = "/images/WelcomePageImage2.png";
+const WelcomePageImage3 = "/images/WelcomePageImage3.png";
+const WelcomePageImage4 = "/images/WelcomePageImage4.png";
+const WelcomePageBanner = "/images/WelcomePageBanner.jpg";
 
 import { Fade } from "react-reveal";
 import { Link } from "react-router-dom";
@@ -31,23 +32,23 @@ function Welcome() {
           <div className="w-10/12 text-center sm:w-11/12 md:w-40rem">
             <Fade duration={2000}>
               <h1 className="mb-3 text-3xl font-semibold text-center text-white sm:text-4xl md:text-6xl">
-                Unlimited movies, TV shows and more.
+                Dramas asiatiques, animes, et films Bollywood illimités.
               </h1>
               <h1 className="mb-4 text-xl text-center text-stone-400 font-light sm:text-2xl">
-                Watch anywahere.Cancel anytime
+                Regardez où vous voulez. Annulez quand vous voulez.
               </h1>
               <h1 className="mb-2 text-center text-stone-400 font-light sm:text-xl sm:mb-8">
-                Ready to watch? Enter your email to create or restart your
-                membership.
+                Prêt à explorer ? Entrez votre e-mail pour créer ou réactiver votre
+                abonnement.
               </h1>
               <div>
                 <input
-                  placeholder="Email Address"
+                  placeholder="Adresse e-mail"
                   className="w-full p-2 py-3 rounded-sm sm:py-4 md:py-5 md:w-3/4"
                 />
                 <Link to={"/signup"}>
-                  <button className="px-4 py-2 mt-3 font-medium text-white bg-red-700 rounded-sm sm:py-4 md:mt-0 md:pb-5 md:text-xl md:w-1/4">
-                    Get Started
+                  <button className="px-4 py-2 mt-3 font-medium text-white rounded-sm sm:py-4 md:mt-0 md:pb-5 md:text-xl md:w-1/4 bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia hover:from-flodrama-fuchsia hover:to-flodrama-blue transition-all duration-300">
+                    Commencer
                   </button>
                 </Link>
               </div>

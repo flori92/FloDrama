@@ -33,12 +33,18 @@ module.exports = {
         'avengers': "linear-gradient(to right bottom, rgba('#7ed56f',0.8), rgba('#28b485',0.8)),url()",
         'fadeBottom': "linear-gradient(180deg,hsl(0deg 0% 0% / 0%),#000000a2,hsl(0deg 0% 7%));",
         'fadeBlack': "background: linear-gradient(1turn,hsl(0deg 0% 0% / 60%),hsl(0deg 0% 0% / 0%) 65%);",
-        'fadeRed' : "linear-gradient(90deg, hsl(0deg 77% 42% / 44%) 0%, hsl(0deg 59% 46% / 51%) 35%, hsl(220deg 26% 44% / 0%) 100%) "
+        'fadeRed' : "linear-gradient(90deg, hsl(0deg 77% 42% / 44%) 0%, hsl(0deg 59% 46% / 51%) 35%, hsl(220deg 26% 44% / 0%) 100%) ",
+        'flodramaGradient': "linear-gradient(90deg, #3b82f6 0%, #d946ef 100%)",
+        'flodramaFade': "linear-gradient(90deg, rgba(59, 130, 246, 0.5) 0%, rgba(217, 70, 239, 0.5) 100%)",
+        'flodramaTransparent': "linear-gradient(90deg, rgba(59, 130, 246, 0.2) 0%, rgba(217, 70, 239, 0.2) 100%)"
       },
       color:{
         'black': "#010511",
         'transparenWhite': "#33333380",
-        'transparentBlack': "#000000bf"
+        'transparentBlack': "#000000bf",
+        'flodrama-blue': "#3b82f6",
+        'flodrama-fuchsia': "#d946ef",
+        'flodrama-dark': "#141414"
       },
       margin:{
         '-6%': "-6%",

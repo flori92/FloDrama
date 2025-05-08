@@ -63,7 +63,7 @@ function Banner(props) {
     <>
       <div
         style={{
-          backgroundImage: `linear-gradient(90deg, hsl(0deg 0% 7% / 91%) 0%, hsl(0deg 0% 0% / 0%) 35%, hsl(220deg 26% 44% / 0%) 100%), url(${
+          backgroundImage: `linear-gradient(90deg, rgba(20, 20, 20, 0.91) 0%, rgba(59, 130, 246, 0.3) 50%, rgba(217, 70, 239, 0.2) 100%), url(${
             movie
               ? imageUrl + movie.backdrop_path
               : ""
@@ -75,7 +75,7 @@ function Banner(props) {
           <Fade bottom>
             {movie.title || movie.name ? (
               <>
-                <h1 className="text-white text-3xl font-semibold text-center mb-5 py-2 sm:text-left sm:text-5xl sm:border-l-8 pl-4 border-red-700 md:text-6xl lg:w-2/3 xl:w-1/2 sm:font-bold drop-shadow-lg">
+                <h1 className="text-white text-3xl font-semibold text-center mb-5 py-2 sm:text-left sm:text-5xl sm:border-l-8 pl-4 border-flodrama-fuchsia md:text-6xl lg:w-2/3 xl:w-1/2 sm:font-bold drop-shadow-lg">
                   {movie.title || movie.name}
                 </h1>
               </>
@@ -93,7 +93,7 @@ function Banner(props) {
                     <div className="-mt-1">
                       <StarRatings
                         rating={movie.vote_average / 2}
-                        starRatedColor="red"
+                        starRatedColor="#d946ef"
                         numberOfStars={5}
                         name="rating"
                         starDimension="1.1rem"
@@ -139,8 +139,8 @@ function Banner(props) {
               {movie.id ? (
                 <>
                   <button
-                    onClick={() => playMovie(movie)}
-                    className="bg-red-800 hover:bg-red-900 transition duration-500 ease-in-out shadow-2xl flex items-center mb-3 mr-3 text-base sm:text-xl font-semibold text-white py-2 sm:py-2 px-10 sm:px-14 rounded-md"
+                    onClick={() => playMovie(movie.id)}
+                    className="bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia transition duration-500 ease-in-out shadow-2xl flex items-center mb-3 mr-3 text-base sm:text-xl font-semibold text-white hover:opacity-90 py-2 sm:py-2 px-10 sm:px-14 rounded-md"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

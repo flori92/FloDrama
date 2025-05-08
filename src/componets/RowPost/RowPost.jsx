@@ -2,7 +2,8 @@ import React from "react";
 import { useEffect, useState } from "react";
 
 import axios from "../../axios";
-import { imageUrl, imageUrl2, API_KEY } from "../../Constants/Constance";
+import { imageUrl, imageUrl2 } from "../../Constants/Constance";
+import { handleApiResponse } from "../../Constants/FloDramaURLs";
 import useUpdateMylist from "../../CustomHooks/useUpdateMylist";
 import { Fade } from "react-reveal";
 import YouTube from "react-youtube";
@@ -38,13 +39,25 @@ function RowPost(props) {
   useEffect(() => {
     if (props.movieData != null) {
       setMovies(props.movieData);
+    } else if (props.useCloudflareApi) {
+      // Utiliser l'API Cloudflare si spécifié
+      fetch(props.url)
+        .then(response => handleApiResponse(response))
+        .then(data => {
+          console.log('Données Cloudflare:', data);
+          setMovies(data);
+        })
+        .catch(error => {
+          console.error('Erreur lors du chargement depuis Cloudflare:', error);
+        });
     } else {
+      // Ancienne méthode avec axios pour la compatibilité
       axios.get(props.url).then((response) => {
         console.log(response.data.results);
         setMovies(response.data.results);
       });
     }
-  }, []);
+  }, [props.url, props.movieData]);
 
   const customSettings = {
     breakpoints: {
@@ -76,16 +89,52 @@ function RowPost(props) {
     if (shouldPop) {
       setMoviePopupInfo(movieInfo);
       setShowModal(true);
-      axios
-        .get(`/movie/${movieInfo.id}/videos?api_key=${API_KEY}&language=en-US`)
-        .then((responce) => {
-          console.log(responce.data);
-          if (responce.data.results.length !== 0) {
-            setUrlId(responce.data.results[0]);
-          } else {
-            console.log("Array Emptey");
-          }
-        });
+      
+      // Utiliser une valeur par défaut pour le trailer si disponible dans les données
+      if (movieInfo.trailer_url) {
+        // Extraire l'ID YouTube de l'URL du trailer si disponible
+        const videoId = extractYoutubeId(movieInfo.trailer_url);
+        if (videoId) {
+          setUrlId({ key: videoId });
+        }
+      } else if (movieInfo.id && props.useCloudflareApi) {
+        // On pourrait implémenter un endpoint /api/trailers/:id dans le futur
+        console.log("Trailer non disponible pour l'instant via l'API Cloudflare");
+        setUrlId(null);
+      } else if (movieInfo.id) {
+        // Fallback vers l'ancienne méthode TMDB
+        axios
+          .get(`/movie/${movieInfo.id}/videos?api_key=YOUR_API_KEY&language=en-US`)
+          .then((response) => {
+            console.log(response.data);
+            if (response.data.results && response.data.results.length !== 0) {
+              setUrlId(response.data.results[0]);
+            } else {
+              console.log("Aucun trailer disponible");
+              setUrlId(null);
+            }
+          })
+          .catch(error => {
+            console.error("Erreur lors de la récupération du trailer:", error);
+            setUrlId(null);
+          });
+      }
+    }
+  };
+  
+  // Fonction utilitaire pour extraire l'ID YouTube d'une URL
+  const extractYoutubeId = (url) => {
+    if (!url) {
+      return null;
+    }
+    
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    
+    if (match && match[2].length === 11) {
+      return match[2];
+    } else {
+      return null;
     }
   };
 
@@ -476,13 +525,13 @@ function RowPost(props) {
 
                       <div className="flex justify-between p-2">
                         <button
-                          className="group flex items-center justify-center border-[0.7px] border-white text-white font-medium sm:font-bold text-xs px-4 mr-4 sm:px-6 md:text-sm  py-3 rounded shadow hover:shadow-lg hover:bg-white hover:text-red-700 outline-none focus:outline-none mb-1 ease-linear transition-all duration-150"
+                          className="group flex items-center justify-center border-[0.7px] border-white text-white font-medium sm:font-bold text-xs px-4 mr-4 sm:px-6 md:text-sm py-3 rounded shadow hover:shadow-lg hover:bg-white hover:text-flodrama-fuchsia outline-none focus:outline-none mb-1 ease-linear transition-all duration-150"
                           type="button"
                           onClick={() => addToMyList(moviePopupInfo)}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="h-6 w-6 mr-1 text-white hover:text-red-700 group-hover:text-red-700 ease-linear transition-all duration-150"
+                            className="h-6 w-6 mr-1 text-white hover:text-flodrama-fuchsia group-hover:text-flodrama-fuchsia ease-linear transition-all duration-150"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -498,7 +547,7 @@ function RowPost(props) {
                         </button>
 
                         <button
-                          className="flex items-center text-red-500 background-transparent font-medium sm:font-bold uppercase px-2 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                          className="flex items-center text-flodrama-blue background-transparent font-medium sm:font-bold uppercase px-2 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                           type="button"
                           onClick={() => setShowModal(false)}
                         >
