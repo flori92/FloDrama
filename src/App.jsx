@@ -24,12 +24,20 @@ import NavbarWithoutUser from "./componets/Header/NavbarWithoutUser";
 function App() {
   const { User, setUser } = useContext(AuthContext);
   useEffect(() => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
+    // Utiliser onAuthStateChanged directement avec le callback
+    // Compatible avec l'implémentation Cloudflare
+    const unsubscribe = onAuthStateChanged((user) => {
       setUser(user);
       console.log(user);
     });
-  }, []);
+    
+    // Nettoyer l'abonnement lors du démontage du composant
+    return () => {
+      if (typeof unsubscribe === 'function') {
+        unsubscribe();
+      }
+    };
+  }, [setUser]);
 
   return (
     <div>

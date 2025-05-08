@@ -1,0 +1,14 @@
+[site]
+bucket = "./dist"
+compatibility_date = "2023-05-08"
+
+[site.dev]
+compatibility_date = "2023-05-08"
+
+[build]
+command = "npm run build"
+output_dir = "dist"
+
+[env.production]
+name = "flodrama-frontend"
+route = "flodrama.com/*"
