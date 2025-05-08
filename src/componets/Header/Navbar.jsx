@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Transition } from "@headlessui/react";
 import { Fade } from "react-reveal";
 import { Link, useNavigate } from "react-router-dom";
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth, signOut } from "../../Cloudflare/CloudflareAuth";
 import { AuthContext } from "../../Context/UserContext";
 
 function Navbar(props) {
@@ -72,7 +72,7 @@ function Navbar(props) {
                   <Link to="/">
                     <img
                       className="h-10 cursor-pointer w-32 transition duration-300 ease-in-out hover:opacity-80"
-                      src="/flodrama-logo.svg"
+                      src="/flodrama-logo.svg?v=1683576581"
                       alt="FloDrama"
                     />
                   </Link>

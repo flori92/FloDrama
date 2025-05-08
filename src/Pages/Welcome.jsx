@@ -3,12 +3,13 @@ import { useEffect } from "react";
 
 import Footer from "../componets/Footer/Footer";
 
-// Utilisation des images depuis le dossier public
-const WelcomePageImage1 = "/images/WelcomePageImage1.png";
-const WelcomePageImage2 = "/images/WelcomePageImage2.png";
-const WelcomePageImage3 = "/images/WelcomePageImage3.png";
-const WelcomePageImage4 = "/images/WelcomePageImage4.png";
-const WelcomePageBanner = "/images/WelcomePageBanner.jpg";
+// Utilisation des images depuis le dossier public avec paramètre de version pour éviter le cache
+const cacheBuster = `?v=${new Date().getTime()}`;
+const WelcomePageImage1 = `/images/WelcomePageImage1.png${cacheBuster}`;
+const WelcomePageImage2 = `/images/WelcomePageImage2.png${cacheBuster}`;
+const WelcomePageImage3 = `/images/WelcomePageImage3.png${cacheBuster}`;
+const WelcomePageImage4 = `/images/WelcomePageImage4.png${cacheBuster}`;
+const WelcomePageBanner = `/images/WelcomePageBanner.jpg${cacheBuster}`;
 
 import { Fade } from "react-reveal";
 import { Link } from "react-router-dom";

@@ -16,7 +16,7 @@ const History = lazy(() => import("./Pages/History"));
 
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthContext } from "./Context/UserContext";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "./Cloudflare/CloudflareAuth";
 import Loading from "./componets/Loading/Loading";
 import Navbar from "./componets/Header/Navbar";
 import NavbarWithoutUser from "./componets/Header/NavbarWithoutUser";

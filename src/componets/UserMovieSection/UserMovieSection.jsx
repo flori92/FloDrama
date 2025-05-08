@@ -8,8 +8,8 @@ import usePlayMovie from "../../CustomHooks/usePlayMovie";
 import useUpdateWatchedMovies from "../../CustomHooks/useUpdateWatchedMovies";
 import useUpdateLikedMovies from "../../CustomHooks/useUpdateLikedMovies";
 import useGenereConverter from "../../CustomHooks/useGenereConverter";
-import { db } from "../../Firebase/FirebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../Cloudflare/CloudflareDB";
+import { doc, getDoc } from "../../Cloudflare/CloudflareDB";
 import { AuthContext } from "../../Context/UserContext";
 import { PopUpContext } from "../../Context/moviePopUpContext";
 import axios from "../../axios";
@@ -35,14 +35,26 @@ function UserMovieSection(props) {
 
   const navigate = useNavigate();
 
-  function getMovies() {
-    getDoc(doc(db, props.from, User.uid)).then((result) => {
-      const mv = result.data();
-      setMyMovies(mv.movies);
-      if (mv.movies.length == 0) {
+  async function getMovies() {
+    try {
+      // Récupérer les données depuis Cloudflare D1 via notre service CloudflareDB
+      const result = await getDoc(doc(db, props.from, User.uid));
+      
+      if (result.exists()) {
+        const mv = result.data();
+        setMyMovies(mv.movies || []);
+        setIsResultEmpty(mv.movies?.length === 0);
+      } else {
+        // Si aucune donnée n'existe encore pour cet utilisateur
+        console.log(`Aucune donnée trouvée dans ${props.from} pour cet utilisateur`);
+        setMyMovies([]);
         setIsResultEmpty(true);
       }
-    });
+    } catch (error) {
+      console.error(`Erreur lors de la récupération des données de ${props.from}:`, error);
+      setMyMovies([]);
+      setIsResultEmpty(true);
+    }
   }
 
   useEffect(() => {
@@ -56,15 +68,22 @@ function UserMovieSection(props) {
     }
   }, []);
 
-  const removeMovie = (movie) => {
-    if (props.from === "MyList") {
-      removeFromMyList(movie);
-    } else if (props.from === "WatchedMovies") {
-      removeFromWatchedMovies(movie);
-    } else if (props.from === "LikedMovies") {
-      removeFromLikedMovies(movie);
+  const removeMovie = async (movie) => {
+    try {
+      // Utiliser les hooks déjà adaptés pour Cloudflare
+      if (props.from === "MyList") {
+        await removeFromMyList(movie);
+      } else if (props.from === "WatchedMovies") {
+        await removeFromWatchedMovies(movie);
+      } else if (props.from === "LikedMovies") {
+        await removeFromLikedMovies(movie);
+      }
+      
+      // Rafraîchir les données après la suppression
+      await getMovies();
+    } catch (error) {
+      console.error(`Erreur lors de la suppression du contenu de ${props.from}:`, error);
     }
-    getMovies();
   };
 
   const handleMoviePopup = (movieInfo) => {
