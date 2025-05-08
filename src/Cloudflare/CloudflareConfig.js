@@ -5,9 +5,10 @@
 
 // URLs des API Cloudflare
 export const API_BASE_URL = 'https://flodrama-api-prod.florifavi.workers.dev';
-export const AUTH_API_URL = `${API_BASE_URL}/api/auth`;
-export const USERS_API_URL = `${API_BASE_URL}/api/users`;
-export const CONTENT_API_URL = `${API_BASE_URL}/api/content`;
+// Suppression du préfixe /api qui cause des erreurs 404
+export const AUTH_API_URL = `${API_BASE_URL}/auth`;
+export const USERS_API_URL = `${API_BASE_URL}/users`;
+export const CONTENT_API_URL = `${API_BASE_URL}/content`;
 
 // Informations Cloudflare (depuis la mémoire du projet)
 export const CLOUDFLARE_CONFIG = {
