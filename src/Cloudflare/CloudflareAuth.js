@@ -4,7 +4,7 @@
  */
 
 import axios from 'axios';
-import { AUTH_API_URL, USERS_API_URL, handleApiResponse } from './CloudflareConfig';
+import { API_BASE_URL, AUTH_API_URL, USERS_API_URL, handleApiResponse } from './CloudflareConfig';
 
 // Classe principale d'authentification
 class CloudflareAuth {
@@ -171,11 +171,14 @@ const authService = new CloudflareAuth();
 CloudflareAuth.prototype.signInWithGoogle = async function() {
   try {
     // Redirection vers l'endpoint d'authentification Google de Cloudflare
-    const response = await axios.get(`${AUTH_API_URL}/google/auth`);
+    // Utilisation de l'API existante au lieu de l'API /google/auth qui n'existe pas encore
+    const response = await axios.post(`${API_BASE_URL}/api/auth/google`, {
+      redirect_uri: window.location.origin
+    });
     
-    if (response.status === 200 && response.data.authUrl) {
+    if (response.status === 200 && response.data.auth_url) {
       // Rediriger l'utilisateur vers l'URL d'authentification Google
-      window.location.href = response.data.authUrl;
+      window.location.href = response.data.auth_url;
       return true;
     } else {
       throw new Error(response.data.message || "Échec de l'initialisation de l'authentification Google");
