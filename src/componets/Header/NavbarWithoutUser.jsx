@@ -21,11 +21,11 @@ function NavbarWithoutUser() {
   return (
     <div>
       <header
-        className={`fixed z-50 w-full flex items-center py-4 transition duration-500 ease-in-out ${
+        className={`fixed z-50 w-full flex items-center justify-between py-4 transition duration-500 ease-in-out ${
           show && "bg-black transition duration-500 ease-in-out"
         }`}
       >
-        <div className="w-9/12 md:w-11/12">
+        <div className="flex-shrink-0">
           <img
             className="h-8 sm:h-10 w-32 ml-8 cursor-pointer transition duration-300 ease-in-out hover:opacity-80"
             src="/flodrama-logo.svg?v=1683576581"
@@ -33,15 +33,15 @@ function NavbarWithoutUser() {
           />
         </div>
 
-        <div>
-  <Link to="/signin">
-    <div className="h-8 sm:h-10 w-32 ml-8 flex items-center justify-center cursor-pointer transition duration-300 ease-in-out hover:opacity-80">
-      <span className="text-transparent bg-clip-text bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia font-bold font-sans text-2xl tracking-tight">
-        Connexion
-      </span>
-    </div>
-  </Link>
-</div>
+        <div className="mr-8">
+          <Link to="/signin">
+            <div className="h-8 sm:h-10 w-32 flex items-center justify-center cursor-pointer transition duration-300 ease-in-out hover:opacity-80">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia font-bold font-sans text-2xl tracking-tight">
+                Connexion
+              </span>
+            </div>
+          </Link>
+        </div>
       </header>
     </div>
   );
