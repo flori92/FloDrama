@@ -6,14 +6,15 @@ import { Fade } from "react-reveal";
 import {
   getAuth,
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
-import { setDoc, doc } from "firebase/firestore";
-import { db } from "../Firebase/FirebaseConfig";
+  onAuthStateChanged
+} from "../Cloudflare/CloudflareAuth";
+import { setDoc, doc } from "../Cloudflare/CloudflareDB";
+import { db } from "../Cloudflare/CloudflareDB";
 import { AuthContext } from "../Context/UserContext";
 import { ClipLoader } from "react-spinners";
-// Utilisation de l'image bannière depuis le dossier public
-const WelcomePageBanner = "/images/WelcomePageBanner.jpg";
+// Utilisation de l'image bannière depuis le dossier public avec contournement du cache
+const timestamp = new Date().getTime();
+const WelcomePageBanner = `/images/WelcomePageBanner.jpg?v=${timestamp}`;
 
 function SignUp() {
   const { User, setUser } = useContext(AuthContext);
@@ -25,58 +26,41 @@ function SignUp() {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoader(true);
 
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        onAuthStateChanged(auth, (user) => {
-          const EmptyArray = [];
-          setDoc(doc(db, "Users", user.uid), {
-            email: email,
-            Uid: user.uid,
-          }).then(() => {
-            setDoc(
-              doc(db, "MyList", user.uid),
-              {
-                movies: EmptyArray,
-              },
-              { merge: true }
-            ).then(() => {
-              setDoc(
-                doc(db, "WatchedMovies", user.uid),
-                {
-                  movies: EmptyArray,
-                },
-                { merge: true }
-              );
-              setDoc(
-                doc(db, "LikedMovies", user.uid),
-                {
-                  movies: EmptyArray,
-                },
-                { merge: true }
-              );
-            });
-          });
-        });
+    try {
+      const auth = getAuth();
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const { user } = userCredential;
 
-        const user = userCredential.user;
-        if (user != null) {
-          navigate("/");
-        }
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        setLoader(false);
-        setErrorMessage(errorMessage);
-        console.log(errorCode);
-        console.log(errorMessage);
-      });
+      if (user) {
+        const EmptyArray = [];
+        
+        // Créer le profil utilisateur
+        await setDoc(doc(db, "Users", user.uid), {
+          email: user.email,
+          uid: user.uid,
+          createdAt: new Date().toISOString()
+        });
+        
+        // Initialiser les listes utilisateur en parallèle
+        await Promise.all([
+          setDoc(doc(db, "MyList", user.uid), { movies: EmptyArray }, { merge: true }),
+          setDoc(doc(db, "WatchedMovies", user.uid), { movies: EmptyArray }, { merge: true }),
+          setDoc(doc(db, "LikedMovies", user.uid), { movies: EmptyArray }, { merge: true })
+        ]);
+        
+        // Rediriger vers la page d'accueil
+        navigate("/");
+      }
+    } catch (error) {
+      const { code, message } = error;
+      setLoader(false);
+      setErrorMessage(message);
+      console.error("Erreur lors de l'inscription:", { code, message });
+    }
   };
 
   return (

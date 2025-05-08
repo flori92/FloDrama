@@ -1,22 +1,22 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
-import { getAuth, updateProfile, signOut } from "firebase/auth";
-import { db } from "../Firebase/FirebaseConfig";
-import {
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-  getStorage,
-} from "firebase/storage";
+import { getAuth, updateProfile, signOut } from "../Cloudflare/CloudflareAuth";
+import { db } from "../Cloudflare/CloudflareDB";
+// Service de stockage Cloudflare R2
+import { uploadFile, getFileURL } from "../Cloudflare/CloudflareStorage";
 import { useNavigate } from "react-router-dom";
 import { Fade } from "react-reveal";
 import toast, { Toaster } from "react-hot-toast";
 
 import { AuthContext } from "../Context/UserContext";
-import WelcomePageBanner from "../images/WelcomePageBanner.jpg";
 
+// Imports CSS regroupés en haut
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+
+// Utilisation de l'image bannière depuis le dossier public avec paramètre anti-cache
+const timestamp = new Date().getTime();
+const WelcomePageBanner = `/images/WelcomePageBanner.jpg?v=${timestamp}`;
 
 function Profile() {
   const { User } = useContext(AuthContext);
@@ -43,9 +43,9 @@ function Profile() {
     inputRef.current.click();
   };
 
-  function notify() {
-    toast.success("  Data Updated Sucessfuly  ");
-  }
+  const notify = () => {
+    toast.success("  Données mises à jour avec succès  ");
+  };
 
   const handleFileChange = (event) => {
     const fileObj = event.target.files[0];
@@ -58,79 +58,80 @@ function Profile() {
     event.target.value = null;
   };
 
-  const changeUserName = (e) => {
+  const changeUserName = async (e) => {
     e.preventDefault();
-    if (isUserNameChanged) {
-      if (userName !== "") {
+    
+    try {
+      // Mise à jour du nom d'utilisateur si modifié
+      if (isUserNameChanged && userName !== "") {
         const auth = getAuth();
-        updateProfile(auth.currentUser, { displayName: userName })
-          .then(() => {
-            notify();
-          })
-          .catch((error) => {
-            alert(error.message);
-          });
-      } else {
+        await updateProfile(auth.currentUser, { displayName: userName });
+      } else if (isUserNameChanged) {
         setIsUserNameChanged(false);
       }
-    }
 
-    if (newProfielPic != "") {
-      const storage = getStorage();
-      const storageRef = ref(storage, `/ProfilePics/${User.uid}`);
-      const uploadTask = uploadBytesResumable(storageRef, newProfielPic);
-
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const prog = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-        },
-        (error) => {
-          alert(error.message);
-          alert(error.code);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-            console.log(url, "This is the new Url for Profile Pic");
-            setProfilePic(url);
-            const auth = getAuth();
-            updateProfile(auth.currentUser, { photoURL: url })
-              .then(() => {
-                notify();
-                setisMyListUpdated(true);
-              })
-              .catch((error) => {
-                alert(error.message);
-              });
+      // Téléchargement de la photo de profil si sélectionnée
+      if (newProfielPic !== "") {
+        try {
+          // Utiliser le service de stockage Cloudflare R2
+          const profilePicPath = `profiles/${User.uid}/avatar`;
+          
+          // Télécharger l'image vers Cloudflare R2
+          const url = await uploadFile(newProfielPic, profilePicPath, (progress) => {
+            // Mettre à jour la progression du téléchargement
+            setUploadProgress(progress);
           });
+          
+          // Mettre à jour l'URL de la photo de profil
+          console.log(url, "Nouvelle URL de photo de profil");
+          setProfilePic(url);
+          
+          // Mettre à jour le profil utilisateur
+          const auth = getAuth();
+          await updateProfile(auth.currentUser, { photoURL: url });
+          
+          // Notification de succès
+          notify();
+          setisMyListUpdated(true);
+        } catch (error) {
+          console.error("Erreur lors du téléchargement de la photo de profil:", error);
+          alert(error.message || "Erreur lors du téléchargement de la photo");
         }
-      );
+      }
+      
+      // Si tout s'est bien passé, notification de succès
+      if ((isUserNameChanged && userName !== "") || newProfielPic !== "") {
+        notify();
+      }
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du profil:", error);
+      alert(error.message || "Erreur lors de la mise à jour du profil");
     }
   };
 
-  const updateProfilePic = (imageURL) => {
-    const auth = getAuth();
-    updateProfile(auth.currentUser, { photoURL: imageURL })
-      .then(() => {
-        setProfilePic(User.photoURL);
-        notify();
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+  const updateProfilePic = async (imageURL) => {
+    try {
+      const auth = getAuth();
+      await updateProfile(auth.currentUser, { photoURL: imageURL });
+      setProfilePic(imageURL); // Utiliser directement l'URL fournie
+      notify();
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour de la photo de profil:", error);
+      alert(error.message || "Erreur lors de la mise à jour de la photo de profil");
+    }
   };
 
-  const SignOut = () => {
-    const auth = getAuth();
-    signOut(auth)
-      .then(() => {
-        navigate("/");
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+  const SignOut = async () => {
+    try {
+      const auth = getAuth();
+      await signOut(auth);
+      // Supprimer le token d'authentification local
+      localStorage.removeItem('flodrama_auth_token');
+      navigate("/");
+    } catch (error) {
+      console.error("Erreur lors de la déconnexion:", error);
+      alert(error.message || "Erreur lors de la déconnexion");
+    }
   };
 
   return (

@@ -5,17 +5,16 @@ import { Fade } from "react-reveal";
 import { ClipLoader } from "react-spinners";
 import {
   getAuth,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
-import { setDoc, doc, getDoc } from "firebase/firestore";
-import { db } from "../Firebase/FirebaseConfig";
+  signInWithEmailAndPassword
+} from "../Cloudflare/CloudflareAuth";
+import { setDoc, doc, getDoc } from "../Cloudflare/CloudflareDB";
+import { db } from "../Cloudflare/CloudflareDB";
 import { AuthContext } from "../Context/UserContext";
 
-// Utilisation des images depuis le dossier public
-const GoogleLogo = "/images/GoogleLogo.png";
-const WelcomePageBanner = "/images/WelcomePageBanner.jpg";
+// Utilisation des images depuis le dossier public avec paramètre anti-cache
+const timestamp = new Date().getTime();
+const GoogleLogo = `/images/GoogleLogo.png?v=${timestamp}`;
+const WelcomePageBanner = `/images/WelcomePageBanner.jpg?v=${timestamp}`;
 
 function SignIn() {
   const { User, setUser } = useContext(AuthContext);
@@ -33,87 +32,78 @@ function SignIn() {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
+        // Utilisateur connecté
+        const { user } = userCredential;
         console.log(user);
         if (user != null) {
           navigate("/");
         }
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        setErrorMessage(error.message);
+        const { code, message } = error;
+        setErrorMessage(message);
+        alert(message);
+        console.log("Connexion à FloDrama : merci de ne pas utiliser vos identifiants personnels pour ce démonstrateur");
         setLoader(false);
-        console.log(errorCode);
-        console.log(errorMessage);
       });
   };
 
-  const loginWithGoogle = (e) => {
+  const loginWithGoogle = async (e) => {
     e.preventDefault();
-    const auth = getAuth();
-    const provider = new GoogleAuthProvider();
-
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const user = result.user;
+    setLoader(true);
+    
+    try {
+      // Appel à l'API Cloudflare pour l'authentification OAuth Google
+      const response = await fetch('https://flodrama-api-prod.florifavi.workers.dev/api/auth/google', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        // Redirection vers la page de connexion Google
+        body: JSON.stringify({
+          redirect_uri: window.location.origin
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (data.auth_url) {
+        // Rediriger vers l'URL d'authentification Google fournie par Cloudflare
+        window.location.href = data.auth_url;
+        return;
+      }
+      
+      // Si nous avons un token et un utilisateur, c'est que nous sommes de retour après l'auth Google
+      if (data.token && data.user) {
+        localStorage.setItem('flodrama_auth_token', data.token);
+        const user = data.user;
         console.log(user);
         const EmptyArray = [];
 
-        setDoc(
-          doc(db, "Users", user.uid),
-          {
-            email: user.email,
-            Uid: user.uid,
-          },
-          { merge: true }
-        ).then(() => {
-          getDoc(doc(db, "MyList", user.uid)).then((result) => {
-            if (result.exists()) {
-              // Data exist in MyList section for this user
-            } else {
-              // Creating a new MyList, WatchedMovies List, LikedMovies List for the user in the database
-              setDoc(
-                doc(db, "MyList", user.uid),
-                {
-                  movies: EmptyArray,
-                },
-                { merge: true }
-              );
-              setDoc(
-                doc(db, "WatchedMovies", user.uid),
-                {
-                  movies: EmptyArray,
-                },
-                { merge: true }
-              );
-              setDoc(
-                doc(db, "LikedMovies", user.uid),
-                {
-                  movies: EmptyArray,
-                },
-                { merge: true }
-              ).then(() => {
-                navigate("/");
-              });
-            }
-          });
-        });
-        if (user != null) {
+        // Initialiser les listes utilisateur si elles n'existent pas déjà
+        try {
+          const myListResult = await getDoc(doc(db, "MyList", user.uid));
+          
+          if (!myListResult.exists()) {
+            // Créer les listes vides pour le nouvel utilisateur
+            await setDoc(doc(db, "MyList", user.uid), { movies: EmptyArray }, { merge: true });
+            await setDoc(doc(db, "WatchedMovies", user.uid), { movies: EmptyArray }, { merge: true });
+            await setDoc(doc(db, "LikedMovies", user.uid), { movies: EmptyArray }, { merge: true });
+          }
+          
           navigate("/");
+        } catch (error) {
+          console.error("Erreur lors de l'initialisation des listes utilisateur:", error);
+          setErrorMessage("Erreur lors de l'initialisation de votre compte");
+          setLoader(false);
         }
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        setErrorMessage(error.message);
-        setLoader(false);
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-      });
+      }
+    } catch (error) {
+      console.error("Erreur de connexion avec Google:", error);
+      setErrorMessage(error.message || "Erreur lors de la connexion avec Google");
+      alert("Erreur de connexion avec Google. Veuillez réessayer.");
+      setLoader(false);
+    }
   };
 
   return (
