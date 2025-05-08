@@ -5,24 +5,35 @@ import NavbarWithoutUser from "../componets/Header/NavbarWithoutUser";
 import { Fade } from "react-reveal";
 import { Link } from "react-router-dom";
 
-// Utilisation des images depuis le dossier public avec un paramètre de version fixe
-const cacheBuster = '?v=1';
-const WelcomePageImage1 = `/images/WelcomePageImage1.png${cacheBuster}`;
-const WelcomePageImage2 = `/images/WelcomePageImage2.png${cacheBuster}`;
-const WelcomePageImage3 = `/images/WelcomePageImage3.png${cacheBuster}`;
-const WelcomePageImage4 = `/images/WelcomePageImage4.png${cacheBuster}`;
-const WelcomePageBanner = `/images/WelcomePageBanner.png${cacheBuster}`;
+// Utilisation des images depuis le dossier public sans paramètre de version pour permettre la mise en cache
+const WelcomePageImage1 = `/images/WelcomePageImage1.png`;
+const WelcomePageImage2 = `/images/WelcomePageImage2.png`;
+const WelcomePageImage3 = `/images/WelcomePageImage3.png`;
+const WelcomePageImage4 = `/images/WelcomePageImage4.png`;
+const WelcomePageBanner = `/images/WelcomePageBanner.png`;
 
 function Welcome() {
+  // Préchargement des images dès le chargement du composant
   useEffect(() => {
-    //alert("This is NOT REAL NETFLIX so don't Enter your REAL CREDENTIALS")
-    const image1 = WelcomePageImage1;
+    // Précharger les images
+    const preloadImages = () => {
+      const imageUrls = [WelcomePageImage1, WelcomePageImage2, WelcomePageImage3, WelcomePageImage4, WelcomePageBanner];
+      imageUrls.forEach(url => {
+        const img = new Image();
+        img.src = url;
+      });
+    };
+    
+    preloadImages();
   }, []);
 
   return (
     <div>
       <NavbarWithoutUser />
       {/*Hero Section*/}
+      {/* Précharger l'image de fond pour un affichage immédiat */}
+      <link rel="preload" href={WelcomePageBanner} as="image" />
+      
       <div
         style={{
           background: `linear-gradient(0deg, hsl(0deg 0% 0% / 73%) 0%, hsl(0deg 0% 0% / 73%) 35%),url(${WelcomePageBanner})`,
@@ -82,7 +93,13 @@ function Welcome() {
               </Fade>
             </div>
             <div className="lg:w-1/2 flex justify-center items-center mt-8 lg:mt-0">
-              <img className="max-w-full h-auto" src={WelcomePageImage2} alt="TV devices" />
+              <img 
+                className="max-w-full h-auto" 
+                src={WelcomePageImage2} 
+                alt="TV devices" 
+                loading="eager" 
+                fetchpriority="high" 
+              />
             </div>
           </div>
         </div>
@@ -93,7 +110,13 @@ function Welcome() {
         <div className="flex justify-center">
           <div className="flex flex-col-reverse lg:flex-row lg:items-center lg:w-9/12 max-w-6xl mx-auto">
             <div className="lg:w-1/2 flex justify-center items-center mt-8 lg:mt-0">
-              <img className="max-w-full h-auto" src={WelcomePageImage1} alt="Download shows" />
+              <img 
+                className="max-w-full h-auto" 
+                src={WelcomePageImage1} 
+                alt="Download shows" 
+                loading="eager" 
+                fetchpriority="high" 
+              />
             </div>
             <div className="lg:w-1/2 px-6">
               <Fade>
@@ -126,7 +149,13 @@ function Welcome() {
               </Fade>
             </div>
             <div className="lg:w-1/2 flex justify-center items-center mt-8 lg:mt-0">
-              <img className="max-w-full h-auto" src={WelcomePageImage3} alt="Watch everywhere" />
+              <img 
+                className="max-w-full h-auto" 
+                src={WelcomePageImage3} 
+                alt="Watch everywhere" 
+                loading="eager" 
+                fetchpriority="high" 
+              />
             </div>
           </div>
         </div>
@@ -137,7 +166,13 @@ function Welcome() {
         <div className="flex justify-center">
           <div className="flex flex-col-reverse lg:flex-row lg:items-center lg:w-9/12 max-w-6xl mx-auto">
             <div className="lg:w-1/2 flex justify-center items-center mt-8 lg:mt-0">
-              <img className="max-w-full h-auto" src={WelcomePageImage4} alt="Children profiles" />
+              <img 
+                className="max-w-full h-auto" 
+                src={WelcomePageImage4} 
+                alt="Children profiles" 
+                loading="eager" 
+                fetchpriority="high" 
+              />
             </div>
             <div className="lg:w-1/2 px-6">
               <Fade>
