@@ -18,7 +18,7 @@ import Footer from '../components/Footer';
 
 // Services et utilitaires
 import { ContentItem } from '../types/content';
-import { CONTENT_TYPES } from '../services/contentDistributionService';
+import { CONTENT_TYPES } from '../constants/contentTypes';
 
 const HomePage: React.FC = () => {
   // ID utilisateur fictif pour la démo

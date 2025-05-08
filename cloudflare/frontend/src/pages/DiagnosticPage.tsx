@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { getDiagnosticInfo } from '../services/contentDistributionService';
+import { getDiagnosticInfo, DiagnosticInfo } from '../services/diagnosticService';
 
-interface DiagnosticInfo {
+// Interface étendue pour les besoins spécifiques de la page de diagnostic
+interface ExtendedDiagnosticInfo extends DiagnosticInfo {
   apiBaseUrl: string;
   apiTimeout: number;
   cacheDuration: number;
@@ -34,14 +35,22 @@ interface DiagnosticInfo {
 }
 
 const DiagnosticPage: React.FC = () => {
-  const [diagnosticInfo, setDiagnosticInfo] = useState<DiagnosticInfo | null>(null);
+  const [diagnosticInfo, setDiagnosticInfo] = useState<ExtendedDiagnosticInfo | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchDiagnosticInfo = async () => {
       try {
-        const info = await getDiagnosticInfo();
-        setDiagnosticInfo(info);
+        const info = getDiagnosticInfo();
+        
+        // Conversion vers le type étendu requis par l'interface
+        const extendedInfo: ExtendedDiagnosticInfo = {
+          ...info,
+          lastApiError: info.apiErrors.length > 0 ? info.apiErrors[0] : null,
+          errorCount: info.apiErrors.length
+        };
+        
+        setDiagnosticInfo(extendedInfo);
       } catch (error) {
         console.error('Erreur lors de la récupération des informations de diagnostic:', error);
       } finally {

@@ -7,7 +7,7 @@
 
 import { ContentItem } from '../types/content';
 import { getContentByCategory } from './contentService';
-import { CONTENT_TYPES } from './contentDistributionService';
+import { CONTENT_TYPES } from '../constants/contentTypes';
 
 // Cache pour les résultats de filtrage
 interface CacheItem {
