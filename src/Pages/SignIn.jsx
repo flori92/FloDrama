@@ -102,7 +102,7 @@ function SignIn() {
             <div>
               <div className="p-6 space-y-4 md:space-y-6 sm:p-12">
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl dark:text-white">
-                  Sign in to your account
+                  Connectez-vous à votre compte
                 </h1>
                 <h1 className="text-white text-2xl p-3 text-center border-2 border-flodrama-fuchsia rounded-sm bg-gradient-to-r from-flodrama-blue/10 to-flodrama-fuchsia/10">
                   Bienvenue sur FloDrama
@@ -117,7 +117,7 @@ function SignIn() {
                       for="email"
                       className="block mb-2 text-sm font-medium text-white dark:text-white"
                     >
-                      Your email
+                      Votre email
                     </label>
                     <input
                       type="email"
@@ -138,7 +138,7 @@ function SignIn() {
                       for="password"
                       className="block mb-2 text-sm font-medium text-white dark:text-white"
                     >
-                      Password
+                      Mot de passe
                     </label>
                     <input
                       type="password"
@@ -191,7 +191,7 @@ function SignIn() {
                           for="remember"
                           className="text-gray-500 dark:text-gray-300"
                         >
-                          Remember me
+                          Se souvenir de moi
                         </label>
                       </div>
                     </div>
@@ -239,12 +239,12 @@ function SignIn() {
                     )}
                   </button>
                   <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                    Don’t have an account yet?{" "}
+                    Vous n'avez pas encore de compte ?{" "}
                     <Link
                       className="font-medium text-white hover:underline dark:text-primary-500"
                       to={"/signup"}
                     >
-                      Sign up
+                      S'inscrire
                     </Link>
                   </p>
                 </form>
