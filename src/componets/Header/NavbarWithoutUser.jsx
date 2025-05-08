@@ -35,7 +35,7 @@ function NavbarWithoutUser() {
 
         <div>
           <Link to="/signin">
-            <button className="bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia hover:from-flodrama-fuchsia hover:to-flodrama-blue transition-all duration-300 px-8 rounded-sm py-2 text-white text-base font-bold mr-4 lg:mr-0 border-none">
+            <button className="text-flodrama-blue hover:text-flodrama-fuchsia transition-all duration-300 px-8 rounded-sm py-2 text-base font-bold mr-4 lg:mr-0 border border-flodrama-blue hover:border-flodrama-fuchsia">
               Connexion
             </button>
           </Link>
