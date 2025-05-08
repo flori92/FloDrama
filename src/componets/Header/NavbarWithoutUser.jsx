@@ -35,8 +35,8 @@ function NavbarWithoutUser() {
 
         <div>
           <Link to="/signin">
-            <div className="bg-white px-8 rounded-sm py-2 text-base font-bold mr-4 lg:mr-0 transition-all duration-300 hover:bg-opacity-90">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia font-bold">
+            <div className="mr-4 lg:mr-0 transition-all duration-300 cursor-pointer hover:opacity-80">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia font-bold font-sans text-3xl tracking-tight">
                 Connexion
               </span>
             </div>
