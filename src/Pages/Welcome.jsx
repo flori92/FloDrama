@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import Footer from "../componets/Footer/Footer";
+import NavbarWithoutUser from "../componets/Header/NavbarWithoutUser";
 import { Fade } from "react-reveal";
 import { Link } from "react-router-dom";
 
@@ -20,6 +21,7 @@ function Welcome() {
 
   return (
     <div>
+      <NavbarWithoutUser />
       {/*Hero Section*/}
       <div
         style={{
