@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 function NavbarWithoutUser() {
   const [show, handleShow] = useState(false);
+  
   const transitionNavBar = () => {
     if (window.scrollY > 100) {
       handleShow(true);
@@ -19,31 +20,31 @@ function NavbarWithoutUser() {
   }, []);
 
   return (
-    <div>
-      <header
-        className={`fixed z-50 w-full flex items-center justify-between py-4 transition duration-500 ease-in-out ${
-          show && "bg-black transition duration-500 ease-in-out"
-        }`}
-      >
-        <div className="flex-shrink-0">
-          <img
-            className="h-8 sm:h-10 w-32 ml-8 cursor-pointer transition duration-300 ease-in-out hover:opacity-80"
-            src="/flodrama-logo.svg?v=1683576581"
-            alt="FloDrama"
-          />
+    <nav className={`fixed top-0 left-0 right-0 z-50 ${show ? 'bg-black' : 'bg-transparent'} transition-all duration-500`}>
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex justify-between items-center">
+          {/* Logo */}
+          <div>
+            <img
+              className="h-8 sm:h-10 w-32 cursor-pointer transition-opacity duration-300 hover:opacity-80"
+              src="/flodrama-logo.svg?v=1683576581"
+              alt="FloDrama"
+            />
+          </div>
+          
+          {/* Bouton Connexion */}
+          <div>
+            <Link to="/signin">
+              <div className="flex items-center justify-center cursor-pointer transition-opacity duration-300 hover:opacity-80">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia font-bold font-sans text-2xl tracking-tight">
+                  Connexion
+                </span>
+              </div>
+            </Link>
+          </div>
         </div>
-
-        <div className="mr-8">
-          <Link to="/signin">
-            <div className="h-8 sm:h-10 w-32 flex items-center justify-center cursor-pointer transition duration-300 ease-in-out hover:opacity-80">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia font-bold font-sans text-2xl tracking-tight">
-                Connexion
-              </span>
-            </div>
-          </Link>
-        </div>
-      </header>
-    </div>
+      </div>
+    </nav>
   );
 }
 
