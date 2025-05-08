@@ -34,14 +34,14 @@ function NavbarWithoutUser() {
         </div>
 
         <div>
-          <Link to="/signin">
-            <div className="bg-white px-6 py-2 rounded-sm mr-4 lg:mr-0 transition-all duration-300 cursor-pointer hover:bg-opacity-90">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia font-bold font-sans text-2xl tracking-tight">
-                Connexion
-              </span>
-            </div>
-          </Link>
-        </div>
+  <Link to="/signin">
+    <div className="h-8 sm:h-10 w-32 ml-8 flex items-center justify-center cursor-pointer transition duration-300 ease-in-out hover:opacity-80">
+      <span className="text-transparent bg-clip-text bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia font-bold font-sans text-2xl tracking-tight">
+        Connexion
+      </span>
+    </div>
+  </Link>
+</div>
       </header>
     </div>
   );
