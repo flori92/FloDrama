@@ -5,8 +5,8 @@ import NavbarWithoutUser from "../componets/Header/NavbarWithoutUser";
 import { Fade } from "react-reveal";
 import { Link } from "react-router-dom";
 
-// Utilisation des images depuis le dossier public avec paramètre de version pour éviter le cache
-const cacheBuster = `?v=${new Date().getTime()}`;
+// Utilisation des images depuis le dossier public avec un paramètre de version fixe
+const cacheBuster = '?v=1';
 const WelcomePageImage1 = `/images/WelcomePageImage1.png${cacheBuster}`;
 const WelcomePageImage2 = `/images/WelcomePageImage2.png${cacheBuster}`;
 const WelcomePageImage3 = `/images/WelcomePageImage3.png${cacheBuster}`;
