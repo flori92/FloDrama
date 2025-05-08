@@ -12,7 +12,8 @@ import { setDoc, doc } from "firebase/firestore";
 import { db } from "../Firebase/FirebaseConfig";
 import { AuthContext } from "../Context/UserContext";
 import { ClipLoader } from "react-spinners";
-import WelcomePageBanner from "../images/WelcomePageBanner.jpg";
+// Utilisation de l'image bannière depuis le dossier public
+const WelcomePageBanner = "/images/WelcomePageBanner.jpg";
 
 function SignUp() {
   const { User, setUser } = useContext(AuthContext);

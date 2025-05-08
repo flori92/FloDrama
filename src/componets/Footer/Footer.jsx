@@ -3,28 +3,30 @@ import styles from "./styles.module.scss";
 
 function Footer2() {
   return (
-    <div className="bg-black p-2">
+    <div className="bg-black p-2 bg-gradient-to-r from-flodrama-blue/10 to-flodrama-fuchsia/10">
       <footer className={styles.footer}>
         <div className={styles.containerFooter}>
-          <div className={styles.icons}></div>
+          <div className={styles.icons}>
+            <img 
+              src="/flodrama-logo.svg" 
+              alt="FloDrama" 
+              className="h-8 mb-4 transition duration-300 ease-in-out hover:opacity-80" 
+            />
+          </div>
           <ul className={styles.details}>
-            <li>FAQ</li>
-            <li>Investor Relations</li>
-            <li>Privacy</li>
-            <li>Speed Test</li>
-            <li>Help Center</li>
-            <li>Jobs</li>
-            <li>Cookie Preference</li>
-            <li>Legal Notices</li>
-            <li>Account</li>
-            <li>Ways to Watch</li>
-            <li>Corporate Information</li>
-            <li>iOS</li>
-            <li>Android</li>
+            {[
+              "FAQ", "À propos", "Confidentialité", "Test de connexion",
+              "Centre d'aide", "Recrutement", "Préférences cookies", "Mentions légales",
+              "Mon compte", "Comment regarder", "Informations légales", "iOS", "Android"
+            ].map((item, index) => (
+              <li key={index} className="transition duration-300 ease-in-out hover:text-flodrama-fuchsia cursor-pointer">
+                {item}
+              </li>
+            ))}
           </ul>
           <div className={styles.security}>
-            <div>Engligh</div>
-            <span>© 1997-2024 Netflix, Inc.</span>
+            <div className="transition duration-300 ease-in-out hover:text-flodrama-blue cursor-pointer">Français</div>
+            <span>© 2025 FloDrama, Tous droits réservés.</span>
           </div>
         </div>
       </footer>
