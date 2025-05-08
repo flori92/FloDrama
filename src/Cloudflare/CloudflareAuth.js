@@ -167,12 +167,69 @@ class CloudflareAuth {
 // Créer une instance unique du service d'authentification
 const authService = new CloudflareAuth();
 
+// Authentification avec Google
+CloudflareAuth.prototype.signInWithGoogle = async function() {
+  try {
+    // Redirection vers l'endpoint d'authentification Google de Cloudflare
+    const response = await axios.get(`${AUTH_API_URL}/google/auth`);
+    
+    if (response.status === 200 && response.data.authUrl) {
+      // Rediriger l'utilisateur vers l'URL d'authentification Google
+      window.location.href = response.data.authUrl;
+      return true;
+    } else {
+      throw new Error(response.data.message || "Échec de l'initialisation de l'authentification Google");
+    }
+  } catch (error) {
+    console.error("Erreur lors de l'authentification Google:", error);
+    throw error;
+  }
+};
+
+// Traitement du callback Google
+CloudflareAuth.prototype.handleGoogleCallback = async function(code) {
+  try {
+    const response = await axios.post(`${AUTH_API_URL}/google/callback`, { code });
+    
+    if (response.status === 200 && response.data.token) {
+      localStorage.setItem('flodrama_auth_token', response.data.token);
+      this.currentUser = response.data.user;
+      this.notifyAuthStateChanged();
+      return response.data;
+    } else {
+      throw new Error(response.data.message || "Échec de l'authentification Google");
+    }
+  } catch (error) {
+    console.error("Erreur lors du traitement du callback Google:", error);
+    throw error;
+  }
+};
+
+// Création d'un compte de test pour FloDrama
+CloudflareAuth.prototype.createTestAccount = async function() {
+  try {
+    const response = await axios.post(`${AUTH_API_URL}/test-account`);
+    
+    if (response.status === 201 && response.data.credentials) {
+      return response.data.credentials; // { email, password }
+    } else {
+      throw new Error(response.data.message || "Échec de la création du compte de test");
+    }
+  } catch (error) {
+    console.error("Erreur lors de la création du compte de test:", error);
+    throw error;
+  }
+};
+
 // Exporter les fonctions d'authentification pour remplacer les imports Firebase
 export const getAuth = () => authService;
 export const signInWithEmailAndPassword = (email, password) => authService.signInWithEmailAndPassword(email, password);
 export const createUserWithEmailAndPassword = (email, password) => authService.createUserWithEmailAndPassword(email, password);
 export const signOut = () => authService.signOut();
 export const updateProfile = (userData) => authService.updateProfile(userData);
+export const signInWithGoogle = () => authService.signInWithGoogle();
+export const handleGoogleCallback = (code) => authService.handleGoogleCallback(code);
+export const createTestAccount = () => authService.createTestAccount();
 export const onAuthStateChanged = (auth, callback) => {
   // Support de l'API Firebase (auth, callback) et de l'API directe (callback)
   return authService.onAuthStateChanged(auth, callback);

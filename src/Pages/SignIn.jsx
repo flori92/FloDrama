@@ -5,7 +5,9 @@ import { Fade } from "react-reveal";
 import { ClipLoader } from "react-spinners";
 import {
   getAuth,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  signInWithGoogle,
+  createTestAccount as createTestAccountFn
 } from "../Cloudflare/CloudflareAuth";
 import { setDoc, doc, getDoc } from "../Cloudflare/CloudflareDB";
 import { db } from "../Cloudflare/CloudflareDB";
@@ -53,55 +55,36 @@ function SignIn() {
     setLoader(true);
     
     try {
-      // Appel à l'API Cloudflare pour l'authentification OAuth Google
-      const response = await fetch('https://flodrama-api-prod.florifavi.workers.dev/api/auth/google', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        // Redirection vers la page de connexion Google
-        body: JSON.stringify({
-          redirect_uri: window.location.origin
-        })
-      });
+      // Utilisation de notre nouvelle implémentation d'authentification Google
+      await signInWithGoogle();
+      // La redirection est gérée par signInWithGoogle, donc pas besoin de code supplémentaire ici
       
-      const data = await response.json();
-      
-      if (data.auth_url) {
-        // Rediriger vers l'URL d'authentification Google fournie par Cloudflare
-        window.location.href = data.auth_url;
-        return;
-      }
-      
-      // Si nous avons un token et un utilisateur, c'est que nous sommes de retour après l'auth Google
-      if (data.token && data.user) {
-        localStorage.setItem('flodrama_auth_token', data.token);
-        const user = data.user;
-        console.log(user);
-        const EmptyArray = [];
-
-        // Initialiser les listes utilisateur si elles n'existent pas déjà
-        try {
-          const myListResult = await getDoc(doc(db, "MyList", user.uid));
-          
-          if (!myListResult.exists()) {
-            // Créer les listes vides pour le nouvel utilisateur
-            await setDoc(doc(db, "MyList", user.uid), { movies: EmptyArray }, { merge: true });
-            await setDoc(doc(db, "WatchedMovies", user.uid), { movies: EmptyArray }, { merge: true });
-            await setDoc(doc(db, "LikedMovies", user.uid), { movies: EmptyArray }, { merge: true });
-          }
-          
-          navigate("/");
-        } catch (error) {
-          console.error("Erreur lors de l'initialisation des listes utilisateur:", error);
-          setErrorMessage("Erreur lors de l'initialisation de votre compte");
-          setLoader(false);
-        }
-      }
+      // Note: Le traitement du retour de Google est géré par un gestionnaire de route séparé
+      // qui appellera handleGoogleCallback avec le code d'autorisation
     } catch (error) {
-      console.error("Erreur de connexion avec Google:", error);
+      console.error("Erreur lors de l'authentification Google:", error);
       setErrorMessage(error.message || "Erreur lors de la connexion avec Google");
       alert("Erreur de connexion avec Google. Veuillez réessayer.");
+      setLoader(false);
+    }
+  };
+  
+  // Fonction pour créer un compte de test
+  const handleCreateTestAccount = async () => {
+    try {
+      setLoader(true);
+      const { email, password } = await createTestAccountFn();
+      
+      // Afficher les informations du compte de test
+      alert(`Compte de test créé avec succès!\nEmail: ${email}\nMot de passe: ${password}\n\nCes informations ne seront affichées qu'une seule fois.`);
+      
+      // Connexion automatique avec le compte de test
+      const auth = getAuth();
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate("/");
+    } catch (error) {
+      console.error("Erreur lors de la création du compte de test:", error);
+      setErrorMessage(error.message || "Erreur lors de la création du compte de test");
       setLoader(false);
     }
   };
@@ -122,7 +105,7 @@ function SignIn() {
                   Sign in to your account
                 </h1>
                 <h1 className="text-white text-2xl p-3 text-center border-2 border-flodrama-fuchsia rounded-sm bg-gradient-to-r from-flodrama-blue/10 to-flodrama-fuchsia/10">
-                  Not Real Netflix
+                  Bienvenue sur FloDrama
                 </h1>
                 <form
                   onSubmit={handleSubmit}
@@ -221,23 +204,38 @@ function SignIn() {
                         : `bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia hover:from-flodrama-blue/80 hover:to-flodrama-fuchsia/80 focus:ring-4 focus:outline-none focus:ring-primary-300`
                     } transition ease-in-out font-medium rounded-sm text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}
                   >
-                    {loader ? <ClipLoader color="#ff0000" /> : `Sign in`}
+                    {loader ? <ClipLoader color="#ff0000" /> : `Connexion`}
                   </button>
                   <button
                     onClick={loginWithGoogle}
                     className={`flex justify-center items-center w-full text-white ${
                       loader
                         ? `bg-stone-700`
-                        : `bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-primary-300`
-                    } transition ease-in-out font-medium rounded-sm text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:focus:ring-primary-800`}
+                        : `bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia hover:from-flodrama-fuchsia hover:to-flodrama-blue focus:ring-4 focus:outline-none focus:ring-primary-300`
+                    } transition ease-in-out font-medium rounded-sm text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:focus:ring-primary-800 mb-2`}
                   >
                     {loader ? (
                       <ClipLoader color="#ff0000" />
                     ) : (
                       <>
                         <img className="w-8" src={GoogleLogo}></img>{" "}
-                        <p className="ml-1">Sign in with Google</p>
+                        <p className="ml-1">Connexion avec Google</p>
                       </>
+                    )}
+                  </button>
+                  
+                  <button
+                    onClick={handleCreateTestAccount}
+                    className={`flex justify-center items-center w-full text-white ${
+                      loader
+                        ? `bg-stone-700`
+                        : `bg-stone-600 hover:bg-stone-700 focus:ring-4 focus:outline-none focus:ring-primary-300`
+                    } transition ease-in-out font-medium rounded-sm text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:focus:ring-primary-800`}
+                  >
+                    {loader ? (
+                      <ClipLoader color="#ff0000" />
+                    ) : (
+                      <p>Créer un compte de test</p>
                     )}
                   </button>
                   <p className="text-sm font-light text-gray-500 dark:text-gray-400">
