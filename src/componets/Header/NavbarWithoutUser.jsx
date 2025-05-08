@@ -35,11 +35,9 @@ function NavbarWithoutUser() {
           {/* Bouton Connexion */}
           <div>
             <Link to="/signin">
-              <div className="flex items-center justify-center cursor-pointer transition-opacity duration-300 hover:opacity-80">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia font-bold font-sans text-2xl tracking-tight">
-                  Connexion
-                </span>
-              </div>
+              <button className="bg-white text-black font-medium py-2 px-6 rounded hover:bg-opacity-90 transition-all duration-300">
+                Connexion
+              </button>
             </Link>
           </div>
         </div>
