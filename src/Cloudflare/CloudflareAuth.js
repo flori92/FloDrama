@@ -130,8 +130,16 @@ class CloudflareAuth {
     }
   }
 
-  // Observer les changements d'état d'authentification (similaire à onAuthStateChanged de Firebase)
-  onAuthStateChanged(callback) {
+  // Observer les changements d'état d'authentification (compatible avec l'API Firebase)
+  onAuthStateChanged(authOrCallback, maybeCallback) {
+    // Détecter si appelé avec le style Firebase (auth, callback) ou style direct (callback)
+    const callback = typeof authOrCallback === 'function' ? authOrCallback : maybeCallback;
+    
+    if (!callback || typeof callback !== 'function') {
+      console.error('onAuthStateChanged: callback n\'est pas une fonction');
+      return () => {}; // Retourner une fonction vide pour éviter les erreurs
+    }
+    
     this.authStateListeners.push(callback);
     
     // Appeler immédiatement avec l'état actuel
@@ -165,6 +173,9 @@ export const signInWithEmailAndPassword = (email, password) => authService.signI
 export const createUserWithEmailAndPassword = (email, password) => authService.createUserWithEmailAndPassword(email, password);
 export const signOut = () => authService.signOut();
 export const updateProfile = (userData) => authService.updateProfile(userData);
-export const onAuthStateChanged = (callback) => authService.onAuthStateChanged(callback);
+export const onAuthStateChanged = (auth, callback) => {
+  // Support de l'API Firebase (auth, callback) et de l'API directe (callback)
+  return authService.onAuthStateChanged(auth, callback);
+};
 
 export default authService;

@@ -123,7 +123,7 @@ function Navbar(props) {
                   <Link to={"/search"}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="items-center w-10 h-10 pr-4 mt-auto mb-auto text-white hover:text-red-800 cursor-pointer"
+                      className="items-center w-10 h-10 pr-4 mt-auto mb-auto text-white hover:text-flodrama-fuchsia cursor-pointer transition-all duration-300"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -138,7 +138,7 @@ function Navbar(props) {
                   </Link>
 
                   {User ? (
-                    <a className="items-center hidden pr-4 mt-auto mb-auto text-base font-medium text-white transition ease-in-out delay-150 cursor-pointer hover:text-red-800 md:flex">
+                    <a className="items-center hidden pr-4 mt-auto mb-auto text-base font-medium text-white transition ease-in-out delay-150 cursor-pointer hover:text-flodrama-fuchsia md:flex">
                       {User.displayName}
                     </a>
                   ) : null}
@@ -166,7 +166,7 @@ function Navbar(props) {
                         src={
                           profilePic
                             ? `${User.photoURL}`
-                            : `https://www.citypng.com/public/uploads/preview/profile-user-round-red-icon-symbol-download-png-11639594337tco5j3n0ix.png`
+                            : `/images/profile-user-flodrama.png?v=${new Date().getTime()}`
                         }
                         alt="NETFLIX"
                       />
@@ -175,7 +175,7 @@ function Navbar(props) {
                       <li>
                         <Link
                           to={"/profile"}
-                          className="cursor-pointer rounded-t bg-stone-900 font-bold hover:border-l-4 hover:bg-gradient-to-r from-[#ff000056] border-red-800 py-2 px-4 block whitespace-no-wrap transition ease-in-out delay-150"
+                          className="cursor-pointer rounded-t bg-stone-900 font-bold hover:border-l-4 hover:bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia border-flodrama-blue py-2 px-4 block whitespace-no-wrap transition ease-in-out delay-150"
                         >
                           Profile
                         </Link>
@@ -183,7 +183,7 @@ function Navbar(props) {
                       <li>
                         <Link
                           to={"/signin"}
-                          className="cursor-pointer bg-stone-900 font-semibold hover:border-l-4 hover:bg-gradient-to-r from-[#ff000056] border-red-800 py-2 px-4 block whitespace-no-wrap transition ease-in-out delay-150"
+                          className="cursor-pointer bg-stone-900 font-semibold hover:border-l-4 hover:bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia border-flodrama-blue py-2 px-4 block whitespace-no-wrap transition ease-in-out delay-150"
                         >
                           Add another User
                         </Link>
@@ -191,7 +191,7 @@ function Navbar(props) {
                       <li>
                         <a
                           onClick={SignOut}
-                          className="cursor-pointer rounded-b bg-stone-900 font-bold hover:border-l-4 hover:bg-gradient-to-r from-[#ff000056] border-red-800 py-2 px-4 block whitespace-no-wrap transition ease-in-out delay-150"
+                          className="cursor-pointer rounded-b bg-stone-900 font-bold hover:border-l-4 hover:bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia border-flodrama-blue py-2 px-4 block whitespace-no-wrap transition ease-in-out delay-150"
                         >
                           Sign Out
                         </a>

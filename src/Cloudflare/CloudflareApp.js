@@ -12,17 +12,26 @@ const initCloudflare = () => {
   console.log('Initialisation de Cloudflare Workers pour FloDrama');
   
   // Vérifier la connectivité avec l'API Cloudflare
-  fetch(`${API_BASE_URL}/api/health`)
+  // Utiliser un endpoint qui existe certainement (root de l'API)
+  fetch(`${API_BASE_URL}/api`)
     .then(response => {
       if (response.ok) {
         console.log('Connexion à l\'API Cloudflare établie avec succès');
       } else {
-        console.warn('L\'API Cloudflare est accessible mais renvoie une erreur');
+        console.warn('L\'API Cloudflare est accessible mais renvoie une erreur:', response.status);
+        // Tenter une connexion alternative
+        return fetch(`${API_BASE_URL}`);
+      }
+    })
+    .then(response => {
+      if (response && response.ok) {
+        console.log('Connexion alternative à l\'API Cloudflare établie');
       }
     })
     .catch(error => {
       console.error('Erreur de connexion à l\'API Cloudflare:', error);
-      // Fallback sur les données locales si nécessaire
+      console.log('Utilisation du mode hors ligne avec données locales');
+      // Fallback sur les données locales activé
     });
     
   return {

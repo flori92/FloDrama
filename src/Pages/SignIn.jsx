@@ -14,7 +14,7 @@ import { AuthContext } from "../Context/UserContext";
 // Utilisation des images depuis le dossier public avec paramètre anti-cache
 const timestamp = new Date().getTime();
 const GoogleLogo = `/images/GoogleLogo.png?v=${timestamp}`;
-const WelcomePageBanner = `/images/WelcomePageBanner.jpg?v=${timestamp}`;
+const WelcomePageBanner = `/images/WelcomePageBanner.png?v=${timestamp}`;
 
 function SignIn() {
   const { User, setUser } = useContext(AuthContext);
@@ -121,7 +121,7 @@ function SignIn() {
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl dark:text-white">
                   Sign in to your account
                 </h1>
-                <h1 className="text-white text-2xl p-3 text-center border-2 border-red-700 rounded-sm">
+                <h1 className="text-white text-2xl p-3 text-center border-2 border-flodrama-fuchsia rounded-sm bg-gradient-to-r from-flodrama-blue/10 to-flodrama-fuchsia/10">
                   Not Real Netflix
                 </h1>
                 <form
@@ -142,7 +142,7 @@ function SignIn() {
                       id="email"
                       className={
                         ErrorMessage
-                          ? "bg-stone-700 text-white sm:text-sm rounded-sm focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 border-2 border-red-700  dark:placeholder-white dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 placeholder:text-white"
+                          ? "bg-stone-700 text-white sm:text-sm rounded-sm focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 border-2 border-flodrama-fuchsia dark:placeholder-white dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 placeholder:text-white"
                           : "bg-stone-700 text-white sm:text-sm rounded-sm focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:placeholder-white dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 placeholder:text-white"
                       }
                       placeholder="name@email.com"
@@ -164,7 +164,7 @@ function SignIn() {
                       placeholder="••••••••"
                       className={
                         ErrorMessage
-                          ? "bg-stone-700 text-white sm:text-sm rounded-sm focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  border-2 border-red-700 dark:bg-gray-700 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 placeholder:text-white"
+                          ? "bg-stone-700 text-white sm:text-sm rounded-sm focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 border-2 border-flodrama-fuchsia dark:bg-gray-700 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 placeholder:text-white"
                           : "bg-stone-700 text-white sm:text-sm rounded-sm focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 placeholder:text-white"
                       }
                       required=""
@@ -173,7 +173,7 @@ function SignIn() {
                   </div>
                   <div>
                     {ErrorMessage && (
-                      <h1 className="flex text-white font-bold p-4 bg-red-700 rounded text-center">
+                      <h1 className="flex text-white font-bold p-4 bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia rounded text-center">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -218,7 +218,7 @@ function SignIn() {
                     className={`w-full text-white ${
                       loader
                         ? `bg-stone-700`
-                        : `bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-primary-300`
+                        : `bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia hover:from-flodrama-blue/80 hover:to-flodrama-fuchsia/80 focus:ring-4 focus:outline-none focus:ring-primary-300`
                     } transition ease-in-out font-medium rounded-sm text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}
                   >
                     {loader ? <ClipLoader color="#ff0000" /> : `Sign in`}
