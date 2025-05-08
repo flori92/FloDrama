@@ -224,20 +224,7 @@ function SignIn() {
                     )}
                   </button>
                   
-                  <button
-                    onClick={handleCreateTestAccount}
-                    className={`flex justify-center items-center w-full text-white ${
-                      loader
-                        ? `bg-stone-700`
-                        : `bg-stone-600 hover:bg-stone-700 focus:ring-4 focus:outline-none focus:ring-primary-300`
-                    } transition ease-in-out font-medium rounded-sm text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:focus:ring-primary-800`}
-                  >
-                    {loader ? (
-                      <ClipLoader color="#ff0000" />
-                    ) : (
-                      <p>Créer un compte de test</p>
-                    )}
-                  </button>
+
                   <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                     Vous n'avez pas encore de compte ?{" "}
                     <Link
