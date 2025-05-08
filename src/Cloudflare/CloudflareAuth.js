@@ -171,8 +171,8 @@ const authService = new CloudflareAuth();
 CloudflareAuth.prototype.signInWithGoogle = async function() {
   try {
     // Redirection vers l'endpoint d'authentification Google de Cloudflare
-    // Utilisation de l'API existante au lieu de l'API /google/auth qui n'existe pas encore
-    const response = await axios.post(`${API_BASE_URL}/api/auth/google`, {
+    // Utilisation du bon endpoint sans le préfixe /api
+    const response = await axios.post(`${AUTH_API_URL}/google`, {
       redirect_uri: window.location.origin
     });
     
