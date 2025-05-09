@@ -62,6 +62,16 @@ export default {
       if (url.pathname.startsWith('/api/content')) {
         return await handleContentRequest(request, env, ctx, reqContext);
       }
+
+      // Ajout du routage explicite pour les contenus principaux
+      if (
+        url.pathname.startsWith('/api/animes') ||
+        url.pathname.startsWith('/api/dramas') ||
+        url.pathname.startsWith('/api/films') ||
+        url.pathname.startsWith('/api/bollywood')
+      ) {
+        return await handleContentRequest(request, env, ctx, reqContext);
+      }
       
       if (url.pathname.startsWith('/api/stream')) {
         return await handleStreamRequest(request, env, ctx, reqContext);
