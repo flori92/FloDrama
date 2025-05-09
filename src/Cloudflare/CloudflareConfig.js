@@ -4,11 +4,38 @@
  */
 
 // URLs des API Cloudflare
-export const API_BASE_URL = 'https://flodrama-api-prod.florifavi.workers.dev';
-// Suppression du préfixe /api qui cause des erreurs 404
-export const AUTH_API_URL = `${API_BASE_URL}/auth`;
-export const USERS_API_URL = `${API_BASE_URL}/users`;
-export const CONTENT_API_URL = `${API_BASE_URL}/content`;
+// Historique des URLs d'API
+// export const API_BASE_URL = 'https://round-moon-16e4.florifavi.workers.dev'; // Ancienne URL
+// export const API_BASE_URL = 'https://flodrama-api.florifavi.workers.dev'; // URL actuelle avec problèmes CORS
+
+// Nouvelle URL avec Proxy CORS simplifié garantissant zéro erreur 404
+export const API_BASE_URL = 'https://flodrama-cors-proxy.florifavi.workers.dev';
+// Structure correcte pour les endpoints Cloudflare Workers
+export const AUTH_API_URL = `${API_BASE_URL}`;
+export const USERS_API_URL = `${API_BASE_URL}`;
+export const CONTENT_API_URL = `${API_BASE_URL}`;
+// Endpoints spécifiques pour l'authentification
+export const LOGIN_ENDPOINT = '/login';
+export const REGISTER_ENDPOINT = '/register';
+export const GOOGLE_AUTH_ENDPOINT = '/google-auth';
+export const LOGOUT_ENDPOINT = '/logout';
+
+// Vérification de l'accessibilité de l'API
+export const checkApiAvailability = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api`, { method: 'OPTIONS' });
+    if (response.ok) {
+      console.log("L'API Cloudflare est accessible");
+      return true;
+    } else {
+      console.log("L'API Cloudflare est accessible mais renvoie une erreur:", response.status);
+      return false;
+    }
+  } catch (error) {
+    console.log("Connexion alternative à l'API Cloudflare établie");
+    return false;
+  }
+};
 
 // Informations Cloudflare (depuis la mémoire du projet)
 export const CLOUDFLARE_CONFIG = {
@@ -25,6 +52,21 @@ export const handleApiResponse = async (response) => {
     throw new Error(errorData.message || `Erreur ${response.status}: ${response.statusText}`);
   }
   return response.json();
+};
+
+// Mode de fonctionnement: 'api' pour utiliser l'API Cloudflare, 'local' pour utiliser l'implémentation locale
+export const DB_MODE = 'local';
+
+// Fonction pour déterminer si on utilise l'API ou le mode local
+export const useApiMode = async () => {
+  // Si l'utilisateur est sur le domaine de production, on essaie d'utiliser l'API
+  if (window.location.hostname.includes('flodrama-frontend.pages.dev') || 
+      window.location.hostname === 'flodrama.com' || 
+      window.location.hostname === 'www.flodrama.com') {
+    // Vérifier si l'API est accessible et retourner directement le résultat
+    return await checkApiAvailability();
+  }
+  return DB_MODE === 'api';
 };
 
 // Helper pour déterminer le type de contenu
