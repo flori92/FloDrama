@@ -183,7 +183,7 @@ function RowPost(props) {
                         loading="lazy"
                         className={
                           props.movieData != null
-                            ? "border-b-4 border-red-700 rounded-sm"
+                            ? "border-b-4 border-flodrama-fuchsia rounded-sm"
                             : "rounded-sm"
                         }
                         src={
@@ -322,7 +322,7 @@ function RowPost(props) {
                       <div className="ml-4">
                         <StarRatings
                           rating={obj.vote_average / 2}
-                          starRatedColor="red"
+                          starRatedColor="#d946ef"
                           numberOfStars={5}
                           name="rating"
                           starDimension="0.8rem"
@@ -396,7 +396,7 @@ function RowPost(props) {
 
                     <div className="flex ml-4 items-center -mt-14">
                       <button
-                        className="flex items-center justify-center bg-red-800 text-white active:bg-red-800 font-medium sm:font-bold uppercase text-xs px-4 sm:px-6 md:text-sm  py-2 rounded shadow hover:shadow-lg cursor-pointer outline-none focus:outline-none mr-3 mb-1 ease-linear transition-all duration-150"
+                        className="flex items-center justify-center bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia text-white active:from-flodrama-blue/90 active:to-flodrama-fuchsia/90 font-medium sm:font-bold uppercase text-xs px-4 sm:px-6 md:text-sm py-2 rounded shadow hover:shadow-lg cursor-pointer outline-none focus:outline-none mr-3 mb-1 ease-linear transition-all duration-150"
                         type="button"
                         onClick={() => {
                           playMovie(moviePopupInfo);
@@ -486,7 +486,7 @@ function RowPost(props) {
                             <div className="ml-2">
                               <StarRatings
                                 rating={moviePopupInfo.vote_average / 2}
-                                starRatedColor="red"
+                                starRatedColor="#d946ef"
                                 numberOfStars={5}
                                 name="rating"
                                 starDimension="1rem"
@@ -510,7 +510,7 @@ function RowPost(props) {
 
                           <h1 className="flex text-neutral-400 text-sm leading-relaxed">
                             Genere :
-                            {convertGenere(moviePopupInfo.genre_ids).slice(0,2).map(
+                            {moviePopupInfo && moviePopupInfo.genre_ids && convertGenere(moviePopupInfo.genre_ids).slice(0,2).map(
                               (genere) => {
                                 return (
                                   <span className="text-white ml-2 font-medium">

@@ -97,14 +97,14 @@ function UserMovieSection(props) {
 
       <div className="flex justify-center">
         <h1 className="text-white pt-20 pb-6 text-5xl w-11/12 leading-snug text-center">
-          {!isResultEmpty ? title : null}
+          {isResultEmpty ? null : title}
         </h1>
       </div>
 
       <div className="grid-cols-2 grid p-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 md:p-5 space-y-1 lg:space-y-0 lg:grid lg:gap-3 lg:grid-rows-3">
         {myMovies.length !== 0 ? (
           myMovies
-            .slice(0)
+            .slice()
             .reverse()
             .map((movie) => {
               let converted
@@ -135,7 +135,7 @@ function UserMovieSection(props) {
                         {/* Play Button */}
                         <div
                           onClick={() => playMovie(movie, props.from)}
-                          className="text-white w-10 h-10 2xl:w-14 2xl:h-14 border-[2px] 2xl:border-[3px] rounded-full p-2 mr-2 backdrop-blur-[1px] shadow-md ease-linear transition-all duration-150 hover:border-red-600 hover:text-red-600"
+                          className="text-white w-10 h-10 2xl:w-14 2xl:h-14 border-[2px] 2xl:border-[3px] rounded-full p-2 mr-2 backdrop-blur-[1px] shadow-md ease-linear transition-all duration-150 hover:border-flodrama-fuchsia hover:text-flodrama-fuchsia"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -157,7 +157,7 @@ function UserMovieSection(props) {
                           <>
                             <div
                               onClick={() => removeMovie(movie)}
-                              className="text-white w-10 h-10 2xl:w-14 2xl:h-14 border-[2px] 2xl:border-[3px] rounded-full p-2 mr-2 backdrop-blur-[1px] shadow-md ease-linear transition-all duration-150 hover:border-red-600 hover:text-red-600"
+                              className="text-white w-10 h-10 2xl:w-14 2xl:h-14 border-[2px] 2xl:border-[3px] rounded-full p-2 mr-2 backdrop-blur-[1px] shadow-md ease-linear transition-all duration-150 hover:border-flodrama-fuchsia hover:text-flodrama-fuchsia"
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -178,7 +178,7 @@ function UserMovieSection(props) {
                           <>
                             <div
                               onClick={() => addToLikedMovies(movie)}
-                              className="text-white w-10 h-10 2xl:w-14 2xl:h-14 border-[2px] 2xl:border-[3px] rounded-full p-2 mr-2 backdrop-blur-[1px] shadow-md ease-linear transition-all duration-150 hover:border-red-600 hover:text-red-600"
+                              className="text-white w-10 h-10 2xl:w-14 2xl:h-14 border-[2px] 2xl:border-[3px] rounded-full p-2 mr-2 backdrop-blur-[1px] shadow-md ease-linear transition-all duration-150 hover:border-flodrama-fuchsia hover:text-flodrama-fuchsia"
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -203,7 +203,7 @@ function UserMovieSection(props) {
                           <>
                             <div
                               onClick={() => removeMovie(movie)}
-                              className="text-white w-10 h-10 2xl:w-14 2xl:h-14 border-[2px] 2xl:border-[3px] rounded-full p-2 mr-2 backdrop-blur-[1px] shadow-md ease-linear transition-all duration-150 hover:border-red-600 hover:text-red-600"
+                              className="text-white w-10 h-10 2xl:w-14 2xl:h-14 border-[2px] 2xl:border-[3px] rounded-full p-2 mr-2 backdrop-blur-[1px] shadow-md ease-linear transition-all duration-150 hover:border-flodrama-fuchsia hover:text-flodrama-fuchsia"
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -224,7 +224,7 @@ function UserMovieSection(props) {
                           <>
                             <div
                               onClick={() => addToMyList(movie)}
-                              className="text-white w-10 h-10 2xl:w-14 2xl:h-14 border-[2px] 2xl:border-[3px] rounded-full p-2 mr-2 backdrop-blur-[1px] shadow-md ease-linear transition-all duration-150 hover:border-red-600 hover:text-red-600"
+                              className="text-white w-10 h-10 2xl:w-14 2xl:h-14 border-[2px] 2xl:border-[3px] rounded-full p-2 mr-2 backdrop-blur-[1px] shadow-md ease-linear transition-all duration-150 hover:border-flodrama-fuchsia hover:text-flodrama-fuchsia"
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -246,7 +246,7 @@ function UserMovieSection(props) {
                         {/* PopUp Button */}
                         <div
                           onClick={() => handleMoviePopup(movie)}
-                          className="text-white w-10 h-10 2xl:w-14 2xl:h-14 border-[2px] 2xl:border-[3px] rounded-full p-2 mr-2 backdrop-blur-[1px] shadow-md ease-linear transition-all duration-150 hover:border-red-600 hover:text-red-600"
+                          className="text-white w-10 h-10 2xl:w-14 2xl:h-14 border-[2px] 2xl:border-[3px] rounded-full p-2 mr-2 backdrop-blur-[1px] shadow-md ease-linear transition-all duration-150 hover:border-flodrama-fuchsia hover:text-flodrama-fuchsia"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -265,14 +265,14 @@ function UserMovieSection(props) {
                         </div>
                       </div>
 
-                      <a class="hover:text-primary-600 text-shadow-xl shadow-red-700 text-white text-base 2xl:text-2xl transition duration-500 font-medium">
+                      <a class="hover:text-primary-600 text-shadow-xl shadow-flodrama-fuchsia text-white text-base 2xl:text-2xl transition duration-500 font-medium">
                         {movie.name || movie.title}
                       </a>
 
                       <br></br>
                       <StarRatings
                         rating={movie.vote_average / 2}
-                        starRatedColor="red"
+                        starRatedColor="#d946ef"
                         numberOfStars={5}
                         name="rating"
                         starDimension="1.2rem"
@@ -297,9 +297,7 @@ function UserMovieSection(props) {
           <>
             <div>
               <div className="w-[100vw] h-[70vh] flex justify-center items-center">
-                {!isResultEmpty ? (
-                  <ClipLoader color="#ff0000" size={160} />
-                ) : (
+                {isResultEmpty ? (
                   <div>
                     <h1 className="text-white text-5xl text-center">
                       No Movies Present
@@ -309,7 +307,7 @@ function UserMovieSection(props) {
                       onClick={() => {
                         navigate("/");
                       }}
-                      className="flex justify-center items-center w-11/12 ml-2 bg-red-700 text-white font-medium sm:font-bold text-xl px-16 md:text-xl  py-3 rounded shadow hover:shadow-lg hover:bg-red-900 outline-none focus:outline-none mr-3 mb-1 ease-linear transition-all duration-150"
+                      className="flex justify-center items-center w-11/12 ml-2 bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia text-white font-medium sm:font-bold text-xl px-16 md:text-xl py-3 rounded shadow hover:shadow-lg hover:from-flodrama-blue/80 hover:to-flodrama-fuchsia/80 outline-none focus:outline-none mr-3 mb-1 ease-linear transition-all duration-150"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -328,7 +326,10 @@ function UserMovieSection(props) {
                       Back to Home
                     </button>
                   </div>
-                )}
+                ) : (
+                  <ClipLoader color="#d946ef" size={160} />
+                )
+              }
               </div>
             </div>
           </>

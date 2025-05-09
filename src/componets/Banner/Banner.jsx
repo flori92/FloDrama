@@ -26,14 +26,43 @@ function Banner(props) {
 
 
   useEffect(() => {
-    axios.get(props.url).then((response) => {
-      setMovie(
-        response.data.results.sort(function (a, b) {
-          return 0.5 - Math.random();
-        })[0]
-      );
-      console.log(movie);
-    });
+    // Vérifier si nous devons utiliser l'API Cloudflare (par défaut: oui)
+    const useCloudflareApi = props.useCloudflareApi !== false;
+    
+    if (useCloudflareApi) {
+      // Utiliser l'API Cloudflare avec fetch
+      fetch(props.url)
+        .then(response => response.json())
+        .then(data => {
+          // Extraire les données selon le format de l'API Cloudflare
+          const results = data.data || data.results || data;
+          // Sélectionner un film aléatoire pour le banner
+          const randomMovie = results.sort(() => 0.5 - Math.random())[0];
+          setMovie(randomMovie);
+          console.log("Banner avec contenu asiatique:", randomMovie);
+        })
+        .catch(error => {
+          console.error("Erreur lors du chargement du banner depuis Cloudflare:", error);
+          // Fallback vers l'ancienne méthode en cas d'erreur
+          axios.get(props.url).then((response) => {
+            setMovie(
+              response.data.results.sort(function (a, b) {
+                return 0.5 - Math.random();
+              })[0]
+            );
+          });
+        });
+    } else {
+      // Ancienne méthode avec axios pour la compatibilité
+      axios.get(props.url).then((response) => {
+        setMovie(
+          response.data.results.sort(function (a, b) {
+            return 0.5 - Math.random();
+          })[0]
+        );
+        console.log(movie);
+      });
+    }
 
     function handleWindowResize() {
       setWindowSeize(getWindowSize())
@@ -43,20 +72,59 @@ function Banner(props) {
 
   }, []);
 
+  // Fonction utilitaire pour extraire l'ID YouTube d'une URL
+  const extractYoutubeId = (url) => {
+    if (!url) return null;
+    
+    // Patterns pour les URLs YouTube
+    const patterns = [
+      /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i,
+      /^([^"&?\/ ]{11})$/i
+    ];
+    
+    for (const pattern of patterns) {
+      const match = url.match(pattern);
+      if (match && match[1]) {
+        return match[1];
+      }
+    }
+    
+    return null;
+  };
+
   const handleMoviePopup = (movieInfo) => {
     setMoviePopupInfo(movieInfo);
     setShowModal(true);
 
-    axios
-      .get(`/movie/${movieInfo.id}/videos?api_key=${API_KEY}&language=en-US`)
-      .then((responce) => {
-        console.log(responce.data);
-        if (responce.data.results.length !== 0) {
-          setUrlId(responce.data.results[0]);
-        } else {
-          console.log("Array Emptey");
-        }
-      });
+    // Vérifier si nous avons déjà une URL de trailer dans les données Cloudflare
+    if (movieInfo.trailer_url) {
+      // Extraire l'ID YouTube de l'URL du trailer
+      const videoId = extractYoutubeId(movieInfo.trailer_url);
+      if (videoId) {
+        setUrlId({ key: videoId });
+        console.log("Trailer trouvé dans les données Cloudflare:", videoId);
+        return;
+      }
+    }
+    
+    // Fallback vers l'API TMDB si pas de trailer dans les données Cloudflare
+    if (movieInfo.id) {
+      axios
+        .get(`/movie/${movieInfo.id}/videos?api_key=${API_KEY}&language=en-US`)
+        .then((responce) => {
+          console.log(responce.data);
+          if (responce.data.results && responce.data.results.length !== 0) {
+            setUrlId(responce.data.results[0]);
+          } else {
+            console.log("Aucun trailer trouvé");
+            setUrlId(null);
+          }
+        })
+        .catch(error => {
+          console.error("Erreur lors de la récupération du trailer:", error);
+          setUrlId(null);
+        });
+    }
   };
 
   return (

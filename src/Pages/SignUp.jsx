@@ -79,7 +79,7 @@ function SignUp() {
                   Create a new account
                 </h1>
                 <h1 className="text-white text-2xl p-3 text-center border-2 border-flodrama-fuchsia rounded-sm bg-gradient-to-r from-flodrama-blue/10 to-flodrama-fuchsia/10">
-                  Not Real Netflix
+                  Welcome FloDrama
                 </h1>
                 <form
                   onSubmit={handleSubmit}
@@ -176,7 +176,7 @@ function SignUp() {
                         : `bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia hover:from-flodrama-blue/80 hover:to-flodrama-fuchsia/80 focus:ring-4 focus:outline-none focus:ring-primary-300`
                     } font-medium rounded-sm text-sm px-5 py-2.5 text-center`}
                   >
-                    {loader ? <ClipLoader color="#ff0000" /> : "Create now"}
+                    {loader ? <ClipLoader color="#d946ef" /> : "Créer maintenant"}
                   </button>
                   <p className="text-sm font-light text-gray-500">
                     Already have one?{" "}

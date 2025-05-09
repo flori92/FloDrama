@@ -13,6 +13,7 @@ import {
   recent,
   handleApiResponse
 } from "../Constants/FloDramaURLs";
+import { API_BASE_URL } from "../Cloudflare/CloudflareConfig";
 import { AuthContext } from "../Context/UserContext";
 
 function Home() {
@@ -26,7 +27,7 @@ function Home() {
     if (User && User.uid) {
       setIsLoading(true);
       // Utiliser la nouvelle API Cloudflare pour récupérer l'historique
-      fetch(`https://flodrama-api.florifavi.workers.dev/api/users/${User.uid}/history`)
+      fetch(`${API_BASE_URL}/api/users/${User.uid}/history`)
         .then(response => handleApiResponse(response))
         .then(data => {
           setWatchedMovies(data);
@@ -51,7 +52,7 @@ function Home() {
 
   return (
     <div>
-      <Banner url={featured}></Banner>
+      <Banner url={featured} useCloudflareApi={true}></Banner>
       <div className="w-[99%] ml-1">
         <RowPost 
           first 

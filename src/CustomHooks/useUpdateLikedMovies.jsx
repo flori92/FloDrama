@@ -2,11 +2,12 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../Context/UserContext";
 import toast, { Toaster } from "react-hot-toast";
 import { handleApiResponse } from "../Constants/FloDramaURLs";
+import { API_BASE_URL } from "../Cloudflare/CloudflareConfig";
 
 function useUpdateLikedMovies() {
   const { User } = useContext(AuthContext);
   const [Error, setError] = useState(false);
-  const API_BASE_URL = 'https://flodrama-api.florifavi.workers.dev';
+  
 
   const notify = () => {
     toast.success("  Contenu ajouté aux Favoris  ");
@@ -83,6 +84,12 @@ function useUpdateLikedMovies() {
   
   // Helper pour déterminer le type de contenu
   const determineContentType = (movie) => {
+    // Vérifier si movie est défini
+    if (!movie) {
+      console.warn("Attention: objet movie non défini dans determineContentType");
+      return 'film'; // Valeur par défaut
+    }
+    
     if (movie.first_air_date) { return 'drama'; }
     if (movie.release_date) { return 'film'; }
     if (movie.original_title && movie.original_title.includes('anime')) { return 'anime'; }

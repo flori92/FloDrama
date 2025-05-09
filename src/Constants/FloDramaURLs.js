@@ -4,7 +4,7 @@
 // URL de base pour l'API Cloudflare
 // En production: https://api.flodrama.com
 // Pour les tests: https://flodrama-api.florifavi.workers.dev
-const API_BASE_URL = 'https://flodrama-api.florifavi.workers.dev';
+import { API_BASE_URL } from "../Cloudflare/CloudflareConfig";
 
 // URLs pour les catégories principales de contenu (récupère toutes les entrées)
 export const dramas = `${API_BASE_URL}/api/dramas`;

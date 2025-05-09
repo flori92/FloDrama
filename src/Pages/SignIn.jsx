@@ -56,11 +56,18 @@ function SignIn() {
     
     try {
       // Utilisation de notre nouvelle implémentation d'authentification Google
-      await signInWithGoogle();
-      // La redirection est gérée par signInWithGoogle, donc pas besoin de code supplémentaire ici
+      const result = await signInWithGoogle();
       
-      // Note: Le traitement du retour de Google est géré par un gestionnaire de route séparé
-      // qui appellera handleGoogleCallback avec le code d'autorisation
+      // Vérifier si l'authentification a réussi
+      if (result && result.user) {
+        console.log("Authentification Google réussie", result.user);
+        // Rediriger vers la page d'accueil
+        navigate("/");
+      } else {
+        // La redirection est gérée par signInWithGoogle si nous sommes en mode API
+        // Mais en mode local, nous devons gérer la redirection manuellement
+        setLoader(false);
+      }
     } catch (error) {
       console.error("Erreur lors de l'authentification Google:", error);
       setErrorMessage(error.message || "Erreur lors de la connexion avec Google");
@@ -204,7 +211,7 @@ function SignIn() {
                         : `bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia hover:from-flodrama-blue/80 hover:to-flodrama-fuchsia/80 focus:ring-4 focus:outline-none focus:ring-primary-300`
                     } transition ease-in-out font-medium rounded-sm text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}
                   >
-                    {loader ? <ClipLoader color="#ff0000" /> : `Connexion`}
+                    {loader ? <ClipLoader color="#d946ef" /> : `Connexion`}
                   </button>
                   <button
                     onClick={loginWithGoogle}
@@ -215,7 +222,7 @@ function SignIn() {
                     } transition ease-in-out font-medium rounded-sm text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:focus:ring-primary-800 mb-2`}
                   >
                     {loader ? (
-                      <ClipLoader color="#ff0000" />
+                      <ClipLoader color="#3b82f6" />
                     ) : (
                       <>
                         <img className="w-8" src={GoogleLogo}></img>{" "}
