@@ -1,0 +1,1004 @@
+{
+  "results": [
+    {
+      "id": "generated-trending-1",
+      "title": "Trending 1",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-2",
+      "title": "Trending 2",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "5.9",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-3",
+      "title": "Trending 3",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "6.4",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-4",
+      "title": "Trending 4",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "7.0",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-5",
+      "title": "Trending 5",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "7.7",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-6",
+      "title": "Trending 6",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-7",
+      "title": "Trending 7",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-8",
+      "title": "Trending 8",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "5.5",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-9",
+      "title": "Trending 9",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "6.5",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-10",
+      "title": "Trending 10",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-11",
+      "title": "Trending 11",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "10.0",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-12",
+      "title": "Trending 12",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-13",
+      "title": "Trending 13",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-14",
+      "title": "Trending 14",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "6.8",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-15",
+      "title": "Trending 15",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "6.6",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-16",
+      "title": "Trending 16",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "5.7",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-17",
+      "title": "Trending 17",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "6.0",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-18",
+      "title": "Trending 18",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "5.1",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-19",
+      "title": "Trending 19",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-20",
+      "title": "Trending 20",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "6.3",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-21",
+      "title": "Trending 21",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "6.9",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-22",
+      "title": "Trending 22",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-23",
+      "title": "Trending 23",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "6.6",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-24",
+      "title": "Trending 24",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-25",
+      "title": "Trending 25",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-26",
+      "title": "Trending 26",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-27",
+      "title": "Trending 27",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "10.0",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-28",
+      "title": "Trending 28",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-29",
+      "title": "Trending 29",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-30",
+      "title": "Trending 30",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-31",
+      "title": "Trending 31",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-32",
+      "title": "Trending 32",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "10.0",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-33",
+      "title": "Trending 33",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "6.5",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-34",
+      "title": "Trending 34",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-35",
+      "title": "Trending 35",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "6.6",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-36",
+      "title": "Trending 36",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-37",
+      "title": "Trending 37",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-38",
+      "title": "Trending 38",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-39",
+      "title": "Trending 39",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "5.7",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-40",
+      "title": "Trending 40",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-41",
+      "title": "Trending 41",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "5.4",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-42",
+      "title": "Trending 42",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "5.9",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-43",
+      "title": "Trending 43",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-44",
+      "title": "Trending 44",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-45",
+      "title": "Trending 45",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-46",
+      "title": "Trending 46",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "8.4",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-47",
+      "title": "Trending 47",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-48",
+      "title": "Trending 48",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "8.4",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-49",
+      "title": "Trending 49",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-50",
+      "title": "Trending 50",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-51",
+      "title": "Trending 51",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-52",
+      "title": "Trending 52",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "6.6",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-53",
+      "title": "Trending 53",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "5.0",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-54",
+      "title": "Trending 54",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-55",
+      "title": "Trending 55",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "5.7",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-56",
+      "title": "Trending 56",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "5.9",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-57",
+      "title": "Trending 57",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-58",
+      "title": "Trending 58",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "7.7",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-59",
+      "title": "Trending 59",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "6.7",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-60",
+      "title": "Trending 60",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "5.7",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-61",
+      "title": "Trending 61",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-62",
+      "title": "Trending 62",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "5.8",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-63",
+      "title": "Trending 63",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "10.0",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-64",
+      "title": "Trending 64",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "5.2",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-65",
+      "title": "Trending 65",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-66",
+      "title": "Trending 66",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "7.0",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-67",
+      "title": "Trending 67",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-68",
+      "title": "Trending 68",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-69",
+      "title": "Trending 69",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-70",
+      "title": "Trending 70",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "6.5",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-71",
+      "title": "Trending 71",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "6.6",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-72",
+      "title": "Trending 72",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-73",
+      "title": "Trending 73",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-74",
+      "title": "Trending 74",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "5.4",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-75",
+      "title": "Trending 75",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-76",
+      "title": "Trending 76",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-77",
+      "title": "Trending 77",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-78",
+      "title": "Trending 78",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "6.9",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-79",
+      "title": "Trending 79",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-80",
+      "title": "Trending 80",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-81",
+      "title": "Trending 81",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-82",
+      "title": "Trending 82",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "5.3",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-83",
+      "title": "Trending 83",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-84",
+      "title": "Trending 84",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "6.3",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-85",
+      "title": "Trending 85",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "5.1",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-86",
+      "title": "Trending 86",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-87",
+      "title": "Trending 87",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-88",
+      "title": "Trending 88",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-89",
+      "title": "Trending 89",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "6.9",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-90",
+      "title": "Trending 90",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "5.2",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-91",
+      "title": "Trending 91",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "7.0",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-92",
+      "title": "Trending 92",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-93",
+      "title": "Trending 93",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "5.0",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-94",
+      "title": "Trending 94",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-95",
+      "title": "Trending 95",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-96",
+      "title": "Trending 96",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-97",
+      "title": "Trending 97",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "6.9",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-98",
+      "title": "Trending 98",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "5.6",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-99",
+      "title": "Trending 99",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "8.0",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-trending-100",
+      "title": "Trending 100",
+      "description": "Contenu trending généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/trending-poster.jpg",
+      "backdrop": "/placeholders/trending-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2023,
+      "source": "generated"
+    }
+  ]
+}

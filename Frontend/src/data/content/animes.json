@@ -1,0 +1,1004 @@
+{
+  "results": [
+    {
+      "id": "generated-animes-1",
+      "title": "Animes 1",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.4",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-2",
+      "title": "Animes 2",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "6.7",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-3",
+      "title": "Animes 3",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-4",
+      "title": "Animes 4",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-5",
+      "title": "Animes 5",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.0",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-6",
+      "title": "Animes 6",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "5.7",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-7",
+      "title": "Animes 7",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "6.6",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-8",
+      "title": "Animes 8",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-9",
+      "title": "Animes 9",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-10",
+      "title": "Animes 10",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "6.6",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-11",
+      "title": "Animes 11",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-12",
+      "title": "Animes 12",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-13",
+      "title": "Animes 13",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-14",
+      "title": "Animes 14",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "6.6",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-15",
+      "title": "Animes 15",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-16",
+      "title": "Animes 16",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "10.0",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-17",
+      "title": "Animes 17",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "5.9",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-18",
+      "title": "Animes 18",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-19",
+      "title": "Animes 19",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-20",
+      "title": "Animes 20",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "5.2",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-21",
+      "title": "Animes 21",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "6.4",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-22",
+      "title": "Animes 22",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "5.7",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-23",
+      "title": "Animes 23",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "5.4",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-24",
+      "title": "Animes 24",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.4",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-25",
+      "title": "Animes 25",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-26",
+      "title": "Animes 26",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "6.5",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-27",
+      "title": "Animes 27",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-28",
+      "title": "Animes 28",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-29",
+      "title": "Animes 29",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "6.4",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-30",
+      "title": "Animes 30",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-31",
+      "title": "Animes 31",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-32",
+      "title": "Animes 32",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-33",
+      "title": "Animes 33",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "5.7",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-34",
+      "title": "Animes 34",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "5.0",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-35",
+      "title": "Animes 35",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "6.5",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-36",
+      "title": "Animes 36",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "5.9",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-37",
+      "title": "Animes 37",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-38",
+      "title": "Animes 38",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-39",
+      "title": "Animes 39",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.4",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-40",
+      "title": "Animes 40",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-41",
+      "title": "Animes 41",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-42",
+      "title": "Animes 42",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-43",
+      "title": "Animes 43",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "5.1",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-44",
+      "title": "Animes 44",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "6.9",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-45",
+      "title": "Animes 45",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.0",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-46",
+      "title": "Animes 46",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-47",
+      "title": "Animes 47",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.4",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-48",
+      "title": "Animes 48",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-49",
+      "title": "Animes 49",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-50",
+      "title": "Animes 50",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "10.0",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-51",
+      "title": "Animes 51",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-52",
+      "title": "Animes 52",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-53",
+      "title": "Animes 53",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "6.5",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-54",
+      "title": "Animes 54",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "5.7",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-55",
+      "title": "Animes 55",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-56",
+      "title": "Animes 56",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "5.2",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-57",
+      "title": "Animes 57",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-58",
+      "title": "Animes 58",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "5.4",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-59",
+      "title": "Animes 59",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.0",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-60",
+      "title": "Animes 60",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-61",
+      "title": "Animes 61",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-62",
+      "title": "Animes 62",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-63",
+      "title": "Animes 63",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "5.9",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-64",
+      "title": "Animes 64",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-65",
+      "title": "Animes 65",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "5.3",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-66",
+      "title": "Animes 66",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-67",
+      "title": "Animes 67",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-68",
+      "title": "Animes 68",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "5.7",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-69",
+      "title": "Animes 69",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-70",
+      "title": "Animes 70",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "5.5",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-71",
+      "title": "Animes 71",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "6.5",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-72",
+      "title": "Animes 72",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "6.9",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-73",
+      "title": "Animes 73",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-74",
+      "title": "Animes 74",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-75",
+      "title": "Animes 75",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-76",
+      "title": "Animes 76",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-77",
+      "title": "Animes 77",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "5.8",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-78",
+      "title": "Animes 78",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-79",
+      "title": "Animes 79",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-80",
+      "title": "Animes 80",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "5.7",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-81",
+      "title": "Animes 81",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "5.2",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-82",
+      "title": "Animes 82",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-83",
+      "title": "Animes 83",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "6.4",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-84",
+      "title": "Animes 84",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-85",
+      "title": "Animes 85",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-86",
+      "title": "Animes 86",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-87",
+      "title": "Animes 87",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "6.3",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-88",
+      "title": "Animes 88",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-89",
+      "title": "Animes 89",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "6.7",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-90",
+      "title": "Animes 90",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-91",
+      "title": "Animes 91",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-92",
+      "title": "Animes 92",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "6.1",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-93",
+      "title": "Animes 93",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-94",
+      "title": "Animes 94",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "6.7",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-95",
+      "title": "Animes 95",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-96",
+      "title": "Animes 96",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "5.1",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-97",
+      "title": "Animes 97",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-98",
+      "title": "Animes 98",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-99",
+      "title": "Animes 99",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-animes-100",
+      "title": "Animes 100",
+      "description": "Contenu animes généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2021,
+      "source": "generated"
+    }
+  ]
+}

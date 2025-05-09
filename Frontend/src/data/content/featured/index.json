@@ -1,0 +1,104 @@
+{
+  "results": [
+    {
+      "id": "generated-featured-34",
+      "title": "Featured 34",
+      "description": "Contenu featured généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/featured-poster.jpg",
+      "backdrop": "/placeholders/featured-backdrop.jpg",
+      "rating": "10.0",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-featured-39",
+      "title": "Featured 39",
+      "description": "Contenu featured généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/featured-poster.jpg",
+      "backdrop": "/placeholders/featured-backdrop.jpg",
+      "rating": "10.0",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-featured-46",
+      "title": "Featured 46",
+      "description": "Contenu featured généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/featured-poster.jpg",
+      "backdrop": "/placeholders/featured-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-featured-57",
+      "title": "Featured 57",
+      "description": "Contenu featured généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/featured-poster.jpg",
+      "backdrop": "/placeholders/featured-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-featured-10",
+      "title": "Featured 10",
+      "description": "Contenu featured généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/featured-poster.jpg",
+      "backdrop": "/placeholders/featured-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-featured-100",
+      "title": "Featured 100",
+      "description": "Contenu featured généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/featured-poster.jpg",
+      "backdrop": "/placeholders/featured-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-featured-33",
+      "title": "Featured 33",
+      "description": "Contenu featured généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/featured-poster.jpg",
+      "backdrop": "/placeholders/featured-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-featured-32",
+      "title": "Featured 32",
+      "description": "Contenu featured généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/featured-poster.jpg",
+      "backdrop": "/placeholders/featured-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-featured-15",
+      "title": "Featured 15",
+      "description": "Contenu featured généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/featured-poster.jpg",
+      "backdrop": "/placeholders/featured-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-featured-27",
+      "title": "Featured 27",
+      "description": "Contenu featured généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/featured-poster.jpg",
+      "backdrop": "/placeholders/featured-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2021,
+      "source": "generated"
+    }
+  ]
+}

@@ -1,0 +1,1004 @@
+{
+  "results": [
+    {
+      "id": "generated-dramas-1",
+      "title": "Dramas 1",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-2",
+      "title": "Dramas 2",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.0",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-3",
+      "title": "Dramas 3",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-4",
+      "title": "Dramas 4",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.7",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-5",
+      "title": "Dramas 5",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-6",
+      "title": "Dramas 6",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "5.0",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-7",
+      "title": "Dramas 7",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "5.3",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-8",
+      "title": "Dramas 8",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-9",
+      "title": "Dramas 9",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-10",
+      "title": "Dramas 10",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "5.2",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-11",
+      "title": "Dramas 11",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-12",
+      "title": "Dramas 12",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-13",
+      "title": "Dramas 13",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.1",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-14",
+      "title": "Dramas 14",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.9",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-15",
+      "title": "Dramas 15",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-16",
+      "title": "Dramas 16",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.4",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-17",
+      "title": "Dramas 17",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-18",
+      "title": "Dramas 18",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "5.8",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-19",
+      "title": "Dramas 19",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "5.2",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-20",
+      "title": "Dramas 20",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.4",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-21",
+      "title": "Dramas 21",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-22",
+      "title": "Dramas 22",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-23",
+      "title": "Dramas 23",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-24",
+      "title": "Dramas 24",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-25",
+      "title": "Dramas 25",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-26",
+      "title": "Dramas 26",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.5",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-27",
+      "title": "Dramas 27",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-28",
+      "title": "Dramas 28",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-29",
+      "title": "Dramas 29",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.8",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-30",
+      "title": "Dramas 30",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-31",
+      "title": "Dramas 31",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-32",
+      "title": "Dramas 32",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-33",
+      "title": "Dramas 33",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "5.1",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-34",
+      "title": "Dramas 34",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.2",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-35",
+      "title": "Dramas 35",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-36",
+      "title": "Dramas 36",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-37",
+      "title": "Dramas 37",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.0",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-38",
+      "title": "Dramas 38",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-39",
+      "title": "Dramas 39",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.7",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-40",
+      "title": "Dramas 40",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-41",
+      "title": "Dramas 41",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.0",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-42",
+      "title": "Dramas 42",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-43",
+      "title": "Dramas 43",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.2",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-44",
+      "title": "Dramas 44",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "5.8",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-45",
+      "title": "Dramas 45",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-46",
+      "title": "Dramas 46",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.4",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-47",
+      "title": "Dramas 47",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.6",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-48",
+      "title": "Dramas 48",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-49",
+      "title": "Dramas 49",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "5.1",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-50",
+      "title": "Dramas 50",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-51",
+      "title": "Dramas 51",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-52",
+      "title": "Dramas 52",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-53",
+      "title": "Dramas 53",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "5.3",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-54",
+      "title": "Dramas 54",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-55",
+      "title": "Dramas 55",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.1",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-56",
+      "title": "Dramas 56",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-57",
+      "title": "Dramas 57",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.0",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-58",
+      "title": "Dramas 58",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.0",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-59",
+      "title": "Dramas 59",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "5.9",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-60",
+      "title": "Dramas 60",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "5.5",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-61",
+      "title": "Dramas 61",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-62",
+      "title": "Dramas 62",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-63",
+      "title": "Dramas 63",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-64",
+      "title": "Dramas 64",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-65",
+      "title": "Dramas 65",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.1",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-66",
+      "title": "Dramas 66",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "5.4",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-67",
+      "title": "Dramas 67",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.0",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-68",
+      "title": "Dramas 68",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-69",
+      "title": "Dramas 69",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-70",
+      "title": "Dramas 70",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-71",
+      "title": "Dramas 71",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "10.0",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-72",
+      "title": "Dramas 72",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-73",
+      "title": "Dramas 73",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "5.8",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-74",
+      "title": "Dramas 74",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.7",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-75",
+      "title": "Dramas 75",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.7",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-76",
+      "title": "Dramas 76",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-77",
+      "title": "Dramas 77",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.6",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-78",
+      "title": "Dramas 78",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-79",
+      "title": "Dramas 79",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "5.7",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-80",
+      "title": "Dramas 80",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "5.3",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-81",
+      "title": "Dramas 81",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-82",
+      "title": "Dramas 82",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "5.9",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-83",
+      "title": "Dramas 83",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-84",
+      "title": "Dramas 84",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-85",
+      "title": "Dramas 85",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-86",
+      "title": "Dramas 86",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.3",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-87",
+      "title": "Dramas 87",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.1",
+      "year": 2024,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-88",
+      "title": "Dramas 88",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "5.6",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-89",
+      "title": "Dramas 89",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.3",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-90",
+      "title": "Dramas 90",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.5",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-91",
+      "title": "Dramas 91",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.0",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-92",
+      "title": "Dramas 92",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.8",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-93",
+      "title": "Dramas 93",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-94",
+      "title": "Dramas 94",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "5.2",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-95",
+      "title": "Dramas 95",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2025,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-96",
+      "title": "Dramas 96",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.5",
+      "year": 2022,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-97",
+      "title": "Dramas 97",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.7",
+      "year": 2023,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-98",
+      "title": "Dramas 98",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "6.4",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-99",
+      "title": "Dramas 99",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2021,
+      "source": "generated"
+    },
+    {
+      "id": "generated-dramas-100",
+      "title": "Dramas 100",
+      "description": "Contenu dramas généré automatiquement pour atteindre le minimum requis.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2021,
+      "source": "generated"
+    }
+  ]
+}
