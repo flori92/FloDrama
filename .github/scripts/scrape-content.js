@@ -77,10 +77,18 @@ function categorizeItems(items, source) {
   const category = sourceCategories[source] || 'unknown';
   
   // Mettre à jour les compteurs par catégorie
-  if (category === 'dramas') stats.dramas_count += items.length;
-  if (category === 'animes') stats.animes_count += items.length;
-  if (category === 'films') stats.films_count += items.length;
-  if (category === 'bollywood') stats.bollywood_count += items.length;
+  if (category === 'dramas') {
+    stats.dramas_count += items.length;
+  }
+  if (category === 'animes') {
+    stats.animes_count += items.length;
+  }
+  if (category === 'films') {
+    stats.films_count += items.length;
+  }
+  if (category === 'bollywood') {
+    stats.bollywood_count += items.length;
+  }
   
   // Sauvegarder les éléments dans le fichier correspondant à la source
   const outputFile = path.join(OUTPUT_DIR, `${source}.json`);
@@ -104,12 +112,28 @@ async function runScraping() {
   console.log('Scraping terminé. Statistiques:');
   console.log(stats);
   
-  // Définir les outputs pour GitHub Actions
-  console.log(`::set-output name=total_items::${stats.total_items}`);
-  console.log(`::set-output name=dramas_count::${stats.dramas_count}`);
-  console.log(`::set-output name=animes_count::${stats.animes_count}`);
-  console.log(`::set-output name=films_count::${stats.films_count}`);
-  console.log(`::set-output name=bollywood_count::${stats.bollywood_count}`);
+  // Définir les outputs pour GitHub Actions (nouvelle méthode avec fichiers d'environnement)
+  const fs = require('fs');
+  const path = require('path');
+  
+  // Récupérer le chemin du fichier d'environnement depuis la variable GITHUB_OUTPUT
+  const githubOutputFile = process.env.GITHUB_OUTPUT;
+  
+  if (githubOutputFile) {
+    // Écrire les outputs dans le fichier d'environnement
+    fs.appendFileSync(githubOutputFile, `total_items=${stats.total_items}\n`);
+    fs.appendFileSync(githubOutputFile, `dramas_count=${stats.dramas_count}\n`);
+    fs.appendFileSync(githubOutputFile, `animes_count=${stats.animes_count}\n`);
+    fs.appendFileSync(githubOutputFile, `films_count=${stats.films_count}\n`);
+    fs.appendFileSync(githubOutputFile, `bollywood_count=${stats.bollywood_count}\n`);
+  } else {
+    // Fallback pour les environnements locaux
+    console.log(`total_items=${stats.total_items}`);
+    console.log(`dramas_count=${stats.dramas_count}`);
+    console.log(`animes_count=${stats.animes_count}`);
+    console.log(`films_count=${stats.films_count}`);
+    console.log(`bollywood_count=${stats.bollywood_count}`);
+  }
 }
 
 // Exécuter le scraping

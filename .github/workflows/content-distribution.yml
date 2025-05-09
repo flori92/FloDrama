@@ -5,6 +5,9 @@ on:
     - cron: '0 */6 * * *'  # Exécution toutes les 6 heures
   workflow_dispatch:  # Permet le déclenchement manuel
 
+permissions:
+  contents: write  # Permet d'écrire dans le dépôt (commit/push)
+
 jobs:
   scrape-and-distribute:
     runs-on: ubuntu-latest
