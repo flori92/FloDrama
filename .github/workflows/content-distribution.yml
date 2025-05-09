@@ -50,7 +50,7 @@ jobs:
           echo "- Bollywood: ${{ steps.scraping.outputs.bollywood_count }}"
 
       - name: Sauvegarde des résultats comme artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: content-data
           path: Frontend/src/data
