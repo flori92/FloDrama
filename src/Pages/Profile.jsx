@@ -155,9 +155,7 @@ function Profile() {
         ) : null}
         <Fade>
           <div className="bg-[#000000bf] p-5 md:p-12 rounded-md">
-            <h1 className="text-4xl text-white font-bold mb-4 md:mb-8">
-              Edit your Profile
-            </h1>
+            <h1 className="text-4xl font-bold text-white mb-10 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">Modifier votre profil</h1>
             <div className="flex justify-center flex-col items-center md:flex-row md:items-start">
               <img
                 className={
@@ -168,9 +166,9 @@ function Profile() {
                 src={
                   profilePic
                     ? `${profilePic}`
-                    : `https://www.citypng.com/public/uploads/preview/profile-user-round-red-icon-symbol-download-png-11639594337tco5j3n0ix.png`
+                    : `/images/default-avatar.svg`
                 }
-                alt="NETFLIX"
+                alt="FloDrama"
               />
               <div>
                 <hr className="mb-2 h-px bg-gray-500 border-0 dark:bg-gray-700"></hr>
@@ -219,20 +217,20 @@ function Profile() {
                   <img
                     onClick={() =>
                       updateProfilePic(
-                        "https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
+                        "/images/FloDrama-avatar.png"
                       )
                     }
                     className="w-16 h-16 rounded-md cursor-pointer"
-                    src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
+                    src="/images/FloDrama-avatar.png"
                   />
                   <img
                     onClick={() =>
                       updateProfilePic(
-                        "https://ih0.redbubble.net/image.618363037.0853/flat,1000x1000,075,f.u2.jpg"
+                        "/images/avatar1.svg"
                       )
                     }
                     className="w-16 h-16 rounded-md cursor-pointer"
-                    src="https://ih0.redbubble.net/image.618363037.0853/flat,1000x1000,075,f.u2.jpg"
+                    src="/images/avatar1.svg"
                   />
                   <input
                     style={{ display: "none" }}
@@ -264,7 +262,7 @@ function Profile() {
             <div className="flex justify-between mt-4">
               <button
                 onClick={SignOut}
-                className="flex items-center border-[0.7px] border-white text-white font-medium sm:font-bold text-xs px-14 md:px-24 md:text-xl  py-3 rounded shadow hover:shadow-lg hover:bg-white hover:border-white hover:text-red-700 outline-none focus:outline-none mr-3 mb-1 ease-linear transition-all duration-150"
+                className="flex items-center border-[0.7px] border-white text-white font-medium sm:font-bold text-xs px-14 md:px-24 md:text-xl py-3 rounded shadow hover:shadow-lg hover:bg-white hover:border-white hover:text-blue-500 outline-none focus:outline-none mr-3 mb-1 ease-linear transition-all duration-150"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -280,12 +278,12 @@ function Profile() {
                     d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
                   />
                 </svg>
-                SignOut
+                Déconnexion
               </button>
               {userName != "" || newProfielPic != "" ? (
                 <button
                   onClick={changeUserName}
-                  className="flex items-center bg-red-700 text-white font-medium sm:font-bold text-xs px-10 md:px-16 md:text-xl  py-3 rounded shadow hover:shadow-lg hover:bg-white hover:text-red-700 outline-none focus:outline-none mr-3 mb-1 ease-linear transition-all duration-150"
+                  className="flex items-center bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium sm:font-bold text-xs px-10 md:px-16 md:text-xl py-3 rounded shadow hover:shadow-lg hover:bg-white hover:text-purple-500 outline-none focus:outline-none mr-3 mb-1 ease-linear transition-all duration-150"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -306,7 +304,7 @@ function Profile() {
               ) : (
                 <button
                   onClick={() => navigate("/")}
-                  className="flex items-center bg-red-700 text-white font-medium sm:font-bold text-xs px-10 md:px-16 md:text-xl  py-3 rounded shadow hover:shadow-lg hover:bg-white hover:text-red-700 outline-none focus:outline-none mr-3 mb-1 ease-linear transition-all duration-150"
+                  className="flex items-center bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium sm:font-bold text-xs px-10 md:px-16 md:text-xl py-3 rounded shadow hover:shadow-lg hover:bg-white hover:text-purple-500 outline-none focus:outline-none mr-3 mb-1 ease-linear transition-all duration-150"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

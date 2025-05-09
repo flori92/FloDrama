@@ -191,7 +191,7 @@ function Search() {
                       </div>
                     </div>
 
-                    <a class="hover:text-primary-600 text-shadow-xl shadow-red-700 text-white text-base 2xl:text-2xl transition duration-500 font-medium">
+                    <a class="hover:text-primary-600 text-shadow-xl shadow-flodrama-fuchsia text-white text-base 2xl:text-2xl transition duration-500 font-medium">
                       {movie.name || movie.title}
                     </a>
 

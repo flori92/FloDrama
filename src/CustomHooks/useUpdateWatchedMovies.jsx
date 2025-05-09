@@ -2,11 +2,12 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../Context/UserContext";
 import toast, { Toaster } from "react-hot-toast";
 import { handleApiResponse } from "../Constants/FloDramaURLs";
+import { API_BASE_URL } from "../Cloudflare/CloudflareConfig";
 
 function useUpdateWatchedMovies() {
   const { User } = useContext(AuthContext);
   const [Error, setError] = useState(false);
-  const API_BASE_URL = 'https://flodrama-api.florifavi.workers.dev';
+  
 
   const addNotify = () => {
     toast.success("  Contenu ajouté à l'historique  ");

@@ -4,7 +4,20 @@
  */
 
 import axios from 'axios';
-import { API_BASE_URL, USERS_API_URL, CONTENT_API_URL, determineContentType } from './CloudflareConfig';
+import { API_BASE_URL, USERS_API_URL, CONTENT_API_URL, determineContentType, useApiMode } from './CloudflareConfig';
+
+// Import des fonctions mock pour les données locales
+import {
+  mockGetUserHistory,
+  mockGetUserLikedMovies,
+  mockGetUserList,
+  mockGetPopularMovies,
+  mockGetPopularDramas,
+  mockGetPopularAnimes,
+  mockGetPopularBollywood
+} from './CloudflareMock';
+
+// Utilisation de useApiMode importé depuis CloudflareConfig
 
 // Classe principale de gestion de base de données
 class CloudflareDB {
@@ -36,13 +49,44 @@ class CloudflareDB {
   // Récupérer des données utilisateur
   async getUserData(userId, dataType) {
     try {
+      // Vérifier si on doit utiliser l'API ou le mode local
+      const useApi = await useApiMode();
+      
+      if (!useApi) {
+        console.log(`Utilisation des données locales pour ${dataType}`);
+        // Utiliser les fonctions mock en fonction du type de données
+        switch (dataType) {
+          case 'history':
+            return await mockGetUserHistory(userId);
+          case 'liked-movies':
+            return await mockGetUserLikedMovies(userId);
+          case 'my-list':
+            return await mockGetUserList(userId);
+          default:
+            return { [dataType]: [] };
+        }
+      }
+      
+      // Mode API: utiliser l'API Cloudflare
       const response = await axios.get(`${USERS_API_URL}/${userId}/${dataType}`, {
         headers: this.getAuthHeaders()
       });
       return response.data;
     } catch (error) {
       console.error(`Erreur lors de la récupération des données ${dataType}:`, error);
-      throw error;
+      
+      // En cas d'erreur, utiliser les données locales
+      console.log(`Fallback vers les données locales pour ${dataType}`);
+      switch (dataType) {
+        case 'history':
+          return await mockGetUserHistory(userId);
+        case 'liked-movies':
+          return await mockGetUserLikedMovies(userId);
+        case 'my-list':
+          return await mockGetUserList(userId);
+        default:
+          return { [dataType]: [] };
+      }
     }
   }
 
