@@ -18,6 +18,9 @@ import {
   handleApiResponse 
 } from './CloudflareConfig';
 
+// Import de la configuration Google Auth
+import { GOOGLE_CLIENT_ID, GOOGLE_AUTH_CONFIG } from './GoogleAuthConfig';
+
 // Import des fonctions mock pour l'authentification locale
 import {
   mockLogin,
@@ -397,13 +400,18 @@ class CloudflareAuth {
       const useLocalAuth = false;
       
       if (!useLocalAuth && useApiMode()) {
-        // Utiliser l'API Cloudflare pour l'authentification Google
+        // Utiliser l'API Cloudflare pour l'authentification Google avec le nouvel ID client
         const response = await axios.get(`${AUTH_API_URL}${GOOGLE_AUTH_ENDPOINT}`, {
           // Configuration optimisée pour éviter les erreurs CORS
           withCredentials: true,
           headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'X-Google-Client-ID': GOOGLE_CLIENT_ID
+          },
+          params: {
+            client_id: GOOGLE_CLIENT_ID,
+            redirect_uri: GOOGLE_AUTH_CONFIG.redirect_uri
           }
         });
         
