@@ -810,31 +810,27 @@ async function scrapeSource(browser, source) {
       else if (source.paginationPattern.includes('{page}')) {
         for (let i = 2; i <= source.paginationMax + 1; i++) { // On commence à 2 car la page 1 est l'URL de base
           let paginatedUrl;
+          
           // Si l'URL de base se termine par / et que le pattern commence par un paramètre
           if (baseUrl.endsWith('/') && source.paginationPattern.startsWith('?')) {
             paginatedUrl = `${baseUrl}${source.paginationPattern.replace('{page}', i)}`;
-          } 
-          // Pour la pagination basée sur des numéros de page
-          else if (source.paginationPattern.includes('{page}')) {
-            for (let i = 2; i <= source.paginationMax + 1; i++) { // On commence à 2 car la page 1 est l'URL de base
-              let paginatedUrl;
-              // Si l'URL de base se termine par / et que le pattern commence par un paramètre
-              if (baseUrl.endsWith('/') && source.paginationPattern.startsWith('?')) {
-                paginatedUrl = `${baseUrl}${source.paginationPattern.replace('{page}', i)}`;
-              } 
-              // Si l'URL de base contient déjà un paramètre et que le pattern commence par un paramètre
-              else if (baseUrl.includes('?') && source.paginationPattern.startsWith('&')) {
-                paginatedUrl = `${baseUrl}${source.paginationPattern.replace('{page}', i)}`;
-              } 
-              // Vérifier si l'URL de base se termine par / et si le pattern commence par /
-              else if (baseUrl.endsWith('/') && source.paginationPattern.startsWith('/')) {
-                paginatedUrl = `${baseUrl}${source.paginationPattern.substring(1).replace('{page}', i)}`;
-              } 
-              // Sinon, on ajoute simplement le pattern à l'URL de base
-              else if (!baseUrl.endsWith('/') && !source.paginationPattern.startsWith('/')) {
-                paginatedUrl = `${baseUrl}/${source.paginationPattern.replace('{page}', i)}`;
-              } else {
-                paginatedUrl = `${baseUrl}${source.paginationPattern.replace('{page}', i)}`;
+          }
+          // Si l'URL de base contient déjà un paramètre et que le pattern commence par un paramètre
+          else if (baseUrl.includes('?') && source.paginationPattern.startsWith('&')) {
+            paginatedUrl = `${baseUrl}${source.paginationPattern.replace('{page}', i)}`;
+          }
+          // Vérifier si l'URL de base se termine par / et si le pattern commence par /
+          else if (baseUrl.endsWith('/') && source.paginationPattern.startsWith('/')) {
+            paginatedUrl = `${baseUrl}${source.paginationPattern.substring(1).replace('{page}', i)}`;
+          }
+          // Sinon, on ajoute simplement le pattern à l'URL de base
+          else if (!baseUrl.endsWith('/') && !source.paginationPattern.startsWith('/')) {
+            paginatedUrl = `${baseUrl}/${source.paginationPattern.replace('{page}', i)}`;
+          } else {
+            paginatedUrl = `${baseUrl}${source.paginationPattern.replace('{page}', i)}`;
+          }
+          
+          urls.push(paginatedUrl);
         }
       }
     }
@@ -1062,6 +1058,27 @@ async function scrapeSource(browser, source) {
     stats.sources_failed++;
     return false;
   }
+}
+
+/**
+ * Scrape plusieurs sources en parallèle
+ * @param {Browser} browser - Instance du navigateur
+ * @param {Array} sources - Liste des sources à scraper
+ * @returns {Promise<Array>} - Résultats du scraping
+ */
+async function scrapeSources(browser, sources) {
+  const results = [];
+  
+  for (const source of sources) {
+    const success = await scrapeSource(browser, source);
+    results.push({
+      name: source.name,
+      type: source.type,
+      success
+    });
+  }
+  
+  return results;
 }
 
 // Exporter les fonctions principales
