@@ -142,6 +142,7 @@ function SignIn() {
                       type="email"
                       name="email"
                       id="email"
+                      autoComplete="username"
                       className={
                         ErrorMessage
                           ? "bg-stone-700 text-white sm:text-sm rounded-sm focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 border-2 border-flodrama-fuchsia dark:placeholder-white dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 placeholder:text-white"
