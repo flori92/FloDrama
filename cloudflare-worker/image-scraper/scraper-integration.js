@@ -67,12 +67,10 @@ async function enrichContentWithImages(content) {
  * @returns {Promise<Array<Object>>} - Liste d'objets contenus enrichis
  */
 async function enrichContentsWithImages(contents) {
-  // Traiter les contenus en parallèle pour optimiser les performances
-  const enrichedContents = await Promise.all(
+  // Traiter les contenus en parallèle pour optimiser les performances et retourner directement le résultat
+  return Promise.all(
     contents.map(content => enrichContentWithImages(content))
   );
-  
-  return enrichedContents;
 }
 
 /**
@@ -90,7 +88,7 @@ function createImageEnhancedScraper(originalScraper) {
       return enrichContentsWithImages(scrapedData);
     }
     
-    // Si les données scrapées sont un objet, l'enrichir
+    // Si les données scrapées sont un objet, l'enrichir directement
     return enrichContentWithImages(scrapedData);
   };
 }

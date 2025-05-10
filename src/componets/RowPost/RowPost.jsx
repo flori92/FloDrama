@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "../../axios";
 import { imageUrl, imageUrl2 } from "../../Constants/Constance";
 import { handleApiResponse } from "../../Constants/FloDramaURLs";
+import { getPosterUrl, getBackdropUrl, getThumbnailUrl, isImageUrlValid } from "../../utils/ImageUtils";
 import Loader from "../Loader/Loader";
 import useUpdateMylist from "../../CustomHooks/useUpdateMylist";
 import { Fade } from "react-reveal";
@@ -70,7 +71,9 @@ function RowPost(props) {
 
   // Fonction de débogage pour afficher les propriétés disponibles dans un objet
   const debugObjectProperties = (obj) => {
-    if (!obj) return;
+    if (!obj) {
+      return;
+    }
     console.log('Propriétés disponibles dans l\'objet:', Object.keys(obj));
     // Vérifier les propriétés d'image spécifiques
     const imageProps = [
@@ -80,7 +83,9 @@ function RowPost(props) {
     ];
     console.log('Propriétés d\'image disponibles:');
     imageProps.forEach(prop => {
-      if (obj[prop]) console.log(`- ${prop}: ${obj[prop]}`);
+      if (obj[prop]) {
+        console.log(`- ${prop}: ${obj[prop]}`);
+      }
     });
   };
 
@@ -235,15 +240,11 @@ function RowPost(props) {
                       <>
                         <img
                           className="rounded-sm"
-                          src={
-                            obj.image_url || obj.poster_url || obj.poster || obj.image || 
-                            obj.thumbnail || obj.thumbnail_url || obj.cover || obj.cover_url ||
-                            (obj.poster_path ? `${imageUrl + obj.poster_path}` : '/netflix-logo.png')
-                          }
+                          src={getPosterUrl(obj, 'medium')}
                           alt={obj.title || obj.name || "Movie poster"}
                           onError={(e) => {
                             e.target.onerror = null;
-                            e.target.src = '/netflix-logo.png';
+                            e.target.src = '/images/default-poster.jpg';
                           }}
                         />
                       </>
@@ -256,16 +257,11 @@ function RowPost(props) {
                               ? "border-b-4 border-flodrama-fuchsia rounded-sm"
                               : "rounded-sm"
                           }
-                          src={
-                            obj.backdrop_url || obj.banner_url || obj.background_url || 
-                            obj.backdrop || obj.banner || obj.background || 
-                            obj.cover_large || obj.cover_wide || obj.wide_image ||
-                            (obj.backdrop_path ? `${imageUrl2 + obj.backdrop_path}` : "/netflix-backdrop.png")
-                          }
+                          src={getBackdropUrl(obj, 'large')}
                           alt={obj.title || obj.name || "Movie backdrop"}
                           onError={(e) => {
                             e.target.onerror = null;
-                            e.target.src = '/netflix-backdrop.png';
+                            e.target.src = '/images/default-backdrop.jpg';
                           }}
                         />
                       </>
@@ -340,29 +336,60 @@ function RowPost(props) {
                                   viewBox="0 0 24 24"
                                   strokeWidth={1.5}
                                   stroke="currentColor"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M12 4.5v15m7.5-7.5h-15"
-                                  />
-                                </svg>
-                              </div>
-                            </>
-                          )}
 
-                          <div
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              addToLikedMovies(obj);
-                            }}
-                            onMouseEnter={() => setshouldPop(false)}
-                            onMouseLeave={() => setshouldPop(true)}
-                            className="text-white w-9 h-9 border-[2px] rounded-full p-2 mr-1 backdrop-blur-[1px] shadow-md ease-linear transition-all duration-150 hover:text-black hover:bg-white"
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
+{props.movieData != null ? (
+<>
+<div
+onClick={(e) => {
+e.stopPropagation();
+removeFromWatchedMovies(obj);
+}}
+onMouseEnter={() => setshouldPop(false)}
+onMouseLeave={() => setshouldPop(true)}
+className="text-white w-9 h-9 border-[2px] rounded-full p-2 mr-1 backdrop-blur-[1px] shadow-md ease-linear transition-all duration-150 hover:text-black hover:bg-white"
+>
+<svg
+xmlns="http://www.w3.org/2000/svg"
+fill="none"
+viewBox="0 0 24 24"
+strokeWidth={1.5}
+stroke="currentColor"
+>
+<path
+strokeLinecap="round"
+strokeLinejoin="round"
+d="M19.5 12h-15"
+/>
+</svg>
+</div>
+</>
+) : (
+<>
+<div
+onClick={(e) => {
+e.stopPropagation();
+addToMyList(obj);
+}}
+onMouseEnter={() => setshouldPop(false)}
+onMouseLeave={() => setshouldPop(true)}
+className="text-white w-9 h-9 border-[2px] rounded-full p-2 mr-1 backdrop-blur-[1px] shadow-md ease-linear transition-all duration-150 hover:text-black hover:bg-white"
+>
+<svg
+xmlns="http://www.w3.org/2000/svg"
+fill="none"
+viewBox="0 0 24 24"
+strokeWidth={1.5}
+stroke="currentColor"
+>
+<path
+strokeLinecap="round"
+strokeLinejoin="round"
+d="M12 4.5v15m7.5-7.5h-15"
+/>
+</svg>
+</div>
+</>
+)}
                               viewBox="0 0 24 24"
                               strokeWidth={1.5}
                               stroke="currentColor"
