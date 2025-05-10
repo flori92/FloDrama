@@ -73,9 +73,11 @@ jobs:
       
       - name: Installation des dépendances
         run: |
-          npm install
+          # Désactiver les scripts d'installation automatiques
+          npm install --ignore-scripts
           npm install -g wrangler
-          npm install fs-extra axios cheerio playwright playwright-extra playwright-extra-plugin-stealth
+          # Installation directe des dépendances nécessaires
+          npm install --no-save fs-extra axios cheerio playwright playwright-extra playwright-extra-plugin-stealth
       
       - name: Installation des dépendances de Playwright
         run: |
