@@ -25,6 +25,7 @@ function Footer2() {
               { name: "Mentions légales", path: "/footer/mentions-legales" },
               { name: "Mon compte", path: "/profile" },
               { name: "Comment regarder", path: "/footer/comment-regarder" },
+              { name: "Guide WatchParty", path: "/footer/comment-watchparty" },
               { name: "Informations légales", path: "/footer/informations-legales" },
               { name: "iOS", path: "/footer/ios" },
               { name: "Android", path: "/footer/android" }

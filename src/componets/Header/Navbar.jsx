@@ -201,6 +201,12 @@ function Navbar(props) {
                     >
                       My List
                     </Link>
+                    
+                    <Link to={"/watch-party"}>
+                      <a className="py-2 font-medium text-white transition ease-in-out delay-150 rounded-md cursor-pointer hover:text-flodrama-fuchsia lg:px-3 text-m">
+                        WatchParty
+                      </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -418,6 +424,12 @@ function Navbar(props) {
                   <Link to={"/mylist"}>
                     <a className="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-flodrama-blue hover:bg-opacity-60 hover:text-white">
                       My-List
+                    </a>
+                  </Link>
+                  
+                  <Link to={"/watch-party"}>
+                    <a className="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-flodrama-blue hover:bg-opacity-60 hover:text-white">
+                      WatchParty
                     </a>
                   </Link>
 

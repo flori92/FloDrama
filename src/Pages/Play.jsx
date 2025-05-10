@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 import axios from "../axios";
 import { API_KEY, imageUrl, imageUrl2 } from "../Constants/Constance";
+import { useWatchParty } from "../Context/WatchPartyContext";
 
 import Navbar from "../componets/Header/Navbar";
 import Footer from "../componets/Footer/Footer";
@@ -30,6 +31,7 @@ function Play() {
   const { removeFromWatchedMovies, removePopupMessage } =
     useUpdateWatchedMovies();
   const { playMovie } = usePlayMovie();
+  const { createParty } = useWatchParty();
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -382,6 +384,40 @@ function Play() {
                       </svg>
                     </button>
                   )}
+                  
+                  <button
+                    onClick={() => {
+                      // Créer une WatchParty avec les informations du film actuel
+                      const videoId = urlId && urlId.key ? urlId.key : '';
+                      const videoData = {
+                        id: movieDetails.id,
+                        title: movieDetails.title || movieDetails.name,
+                        videoId: videoId,
+                        isStreamingUrl: !!(urlId && urlId.isStreamingUrl)
+                      };
+                      
+                      // Créer la party et rediriger vers la page WatchParty
+                      const partyId = createParty(videoData);
+                      navigate(`/watch-party/${partyId}`);
+                    }}
+                    className="border-white text-white p-4 rounded-full border-2 sm:ml-4 text-xs sm:mt-4 sm:text-lg md:text-xl shadow hover:shadow-lg hover:bg-white hover:border-white hover:text-flodrama-fuchsia outline-none focus:outline-none mb-3 ease-linear transition-all duration-150"
+                    title="Créer une WatchParty"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"
+                      />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>

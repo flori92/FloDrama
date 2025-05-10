@@ -14,6 +14,7 @@ const Play = lazy(() => import("./Pages/Play"));
 const LikedMovies = lazy(() => import("./Pages/LikedMovies"));
 const History = lazy(() => import("./Pages/History"));
 const MoviesCategory = lazy(() => import("./Pages/MoviesCategory"));
+const WatchPartyPage = lazy(() => import("./Pages/WatchParty"));
 
 // Import des pages du footer
 const FAQ = lazy(() => import("./Pages/FooterPages/FAQ"));
@@ -22,6 +23,7 @@ const Confidentialite = lazy(() => import("./Pages/FooterPages/Confidentialite")
 const TestConnexion = lazy(() => import("./Pages/FooterPages/TestConnexion"));
 const MentionsLegales = lazy(() => import("./Pages/FooterPages/MentionsLegales"));
 const CommentRegarder = lazy(() => import("./Pages/FooterPages/CommentRegarder"));
+const CommentWatchParty = lazy(() => import("./Pages/FooterPages/CommentWatchParty"));
 
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthContext } from "./Context/UserContext";
@@ -65,6 +67,8 @@ function App() {
               <Route path="/history" element={<History />} />
               <Route path="/category/:category" element={<MoviesCategory />} />
               <Route path="/play/:id" element={<Play />} />
+              <Route path="/watch-party" element={<WatchPartyPage />} />
+              <Route path="/watch-party/:partyId" element={<WatchPartyPage />} />
             </>
           ) : null}
           <Route path="/play/:id" element={<Play />} />
@@ -79,6 +83,7 @@ function App() {
           <Route path="/footer/test-connexion" element={<TestConnexion />} />
           <Route path="/footer/mentions-legales" element={<MentionsLegales />} />
           <Route path="/footer/comment-regarder" element={<CommentRegarder />} />
+          <Route path="/footer/comment-watchparty" element={<CommentWatchParty />} />
           <Route path="/footer/centre-aide" element={<FAQ />} /> {/* Redirection temporaire vers la FAQ */}
           <Route path="/footer/preferences-cookies" element={<Confidentialite />} /> {/* Redirection temporaire vers Confidentialité */}
           <Route path="/footer/informations-legales" element={<MentionsLegales />} /> {/* Redirection temporaire vers Mentions légales */}
