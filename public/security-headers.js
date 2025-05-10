@@ -12,7 +12,7 @@
   }
 
   // Ajouter des en-têtes de sécurité via meta tags
-  addSecurityMeta('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com https://s.ytimg.com; frame-src https://www.youtube.com; img-src 'self' data: https://image.tmdb.org https://i.ytimg.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://flodrama-api-prod.florifavi.workers.dev");
+  addSecurityMeta('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com https://s.ytimg.com; frame-src https://www.youtube.com; img-src 'self' data: https://i.ytimg.com https://*.flodrama.com https://*.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; connect-src 'self' https://flodrama-api-worker.florifavi.workers.dev https://*.flodrama.com");
   addSecurityMeta('X-Content-Type-Options', 'nosniff');
   addSecurityMeta('X-Frame-Options', 'DENY');
   addSecurityMeta('X-XSS-Protection', '1; mode=block');
