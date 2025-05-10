@@ -110,7 +110,9 @@ function Play() {
     
     // Fonction pour extraire l'ID YouTube d'une URL
     const extractYoutubeId = (url) => {
-      if (!url) return null;
+      if (!url) {
+        return null;
+      }
       
       // Patterns pour les URLs YouTube
       const patterns = [
