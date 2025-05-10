@@ -172,9 +172,9 @@ function Banner(props) {
         setUrlId({ key: videoId });
       }
     } else {
-      // Si pas de trailer_url, essayer de récupérer la bande-annonce via l'API TMDB
+      // Si pas de trailer_url, essayer de récupérer la bande-annonce via l'API FloDrama
       fetch(
-        `https://api.themoviedb.org/3/${movieInfo.media_type}/${movieInfo.id}/videos?api_key=${API_KEY}&language=en-US`
+        `${baseUrl}/api/videos/${movieInfo.media_type}/${movieInfo.id}`
       )
         .then((response) => response.json())
         .then((data) => {

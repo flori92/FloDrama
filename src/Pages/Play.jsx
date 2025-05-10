@@ -128,9 +128,8 @@ function Play() {
     
     // Essayer d'abord de récupérer les données depuis l'API Cloudflare
     fetchContentDetails().then(success => {
-      // Si les données n'ont pas pu être chargées depuis Cloudflare, utiliser l'API TMDB comme fallback
       if (!success) {
-        console.log("Fallback vers l'API TMDB");
+        console.log("Utilisation de l'API de secours");
         
         // Récupérer les vidéos (trailers)
         axios
@@ -141,7 +140,7 @@ function Play() {
               setUrlId(responce.data.results[0]);
               setMoreTrailerVideos(responce.data.results);
             } else {
-              console.log("Array Emptey");
+              console.log("Array Empty");
             }
           });
 
@@ -155,7 +154,7 @@ function Play() {
                 setMoreTrailerVideos(responce.data.results);
                 console.log(moreTrailerVideos);
               } else {
-                console.log("Array Emptey");
+                console.log("Array Empty");
               }
             });
         }
@@ -164,7 +163,7 @@ function Play() {
         axios
           .get(`/movie/${id}?api_key=${API_KEY}&language=en-US`)
           .then((responce) => {
-            console.log(responce.data, "Movie deatils");
+            console.log(responce.data, "Movie details");
             setMovieDetails(responce.data);
             console.log(responce.data.genres[0]);
 
