@@ -1,0 +1,1804 @@
+{
+  "results": [
+    {
+      "id": "viki-fallback-1",
+      "title": "Chinese Business 1",
+      "original_title": "Chinese Business 1",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2024,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 22
+    },
+    {
+      "id": "viki-fallback-2",
+      "title": "Thai Secret 2",
+      "original_title": "Thai Secret 2",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2024,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 16
+    },
+    {
+      "id": "viki-fallback-3",
+      "title": "Chinese Doctor 3",
+      "original_title": "Chinese Doctor 3",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "viki-fallback-4",
+      "title": "Japanese Family 4",
+      "original_title": "Japanese Family 4",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2024,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 19
+    },
+    {
+      "id": "viki-fallback-5",
+      "title": "Korean Love 5",
+      "original_title": "Korean Love 5",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2023,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "viki-fallback-6",
+      "title": "Taiwanese Doctor 6",
+      "original_title": "Taiwanese Doctor 6",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 17
+    },
+    {
+      "id": "viki-fallback-7",
+      "title": "Chinese Love 7",
+      "original_title": "Chinese Love 7",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2023,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 18
+    },
+    {
+      "id": "viki-fallback-8",
+      "title": "Taiwanese Lawyer 8",
+      "original_title": "Taiwanese Lawyer 8",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2024,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 20
+    },
+    {
+      "id": "viki-fallback-9",
+      "title": "Chinese Romance 9",
+      "original_title": "Chinese Romance 9",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.7",
+      "year": 2024,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 11
+    },
+    {
+      "id": "viki-fallback-10",
+      "title": "Chinese Secret 10",
+      "original_title": "Chinese Secret 10",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "viki-fallback-11",
+      "title": "Japanese Secret 11",
+      "original_title": "Japanese Secret 11",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2024,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 12
+    },
+    {
+      "id": "viki-fallback-12",
+      "title": "Chinese Love 12",
+      "original_title": "Chinese Love 12",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 18
+    },
+    {
+      "id": "viki-fallback-13",
+      "title": "Thai Lawyer 13",
+      "original_title": "Thai Lawyer 13",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.0",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 23
+    },
+    {
+      "id": "viki-fallback-14",
+      "title": "Chinese Romance 14",
+      "original_title": "Chinese Romance 14",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 17
+    },
+    {
+      "id": "viki-fallback-15",
+      "title": "Taiwanese Story 15",
+      "original_title": "Taiwanese Story 15",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 10
+    },
+    {
+      "id": "viki-fallback-16",
+      "title": "Thai Story 16",
+      "original_title": "Thai Story 16",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 9
+    },
+    {
+      "id": "viki-fallback-17",
+      "title": "Thai Family 17",
+      "original_title": "Thai Family 17",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2023,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 18
+    },
+    {
+      "id": "viki-fallback-18",
+      "title": "Japanese Family 18",
+      "original_title": "Japanese Family 18",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.4",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "viki-fallback-19",
+      "title": "Thai Story 19",
+      "original_title": "Thai Story 19",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 22
+    },
+    {
+      "id": "viki-fallback-20",
+      "title": "Taiwanese Doctor 20",
+      "original_title": "Taiwanese Doctor 20",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2024,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 17
+    },
+    {
+      "id": "viki-fallback-21",
+      "title": "Chinese Love 21",
+      "original_title": "Chinese Love 21",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.0",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 11
+    },
+    {
+      "id": "viki-fallback-22",
+      "title": "Taiwanese Family 22",
+      "original_title": "Taiwanese Family 22",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "viki-fallback-23",
+      "title": "Taiwanese Story 23",
+      "original_title": "Taiwanese Story 23",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 22
+    },
+    {
+      "id": "viki-fallback-24",
+      "title": "Chinese Secret 24",
+      "original_title": "Chinese Secret 24",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 21
+    },
+    {
+      "id": "viki-fallback-25",
+      "title": "Japanese Love 25",
+      "original_title": "Japanese Love 25",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "viki-fallback-26",
+      "title": "Japanese Love 26",
+      "original_title": "Japanese Love 26",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2024,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 11
+    },
+    {
+      "id": "viki-fallback-27",
+      "title": "Japanese Love 27",
+      "original_title": "Japanese Love 27",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.4",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 21
+    },
+    {
+      "id": "viki-fallback-28",
+      "title": "Taiwanese Business 28",
+      "original_title": "Taiwanese Business 28",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 17
+    },
+    {
+      "id": "viki-fallback-29",
+      "title": "Korean Romance 29",
+      "original_title": "Korean Romance 29",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2024,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 21
+    },
+    {
+      "id": "viki-fallback-30",
+      "title": "Taiwanese Business 30",
+      "original_title": "Taiwanese Business 30",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 16
+    },
+    {
+      "id": "viki-fallback-31",
+      "title": "Taiwanese Secret 31",
+      "original_title": "Taiwanese Secret 31",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 11
+    },
+    {
+      "id": "viki-fallback-32",
+      "title": "Japanese Family 32",
+      "original_title": "Japanese Family 32",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 11
+    },
+    {
+      "id": "viki-fallback-33",
+      "title": "Taiwanese Family 33",
+      "original_title": "Taiwanese Family 33",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "10.0",
+      "year": 2024,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 12
+    },
+    {
+      "id": "viki-fallback-34",
+      "title": "Thai Romance 34",
+      "original_title": "Thai Romance 34",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 21
+    },
+    {
+      "id": "viki-fallback-35",
+      "title": "Japanese Romance 35",
+      "original_title": "Japanese Romance 35",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 20
+    },
+    {
+      "id": "viki-fallback-36",
+      "title": "Korean Romance 36",
+      "original_title": "Korean Romance 36",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2024,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 9
+    },
+    {
+      "id": "viki-fallback-37",
+      "title": "Japanese Family 37",
+      "original_title": "Japanese Family 37",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 14
+    },
+    {
+      "id": "viki-fallback-38",
+      "title": "Chinese Love 38",
+      "original_title": "Chinese Love 38",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 15
+    },
+    {
+      "id": "viki-fallback-39",
+      "title": "Japanese Lawyer 39",
+      "original_title": "Japanese Lawyer 39",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2023,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 10
+    },
+    {
+      "id": "viki-fallback-40",
+      "title": "Taiwanese Story 40",
+      "original_title": "Taiwanese Story 40",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 9
+    },
+    {
+      "id": "viki-fallback-41",
+      "title": "Taiwanese Family 41",
+      "original_title": "Taiwanese Family 41",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "viki-fallback-42",
+      "title": "Taiwanese Story 42",
+      "original_title": "Taiwanese Story 42",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 20
+    },
+    {
+      "id": "viki-fallback-43",
+      "title": "Japanese Love 43",
+      "original_title": "Japanese Love 43",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2023,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 23
+    },
+    {
+      "id": "viki-fallback-44",
+      "title": "Taiwanese Lawyer 44",
+      "original_title": "Taiwanese Lawyer 44",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2023,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 17
+    },
+    {
+      "id": "viki-fallback-45",
+      "title": "Taiwanese Romance 45",
+      "original_title": "Taiwanese Romance 45",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2024,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "viki-fallback-46",
+      "title": "Taiwanese Secret 46",
+      "original_title": "Taiwanese Secret 46",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2023,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 23
+    },
+    {
+      "id": "viki-fallback-47",
+      "title": "Thai Romance 47",
+      "original_title": "Thai Romance 47",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 17
+    },
+    {
+      "id": "viki-fallback-48",
+      "title": "Korean Doctor 48",
+      "original_title": "Korean Doctor 48",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 16
+    },
+    {
+      "id": "viki-fallback-49",
+      "title": "Chinese Secret 49",
+      "original_title": "Chinese Secret 49",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 20
+    },
+    {
+      "id": "viki-fallback-50",
+      "title": "Taiwanese Story 50",
+      "original_title": "Taiwanese Story 50",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2023,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 20
+    },
+    {
+      "id": "viki-fallback-51",
+      "title": "Thai Romance 51",
+      "original_title": "Thai Romance 51",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2023,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 11
+    },
+    {
+      "id": "viki-fallback-52",
+      "title": "Korean Doctor 52",
+      "original_title": "Korean Doctor 52",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 12
+    },
+    {
+      "id": "viki-fallback-53",
+      "title": "Chinese Doctor 53",
+      "original_title": "Chinese Doctor 53",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.4",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 17
+    },
+    {
+      "id": "viki-fallback-54",
+      "title": "Thai Business 54",
+      "original_title": "Thai Business 54",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 21
+    },
+    {
+      "id": "viki-fallback-55",
+      "title": "Chinese Secret 55",
+      "original_title": "Chinese Secret 55",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 12
+    },
+    {
+      "id": "viki-fallback-56",
+      "title": "Taiwanese Business 56",
+      "original_title": "Taiwanese Business 56",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 21
+    },
+    {
+      "id": "viki-fallback-57",
+      "title": "Taiwanese Lawyer 57",
+      "original_title": "Taiwanese Lawyer 57",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2024,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 12
+    },
+    {
+      "id": "viki-fallback-58",
+      "title": "Chinese Doctor 58",
+      "original_title": "Chinese Doctor 58",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 16
+    },
+    {
+      "id": "viki-fallback-59",
+      "title": "Japanese Doctor 59",
+      "original_title": "Japanese Doctor 59",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.0",
+      "year": 2023,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "viki-fallback-60",
+      "title": "Chinese Lawyer 60",
+      "original_title": "Chinese Lawyer 60",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 10
+    },
+    {
+      "id": "viki-fallback-61",
+      "title": "Japanese Doctor 61",
+      "original_title": "Japanese Doctor 61",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 15
+    },
+    {
+      "id": "viki-fallback-62",
+      "title": "Taiwanese Business 62",
+      "original_title": "Taiwanese Business 62",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2024,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 16
+    },
+    {
+      "id": "viki-fallback-63",
+      "title": "Thai Love 63",
+      "original_title": "Thai Love 63",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 19
+    },
+    {
+      "id": "viki-fallback-64",
+      "title": "Taiwanese Business 64",
+      "original_title": "Taiwanese Business 64",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2024,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 10
+    },
+    {
+      "id": "viki-fallback-65",
+      "title": "Thai Romance 65",
+      "original_title": "Thai Romance 65",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2023,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 22
+    },
+    {
+      "id": "viki-fallback-66",
+      "title": "Japanese Lawyer 66",
+      "original_title": "Japanese Lawyer 66",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 14
+    },
+    {
+      "id": "viki-fallback-67",
+      "title": "Korean Story 67",
+      "original_title": "Korean Story 67",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 10
+    },
+    {
+      "id": "viki-fallback-68",
+      "title": "Taiwanese Lawyer 68",
+      "original_title": "Taiwanese Lawyer 68",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 19
+    },
+    {
+      "id": "viki-fallback-69",
+      "title": "Korean Family 69",
+      "original_title": "Korean Family 69",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2023,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 17
+    },
+    {
+      "id": "viki-fallback-70",
+      "title": "Korean Business 70",
+      "original_title": "Korean Business 70",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2024,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 21
+    },
+    {
+      "id": "viki-fallback-71",
+      "title": "Taiwanese Story 71",
+      "original_title": "Taiwanese Story 71",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 10
+    },
+    {
+      "id": "viki-fallback-72",
+      "title": "Korean Business 72",
+      "original_title": "Korean Business 72",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 9
+    },
+    {
+      "id": "viki-fallback-73",
+      "title": "Korean Love 73",
+      "original_title": "Korean Love 73",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "viki-fallback-74",
+      "title": "Taiwanese Lawyer 74",
+      "original_title": "Taiwanese Lawyer 74",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 17
+    },
+    {
+      "id": "viki-fallback-75",
+      "title": "Korean Romance 75",
+      "original_title": "Korean Romance 75",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2023,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 13
+    },
+    {
+      "id": "viki-fallback-76",
+      "title": "Taiwanese Business 76",
+      "original_title": "Taiwanese Business 76",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 10
+    },
+    {
+      "id": "viki-fallback-77",
+      "title": "Japanese Doctor 77",
+      "original_title": "Japanese Doctor 77",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 15
+    },
+    {
+      "id": "viki-fallback-78",
+      "title": "Thai Love 78",
+      "original_title": "Thai Love 78",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 16
+    },
+    {
+      "id": "viki-fallback-79",
+      "title": "Korean Lawyer 79",
+      "original_title": "Korean Lawyer 79",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 21
+    },
+    {
+      "id": "viki-fallback-80",
+      "title": "Chinese Story 80",
+      "original_title": "Chinese Story 80",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 19
+    },
+    {
+      "id": "viki-fallback-81",
+      "title": "Korean Secret 81",
+      "original_title": "Korean Secret 81",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 19
+    },
+    {
+      "id": "viki-fallback-82",
+      "title": "Chinese Family 82",
+      "original_title": "Chinese Family 82",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.0",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 13
+    },
+    {
+      "id": "viki-fallback-83",
+      "title": "Chinese Story 83",
+      "original_title": "Chinese Story 83",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.0",
+      "year": 2023,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "viki-fallback-84",
+      "title": "Taiwanese Business 84",
+      "original_title": "Taiwanese Business 84",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.7",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 23
+    },
+    {
+      "id": "viki-fallback-85",
+      "title": "Taiwanese Lawyer 85",
+      "original_title": "Taiwanese Lawyer 85",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 18
+    },
+    {
+      "id": "viki-fallback-86",
+      "title": "Chinese Lawyer 86",
+      "original_title": "Chinese Lawyer 86",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2024,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 20
+    },
+    {
+      "id": "viki-fallback-87",
+      "title": "Japanese Business 87",
+      "original_title": "Japanese Business 87",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "viki-fallback-88",
+      "title": "Chinese Love 88",
+      "original_title": "Chinese Love 88",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 19
+    },
+    {
+      "id": "viki-fallback-89",
+      "title": "Thai Secret 89",
+      "original_title": "Thai Secret 89",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "10.0",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 11
+    },
+    {
+      "id": "viki-fallback-90",
+      "title": "Japanese Secret 90",
+      "original_title": "Japanese Secret 90",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2023,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 22
+    },
+    {
+      "id": "viki-fallback-91",
+      "title": "Taiwanese Family 91",
+      "original_title": "Taiwanese Family 91",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.7",
+      "year": 2023,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 22
+    },
+    {
+      "id": "viki-fallback-92",
+      "title": "Korean Lawyer 92",
+      "original_title": "Korean Lawyer 92",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 16
+    },
+    {
+      "id": "viki-fallback-93",
+      "title": "Chinese Lawyer 93",
+      "original_title": "Chinese Lawyer 93",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2020,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 17
+    },
+    {
+      "id": "viki-fallback-94",
+      "title": "Thai Romance 94",
+      "original_title": "Thai Romance 94",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "10.0",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 17
+    },
+    {
+      "id": "viki-fallback-95",
+      "title": "Japanese Family 95",
+      "original_title": "Japanese Family 95",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2024,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 9
+    },
+    {
+      "id": "viki-fallback-96",
+      "title": "Chinese Secret 96",
+      "original_title": "Chinese Secret 96",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 15
+    },
+    {
+      "id": "viki-fallback-97",
+      "title": "Thai Story 97",
+      "original_title": "Thai Story 97",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 14
+    },
+    {
+      "id": "viki-fallback-98",
+      "title": "Korean Love 98",
+      "original_title": "Korean Love 98",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2022,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "viki-fallback-99",
+      "title": "Korean Business 99",
+      "original_title": "Korean Business 99",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 11
+    },
+    {
+      "id": "viki-fallback-100",
+      "title": "Taiwanese Secret 100",
+      "original_title": "Taiwanese Secret 100",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2021,
+      "source": "viki",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    }
+  ]
+}

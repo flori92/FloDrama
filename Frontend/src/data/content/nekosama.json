@@ -1,0 +1,1804 @@
+{
+  "results": [
+    {
+      "id": "nekosama-fallback-1",
+      "title": "Mecha Quest 1",
+      "original_title": "Mecha Quest 1",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-2",
+      "title": "Mecha Titan 2",
+      "original_title": "Mecha Titan 2",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2021,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-3",
+      "title": "Shonen Quest 3",
+      "original_title": "Shonen Quest 3",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-4",
+      "title": "Shojo Academy 4",
+      "original_title": "Shojo Academy 4",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-5",
+      "title": "Shonen Hero 5",
+      "original_title": "Shonen Hero 5",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-6",
+      "title": "Shojo Hero 6",
+      "original_title": "Shojo Hero 6",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.7",
+      "year": 2020,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-7",
+      "title": "Seinen Hero 7",
+      "original_title": "Seinen Hero 7",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-8",
+      "title": "Seinen Quest 8",
+      "original_title": "Seinen Quest 8",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2021,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-9",
+      "title": "Shojo Hero 9",
+      "original_title": "Shojo Hero 9",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-10",
+      "title": "Isekai Adventure 10",
+      "original_title": "Isekai Adventure 10",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-11",
+      "title": "Shojo Quest 11",
+      "original_title": "Shojo Quest 11",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2021,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-12",
+      "title": "Mecha Dragon 12",
+      "original_title": "Mecha Dragon 12",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2023,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-13",
+      "title": "Mecha Quest 13",
+      "original_title": "Mecha Quest 13",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-14",
+      "title": "Mecha Adventure 14",
+      "original_title": "Mecha Adventure 14",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-15",
+      "title": "Isekai Academy 15",
+      "original_title": "Isekai Academy 15",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-16",
+      "title": "Seinen Quest 16",
+      "original_title": "Seinen Quest 16",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2021,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-17",
+      "title": "Shojo Ninja 17",
+      "original_title": "Shojo Ninja 17",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-18",
+      "title": "Isekai Slayer 18",
+      "original_title": "Isekai Slayer 18",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.7",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-19",
+      "title": "Seinen Titan 19",
+      "original_title": "Seinen Titan 19",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-20",
+      "title": "Mecha Ninja 20",
+      "original_title": "Mecha Ninja 20",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.0",
+      "year": 2020,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-21",
+      "title": "Seinen Titan 21",
+      "original_title": "Seinen Titan 21",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-22",
+      "title": "Mecha Slayer 22",
+      "original_title": "Mecha Slayer 22",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-23",
+      "title": "Shojo Quest 23",
+      "original_title": "Shojo Quest 23",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2023,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-24",
+      "title": "Isekai Ninja 24",
+      "original_title": "Isekai Ninja 24",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2023,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-25",
+      "title": "Seinen Quest 25",
+      "original_title": "Seinen Quest 25",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-26",
+      "title": "Seinen Adventure 26",
+      "original_title": "Seinen Adventure 26",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2020,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-27",
+      "title": "Shonen Slayer 27",
+      "original_title": "Shonen Slayer 27",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-28",
+      "title": "Mecha Dragon 28",
+      "original_title": "Mecha Dragon 28",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2021,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-29",
+      "title": "Seinen Quest 29",
+      "original_title": "Seinen Quest 29",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.4",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-30",
+      "title": "Isekai Adventure 30",
+      "original_title": "Isekai Adventure 30",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2023,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-31",
+      "title": "Isekai Slayer 31",
+      "original_title": "Isekai Slayer 31",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-32",
+      "title": "Shojo Ninja 32",
+      "original_title": "Shojo Ninja 32",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.4",
+      "year": 2020,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-33",
+      "title": "Shojo Slayer 33",
+      "original_title": "Shojo Slayer 33",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-34",
+      "title": "Seinen Hero 34",
+      "original_title": "Seinen Hero 34",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2023,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-35",
+      "title": "Isekai Dragon 35",
+      "original_title": "Isekai Dragon 35",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2020,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-36",
+      "title": "Shonen Hero 36",
+      "original_title": "Shonen Hero 36",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-37",
+      "title": "Mecha Academy 37",
+      "original_title": "Mecha Academy 37",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2021,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-38",
+      "title": "Shonen Titan 38",
+      "original_title": "Shonen Titan 38",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.0",
+      "year": 2023,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-39",
+      "title": "Shojo Slayer 39",
+      "original_title": "Shojo Slayer 39",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2023,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-40",
+      "title": "Mecha Academy 40",
+      "original_title": "Mecha Academy 40",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2023,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-41",
+      "title": "Seinen Slayer 41",
+      "original_title": "Seinen Slayer 41",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2023,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-42",
+      "title": "Seinen Quest 42",
+      "original_title": "Seinen Quest 42",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2021,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-43",
+      "title": "Shonen Hero 43",
+      "original_title": "Shonen Hero 43",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-44",
+      "title": "Shojo Quest 44",
+      "original_title": "Shojo Quest 44",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.0",
+      "year": 2023,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-45",
+      "title": "Shojo Adventure 45",
+      "original_title": "Shojo Adventure 45",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-46",
+      "title": "Seinen Quest 46",
+      "original_title": "Seinen Quest 46",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-47",
+      "title": "Seinen Quest 47",
+      "original_title": "Seinen Quest 47",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2020,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-48",
+      "title": "Shojo Slayer 48",
+      "original_title": "Shojo Slayer 48",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.0",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-49",
+      "title": "Shojo Hero 49",
+      "original_title": "Shojo Hero 49",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2021,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-50",
+      "title": "Seinen Ninja 50",
+      "original_title": "Seinen Ninja 50",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-51",
+      "title": "Seinen Slayer 51",
+      "original_title": "Seinen Slayer 51",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2020,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-52",
+      "title": "Seinen Ninja 52",
+      "original_title": "Seinen Ninja 52",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.4",
+      "year": 2023,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-53",
+      "title": "Isekai Quest 53",
+      "original_title": "Isekai Quest 53",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-54",
+      "title": "Seinen Titan 54",
+      "original_title": "Seinen Titan 54",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2023,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-55",
+      "title": "Mecha Adventure 55",
+      "original_title": "Mecha Adventure 55",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "10.0",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-56",
+      "title": "Shonen Adventure 56",
+      "original_title": "Shonen Adventure 56",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-57",
+      "title": "Mecha Academy 57",
+      "original_title": "Mecha Academy 57",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2020,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-58",
+      "title": "Mecha Dragon 58",
+      "original_title": "Mecha Dragon 58",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-59",
+      "title": "Isekai Titan 59",
+      "original_title": "Isekai Titan 59",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-60",
+      "title": "Seinen Titan 60",
+      "original_title": "Seinen Titan 60",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2020,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-61",
+      "title": "Seinen Dragon 61",
+      "original_title": "Seinen Dragon 61",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.4",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-62",
+      "title": "Shonen Quest 62",
+      "original_title": "Shonen Quest 62",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "10.0",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-63",
+      "title": "Shojo Academy 63",
+      "original_title": "Shojo Academy 63",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-64",
+      "title": "Shojo Adventure 64",
+      "original_title": "Shojo Adventure 64",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2021,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-65",
+      "title": "Shonen Slayer 65",
+      "original_title": "Shonen Slayer 65",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2020,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-66",
+      "title": "Isekai Slayer 66",
+      "original_title": "Isekai Slayer 66",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2023,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-67",
+      "title": "Shojo Ninja 67",
+      "original_title": "Shojo Ninja 67",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.0",
+      "year": 2020,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-68",
+      "title": "Shojo Hero 68",
+      "original_title": "Shojo Hero 68",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2020,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-69",
+      "title": "Shojo Ninja 69",
+      "original_title": "Shojo Ninja 69",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2020,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-70",
+      "title": "Shojo Dragon 70",
+      "original_title": "Shojo Dragon 70",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-71",
+      "title": "Shojo Dragon 71",
+      "original_title": "Shojo Dragon 71",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2020,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-72",
+      "title": "Shonen Quest 72",
+      "original_title": "Shonen Quest 72",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2023,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-73",
+      "title": "Isekai Hero 73",
+      "original_title": "Isekai Hero 73",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.0",
+      "year": 2021,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-74",
+      "title": "Mecha Academy 74",
+      "original_title": "Mecha Academy 74",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-75",
+      "title": "Shojo Quest 75",
+      "original_title": "Shojo Quest 75",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-76",
+      "title": "Shojo Slayer 76",
+      "original_title": "Shojo Slayer 76",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-77",
+      "title": "Shojo Academy 77",
+      "original_title": "Shojo Academy 77",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-78",
+      "title": "Seinen Ninja 78",
+      "original_title": "Seinen Ninja 78",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2020,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-79",
+      "title": "Shonen Ninja 79",
+      "original_title": "Shonen Ninja 79",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2023,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-80",
+      "title": "Shonen Slayer 80",
+      "original_title": "Shonen Slayer 80",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.7",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-81",
+      "title": "Shojo Titan 81",
+      "original_title": "Shojo Titan 81",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2021,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-82",
+      "title": "Seinen Dragon 82",
+      "original_title": "Seinen Dragon 82",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2021,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-83",
+      "title": "Shojo Dragon 83",
+      "original_title": "Shojo Dragon 83",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2023,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-84",
+      "title": "Shonen Dragon 84",
+      "original_title": "Shonen Dragon 84",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.4",
+      "year": 2023,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-85",
+      "title": "Isekai Quest 85",
+      "original_title": "Isekai Quest 85",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2021,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-86",
+      "title": "Shojo Ninja 86",
+      "original_title": "Shojo Ninja 86",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "10.0",
+      "year": 2021,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-87",
+      "title": "Seinen Academy 87",
+      "original_title": "Seinen Academy 87",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2021,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-88",
+      "title": "Mecha Dragon 88",
+      "original_title": "Mecha Dragon 88",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2021,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-89",
+      "title": "Mecha Ninja 89",
+      "original_title": "Mecha Ninja 89",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-90",
+      "title": "Seinen Quest 90",
+      "original_title": "Seinen Quest 90",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2020,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-91",
+      "title": "Seinen Ninja 91",
+      "original_title": "Seinen Ninja 91",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2021,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-92",
+      "title": "Isekai Adventure 92",
+      "original_title": "Isekai Adventure 92",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2023,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-93",
+      "title": "Shojo Adventure 93",
+      "original_title": "Shojo Adventure 93",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-94",
+      "title": "Isekai Adventure 94",
+      "original_title": "Isekai Adventure 94",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-95",
+      "title": "Shojo Titan 95",
+      "original_title": "Shojo Titan 95",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2021,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-96",
+      "title": "Mecha Academy 96",
+      "original_title": "Mecha Academy 96",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-97",
+      "title": "Mecha Slayer 97",
+      "original_title": "Mecha Slayer 97",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2021,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-98",
+      "title": "Shojo Adventure 98",
+      "original_title": "Shojo Adventure 98",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-99",
+      "title": "Shonen Dragon 99",
+      "original_title": "Shonen Dragon 99",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2022,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "nekosama-fallback-100",
+      "title": "Seinen Ninja 100",
+      "original_title": "Seinen Ninja 100",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2024,
+      "source": "nekosama",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    }
+  ]
+}

@@ -1,0 +1,1804 @@
+{
+  "results": [
+    {
+      "id": "mydramalist-fallback-1",
+      "title": "Rating Collection 1",
+      "original_title": "Rating Collection 1",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2024,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-2",
+      "title": "Meta Scores 2",
+      "original_title": "Meta Scores 2",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2021,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-3",
+      "title": "Meta Collection 3",
+      "original_title": "Meta Collection 3",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-4",
+      "title": "Info Rankings 4",
+      "original_title": "Info Rankings 4",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2020,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-5",
+      "title": "Data Collection 5",
+      "original_title": "Data Collection 5",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.0",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-6",
+      "title": "Review Scores 6",
+      "original_title": "Review Scores 6",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-7",
+      "title": "Review Database 7",
+      "original_title": "Review Database 7",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2021,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-8",
+      "title": "Data Archive 8",
+      "original_title": "Data Archive 8",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-9",
+      "title": "Review Reviews 9",
+      "original_title": "Review Reviews 9",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-10",
+      "title": "Meta Rankings 10",
+      "original_title": "Meta Rankings 10",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-11",
+      "title": "Rating Reviews 11",
+      "original_title": "Rating Reviews 11",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-12",
+      "title": "Info Archive 12",
+      "original_title": "Info Archive 12",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2021,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-13",
+      "title": "Review Ratings 13",
+      "original_title": "Review Ratings 13",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-14",
+      "title": "Data Archive 14",
+      "original_title": "Data Archive 14",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-15",
+      "title": "Review Ratings 15",
+      "original_title": "Review Ratings 15",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2020,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-16",
+      "title": "Rating Scores 16",
+      "original_title": "Rating Scores 16",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2021,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-17",
+      "title": "Data Ratings 17",
+      "original_title": "Data Ratings 17",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-18",
+      "title": "Data Reviews 18",
+      "original_title": "Data Reviews 18",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2024,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-19",
+      "title": "Rating Scores 19",
+      "original_title": "Rating Scores 19",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2024,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-20",
+      "title": "Rating Rankings 20",
+      "original_title": "Rating Rankings 20",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-21",
+      "title": "Data Reviews 21",
+      "original_title": "Data Reviews 21",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-22",
+      "title": "Data Ratings 22",
+      "original_title": "Data Ratings 22",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-23",
+      "title": "Data Ratings 23",
+      "original_title": "Data Ratings 23",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2021,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-24",
+      "title": "Info Reviews 24",
+      "original_title": "Info Reviews 24",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce metadata.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-25",
+      "title": "Review Reviews 25",
+      "original_title": "Review Reviews 25",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce metadata.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-26",
+      "title": "Data Reviews 26",
+      "original_title": "Data Reviews 26",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2021,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-27",
+      "title": "Rating Ratings 27",
+      "original_title": "Rating Ratings 27",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2021,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-28",
+      "title": "Meta Rankings 28",
+      "original_title": "Meta Rankings 28",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2021,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-29",
+      "title": "Rating Ratings 29",
+      "original_title": "Rating Ratings 29",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2020,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-30",
+      "title": "Data Rankings 30",
+      "original_title": "Data Rankings 30",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-31",
+      "title": "Review Ratings 31",
+      "original_title": "Review Ratings 31",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-32",
+      "title": "Review Rankings 32",
+      "original_title": "Review Rankings 32",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2020,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-33",
+      "title": "Review Reviews 33",
+      "original_title": "Review Reviews 33",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-34",
+      "title": "Data Reviews 34",
+      "original_title": "Data Reviews 34",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2024,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-35",
+      "title": "Review Archive 35",
+      "original_title": "Review Archive 35",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-36",
+      "title": "Data Rankings 36",
+      "original_title": "Data Rankings 36",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2024,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-37",
+      "title": "Review Rankings 37",
+      "original_title": "Review Rankings 37",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-38",
+      "title": "Data Ratings 38",
+      "original_title": "Data Ratings 38",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-39",
+      "title": "Rating Archive 39",
+      "original_title": "Rating Archive 39",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2020,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-40",
+      "title": "Review Reviews 40",
+      "original_title": "Review Reviews 40",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2024,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-41",
+      "title": "Meta Scores 41",
+      "original_title": "Meta Scores 41",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-42",
+      "title": "Info Archive 42",
+      "original_title": "Info Archive 42",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2021,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-43",
+      "title": "Info Scores 43",
+      "original_title": "Info Scores 43",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce metadata.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2021,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-44",
+      "title": "Review Collection 44",
+      "original_title": "Review Collection 44",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.7",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-45",
+      "title": "Data Reviews 45",
+      "original_title": "Data Reviews 45",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2020,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-46",
+      "title": "Info Archive 46",
+      "original_title": "Info Archive 46",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-47",
+      "title": "Data Rankings 47",
+      "original_title": "Data Rankings 47",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-48",
+      "title": "Data Rankings 48",
+      "original_title": "Data Rankings 48",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-49",
+      "title": "Info Ratings 49",
+      "original_title": "Info Ratings 49",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-50",
+      "title": "Info Scores 50",
+      "original_title": "Info Scores 50",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-51",
+      "title": "Data Archive 51",
+      "original_title": "Data Archive 51",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2021,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-52",
+      "title": "Rating Reviews 52",
+      "original_title": "Rating Reviews 52",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "10.0",
+      "year": 2024,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-53",
+      "title": "Rating Collection 53",
+      "original_title": "Rating Collection 53",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-54",
+      "title": "Review Archive 54",
+      "original_title": "Review Archive 54",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-55",
+      "title": "Meta Reviews 55",
+      "original_title": "Meta Reviews 55",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-56",
+      "title": "Info Scores 56",
+      "original_title": "Info Scores 56",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce metadata.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-57",
+      "title": "Info Reviews 57",
+      "original_title": "Info Reviews 57",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce metadata.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-58",
+      "title": "Data Rankings 58",
+      "original_title": "Data Rankings 58",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2021,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-59",
+      "title": "Meta Scores 59",
+      "original_title": "Meta Scores 59",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-60",
+      "title": "Data Database 60",
+      "original_title": "Data Database 60",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce metadata.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-61",
+      "title": "Info Scores 61",
+      "original_title": "Info Scores 61",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2024,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-62",
+      "title": "Info Rankings 62",
+      "original_title": "Info Rankings 62",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2020,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-63",
+      "title": "Rating Rankings 63",
+      "original_title": "Rating Rankings 63",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-64",
+      "title": "Meta Collection 64",
+      "original_title": "Meta Collection 64",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-65",
+      "title": "Meta Collection 65",
+      "original_title": "Meta Collection 65",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce metadata.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2020,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-66",
+      "title": "Review Rankings 66",
+      "original_title": "Review Rankings 66",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2024,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-67",
+      "title": "Meta Reviews 67",
+      "original_title": "Meta Reviews 67",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-68",
+      "title": "Data Collection 68",
+      "original_title": "Data Collection 68",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2021,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-69",
+      "title": "Info Scores 69",
+      "original_title": "Info Scores 69",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce metadata.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2024,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-70",
+      "title": "Review Collection 70",
+      "original_title": "Review Collection 70",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.4",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-71",
+      "title": "Rating Database 71",
+      "original_title": "Rating Database 71",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2024,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-72",
+      "title": "Rating Scores 72",
+      "original_title": "Rating Scores 72",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2024,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-73",
+      "title": "Rating Ratings 73",
+      "original_title": "Rating Ratings 73",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2020,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-74",
+      "title": "Rating Archive 74",
+      "original_title": "Rating Archive 74",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-75",
+      "title": "Rating Reviews 75",
+      "original_title": "Rating Reviews 75",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2020,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-76",
+      "title": "Data Ratings 76",
+      "original_title": "Data Ratings 76",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-77",
+      "title": "Rating Scores 77",
+      "original_title": "Rating Scores 77",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce metadata.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2020,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-78",
+      "title": "Meta Ratings 78",
+      "original_title": "Meta Ratings 78",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce metadata.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2024,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-79",
+      "title": "Info Archive 79",
+      "original_title": "Info Archive 79",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-80",
+      "title": "Rating Collection 80",
+      "original_title": "Rating Collection 80",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2020,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-81",
+      "title": "Meta Scores 81",
+      "original_title": "Meta Scores 81",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce metadata.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-82",
+      "title": "Info Database 82",
+      "original_title": "Info Database 82",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-83",
+      "title": "Rating Rankings 83",
+      "original_title": "Rating Rankings 83",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2024,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-84",
+      "title": "Rating Collection 84",
+      "original_title": "Rating Collection 84",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce metadata.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-85",
+      "title": "Data Database 85",
+      "original_title": "Data Database 85",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-86",
+      "title": "Meta Collection 86",
+      "original_title": "Meta Collection 86",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-87",
+      "title": "Info Scores 87",
+      "original_title": "Info Scores 87",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2021,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-88",
+      "title": "Review Database 88",
+      "original_title": "Review Database 88",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2021,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-89",
+      "title": "Info Ratings 89",
+      "original_title": "Info Ratings 89",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2021,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-90",
+      "title": "Rating Rankings 90",
+      "original_title": "Rating Rankings 90",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-91",
+      "title": "Data Scores 91",
+      "original_title": "Data Scores 91",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2024,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-92",
+      "title": "Rating Ratings 92",
+      "original_title": "Rating Ratings 92",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2021,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-93",
+      "title": "Review Scores 93",
+      "original_title": "Review Scores 93",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2021,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-94",
+      "title": "Review Rankings 94",
+      "original_title": "Review Rankings 94",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2020,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-95",
+      "title": "Meta Archive 95",
+      "original_title": "Meta Archive 95",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2023,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-96",
+      "title": "Meta Database 96",
+      "original_title": "Meta Database 96",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce metadata.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.0",
+      "year": 2024,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-97",
+      "title": "Info Rankings 97",
+      "original_title": "Info Rankings 97",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2022,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-98",
+      "title": "Review Ratings 98",
+      "original_title": "Review Ratings 98",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2021,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-99",
+      "title": "Rating Ratings 99",
+      "original_title": "Rating Ratings 99",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2024,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "mydramalist-fallback-100",
+      "title": "Meta Database 100",
+      "original_title": "Meta Database 100",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce metadata.",
+      "poster": "/placeholders/metadata-poster.jpg",
+      "backdrop": "/placeholders/metadata-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2020,
+      "source": "mydramalist",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Metadata"
+      ],
+      "episodes_count": null
+    }
+  ]
+}

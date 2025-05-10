@@ -1,29 +1,49 @@
 const axios = require('axios');
 const fs = require('fs-extra');
 const path = require('path');
+const { generateCategoryFiles } = require('./generateCategoryFiles');
 
 // Configuration
-const SCRAPER_API_URL = process.env.SCRAPER_API_URL || 'https://flodrama-scraper.florifavi.workers.dev';
+const SCRAPER_API_URLS = [
+  process.env.SCRAPER_API_URL || 'https://flodrama-scraper.florifavi.workers.dev',
+  'https://flodrama-cors-proxy.florifavi.workers.dev',
+  'https://flodrama-api.florifavi.workers.dev'
+];
 const MIN_ITEMS_PER_SOURCE = parseInt(process.env.MIN_ITEMS_PER_SOURCE || '100');
 const OUTPUT_DIR = process.env.OUTPUT_DIR || './Frontend/src/data/content';
 const SOURCES = (process.env.SOURCES || 'vostfree,dramacool,myasiantv,voirdrama,viki,wetv,iqiyi,kocowa,gogoanime,voiranime,nekosama,bollywoodmdb,zee5,hotstar,mydramalist').split(',');
-const RETRY_ATTEMPTS = parseInt(process.env.RETRY_ATTEMPTS || '3');
-const RETRY_DELAY = parseInt(process.env.RETRY_DELAY || '2000');
-const TIMEOUT = parseInt(process.env.TIMEOUT || '30000'); // 30 secondes par défaut
+const RETRY_ATTEMPTS = parseInt(process.env.RETRY_ATTEMPTS || '5');
+const RETRY_DELAY = parseInt(process.env.RETRY_DELAY || '3000');
+const TIMEOUT = parseInt(process.env.TIMEOUT || '60000'); // 60 secondes par défaut
 const USE_MOCK_DATA = process.env.USE_MOCK_DATA === 'true';
+const PARALLEL_REQUESTS = parseInt(process.env.PARALLEL_REQUESTS || '3');
+const REQUIRE_REAL_DATA = process.env.REQUIRE_REAL_DATA !== 'false'; // Par défaut, exiger des données réelles
 
 // Configuration d'Axios avec timeout
 axios.defaults.timeout = TIMEOUT;
 
+// Ajouter les en-têtes pour éviter les blocages
+axios.defaults.headers.common['User-Agent'] = 'FloDrama-GithubAction/2.0';
+axios.defaults.headers.common['Accept'] = 'application/json';
+axios.defaults.headers.common['X-Requested-With'] = 'FloDrama-Scraper';
+
+// Activer le suivi des redirections
+axios.defaults.maxRedirects = 5;
+axios.defaults.validateStatus = status => status >= 200 && status < 500;
+
 // Statistiques
 let stats = {
   total_items: 0,
-  dramas_count: 0,
-  animes_count: 0,
-  films_count: 0,
-  bollywood_count: 0,
+  real_items: 0,
+  fallback_items: 0,
+  mock_items: 0,
   sources_processed: 0,
-  sources_failed: 0
+  sources_failed: 0,
+  apis_used: new Set(),
+  categories: {},
+  start_time: new Date(),
+  end_time: null,
+  duration_ms: 0
 };
 
 // Créer le répertoire de sortie s'il n'existe pas
@@ -43,51 +63,102 @@ async function scrapeSource(source) {
     const mockItems = generateMockItems(source, MIN_ITEMS_PER_SOURCE);
     categorizeItems(mockItems, source);
     stats.total_items += mockItems.length;
+    stats.mock_items += mockItems.length;
     stats.sources_processed++;
     return mockItems;
   }
   
-  // Tentatives avec retry
+  // Tentatives avec retry sur différentes APIs
   let lastError = null;
+  let apiUrlsAttempted = 0;
+  let currentApiUrlIndex = 0;
   
   for (let attempt = 1; attempt <= RETRY_ATTEMPTS; attempt++) {
+    // Sélectionner l'URL de l'API à utiliser
+    if (lastError && apiUrlsAttempted < SCRAPER_API_URLS.length) {
+      currentApiUrlIndex = (currentApiUrlIndex + 1) % SCRAPER_API_URLS.length;
+      apiUrlsAttempted++;
+      console.log(`[${source}] Changement d'API: utilisation de ${SCRAPER_API_URLS[currentApiUrlIndex]}`);
+    }
+    
+    const currentApiUrl = SCRAPER_API_URLS[currentApiUrlIndex];
+    
     try {
-      console.log(`[${source}] Tentative ${attempt}/${RETRY_ATTEMPTS}...`);
+      console.log(`[${source}] Tentative ${attempt}/${RETRY_ATTEMPTS} avec ${currentApiUrl}...`);
       
       // Vérifier si l'API est accessible avant de faire l'appel principal
-      if (attempt === 1) {
+      if (attempt === 1 || apiUrlsAttempted > 0) {
         try {
           // Ping l'API avec un timeout réduit pour vérifier sa disponibilité
-          await axios.get(`${SCRAPER_API_URL}/health`, { timeout: 5000 });
-          console.log(`[${source}] API accessible, procédant au scraping...`);
+          const healthResponse = await axios.get(`${currentApiUrl}/health`, { 
+            timeout: 5000,
+            validateStatus: status => status >= 200 && status < 600 // Accepter tous les codes de statut pour le diagnostic
+          });
+          
+          if (healthResponse.status >= 200 && healthResponse.status < 300) {
+            console.log(`[${source}] API ${currentApiUrl} accessible, procédant au scraping...`);
+          } else {
+            console.warn(`[${source}] API ${currentApiUrl} a répondu avec le statut ${healthResponse.status}`);
+            // Continuer quand même, mais avec un avertissement
+          }
         } catch (pingError) {
-          console.warn(`[${source}] Avertissement: L'API semble inaccessible: ${pingError.message}`);
-          // Continuer quand même avec le scraping, mais noter le problème
+          console.warn(`[${source}] Avertissement: L'API ${currentApiUrl} semble inaccessible: ${pingError.message}`);
+          // Essayer l'API suivante si disponible
+          if (apiUrlsAttempted < SCRAPER_API_URLS.length) {
+            continue;
+          }
         }
       }
       
-      // Appel à l'API de scraping avec paramètres détaillés
-      const response = await axios.get(`${SCRAPER_API_URL}`, {
-        params: {
-          source: source,
-          limit: MIN_ITEMS_PER_SOURCE,
-          timeout: TIMEOUT / 1000, // Convertir en secondes pour l'API
-          detailed: true // Demander des données détaillées
-        },
-        headers: {
-          'User-Agent': 'FloDrama-GithubAction/1.0',
-          'Accept': 'application/json'
-        }
-      });
+      // Déterminer si l'API est un proxy CORS ou une API complète
+      const isCorsproxy = currentApiUrl.includes('cors-proxy');
+      let response;
+      
+      if (isCorsproxy) {
+        // Pour les proxies CORS, utiliser une URL avec paramètres
+        const targetUrl = `${currentApiUrl}?url=https://flodrama-api.florifavi.workers.dev&source=${source}&limit=${MIN_ITEMS_PER_SOURCE}&timeout=${TIMEOUT/1000}&detailed=true&fallback=true`;
+        console.log(`[${source}] Appel via proxy CORS: ${targetUrl}`);
+        
+        response = await axios.get(targetUrl, {
+          headers: {
+            'User-Agent': 'FloDrama-GithubAction/2.0',
+            'Accept': 'application/json',
+            'X-Requested-With': 'FloDrama-Scraper'
+          }
+        });
+      } else {
+        // Pour les APIs complètes, utiliser les paramètres de requête
+        console.log(`[${source}] Appel direct à l'API: ${currentApiUrl}`);
+        
+        response = await axios.get(currentApiUrl, {
+          params: {
+            source: source,
+            limit: MIN_ITEMS_PER_SOURCE,
+            timeout: TIMEOUT / 1000, // Convertir en secondes pour l'API
+            detailed: true, // Demander des données détaillées
+            fallback: true // Autoriser les données de secours en cas d'échec
+          },
+          headers: {
+            'User-Agent': 'FloDrama-GithubAction/2.0',
+            'Accept': 'application/json',
+            'X-Requested-With': 'FloDrama-Scraper'
+          }
+        });
+      }
       
       // Analyse détaillée de la réponse
       if (response.data) {
-        if (Array.isArray(response.data.results)) {
-          const items = response.data.results;
+        // Vérifier si la réponse contient des métadonnées (format API v2)
+        const hasMetadata = response.data.metadata !== undefined;
+        const results = hasMetadata ? response.data.results : response.data.results || response.data;
+        
+        if (Array.isArray(results)) {
+          const items = results;
           const itemCount = items.length;
+          const isFallback = hasMetadata && response.data.metadata.is_fallback === true;
           
           // Logs détaillés sur les données récupérées
-          console.log(`[${source}] ${itemCount} éléments récupérés (minimum requis: ${MIN_ITEMS_PER_SOURCE})`);
+          console.log(`[${source}] ${itemCount} éléments récupérés${isFallback ? ' (données de secours)' : ''} (minimum requis: ${MIN_ITEMS_PER_SOURCE})`);
           
           if (itemCount > 0) {
             console.log(`[${source}] Exemple de données: ${JSON.stringify(items[0].title || 'Titre inconnu')}`);
@@ -98,13 +169,28 @@ async function scrapeSource(source) {
           }
           
           // Vérifier la qualité des données
+          const realItems = items.filter(item => !item.is_fallback && !item.is_mock);
+          const fallbackItems = items.filter(item => item.is_fallback || item.is_mock);
           const missingFields = items.filter(item => !item.title || !item.id).length;
+          
           if (missingFields > 0) {
             console.warn(`[${source}] Attention: ${missingFields} éléments ont des champs manquants`);
           }
           
+          // Vérifier si on a des données réelles
+          if (realItems.length === 0 && REQUIRE_REAL_DATA) {
+            console.warn(`[${source}] Attention: Aucune donnée réelle reçue, uniquement des données de secours`);
+            
+            // Si on n'est pas à la dernière tentative, essayer une autre API
+            if (attempt < RETRY_ATTEMPTS && apiUrlsAttempted < SCRAPER_API_URLS.length) {
+              throw new Error(`Aucune donnée réelle reçue, tentative avec une autre API`);
+            }
+          }
+          
           // Mettre à jour les statistiques
           stats.total_items += itemCount;
+          stats.real_items += realItems.length;
+          stats.fallback_items += fallbackItems.length;
           stats.sources_processed++;
           
           // Catégoriser les éléments
@@ -115,9 +201,13 @@ async function scrapeSource(source) {
             timestamp: new Date().toISOString(),
             success: true,
             itemCount,
+            realCount: realItems.length,
+            fallbackCount: fallbackItems.length,
             minRequired: MIN_ITEMS_PER_SOURCE,
             missingFields,
-            attempt
+            attempt,
+            apiUrl: currentApiUrl,
+            isFallback
           });
           
           return items;
@@ -131,12 +221,12 @@ async function scrapeSource(source) {
       }
     } catch (error) {
       lastError = error;
-      console.error(`[${source}] Erreur (tentative ${attempt}/${RETRY_ATTEMPTS}):`, error.message);
+      console.error(`[${source}] Erreur (tentative ${attempt}/${RETRY_ATTEMPTS} avec ${currentApiUrl}):`, error.message);
       
       // Détails supplémentaires sur l'erreur
       if (error.response) {
         // Réponse du serveur avec code d'erreur
-        console.error(`[${source}] Détails: Status ${error.response.status}, ${JSON.stringify(error.response.data)}`);
+        console.error(`[${source}] Détails: Status ${error.response.status}, ${JSON.stringify(error.response.data || {})}`);
       } else if (error.request) {
         // Pas de réponse reçue
         console.error(`[${source}] Détails: Pas de réponse du serveur (timeout/réseau)`);
@@ -144,7 +234,7 @@ async function scrapeSource(source) {
       
       if (attempt < RETRY_ATTEMPTS) {
         // Attendre avant la prochaine tentative (backoff exponentiel)
-        const delay = RETRY_DELAY * Math.pow(2, attempt - 1);
+        const delay = RETRY_DELAY * Math.pow(1.5, attempt - 1);
         console.log(`[${source}] Nouvelle tentative dans ${delay}ms...`);
         await new Promise(resolve => setTimeout(resolve, delay));
       }
@@ -152,7 +242,7 @@ async function scrapeSource(source) {
   }
   
   // Toutes les tentatives ont échoué
-  console.error(`[${source}] Échec après ${RETRY_ATTEMPTS} tentatives`);
+  console.error(`[${source}] Échec après ${RETRY_ATTEMPTS} tentatives sur ${apiUrlsAttempted} APIs différentes`);
   stats.sources_failed++;
   
   // Sauvegarder les logs d'échec
@@ -160,7 +250,8 @@ async function scrapeSource(source) {
     timestamp: new Date().toISOString(),
     success: false,
     error: lastError ? lastError.message : 'Erreur inconnue',
-    attempts: RETRY_ATTEMPTS
+    attempts: RETRY_ATTEMPTS,
+    apisAttempted: apiUrlsAttempted
   });
   
   // Générer des données de secours si nécessaire
@@ -168,6 +259,7 @@ async function scrapeSource(source) {
   const fallbackItems = generateMockItems(source, MIN_ITEMS_PER_SOURCE, true);
   categorizeItems(fallbackItems, source);
   stats.total_items += fallbackItems.length;
+  stats.fallback_items += fallbackItems.length;
   
   return fallbackItems;
 }
@@ -216,36 +308,269 @@ function categorizeItems(items, source) {
   console.log(`Données sauvegardées dans ${outputFile}`);
 }
 
-// Fonction principale pour exécuter le scraping sur toutes les sources
+/**
+ * Divise un tableau en sous-tableaux de taille spécifiée
+ * @param {Array} array - Tableau à diviser
+ * @param {number} chunkSize - Taille des sous-tableaux
+ * @returns {Array} - Tableau de sous-tableaux
+ */
+function chunkArray(array, chunkSize) {
+  const chunks = [];
+  for (let i = 0; i < array.length; i += chunkSize) {
+    chunks.push(array.slice(i, i + chunkSize));
+  }
+  return chunks;
+}
+
+/**
+ * Formate une durée en millisecondes en format lisible
+ * @param {number} ms - Durée en millisecondes
+ * @returns {string} - Durée formatée
+ */
+function formatDuration(ms) {
+  const seconds = Math.floor(ms / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  
+  if (hours > 0) {
+    return `${hours}h ${minutes % 60}m ${seconds % 60}s`;
+  } else if (minutes > 0) {
+    return `${minutes}m ${seconds % 60}s`;
+  } else {
+    return `${seconds}s`;
+  }
+}
+
+/**
+ * Génère un rapport HTML des statistiques de scraping
+ * @param {Object} stats - Statistiques de scraping
+ */
+function generateHtmlReport(stats) {
+  try {
+    const reportPath = path.join(OUTPUT_DIR, 'logs', 'scraping-report.html');
+    const realDataPercentage = Math.round(stats.real_items/stats.total_items*100) || 0;
+    const fallbackPercentage = Math.round(stats.fallback_items/stats.total_items*100) || 0;
+    const mockPercentage = Math.round(stats.mock_items/stats.total_items*100) || 0;
+    
+    const html = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Rapport de Scraping FloDrama</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; color: #333; }
+    h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+    .card { background: #f9f9f9; border-radius: 5px; padding: 15px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .stat { display: flex; justify-content: space-between; margin: 5px 0; }
+    .stat-label { font-weight: bold; }
+    .progress-container { background: #eee; height: 20px; border-radius: 10px; margin: 10px 0; overflow: hidden; }
+    .progress-bar { height: 100%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; }
+    .real { background: #2ecc71; }
+    .fallback { background: #f39c12; }
+    .mock { background: #e74c3c; }
+    .sources { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+    .source-item { background: #fff; padding: 10px; border-radius: 5px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .success { border-left: 4px solid #2ecc71; }
+    .warning { border-left: 4px solid #f39c12; }
+    .error { border-left: 4px solid #e74c3c; }
+    .timestamp { color: #7f8c8d; font-size: 12px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Rapport de Scraping FloDrama</h1>
+  
+  <div class="card">
+    <h2>Résumé</h2>
+    <div class="stat">
+      <span class="stat-label">Date d'exécution:</span>
+      <span>${new Date().toLocaleString('fr-FR')}</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Durée totale:</span>
+      <span>${stats.duration_formatted}</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Total d'éléments:</span>
+      <span>${stats.total_items}</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Sources traitées:</span>
+      <span>${stats.sources_processed}/${SOURCES.length}</span>
+    </div>
+    <div class="stat">
+      <span class="stat-label">Sources en échec:</span>
+      <span>${stats.sources_failed}</span>
+    </div>
+  </div>
+  
+  <div class="card">
+    <h2>Qualité des données</h2>
+    <div class="stat">
+      <span class="stat-label">Données réelles:</span>
+      <span>${stats.real_items} (${realDataPercentage}%)</span>
+    </div>
+    <div class="progress-container">
+      <div class="progress-bar real" style="width: ${realDataPercentage}%">${realDataPercentage}%</div>
+    </div>
+    
+    <div class="stat">
+      <span class="stat-label">Données de secours:</span>
+      <span>${stats.fallback_items} (${fallbackPercentage}%)</span>
+    </div>
+    <div class="progress-container">
+      <div class="progress-bar fallback" style="width: ${fallbackPercentage}%">${fallbackPercentage}%</div>
+    </div>
+    
+    <div class="stat">
+      <span class="stat-label">Données mockées:</span>
+      <span>${stats.mock_items} (${mockPercentage}%)</span>
+    </div>
+    <div class="progress-container">
+      <div class="progress-bar mock" style="width: ${mockPercentage}%">${mockPercentage}%</div>
+    </div>
+  </div>
+  
+  <div class="card">
+    <h2>Répartition par catégorie</h2>
+    ${Object.entries(stats.categories || {}).map(([category, count]) => `
+      <div class="stat">
+        <span class="stat-label">${category}:</span>
+        <span>${count} éléments</span>
+      </div>
+    `).join('')}
+  </div>
+  
+  <div class="card">
+    <h2>APIs utilisées</h2>
+    ${Array.from(stats.apis_used).map(api => `
+      <div class="source-item success">
+        <div>${api}</div>
+      </div>
+    `).join('')}
+  </div>
+  
+  <div class="timestamp">Rapport généré le ${new Date().toLocaleString('fr-FR')}</div>
+</body>
+</html>`;
+    
+    fs.writeFileSync(reportPath, html);
+    console.log(`Rapport HTML généré: ${reportPath}`);
+  } catch (error) {
+    console.error('Erreur lors de la génération du rapport HTML:', error.message);
+  }
+}
+
+/**
+ * Fonction principale pour exécuter le scraping sur toutes les sources
+ */
 async function runScraping() {
-  console.log(`Début du scraping pour ${SOURCES.length} sources...`);
+  console.log(`Démarrage du scraping pour ${SOURCES.length} sources...`);
+  console.log(`Configuration:`);
+  console.log(`- Minimum d'éléments par source: ${MIN_ITEMS_PER_SOURCE}`);
+  console.log(`- Tentatives de retry: ${RETRY_ATTEMPTS}`);
+  console.log(`- Délai entre tentatives: ${RETRY_DELAY}ms`);
+  console.log(`- Timeout: ${TIMEOUT}ms`);
+  console.log(`- Utilisation de données mockées: ${USE_MOCK_DATA ? 'Oui' : 'Non'}`);
+  console.log(`- Exigence de données réelles: ${REQUIRE_REAL_DATA ? 'Oui' : 'Non'}`);
+  console.log(`- Requêtes parallèles: ${PARALLEL_REQUESTS}`);
+  console.log(`- APIs disponibles: ${SCRAPER_API_URLS.join(', ')}`);
   
-  // Scraper chaque source en parallèle avec une limite de concurrence
-  const concurrencyLimit = 3; // Limiter à 3 sources simultanées pour éviter les problèmes
+  // Créer les répertoires de sortie
+  fs.ensureDirSync(OUTPUT_DIR);
+  fs.ensureDirSync(path.join(OUTPUT_DIR, 'logs'));
   
-  for (let i = 0; i < SOURCES.length; i += concurrencyLimit) {
-    const batch = SOURCES.slice(i, i + concurrencyLimit);
-    await Promise.all(batch.map(scrapeSource));
+  // Vérifier la disponibilité des APIs avant de commencer
+  console.log('\nVérification de la disponibilité des APIs...');
+  for (const apiUrl of SCRAPER_API_URLS) {
+    try {
+      const response = await axios.get(`${apiUrl}/health`, { timeout: 5000 });
+      console.log(`- API ${apiUrl}: ${response.status === 200 ? 'Disponible ✅' : 'Problème ⚠️'} (${response.status})`);
+      stats.apis_used.add(apiUrl);
+    } catch (error) {
+      console.log(`- API ${apiUrl}: Non disponible ❌ (${error.message})`);
+    }
+  }
+  
+  // Scraper les sources par lots parallèles
+  console.log('\nDémarrage du scraping des sources...');
+  const sourceChunks = chunkArray(SOURCES, PARALLEL_REQUESTS);
+  
+  for (const chunk of sourceChunks) {
+    // Traiter chaque lot en parallèle
+    await Promise.all(chunk.map(async (source) => {
+      try {
+        await scrapeSource(source);
+      } catch (error) {
+        console.error(`Erreur lors du scraping de ${source}:`, error);
+        stats.sources_failed++;
+      }
+    }));
+  }
+  
+  // Générer les fichiers par catégorie
+  const categoryStats = await generateCategoryFiles(OUTPUT_DIR, MIN_ITEMS_PER_SOURCE);
+  
+  // Ajouter les statistiques des catégories aux statistiques globales
+  stats.category_stats = categoryStats;
+  
+  // Calculer la durée totale
+  stats.end_time = new Date();
+  stats.duration_ms = stats.end_time - stats.start_time;
+  stats.duration_formatted = formatDuration(stats.duration_ms);
+  
+  // Convertir le Set en array pour la sérialisation JSON
+  stats.apis_used = Array.from(stats.apis_used);
+  
+  // Afficher les statistiques détaillées
+  console.log('\n📊 Statistiques du scraping:');
+  console.log(`⏱️ Durée totale: ${stats.duration_formatted}`);
+  console.log(`📦 Total d'éléments: ${stats.total_items}`);
+  console.log(`🌐 Éléments réels: ${stats.real_items} (${Math.round(stats.real_items/stats.total_items*100)}%)`);
+  console.log(`⚠️ Éléments de secours: ${stats.fallback_items} (${Math.round(stats.fallback_items/stats.total_items*100)}%)`);
+  console.log(`🔄 Éléments mockés: ${stats.mock_items} (${Math.round(stats.mock_items/stats.total_items*100)}%)`);
+  console.log(`✅ Sources traitées: ${stats.sources_processed}/${SOURCES.length}`);
+  console.log(`❌ Sources en échec: ${stats.sources_failed}`);
+  console.log(`🔌 APIs utilisées: ${stats.apis_used.length}/${SCRAPER_API_URLS.length}`);
+  
+  // Afficher les statistiques par catégorie
+  console.log('\n📂 Statistiques par catégorie:');
+  for (const [category, count] of Object.entries(stats.categories)) {
+    console.log(`- ${category}: ${count} éléments`);
   }
   
   // Sauvegarder les statistiques
-  console.log('Scraping terminé. Statistiques:');
-  console.log(stats);
+  fs.writeFileSync(
+    path.join(OUTPUT_DIR, 'logs', 'scraping-stats.json'),
+    JSON.stringify(stats, null, 2)
+  );
   
-  // Définir les outputs pour GitHub Actions (nouvelle méthode avec fichiers d'environnement)
-  const fs = require('fs');
-  const path = require('path');
+  // Générer un rapport HTML
+  generateHtmlReport(stats);
   
-  // Récupérer le chemin du fichier d'environnement depuis la variable GITHUB_OUTPUT
+  console.log('\n✨ Scraping terminé avec succès!');
+  
+  // Définir les outputs pour GitHub Actions
   const githubOutputFile = process.env.GITHUB_OUTPUT;
-  
   if (githubOutputFile) {
-    // Écrire les outputs dans le fichier d'environnement
-    fs.appendFileSync(githubOutputFile, `total_items=${stats.total_items}\n`);
-    fs.appendFileSync(githubOutputFile, `dramas_count=${stats.dramas_count}\n`);
-    fs.appendFileSync(githubOutputFile, `animes_count=${stats.animes_count}\n`);
-    fs.appendFileSync(githubOutputFile, `films_count=${stats.films_count}\n`);
-    fs.appendFileSync(githubOutputFile, `bollywood_count=${stats.bollywood_count}\n`);
+    try {
+      // Écrire les outputs dans le fichier d'environnement GitHub Actions
+      const outputContent = [
+        `total_items=${stats.total_items}`,
+        `real_items=${stats.real_items}`,
+        `fallback_items=${stats.fallback_items}`,
+        `mock_items=${stats.mock_items}`,
+        `sources_processed=${stats.sources_processed}`,
+        `sources_failed=${stats.sources_failed}`,
+        `real_data_percentage=${Math.round(stats.real_items/stats.total_items*100)}`,
+        `scraping_success=${stats.sources_failed === 0 ? 'true' : 'false'}`,
+        `duration=${stats.duration_ms}`
+      ].join('\n');
+      
+      fs.appendFileSync(githubOutputFile, outputContent + '\n');
+      console.log(`Outputs GitHub Actions définis avec succès.`);
+    } catch (error) {
+      console.error(`Erreur lors de la définition des outputs GitHub Actions:`, error.message);
+    }
   } else {
     // Fallback pour les environnements locaux
     console.log(`total_items=${stats.total_items}`);
@@ -253,6 +578,19 @@ async function runScraping() {
     console.log(`animes_count=${stats.animes_count}`);
     console.log(`films_count=${stats.films_count}`);
     console.log(`bollywood_count=${stats.bollywood_count}`);
+  }
+  
+  // Vérifier si on a suffisamment de données réelles
+  const realDataPercentage = Math.round(stats.real_items/stats.total_items*100);
+  if (realDataPercentage < 50 && REQUIRE_REAL_DATA) {
+    console.warn(`\n AVERTISSEMENT: Seulement ${realDataPercentage}% des données sont réelles!`);
+    console.warn(` AVERTISSEMENT: Vérifiez la configuration de l'API de scraping et les sources.`);
+    
+    if (realDataPercentage === 0) {
+      console.error(`\n ERREUR CRITIQUE: Aucune donnée réelle n'a été récupérée!`);
+      console.error(` ERREUR CRITIQUE: Le processus de distribution de contenu pourrait être compromis.`);
+      process.exit(1); // Sortir avec un code d'erreur
+    }
   }
 }
 

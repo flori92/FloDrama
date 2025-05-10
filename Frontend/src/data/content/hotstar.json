@@ -1,0 +1,1804 @@
+{
+  "results": [
+    {
+      "id": "hotstar-fallback-1",
+      "title": "Indian Love 1",
+      "original_title": "Indian Love 1",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2021,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-2",
+      "title": "Bollywood Action 2",
+      "original_title": "Bollywood Action 2",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2021,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-3",
+      "title": "Chennai Action 3",
+      "original_title": "Chennai Action 3",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-4",
+      "title": "Chennai Wedding 4",
+      "original_title": "Chennai Wedding 4",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-5",
+      "title": "Mumbai Dance 5",
+      "original_title": "Mumbai Dance 5",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "10.0",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-6",
+      "title": "Bollywood Hero 6",
+      "original_title": "Bollywood Hero 6",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-7",
+      "title": "Bollywood Song 7",
+      "original_title": "Bollywood Song 7",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-8",
+      "title": "Indian Romance 8",
+      "original_title": "Indian Romance 8",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-9",
+      "title": "Indian Action 9",
+      "original_title": "Indian Action 9",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-10",
+      "title": "Delhi Wedding 10",
+      "original_title": "Delhi Wedding 10",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2021,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-11",
+      "title": "Bollywood Action 11",
+      "original_title": "Bollywood Action 11",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2024,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-12",
+      "title": "Mumbai Love 12",
+      "original_title": "Mumbai Love 12",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2023,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-13",
+      "title": "Mumbai Romance 13",
+      "original_title": "Mumbai Romance 13",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2024,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-14",
+      "title": "Indian Love 14",
+      "original_title": "Indian Love 14",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-15",
+      "title": "Bollywood Love 15",
+      "original_title": "Bollywood Love 15",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2023,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-16",
+      "title": "Delhi Wedding 16",
+      "original_title": "Delhi Wedding 16",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2021,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-17",
+      "title": "Indian Hero 17",
+      "original_title": "Indian Hero 17",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-18",
+      "title": "Chennai Family 18",
+      "original_title": "Chennai Family 18",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2024,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-19",
+      "title": "Delhi Romance 19",
+      "original_title": "Delhi Romance 19",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2023,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-20",
+      "title": "Indian Dance 20",
+      "original_title": "Indian Dance 20",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-21",
+      "title": "Bollywood Action 21",
+      "original_title": "Bollywood Action 21",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-22",
+      "title": "Chennai Dance 22",
+      "original_title": "Chennai Dance 22",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2024,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-23",
+      "title": "Bollywood Wedding 23",
+      "original_title": "Bollywood Wedding 23",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2024,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-24",
+      "title": "Bollywood Family 24",
+      "original_title": "Bollywood Family 24",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-25",
+      "title": "Bollywood Hero 25",
+      "original_title": "Bollywood Hero 25",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2023,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-26",
+      "title": "Delhi Dance 26",
+      "original_title": "Delhi Dance 26",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2024,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-27",
+      "title": "Mumbai Hero 27",
+      "original_title": "Mumbai Hero 27",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "10.0",
+      "year": 2021,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-28",
+      "title": "Bollywood Romance 28",
+      "original_title": "Bollywood Romance 28",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2023,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-29",
+      "title": "Chennai Wedding 29",
+      "original_title": "Chennai Wedding 29",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2021,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-30",
+      "title": "Mumbai Wedding 30",
+      "original_title": "Mumbai Wedding 30",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2024,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-31",
+      "title": "Chennai Hero 31",
+      "original_title": "Chennai Hero 31",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.0",
+      "year": 2024,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-32",
+      "title": "Chennai Love 32",
+      "original_title": "Chennai Love 32",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-33",
+      "title": "Mumbai Love 33",
+      "original_title": "Mumbai Love 33",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-34",
+      "title": "Mumbai Romance 34",
+      "original_title": "Mumbai Romance 34",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2021,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-35",
+      "title": "Indian Dance 35",
+      "original_title": "Indian Dance 35",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2021,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-36",
+      "title": "Bollywood Hero 36",
+      "original_title": "Bollywood Hero 36",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2023,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-37",
+      "title": "Mumbai Love 37",
+      "original_title": "Mumbai Love 37",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-38",
+      "title": "Mumbai Love 38",
+      "original_title": "Mumbai Love 38",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-39",
+      "title": "Mumbai Wedding 39",
+      "original_title": "Mumbai Wedding 39",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2024,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-40",
+      "title": "Indian Song 40",
+      "original_title": "Indian Song 40",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-41",
+      "title": "Chennai Action 41",
+      "original_title": "Chennai Action 41",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-42",
+      "title": "Bollywood Family 42",
+      "original_title": "Bollywood Family 42",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-43",
+      "title": "Mumbai Hero 43",
+      "original_title": "Mumbai Hero 43",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-44",
+      "title": "Mumbai Love 44",
+      "original_title": "Mumbai Love 44",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2021,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-45",
+      "title": "Mumbai Hero 45",
+      "original_title": "Mumbai Hero 45",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-46",
+      "title": "Mumbai Dance 46",
+      "original_title": "Mumbai Dance 46",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-47",
+      "title": "Chennai Love 47",
+      "original_title": "Chennai Love 47",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-48",
+      "title": "Mumbai Wedding 48",
+      "original_title": "Mumbai Wedding 48",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2024,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-49",
+      "title": "Bollywood Song 49",
+      "original_title": "Bollywood Song 49",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-50",
+      "title": "Delhi Song 50",
+      "original_title": "Delhi Song 50",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2023,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-51",
+      "title": "Bollywood Action 51",
+      "original_title": "Bollywood Action 51",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-52",
+      "title": "Bollywood Hero 52",
+      "original_title": "Bollywood Hero 52",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-53",
+      "title": "Bollywood Action 53",
+      "original_title": "Bollywood Action 53",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-54",
+      "title": "Indian Hero 54",
+      "original_title": "Indian Hero 54",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-55",
+      "title": "Bollywood Love 55",
+      "original_title": "Bollywood Love 55",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2021,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-56",
+      "title": "Chennai Love 56",
+      "original_title": "Chennai Love 56",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2023,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-57",
+      "title": "Mumbai Action 57",
+      "original_title": "Mumbai Action 57",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2023,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-58",
+      "title": "Mumbai Action 58",
+      "original_title": "Mumbai Action 58",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2024,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-59",
+      "title": "Indian Action 59",
+      "original_title": "Indian Action 59",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2024,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-60",
+      "title": "Chennai Romance 60",
+      "original_title": "Chennai Romance 60",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.4",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-61",
+      "title": "Delhi Hero 61",
+      "original_title": "Delhi Hero 61",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2024,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-62",
+      "title": "Bollywood Love 62",
+      "original_title": "Bollywood Love 62",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2024,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-63",
+      "title": "Mumbai Family 63",
+      "original_title": "Mumbai Family 63",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2021,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-64",
+      "title": "Chennai Wedding 64",
+      "original_title": "Chennai Wedding 64",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2023,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-65",
+      "title": "Bollywood Romance 65",
+      "original_title": "Bollywood Romance 65",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-66",
+      "title": "Mumbai Hero 66",
+      "original_title": "Mumbai Hero 66",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-67",
+      "title": "Delhi Hero 67",
+      "original_title": "Delhi Hero 67",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-68",
+      "title": "Chennai Family 68",
+      "original_title": "Chennai Family 68",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2023,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-69",
+      "title": "Delhi Romance 69",
+      "original_title": "Delhi Romance 69",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2024,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-70",
+      "title": "Indian Love 70",
+      "original_title": "Indian Love 70",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2021,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-71",
+      "title": "Bollywood Family 71",
+      "original_title": "Bollywood Family 71",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-72",
+      "title": "Bollywood Dance 72",
+      "original_title": "Bollywood Dance 72",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2021,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-73",
+      "title": "Delhi Love 73",
+      "original_title": "Delhi Love 73",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-74",
+      "title": "Chennai Dance 74",
+      "original_title": "Chennai Dance 74",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-75",
+      "title": "Mumbai Hero 75",
+      "original_title": "Mumbai Hero 75",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2024,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-76",
+      "title": "Chennai Action 76",
+      "original_title": "Chennai Action 76",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-77",
+      "title": "Bollywood Wedding 77",
+      "original_title": "Bollywood Wedding 77",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2021,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-78",
+      "title": "Indian Wedding 78",
+      "original_title": "Indian Wedding 78",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2023,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-79",
+      "title": "Delhi Dance 79",
+      "original_title": "Delhi Dance 79",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-80",
+      "title": "Bollywood Love 80",
+      "original_title": "Bollywood Love 80",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2023,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-81",
+      "title": "Chennai Romance 81",
+      "original_title": "Chennai Romance 81",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-82",
+      "title": "Indian Action 82",
+      "original_title": "Indian Action 82",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-83",
+      "title": "Indian Song 83",
+      "original_title": "Indian Song 83",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-84",
+      "title": "Delhi Family 84",
+      "original_title": "Delhi Family 84",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2023,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-85",
+      "title": "Delhi Romance 85",
+      "original_title": "Delhi Romance 85",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-86",
+      "title": "Delhi Romance 86",
+      "original_title": "Delhi Romance 86",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2024,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-87",
+      "title": "Mumbai Romance 87",
+      "original_title": "Mumbai Romance 87",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2021,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-88",
+      "title": "Mumbai Song 88",
+      "original_title": "Mumbai Song 88",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-89",
+      "title": "Indian Love 89",
+      "original_title": "Indian Love 89",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-90",
+      "title": "Chennai Action 90",
+      "original_title": "Chennai Action 90",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2021,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-91",
+      "title": "Chennai Romance 91",
+      "original_title": "Chennai Romance 91",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2024,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-92",
+      "title": "Mumbai Romance 92",
+      "original_title": "Mumbai Romance 92",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2023,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-93",
+      "title": "Chennai Romance 93",
+      "original_title": "Chennai Romance 93",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-94",
+      "title": "Indian Action 94",
+      "original_title": "Indian Action 94",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-95",
+      "title": "Mumbai Dance 95",
+      "original_title": "Mumbai Dance 95",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2021,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-96",
+      "title": "Delhi Family 96",
+      "original_title": "Delhi Family 96",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2020,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-97",
+      "title": "Mumbai Action 97",
+      "original_title": "Mumbai Action 97",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2021,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-98",
+      "title": "Chennai Action 98",
+      "original_title": "Chennai Action 98",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce bollywood.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-99",
+      "title": "Bollywood Song 99",
+      "original_title": "Bollywood Song 99",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.0",
+      "year": 2023,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "hotstar-fallback-100",
+      "title": "Mumbai Hero 100",
+      "original_title": "Mumbai Hero 100",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/bollywood-poster.jpg",
+      "backdrop": "/placeholders/bollywood-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2022,
+      "source": "hotstar",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Bollywood"
+      ],
+      "episodes_count": null
+    }
+  ]
+}

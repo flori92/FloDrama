@@ -1,0 +1,15 @@
+{
+  "name": "flodrama-cors-proxy",
+  "version": "1.0.0",
+  "description": "Proxy CORS simplifié pour FloDrama",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev"
+  },
+  "author": "FloDrama Team",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^3.114.0"
+  }
+}
