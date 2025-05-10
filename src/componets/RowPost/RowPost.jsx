@@ -25,12 +25,32 @@ import "./RowPostStyles.scss";
 
 // Fonction utilitaire pour garantir que les valeurs de notation sont valides
 const ensureValidRating = (rating) => {
-  // Vérifier si la valeur est un nombre valide
-  if (typeof rating !== 'number' || isNaN(rating)) {
-    return 3.5; // Valeur par défaut
+  // Si la valeur est undefined ou null, retourner la valeur par défaut
+  if (rating === undefined || rating === null) {
+    return 3.5;
   }
-  // Convertir à une échelle de 5 étoiles si nécessaire (TMDB utilise une échelle de 10)
-  return rating > 5 ? rating / 2 : rating;
+  
+  // Si c'est déjà un nombre, le traiter
+  if (typeof rating === 'number') {
+    // Vérifier si c'est un nombre valide (pas NaN)
+    if (isNaN(rating)) {
+      return 3.5;
+    }
+    // Convertir à une échelle de 5 étoiles si nécessaire (TMDB utilise une échelle de 10)
+    return rating > 5 ? rating / 2 : rating;
+  }
+  
+  // Si c'est une chaîne, essayer de la convertir en nombre
+  if (typeof rating === 'string') {
+    const parsedRating = parseFloat(rating);
+    if (isNaN(parsedRating)) {
+      return 3.5;
+    }
+    return parsedRating > 5 ? parsedRating / 2 : parsedRating;
+  }
+  
+  // Pour tout autre type, retourner la valeur par défaut
+  return 3.5;
 };
 
 function RowPost(props) {
@@ -53,7 +73,11 @@ function RowPost(props) {
     if (!obj) return;
     console.log('Propriétés disponibles dans l\'objet:', Object.keys(obj));
     // Vérifier les propriétés d'image spécifiques
-    const imageProps = ['image_url', 'poster_url', 'poster_path', 'backdrop_url', 'banner_url', 'background_url', 'backdrop_path'];
+    const imageProps = [
+      'image_url', 'poster_url', 'poster_path', 'poster', 'image', 
+      'backdrop_url', 'banner_url', 'background_url', 'backdrop_path', 'backdrop', 
+      'thumbnail', 'thumbnail_url', 'cover', 'cover_url'
+    ];
     console.log('Propriétés d\'image disponibles:');
     imageProps.forEach(prop => {
       if (obj[prop]) console.log(`- ${prop}: ${obj[prop]}`);
@@ -211,11 +235,15 @@ function RowPost(props) {
                       <>
                         <img
                           className="rounded-sm"
-                          src={obj.image_url || obj.poster_url || (obj.poster_path ? `${imageUrl + obj.poster_path}` : 'https://via.placeholder.com/300x450/000000/FFFFFF?text=FloDrama')}
+                          src={
+                            obj.image_url || obj.poster_url || obj.poster || obj.image || 
+                            obj.thumbnail || obj.thumbnail_url || obj.cover || obj.cover_url ||
+                            (obj.poster_path ? `${imageUrl + obj.poster_path}` : '/netflix-logo.png')
+                          }
                           alt={obj.title || obj.name || "Movie poster"}
                           onError={(e) => {
                             e.target.onerror = null;
-                            e.target.src = 'https://via.placeholder.com/300x450/000000/FFFFFF?text=FloDrama';
+                            e.target.src = '/netflix-logo.png';
                           }}
                         />
                       </>
@@ -230,12 +258,14 @@ function RowPost(props) {
                           }
                           src={
                             obj.backdrop_url || obj.banner_url || obj.background_url || 
-                            (obj.backdrop_path ? `${imageUrl2 + obj.backdrop_path}` : "https://via.placeholder.com/500x281/000000/FFFFFF?text=FloDrama")
+                            obj.backdrop || obj.banner || obj.background || 
+                            obj.cover_large || obj.cover_wide || obj.wide_image ||
+                            (obj.backdrop_path ? `${imageUrl2 + obj.backdrop_path}` : "/netflix-backdrop.png")
                           }
                           alt={obj.title || obj.name || "Movie backdrop"}
                           onError={(e) => {
                             e.target.onerror = null;
-                            e.target.src = 'https://via.placeholder.com/500x281/000000/FFFFFF?text=FloDrama';
+                            e.target.src = '/netflix-backdrop.png';
                           }}
                         />
                       </>
