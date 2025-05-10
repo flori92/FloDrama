@@ -24,7 +24,6 @@ const PORT = process.env.PORT || 3000;
 
 // Configuration
 const API_KEY = process.env.API_KEY || 'rnd_DJfpQC9gEu4KgTRvX8iQzMXxrteP';
-const TMDB_API_KEY = process.env.TMDB_API_KEY || '3e4d90cc981d3f782559d1748c99528c'; // Clé API TMDB par défaut
 const OUTPUT_DIR = path.join(__dirname, 'relay-output');
 const FLODRAMA_OUTPUT_DIR = path.join(__dirname, 'output');
 const BROWSER_ARGS = [
@@ -250,21 +249,11 @@ app.get('/status', authenticate, (req, res) => {
 
 // Route pour lister les sources supportées
 app.get('/sources', authenticate, (req, res) => {
+  // Récupérer dynamiquement les sources à partir de SOURCE_CONFIG
+  const sources = Object.keys(SOURCE_CONFIG);
+  
   res.json({
-    sources: [
-      'allocine-films',
-      'allocine-series',
-      'senscritique-films',
-      'senscritique-series',
-      'imdb-films',
-      'imdb-series',
-      'tmdb-films',
-      'tmdb-series',
-      'dramacool',
-      'mydramalist',
-      'myanimelist',
-      'bollywood'
-    ]
+    sources: sources
   });
 });
 
