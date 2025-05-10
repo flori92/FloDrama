@@ -8,8 +8,8 @@
 // export const API_BASE_URL = 'https://round-moon-16e4.florifavi.workers.dev'; // Ancienne URL
 // export const API_BASE_URL = 'https://flodrama-api.florifavi.workers.dev'; // URL actuelle avec problèmes CORS
 
-// Nouvelle URL avec Proxy CORS simplifié garantissant zéro erreur 404
-export const API_BASE_URL = 'https://flodrama-cors-proxy.florifavi.workers.dev';
+// Nouvelle URL avec le Worker Cloudflare optimisé pour les données scrapées
+export const API_BASE_URL = 'https://flodrama-api-worker.florifavi.workers.dev';
 // Structure correcte pour les endpoints Cloudflare Workers
 export const AUTH_API_URL = `${API_BASE_URL}`;
 export const USERS_API_URL = `${API_BASE_URL}`;
@@ -55,7 +55,7 @@ export const handleApiResponse = async (response) => {
 };
 
 // Mode de fonctionnement: 'api' pour utiliser l'API Cloudflare, 'local' pour utiliser l'implémentation locale
-export const DB_MODE = 'local';
+export const DB_MODE = 'api';
 
 // Fonction pour déterminer si on utilise l'API ou le mode local
 export const useApiMode = async () => {
