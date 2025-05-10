@@ -13,7 +13,7 @@ const axios = require('axios');
 const path = require('path');
 
 // Configuration
-const TMDB_API_KEY = process.env.TMDB_API_KEY;
+const { TMDB_API_KEY } = process.env;
 const TMDB_API_BASE_URL = 'https://api.themoviedb.org/3';
 const TMDB_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/original';
 const SCRAPING_OUTPUT_DIR = path.join(__dirname, '../../../cloudflare/scraping/output');
@@ -139,7 +139,7 @@ async function enrichItem(item) {
   const searchUrl = `${TMDB_API_BASE_URL}/search/${searchType}?api_key=${TMDB_API_KEY}&query=${query}&language=fr-FR`;
   
   const response = await axios.get(searchUrl);
-  const results = response.data.results;
+  const { results } = response.data;
   
   // Si aucun résultat, retourner l'élément original
   if (!results || results.length === 0) {
