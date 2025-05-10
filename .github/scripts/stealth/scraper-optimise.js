@@ -1,13 +1,18 @@
 /**
  * Scraper optimisé pour FloDrama
  * 
- * Ce script utilise une approche plus ciblée et des techniques avancées
- * pour contourner les protections anti-scraping les plus strictes
- * avec playwright et des techniques de furtivité
+ * Ce script utilise une approche hybride combinant:
+ * 1. Un service relais Render pour le scraping principal
+ * 2. Des techniques locales de scraping en fallback
+ * 3. L'API TMDB pour l'enrichissement des données
+ * 
+ * @version 2.0.0
+ * @author FloDrama Team
  */
 
 const fs = require('fs-extra');
 const path = require('path');
+const axios = require('axios');
 const { chromium } = require('playwright');
 const cheerio = require('cheerio');
 const { randomDelay, getRandomUserAgent } = require('./utils');
@@ -18,13 +23,31 @@ const CONFIG = {
   OUTPUT_DIR: './Frontend/src/data/content',
   CATEGORIES: ['drama', 'anime', 'film', 'bollywood'],
   STEALTH_MODE: true,
+  // Configuration du service relais Render
+  RELAY_SERVICE: {
+    ENABLED: process.env.USE_RELAY_SERVICE === 'true', // Activé par défaut sauf si explicitement désactivé
+    BASE_URL: process.env.RENDER_SERVICE_URL || 'https://flodrama-scraper.onrender.com',
+    API_KEY: process.env.RENDER_API_KEY || 'rnd_DJfpQC9gEu4KgTRvX8iQzMXxrteP',
+    TIMEOUT: 60000, // 60 secondes de timeout
+    RETRY_COUNT: 3
+  },
+  // Configuration du navigateur local (fallback)
   BROWSER_ARGS: [
     '--disable-blink-features=AutomationControlled',
     '--disable-dev-shm-usage',
     '--disable-setuid-sandbox',
     '--no-sandbox',
-    '--disable-web-security'
+    '--disable-web-security',
+    '--window-size=1920,1080',
+    '--disable-features=IsolateOrigins,site-per-process'
   ],
+  // Configuration TMDB (fallback ultime)
+  TMDB: {
+    ENABLED: true,
+    API_KEY: process.env.TMDB_API_KEY,
+    BASE_URL: 'https://api.themoviedb.org/3',
+    ITEMS_PER_CATEGORY: 200
+  },
   // Sources prioritaires avec des URLs alternatives et pagination
   SOURCES: [
     // Dramas
@@ -132,6 +155,21 @@ const stats = {
   sources_processed: 0,
   sources_failed: 0,
   categories: {},
+  relay_service: {
+    requests: 0,
+    successful: 0,
+    failed: 0
+  },
+  local_scraping: {
+    requests: 0,
+    successful: 0,
+    failed: 0
+  },
+  tmdb_fallback: {
+    requests: 0,
+    successful: 0,
+    failed: 0
+  },
   start_time: new Date()
 };
 
@@ -139,64 +177,139 @@ const stats = {
  * Fonction principale
  */
 async function main() {
-  console.log('='.repeat(80));
-  console.log(`FloDrama - Scraper Optimisé`);
-  console.log('='.repeat(80));
+  console.log('================================================================================');
+  console.log('FloDrama - Scraper Optimisé (Système Hybride)');
+  console.log('================================================================================');
   
-  // Créer les répertoires nécessaires
+  // Vérifier si des sources spécifiques sont demandées
+  const sourcesArg = process.argv.find(arg => arg.startsWith('--sources='));
+  let selectedSources = [];
+  
+  if (sourcesArg) {
+    const sourcesNames = sourcesArg.split('=')[1].split(',');
+    selectedSources = CONFIG.SOURCES.filter(source => sourcesNames.includes(source.name));
+    console.log(`🔎 Démarrage du scraping pour ${selectedSources.length} sources spécifiques: ${sourcesNames.join(', ')}`);
+  } else {
+    selectedSources = CONFIG.SOURCES;
+    console.log(`🔎 Démarrage du scraping pour ${selectedSources.length} sources prioritaires...`);
+  }
+  
+  // Détection de l'environnement
+  const isCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
+  console.log(`Environnement détecté: ${isCI ? 'CI/CD (GitHub Actions)' : 'Local'}`);
+  
+  // Vérification du service relais
+  if (CONFIG.RELAY_SERVICE.ENABLED) {
+    try {
+      console.log(`🔄 Vérification du service relais Render...`);
+      const statusResponse = await axios.get(`${CONFIG.RELAY_SERVICE.BASE_URL}/status`, {
+        headers: { 'Authorization': `Bearer ${CONFIG.RELAY_SERVICE.API_KEY}` },
+        timeout: 10000
+      });
+      
+      if (statusResponse.status === 200 && statusResponse.data.status === 'ok') {
+        console.log(`✅ Service relais Render disponible et opérationnel`);
+        console.log(`   Version: ${statusResponse.data.version || 'inconnue'}`);
+        console.log(`   Uptime: ${statusResponse.data.uptime || 'inconnu'}`);
+      } else {
+        console.warn(`⚠️ Service relais Render disponible mais signale un problème: ${statusResponse.data.message || 'Raison inconnue'}`);
+        CONFIG.RELAY_SERVICE.ENABLED = false;
+      }
+    } catch (error) {
+      console.warn(`⚠️ Service relais Render indisponible: ${error.message}`);
+      console.warn(`⚠️ Passage en mode de scraping local avec fallback TMDB`);
+      CONFIG.RELAY_SERVICE.ENABLED = false;
+    }
+  } else {
+    console.log(`ℹ️ Service relais Render désactivé par configuration`);
+  }
+  
+  // Création des dossiers de sortie
   await fs.ensureDir(CONFIG.OUTPUT_DIR);
   for (const category of CONFIG.CATEGORIES) {
     await fs.ensureDir(path.join(CONFIG.OUTPUT_DIR, category));
   }
   
-  console.log(`\n🔎 Démarrage du scraping pour ${CONFIG.SOURCES.length} sources prioritaires...`);
-  
-  // Détecter si nous sommes dans un environnement CI/CD (GitHub Actions)
-  const isCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
-  
-  console.log(`Environnement détecté: ${isCI ? 'CI/CD (GitHub Actions)' : 'Local'}`)
-  console.log(`Mode navigateur: ${isCI ? 'headless' : 'visible'}`)
-  
-  // Lancer un navigateur unique pour toutes les sources avec stealth
-  const browser = await chromium.launch({
-    headless: isCI, // Mode headless dans CI, visible en local
-    args: CONFIG.BROWSER_ARGS
-  });
+  // Lancement du navigateur uniquement si nécessaire
+  let browser = null;
+  if (!CONFIG.RELAY_SERVICE.ENABLED) {
+    browser = await chromium.launch({
+      headless: isCI,  // Mode visible en local, headless en CI
+      args: CONFIG.BROWSER_ARGS
+    });
+    
+    console.log(`Mode navigateur: ${await browser.isConnected() ? (isCI ? 'headless' : 'visible') : 'non connecté'}`);
+  }
   
   try {
-    // Traiter chaque source séquentiellement
-    for (const source of CONFIG.SOURCES) {
-      await scrapeSource(browser, source);
+    // Scraping de chaque source
+    for (const source of selectedSources) {
+      console.log(`🔎 Scraping de ${source.name} (${source.type})...`);
+      
+      let items = [];
+      
+      // Étape 1: Tenter d'utiliser le service relais Render
+      if (CONFIG.RELAY_SERVICE.ENABLED) {
+        items = await scrapeViaRelayService(source);
+      }
+      
+      // Étape 2: Si le service relais échoue ou est désactivé, tenter le scraping local
+      if (items.length === 0 && browser) {
+        console.log(`⚠️ Passage au scraping local pour ${source.name}...`);
+        items = await scrapeSource(browser, source);
+      }
+      
+      // Étape 3: Si tout échoue, utiliser les données TMDB comme fallback ultime
+      if (items.length === 0 && CONFIG.TMDB.ENABLED && CONFIG.TMDB.API_KEY) {
+        console.log(`⚠️ Passage au fallback TMDB pour ${source.name}...`);
+        items = await getFallbackDataFromTMDB(source);
+      }
+      
+      // Sauvegarder les données récupérées
+      if (items.length > 0) {
+        await saveData(source.name, items);
+        stats.total_items += items.length;
+        stats.sources_processed++;
+        
+        // Mettre à jour les statistiques par catégorie
+        const category = source.type || 'unknown';
+        stats.categories[category] = (stats.categories[category] || 0) + items.length;
+      } else {
+        console.error(`❌ Échec complet du scraping pour ${source.name} après toutes les tentatives`);
+        stats.sources_failed++;
+      }
     }
     
-    // Générer les fichiers par catégorie
+    // Génération des fichiers par catégorie
     await generateCategoryFiles();
     
+    // Affichage des statistiques
+    const duration = new Date() - stats.start_time;
+    console.log('\n================================================================================');
+    console.log(`📊 Statistiques de scraping:`);
+    console.log(`- Sources traitées: ${stats.sources_processed}/${selectedSources.length}`);
+    console.log(`- Sources en échec: ${stats.sources_failed}`);
+    console.log(`- Éléments récupérés: ${stats.total_items}`);
+    
+    for (const category in stats.categories) {
+      console.log(`  - ${category}: ${stats.categories[category]} éléments`);
+    }
+    
+    console.log(`- Service relais: ${stats.relay_service.successful}/${stats.relay_service.requests} requêtes réussies`);
+    console.log(`- Scraping local: ${stats.local_scraping.successful}/${stats.local_scraping.requests} requêtes réussies`);
+    console.log(`- Fallback TMDB: ${stats.tmdb_fallback.successful}/${stats.tmdb_fallback.requests} requêtes réussies`);
+    console.log(`- Durée totale: ${formatDuration(duration)}`);
+    console.log('================================================================================');
+    
+  } catch (error) {
+    console.error(`❌ Erreur globale: ${error.message}`);
+    console.error(error.stack);
   } finally {
-    // Fermer le navigateur
-    await browser.close();
+    // Fermeture du navigateur si ouvert
+    if (browser) {
+      await browser.close();
+    }
   }
-  
-  // Calculer la durée totale
-  stats.end_time = new Date();
-  stats.duration_ms = stats.end_time - stats.start_time;
-  stats.duration_formatted = formatDuration(stats.duration_ms);
-  
-  // Afficher les statistiques
-  console.log('\n='.repeat(80));
-  console.log('📊 Statistiques du scraping:');
-  console.log(`⏱️  Durée totale: ${stats.duration_formatted}`);
-  console.log(`📦 Total d'éléments: ${stats.total_items}`);
-  console.log(`✅ Sources traitées avec succès: ${stats.sources_processed}/${CONFIG.SOURCES.length}`);
-  console.log(`❌ Sources en échec: ${stats.sources_failed}`);
-  console.log('\nRépartition par catégorie:');
-  
-  for (const category of CONFIG.CATEGORIES) {
-    const count = stats.categories[category] || 0;
-    console.log(`- ${category}: ${count} éléments`);
-  }
-  
-  console.log('='.repeat(80));
 }
 
 /**
@@ -773,6 +886,125 @@ async function formatDuration(ms) {
     return `${minutes}m ${seconds % 60}s`;
   } else {
     return `${seconds}s`;
+  }
+}
+
+/**
+ * Scrape via le service relais Render
+ * @param {Object} source - Configuration de la source
+ * @returns {Promise<Array>} - Éléments récupérés
+ */
+async function scrapeViaRelayService(source) {
+  stats.relay_service.requests++;
+  
+  try {
+    console.log(`[${source.name}] Utilisation du service relais Render pour le scraping...`);
+    
+    // Préparation des données pour la requête
+    const payload = {
+      source: source.name,
+      type: source.type,
+      urls: source.urls,
+      selectors: {
+        main: source.selector,
+        wait: source.waitForSelector
+      },
+      pagination: {
+        pattern: source.paginationPattern,
+        max: source.paginationMax,
+        offsetMultiplier: source.paginationOffsetMultiplier
+      },
+      minItems: source.minItems
+    };
+    
+    // Envoi de la requête au service relais
+    const response = await axios.post(`${CONFIG.RELAY_SERVICE.BASE_URL}/scrape`, payload, {
+      headers: {
+        'Authorization': `Bearer ${CONFIG.RELAY_SERVICE.API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      timeout: CONFIG.RELAY_SERVICE.TIMEOUT
+    });
+    
+    // Traitement de la réponse
+    if (response.data && response.data.items && response.data.items.length > 0) {
+      console.log(`[${source.name}] ${response.data.items.length} éléments récupérés via le service relais`);
+      stats.relay_service.successful++;
+      return response.data.items;
+    }
+    
+    console.warn(`[${source.name}] Le service relais n'a retourné aucun élément`);
+    return [];
+  } catch (error) {
+    console.error(`[${source.name}] Erreur lors de l'appel au service relais: ${error.message}`);
+    stats.relay_service.failed++;
+    return [];
+  }
+}
+
+/**
+ * Récupère des données de fallback depuis TMDB
+ * @param {Object} source - Configuration de la source
+ * @returns {Promise<Array>} - Éléments récupérés
+ */
+async function getFallbackDataFromTMDB(source) {
+  stats.tmdb_fallback.requests++;
+  
+  if (!CONFIG.TMDB.API_KEY) {
+    console.error(`[${source.name}] Clé API TMDB manquante, impossible d'utiliser le fallback`);
+    return [];
+  }
+  
+  try {
+    console.log(`[${source.name}] Récupération des données de fallback depuis TMDB...`);
+    
+    // Déterminer le type de contenu TMDB en fonction du type de source
+    let tmdbType = 'multi';
+    if (source.type === 'film') {
+      tmdbType = 'movie';
+    }
+    if (source.type === 'drama') {
+      tmdbType = 'tv';
+    }
+    if (source.type === 'anime') {
+      tmdbType = 'tv';
+    }
+    if (source.type === 'bollywood') {
+      tmdbType = 'movie';
+    }
+    
+    // Récupérer les données populaires pour ce type
+    const url = `${CONFIG.TMDB.BASE_URL}/${tmdbType === 'multi' ? 'trending/all/week' : tmdbType + '/popular'}?api_key=${CONFIG.TMDB.API_KEY}&language=fr-FR&page=1`;
+    const response = await axios.get(url);
+    
+    if (!response.data || !response.data.results || !response.data.results.length) {
+      console.warn(`[${source.name}] Aucun résultat depuis TMDB`);
+      return [];
+    }
+    
+    // Transformer les données TMDB au format attendu
+    const items = response.data.results.map(item => ({
+      id: `tmdb_${item.id}`,
+      title: item.title || item.name,
+      original_title: item.original_title || item.original_name,
+      description: item.overview,
+      poster_url: item.poster_path ? `https://image.tmdb.org/t/p/original${item.poster_path}` : null,
+      backdrop_url: item.backdrop_path ? `https://image.tmdb.org/t/p/original${item.backdrop_path}` : null,
+      year: item.release_date ? parseInt(item.release_date.substring(0, 4)) : (item.first_air_date ? parseInt(item.first_air_date.substring(0, 4)) : null),
+      rating: item.vote_average,
+      type: source.type,
+      source: 'tmdb_fallback',
+      tmdb_id: item.id,
+      is_fallback: true
+    }));
+    
+    console.log(`[${source.name}] ${items.length} éléments récupérés depuis TMDB`);
+    stats.tmdb_fallback.successful++;
+    return items;
+  } catch (error) {
+    console.error(`[${source.name}] Erreur lors de la récupération des données TMDB: ${error.message}`);
+    stats.tmdb_fallback.failed++;
+    return [];
   }
 }
 

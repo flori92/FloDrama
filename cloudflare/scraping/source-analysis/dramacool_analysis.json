@@ -1,0 +1,5 @@
+{
+  "title_selector": "h1.title",
+  "recommended_wait_selector": ".list-episode-item",
+  "recommended_main_selector": ".list-drama-item"
+}

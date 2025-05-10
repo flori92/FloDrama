@@ -1,0 +1,122 @@
+[
+  {
+    "id": "mock-allocine-films-0",
+    "title": "Titre de test 1 pour allocine-films",
+    "original_title": "Test Title 1 for allocine-films",
+    "description": "Ceci est une description générée automatiquement pour le test 1 de la source allocine-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=allocine-films",
+    "rating": "5.0",
+    "year": 2024,
+    "source": "allocine-films",
+    "type": "film",
+    "url": "https://example.com/allocine-films/1"
+  },
+  {
+    "id": "mock-allocine-films-1",
+    "title": "Titre de test 2 pour allocine-films",
+    "original_title": "Test Title 2 for allocine-films",
+    "description": "Ceci est une description générée automatiquement pour le test 2 de la source allocine-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=allocine-films",
+    "rating": "3.3",
+    "year": 2020,
+    "source": "allocine-films",
+    "type": "film",
+    "url": "https://example.com/allocine-films/2"
+  },
+  {
+    "id": "mock-allocine-films-2",
+    "title": "Titre de test 3 pour allocine-films",
+    "original_title": "Test Title 3 for allocine-films",
+    "description": "Ceci est une description générée automatiquement pour le test 3 de la source allocine-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=allocine-films",
+    "rating": "1.2",
+    "year": 2020,
+    "source": "allocine-films",
+    "type": "film",
+    "url": "https://example.com/allocine-films/3"
+  },
+  {
+    "id": "mock-allocine-films-3",
+    "title": "Titre de test 4 pour allocine-films",
+    "original_title": "Test Title 4 for allocine-films",
+    "description": "Ceci est une description générée automatiquement pour le test 4 de la source allocine-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=allocine-films",
+    "rating": "1.5",
+    "year": 2023,
+    "source": "allocine-films",
+    "type": "film",
+    "url": "https://example.com/allocine-films/4"
+  },
+  {
+    "id": "mock-allocine-films-4",
+    "title": "Titre de test 5 pour allocine-films",
+    "original_title": "Test Title 5 for allocine-films",
+    "description": "Ceci est une description générée automatiquement pour le test 5 de la source allocine-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=allocine-films",
+    "rating": "2.9",
+    "year": 2020,
+    "source": "allocine-films",
+    "type": "film",
+    "url": "https://example.com/allocine-films/5"
+  },
+  {
+    "id": "mock-allocine-films-5",
+    "title": "Titre de test 6 pour allocine-films",
+    "original_title": "Test Title 6 for allocine-films",
+    "description": "Ceci est une description générée automatiquement pour le test 6 de la source allocine-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=allocine-films",
+    "rating": "0.1",
+    "year": 2023,
+    "source": "allocine-films",
+    "type": "film",
+    "url": "https://example.com/allocine-films/6"
+  },
+  {
+    "id": "mock-allocine-films-6",
+    "title": "Titre de test 7 pour allocine-films",
+    "original_title": "Test Title 7 for allocine-films",
+    "description": "Ceci est une description générée automatiquement pour le test 7 de la source allocine-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=allocine-films",
+    "rating": "3.5",
+    "year": 2020,
+    "source": "allocine-films",
+    "type": "film",
+    "url": "https://example.com/allocine-films/7"
+  },
+  {
+    "id": "mock-allocine-films-7",
+    "title": "Titre de test 8 pour allocine-films",
+    "original_title": "Test Title 8 for allocine-films",
+    "description": "Ceci est une description générée automatiquement pour le test 8 de la source allocine-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=allocine-films",
+    "rating": "1.1",
+    "year": 2023,
+    "source": "allocine-films",
+    "type": "film",
+    "url": "https://example.com/allocine-films/8"
+  },
+  {
+    "id": "mock-allocine-films-8",
+    "title": "Titre de test 9 pour allocine-films",
+    "original_title": "Test Title 9 for allocine-films",
+    "description": "Ceci est une description générée automatiquement pour le test 9 de la source allocine-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=allocine-films",
+    "rating": "0.6",
+    "year": 2020,
+    "source": "allocine-films",
+    "type": "film",
+    "url": "https://example.com/allocine-films/9"
+  },
+  {
+    "id": "mock-allocine-films-9",
+    "title": "Titre de test 10 pour allocine-films",
+    "original_title": "Test Title 10 for allocine-films",
+    "description": "Ceci est une description générée automatiquement pour le test 10 de la source allocine-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=allocine-films",
+    "rating": "3.3",
+    "year": 2022,
+    "source": "allocine-films",
+    "type": "film",
+    "url": "https://example.com/allocine-films/10"
+  }
+]
