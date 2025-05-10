@@ -18,7 +18,8 @@ const CLOUDFLARE_ACCOUNT_ID = '42fc982266a2c31b942593b18097e4b3';
 const CLOUDFLARE_NAMESPACE_ID = '7388919bd83241cfab509b44f819bb2f';
 const CLOUDFLARE_ZONE_ID = 'f9d0a8f6a9d4f3c7b1e5d2a6f8c3b7a9'; // ID de la zone Cloudflare pour FloDrama
 const CLOUDFLARE_API_TOKEN = 'E7aPZRNN-u--0TI0BE237AP9zL79kF7gQinJnh0M';
-const WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL; // Optionnel: webhook Discord pour les alertes
+// Webhook Discord de GitHub pour les alertes d'automatisation
+const WEBHOOK_URL = 'https://discord.com/api/webhooks/1234567890/abcdefghijklmnopqrstuvwxyz'; // Remplacer par l'URL réelle du webhook Discord de GitHub
 const SCRAPING_OUTPUT_DIR = path.join(__dirname, 'output');
 const FIXED_OUTPUT_DIR = path.join(__dirname, 'fixed-output');
 const LOG_DIR = path.join(__dirname, 'logs');
