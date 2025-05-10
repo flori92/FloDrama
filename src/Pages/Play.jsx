@@ -36,61 +36,150 @@ function Play() {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.state.From === "MyList") {
-      setIsFromMyList(true);
-    }
-    if (location.state.From === "LikedMovies") {
-      setIsFromLikedMovies(true);
-    }
-    if (location.state.From === "WatchedMovies") {
-      setIsFromWatchedMovies(true);
-    }
-
-    axios
-      .get(`/movie/${id}/videos?api_key=${API_KEY}&language=en-US`)
-      .then((responce) => {
-        console.log(responce.data, "This is the data");
-        if (responce.data.results.length !== 0) {
-          setUrlId(responce.data.results[0]);
-          setMoreTrailerVideos(responce.data.results);
-        } else {
-          console.log("Array Emptey");
-        }
-      });
-
-    if (urlId === "") {
-      axios
-        .get(`/tv/${id}/videos?api_key=${API_KEY}&language=en-US`)
-        .then((responce) => {
-          if (responce.data.results.length !== 0) {
-            console.log(responce.data.results[0], "This is using find ");
-            setUrlId(responce.data.results[0]);
-            setMoreTrailerVideos(responce.data.results);
-            console.log(moreTrailerVideos);
-          } else {
-            console.log("Array Emptey");
-          }
+    // Vérifier si nous avons des informations sur la source de navigation
+    if (location.state) {
+      if (location.state.From === "MyList") {
+        setIsFromMyList(true);
+      }
+      if (location.state.From === "LikedMovies") {
+        setIsFromLikedMovies(true);
+      }
+      if (location.state.From === "WatchedMovies") {
+        setIsFromWatchedMovies(true);
+      }
+      
+      // Vérifier si une URL de streaming a été passée via l'état
+      if (location.state.streamingUrl) {
+        console.log("URL de streaming trouvée dans l'état:", location.state.streamingUrl);
+        setUrlId({ 
+          key: location.state.streamingUrl, 
+          isStreamingUrl: true 
         });
+        
+        // Si nous avons également les données du film, les utiliser directement
+        if (location.state.movieData) {
+          setMovieDetails(location.state.movieData);
+        }
+      }
     }
-    axios
-      .get(`/movie/${id}?api_key=${API_KEY}&language=en-US`)
-      .then((responce) => {
-        console.log(responce.data, "Movie deatils");
-        setMovieDetails(responce.data);
-        console.log(responce.data.genres[0]);
-
+    
+    // Fonction pour charger les détails du contenu depuis l'API Cloudflare
+    const fetchContentDetails = async () => {
+      try {
+        // Essayer d'abord de récupérer les données depuis l'API Cloudflare
+        const response = await fetch(`/api/content/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Données du contenu depuis Cloudflare:", data);
+          setMovieDetails(data);
+          
+          // Vérifier si une URL de streaming est disponible
+          if (data.streaming_url) {
+            console.log("URL de streaming trouvée:", data.streaming_url);
+            // Définir l'URL de streaming comme source principale pour la lecture
+            setUrlId({ key: data.streaming_url, isStreamingUrl: true });
+          } else if (data.trailer_url) {
+            // Utiliser l'URL de trailer comme fallback si aucune URL de streaming n'est disponible
+            const videoId = extractYoutubeId(data.trailer_url);
+            if (videoId) {
+              console.log("URL de trailer utilisée comme fallback:", videoId);
+              setUrlId({ key: videoId });
+            }
+          }
+          
+          // Récupérer les vidéos supplémentaires si disponibles
+          if (data.videos && data.videos.length > 0) {
+            setMoreTrailerVideos(data.videos);
+          }
+          
+          // Récupérer les contenus similaires si disponibles
+          if (data.similar && data.similar.length > 0) {
+            setSimilarMovies(data.similar.slice(0, 8));
+          }
+          
+          return true; // Indique que les données ont été chargées avec succès
+        }
+        return false; // Indique que les données n'ont pas pu être chargées
+      } catch (error) {
+        console.error("Erreur lors de la récupération des données depuis Cloudflare:", error);
+        return false;
+      }
+    };
+    
+    // Fonction pour extraire l'ID YouTube d'une URL
+    const extractYoutubeId = (url) => {
+      if (!url) return null;
+      
+      // Patterns pour les URLs YouTube
+      const patterns = [
+        /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i,
+        /^([^"&?\/ ]{11})$/i
+      ];
+      
+      for (const pattern of patterns) {
+        const match = url.match(pattern);
+        if (match && match[1]) {
+          return match[1];
+        }
+      }
+      
+      return null;
+    };
+    
+    // Essayer d'abord de récupérer les données depuis l'API Cloudflare
+    fetchContentDetails().then(success => {
+      // Si les données n'ont pas pu être chargées depuis Cloudflare, utiliser l'API TMDB comme fallback
+      if (!success) {
+        console.log("Fallback vers l'API TMDB");
+        
+        // Récupérer les vidéos (trailers)
         axios
-          .get(
-            `movie/${id}/recommendations?api_key=${API_KEY}&language=en-US&page=1`
-          )
-          .then((res) => {
-            console.log(
-              res.data.results.slice(0, 8),
-              "ksdjfk ahdsfjksadhfjsdahf"
-            );
-            setSimilarMovies(res.data.results.slice(0, 8));
+          .get(`/movie/${id}/videos?api_key=${API_KEY}&language=en-US`)
+          .then((responce) => {
+            console.log(responce.data, "This is the data");
+            if (responce.data.results.length !== 0) {
+              setUrlId(responce.data.results[0]);
+              setMoreTrailerVideos(responce.data.results);
+            } else {
+              console.log("Array Emptey");
+            }
           });
-      });
+
+        if (urlId === "") {
+          axios
+            .get(`/tv/${id}/videos?api_key=${API_KEY}&language=en-US`)
+            .then((responce) => {
+              if (responce.data.results.length !== 0) {
+                console.log(responce.data.results[0], "This is using find ");
+                setUrlId(responce.data.results[0]);
+                setMoreTrailerVideos(responce.data.results);
+                console.log(moreTrailerVideos);
+              } else {
+                console.log("Array Emptey");
+              }
+            });
+        }
+        
+        // Récupérer les détails du film/série
+        axios
+          .get(`/movie/${id}?api_key=${API_KEY}&language=en-US`)
+          .then((responce) => {
+            console.log(responce.data, "Movie deatils");
+            setMovieDetails(responce.data);
+            console.log(responce.data.genres[0]);
+
+            // Récupérer les recommandations
+            axios
+              .get(
+                `movie/${id}/recommendations?api_key=${API_KEY}&language=en-US&page=1`
+              )
+              .then((res) => {
+                console.log(res.data.results.slice(0, 8), "Recommandations");
+                setSimilarMovies(res.data.results.slice(0, 8));
+              });
+          });
+      }
+    });
   }, []);
 
   return (
@@ -101,16 +190,39 @@ function Play() {
 
       <div className="mt-12 h-[31vh] sm:h-[42vh] md:h-[45vh] lg:h-[55vh] lg:mt-0 xl:h-[98vh]">
         {urlId ? (
-          <iframe
-            width="100%"
-            style={{ height: "inherit" }}
-            src={`//www.youtube.com/embed/${urlId.key}?modestbranding=1&autoplay=1`}
-            frameborder="0"
-            allow="autoplay fullscreen"
-            allowFullScreen
-          ></iframe>
+          urlId.isStreamingUrl ? (
+            // Lecteur vidéo personnalisé pour les URLs de streaming directes
+            <video
+              width="100%"
+              height="100%"
+              style={{ height: "inherit" }}
+              controls
+              autoPlay
+              className="bg-black"
+            >
+              <source src={urlId.key} type="video/mp4" />
+              Votre navigateur ne prend pas en charge la lecture vidéo.
+            </video>
+          ) : (
+            // Lecteur YouTube pour les bandes-annonces
+            <iframe
+              width="100%"
+              style={{ height: "inherit" }}
+              src={`//www.youtube.com/embed/${urlId.key}?modestbranding=1&autoplay=1`}
+              frameBorder="0"
+              allow="autoplay fullscreen"
+              allowFullScreen
+            ></iframe>
+          )
         ) : (
-          <img src={`${imageUrl + movieDetails.backdrop_path}`} />
+          <img 
+            src={movieDetails.backdrop_path && movieDetails.backdrop_path.startsWith('http') 
+              ? movieDetails.backdrop_path 
+              : `${imageUrl + movieDetails.backdrop_path}`
+            } 
+            alt={movieDetails.title || "Image de fond"}
+            className="w-full h-full object-cover"
+          />
         )}
       </div>
 

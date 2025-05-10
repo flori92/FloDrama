@@ -523,15 +523,27 @@ function RowPost(props) {
                         </div>
                       </Fade>
 
-                      <div className="flex justify-between p-2">
+                      <div className="flex">
                         <button
-                          className="group flex items-center justify-center border-[0.7px] border-white text-white font-medium sm:font-bold text-xs px-4 mr-4 sm:px-6 md:text-sm py-3 rounded shadow hover:shadow-lg hover:bg-white hover:text-flodrama-fuchsia outline-none focus:outline-none mb-1 ease-linear transition-all duration-150"
+                          onClick={() => {
+                            // Utiliser l'URL de streaming si disponible, sinon utiliser le comportement par défaut
+                            if (moviePopupInfo.streaming_url) {
+                              // Créer un objet avec l'URL de streaming pour le lecteur
+                              const movieWithStreamingUrl = {
+                                ...moviePopupInfo,
+                                streaming_url_for_player: true // Indicateur pour le lecteur
+                              };
+                              playMovie(movieWithStreamingUrl);
+                            } else {
+                              playMovie(moviePopupInfo);
+                            }
+                          }}
+                          className="group flex items-center justify-center bg-white text-black font-medium sm:font-bold text-xs px-4 mr-4 sm:px-6 md:text-sm py-3 rounded shadow hover:shadow-lg hover:bg-flodrama-fuchsia hover:text-white outline-none focus:outline-none mb-1 ease-linear transition-all duration-150"
                           type="button"
-                          onClick={() => addToMyList(moviePopupInfo)}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="h-6 w-6 mr-1 text-white hover:text-flodrama-fuchsia group-hover:text-flodrama-fuchsia ease-linear transition-all duration-150"
+                            className="h-6 w-6 mr-1 text-black group-hover:text-white ease-linear transition-all duration-150"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -540,10 +552,15 @@ function RowPost(props) {
                             <path
                               strokeLinecap="round"
                               strokeLinejoin="round"
-                              d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                              d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                            />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                             />
                           </svg>
-                          Add to MyList
+                          Play
                         </button>
 
                         <button
