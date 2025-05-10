@@ -15,6 +15,14 @@ const LikedMovies = lazy(() => import("./Pages/LikedMovies"));
 const History = lazy(() => import("./Pages/History"));
 const MoviesCategory = lazy(() => import("./Pages/MoviesCategory"));
 
+// Import des pages du footer
+const FAQ = lazy(() => import("./Pages/FooterPages/FAQ"));
+const APropos = lazy(() => import("./Pages/FooterPages/APropos"));
+const Confidentialite = lazy(() => import("./Pages/FooterPages/Confidentialite"));
+const TestConnexion = lazy(() => import("./Pages/FooterPages/TestConnexion"));
+const MentionsLegales = lazy(() => import("./Pages/FooterPages/MentionsLegales"));
+const CommentRegarder = lazy(() => import("./Pages/FooterPages/CommentRegarder"));
+
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthContext } from "./Context/UserContext";
 import { getAuth, onAuthStateChanged } from "./Cloudflare/CloudflareAuth";
@@ -63,6 +71,21 @@ function App() {
 
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+          
+          {/* Routes pour les pages du footer - accessibles à tous */}
+          <Route path="/footer/faq" element={<FAQ />} />
+          <Route path="/footer/a-propos" element={<APropos />} />
+          <Route path="/footer/confidentialite" element={<Confidentialite />} />
+          <Route path="/footer/test-connexion" element={<TestConnexion />} />
+          <Route path="/footer/mentions-legales" element={<MentionsLegales />} />
+          <Route path="/footer/comment-regarder" element={<CommentRegarder />} />
+          <Route path="/footer/centre-aide" element={<FAQ />} /> {/* Redirection temporaire vers la FAQ */}
+          <Route path="/footer/recrutement" element={<APropos />} /> {/* Redirection temporaire vers À propos */}
+          <Route path="/footer/preferences-cookies" element={<Confidentialite />} /> {/* Redirection temporaire vers Confidentialité */}
+          <Route path="/footer/informations-legales" element={<MentionsLegales />} /> {/* Redirection temporaire vers Mentions légales */}
+          <Route path="/footer/ios" element={<CommentRegarder />} /> {/* Redirection temporaire vers Comment regarder */}
+          <Route path="/footer/android" element={<CommentRegarder />} /> {/* Redirection temporaire vers Comment regarder */}
+          
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Suspense>

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./styles.module.scss";
+import { Link } from "react-router-dom";
 
 function Footer2() {
   return (
@@ -15,14 +16,24 @@ function Footer2() {
           </div>
           <ul className={styles.details}>
             {[
-              "FAQ", "À propos", "Confidentialité", "Test de connexion",
-              "Centre d'aide", "Recrutement", "Préférences cookies", "Mentions légales",
-              "Mon compte", "Comment regarder", "Informations légales", "iOS", "Android"
+              { name: "FAQ", path: "/footer/faq" },
+              { name: "À propos", path: "/footer/a-propos" },
+              { name: "Confidentialité", path: "/footer/confidentialite" },
+              { name: "Test de connexion", path: "/footer/test-connexion" },
+              { name: "Centre d'aide", path: "/footer/centre-aide" },
+              { name: "Recrutement", path: "/footer/recrutement" },
+              { name: "Préférences cookies", path: "/footer/preferences-cookies" },
+              { name: "Mentions légales", path: "/footer/mentions-legales" },
+              { name: "Mon compte", path: "/profile" },
+              { name: "Comment regarder", path: "/footer/comment-regarder" },
+              { name: "Informations légales", path: "/footer/informations-legales" },
+              { name: "iOS", path: "/footer/ios" },
+              { name: "Android", path: "/footer/android" }
             ].map((item, index) => (
               <li key={index} className="transition duration-300 ease-in-out cursor-pointer">
-                <span className="hover:text-flodrama-fuchsia transition-all duration-300">
-                  {item}
-                </span>
+                <Link to={item.path} className="hover:text-flodrama-fuchsia transition-all duration-300">
+                  {item.name}
+                </Link>
               </li>
             ))}
           </ul>
