@@ -1,0 +1,16 @@
+name = "flodrama-api-worker"
+main = "flodrama-api-worker.js"
+compatibility_date = "2025-05-10"
+
+account_id = "42fc982266a2c31b942593b18097e4b3"
+workers_dev = true
+
+# Liaison avec le namespace KV
+kv_namespaces = [
+  { binding = "FLODRAMA_DATA", id = "7388919bd83241cfab509b44f819bb2f" }
+]
+
+# Configuration des routes - Désactivée pour le moment
+# routes = [
+#   { pattern = "api.flodrama.com/*", zone_id = "f9d0a8f6a9d4f3c7b1e5d2a6f8c3b7a9" }
+# ]
