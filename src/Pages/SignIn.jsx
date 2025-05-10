@@ -163,6 +163,7 @@ function SignIn() {
                       type="password"
                       name="password"
                       id="password"
+                      autoComplete="current-password"
                       placeholder="••••••••"
                       className="bg-white/5 backdrop-blur-sm text-white sm:text-sm rounded-lg border border-white/10 focus:ring-flodrama-fuchsia/50 focus:border-flodrama-fuchsia/50 block w-full p-3 placeholder:text-white/60 shadow-inner"
                       required=""

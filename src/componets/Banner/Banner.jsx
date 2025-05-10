@@ -196,7 +196,7 @@ function Banner(props) {
           <div 
             className="absolute inset-0 bg-center bg-cover transition-opacity duration-1000"
             style={{
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url(${movie.backdrop_path ? imageUrl + movie.backdrop_path : ''})`
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url(${movie && movie.backdrop_path ? imageUrl + movie.backdrop_path : '/assets/banner-placeholder.jpg'})`
             }}
           />
         )}

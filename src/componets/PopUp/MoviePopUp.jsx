@@ -55,9 +55,11 @@ function MoviePopUp(props) {
                     </svg>
                   </button>
                   {/*Movie Trailer or Image*/}
-                  {PopupInfo.backdrop_path ? (
-                    <img src={`${imageUrl + PopupInfo.backdrop_path}`} />
-                  ) : null}
+                  {PopupInfo && PopupInfo.backdrop_path ? (
+                    <img src={`${imageUrl + PopupInfo.backdrop_path}`} alt={PopupInfo.title || PopupInfo.name || 'Film'} />
+                  ) : (
+                    <img src="/assets/backdrop-placeholder.jpg" alt="Aucune image disponible" />
+                  )}
 
                   <div className="flex ml-4 items-center -mt-14">
                     <button
