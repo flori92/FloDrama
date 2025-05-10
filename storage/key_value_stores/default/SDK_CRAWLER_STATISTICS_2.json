@@ -1,0 +1,53 @@
+{
+  "requestsFinished": 0,
+  "requestsFailed": 2,
+  "requestsRetries": 2,
+  "requestsFailedPerMinute": 0,
+  "requestsFinishedPerMinute": 0,
+  "requestMinDurationMillis": null,
+  "requestMaxDurationMillis": 0,
+  "requestTotalFailedDurationMillis": 66683,
+  "requestTotalFinishedDurationMillis": 0,
+  "crawlerStartedAt": "2025-05-10T07:19:55.229Z",
+  "crawlerFinishedAt": "2025-05-10T07:22:13.381Z",
+  "statsPersistedAt": "2025-05-10T07:22:13.381Z",
+  "crawlerRuntimeMillis": 138737,
+  "crawlerLastStartTimestamp": 1746861594644,
+  "requestRetryHistogram": [
+    null,
+    null,
+    null,
+    2
+  ],
+  "statsId": 2,
+  "requestAvgFailedDurationMillis": 33342,
+  "requestAvgFinishedDurationMillis": null,
+  "requestTotalDurationMillis": 66683,
+  "requestsTotal": 2,
+  "requestsWithStatusCode": {
+    "200": 4,
+    "523": 4
+  },
+  "errors": {
+    "/Users/floriace/FLO_DRAMA/FloDrama/.github/scripts/crawlee-scraper.js:274:20": {
+      "missing error code": {
+        "TimeoutError": {
+          "page.waitForSelector: Timeout 30000ms exceeded.": {
+            "count": 2
+          }
+        }
+      }
+    }
+  },
+  "retryErrors": {
+    "/Users/floriace/FLO_DRAMA/FloDrama/.github/scripts/crawlee-scraper.js:274:20": {
+      "missing error code": {
+        "TimeoutError": {
+          "page.waitForSelector: Timeout 30000ms exceeded.": {
+            "count": 6
+          }
+        }
+      }
+    }
+  }
+}

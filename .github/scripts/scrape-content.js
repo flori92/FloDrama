@@ -2,6 +2,7 @@ const axios = require('axios');
 const fs = require('fs-extra');
 const path = require('path');
 const { generateCategoryFiles } = require('./generateCategoryFiles');
+const { scrapeFilmapik } = require('./scrape-filmapik');
 
 // Configuration
 const SCRAPER_API_URLS = [
@@ -11,7 +12,7 @@ const SCRAPER_API_URLS = [
 ];
 const MIN_ITEMS_PER_SOURCE = parseInt(process.env.MIN_ITEMS_PER_SOURCE || '100');
 const OUTPUT_DIR = process.env.OUTPUT_DIR || './Frontend/src/data/content';
-const SOURCES = (process.env.SOURCES || 'vostfree,dramacool,myasiantv,voirdrama,viki,wetv,iqiyi,kocowa,gogoanime,voiranime,nekosama,bollywoodmdb,zee5,hotstar,mydramalist').split(',');
+const SOURCES = (process.env.SOURCES || 'vostfree,dramacool,myasiantv,voirdrama,gogoanime,voiranime,nekosama,bollywoodmdb,mydramalist,filmapik').split(',');
 const RETRY_ATTEMPTS = parseInt(process.env.RETRY_ATTEMPTS || '5');
 const RETRY_DELAY = parseInt(process.env.RETRY_DELAY || '3000');
 const TIMEOUT = parseInt(process.env.TIMEOUT || '60000'); // 60 secondes par défaut
@@ -56,6 +57,31 @@ fs.ensureDirSync(OUTPUT_DIR);
  */
 async function scrapeSource(source) {
   console.log(`Scraping de la source: ${source}`);
+  
+  // Utiliser le script spécifique pour filmapik.bio
+  if (source === 'filmapik') {
+    console.log(`Utilisation du script spécialisé pour Filmapik.bio`);
+    try {
+      const result = await scrapeFilmapik();
+      if (result.success && result.data && result.data.length > 0) {
+        console.log(`Scraping de Filmapik.bio réussi: ${result.data.length} éléments`);
+        stats.total_items += result.data.length;
+        stats.real_items += result.data.length;
+        stats.sources_processed++;
+        
+        // Catégoriser les éléments (principalement des films)
+        categorizeItems(result.data, source);
+        
+        return result.data;
+      } else {
+        throw new Error(`Échec du scraping de Filmapik.bio: ${result.message || 'Aucune donnée'}`);
+      }
+    } catch (error) {
+      console.error(`Erreur lors du scraping de Filmapik.bio: ${error.message}`);
+      stats.sources_failed++;
+      throw error;
+    }
+  }
   
   // Vérifier si on doit utiliser des données mockées
   if (USE_MOCK_DATA) {
