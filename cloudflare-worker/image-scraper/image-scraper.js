@@ -9,8 +9,7 @@ const fetch = require('node-fetch');
 const FormData = require('form-data');
 
 // Configuration
-const CLOUDFLARE_ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
-const CLOUDFLARE_API_TOKEN = process.env.CLOUDFLARE_API_TOKEN;
+const { CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_API_TOKEN } = process.env;
 const IMAGE_DELIVERY_URL = 'https://images.flodrama.com';
 
 /**
@@ -32,7 +31,9 @@ function generateUniqueId(url, type) {
  * @returns {Promise<string|null>} - ID de l'image stockée ou null en cas d'erreur
  */
 async function downloadAndStoreImage(url, type) {
-  if (!url) return null;
+  if (!url) {
+    return null;
+  }
   
   try {
     console.log(`Téléchargement de l'image ${type} depuis ${url}`);
@@ -122,7 +123,9 @@ async function checkImageExists(imageId) {
  * @returns {string} - URL complète de l'image
  */
 function getImageUrl(imageId, size = 'medium') {
-  if (!imageId) return '/default-image.png';
+  if (!imageId) {
+    return '/default-image.png';
+  }
   
   const sizes = {
     small: 'w200',
