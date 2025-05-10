@@ -187,8 +187,12 @@ function RowPost(props) {
                       <>
                         <img
                           className="rounded-sm"
-                          src={`${imageUrl + obj.poster_path}`}
+                          src={obj.poster_path ? `${imageUrl + obj.poster_path}` : 'https://via.placeholder.com/300x450/000000/FFFFFF?text=FloDrama'}
                           alt={obj.title || obj.name || "Movie poster"}
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = 'https://via.placeholder.com/300x450/000000/FFFFFF?text=FloDrama';
+                          }}
                         />
                       </>
                     ) : (
@@ -203,9 +207,13 @@ function RowPost(props) {
                           src={
                             obj.backdrop_path
                               ? `${imageUrl2 + obj.backdrop_path}`
-                              : "https://i.ytimg.com/vi/Mwf--eGs05U/maxresdefault.jpg"
+                              : "https://via.placeholder.com/500x281/000000/FFFFFF?text=FloDrama"
                           }
                           alt={obj.title || obj.name || "Movie backdrop"}
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = 'https://via.placeholder.com/500x281/000000/FFFFFF?text=FloDrama';
+                          }}
                         />
                       </>
                     )}

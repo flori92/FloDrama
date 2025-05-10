@@ -1,7 +1,8 @@
 export const baseUrl = "https://flodrama-api-worker.florifavi.workers.dev";
 export const API_KEY = "flodrama-api-key-2025";
-export const imageUrl = "https://flodrama-images.pages.dev/original";
-export const imageUrl2 = "https://flodrama-images.pages.dev/w500";
+// Utilisation directe de l'API TMDB pour les images
+export const imageUrl = "https://image.tmdb.org/t/p/original";
+export const imageUrl2 = "https://image.tmdb.org/t/p/w500";
 
 export const genresList = [
   {
