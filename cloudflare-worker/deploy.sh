@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Script de déploiement pour le Worker Cloudflare FloDrama API
+# Script de déploiement pour le Worker CORS Proxy FloDrama
 # Ce script nécessite que wrangler soit installé et configuré
 
-echo "Déploiement de la configuration CORS pour le Worker FloDrama API..."
+echo "Déploiement du CORS Proxy pour FloDrama API..."
 
 # Vérifier si wrangler est installé
 if ! command -v wrangler &> /dev/null
@@ -19,36 +19,21 @@ wrangler whoami || {
     exit 1
 }
 
-# Créer un répertoire temporaire pour le déploiement
-TEMP_DIR=$(mktemp -d)
-echo "Création d'un répertoire temporaire: $TEMP_DIR"
+# Créer le Worker directement avec wrangler
+echo "Création et déploiement du Worker CORS Proxy..."
 
-# Copier le fichier de configuration CORS
-cp cors-config.js $TEMP_DIR/index.js
+# Créer un fichier temporaire pour le déploiement
+TEMP_FILE=$(mktemp)
+echo "Fichier temporaire créé: $TEMP_FILE"
 
-# Créer un fichier wrangler.toml pour le déploiement
-cat > $TEMP_DIR/wrangler.toml << EOL
-name = "flodrama-api-worker"
-main = "index.js"
-compatibility_date = "2023-05-08"
+# Copier le contenu du fichier cors-config.js dans le fichier temporaire
+cp cors-config.js $TEMP_FILE
 
-[triggers]
-routes = [
-    "flodrama-api-worker.florifavi.workers.dev/*"
-]
-EOL
-
-# Se déplacer dans le répertoire temporaire
-cd $TEMP_DIR
-
-# Déployer le Worker
-echo "Déploiement du Worker..."
-wrangler deploy
+# Déployer le Worker avec wrangler
+wrangler deploy --name flodrama-cors-proxy --compatibility-date 2023-05-08 $TEMP_FILE
 
 # Nettoyage
-echo "Nettoyage..."
-cd -
-rm -rf $TEMP_DIR
+rm $TEMP_FILE
 
 echo "Déploiement terminé !"
-echo "Vérifiez que le Worker fonctionne correctement en accédant à https://flodrama-api-worker.florifavi.workers.dev"
+echo "Vérifiez que le Worker fonctionne correctement en accédant à https://flodrama-cors-proxy.florifavi.workers.dev"

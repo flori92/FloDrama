@@ -8,6 +8,7 @@ import Confidentialite from './Confidentialite';
 import TestConnexion from './TestConnexion';
 import MentionsLegales from './MentionsLegales';
 import CommentRegarder from './CommentRegarder';
+import CommentWatchParty from './CommentWatchParty';
 
 // Exporter les composants pour faciliter l'importation
 export {
@@ -16,5 +17,6 @@ export {
   Confidentialite,
   TestConnexion,
   MentionsLegales,
-  CommentRegarder
+  CommentRegarder,
+  CommentWatchParty
 };
