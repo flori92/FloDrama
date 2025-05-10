@@ -1081,6 +1081,35 @@ async function scrapeSources(browser, sources) {
   return results;
 }
 
+/**
+ * Déduplique les éléments en fonction de leur URL et titre
+ * @param {Array} items - Liste des éléments à dédupliquer
+ * @returns {Array} - Liste des éléments dédupliqués
+ */
+function deduplicateItems(items) {
+  // Utiliser un Map pour dédupliquer efficacement
+  const uniqueMap = new Map();
+  
+  // Première passe: déduplication par URL
+  for (const item of items) {
+    if (item.url && !uniqueMap.has(item.url)) {
+      uniqueMap.set(item.url, item);
+    }
+  }
+  
+  // Deuxième passe: déduplication par titre si pas d'URL
+  for (const item of items) {
+    if (!item.url && item.title && !Array.from(uniqueMap.values()).some(i => i.title === item.title)) {
+      // Générer une clé unique basée sur le titre
+      const key = `title_${item.title}`;
+      uniqueMap.set(key, item);
+    }
+  }
+  
+  // Convertir le Map en tableau
+  return Array.from(uniqueMap.values());
+}
+
 // Exporter les fonctions principales
 module.exports = {
   scrapeSources,
