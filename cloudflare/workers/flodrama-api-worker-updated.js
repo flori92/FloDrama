@@ -8,23 +8,27 @@
  * @version 1.1.0
  */
 
-// Configuration des CORS pour permettre l'accès depuis le frontend
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, HEAD, POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-  'Content-Type': 'application/json'
+// Configuration des CORS pour permettre l'accès depuis le frontend avec credentials
+const getCorsHeaders = (request) => {
+  const origin = request.headers.get('Origin') || 'https://b4fdba17.flodrama-frontend.pages.dev';
+  return {
+    'Access-Control-Allow-Origin': origin,
+    'Access-Control-Allow-Methods': 'GET, HEAD, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Credentials': 'true',
+    'Content-Type': 'application/json'
+  };
 };
 
 // Gestion des requêtes OPTIONS (pre-flight CORS)
 function handleOptions(request) {
   return new Response(null, {
-    headers: corsHeaders
+    headers: getCorsHeaders(request)
   });
 }
 
 // Gestion des erreurs avec format JSON
-function handleError(error, status = 500) {
+function handleError(error, request, status = 500) {
   return new Response(
     JSON.stringify({
       success: false,
@@ -33,7 +37,7 @@ function handleError(error, status = 500) {
     }),
     {
       status,
-      headers: corsHeaders
+      headers: getCorsHeaders(request)
     }
   );
 }
@@ -193,7 +197,7 @@ async function getDataFromKV(key) {
       return new Response(
         JSON.stringify([]),
         {
-          headers: corsHeaders
+          headers: getCorsHeaders(request)
         }
       );
     }
@@ -217,12 +221,12 @@ async function getDataFromKV(key) {
     return new Response(
       JSON.stringify(transformedData),
       {
-        headers: corsHeaders
+        headers: getCorsHeaders(request)
       }
     );
   } catch (error) {
     console.error(`Erreur lors de la récupération des données pour ${key}:`, error);
-    return handleError(error);
+    return handleError(error, request);
   }
 }
 
@@ -234,12 +238,12 @@ async function getBanners() {
     return new Response(
       JSON.stringify(banners),
       {
-        headers: corsHeaders
+        headers: getCorsHeaders(request)
       }
     );
   } catch (error) {
     console.error('Erreur lors de la récupération des banners:', error);
-    return handleError(error);
+    return handleError(error, request);
   }
 }
 
@@ -254,12 +258,12 @@ async function listKeys() {
         keys: keys.keys.map(k => k.name)
       }),
       {
-        headers: corsHeaders
+        headers: getCorsHeaders(request)
       }
     );
   } catch (error) {
     console.error('Erreur lors de la récupération des clés:', error);
-    return handleError(error);
+    return handleError(error, request);
   }
 }
 
@@ -272,7 +276,7 @@ async function getTrending() {
     if (data === null) {
       return new Response(
         JSON.stringify([]),
-        { headers: corsHeaders }
+        { headers: getCorsHeaders(request) }
       );
     }
     
@@ -290,11 +294,11 @@ async function getTrending() {
     
     return new Response(
       JSON.stringify(trending),
-      { headers: corsHeaders }
+      { headers: getCorsHeaders(request) }
     );
   } catch (error) {
     console.error('Erreur lors de la récupération des contenus en tendance:', error);
-    return handleError(error);
+    return handleError(error, request);
   }
 }
 
@@ -325,11 +329,11 @@ async function getRecent() {
     
     return new Response(
       JSON.stringify(recent),
-      { headers: corsHeaders }
+      { headers: getCorsHeaders(request) }
     );
   } catch (error) {
     console.error('Erreur lors de la récupération des contenus récents:', error);
-    return handleError(error);
+    return handleError(error, request);
   }
 }
 
@@ -353,7 +357,7 @@ async function handleRequest(request) {
         version: '1.1.0'
       }),
       {
-        headers: corsHeaders
+        headers: getCorsHeaders(request)
       }
     );
   }
@@ -410,7 +414,7 @@ async function handleRequest(request) {
   return new Response(
     JSON.stringify([]),
     {
-      headers: corsHeaders
+      headers: getCorsHeaders(request)
     }
   );
 }
