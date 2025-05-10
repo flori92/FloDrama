@@ -11,7 +11,7 @@ import {
 import { setDoc, doc } from "../Cloudflare/CloudflareDB";
 import { db } from "../Cloudflare/CloudflareDB";
 import { AuthContext } from "../Context/UserContext";
-import { ClipLoader } from "react-spinners";
+import Loader from "../componets/Loader/Loader";
 // Utilisation de l'image bannière depuis le dossier public avec contournement du cache
 const timestamp = new Date().getTime();
 const WelcomePageBanner = `/images/WelcomePageBanner.jpg?v=${timestamp}`;
@@ -176,7 +176,7 @@ function SignUp() {
                         : `bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia hover:from-flodrama-blue/80 hover:to-flodrama-fuchsia/80 focus:ring-4 focus:outline-none focus:ring-primary-300`
                     } font-medium rounded-sm text-sm px-5 py-2.5 text-center`}
                   >
-                    {loader ? <ClipLoader color="#d946ef" /> : "Créer maintenant"}
+                    {loader ? <Loader /> : "Créer maintenant"}
                   </button>
                   <p className="text-sm font-light text-gray-500">
                     Already have one?{" "}

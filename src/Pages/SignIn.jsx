@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Fade } from "react-reveal";
-import { ClipLoader } from "react-spinners";
+import Loader from "../componets/Loader/Loader";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -211,7 +211,7 @@ function SignIn() {
                         : `bg-gradient-to-r from-flodrama-blue to-flodrama-fuchsia hover:from-flodrama-blue/80 hover:to-flodrama-fuchsia/80 focus:ring-4 focus:outline-none focus:ring-primary-300`
                     } transition ease-in-out font-medium rounded-sm text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800`}
                   >
-                    {loader ? <ClipLoader color="#d946ef" /> : `Connexion`}
+                    {loader ? <Loader /> : `Connexion`}
                   </button>
                   <button
                     onClick={loginWithGoogle}
@@ -222,10 +222,10 @@ function SignIn() {
                     } transition ease-in-out font-medium rounded-sm text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:focus:ring-primary-800 mb-2`}
                   >
                     {loader ? (
-                      <ClipLoader color="#3b82f6" />
+                      <Loader />
                     ) : (
                       <>
-                        <img className="w-8" src={GoogleLogo}></img>{" "}
+                        <img className="w-8" src={GoogleLogo} alt="Logo Google"></img>{" "}
                         <p className="ml-1">Connexion avec Google</p>
                       </>
                     )}
