@@ -21,7 +21,6 @@ function Footer2() {
               { name: "Confidentialité", path: "/footer/confidentialite" },
               { name: "Test de connexion", path: "/footer/test-connexion" },
               { name: "Centre d'aide", path: "/footer/centre-aide" },
-              { name: "Recrutement", path: "/footer/recrutement" },
               { name: "Préférences cookies", path: "/footer/preferences-cookies" },
               { name: "Mentions légales", path: "/footer/mentions-legales" },
               { name: "Mon compte", path: "/profile" },
