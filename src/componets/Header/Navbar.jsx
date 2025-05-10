@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 
 import { Transition } from "@headlessui/react";
 import { Fade } from "react-reveal";
@@ -9,6 +9,8 @@ import { AuthContext } from "../../Context/UserContext";
 function Navbar(props) {
   const { User } = useContext(AuthContext);
   const [profilePic, setProfilePic] = useState("");
+  const [categoriesOpen, setCategoriesOpen] = useState(false);
+  const categoriesRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -22,6 +24,20 @@ function Navbar(props) {
       window.removeEventListener("scroll", transitionNavBar);
     };
   }, []);
+  
+  // Effet pour gérer le clic en dehors du menu déroulant des catégories
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (categoriesRef.current && !categoriesRef.current.contains(event.target)) {
+        setCategoriesOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [categoriesRef]);
   const [isOpen, setIsOpen] = useState(false);
 
   const [show, handleShow] = useState(false);
@@ -85,6 +101,78 @@ function Navbar(props) {
                     >
                       Home
                     </Link>
+
+                    {/* Menu déroulant des catégories */}
+                    <div className="relative" ref={categoriesRef}>
+                      <button
+                        onClick={() => setCategoriesOpen(!categoriesOpen)}
+                        className="flex items-center py-2 font-medium text-white transition ease-in-out delay-150 rounded-md cursor-pointer hover:text-flodrama-fuchsia lg:px-3 text-m"
+                      >
+                        Catégories
+                        <svg
+                          className={`ml-1 w-4 h-4 transition-transform ${categoriesOpen ? 'rotate-180' : ''}`}
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M19 9l-7 7-7-7"
+                          ></path>
+                        </svg>
+                      </button>
+
+                      {/* Sous-menu des catégories */}
+                      {categoriesOpen && (
+                        <div className="absolute left-0 z-10 w-48 py-2 mt-2 bg-black bg-opacity-90 rounded-md shadow-lg border border-gray-700">
+                          <Link
+                            to="/category/films"
+                            className="block px-4 py-2 text-sm text-white hover:bg-flodrama-fuchsia hover:bg-opacity-30"
+                            onClick={() => setCategoriesOpen(false)}
+                          >
+                            Films Populaires
+                          </Link>
+                          <Link
+                            to="/category/dramas"
+                            className="block px-4 py-2 text-sm text-white hover:bg-flodrama-fuchsia hover:bg-opacity-30"
+                            onClick={() => setCategoriesOpen(false)}
+                          >
+                            Dramas Coréens
+                          </Link>
+                          <Link
+                            to="/category/animes"
+                            className="block px-4 py-2 text-sm text-white hover:bg-flodrama-fuchsia hover:bg-opacity-30"
+                            onClick={() => setCategoriesOpen(false)}
+                          >
+                            Animes
+                          </Link>
+                          <Link
+                            to="/category/bollywood"
+                            className="block px-4 py-2 text-sm text-white hover:bg-flodrama-fuchsia hover:bg-opacity-30"
+                            onClick={() => setCategoriesOpen(false)}
+                          >
+                            Films Bollywood
+                          </Link>
+                          <Link
+                            to="/category/trending"
+                            className="block px-4 py-2 text-sm text-white hover:bg-flodrama-fuchsia hover:bg-opacity-30"
+                            onClick={() => setCategoriesOpen(false)}
+                          >
+                            Tendances
+                          </Link>
+                          <Link
+                            to="/category/recent"
+                            className="block px-4 py-2 text-sm text-white hover:bg-flodrama-fuchsia hover:bg-opacity-30"
+                            onClick={() => setCategoriesOpen(false)}
+                          >
+                            Ajouts Récents
+                          </Link>
+                        </div>
+                      )}
+                    </div>
 
                     <Link
                       to={"/series"}
@@ -267,6 +355,47 @@ function Navbar(props) {
                       Home
                     </a>
                   </Link>
+
+                  {/* Catégories dans le menu mobile */}
+                  <div className="px-3 py-2 border-l-4 border-flodrama-fuchsia bg-gray-900 bg-opacity-30">
+                    <p className="text-base font-medium text-white mb-2">Catégories</p>
+                    
+                    <Link to={"/category/films"}>
+                      <a className="block px-3 py-1 text-sm font-medium text-gray-300 rounded-md hover:bg-flodrama-fuchsia hover:bg-opacity-30 hover:text-white">
+                        Films Populaires
+                      </a>
+                    </Link>
+                    
+                    <Link to={"/category/dramas"}>
+                      <a className="block px-3 py-1 text-sm font-medium text-gray-300 rounded-md hover:bg-flodrama-fuchsia hover:bg-opacity-30 hover:text-white">
+                        Dramas Coréens
+                      </a>
+                    </Link>
+                    
+                    <Link to={"/category/animes"}>
+                      <a className="block px-3 py-1 text-sm font-medium text-gray-300 rounded-md hover:bg-flodrama-fuchsia hover:bg-opacity-30 hover:text-white">
+                        Animes
+                      </a>
+                    </Link>
+                    
+                    <Link to={"/category/bollywood"}>
+                      <a className="block px-3 py-1 text-sm font-medium text-gray-300 rounded-md hover:bg-flodrama-fuchsia hover:bg-opacity-30 hover:text-white">
+                        Films Bollywood
+                      </a>
+                    </Link>
+                    
+                    <Link to={"/category/trending"}>
+                      <a className="block px-3 py-1 text-sm font-medium text-gray-300 rounded-md hover:bg-flodrama-fuchsia hover:bg-opacity-30 hover:text-white">
+                        Tendances
+                      </a>
+                    </Link>
+                    
+                    <Link to={"/category/recent"}>
+                      <a className="block px-3 py-1 text-sm font-medium text-gray-300 rounded-md hover:bg-flodrama-fuchsia hover:bg-opacity-30 hover:text-white">
+                        Ajouts Récents
+                      </a>
+                    </Link>
+                  </div>
 
                   <Link to={"/series"}>
                     <a className="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-flodrama-blue hover:bg-opacity-60 hover:text-white">

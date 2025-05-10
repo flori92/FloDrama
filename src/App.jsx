@@ -13,6 +13,7 @@ const ErrorPage = lazy(() => import("./Pages/ErrorPage"));
 const Play = lazy(() => import("./Pages/Play"));
 const LikedMovies = lazy(() => import("./Pages/LikedMovies"));
 const History = lazy(() => import("./Pages/History"));
+const MoviesCategory = lazy(() => import("./Pages/MoviesCategory"));
 
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthContext } from "./Context/UserContext";
@@ -54,6 +55,7 @@ function App() {
               <Route path="/mylist" element={<MyList />} />
               <Route path="/liked" element={<LikedMovies />} />
               <Route path="/history" element={<History />} />
+              <Route path="/category/:category" element={<MoviesCategory />} />
               <Route path="/play/:id" element={<Play />} />
             </>
           ) : null}
