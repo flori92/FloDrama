@@ -14,7 +14,7 @@ import { AuthContext } from "../../Context/UserContext";
 import { PopUpContext } from "../../Context/moviePopUpContext";
 import axios from "../../axios";
 import StarRatings from "react-star-ratings";
-import { ClipLoader } from "react-spinners";
+import Loader from "../Loader/Loader";
 
 function UserMovieSection(props) {
   const { User } = useContext(AuthContext);
@@ -327,7 +327,7 @@ function UserMovieSection(props) {
                     </button>
                   </div>
                 ) : (
-                  <ClipLoader color="#d946ef" size={160} />
+                  <Loader />
                 )
               }
               </div>
