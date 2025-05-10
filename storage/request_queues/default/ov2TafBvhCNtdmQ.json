@@ -1,0 +1,9 @@
+{
+	"id": "ov2TafBvhCNtdmQ",
+	"json": "{\"id\":\"ov2TafBvhCNtdmQ\",\"url\":\"https://gogoanime.tel/\",\"loadedUrl\":\"https://gogoanime.tel/\",\"uniqueKey\":\"https://gogoanime.tel\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":3,\"errorMessages\":[\"page.waitForSelector: Timeout 30000ms exceeded.\\nCall log:\\n\\u001b[2m  - waiting for locator('.items li') to be visible\\u001b[22m\\n\\n    at PlaywrightCrawler.requestHandler (/Users/floriace/FLO_DRAMA/FloDrama/.github/scripts/crawlee-scraper.js:274:20)\\n    at async wrap (/Users/floriace/FLO_DRAMA/FloDrama/node_modules/@apify/timeout/cjs/index.cjs:54:21)\",\"page.waitForSelector: Timeout 30000ms exceeded.\\nCall log:\\n\\u001b[2m  - waiting for locator('.items li') to be visible\\u001b[22m\\n\\n    at PlaywrightCrawler.requestHandler (/Users/floriace/FLO_DRAMA/FloDrama/.github/scripts/crawlee-scraper.js:274:20)\\n    at async wrap (/Users/floriace/FLO_DRAMA/FloDrama/node_modules/@apify/timeout/cjs/index.cjs:54:21)\",\"page.waitForSelector: Timeout 30000ms exceeded.\\nCall log:\\n\\u001b[2m  - waiting for locator('.items li') to be visible\\u001b[22m\\n\\n    at PlaywrightCrawler.requestHandler (/Users/floriace/FLO_DRAMA/FloDrama/.github/scripts/crawlee-scraper.js:274:20)\\n    at async wrap (/Users/floriace/FLO_DRAMA/FloDrama/node_modules/@apify/timeout/cjs/index.cjs:54:21)\",\"page.waitForSelector: Timeout 30000ms exceeded.\\nCall log:\\n\\u001b[2m  - waiting for locator('.items li') to be visible\\u001b[22m\\n\\n    at PlaywrightCrawler.requestHandler (/Users/floriace/FLO_DRAMA/FloDrama/.github/scripts/crawlee-scraper.js:274:20)\\n    at async wrap (/Users/floriace/FLO_DRAMA/FloDrama/node_modules/@apify/timeout/cjs/index.cjs:54:21)\"],\"headers\":{},\"userData\":{\"page\":1,\"__crawlee\":{\"state\":5}},\"handledAt\":\"2025-05-10T07:22:06.548Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 3,
+	"uniqueKey": "https://gogoanime.tel",
+	"url": "https://gogoanime.tel/"
+}
