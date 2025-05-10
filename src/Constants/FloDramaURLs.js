@@ -7,21 +7,21 @@
 import { API_BASE_URL } from "../Cloudflare/CloudflareConfig";
 
 // URLs pour les catégories principales de contenu (récupère toutes les entrées)
-export const dramas = `${API_BASE_URL}/api/dramas`;
-export const animes = `${API_BASE_URL}/api/animes`;
-export const films = `${API_BASE_URL}/api/films`;
-export const bollywood = `${API_BASE_URL}/api/bollywood`;
+export const dramas = `${API_BASE_URL}/dramas`;
+export const animes = `${API_BASE_URL}/animes`;
+export const films = `${API_BASE_URL}/films`;
+export const bollywood = `${API_BASE_URL}/bollywood`;
 
 // URLs pour les vues spéciales
-export const featured = `${API_BASE_URL}/api/dramas/featured`;
-export const trending = `${API_BASE_URL}/api/dramas/trending`;
-export const recent = `${API_BASE_URL}/api/animes/featured`; // Utilise les animes en vedette comme contenu récent
+export const featured = `${API_BASE_URL}/banners`; // Utilise les banners pour la section featured
+export const trending = `${API_BASE_URL}/trending`; // Contenu en tendance
+export const recent = `${API_BASE_URL}/recent`; // Contenu récent
 
 // URLs pour les détails d'un contenu spécifique
-export const dramaDetail = (id) => `${API_BASE_URL}/api/dramas/${id}`;
-export const animeDetail = (id) => `${API_BASE_URL}/api/animes/${id}`;
-export const filmDetail = (id) => `${API_BASE_URL}/api/films/${id}`;
-export const bollywoodDetail = (id) => `${API_BASE_URL}/api/bollywood/${id}`;
+export const dramaDetail = (id) => `${API_BASE_URL}/drama/${id}`;
+export const animeDetail = (id) => `${API_BASE_URL}/anime/${id}`;
+export const filmDetail = (id) => `${API_BASE_URL}/film/${id}`;
+export const bollywoodDetail = (id) => `${API_BASE_URL}/bollywood/${id}`;
 
 // Fonction helper pour récupérer le contenu par catégorie
 export function getContentByCategory(category) {
