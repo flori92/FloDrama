@@ -1,0 +1,17 @@
+{
+  "source": "tmdb-films",
+  "type": "film",
+  "urls": [
+    "https://www.themoviedb.org/movie/popular"
+  ],
+  "selectors": {
+    "main": ".card.style_1",
+    "wait": ".page_wrapper"
+  },
+  "pagination": {
+    "pattern": "page={page}",
+    "max": 3,
+    "offsetMultiplier": 1
+  },
+  "timestamp": "2025-05-10T12:54:11.356Z"
+}

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "mock-tmdb-films-0",
+    "title": "Titre de test 1 pour tmdb-films",
+    "original_title": "Test Title 1 for tmdb-films",
+    "description": "Ceci est une description générée automatiquement pour le test 1 de la source tmdb-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=tmdb-films",
+    "rating": "3.7",
+    "year": 2024,
+    "source": "tmdb-films",
+    "type": "film",
+    "url": "https://example.com/tmdb-films/1"
+  },
+  {
+    "id": "mock-tmdb-films-1",
+    "title": "Titre de test 2 pour tmdb-films",
+    "original_title": "Test Title 2 for tmdb-films",
+    "description": "Ceci est une description générée automatiquement pour le test 2 de la source tmdb-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=tmdb-films",
+    "rating": "0.3",
+    "year": 2022,
+    "source": "tmdb-films",
+    "type": "film",
+    "url": "https://example.com/tmdb-films/2"
+  },
+  {
+    "id": "mock-tmdb-films-2",
+    "title": "Titre de test 3 pour tmdb-films",
+    "original_title": "Test Title 3 for tmdb-films",
+    "description": "Ceci est une description générée automatiquement pour le test 3 de la source tmdb-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=tmdb-films",
+    "rating": "2.4",
+    "year": 2021,
+    "source": "tmdb-films",
+    "type": "film",
+    "url": "https://example.com/tmdb-films/3"
+  },
+  {
+    "id": "mock-tmdb-films-3",
+    "title": "Titre de test 4 pour tmdb-films",
+    "original_title": "Test Title 4 for tmdb-films",
+    "description": "Ceci est une description générée automatiquement pour le test 4 de la source tmdb-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=tmdb-films",
+    "rating": "1.7",
+    "year": 2021,
+    "source": "tmdb-films",
+    "type": "film",
+    "url": "https://example.com/tmdb-films/4"
+  },
+  {
+    "id": "mock-tmdb-films-4",
+    "title": "Titre de test 5 pour tmdb-films",
+    "original_title": "Test Title 5 for tmdb-films",
+    "description": "Ceci est une description générée automatiquement pour le test 5 de la source tmdb-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=tmdb-films",
+    "rating": "2.2",
+    "year": 2023,
+    "source": "tmdb-films",
+    "type": "film",
+    "url": "https://example.com/tmdb-films/5"
+  },
+  {
+    "id": "mock-tmdb-films-5",
+    "title": "Titre de test 6 pour tmdb-films",
+    "original_title": "Test Title 6 for tmdb-films",
+    "description": "Ceci est une description générée automatiquement pour le test 6 de la source tmdb-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=tmdb-films",
+    "rating": "4.8",
+    "year": 2022,
+    "source": "tmdb-films",
+    "type": "film",
+    "url": "https://example.com/tmdb-films/6"
+  },
+  {
+    "id": "mock-tmdb-films-6",
+    "title": "Titre de test 7 pour tmdb-films",
+    "original_title": "Test Title 7 for tmdb-films",
+    "description": "Ceci est une description générée automatiquement pour le test 7 de la source tmdb-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=tmdb-films",
+    "rating": "1.4",
+    "year": 2021,
+    "source": "tmdb-films",
+    "type": "film",
+    "url": "https://example.com/tmdb-films/7"
+  },
+  {
+    "id": "mock-tmdb-films-7",
+    "title": "Titre de test 8 pour tmdb-films",
+    "original_title": "Test Title 8 for tmdb-films",
+    "description": "Ceci est une description générée automatiquement pour le test 8 de la source tmdb-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=tmdb-films",
+    "rating": "3.6",
+    "year": 2022,
+    "source": "tmdb-films",
+    "type": "film",
+    "url": "https://example.com/tmdb-films/8"
+  },
+  {
+    "id": "mock-tmdb-films-8",
+    "title": "Titre de test 9 pour tmdb-films",
+    "original_title": "Test Title 9 for tmdb-films",
+    "description": "Ceci est une description générée automatiquement pour le test 9 de la source tmdb-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=tmdb-films",
+    "rating": "3.8",
+    "year": 2023,
+    "source": "tmdb-films",
+    "type": "film",
+    "url": "https://example.com/tmdb-films/9"
+  },
+  {
+    "id": "mock-tmdb-films-9",
+    "title": "Titre de test 10 pour tmdb-films",
+    "original_title": "Test Title 10 for tmdb-films",
+    "description": "Ceci est une description générée automatiquement pour le test 10 de la source tmdb-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=tmdb-films",
+    "rating": "0.9",
+    "year": 2023,
+    "source": "tmdb-films",
+    "type": "film",
+    "url": "https://example.com/tmdb-films/10"
+  }
+]

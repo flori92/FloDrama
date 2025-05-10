@@ -1,0 +1,117 @@
+[
+  {
+    "selector": ".row",
+    "count": 13,
+    "details": "Dimensions: 1140x117, Texte: \"ACCUEIL\nLISTE\nNOUVEAU\nRECHERCHE AV\nVOIRANIME\""
+  },
+  {
+    "selector": ".container",
+    "count": 6,
+    "details": "Dimensions: 1140x96, Texte: \"Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              \""
+  },
+  {
+    "selector": ".site-content",
+    "count": 1,
+    "details": "Dimensions: 1366x1716, Texte: \"EN COURS\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\n\""
+  },
+  {
+    "selector": ".movies-list",
+    "count": 0,
+    "details": ""
+  },
+  {
+    "selector": ".movie-list",
+    "count": 0,
+    "details": ""
+  },
+  {
+    "selector": ".items",
+    "count": 0,
+    "details": ""
+  },
+  {
+    "selector": ".film-list",
+    "count": 0,
+    "details": ""
+  },
+  {
+    "selector": ".movie-container",
+    "count": 0,
+    "details": ""
+  },
+  {
+    "selector": ".drama-list",
+    "count": 0,
+    "details": ""
+  },
+  {
+    "selector": ".drama-container",
+    "count": 0,
+    "details": ""
+  },
+  {
+    "selector": ".content",
+    "count": 0,
+    "details": ""
+  },
+  {
+    "selector": ".main-content",
+    "count": 0,
+    "details": ""
+  },
+  {
+    "selector": ".page-content",
+    "count": 0,
+    "details": ""
+  },
+  {
+    "selector": ".ml-item",
+    "count": 0,
+    "details": ""
+  },
+  {
+    "selector": ".movie-item",
+    "count": 0,
+    "details": ""
+  },
+  {
+    "selector": ".item",
+    "count": 0,
+    "details": ""
+  },
+  {
+    "selector": ".film-poster",
+    "count": 0,
+    "details": ""
+  },
+  {
+    "selector": ".drama-item",
+    "count": 0,
+    "details": ""
+  },
+  {
+    "selector": ".card",
+    "count": 0,
+    "details": ""
+  },
+  {
+    "selector": ".post",
+    "count": 0,
+    "details": ""
+  },
+  {
+    "selector": ".entry",
+    "count": 0,
+    "details": ""
+  },
+  {
+    "selector": ".article",
+    "count": 0,
+    "details": ""
+  },
+  {
+    "selector": ".thumbnail",
+    "count": 0,
+    "details": ""
+  }
+]

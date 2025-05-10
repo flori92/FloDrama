@@ -1,0 +1,17 @@
+{
+  "source": "bollystream",
+  "type": "bollywood",
+  "urls": [
+    "https://bollystream.eu/tv-show-genre/series-indiennes"
+  ],
+  "selectors": {
+    "main": "a.masvideos-LoopTvShow-link, a.masvideos-LoopMovie-link, .tv-show-poster-container, .movie-poster-container",
+    "wait": ".container, .home-section, .tv-shows, .movies"
+  },
+  "pagination": {
+    "pattern": "page={page}",
+    "max": 3,
+    "offsetMultiplier": 1
+  },
+  "timestamp": "2025-05-10T14:19:10.133Z"
+}
