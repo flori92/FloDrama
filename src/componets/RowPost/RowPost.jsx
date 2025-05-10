@@ -48,11 +48,27 @@ function RowPost(props) {
   const [urlId, setUrlId] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
+  // Fonction de débogage pour afficher les propriétés disponibles dans un objet
+  const debugObjectProperties = (obj) => {
+    if (!obj) return;
+    console.log('Propriétés disponibles dans l\'objet:', Object.keys(obj));
+    // Vérifier les propriétés d'image spécifiques
+    const imageProps = ['image_url', 'poster_url', 'poster_path', 'backdrop_url', 'banner_url', 'background_url', 'backdrop_path'];
+    console.log('Propriétés d\'image disponibles:');
+    imageProps.forEach(prop => {
+      if (obj[prop]) console.log(`- ${prop}: ${obj[prop]}`);
+    });
+  };
+
   useEffect(() => {
     setIsLoading(true);
     
     if (props.movieData != null) {
       setMovies(props.movieData);
+      // Déboguer le premier élément si disponible
+      if (props.movieData.length > 0) {
+        debugObjectProperties(props.movieData[0]);
+      }
       setIsLoading(false);
     } else if (props.useCloudflareApi) {
       // Utiliser l'API Cloudflare si spécifié
@@ -60,6 +76,10 @@ function RowPost(props) {
         .then(response => handleApiResponse(response))
         .then(data => {
           console.log('Données Cloudflare:', data);
+          // Déboguer le premier élément si disponible
+          if (data.length > 0) {
+            debugObjectProperties(data[0]);
+          }
           setMovies(data);
           setIsLoading(false);
         })
@@ -71,6 +91,10 @@ function RowPost(props) {
       // Ancienne méthode avec axios pour la compatibilité
       axios.get(props.url).then((response) => {
         console.log(response.data.results);
+        // Déboguer le premier élément si disponible
+        if (response.data.results && response.data.results.length > 0) {
+          debugObjectProperties(response.data.results[0]);
+        }
         setMovies(response.data.results);
         setIsLoading(false);
       }).catch(error => {
@@ -187,7 +211,7 @@ function RowPost(props) {
                       <>
                         <img
                           className="rounded-sm"
-                          src={obj.poster_path ? `${imageUrl + obj.poster_path}` : 'https://via.placeholder.com/300x450/000000/FFFFFF?text=FloDrama'}
+                          src={obj.image_url || obj.poster_url || (obj.poster_path ? `${imageUrl + obj.poster_path}` : 'https://via.placeholder.com/300x450/000000/FFFFFF?text=FloDrama')}
                           alt={obj.title || obj.name || "Movie poster"}
                           onError={(e) => {
                             e.target.onerror = null;
@@ -205,9 +229,8 @@ function RowPost(props) {
                               : "rounded-sm"
                           }
                           src={
-                            obj.backdrop_path
-                              ? `${imageUrl2 + obj.backdrop_path}`
-                              : "https://via.placeholder.com/500x281/000000/FFFFFF?text=FloDrama"
+                            obj.backdrop_url || obj.banner_url || obj.background_url || 
+                            (obj.backdrop_path ? `${imageUrl2 + obj.backdrop_path}` : "https://via.placeholder.com/500x281/000000/FFFFFF?text=FloDrama")
                           }
                           alt={obj.title || obj.name || "Movie backdrop"}
                           onError={(e) => {
