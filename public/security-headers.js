@@ -14,7 +14,7 @@
   // Ajouter des en-têtes de sécurité via meta tags
   addSecurityMeta('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.youtube.com https://s.ytimg.com; frame-src https://www.youtube.com; img-src 'self' data: https://i.ytimg.com https://*.flodrama.com https://*.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' data: https://cdnjs.cloudflare.com; connect-src 'self' https://flodrama-api-worker.florifavi.workers.dev https://api.themoviedb.org https://*.flodrama.com https://*.cloudflare.com");
   addSecurityMeta('X-Content-Type-Options', 'nosniff');
-  addSecurityMeta('X-Frame-Options', 'DENY');
+  // X-Frame-Options ne peut être défini que via un en-tête HTTP, pas via meta
   addSecurityMeta('X-XSS-Protection', '1; mode=block');
   
   // Désactiver la console en production pour limiter les fuites d'informations
