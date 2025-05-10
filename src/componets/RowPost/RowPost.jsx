@@ -23,6 +23,16 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./RowPostStyles.scss";
 
+// Fonction utilitaire pour garantir que les valeurs de notation sont valides
+const ensureValidRating = (rating) => {
+  // Vérifier si la valeur est un nombre valide
+  if (typeof rating !== 'number' || isNaN(rating)) {
+    return 3.5; // Valeur par défaut
+  }
+  // Convertir à une échelle de 5 étoiles si nécessaire (TMDB utilise une échelle de 10)
+  return rating > 5 ? rating / 2 : rating;
+};
+
 function RowPost(props) {
   const { addToMyList, PopupMessage } = useUpdateMylist();
   const { playMovie } = usePlayMovie();
@@ -460,7 +470,7 @@ function RowPost(props) {
                           Rating :
                           <div className="ml-2">
                             <StarRatings
-                              rating={typeof moviePopupInfo.vote_average === 'number' ? moviePopupInfo.vote_average / 2 : 3.5}
+                              rating={ensureValidRating(moviePopupInfo.vote_average)}
                               starRatedColor="#d946ef"
                               numberOfStars={5}
                               name="rating"
