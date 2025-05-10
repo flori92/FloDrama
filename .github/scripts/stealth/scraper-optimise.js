@@ -151,9 +151,15 @@ async function main() {
   
   console.log(`\n🔎 Démarrage du scraping pour ${CONFIG.SOURCES.length} sources prioritaires...`);
   
+  // Détecter si nous sommes dans un environnement CI/CD (GitHub Actions)
+  const isCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
+  
+  console.log(`Environnement détecté: ${isCI ? 'CI/CD (GitHub Actions)' : 'Local'}`)
+  console.log(`Mode navigateur: ${isCI ? 'headless' : 'visible'}`)
+  
   // Lancer un navigateur unique pour toutes les sources avec stealth
   const browser = await chromium.launch({
-    headless: false, // Mode visible pour éviter la détection
+    headless: isCI, // Mode headless dans CI, visible en local
     args: CONFIG.BROWSER_ARGS
   });
   
