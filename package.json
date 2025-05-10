@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "FloDrama - Plateforme de streaming de dramas, films et animés",
   "scripts": {
-    "start": "node cors-anywhere.js",
-    "install": "cd cors-proxy && npm install && cp cors-anywhere.js ../"
+    "start": "node server.js",
+    "install": "echo 'Installation terminée avec succès'"
   },
   "dependencies": {
     "cors": "^2.8.5",
