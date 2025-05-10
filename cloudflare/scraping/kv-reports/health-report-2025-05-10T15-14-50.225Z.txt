@@ -1,0 +1,108 @@
+RAPPORT DE SANTÉ CLOUDFLARE KV - 10/05/2025 17:15:12
+=================================================================
+
+Statut global: CRITICAL
+
+Statistiques:
+- Total: 16 clés
+- Saines: 0 clés
+- Avertissements: 0 clés
+- Critiques: 16 clés
+
+CLÉS CRITIQUES:
+- anime:
+  Taille: 0 bytes
+  Éléments: 271
+  Dernière modification: N/A
+  Problèmes: Impossible de récupérer les métadonnées
+
+- anime-index:
+  Taille: 0 bytes
+  Éléments: 1
+  Dernière modification: N/A
+  Problèmes: Impossible de récupérer les métadonnées
+
+- bollywood:
+  Taille: 0 bytes
+  Éléments: 2
+  Dernière modification: N/A
+  Problèmes: Impossible de récupérer les métadonnées
+
+- bollywood-index:
+  Taille: 0 bytes
+  Éléments: 1
+  Dernière modification: N/A
+  Problèmes: Impossible de récupérer les métadonnées
+
+- drama:
+  Taille: 0 bytes
+  Éléments: 82
+  Dernière modification: N/A
+  Problèmes: Impossible de récupérer les métadonnées
+
+- drama-index:
+  Taille: 0 bytes
+  Éléments: 1
+  Dernière modification: N/A
+  Problèmes: Impossible de récupérer les métadonnées
+
+- film:
+  Taille: 0 bytes
+  Éléments: 1
+  Dernière modification: N/A
+  Problèmes: Impossible de récupérer les métadonnées
+
+- film-index:
+  Taille: 0 bytes
+  Éléments: 1
+  Dernière modification: N/A
+  Problèmes: Impossible de récupérer les métadonnées
+
+- global:
+  Taille: 0 bytes
+  Éléments: 768
+  Dernière modification: N/A
+  Problèmes: Impossible de récupérer les métadonnées
+
+- global-index:
+  Taille: 0 bytes
+  Éléments: 1
+  Dernière modification: N/A
+  Problèmes: Impossible de récupérer les métadonnées
+
+- mydramalist:
+  Taille: 0 bytes
+  Éléments: 23
+  Dernière modification: N/A
+  Problèmes: Impossible de récupérer les métadonnées
+
+- nekosama:
+  Taille: 0 bytes
+  Éléments: 269
+  Dernière modification: N/A
+  Problèmes: Impossible de récupérer les métadonnées
+
+- streamingdivx:
+  Taille: 0 bytes
+  Éléments: 418
+  Dernière modification: N/A
+  Problèmes: Impossible de récupérer les métadonnées
+
+- voiranime:
+  Taille: 0 bytes
+  Éléments: 9
+  Dernière modification: N/A
+  Problèmes: Impossible de récupérer les métadonnées
+
+- voirdrama:
+  Taille: 0 bytes
+  Éléments: 9
+  Dernière modification: N/A
+  Problèmes: Impossible de récupérer les métadonnées
+
+- bollystream:
+  Taille: 0 bytes
+  Éléments: 39
+  Dernière modification: N/A
+  Problèmes: Impossible de récupérer les métadonnées
+

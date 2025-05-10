@@ -1,0 +1,8 @@
+{
+  "timestamp": "2025-05-10T15-14-50.225Z",
+  "status": "critical",
+  "healthyCount": 0,
+  "warningCount": 0,
+  "criticalCount": 16,
+  "totalCount": 16
+}
