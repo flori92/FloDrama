@@ -24,10 +24,11 @@ on:
   schedule:
     - cron: '0 2 * * *'
   
-  # Exécution lors d'un push sur la branche main dans les dossiers spécifiques
+  # Exécution lors d'un push sur les branches main et integration-cloudflare dans les dossiers spécifiques
   push:
     branches:
       - main
+      - integration-cloudflare
     paths:
       - '.github/scripts/stealth/**'
       - '.github/workflows/scraping-pipeline.yml'
