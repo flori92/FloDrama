@@ -4,8 +4,8 @@
  * en contournant les protections anti-bot
  */
 
-const https = require('https');
-const { URL } = require('url');
+// Utilisation des API Web standard au lieu des modules Node.js
+// URL est disponible globalement dans les Workers
 
 /**
  * Client pour l'API ScrapingOwl
@@ -48,7 +48,7 @@ class ScrapingOwlClient {
     const apiUrl = new URL(this.baseUrl);
     apiUrl.searchParams.append('api_key', this.apiKey);
     apiUrl.searchParams.append('url', url);
-    apiUrl.searchParams.append('javascript', javascript ? 'true' : 'false');
+    apiUrl.searchParams.append('render_js', javascript ? 'true' : 'false');
     apiUrl.searchParams.append('premium_proxy', premium_proxy ? 'true' : 'false');
     apiUrl.searchParams.append('user_agent', user_agent);
     apiUrl.searchParams.append('timeout', timeout.toString());
@@ -77,40 +77,28 @@ class ScrapingOwlClient {
    * @returns {Promise<string>} - Réponse de la requête
    * @private
    */
-  _makeRequest(url) {
-    return new Promise((resolve, reject) => {
-      https.get(url, (res) => {
-        // Vérifier le code de statut
-        if (res.statusCode !== 200) {
-          reject(new Error(`Erreur HTTP ${res.statusCode}`));
-          return;
-        }
-
-        // Récupérer les données
-        let data = '';
-        res.on('data', (chunk) => {
-          data += chunk;
-        });
-        
-        res.on('end', () => {
-          try {
-            // Analyser la réponse JSON
-            const response = JSON.parse(data);
-            
-            // Vérifier si la requête a réussi
-            if (response.success) {
-              resolve(response.html);
-            } else {
-              reject(new Error(response.error || 'Erreur inconnue'));
-            }
-          } catch (error) {
-            reject(new Error(`Erreur lors de l'analyse de la réponse: ${error.message}`));
-          }
-        });
-      }).on('error', (error) => {
-        reject(error);
-      });
-    });
+  async _makeRequest(url) {
+    try {
+      // Utiliser fetch au lieu de https.get
+      const response = await fetch(url);
+      
+      // Vérifier le code de statut
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP ${response.status}`);
+      }
+      
+      // Récupérer les données
+      const data = await response.json();
+      
+      // Vérifier si la requête a réussi
+      if (data.success) {
+        return data.html;
+      } else {
+        throw new Error(data.error || 'Erreur inconnue');
+      }
+    } catch (error) {
+      throw new Error(`Erreur lors de la requête: ${error.message}`);
+    }
   }
 }
 

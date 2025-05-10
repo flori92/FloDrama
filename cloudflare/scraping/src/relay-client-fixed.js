@@ -293,9 +293,4 @@ class RelayClient {
   }
 }
 
-// Exporter la classe RelayClient pour CommonJS
-module.exports = { RelayClient };
-// Pour la compatibilité avec les anciennes importations
-module.exports.RelayClient = RelayClient;
-// Pour la compatibilité avec les importations ES modules
-module.exports.default = RelayClient;
+module.exports = RelayClient;

@@ -7,6 +7,7 @@
 
 const { RelayClient } = require('./relay-client');
 const { ScrapingBeeClient } = require('./scrapingbee-client');
+const { ScrapingOwlClient } = require('./scrapeowl-client');
 const cheerio = require('cheerio');
 
 // La clé API ScrapingBee sera récupérée depuis les variables d'environnement

@@ -1,0 +1,1804 @@
+{
+  "results": [
+    {
+      "id": "kocowa-fallback-1",
+      "title": "Chinese Story 1",
+      "original_title": "Chinese Story 1",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2023,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 15
+    },
+    {
+      "id": "kocowa-fallback-2",
+      "title": "Japanese Secret 2",
+      "original_title": "Japanese Secret 2",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2022,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 9
+    },
+    {
+      "id": "kocowa-fallback-3",
+      "title": "Korean Business 3",
+      "original_title": "Korean Business 3",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 14
+    },
+    {
+      "id": "kocowa-fallback-4",
+      "title": "Chinese Love 4",
+      "original_title": "Chinese Love 4",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2022,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 14
+    },
+    {
+      "id": "kocowa-fallback-5",
+      "title": "Chinese Lawyer 5",
+      "original_title": "Chinese Lawyer 5",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 19
+    },
+    {
+      "id": "kocowa-fallback-6",
+      "title": "Japanese Business 6",
+      "original_title": "Japanese Business 6",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2021,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 21
+    },
+    {
+      "id": "kocowa-fallback-7",
+      "title": "Taiwanese Secret 7",
+      "original_title": "Taiwanese Secret 7",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 20
+    },
+    {
+      "id": "kocowa-fallback-8",
+      "title": "Taiwanese Business 8",
+      "original_title": "Taiwanese Business 8",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 22
+    },
+    {
+      "id": "kocowa-fallback-9",
+      "title": "Chinese Secret 9",
+      "original_title": "Chinese Secret 9",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2023,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 10
+    },
+    {
+      "id": "kocowa-fallback-10",
+      "title": "Taiwanese Lawyer 10",
+      "original_title": "Taiwanese Lawyer 10",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2022,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 14
+    },
+    {
+      "id": "kocowa-fallback-11",
+      "title": "Korean Business 11",
+      "original_title": "Korean Business 11",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 16
+    },
+    {
+      "id": "kocowa-fallback-12",
+      "title": "Taiwanese Doctor 12",
+      "original_title": "Taiwanese Doctor 12",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2021,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 19
+    },
+    {
+      "id": "kocowa-fallback-13",
+      "title": "Korean Story 13",
+      "original_title": "Korean Story 13",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2023,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 16
+    },
+    {
+      "id": "kocowa-fallback-14",
+      "title": "Taiwanese Secret 14",
+      "original_title": "Taiwanese Secret 14",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 19
+    },
+    {
+      "id": "kocowa-fallback-15",
+      "title": "Japanese Lawyer 15",
+      "original_title": "Japanese Lawyer 15",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2022,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "kocowa-fallback-16",
+      "title": "Korean Secret 16",
+      "original_title": "Korean Secret 16",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 17
+    },
+    {
+      "id": "kocowa-fallback-17",
+      "title": "Thai Lawyer 17",
+      "original_title": "Thai Lawyer 17",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2021,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 10
+    },
+    {
+      "id": "kocowa-fallback-18",
+      "title": "Chinese Story 18",
+      "original_title": "Chinese Story 18",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2022,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 10
+    },
+    {
+      "id": "kocowa-fallback-19",
+      "title": "Japanese Family 19",
+      "original_title": "Japanese Family 19",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 18
+    },
+    {
+      "id": "kocowa-fallback-20",
+      "title": "Thai Business 20",
+      "original_title": "Thai Business 20",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 13
+    },
+    {
+      "id": "kocowa-fallback-21",
+      "title": "Thai Story 21",
+      "original_title": "Thai Story 21",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.0",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 20
+    },
+    {
+      "id": "kocowa-fallback-22",
+      "title": "Korean Family 22",
+      "original_title": "Korean Family 22",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 16
+    },
+    {
+      "id": "kocowa-fallback-23",
+      "title": "Chinese Doctor 23",
+      "original_title": "Chinese Doctor 23",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.0",
+      "year": 2023,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 16
+    },
+    {
+      "id": "kocowa-fallback-24",
+      "title": "Japanese Family 24",
+      "original_title": "Japanese Family 24",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 19
+    },
+    {
+      "id": "kocowa-fallback-25",
+      "title": "Taiwanese Family 25",
+      "original_title": "Taiwanese Family 25",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 12
+    },
+    {
+      "id": "kocowa-fallback-26",
+      "title": "Korean Love 26",
+      "original_title": "Korean Love 26",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.0",
+      "year": 2023,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 23
+    },
+    {
+      "id": "kocowa-fallback-27",
+      "title": "Chinese Love 27",
+      "original_title": "Chinese Love 27",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 11
+    },
+    {
+      "id": "kocowa-fallback-28",
+      "title": "Japanese Lawyer 28",
+      "original_title": "Japanese Lawyer 28",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2023,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "kocowa-fallback-29",
+      "title": "Thai Romance 29",
+      "original_title": "Thai Romance 29",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2022,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "kocowa-fallback-30",
+      "title": "Taiwanese Story 30",
+      "original_title": "Taiwanese Story 30",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 9
+    },
+    {
+      "id": "kocowa-fallback-31",
+      "title": "Taiwanese Romance 31",
+      "original_title": "Taiwanese Romance 31",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2022,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 12
+    },
+    {
+      "id": "kocowa-fallback-32",
+      "title": "Korean Story 32",
+      "original_title": "Korean Story 32",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 20
+    },
+    {
+      "id": "kocowa-fallback-33",
+      "title": "Japanese Love 33",
+      "original_title": "Japanese Love 33",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2022,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 23
+    },
+    {
+      "id": "kocowa-fallback-34",
+      "title": "Taiwanese Love 34",
+      "original_title": "Taiwanese Love 34",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 17
+    },
+    {
+      "id": "kocowa-fallback-35",
+      "title": "Korean Story 35",
+      "original_title": "Korean Story 35",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 19
+    },
+    {
+      "id": "kocowa-fallback-36",
+      "title": "Korean Story 36",
+      "original_title": "Korean Story 36",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "kocowa-fallback-37",
+      "title": "Japanese Lawyer 37",
+      "original_title": "Japanese Lawyer 37",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 16
+    },
+    {
+      "id": "kocowa-fallback-38",
+      "title": "Japanese Love 38",
+      "original_title": "Japanese Love 38",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2023,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 19
+    },
+    {
+      "id": "kocowa-fallback-39",
+      "title": "Chinese Family 39",
+      "original_title": "Chinese Family 39",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.7",
+      "year": 2023,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 18
+    },
+    {
+      "id": "kocowa-fallback-40",
+      "title": "Korean Love 40",
+      "original_title": "Korean Love 40",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2022,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 22
+    },
+    {
+      "id": "kocowa-fallback-41",
+      "title": "Korean Love 41",
+      "original_title": "Korean Love 41",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2023,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 23
+    },
+    {
+      "id": "kocowa-fallback-42",
+      "title": "Japanese Lawyer 42",
+      "original_title": "Japanese Lawyer 42",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2023,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 19
+    },
+    {
+      "id": "kocowa-fallback-43",
+      "title": "Chinese Love 43",
+      "original_title": "Chinese Love 43",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.4",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 14
+    },
+    {
+      "id": "kocowa-fallback-44",
+      "title": "Korean Doctor 44",
+      "original_title": "Korean Doctor 44",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "kocowa-fallback-45",
+      "title": "Taiwanese Romance 45",
+      "original_title": "Taiwanese Romance 45",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 11
+    },
+    {
+      "id": "kocowa-fallback-46",
+      "title": "Chinese Love 46",
+      "original_title": "Chinese Love 46",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2023,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 18
+    },
+    {
+      "id": "kocowa-fallback-47",
+      "title": "Taiwanese Story 47",
+      "original_title": "Taiwanese Story 47",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2023,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 20
+    },
+    {
+      "id": "kocowa-fallback-48",
+      "title": "Taiwanese Romance 48",
+      "original_title": "Taiwanese Romance 48",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.7",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 12
+    },
+    {
+      "id": "kocowa-fallback-49",
+      "title": "Thai Family 49",
+      "original_title": "Thai Family 49",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2022,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 11
+    },
+    {
+      "id": "kocowa-fallback-50",
+      "title": "Korean Love 50",
+      "original_title": "Korean Love 50",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2022,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 12
+    },
+    {
+      "id": "kocowa-fallback-51",
+      "title": "Korean Business 51",
+      "original_title": "Korean Business 51",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.0",
+      "year": 2023,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 12
+    },
+    {
+      "id": "kocowa-fallback-52",
+      "title": "Japanese Story 52",
+      "original_title": "Japanese Story 52",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2022,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "kocowa-fallback-53",
+      "title": "Thai Love 53",
+      "original_title": "Thai Love 53",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 19
+    },
+    {
+      "id": "kocowa-fallback-54",
+      "title": "Japanese Secret 54",
+      "original_title": "Japanese Secret 54",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2021,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 23
+    },
+    {
+      "id": "kocowa-fallback-55",
+      "title": "Chinese Business 55",
+      "original_title": "Chinese Business 55",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 13
+    },
+    {
+      "id": "kocowa-fallback-56",
+      "title": "Chinese Family 56",
+      "original_title": "Chinese Family 56",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 11
+    },
+    {
+      "id": "kocowa-fallback-57",
+      "title": "Japanese Love 57",
+      "original_title": "Japanese Love 57",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 12
+    },
+    {
+      "id": "kocowa-fallback-58",
+      "title": "Taiwanese Business 58",
+      "original_title": "Taiwanese Business 58",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2021,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 13
+    },
+    {
+      "id": "kocowa-fallback-59",
+      "title": "Taiwanese Family 59",
+      "original_title": "Taiwanese Family 59",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2021,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 18
+    },
+    {
+      "id": "kocowa-fallback-60",
+      "title": "Taiwanese Romance 60",
+      "original_title": "Taiwanese Romance 60",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2021,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 22
+    },
+    {
+      "id": "kocowa-fallback-61",
+      "title": "Thai Business 61",
+      "original_title": "Thai Business 61",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2021,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 15
+    },
+    {
+      "id": "kocowa-fallback-62",
+      "title": "Japanese Love 62",
+      "original_title": "Japanese Love 62",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.7",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 20
+    },
+    {
+      "id": "kocowa-fallback-63",
+      "title": "Japanese Family 63",
+      "original_title": "Japanese Family 63",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 12
+    },
+    {
+      "id": "kocowa-fallback-64",
+      "title": "Taiwanese Family 64",
+      "original_title": "Taiwanese Family 64",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2022,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 21
+    },
+    {
+      "id": "kocowa-fallback-65",
+      "title": "Thai Secret 65",
+      "original_title": "Thai Secret 65",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "kocowa-fallback-66",
+      "title": "Japanese Story 66",
+      "original_title": "Japanese Story 66",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2021,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 21
+    },
+    {
+      "id": "kocowa-fallback-67",
+      "title": "Korean Family 67",
+      "original_title": "Korean Family 67",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2021,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 13
+    },
+    {
+      "id": "kocowa-fallback-68",
+      "title": "Korean Romance 68",
+      "original_title": "Korean Romance 68",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2022,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 23
+    },
+    {
+      "id": "kocowa-fallback-69",
+      "title": "Korean Story 69",
+      "original_title": "Korean Story 69",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2023,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 16
+    },
+    {
+      "id": "kocowa-fallback-70",
+      "title": "Thai Love 70",
+      "original_title": "Thai Love 70",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2022,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 19
+    },
+    {
+      "id": "kocowa-fallback-71",
+      "title": "Chinese Business 71",
+      "original_title": "Chinese Business 71",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 12
+    },
+    {
+      "id": "kocowa-fallback-72",
+      "title": "Chinese Family 72",
+      "original_title": "Chinese Family 72",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 14
+    },
+    {
+      "id": "kocowa-fallback-73",
+      "title": "Japanese Family 73",
+      "original_title": "Japanese Family 73",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2021,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 19
+    },
+    {
+      "id": "kocowa-fallback-74",
+      "title": "Taiwanese Love 74",
+      "original_title": "Taiwanese Love 74",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 22
+    },
+    {
+      "id": "kocowa-fallback-75",
+      "title": "Thai Doctor 75",
+      "original_title": "Thai Doctor 75",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2022,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 11
+    },
+    {
+      "id": "kocowa-fallback-76",
+      "title": "Taiwanese Doctor 76",
+      "original_title": "Taiwanese Doctor 76",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2023,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 17
+    },
+    {
+      "id": "kocowa-fallback-77",
+      "title": "Chinese Story 77",
+      "original_title": "Chinese Story 77",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2023,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 23
+    },
+    {
+      "id": "kocowa-fallback-78",
+      "title": "Korean Family 78",
+      "original_title": "Korean Family 78",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 12
+    },
+    {
+      "id": "kocowa-fallback-79",
+      "title": "Chinese Love 79",
+      "original_title": "Chinese Love 79",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 22
+    },
+    {
+      "id": "kocowa-fallback-80",
+      "title": "Chinese Romance 80",
+      "original_title": "Chinese Romance 80",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2021,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 15
+    },
+    {
+      "id": "kocowa-fallback-81",
+      "title": "Taiwanese Doctor 81",
+      "original_title": "Taiwanese Doctor 81",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2023,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 14
+    },
+    {
+      "id": "kocowa-fallback-82",
+      "title": "Taiwanese Doctor 82",
+      "original_title": "Taiwanese Doctor 82",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2021,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 8
+    },
+    {
+      "id": "kocowa-fallback-83",
+      "title": "Chinese Romance 83",
+      "original_title": "Chinese Romance 83",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2022,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 10
+    },
+    {
+      "id": "kocowa-fallback-84",
+      "title": "Taiwanese Family 84",
+      "original_title": "Taiwanese Family 84",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 18
+    },
+    {
+      "id": "kocowa-fallback-85",
+      "title": "Japanese Story 85",
+      "original_title": "Japanese Story 85",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 21
+    },
+    {
+      "id": "kocowa-fallback-86",
+      "title": "Thai Romance 86",
+      "original_title": "Thai Romance 86",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 12
+    },
+    {
+      "id": "kocowa-fallback-87",
+      "title": "Taiwanese Secret 87",
+      "original_title": "Taiwanese Secret 87",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 12
+    },
+    {
+      "id": "kocowa-fallback-88",
+      "title": "Japanese Lawyer 88",
+      "original_title": "Japanese Lawyer 88",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2021,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 20
+    },
+    {
+      "id": "kocowa-fallback-89",
+      "title": "Thai Business 89",
+      "original_title": "Thai Business 89",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.7",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 18
+    },
+    {
+      "id": "kocowa-fallback-90",
+      "title": "Thai Secret 90",
+      "original_title": "Thai Secret 90",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2021,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 15
+    },
+    {
+      "id": "kocowa-fallback-91",
+      "title": "Chinese Story 91",
+      "original_title": "Chinese Story 91",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 17
+    },
+    {
+      "id": "kocowa-fallback-92",
+      "title": "Taiwanese Business 92",
+      "original_title": "Taiwanese Business 92",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 12
+    },
+    {
+      "id": "kocowa-fallback-93",
+      "title": "Thai Secret 93",
+      "original_title": "Thai Secret 93",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2023,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 9
+    },
+    {
+      "id": "kocowa-fallback-94",
+      "title": "Taiwanese Doctor 94",
+      "original_title": "Taiwanese Doctor 94",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2021,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 18
+    },
+    {
+      "id": "kocowa-fallback-95",
+      "title": "Chinese Romance 95",
+      "original_title": "Chinese Romance 95",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2020,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 15
+    },
+    {
+      "id": "kocowa-fallback-96",
+      "title": "Taiwanese Doctor 96",
+      "original_title": "Taiwanese Doctor 96",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2023,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 16
+    },
+    {
+      "id": "kocowa-fallback-97",
+      "title": "Thai Family 97",
+      "original_title": "Thai Family 97",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2021,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 13
+    },
+    {
+      "id": "kocowa-fallback-98",
+      "title": "Taiwanese Business 98",
+      "original_title": "Taiwanese Business 98",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2024,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 18
+    },
+    {
+      "id": "kocowa-fallback-99",
+      "title": "Taiwanese Family 99",
+      "original_title": "Taiwanese Family 99",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2023,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 13
+    },
+    {
+      "id": "kocowa-fallback-100",
+      "title": "Japanese Romance 100",
+      "original_title": "Japanese Romance 100",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce dramas.",
+      "poster": "/placeholders/dramas-poster.jpg",
+      "backdrop": "/placeholders/dramas-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2022,
+      "source": "kocowa",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Dramas"
+      ],
+      "episodes_count": 15
+    }
+  ]
+}
