@@ -80,7 +80,6 @@ function App() {
           <Route path="/footer/mentions-legales" element={<MentionsLegales />} />
           <Route path="/footer/comment-regarder" element={<CommentRegarder />} />
           <Route path="/footer/centre-aide" element={<FAQ />} /> {/* Redirection temporaire vers la FAQ */}
-          <Route path="/footer/recrutement" element={<APropos />} /> {/* Redirection temporaire vers À propos */}
           <Route path="/footer/preferences-cookies" element={<Confidentialite />} /> {/* Redirection temporaire vers Confidentialité */}
           <Route path="/footer/informations-legales" element={<MentionsLegales />} /> {/* Redirection temporaire vers Mentions légales */}
           <Route path="/footer/ios" element={<CommentRegarder />} /> {/* Redirection temporaire vers Comment regarder */}
