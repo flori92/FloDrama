@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/UserContext";
-import { imageUrl } from "../../Constants/Constance";
+import { imageUrl, imageUrl2 } from "../../Constants/Constance";
 
 function RowPost(props) {
   const [isHover, setIsHover] = useState(false);
@@ -43,6 +43,49 @@ function RowPost(props) {
     }
   };
 
+  // Fonction pour obtenir l'URL de l'image
+  const getImageUrl = (obj) => {
+    try {
+      if (!obj) return '/assets/poster-placeholder.jpg';
+      
+      // Essayer d'abord poster_path
+      if (obj.poster_path && obj.poster_path.startsWith('/')) {
+        return `${imageUrl}${obj.poster_path}`;
+      }
+      
+      // Essayer ensuite poster_path sans le slash
+      if (obj.poster_path) {
+        return `${imageUrl}/${obj.poster_path}`;
+      }
+      
+      // Essayer backdrop_path
+      if (obj.backdrop_path && obj.backdrop_path.startsWith('/')) {
+        return `${imageUrl}${obj.backdrop_path}`;
+      }
+      
+      // Essayer backdrop_path sans le slash
+      if (obj.backdrop_path) {
+        return `${imageUrl}/${obj.backdrop_path}`;
+      }
+      
+      // Essayer image_path
+      if (obj.image_path) {
+        return obj.image_path.startsWith('http') ? obj.image_path : `${imageUrl}/${obj.image_path}`;
+      }
+      
+      // Essayer image
+      if (obj.image) {
+        return obj.image.startsWith('http') ? obj.image : `${imageUrl}/${obj.image}`;
+      }
+      
+      // Utiliser l'image par défaut
+      return '/assets/poster-placeholder.jpg';
+    } catch (error) {
+      console.error("Erreur lors de la récupération de l'URL de l'image:", error);
+      return '/assets/poster-placeholder.jpg';
+    }
+  };
+  
   // Fonction pour formater la note en toute sécurité
   const formatRating = (obj) => {
     try {
@@ -96,8 +139,12 @@ function RowPost(props) {
                 <Link to={obj.id ? `/play/${obj.id}` : '#'}>
                   <img
                     className="w-40 h-60 object-cover rounded-md cursor-pointer transition-transform duration-300 hover:scale-105"
-                    src={obj.poster_path ? `${imageUrl}${obj.poster_path}` : '/assets/poster-placeholder.jpg'}
+                    src={getImageUrl(obj)}
                     alt={obj.title || obj.name || 'Film'}
+                    onError={(e) => {
+                      console.log("Erreur de chargement d'image pour:", obj);
+                      e.target.src = '/assets/poster-placeholder.jpg';
+                    }}
                   />
                 </Link>
                 <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black to-transparent">
