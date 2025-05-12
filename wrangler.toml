@@ -11,5 +11,9 @@ output_dir = "dist"
 pages_build_output_dir = "dist"
 
 [env.production]
-name = "flodrama-frontend"
-route = "flodrama.com/*"
+name = "FloDrama-frontend"
+type = "webpack"
+account_id = "42fc982266a2c31b942593b18097e4b3"
+zone_id = "fc2dcbd3d7c4c44db22cf8c8de01f0c9"
+pages_build_output_dir = "dist"
+workers_dev = true

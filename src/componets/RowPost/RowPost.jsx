@@ -8,45 +8,84 @@ function RowPost(props) {
   const { User } = useContext(AuthContext);
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
-  // Fonction utilitaire pour garantir que les valeurs de notation sont valides
-  const ensureValidRating = (rating) => {
+  // Fonction globale sécurisée pour traiter tous les cas de notes invalides
+  const ensureValidRating = (value) => {
     try {
       // Si la valeur est undefined ou null, retourner la valeur par défaut
-      if (rating === undefined || rating === null) {
+      if (value === undefined || value === null) {
         return 3.5;
       }
       
       // Si c'est déjà un nombre, le traiter
-      if (typeof rating === 'number') {
+      if (typeof value === 'number') {
         // Vérifier si c'est un nombre valide (pas NaN)
-        if (isNaN(rating)) {
+        if (isNaN(value)) {
           return 3.5;
         }
         // Convertir à une échelle de 5 étoiles si nécessaire (TMDB utilise une échelle de 10)
-        return rating > 5 ? rating / 2 : rating;
+        return value > 5 ? value / 2 : value;
       }
       
       // Si c'est une chaîne, essayer de la convertir en nombre
-      if (typeof rating === 'string') {
-        const parsedRating = parseFloat(rating);
-        if (isNaN(parsedRating)) {
+      if (typeof value === 'string') {
+        const parsedValue = parseFloat(value);
+        if (isNaN(parsedValue)) {
           return 3.5;
         }
-        return parsedRating > 5 ? parsedRating / 2 : parsedRating;
+        return parsedValue > 5 ? parsedValue / 2 : parsedValue;
       }
       
       // Pour tout autre type, retourner la valeur par défaut
       return 3.5;
     } catch (error) {
-      console.error("Erreur lors du calcul de la note:", error);
+      console.error("Erreur lors de la validation de la note:", error);
       return 3.5;
+    }
+  };
+
+  // Fonction qui extrait et nettoie la note d'un objet film/série
+  const getRating = (item) => {
+    try {
+      if (!item || typeof item !== 'object') {
+        return 3.5;
+      }
+
+      // Essayer d'obtenir rating d'abord
+      if (item.rating !== undefined) {
+        return ensureValidRating(item.rating);
+      }
+      
+      // Essayer ensuite vote_average (divisé par 2 si nécessaire)
+      if (item.vote_average !== undefined) {
+        return ensureValidRating(item.vote_average / 2);
+      }
+      
+      // Valeur par défaut si aucune note n'est trouvée
+      return 3.5;
+    } catch (error) {
+      console.error("Erreur lors de l'extraction de la note:", error);
+      return 3.5;
+    }
+  };
+
+  // Fonction pour formater la note en toute sécurité pour l'affichage
+  const formatRating = (item) => {
+    try {
+      const rating = getRating(item);
+      // Convertir la note en chaîne avec une décimale
+      return rating.toFixed(1);
+    } catch (error) {
+      console.error("Erreur lors du formatage de la note:", error);
+      return "3.5";
     }
   };
 
   // Fonction pour obtenir l'URL de l'image
   const getImageUrl = (obj) => {
     try {
-      if (!obj) return '/assets/poster-placeholder.jpg';
+      if (!obj) {
+        return '/assets/poster-placeholder.jpg';
+      }
       
       // Essayer d'abord poster_path
       if (obj.poster_path && obj.poster_path.startsWith('/')) {
@@ -85,27 +124,6 @@ function RowPost(props) {
       return '/assets/poster-placeholder.jpg';
     }
   };
-  
-  // Fonction pour formater la note en toute sécurité
-  const formatRating = (obj) => {
-    try {
-      if (!obj) return "3.5";
-      
-      let rating;
-      if (typeof obj.rating === 'number' || typeof obj.rating === 'string') {
-        rating = ensureValidRating(obj.rating);
-      } else if (typeof obj.vote_average === 'number' || typeof obj.vote_average === 'string') {
-        rating = ensureValidRating(obj.vote_average / 2);
-      } else {
-        rating = 3.5;
-      }
-      
-      return typeof rating === 'number' ? rating.toFixed(1) : "3.5";
-    } catch (error) {
-      console.error("Erreur lors du formatage de la note:", error);
-      return "3.5";
-    }
-  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -118,43 +136,52 @@ function RowPost(props) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  
+  // Sécuriser l'accès à props.movies
+  const safeMovies = Array.isArray(props.movies) ? props.movies : [];
 
   return (
     <div className="row_post">
       <h2 className="text-white font-medium md:text-xl pl-12 pt-4">
-        {props.title}
+        {props.title || ""}
       </h2>
       <div className="flex overflow-x-scroll pl-12 py-4 scrollbar-hide">
-        {props.movies &&
-          props.movies.map((obj, index) => {
-            if (!obj || typeof obj !== 'object') return null;
-            
-            return (
-              <div
-                key={obj.id || index}
-                className="flex-shrink-0 mr-4 relative"
-                onMouseEnter={() => setIsHover(true)}
-                onMouseLeave={() => setIsHover(false)}
-              >
-                <Link to={obj.id ? `/play/${obj.id}` : '#'}>
-                  <img
-                    className="w-40 h-60 object-cover rounded-md cursor-pointer transition-transform duration-300 hover:scale-105"
-                    src={getImageUrl(obj)}
-                    alt={obj.title || obj.name || 'Film'}
-                    onError={(e) => {
-                      console.log("Erreur de chargement d'image pour:", obj);
-                      e.target.src = '/assets/poster-placeholder.jpg';
-                    }}
-                  />
-                </Link>
-                <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black to-transparent">
-                  <h3 className="text-white text-sm font-medium truncate">
-                    {obj.title || obj.name || 'Film sans titre'}
-                  </h3>
+        {safeMovies.map((obj, index) => {
+          // Ignorer les items invalides
+          if (!obj || typeof obj !== 'object') {
+            return null;
+          }
+          
+          return (
+            <div
+              key={obj.id || index}
+              className="flex-shrink-0 mr-4 relative"
+              onMouseEnter={() => setIsHover(true)}
+              onMouseLeave={() => setIsHover(false)}
+            >
+              <Link to={obj.id ? `/play/${obj.id}` : '#'}>
+                <img
+                  className="w-40 h-60 object-cover rounded-md cursor-pointer transition-transform duration-300 hover:scale-105"
+                  src={getImageUrl(obj)}
+                  alt={obj.title || obj.name || 'Film'}
+                  onError={(e) => {
+                    console.log("Erreur de chargement d'image pour:", obj);
+                    e.target.src = '/assets/poster-placeholder.jpg';
+                  }}
+                />
+              </Link>
+              <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black to-transparent">
+                <h3 className="text-white text-sm font-medium truncate">
+                  {obj.title || obj.name || 'Film sans titre'}
+                </h3>
+                <div className="flex items-center">
+                  <span className="text-yellow-400 text-xs mr-1">★</span>
+                  <span className="text-white text-xs">{formatRating(obj)}</span>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
