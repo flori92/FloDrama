@@ -1,0 +1,10 @@
+{
+  "timestamp": "2025-05-06T18:06:47.953Z",
+  "file": "../scraping-results-converted/asianwiki_2025-05-06T16-49-49.702Z.json",
+  "table": "dramas",
+  "items_count": 10,
+  "result": {
+    "success": true,
+    "output": "\n ⛅️ wrangler 3.114.8 (update available 4.14.1)\n----------------------------------------------\n\n🌀 Executing on remote database flodrama-db (39a4a8fd-f1fd-49ab-abcc-290fd473a311):\n🌀 To execute on your local development database, remove the --remote flag from your wrangler command.\nNote: if the execution fails to complete, your DB will return to its original state and you can safely retry.\n├ Checking if file needs uploading\n│\n├ 🌀 Uploading 39a4a8fd-f1fd-49ab-abcc-290fd473a311.3060c86438dccff7.sql\n│ 🌀 Uploading complete.\n│\n🌀 Starting import...\n🚣 Executed 0 queries in 0.00 seconds (0 rows read, 0 rows written)\n   Database is currently at bookmark 00000013-0000006c-00004ef6-6a5fe4667d93282ebc04358d7211d013.\n[\n  {\n    \"results\": [\n      {\n        \"Total queries executed\": 0,\n        \"Rows read\": 0,\n        \"Rows written\": 0,\n        \"Database size (MB)\": \"0.43\"\n      }\n    ],\n    \"success\": true,\n    \"finalBookmark\": \"00000013-0000006c-00004ef6-6a5fe4667d93282ebc04358d7211d013\",\n    \"meta\": {\n      \"served_by\": \"v3-prod\",\n      \"served_by_region\": \"WEUR\",\n      \"served_by_primary\": true,\n      \"timings\": {\n        \"sql_duration_ms\": 1.6207\n      },\n      \"duration\": 1.6207,\n      \"changes\": 1,\n      \"last_row_id\": 0,\n      \"changed_db\": true,\n      \"size_after\": 425984,\n      \"rows_read\": 0,\n      \"rows_written\": 0,\n      \"num_tables\": 9\n    }\n  }\n]\n"
+  }
+}

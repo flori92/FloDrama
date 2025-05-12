@@ -1,0 +1,5 @@
+✅ Serveur de relais local démarré sur le port 3000
+📌 URL: http://localhost:3000
+🔑 API Key: rnd_DJfpQC9gEu4KgTRvX8iQzMXxrteP
+📂 Dossier de sortie: /Users/floriace/FLO_DRAMA/FloDrama/cloudflare/scraping/relay-output
+📂 Dossier FloDrama: /Users/floriace/FLO_DRAMA/FloDrama/cloudflare/scraping/output

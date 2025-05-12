@@ -1,701 +1,1021 @@
 /**
- * FloDrama Media Gateway - Version 2.0
- * Adaptation pour une meilleure extraction des sources de streaming
- * Développé le 2025-05-12
+ * FloDrama Media Gateway Worker
  * 
- * Ce worker sert de proxy intelligent entre le client FloDrama et
- * les diverses sources de streaming.
+ * Ce Worker sert d'intermédiaire entre l'application frontend et les services 
+ * de médias Cloudflare (R2, Stream, Images).
+ * 
+ * Il fournit:
+ * - Le routage standardisé des images selon le format défini dans le guide de scraping
+ * - Un système de proxy sécurisé pour le streaming vidéo sans stockage
+ * - La redirection intelligente vers le service approprié (Stream, R2, Images)
+ * - Le redimensionnement des images via Cloudflare Images
+ * - La gestion des fallbacks en cas de média non disponible
+ * - Des métriques d'utilisation pour le monitoring
+ * - Un système de cache adaptatif selon la popularité des contenus
  */
 
-// Types de médias supportés
-const MEDIA_TYPES = {
-  POSTER: 'poster',
-  BACKDROP: 'backdrop',
-  THUMBNAIL: 'thumbnail'
+// Configuration du cache
+const CACHE_TTL_SECONDS = 3600; // 1 heure par défaut
+const ERROR_CACHE_TTL_SECONDS = 300; // 5 minutes pour les erreurs
+const POPULAR_CONTENT_CACHE_TTL_SECONDS = 7200; // 2 heures pour le contenu populaire
+const HOT_CONTENT_CACHE_TTL_SECONDS = 10800; // 3 heures pour le contenu très populaire
+
+/**
+ * Classe qui gère la stratégie de cache adaptative selon la popularité du contenu
+ */
+class AdaptiveCacheStrategy {
+  constructor() {
+    this.defaultTtl = CACHE_TTL_SECONDS;
+    this.errorTtl = ERROR_CACHE_TTL_SECONDS;
+    this.popularContentTtl = POPULAR_CONTENT_CACHE_TTL_SECONDS;
+    this.hotContentTtl = HOT_CONTENT_CACHE_TTL_SECONDS;
+  }
+  
+  /**
+   * Détermine la durée de mise en cache en fonction de la popularité et des erreurs
+   */
+  async getTtl(contentId, env, isError = false) {
+    if (!env.FLODRAMA_METRICS) {
+      return isError ? this.errorTtl : this.defaultTtl;
+    }
+    
+    try {
+      // Récupérer les métriques d'accès pour ce contenu
+      const metricsKey = `metrics:access:${contentId}`;
+      const accessData = await env.FLODRAMA_METRICS.get(metricsKey, { type: 'json' });
+      
+      // Si pas de données de métriques ou c'est une erreur, retourner TTL par défaut ou d'erreur
+      if (!accessData || isError) {
+        return isError ? this.errorTtl : this.defaultTtl;
+      }
+      
+      // Déterminer la durée de cache en fonction de la popularité
+      const popularity = accessData.count || 0;
+      
+      if (popularity > 25) {
+        return this.hotContentTtl;
+      }
+      if (popularity > 10) {
+        return this.popularContentTtl;
+      }
+      return this.defaultTtl;
+    } catch (error) {
+      console.error(`Erreur lors de la détermination du TTL pour ${contentId}:`, error);
+      return isError ? this.errorTtl : this.defaultTtl;
+    }
+  }
+}
+
+// Configuration des endpoints de service
+const SERVICES = {
+  STREAM: 'customer-ehlynuge6dnzfnfd.cloudflarestream.com',
+  IMAGES: 'images.flodrama.com',
+  R2_BUCKET: 'flodrama-storage.r2.dev'
 };
 
 // Sources de streaming supportées
 const STREAMING_SOURCES = {
   DRAMACOOL: 'dramacool',
   VIEWASIAN: 'viewasian',
-  VOIRDRAMA: 'voirdrama',
-  VOIRANIME: 'voiranime',
-  VOSTFREE: 'vostfree',
-  KISSASIAN: 'kissasian',
   MYASIANTV: 'myasiantv',
-  STREAMINGDIVX: 'streamingdivx',
-  FILMAPIK: 'filmapik',
-  BOLLYSTREAM: 'bollystream',
-  FILMCOMPLET: 'filmcomplet',
-  BOLLYPLAY: 'bollyplay',
-  HINDILINKS4U: 'hindilinks4u',
+  KISSASIAN: 'kissasian',
   GOGOPLAY: 'gogoplay',
-  NEKOSAMA: 'nekosama'
+  GENERIC: 'generic'
 };
 
-// Images par défaut pour les fallbacks
+// Types de médias supportés
+const MEDIA_TYPES = {
+  POSTER: 'poster',
+  BACKDROP: 'backdrop',
+  THUMBNAIL: 'thumbnail',
+  TRAILER: 'trailer',
+  MOVIE: 'movie',
+  EPISODE: 'episode',
+  STREAM: 'stream'
+};
+
+// Configuration des tailles d'images disponibles (alignée avec le guide)
+const IMAGE_SIZES = {
+  small: 'w200',
+  medium: 'w500',
+  large: 'w1000',
+  original: 'original'
+};
+
+// Images par défaut selon le type
 const DEFAULT_IMAGES = {
-  [MEDIA_TYPES.POSTER]: 'https://via.placeholder.com/300x450?text=FloDrama',
-  [MEDIA_TYPES.BACKDROP]: 'https://via.placeholder.com/1280x720?text=FloDrama',
-  [MEDIA_TYPES.THUMBNAIL]: 'https://via.placeholder.com/200x120?text=FloDrama'
+  [MEDIA_TYPES.POSTER]: '/images/default-poster.jpg',
+  [MEDIA_TYPES.BACKDROP]: '/images/default-backdrop.jpg',
+  [MEDIA_TYPES.THUMBNAIL]: '/images/default-thumbnail.jpg',
+  [MEDIA_TYPES.TRAILER]: '/images/default-trailer.jpg',
+  [MEDIA_TYPES.MOVIE]: '/images/default-movie.jpg',
+  [MEDIA_TYPES.EPISODE]: '/images/default-episode.jpg'
 };
 
-// Configuration des sources avec leurs domaines valides et les sélecteurs
-// Ces valeurs sont basées sur l'analyse automatique des sites
-const SOURCE_CONFIG = {
-  [STREAMING_SOURCES.DRAMACOOL]: {
-    domains: ['dramacool.sr', 'dramacool.com.tr', 'dramacool9.io', 'dramacool.cr', 'dramacool.sk'],
-    playerSelectors: ['.video-light', '#chapter-video-frame', '#player', '.watch-drama', '.video-content'],
-    videoSelectors: ['video', 'iframe', '.jwplayer', '.plyr', '.video-js'],
-    redirectHandling: true,
-    needsCloudflareBypass: true,
-    expiryTime: 12, // en heures
-    referer: 'https://dramacool.com.tr/'
-  },
-  [STREAMING_SOURCES.VOIRDRAMA]: {
-    domains: ['voirdrama.org', 'voirdrama.cc', 'voirdrama.tv', 'voirdrama.info'],
-    playerSelectors: ['.c-selectpicker', '.selectpicker', '.entry-header', '.video-light', '#chapter-video-frame'],
-    videoSelectors: ['video', 'iframe', '.jwplayer', '.plyr', '.video-js'],
-    redirectHandling: true,
-    needsCloudflareBypass: true,
-    expiryTime: 8,
-    referer: 'https://voirdrama.org/'
-  },
-  [STREAMING_SOURCES.VOIRANIME]: {
-    domains: ['v6.voiranime.com', 'voiranime.com', 'voiranime.tv', 'voiranime.cc', '5.voiranime.com'],
-    playerSelectors: ['.c-selectpicker', '.selectpicker', '.select-view', '.video-light', '#chapter-video-frame'],
-    videoSelectors: ['video', 'iframe', '.jwplayer', '.plyr', '.video-js'],
-    redirectHandling: true,
-    needsCloudflareBypass: true,
-    expiryTime: 8,
-    referer: 'https://v6.voiranime.com/'
-  },
-  [STREAMING_SOURCES.VOSTFREE]: {
-    domains: ['vostfree.cx', 'vostfree.tv', 'vostfree.ws', 'vostfree.io', 'vostfree.in'],
-    playerSelectors: ['#target', '#sales-banner', '.video-light', '#chapter-video-frame'],
-    videoSelectors: ['video', 'iframe', '.jwplayer', '.plyr', '.video-js'],
-    redirectHandling: true,
-    needsCloudflareBypass: true,
-    expiryTime: 8,
-    referer: 'https://vostfree.cx/'
-  },
-  [STREAMING_SOURCES.STREAMINGDIVX]: {
-    domains: ['streaming-films.net', 'streamingdivx.co', 'streaming-films.cc', 'streaming-divx.com'],
-    playerSelectors: ['.film-list', '.film-item', '.player-area', '.video-player', '#player'],
-    videoSelectors: ['video', 'iframe', '.jwplayer', '.plyr', '.video-js'],
-    redirectHandling: true,
-    needsCloudflareBypass: true,
-    expiryTime: 12,
-    referer: 'https://streaming-films.net/'
-  },
-  [STREAMING_SOURCES.FILMCOMPLET]: {
-    domains: ['www.film-complet.cc', 'film-complet.tv', 'films-complet.com', 'film-complet.co'],
-    playerSelectors: ['.movies-list', '.ml-item', '.player-area', '.video-player', '#player'],
-    videoSelectors: ['video', 'iframe', '.jwplayer', '.plyr', '.video-js'],
-    redirectHandling: true,
-    needsCloudflareBypass: true,
-    expiryTime: 12,
-    referer: 'https://www.film-complet.cc/'
-  },
-  [STREAMING_SOURCES.FILMAPIK]: {
-    domains: ['filmapik.bio', 'filmapik.tv', 'filmapik.cc', 'filmapik.cloud'],
-    playerSelectors: ['.videoplay', '.player-area', '#player', '.video-content'], 
-    videoSelectors: ['video', 'iframe', '.jwplayer', '.plyr', '.video-js'],
-    redirectHandling: true,
-    needsCloudflareBypass: true,
-    expiryTime: 8,
-    referer: 'https://filmapik.bio/'
-  },
-  [STREAMING_SOURCES.BOLLYSTREAM]: {
-    domains: ['bollystream.eu', 'bollystream.cc', 'bollystream.tv', 'bollystream.to'],
-    playerSelectors: ['.player-embed', '.bollywood-player', '#player-frame', '.video-container'],
-    videoSelectors: ['video', 'iframe', '.jwplayer', '.plyr', '.video-js'],
-    redirectHandling: true,
-    needsCloudflareBypass: true,
-    expiryTime: 10,
-    referer: 'https://bollystream.eu/'
-  },
-  [STREAMING_SOURCES.BOLLYPLAY]: {
-    domains: ['bollyplay.app', 'bollyplay.tv', 'bollyplay.cc', 'bollyplay.film'],
-    playerSelectors: ['.movies-list', '.ml-item', '.player-area', '.video-player', '#player'],
-    videoSelectors: ['video', 'iframe', '.jwplayer', '.plyr', '.video-js'],
-    redirectHandling: true,
-    needsCloudflareBypass: true,
-    expiryTime: 12,
-    referer: 'https://bollyplay.app/'
-  },
-  [STREAMING_SOURCES.HINDILINKS4U]: {
-    domains: ['hindilinks4u.skin', 'hindilinks4u.to', 'hindilinks4u.co', 'hindilinks4u.app'],
-    playerSelectors: ['.film-list', '.film-item', '.film-player', '.video-player', '#player'],
-    videoSelectors: ['video', 'iframe', '.jwplayer', '.plyr', '.video-js'],
-    redirectHandling: true,
-    needsCloudflareBypass: true,
-    expiryTime: 12,
-    referer: 'https://hindilinks4u.skin/'
-  },
-  [STREAMING_SOURCES.KISSASIAN]: {
-    domains: ['kissasian.com.lv', 'kissasian.sh', 'kissasian.io', 'kissasian.cx'],
-    playerSelectors: ['#centerDivVideo', '#divContentVideo', '.video-content'],
-    videoSelectors: ['video', 'iframe', '.jwplayer', '.plyr', '.video-js'],
-    redirectHandling: true,
-    needsCloudflareBypass: true,
-    expiryTime: 8,
-    referer: 'https://kissasian.com.lv/'
-  },
-  [STREAMING_SOURCES.VIEWASIAN]: {
-    domains: ['viewasian.lol', 'viewasian.tv', 'viewasian.cc'],
-    playerSelectors: ['.video-content', '.play-video'],
-    videoSelectors: ['video', 'iframe', '.jwplayer', '.plyr', '.video-js'],
-    redirectHandling: true,
-    needsCloudflareBypass: true,
-    expiryTime: 6,
-    referer: 'https://viewasian.lol/'
-  },
-  [STREAMING_SOURCES.GOGOPLAY]: {
-    domains: ['gogoplay.io', 'gogoplay1.com', 'gogoplay4.com'],
-    playerSelectors: ['.anime_video_body', '.anime_muti_link'],
-    videoSelectors: ['video', 'iframe', '.jwplayer', '.plyr', '.video-js'],
-    redirectHandling: true,
-    needsCloudflareBypass: true,
-    expiryTime: 12,
-    referer: 'https://gogoplay.io/'
-  },
-  [STREAMING_SOURCES.NEKOSAMA]: {
-    domains: ['neko-sama.fr', 'neko-sama.io', 'neko-sama.org'],
-    playerSelectors: ['#blocEntier', '#list_catalog', '.video-player'],
-    videoSelectors: ['video', 'iframe', '.jwplayer', '.plyr', '.video-js'],
-    redirectHandling: true,
-    needsCloudflareBypass: true,
-    expiryTime: 12,
-    referer: 'https://neko-sama.fr/'
+/**
+ * Fonction principale du Worker
+ */
+/**
+ * Fonctions utilitaires pour le monitoring et le cache adaptatif
+ */
+
+// Démarre le monitoring d'une opération
+async function recordOperationStart(operationId, operationType, contentId, env) {
+  if (!env.FLODRAMA_METRICS) {
+    const timestamp = Date.now();
+    return {
+      operationId,
+      operationType,
+      startTime: timestamp,
+      timestamp: new Date(timestamp).toISOString()
+    };
   }
-};
+  
+  try {
+    const operationKey = `operation:${operationId}`;
+    const operationData = {
+      id: operationId,
+      type: operationType,
+      contentId: contentId,
+      startTime: Date.now(),
+      status: 'in_progress'
+    };
+    
+    await env.FLODRAMA_METRICS.put(operationKey, JSON.stringify(operationData), {
+      expirationTtl: 3600 // 1 heure
+    });
+    
+    return operationData;
+  } catch (error) {
+    console.error(`Erreur lors de l'enregistrement du début d'opération ${operationId}:`, error);
+    return { operationId, operationType, startTime: Date.now() };
+  }
+}
 
-// Configuration des nouveaux extracteurs de streaming par type de source
-const STREAMING_EXTRACTORS = {
-  // Utilise les patterns et sélecteurs trouvés dans notre analyse
-  default: async function(pageUrl, page) {
-    // Extraction par méthode standard
-    return await extractStreamingByNetworkInterception(pageUrl, page);
-  },
-  
-  [STREAMING_SOURCES.DRAMACOOL]: async function(pageUrl, page) {
-    // Dramacool a besoin de quelques actions spécifiques
-    await page.waitForSelector('.video-light, .watch-drama, #player', { timeout: 10000 });
+// Termine le monitoring d'une opération et enregistre les métriques
+async function recordOperationEnd(operationId, operationType, contentId, startTime, fromCache, env, errorMessage = null) {
+  if (!env.FLODRAMA_METRICS) {
+    const endTime = Date.now();
+    const duration = endTime - startTime;
     
-    // Cliquer pour activer le lecteur
-    try {
-      await page.click('.video-light, .watch-drama, #player');
-      await page.waitForTimeout(2000);
-    } catch (e) {
-      console.log("Impossible de cliquer sur le lecteur:", e);
+    const logData = {
+      operationId,
+      operationType,
+      contentId,
+      success: !errorMessage,
+      fromCache,
+      durationMs: duration,
+      timestamp: new Date(endTime).toISOString()
+    };
+    
+    if (errorMessage) {
+      logData.error = errorMessage;
     }
     
-    // Attendre l'apparition des iframes
-    await page.waitForTimeout(3000);
-    
-    // Vérifier les iframes
-    return await extractStreamingByNetworkInterception(pageUrl, page);
-  },
+    // Log pour Cloudflare
+    console.log(JSON.stringify(logData));
+    return logData;
+  }
   
-  [STREAMING_SOURCES.VOIRDRAMA]: async function(pageUrl, page) {
-    // VoirDrama utilise souvent des dropdowns pour sélectionner la source
-    try {
-      // Attendre et cliquer sur les sélecteurs de source
-      for (const selector of ['.c-selectpicker', '.selectpicker', '.select-view']) {
-        try {
-          const hasSelector = await page.evaluate((sel) => !!document.querySelector(sel), selector);
-          if (hasSelector) {
-            await page.click(selector);
-            await page.waitForTimeout(2000);
-          }
-        } catch (e) {
-          console.log(`Impossible de cliquer sur le sélecteur ${selector}:`, e);
+  try {
+    const endTime = Date.now();
+    const duration = endTime - startTime;
+    
+    // Enregistrer les détails de l'opération
+    const operationKey = `operation:${operationId}`;
+    const operationData = {
+      id: operationId,
+      type: operationType,
+      contentId: contentId,
+      startTime: startTime,
+      endTime: endTime,
+      duration: duration,
+      fromCache: fromCache,
+      status: errorMessage ? 'error' : 'completed',
+      error: errorMessage
+    };
+    
+    await env.FLODRAMA_METRICS.put(operationKey, JSON.stringify(operationData), {
+      expirationTtl: 86400 // 24 heures pour l'analyse
+    });
+    
+    // Enregistrer les statistiques de performances
+    const statsKey = `stats:${operationType}`;
+    const statsData = await env.FLODRAMA_METRICS.get(statsKey, { type: 'json' }) || {
+      count: 0,
+      totalDuration: 0,
+      avgDuration: 0,
+      minDuration: Infinity,
+      maxDuration: 0,
+      cacheHits: 0,
+      errors: 0,
+      lastUpdated: Date.now()
+    };
+    
+    statsData.count++;
+    statsData.totalDuration += duration;
+    statsData.avgDuration = statsData.totalDuration / statsData.count;
+    statsData.minDuration = Math.min(statsData.minDuration, duration);
+    statsData.maxDuration = Math.max(statsData.maxDuration, duration);
+    statsData.lastUpdated = Date.now();
+    
+    if (fromCache) {
+      statsData.cacheHits++;
+    }
+    if (errorMessage) {
+      statsData.errors++;
+    }
+    
+    await env.FLODRAMA_METRICS.put(statsKey, JSON.stringify(statsData), {
+      expirationTtl: 2592000 // 30 jours
+    });
+    
+    return operationData;
+  } catch (error) {
+    console.error(`Erreur lors de l'enregistrement de la fin d'opération ${operationId}:`, error);
+    
+    // Log pour Cloudflare même en cas d'erreur
+    const logData = {
+      operationId,
+      operationType,
+      contentId,
+      error: `Erreur monitoring: ${error.message}`
+    };
+    console.log(JSON.stringify(logData));
+    
+    return logData;
+  }
+}
+
+// Détermine la durée de mise en cache appropriée selon la popularité
+function getCacheTtl(popularity = 0) {
+  if (popularity > 25) {
+    return HOT_CONTENT_CACHE_TTL_SECONDS;
+  }
+  if (popularity > 10) {
+    return POPULAR_CONTENT_CACHE_TTL_SECONDS;
+  }
+  return CACHE_TTL_SECONDS;
+}
+
+// Vérifie si un contenu est considéré comme problématique (trop d'erreurs)
+async function isProblematicContent(contentId, env) {
+  if (!env.FLODRAMA_METRICS) {
+    return false;
+  }
+  
+  try {
+    const metricsKey = `metrics:errors:${contentId}`;
+    const errorData = await env.FLODRAMA_METRICS.get(metricsKey, { type: 'json' });
+    
+    if (errorData && errorData.count > 5 && errorData.lastError > Date.now() - 3600000) {
+      // Plus de 5 erreurs dans la dernière heure
+      return true;
+    }
+    
+    return false;
+  } catch (error) {
+    console.error(`Erreur lors de la vérification des métriques pour ${contentId}:`, error);
+    return false;
+  }
+}
+
+// Incrémente le compteur d'erreurs pour un contenu
+async function incrementErrorCount(contentId, env) {
+  if (!env.FLODRAMA_METRICS) {
+    return;
+  }
+  
+  try {
+    const metricsKey = `metrics:errors:${contentId}`;
+    const errorData = await env.FLODRAMA_METRICS.get(metricsKey, { type: 'json' }) || {
+      count: 0,
+      firstError: Date.now(),
+      lastError: Date.now()
+    };
+    
+    errorData.count++;
+    errorData.lastError = Date.now();
+    
+    await env.FLODRAMA_METRICS.put(metricsKey, JSON.stringify(errorData), {
+      expirationTtl: 86400 // 24 heures
+    });
+  } catch (error) {
+    console.error(`Erreur lors de l'enregistrement des métriques pour ${contentId}:`, error);
+  }
+}
+
+// Mise à jour des métriques d'utilisation d'un contenu
+async function updateContentMetrics(contentId, env, isError = false) {
+  if (!env.FLODRAMA_METRICS) {
+    return;
+  }
+  
+  try {
+    const metricsKey = `metrics:access:${contentId}`;
+    const now = Date.now();
+    
+    // Récupérer ou initialiser les métriques
+    const metricsData = await env.FLODRAMA_METRICS.get(metricsKey, { type: 'json' }) || {
+      count: 0,
+      firstAccess: now,
+      lastAccess: now,
+      errorCount: 0
+    };
+    
+    // Mettre à jour les métriques
+    metricsData.count++;
+    metricsData.lastAccess = now;
+    if (isError) {
+      metricsData.errorCount = (metricsData.errorCount || 0) + 1;
+    }
+    
+    // Sauvegarder les métriques
+    await env.FLODRAMA_METRICS.put(metricsKey, JSON.stringify(metricsData), {
+      expirationTtl: 2592000 // 30 jours
+    });
+  } catch (error) {
+    console.error(`Erreur lors de la mise à jour des métriques pour ${contentId}:`, error);
+  }
+}
+
+export default {
+  async fetch(request, env, ctx) {
+    // Extraction de l'URL et des paramètres
+    const url = new URL(request.url);
+    const path = url.pathname;
+    const params = url.searchParams;
+
+    // Activer CORS pour toutes les requêtes
+    if (request.method === 'OPTIONS') {
+      return handleCorsOptions();
+    }
+
+    // Endpoint pour vérifier la santé du service
+    if (path === '/health') {
+      return new Response(JSON.stringify({
+        status: 'ok',
+        services: Object.keys(SERVICES)
+      }), {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
         }
-      }
-    } catch (e) {
-      console.log("Erreur lors de la sélection de source:", e);
-    }
-    
-    return await extractStreamingByNetworkInterception(pageUrl, page);
-  },
-  
-  [STREAMING_SOURCES.FILMAPIK]: async function(pageUrl, page) {
-    // FilmApik nécessite une approche spécifique pour l'extraction
-    await page.waitForSelector('.videoplay, .player-area, #player', { timeout: 10000 });
-    
-    // Attendre le chargement complet du player
-    await page.waitForTimeout(2000);
-    
-    // Recherche dans les scripts pour les URLs de streaming
-    const scriptData = await page.evaluate(() => {
-      const scripts = Array.from(document.querySelectorAll('script'));
-      for (const script of scripts) {
-        if (script.textContent && script.textContent.includes('sources:')) {
-          return script.textContent;
-        }
-      }
-      return null;
-    });
-    
-    if (scriptData) {
-      // Extraction des URLs de streaming depuis le script
-      const urlMatches = scriptData.match(/sources:\s*\[\s*{\s*file:\s*['"]([^'"]+)['"]/i);
-      if (urlMatches && urlMatches[1]) {
-        return { streamingUrl: urlMatches[1], headers: {} };
-      }
-    }
-    
-    // Méthode par défaut si l'extraction spécifique échoue
-    return await extractStreamingByNetworkInterception(pageUrl, page);
-  },
-  
-  [STREAMING_SOURCES.BOLLYSTREAM]: async function(pageUrl, page) {
-    // BollyStream requiert une analyse spécifique
-    await page.waitForSelector('.player-embed, .bollywood-player, #player-frame', { timeout: 10000 });
-    
-    // Observer le trafic réseau pour capturer les requêtes m3u8/mp4
-    const streamingUrl = await extractStreamingByNetworkInterception(pageUrl, page);
-    if (streamingUrl) return streamingUrl;
-    
-    // Méthode alternative: extraction depuis les iframes
-    const iframeSources = await page.evaluate(() => {
-      const iframes = Array.from(document.querySelectorAll('iframe'));
-      return iframes.map(iframe => iframe.src).filter(src => src && (
-        src.includes('.mp4') || 
-        src.includes('.m3u8') || 
-        src.includes('embed') || 
-        src.includes('player')
-      ));
-    });
-    
-    // Traitement des URLs d'iframe pour extraction
-    if (iframeSources && iframeSources.length > 0) {
-      // Analyser la première iframe
-      await page.goto(iframeSources[0], { waitUntil: 'networkidle2' });
-      return await extractStreamingByNetworkInterception(iframeSources[0], page);
-    }
-    
-    return null;
-  },
-  
-  [STREAMING_SOURCES.STREAMINGDIVX]: async function(pageUrl, page) {
-    // StreamingDivx utilise souvent des lecteurs intégrés
-    await page.waitForSelector('.film-list, .film-item, .player-area, .video-player, #player', { timeout: 10000 });
-    
-    // Attente du chargement du lecteur
-    await page.waitForTimeout(3000);
-    
-    // Vérifier les sources vidéo directes
-    const videoSources = await page.evaluate(() => {
-      const videos = Array.from(document.querySelectorAll('video source'));
-      if (videos.length > 0) {
-        return videos.map(v => v.src).filter(s => s);
-      }
-      return null;
-    });
-    
-    if (videoSources && videoSources.length > 0) {
-      return { streamingUrl: videoSources[0], headers: {} };
-    }
-    
-    // Analyse des iframes pour trouver les lecteurs
-    const iframeSources = await page.evaluate(() => {
-      return Array.from(document.querySelectorAll('iframe'))
-        .map(iframe => iframe.src)
-        .filter(src => src);
-    });
-    
-    if (iframeSources && iframeSources.length > 0) {
-      await page.goto(iframeSources[0], { waitUntil: 'networkidle2' });
-      return await extractStreamingByNetworkInterception(iframeSources[0], page);
-    }
-    
-    return await extractStreamingByNetworkInterception(pageUrl, page);
-  },
-  
-  [STREAMING_SOURCES.FILMCOMPLET]: async function(pageUrl, page) {
-    // FilmComplet a une structure similaire à VostFree
-    await page.waitForSelector('.movies-list, .ml-item, .player-area, .video-player, #player', { timeout: 10000 });
-    
-    // Recherche de lecteurs spécifiques
-    const playerButtons = await page.evaluate(() => {
-      const buttons = Array.from(document.querySelectorAll('.player-button, .btn-play, .play-btn'));
-      return buttons.map(btn => {
-        return { id: btn.id, class: btn.className, text: btn.textContent };
       });
-    });
-    
-    // Cliquer sur les boutons du lecteur si présents
-    if (playerButtons && playerButtons.length > 0) {
-      for (const btn of playerButtons) {
-        try {
-          if (btn.id) {
-            await page.click(`#${btn.id}`);
-          } else if (btn.class) {
-            await page.click(`.${btn.class.split(' ')[0]}`);
-          }
-          await page.waitForTimeout(2000);
-        } catch (e) {
-          console.log(`Erreur lors du clic sur le bouton: ${e.message}`);
+    }
+
+    // Endpoint pour les médias (/media/:id)
+    if (path.startsWith('/media/')) {
+      const parts = path.split('/');
+      if (parts.length < 3) {
+        return errorResponse('ID média manquant', 400);
+      }
+
+      const mediaId = parts[2];
+      const mediaType = params.get('type') || 'default';
+      const directAccess = params.get('direct') === 'true';
+
+      return await handleMediaRequest(mediaId, mediaType, directAccess, env);
+    }
+
+    // Endpoint pour les images optimisées (/:sizeParam/:imageId)
+    // Correspond au format préconisé: https://images.flodrama.com/${sizeParam}/${imageId}
+    const sizeRegex = /\/(w\d+|original)\/(poster|backdrop|thumbnail)_[a-f0-9]+/;
+    if (sizeRegex.test(path)) {
+      const parts = path.split('/');
+      if (parts.length < 3) {
+        return errorResponse('Format d\'URL invalide. Utiliser /:size/:id', 400);
+      }
+
+      const size = parts[1]; // w200, w500, w1000, original
+      const imageId = parts[2]; // poster_abc123, backdrop_def456, etc.
+      
+      return await handleImageRequest(imageId, size, env);
+    }
+
+    // Endpoint pour le proxy de streaming (/stream/:contentId)
+    if (path.startsWith('/stream/')) {
+      const contentId = path.split('/').pop();
+      if (!contentId) {
+        return errorResponse('ID de contenu manquant', 400);
+      }
+      return await handleStreamingProxy(contentId, env);
+    }
+
+    // Endpoint pour l'extraction de médias (/extract?url=...)
+    if (path === '/extract') {
+      const sourceUrl = params.get('url');
+      if (!sourceUrl) {
+        return errorResponse('URL source manquante', 400);
+      }
+      
+      const startTime = Date.now();
+      const operationId = crypto.randomUUID();
+      await recordOperationStart(operationId, 'extract', sourceUrl, env);
+      
+      try {
+        let result;
+        
+        // Vérifier le cache avant extraction
+        const cacheKey = `extract:${sourceUrl}`;
+        const cachedResult = await env.FLODRAMA_METADATA?.get(cacheKey, { type: 'json' });
+        
+        if (cachedResult) {
+          await updateContentMetrics(sourceUrl, env, false);
+          await recordOperationEnd(operationId, 'extract', sourceUrl, startTime, true, env);
+          return new Response(JSON.stringify(cachedResult), {
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+              'X-Cache': 'HIT'
+            }
+          });
         }
+        
+        // Déterminer le type de source
+        if (sourceUrl.includes('vostfree')) {
+          result = await extractVostfree(sourceUrl);
+        } else if (sourceUrl.includes('dramacool')) {
+          result = await extractDramacool(sourceUrl);
+        } else if (sourceUrl.includes('gogoanime')) {
+          result = await extractGogoanime(sourceUrl);
+        } else if (sourceUrl.includes('voirdrama')) {
+          result = await extractVoirdrama(sourceUrl);
+        } else if (sourceUrl.includes('myasiantv') || sourceUrl.includes('viewasian')) {
+          result = await extractMyAsianTV(sourceUrl);
+        } else {
+          result = await extractGeneric(sourceUrl);
+        }
+        
+        if (!result) {
+          throw new Error('Échec de l\'extraction');
+        }
+        
+        // Mettre en cache le résultat
+        const ttl = new AdaptiveCacheStrategy().getTtl(sourceUrl, env, false);
+        await env.FLODRAMA_METADATA?.put(cacheKey, JSON.stringify(result), {
+          expirationTtl: ttl
+        });
+        
+        await updateContentMetrics(sourceUrl, env, false);
+        await recordOperationEnd(operationId, 'extract', sourceUrl, startTime, false, env);
+        
+        return new Response(JSON.stringify(result), {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'X-Cache': 'MISS'
+          }
+        });
+      } catch (error) {
+        console.error(`Erreur lors de l'extraction depuis ${sourceUrl}:`, error);
+        await incrementErrorCount(sourceUrl, env);
+        await recordOperationEnd(operationId, 'extract', sourceUrl, startTime, false, env, error.message);
+        return errorResponse(`Échec de l'extraction: ${error.message}`, 500);
       }
     }
     
-    // Capturer les URLs via le trafic réseau
-    return await extractStreamingByNetworkInterception(pageUrl, page);
+    // Route par défaut
+    return new Response('FloDrama Media Gateway - Endpoint non reconnu', {
+      status: 404,
+      headers: {
+        'Content-Type': 'text/plain',
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
   }
 };
 
 /**
- * Extrait une URL de streaming en interceptant le trafic réseau
- * Méthode générique utilisée par défaut
+ * Gère les requêtes CORS OPTIONS
  */
-async function extractStreamingByNetworkInterception(pageUrl, page) {
-  // Garder une trace des URLs de streaming détectées
-  const streamingUrls = [];
-  
-  // Intercepter le trafic réseau pour capturer les URLs de streaming
-  await Promise.race([
-    page.waitForRequest(request => {
-      const url = request.url();
-      
-      // Vérifier si l'URL correspond à un format de streaming
-      const isStreamingUrl = url.includes('.m3u8') || 
-                             url.includes('.mp4') || 
-                             url.includes('/master.') ||
-                             url.includes('/hls/') ||
-                             url.includes('/manifest') ||
-                             url.includes('/playlist');
-      
-      if (isStreamingUrl) {
-        streamingUrls.push(url);
-        return true;
-      }
-      return false;
-    }, { timeout: 10000 }).catch(() => {}),
-    
-    // Si aucune requête n'est détectée, attendre un peu
-    page.waitForTimeout(10000)
-  ]);
-  
-  // Si aucune URL n'est détectée via les requêtes, chercher dans le HTML/JS
-  if (streamingUrls.length === 0) {
-    // Chercher des URLs de streaming dans la page
-    const pageUrls = await page.evaluate(() => {
-      // Chercher dans les éléments vidéo
-      const videoSources = Array.from(document.querySelectorAll('video source'))
-        .map(source => source.src)
-        .filter(src => src && (src.includes('.mp4') || src.includes('.m3u8')));
-      
-      if (videoSources.length > 0) return videoSources;
-      
-      // Chercher dans les iframes
-      const iframes = Array.from(document.querySelectorAll('iframe'))
-        .map(iframe => iframe.src)
-        .filter(src => src);
-      
-      // Chercher dans les scripts
-      const scripts = Array.from(document.querySelectorAll('script'));
-      const scriptUrls = [];
-      
-      for (const script of scripts) {
-        if (!script.textContent) continue;
-        
-        // Expressions régulières pour trouver des URLs de streaming
-        const patterns = [
-          /file["']?\s*:\s*["']([^"']+\.(?:m3u8|mp4))["']/i,
-          /source["']?\s*:\s*["']([^"']+\.(?:m3u8|mp4))["']/i,
-          /src["']?\s*:\s*["']([^"']+\.(?:m3u8|mp4))["']/i,
-          /url["']?\s*:\s*["']([^"']+\.(?:m3u8|mp4))["']/i
-        ];
-        
-        for (const pattern of patterns) {
-          const match = script.textContent.match(pattern);
-          if (match && match[1]) {
-            scriptUrls.push(match[1]);
-          }
-        }
-      }
-      
-      return [...videoSources, ...iframes, ...scriptUrls];
-    });
-    
-    if (pageUrls && pageUrls.length > 0) {
-      streamingUrls.push(...pageUrls);
+function handleCorsOptions() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Max-Age': '86400'
     }
-  }
-  
-  // Explorer les iframes si aucune URL n'est trouvée
-  if (streamingUrls.length === 0) {
-    const iframeSrcs = await page.evaluate(() => {
-      return Array.from(document.querySelectorAll('iframe'))
-        .map(iframe => iframe.src)
-        .filter(src => src);
-    });
-    
-    for (const iframeSrc of iframeSrcs) {
-      try {
-        // Ouvrir l'iframe dans un nouvel onglet
-        const iframePage = await page.context().newPage();
-        await iframePage.goto(iframeSrc, { waitUntil: 'domcontentloaded', timeout: 10000 });
-        
-        // Extraire les URLs de streaming de l'iframe
-        const streamingUrl = await extractStreamingByNetworkInterception(iframeSrc, iframePage);
-        
-        await iframePage.close();
-        
-        if (streamingUrl) {
-          return streamingUrl;
-        }
-      } catch (e) {
-        console.log(`Erreur lors de l'extraction depuis l'iframe ${iframeSrc}:`, e);
-      }
-    }
-  }
-  
-  // Retourner la première URL de streaming trouvée
-  if (streamingUrls.length > 0) {
-    return { streamingUrl: streamingUrls[0], headers: {} };
-  }
-  
-  return null;
+  });
 }
 
-// Gestionnaire principal pour les requêtes
-async function handleRequest(request, env) {
-  const url = new URL(request.url);
-  const path = url.pathname;
-  
-  // Gérer les requêtes OPTIONS pour CORS
-  if (request.method === 'OPTIONS') {
-    return handleCorsOptions();
+/**
+ * Extrait des médias depuis Vostfree
+ */
+async function extractVostfree(url) {
+  try {
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Échec de la requête: ${response.status}`);
+    }
+    
+    const html = await response.text();
+    // Code d'extraction basé sur le sélecteur spécifique à Vostfree
+    // Extrait les liens de lecture des iframes ou des players
+    const mediaUrls = extractMediaUrlsFromHtml(html, 'vostfree');
+    
+    return {
+      title: extractTitle(html),
+      source: 'vostfree',
+      streams: mediaUrls,
+      timestamp: Date.now()
+    };
+  } catch (error) {
+    console.error('Erreur extraction Vostfree:', error);
+    throw error;
   }
+}
+
+/**
+ * Extrait des médias depuis Dramacool
+ */
+async function extractDramacool(url) {
+  try {
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Échec de la requête: ${response.status}`);
+    }
+    
+    const html = await response.text();
+    // Code d'extraction basé sur le sélecteur spécifique à Dramacool
+    // Extrait les liens de lecture des iframes ou des players
+    const mediaUrls = extractMediaUrlsFromHtml(html, 'dramacool');
+    
+    return {
+      title: extractTitle(html),
+      source: 'dramacool',
+      streams: mediaUrls,
+      timestamp: Date.now()
+    };
+  } catch (error) {
+    console.error('Erreur extraction Dramacool:', error);
+    throw error;
+  }
+}
+
+/**
+ * Extrait des médias depuis Gogoanime
+ */
+async function extractGogoanime(url) {
+  try {
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Échec de la requête: ${response.status}`);
+    }
+    
+    const html = await response.text();
+    // Code d'extraction basé sur le sélecteur spécifique à Gogoanime
+    // Extrait les liens de lecture des iframes ou des players
+    const mediaUrls = extractMediaUrlsFromHtml(html, 'gogoanime');
+    
+    return {
+      title: extractTitle(html),
+      source: 'gogoanime',
+      streams: mediaUrls,
+      timestamp: Date.now()
+    };
+  } catch (error) {
+    console.error('Erreur extraction Gogoanime:', error);
+    throw error;
+  }
+}
+
+/**
+ * Extrait des médias depuis Voirdrama
+ */
+async function extractVoirdrama(url) {
+  try {
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Échec de la requête: ${response.status}`);
+    }
+    
+    const html = await response.text();
+    // Code d'extraction basé sur le sélecteur spécifique à Voirdrama
+    // Extrait les liens de lecture des iframes ou des players
+    const mediaUrls = extractMediaUrlsFromHtml(html, 'voirdrama');
+    
+    return {
+      title: extractTitle(html),
+      source: 'voirdrama',
+      streams: mediaUrls,
+      timestamp: Date.now()
+    };
+  } catch (error) {
+    console.error('Erreur extraction Voirdrama:', error);
+    throw error;
+  }
+}
+
+/**
+ * Extrait des médias depuis MyAsianTV/ViewAsian
+ */
+async function extractMyAsianTV(url) {
+  try {
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Échec de la requête: ${response.status}`);
+    }
+    
+    const html = await response.text();
+    // Déterminer la source exacte
+    const source = url.includes('myasiantv') ? 'myasiantv' : 'viewasian';
+    // Code d'extraction basé sur le sélecteur spécifique
+    const mediaUrls = extractMediaUrlsFromHtml(html, source);
+    
+    return {
+      title: extractTitle(html),
+      source: source,
+      streams: mediaUrls,
+      timestamp: Date.now()
+    };
+  } catch (error) {
+    console.error('Erreur extraction MyAsianTV/ViewAsian:', error);
+    throw error;
+  }
+}
+
+/**
+ * Extrait des médias depuis n'importe quelle source non spécifique
+ */
+async function extractGeneric(url) {
+  try {
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Échec de la requête: ${response.status}`);
+    }
+    
+    const html = await response.text();
+    // Extraction générique pour les sources inconnues
+    const mediaUrls = extractMediaUrlsFromHtml(html, 'generic');
+    
+    return {
+      title: extractTitle(html),
+      source: 'generic',
+      streams: mediaUrls,
+      timestamp: Date.now()
+    };
+  } catch (error) {
+    console.error('Erreur extraction générique:', error);
+    throw error;
+  }
+}
+
+/**
+ * Extrait les URLs de médias à partir du HTML selon la source
+ */
+function extractMediaUrlsFromHtml(html, source) {
+  const mediaUrls = [];
   
-  // Endpoint pour vérifier le statut du service
-  if (path === '/status') {
+  try {
+    // Extraction basée sur les patterns d'iframe et autres méthodes d'inclusion
+    const iframeRegex = /<iframe[^>]*src=["']([^"']*)["'][^>]*>/gi;
+    const playerRegex = /source[^>]*src=["']([^"']*)["'][^>]*/gi;
+    const m3u8Regex = /["'](https?:\/\/[^"']*\.m3u8[^"']*)["']/gi;
+    const mp4Regex = /["'](https?:\/\/[^"']*\.mp4[^"']*)["']/gi;
+    
+    // Extraire URLs d'iframes
+    let match;
+    while ((match = iframeRegex.exec(html)) !== null) {
+      if (match[1] && !mediaUrls.includes(match[1])) {
+        mediaUrls.push(match[1]);
+      }
+    }
+    
+    // Extraire URLs de players
+    while ((match = playerRegex.exec(html)) !== null) {
+      if (match[1] && !mediaUrls.includes(match[1])) {
+        mediaUrls.push(match[1]);
+      }
+    }
+    
+    // Extraire URLs de M3U8
+    while ((match = m3u8Regex.exec(html)) !== null) {
+      if (match[1] && !mediaUrls.includes(match[1])) {
+        mediaUrls.push(match[1]);
+      }
+    }
+    
+    // Extraire URLs de MP4
+    while ((match = mp4Regex.exec(html)) !== null) {
+      if (match[1] && !mediaUrls.includes(match[1])) {
+        mediaUrls.push(match[1]);
+      }
+    }
+    
+    // Extraction spécifique selon la source
+    switch (source) {
+      case 'vostfree':
+        // Ajouter logique spécifique pour Vostfree si nécessaire
+        break;
+      case 'dramacool':
+        // Ajouter logique spécifique pour Dramacool si nécessaire
+        break;
+      case 'gogoanime':
+        // Ajouter logique spécifique pour Gogoanime si nécessaire
+        break;
+      // etc.
+    }
+    
+    // Si aucun média trouvé, ajouter une URL placeholder ou d'erreur
+    if (mediaUrls.length === 0) {
+      mediaUrls.push({
+        url: 'extraction_failed',
+        quality: 'unknown',
+        language: 'unknown'
+      });
+    }
+    
+    return mediaUrls;
+  } catch (error) {
+    console.error(`Erreur lors de l'extraction d'URLs pour ${source}:`, error);
+    return [{
+      url: 'extraction_error',
+      quality: 'unknown',
+      language: 'unknown',
+      error: error.message
+    }];
+  }
+}
+
+/**
+ * Extrait le titre de la page
+ */
+function extractTitle(html) {
+  try {
+    const titleRegex = /<title[^>]*>([^<]*)<\/title>/i;
+    const match = html.match(titleRegex);
+    if (match && match[1]) {
+      return match[1].trim();
+    }
+    return 'Titre non disponible';
+  } catch (error) {
+    console.error('Erreur extraction titre:', error);
+    return 'Titre non disponible';
+  }
+}
+
+/**
+ * Gère les requêtes de médias (vidéos, trailers)
+ */
+async function handleMediaRequest(mediaId, mediaType, directAccess, env) {
+  // Vérification et validation du média dans la base KV
+  try {
+    // Si accès direct demandé, rediriger vers l'URL Cloudflare Stream
+    if (directAccess) {
+      return Response.redirect(`https://${SERVICES.STREAM}/${mediaId}/watch`, 302);
+    }
+
+    // Sinon renvoyer les métadonnées du média via l'API
+    // Pour un frontend, cela permet de vérifier si le média existe avant de l'afficher
     return new Response(JSON.stringify({
-      status: 'ok',
-      message: 'FloDrama Media Gateway is running',
-      version: '2.0',
-      timestamp: new Date().toISOString()
+      status: 'success',
+      mediaId: mediaId,
+      type: mediaType,
+      streamUrl: `https://${SERVICES.STREAM}/${mediaId}/watch`,
+      thumbnailUrl: `https://${SERVICES.STREAM}/${mediaId}/thumbnails/thumbnail.jpg`
     }), {
-      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Cache-Control': 'public, max-age=3600'
+      }
+    });
+  } catch (error) {
+    // En cas d'erreur, renvoyer une URL de fallback
+    return new Response(JSON.stringify({
+      status: 'error',
+      message: `Média non disponible: ${error.message}`,
+      fallbackUrl: DEFAULT_IMAGES[mediaType] || DEFAULT_IMAGES[MEDIA_TYPES.POSTER]
+    }), {
+      status: 404,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       }
     });
   }
-  
-  // Endpoint pour l'extraction à la demande depuis une URL de lecteur
-  if (path.startsWith('/extract/')) {
-    const encodedUrl = path.replace('/extract/', '');
-    if (!encodedUrl) {
-      return errorResponse('URL de lecture manquante', 400);
-    }
-    
-    try {
-      const sourceUrl = decodeURIComponent(encodedUrl);
-      return await handleDirectExtraction(sourceUrl, env);
-    } catch (error) {
-      return errorResponse(`Erreur de décodage d'URL: ${error.message}`, 400);
-    }
-  }
-  
-  // Endpoint pour servir des flux de streaming via notre passerelle
-  if (path.startsWith('/stream/')) {
-    const contentId = path.replace('/stream/', '');
-    if (!contentId) {
-      return errorResponse('ID de contenu manquant', 400);
-    }
-    
-    return await handleStreamingRequest(contentId, env);
-  }
-  
-  // Endpoint pour servir des images
-  if (path.startsWith('/image/')) {
-    const imageId = path.replace('/image/', '');
-    if (!imageId) {
-      return errorResponse('ID d\'image manquant', 400);
-    }
-    
-    return await handleImageRequest(imageId, request, env);
-  }
-  
-  // Requête non reconnue
-  return errorResponse('Endpoint non reconnu', 404);
 }
 
 /**
- * Gère les requêtes de streaming et procède à l'extraction si nécessaire
+ * Gère les requêtes d'images optimisées
  */
-async function handleStreamingRequest(contentId, env) {
+async function handleImageRequest(imageId, requestedSize, env) {
   try {
-    // Décomposer l'ID du contenu pour obtenir la source et l'identifiant
-    const [source, id] = contentId.split('_');
+    // Extraire le type d'image à partir de l'ID (poster, backdrop, thumbnail)
+    const imageType = imageId.split('_')[0] || MEDIA_TYPES.POSTER;
     
-    if (!source || !id || !Object.values(STREAMING_SOURCES).includes(source)) {
-      return errorResponse('ID de contenu invalide', 400);
-    }
+    // Vérifier si l'image existe dans Cloudflare Images
+    // Dans un environnement de production, on interrogerait la KV pour vérifier l'existence
+    const imageMetadataKey = `image:${imageId}`;
+    let imageExists = true;
     
-    // Vérifier si nous avons déjà l'URL de streaming en cache
-    let streamingInfo = null;
-    if (env.FLODRAMA_METADATA) {
-      const cachedInfo = await env.FLODRAMA_METADATA.get(`stream:${contentId}`, { type: 'json' });
-      if (cachedInfo && !isStreamExpired(cachedInfo)) {
-        streamingInfo = cachedInfo;
-      }
-    }
-    
-    // Si nous n'avons pas l'URL en cache ou si elle est expirée, 
-    // nous devrions la régénérer via scraping
-    if (!streamingInfo) {
-      // Récupérer l'URL source
-      let sourceUrl = null;
+    // Tenter de récupérer les métadonnées de l'image depuis KV (si disponible)
+    try {
       if (env.FLODRAMA_METADATA) {
-        const sourceInfo = await env.FLODRAMA_METADATA.get(`source:${contentId}`, { type: 'json' });
-        if (sourceInfo && sourceInfo.page_url) {
-          sourceUrl = sourceInfo.page_url;
+        const metadata = await env.FLODRAMA_METADATA.get(imageMetadataKey);
+        if (!metadata) {
+          console.warn(`Image metadata not found for ${imageId}`);
+          imageExists = false;
         }
       }
-      
-      if (!sourceUrl) {
-        return errorResponse('Source introuvable pour cet ID de contenu', 404);
-      }
-      
-      // Dans un environnement réel, ici on déclencherait l'extraction
-      // via un service de scraping (Puppeteer/Playwright)
-      
-      // Simulation d'une réponse d'extraction réussie
-      streamingInfo = {
-        streaming_url: "https://example.com/simulation/stream.m3u8", // Simulation
-        source: source,
-        page_url: sourceUrl,
-        content_id: contentId,
-        extracted_at: new Date().toISOString(),
-        expires_at: new Date(Date.now() + 6 * 3600 * 1000).toISOString() // 6 heures
-      };
-      
-      // Sauvegarder les nouvelles informations en cache
-      if (env.FLODRAMA_METADATA) {
-        await env.FLODRAMA_METADATA.put(
-          `stream:${contentId}`,
-          JSON.stringify(streamingInfo),
-          { expirationTtl: 21600 } // 6 heures
-        );
-      }
+    } catch (kvError) {
+      console.error(`KV error for ${imageId}:`, kvError);
+      // Continuer le traitement même en cas d'erreur KV
     }
     
-    // Générer les en-têtes pour la requête de streaming
-    const streamingHeaders = generateStreamingHeaders(source);
+    // Si l'image existe, construire l'URL de service
+    if (imageExists) {
+      // Construction de l'URL de redirection vers le service d'images
+      // Format exact tel que défini dans le guide de scraping: /${sizeParam}/${imageId}
+      const redirectUrl = `https://${SERVICES.IMAGES}/${requestedSize}/${imageId}`;
+      
+      // Ajouter des en-têtes pour le cache et CORS
+      return new Response(null, {
+        status: 302,
+        headers: {
+          'Location': redirectUrl,
+          'Access-Control-Allow-Origin': '*',
+          'Cache-Control': 'public, max-age=86400',  // Cache 24h
+          'Cloudflare-CDN-Cache-Control': 'max-age=86400'  // Directive pour le CDN
+        }
+      });
+    }
     
-    // Renvoyer l'URL de streaming et les en-têtes nécessaires
+    // Si l'image n'existe pas, renvoyer l'image par défaut correspondant au type
     return new Response(JSON.stringify({
-      status: 'success',
-      streaming_url: streamingInfo.streaming_url,
-      source: source,
-      headers: streamingHeaders,
-      content_id: contentId,
-      expires_at: streamingInfo.expires_at
+      status: 'error',
+      message: `Image ${imageId} non disponible`,
+      fallbackUrl: DEFAULT_IMAGES[imageType] || DEFAULT_IMAGES[MEDIA_TYPES.POSTER]
     }), {
-      status: 200,
+      status: 404,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Cache-Control': 'private, max-age=3600' // Cache client d'1 heure
+        'Access-Control-Allow-Origin': '*'
       }
     });
   } catch (error) {
-    console.error(`Erreur lors de la gestion du streaming pour ${contentId}:`, error);
-    return errorResponse(`Erreur de streaming: ${error.message}`, 500);
+    console.error(`Erreur lors du traitement de l'image ${imageId}:`, error);
+    // En cas d'erreur, renvoyer une image par défaut
+    return new Response(JSON.stringify({
+      status: 'error',
+      message: `Erreur de traitement: ${error.message}`,
+      fallbackUrl: DEFAULT_IMAGES[MEDIA_TYPES.POSTER]
+    }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
   }
 }
 
 /**
- * Extrait une URL de streaming directement à partir d'une URL de page
+ * Gère les requêtes de proxy de streaming vidéo
  */
-async function handleDirectExtraction(sourceUrl, env) {
+async function handleStreamingProxy(contentId, env) {
   try {
-    // Déterminer la source à partir de l'URL
-    const source = detectSourceFromUrl(sourceUrl);
+    // Démarrer le monitoring de l'opération
+    const operation = recordOperationStart('handleStreamingProxy');
     
-    if (!source) {
-      return errorResponse('Source non reconnue ou non supportée', 400);
-    }
+    // Récupérer les informations de streaming depuis KV ou D1
+    let streamingInfo = null;
     
-    // Dans un environnement réel, ici on déclencherait l'extraction à la demande
-    // via un service de scraping (avec Puppeteer/Playwright)
-    
-    // Simulation d'une réponse d'extraction réussie
-    const contentId = `${source}_${Date.now().toString(16).slice(-8)}`;
-    const streamingInfo = {
-      streaming_url: "https://example.com/simulation/direct_extract.m3u8", // Simulation
-      source: source,
-      page_url: sourceUrl,
-      content_id: contentId,
-      extracted_at: new Date().toISOString(),
-      expires_at: new Date(Date.now() + 6 * 3600 * 1000).toISOString() // 6 heures
-    };
-    
-    // Dans un environnement réel, sauvegarder en cache
+    // Essayer de récupérer depuis KV si disponible
     if (env.FLODRAMA_METADATA) {
-      // Sauvegarder les informations de streaming
-      await env.FLODRAMA_METADATA.put(
-        `stream:${contentId}`,
-        JSON.stringify(streamingInfo),
-        { expirationTtl: 21600 } // 6 heures
-      );
+      const streamKey = `stream:${contentId}`;
+      const cachedData = await env.FLODRAMA_METADATA.get(streamKey, { type: 'json' });
       
-      // Sauvegarder l'URL source pour référence future
-      await env.FLODRAMA_METADATA.put(
-        `source:${contentId}`,
-        JSON.stringify({
-          page_url: sourceUrl,
-          source: source
-        }),
-        { expirationTtl: 2592000 } // 30 jours
-      );
+      if (cachedData && cachedData.streaming_url) {
+        // Mettre à jour les métriques d'utilisation
+        updateContentMetrics(contentId, env, 'accessed');
+        streamingInfo = cachedData;
+      }
     }
     
-    // Générer les en-têtes pour la requête de streaming
-    const streamingHeaders = generateStreamingHeaders(source);
+    // Si les informations de streaming ne sont pas trouvées ou sont expirées
+    if (!streamingInfo || isStreamExpired(streamingInfo)) {
+      // Vérifier si le contenu est fréquemment problématique
+      const isProblematic = await isProblematicContent(contentId, env);
+      
+      if (isProblematic) {
+        recordOperationEnd(operation, false, 'Contenu fréquemment problématique');
+        return new Response(JSON.stringify({
+          status: 'error',
+          message: 'Ce contenu est temporairement indisponible',
+          fallbackUrl: '/unavailable.mp4',
+          problematic: true
+        }), {
+          status: 503,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Cache-Control': 'no-cache'
+          }
+        });
+      }
+      
+      // Dans un environnement de production, on appellerait un service de scraping à la demande
+      // pour régénérer l'URL de streaming
+      recordOperationEnd(operation, false, 'URL expirée ou non trouvée');
+      return new Response(JSON.stringify({
+        status: 'error',
+        message: 'URL de streaming non disponible ou expirée',
+        fallbackUrl: '/unavailable.mp4',
+        needsRefresh: true
+      }), {
+        status: 404,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        }
+      });
+    }
     
-    // Renvoyer l'URL de streaming et les en-têtes nécessaires
-    return new Response(JSON.stringify({
+    // Générer les en-têtes nécessaires pour la source spécifique
+    const headers = generateStreamingHeaders(streamingInfo.source);
+    
+    // Ajuster la durée du cache en fonction de la popularité
+    const popularity = streamingInfo.popularity || 0;
+    const cacheTtl = getCacheTtl(popularity);
+    
+    // Renvoyer les informations de streaming au client
+    const response = new Response(JSON.stringify({
       status: 'success',
       streaming_url: streamingInfo.streaming_url,
-      source: source,
-      headers: streamingHeaders,
-      content_id: contentId,
-      expires_at: streamingInfo.expires_at
+      source: streamingInfo.source,
+      headers: headers,
+      subtitles: streamingInfo.subtitles || [],
+      referrer_policy: streamingInfo.referrer_policy || 'no-referrer',
+      expires_at: streamingInfo.expires_at,
+      content_type: streamingInfo.content_type || 'application/x-mpegURL',
+      popularity: popularity + 1
     }), {
-      status: 200,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
-        'Cache-Control': 'no-cache' // Ne pas mettre en cache l'extraction directe
+        'Cache-Control': `private, max-age=${cacheTtl}`,
+        'X-Cache-Popularity': String(popularity + 1),
+        'X-Cache-TTL': String(cacheTtl)
       }
     });
+    
+    // Enregistrer la fin réussie de l'opération
+    recordOperationEnd(operation, true);
+    return response;
   } catch (error) {
-    console.error(`Erreur lors de l'extraction directe pour ${sourceUrl}:`, error);
-    return errorResponse(`Erreur d'extraction: ${error.message}`, 500);
-  }
-}
-
-/**
- * Détecte la source de streaming à partir d'une URL
- */
-function detectSourceFromUrl(url) {
-  const hostname = new URL(url).hostname;
-  
-  for (const [source, config] of Object.entries(SOURCE_CONFIG)) {
-    if (config.domains.some(domain => hostname.includes(domain))) {
-      return source;
+    console.error(`Erreur lors du traitement de la requête de streaming ${contentId}:`, error);
+    
+    // Enregistrer l'erreur dans les métriques
+    if (env.FLODRAMA_METRICS) {
+      await incrementErrorCount(contentId, env);
     }
+    
+    return new Response(JSON.stringify({
+      status: 'error',
+      message: `Erreur de traitement: ${error.message}`,
+      fallbackUrl: '/unavailable.mp4'
+    }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
   }
-  
-  return null;
 }
 
 /**
@@ -717,38 +1037,35 @@ function isStreamExpired(streamingInfo) {
  */
 function generateStreamingHeaders(source) {
   // Configuration des en-têtes selon la source
-  const sourceConfig = SOURCE_CONFIG[source];
-  
-  if (!sourceConfig) {
-    return {
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-    };
-  }
-  
-  return {
-    'Referer': sourceConfig.referer || `https://${sourceConfig.domains[0]}/`,
-    'Origin': sourceConfig.referer ? sourceConfig.referer.replace(/\/$/, '') : `https://${sourceConfig.domains[0]}`,
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+  const headersMap = {
+    [STREAMING_SOURCES.DRAMACOOL]: {
+      'Referer': 'https://dramacool.cr/',
+      'Origin': 'https://dramacool.cr'
+    },
+    [STREAMING_SOURCES.VIEWASIAN]: {
+      'Referer': 'https://viewasian.co/',
+      'Origin': 'https://viewasian.co'
+    },
+    [STREAMING_SOURCES.MYASIANTV]: {
+      'Referer': 'https://myasiantv.cc/',
+      'Origin': 'https://myasiantv.cc'
+    },
+    [STREAMING_SOURCES.KISSASIAN]: {
+      'Referer': 'https://kissasian.sh/',
+      'Origin': 'https://kissasian.sh'
+    },
+    [STREAMING_SOURCES.GOGOPLAY]: {
+      'Referer': 'https://gogoplay.io/',
+      'Origin': 'https://gogoplay.io'
+    },
+    [STREAMING_SOURCES.GENERIC]: {}
   };
+  
+  return headersMap[source] || {};
 }
 
 /**
- * Gère les requêtes CORS OPTIONS
- */
-function handleCorsOptions() {
-  return new Response(null, {
-    status: 204,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      'Access-Control-Max-Age': '86400'
-    }
-  });
-}
-
-/**
- * Renvoie une réponse d'erreur formatée
+ * Génère une réponse d'erreur standardisée
  */
 function errorResponse(message, status = 500) {
   return new Response(JSON.stringify({
@@ -762,10 +1079,3 @@ function errorResponse(message, status = 500) {
     }
   });
 }
-
-// Exporter le gestionnaire de requêtes pour Cloudflare Workers
-export default {
-  async fetch(request, env, ctx) {
-    return await handleRequest(request, env);
-  }
-};

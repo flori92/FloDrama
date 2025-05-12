@@ -1,0 +1,6 @@
+{
+  "title_selector": "h1.film-title",
+  "items_selector": ".box",
+  "recommended_wait_selector": "#content",
+  "recommended_main_selector": ".box"
+}

@@ -1,0 +1,1809 @@
+{
+  "source": "otakufr",
+  "timestamp": "2025-05-06T18:05:04.977Z",
+  "count": 200,
+  "data": [
+    {
+      "id": "otakufr_cd6ff63363a2",
+      "title": "Parasite",
+      "source_url": "https://otakufr.com/film/parasite",
+      "poster": "https://via.placeholder.com/300x450.png?text=Parasite",
+      "content_type": "film",
+      "rating": 4.2,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_ea8d1eb33c7a",
+      "title": "Train to Busan",
+      "source_url": "https://otakufr.com/film/train-to-busan",
+      "poster": "https://via.placeholder.com/300x450.png?text=Train%20to%20Busan",
+      "content_type": "film",
+      "rating": 4,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_8486f161ff01",
+      "title": "Oldboy",
+      "source_url": "https://otakufr.com/film/oldboy",
+      "poster": "https://via.placeholder.com/300x450.png?text=Oldboy",
+      "content_type": "film",
+      "rating": 3.8,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_23a14d8125d7",
+      "title": "The Handmaiden",
+      "source_url": "https://otakufr.com/film/the-handmaiden",
+      "poster": "https://via.placeholder.com/300x450.png?text=The%20Handmaiden",
+      "content_type": "film",
+      "rating": 4.5,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_59644e8fc127",
+      "title": "Memories of Murder",
+      "source_url": "https://otakufr.com/film/memories-of-murder",
+      "poster": "https://via.placeholder.com/300x450.png?text=Memories%20of%20Murder",
+      "content_type": "film",
+      "rating": 4,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_b0785fc1ef01",
+      "title": "I Saw the Devil",
+      "source_url": "https://otakufr.com/film/i-saw-the-devil",
+      "poster": "https://via.placeholder.com/300x450.png?text=I%20Saw%20the%20Devil",
+      "content_type": "film",
+      "rating": 4.8,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_33075a6d79f2",
+      "title": "A Tale of Two Sisters",
+      "source_url": "https://otakufr.com/film/a-tale-of-two-sisters",
+      "poster": "https://via.placeholder.com/300x450.png?text=A%20Tale%20of%20Two%20Sister",
+      "content_type": "film",
+      "rating": 4.6,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_f9d006eeb570",
+      "title": "The Wailing",
+      "source_url": "https://otakufr.com/film/the-wailing",
+      "poster": "https://via.placeholder.com/300x450.png?text=The%20Wailing",
+      "content_type": "film",
+      "rating": 4.9,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_d7e6fe392c5a",
+      "title": "The Host",
+      "source_url": "https://otakufr.com/film/the-host",
+      "poster": "https://via.placeholder.com/300x450.png?text=The%20Host",
+      "content_type": "film",
+      "rating": 4.2,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_2971af07f878",
+      "title": "Snowpiercer",
+      "source_url": "https://otakufr.com/film/snowpiercer",
+      "poster": "https://via.placeholder.com/300x450.png?text=Snowpiercer",
+      "content_type": "film",
+      "rating": 3.6,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_9e7161800ef0",
+      "title": "Burning",
+      "source_url": "https://otakufr.com/film/burning",
+      "poster": "https://via.placeholder.com/300x450.png?text=Burning",
+      "content_type": "film",
+      "rating": 4.4,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_05a2b3ee20ce",
+      "title": "The Chaser",
+      "source_url": "https://otakufr.com/film/the-chaser",
+      "poster": "https://via.placeholder.com/300x450.png?text=The%20Chaser",
+      "content_type": "film",
+      "rating": 4.2,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_05186f56a45c",
+      "title": "Mother",
+      "source_url": "https://otakufr.com/film/mother",
+      "poster": "https://via.placeholder.com/300x450.png?text=Mother",
+      "content_type": "film",
+      "rating": 4.8,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_be06b9bd7226",
+      "title": "Joint Security Area",
+      "source_url": "https://otakufr.com/film/joint-security-area",
+      "poster": "https://via.placeholder.com/300x450.png?text=Joint%20Security%20Area",
+      "content_type": "film",
+      "rating": 3.7,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_9648d069027f",
+      "title": "Spring, Summer, Fall, Winter... and Spring",
+      "source_url": "https://otakufr.com/film/spring,-summer,-fall,-winter...-and-spring",
+      "poster": "https://via.placeholder.com/300x450.png?text=Spring%2C%20Summer%2C%20Fall",
+      "content_type": "film",
+      "rating": 4.1,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_91aa0d8bec41",
+      "title": "A Bittersweet Life",
+      "source_url": "https://otakufr.com/film/a-bittersweet-life",
+      "poster": "https://via.placeholder.com/300x450.png?text=A%20Bittersweet%20Life",
+      "content_type": "film",
+      "rating": 4.6,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_d46a27fb149e",
+      "title": "Thirst",
+      "source_url": "https://otakufr.com/film/thirst",
+      "poster": "https://via.placeholder.com/300x450.png?text=Thirst",
+      "content_type": "film",
+      "rating": 4.7,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_ad174504fcb6",
+      "title": "The Man from Nowhere",
+      "source_url": "https://otakufr.com/film/the-man-from-nowhere",
+      "poster": "https://via.placeholder.com/300x450.png?text=The%20Man%20from%20Nowhere",
+      "content_type": "film",
+      "rating": 3.9,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_2eb0009fd821",
+      "title": "New World",
+      "source_url": "https://otakufr.com/film/new-world",
+      "poster": "https://via.placeholder.com/300x450.png?text=New%20World",
+      "content_type": "film",
+      "rating": 4,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_f3b2eba2a9fc",
+      "title": "The Yellow Sea",
+      "source_url": "https://otakufr.com/film/the-yellow-sea",
+      "poster": "https://via.placeholder.com/300x450.png?text=The%20Yellow%20Sea",
+      "content_type": "film",
+      "rating": 4.8,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_c061fee26c66",
+      "title": "The Good, the Bad, the Weird",
+      "source_url": "https://otakufr.com/film/the-good,-the-bad,-the-weird",
+      "poster": "https://via.placeholder.com/300x450.png?text=The%20Good%2C%20the%20Bad%2C%20t",
+      "content_type": "film",
+      "rating": 3.7,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_c662be22b209",
+      "title": "A Taxi Driver",
+      "source_url": "https://otakufr.com/film/a-taxi-driver",
+      "poster": "https://via.placeholder.com/300x450.png?text=A%20Taxi%20Driver",
+      "content_type": "film",
+      "rating": 5,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_bde1371c1b45",
+      "title": "Silenced",
+      "source_url": "https://otakufr.com/film/silenced",
+      "poster": "https://via.placeholder.com/300x450.png?text=Silenced",
+      "content_type": "film",
+      "rating": 4.7,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_27f65537a14a",
+      "title": "The Attorney",
+      "source_url": "https://otakufr.com/film/the-attorney",
+      "poster": "https://via.placeholder.com/300x450.png?text=The%20Attorney",
+      "content_type": "film",
+      "rating": 4.8,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_78a62eeaae05",
+      "title": "Masquerade",
+      "source_url": "https://otakufr.com/film/masquerade",
+      "poster": "https://via.placeholder.com/300x450.png?text=Masquerade",
+      "content_type": "film",
+      "rating": 3.5,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_64f6f8b0fa7c",
+      "title": "Along with the Gods",
+      "source_url": "https://otakufr.com/film/along-with-the-gods",
+      "poster": "https://via.placeholder.com/300x450.png?text=Along%20with%20the%20Gods",
+      "content_type": "film",
+      "rating": 3.7,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_a979f91ce80f",
+      "title": "Extreme Job",
+      "source_url": "https://otakufr.com/film/extreme-job",
+      "poster": "https://via.placeholder.com/300x450.png?text=Extreme%20Job",
+      "content_type": "film",
+      "rating": 4.1,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_fb2c18ad9860",
+      "title": "Veteran",
+      "source_url": "https://otakufr.com/film/veteran",
+      "poster": "https://via.placeholder.com/300x450.png?text=Veteran",
+      "content_type": "film",
+      "rating": 4.3,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_458b1ba9588f",
+      "title": "The Thieves",
+      "source_url": "https://otakufr.com/film/the-thieves",
+      "poster": "https://via.placeholder.com/300x450.png?text=The%20Thieves",
+      "content_type": "film",
+      "rating": 4.3,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_f215d68985a2",
+      "title": "The Pirates",
+      "source_url": "https://otakufr.com/film/the-pirates",
+      "poster": "https://via.placeholder.com/300x450.png?text=The%20Pirates",
+      "content_type": "film",
+      "rating": 4,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_8e4a90029d1d",
+      "title": "Ode to My Father",
+      "source_url": "https://otakufr.com/film/ode-to-my-father",
+      "poster": "https://via.placeholder.com/300x450.png?text=Ode%20to%20My%20Father",
+      "content_type": "film",
+      "rating": 4.1,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_bd939a7312c1",
+      "title": "Miracle in Cell No. 7",
+      "source_url": "https://otakufr.com/film/miracle-in-cell-no.-7",
+      "poster": "https://via.placeholder.com/300x450.png?text=Miracle%20in%20Cell%20No.%20",
+      "content_type": "film",
+      "rating": 3.9,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_5827563edb4f",
+      "title": "Sunny",
+      "source_url": "https://otakufr.com/film/sunny",
+      "poster": "https://via.placeholder.com/300x450.png?text=Sunny",
+      "content_type": "film",
+      "rating": 3.7,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_9af62cd6e3b8",
+      "title": "Miss Granny",
+      "source_url": "https://otakufr.com/film/miss-granny",
+      "poster": "https://via.placeholder.com/300x450.png?text=Miss%20Granny",
+      "content_type": "film",
+      "rating": 5,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_e7e89529305e",
+      "title": "My Sassy Girl",
+      "source_url": "https://otakufr.com/film/my-sassy-girl",
+      "poster": "https://via.placeholder.com/300x450.png?text=My%20Sassy%20Girl",
+      "content_type": "film",
+      "rating": 3.9,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_6300ec4c637d",
+      "title": "The Classic",
+      "source_url": "https://otakufr.com/film/the-classic",
+      "poster": "https://via.placeholder.com/300x450.png?text=The%20Classic",
+      "content_type": "film",
+      "rating": 3.9,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_e060e1d370cd",
+      "title": "Il Mare",
+      "source_url": "https://otakufr.com/film/il-mare",
+      "poster": "https://via.placeholder.com/300x450.png?text=Il%20Mare",
+      "content_type": "film",
+      "rating": 4.1,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_811f69c5a3a9",
+      "title": "A Werewolf Boy",
+      "source_url": "https://otakufr.com/film/a-werewolf-boy",
+      "poster": "https://via.placeholder.com/300x450.png?text=A%20Werewolf%20Boy",
+      "content_type": "film",
+      "rating": 3.8,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_0a7d0d6c8bbd",
+      "title": "Always",
+      "source_url": "https://otakufr.com/film/always",
+      "poster": "https://via.placeholder.com/300x450.png?text=Always",
+      "content_type": "film",
+      "rating": 4.7,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_7bacb103a30f",
+      "title": "Architecture 101",
+      "source_url": "https://otakufr.com/film/architecture-101",
+      "poster": "https://via.placeholder.com/300x450.png?text=Architecture%20101",
+      "content_type": "film",
+      "rating": 4,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_ff6144028afe",
+      "title": "Little Forest",
+      "source_url": "https://otakufr.com/film/little-forest",
+      "poster": "https://via.placeholder.com/300x450.png?text=Little%20Forest",
+      "content_type": "film",
+      "rating": 4.6,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_817632bee44e",
+      "title": "Be With You",
+      "source_url": "https://otakufr.com/film/be-with-you",
+      "poster": "https://via.placeholder.com/300x450.png?text=Be%20With%20You",
+      "content_type": "film",
+      "rating": 4.3,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_920404b4b974",
+      "title": "On Your Wedding Day",
+      "source_url": "https://otakufr.com/film/on-your-wedding-day",
+      "poster": "https://via.placeholder.com/300x450.png?text=On%20Your%20Wedding%20Day",
+      "content_type": "film",
+      "rating": 4.8,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_c47204d10a04",
+      "title": "Tune in for Love",
+      "source_url": "https://otakufr.com/film/tune-in-for-love",
+      "poster": "https://via.placeholder.com/300x450.png?text=Tune%20in%20for%20Love",
+      "content_type": "film",
+      "rating": 4.4,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_ff77761809af",
+      "title": "Midnight Runners",
+      "source_url": "https://otakufr.com/film/midnight-runners",
+      "poster": "https://via.placeholder.com/300x450.png?text=Midnight%20Runners",
+      "content_type": "film",
+      "rating": 3.8,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_b9448569de00",
+      "title": "otakufr Film 46",
+      "source_url": "https://otakufr.com/film/otakufr-film-46",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2046",
+      "content_type": "film",
+      "rating": 4.8,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_5403823e659f",
+      "title": "otakufr Film 47",
+      "source_url": "https://otakufr.com/film/otakufr-film-47",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2047",
+      "content_type": "film",
+      "rating": 4.4,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_4812f55c5cd9",
+      "title": "otakufr Film 48",
+      "source_url": "https://otakufr.com/film/otakufr-film-48",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2048",
+      "content_type": "film",
+      "rating": 4.6,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_c5dad3112fdc",
+      "title": "otakufr Film 49",
+      "source_url": "https://otakufr.com/film/otakufr-film-49",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2049",
+      "content_type": "film",
+      "rating": 3.9,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_c6765c71cf8a",
+      "title": "otakufr Film 50",
+      "source_url": "https://otakufr.com/film/otakufr-film-50",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2050",
+      "content_type": "film",
+      "rating": 4.3,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_2afe5faebbbd",
+      "title": "otakufr Film 51",
+      "source_url": "https://otakufr.com/film/otakufr-film-51",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2051",
+      "content_type": "film",
+      "rating": 4.2,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_07610f4ec6bc",
+      "title": "otakufr Film 52",
+      "source_url": "https://otakufr.com/film/otakufr-film-52",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2052",
+      "content_type": "film",
+      "rating": 4.7,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_b78dd9ee1ebc",
+      "title": "otakufr Film 53",
+      "source_url": "https://otakufr.com/film/otakufr-film-53",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2053",
+      "content_type": "film",
+      "rating": 3.5,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_9ff888f6ceeb",
+      "title": "otakufr Film 54",
+      "source_url": "https://otakufr.com/film/otakufr-film-54",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2054",
+      "content_type": "film",
+      "rating": 3.5,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_0ad2256a2836",
+      "title": "otakufr Film 55",
+      "source_url": "https://otakufr.com/film/otakufr-film-55",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2055",
+      "content_type": "film",
+      "rating": 3.5,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_bea263bcac34",
+      "title": "otakufr Film 56",
+      "source_url": "https://otakufr.com/film/otakufr-film-56",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2056",
+      "content_type": "film",
+      "rating": 3.7,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_2b2988fbc58a",
+      "title": "otakufr Film 57",
+      "source_url": "https://otakufr.com/film/otakufr-film-57",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2057",
+      "content_type": "film",
+      "rating": 3.7,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_9ec249b338b9",
+      "title": "otakufr Film 58",
+      "source_url": "https://otakufr.com/film/otakufr-film-58",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2058",
+      "content_type": "film",
+      "rating": 4.7,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_c8123a26dd85",
+      "title": "otakufr Film 59",
+      "source_url": "https://otakufr.com/film/otakufr-film-59",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2059",
+      "content_type": "film",
+      "rating": 3.7,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_7d29b1a7e33b",
+      "title": "otakufr Film 60",
+      "source_url": "https://otakufr.com/film/otakufr-film-60",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2060",
+      "content_type": "film",
+      "rating": 4.3,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_4465965a0264",
+      "title": "otakufr Film 61",
+      "source_url": "https://otakufr.com/film/otakufr-film-61",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2061",
+      "content_type": "film",
+      "rating": 4.9,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_32d092bddeea",
+      "title": "otakufr Film 62",
+      "source_url": "https://otakufr.com/film/otakufr-film-62",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2062",
+      "content_type": "film",
+      "rating": 4.5,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_2ff40d89d21d",
+      "title": "otakufr Film 63",
+      "source_url": "https://otakufr.com/film/otakufr-film-63",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2063",
+      "content_type": "film",
+      "rating": 4.7,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_d57ededfbcde",
+      "title": "otakufr Film 64",
+      "source_url": "https://otakufr.com/film/otakufr-film-64",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2064",
+      "content_type": "film",
+      "rating": 4.1,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_15696e22df2d",
+      "title": "otakufr Film 65",
+      "source_url": "https://otakufr.com/film/otakufr-film-65",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2065",
+      "content_type": "film",
+      "rating": 3.6,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_9e80eda50519",
+      "title": "otakufr Film 66",
+      "source_url": "https://otakufr.com/film/otakufr-film-66",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2066",
+      "content_type": "film",
+      "rating": 4.4,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_5cc0dd4d2ebd",
+      "title": "otakufr Film 67",
+      "source_url": "https://otakufr.com/film/otakufr-film-67",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2067",
+      "content_type": "film",
+      "rating": 4.5,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_c4da5fb1eb56",
+      "title": "otakufr Film 68",
+      "source_url": "https://otakufr.com/film/otakufr-film-68",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2068",
+      "content_type": "film",
+      "rating": 4,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_9fd58f3da661",
+      "title": "otakufr Film 69",
+      "source_url": "https://otakufr.com/film/otakufr-film-69",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2069",
+      "content_type": "film",
+      "rating": 4.8,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_d76cff49c1dd",
+      "title": "otakufr Film 70",
+      "source_url": "https://otakufr.com/film/otakufr-film-70",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2070",
+      "content_type": "film",
+      "rating": 4.4,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_fa50390ba783",
+      "title": "otakufr Film 71",
+      "source_url": "https://otakufr.com/film/otakufr-film-71",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2071",
+      "content_type": "film",
+      "rating": 4,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_b6fe49a49d82",
+      "title": "otakufr Film 72",
+      "source_url": "https://otakufr.com/film/otakufr-film-72",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2072",
+      "content_type": "film",
+      "rating": 4.3,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_2655aa4184f6",
+      "title": "otakufr Film 73",
+      "source_url": "https://otakufr.com/film/otakufr-film-73",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2073",
+      "content_type": "film",
+      "rating": 4.8,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_f4d8a78885b7",
+      "title": "otakufr Film 74",
+      "source_url": "https://otakufr.com/film/otakufr-film-74",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2074",
+      "content_type": "film",
+      "rating": 3.8,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_c9a37c3bf674",
+      "title": "otakufr Film 75",
+      "source_url": "https://otakufr.com/film/otakufr-film-75",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2075",
+      "content_type": "film",
+      "rating": 4.9,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_0d45cd21efde",
+      "title": "otakufr Film 76",
+      "source_url": "https://otakufr.com/film/otakufr-film-76",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2076",
+      "content_type": "film",
+      "rating": 4.9,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_c9b59e0c2e30",
+      "title": "otakufr Film 77",
+      "source_url": "https://otakufr.com/film/otakufr-film-77",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2077",
+      "content_type": "film",
+      "rating": 4.8,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_6204ffeb69d9",
+      "title": "otakufr Film 78",
+      "source_url": "https://otakufr.com/film/otakufr-film-78",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2078",
+      "content_type": "film",
+      "rating": 3.6,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_ea8bc65b5c25",
+      "title": "otakufr Film 79",
+      "source_url": "https://otakufr.com/film/otakufr-film-79",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2079",
+      "content_type": "film",
+      "rating": 3.9,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_84f969b585c3",
+      "title": "otakufr Film 80",
+      "source_url": "https://otakufr.com/film/otakufr-film-80",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2080",
+      "content_type": "film",
+      "rating": 4.7,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_88946c5fdf07",
+      "title": "otakufr Film 81",
+      "source_url": "https://otakufr.com/film/otakufr-film-81",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2081",
+      "content_type": "film",
+      "rating": 3.5,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_8d90b8a36104",
+      "title": "otakufr Film 82",
+      "source_url": "https://otakufr.com/film/otakufr-film-82",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2082",
+      "content_type": "film",
+      "rating": 4,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_1d44c606d6eb",
+      "title": "otakufr Film 83",
+      "source_url": "https://otakufr.com/film/otakufr-film-83",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2083",
+      "content_type": "film",
+      "rating": 4.7,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_ae8fbcbeeac6",
+      "title": "otakufr Film 84",
+      "source_url": "https://otakufr.com/film/otakufr-film-84",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2084",
+      "content_type": "film",
+      "rating": 4.6,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_c191a35f53aa",
+      "title": "otakufr Film 85",
+      "source_url": "https://otakufr.com/film/otakufr-film-85",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2085",
+      "content_type": "film",
+      "rating": 4,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_79b7f5ca279d",
+      "title": "otakufr Film 86",
+      "source_url": "https://otakufr.com/film/otakufr-film-86",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2086",
+      "content_type": "film",
+      "rating": 4.7,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_e3e0c85e5e79",
+      "title": "otakufr Film 87",
+      "source_url": "https://otakufr.com/film/otakufr-film-87",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2087",
+      "content_type": "film",
+      "rating": 3.9,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_3400209abbdf",
+      "title": "otakufr Film 88",
+      "source_url": "https://otakufr.com/film/otakufr-film-88",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2088",
+      "content_type": "film",
+      "rating": 4.7,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_ac51ab077e8e",
+      "title": "otakufr Film 89",
+      "source_url": "https://otakufr.com/film/otakufr-film-89",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2089",
+      "content_type": "film",
+      "rating": 3.9,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_f715f146a0af",
+      "title": "otakufr Film 90",
+      "source_url": "https://otakufr.com/film/otakufr-film-90",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2090",
+      "content_type": "film",
+      "rating": 4.8,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_d45fb6c5e079",
+      "title": "otakufr Film 91",
+      "source_url": "https://otakufr.com/film/otakufr-film-91",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2091",
+      "content_type": "film",
+      "rating": 4.7,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_b005c832b478",
+      "title": "otakufr Film 92",
+      "source_url": "https://otakufr.com/film/otakufr-film-92",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2092",
+      "content_type": "film",
+      "rating": 4.5,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_ec1b684359e4",
+      "title": "otakufr Film 93",
+      "source_url": "https://otakufr.com/film/otakufr-film-93",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2093",
+      "content_type": "film",
+      "rating": 4.4,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_110555d94c55",
+      "title": "otakufr Film 94",
+      "source_url": "https://otakufr.com/film/otakufr-film-94",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2094",
+      "content_type": "film",
+      "rating": 3.9,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_60ad8c3ba436",
+      "title": "otakufr Film 95",
+      "source_url": "https://otakufr.com/film/otakufr-film-95",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2095",
+      "content_type": "film",
+      "rating": 4.4,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_1fa897a74db1",
+      "title": "otakufr Film 96",
+      "source_url": "https://otakufr.com/film/otakufr-film-96",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2096",
+      "content_type": "film",
+      "rating": 4.8,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_228f9627af77",
+      "title": "otakufr Film 97",
+      "source_url": "https://otakufr.com/film/otakufr-film-97",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2097",
+      "content_type": "film",
+      "rating": 3.6,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_3d84c0818994",
+      "title": "otakufr Film 98",
+      "source_url": "https://otakufr.com/film/otakufr-film-98",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2098",
+      "content_type": "film",
+      "rating": 4.6,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_f2abc61a7165",
+      "title": "otakufr Film 99",
+      "source_url": "https://otakufr.com/film/otakufr-film-99",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%2099",
+      "content_type": "film",
+      "rating": 4.8,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_f4511e6ac081",
+      "title": "otakufr Film 100",
+      "source_url": "https://otakufr.com/film/otakufr-film-100",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20100",
+      "content_type": "film",
+      "rating": 4.7,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_4f51ea4f9112",
+      "title": "otakufr Film 101",
+      "source_url": "https://otakufr.com/film/otakufr-film-101",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20101",
+      "content_type": "film",
+      "rating": 4.1,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_0e0329974ddd",
+      "title": "otakufr Film 102",
+      "source_url": "https://otakufr.com/film/otakufr-film-102",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20102",
+      "content_type": "film",
+      "rating": 3.7,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_343f39f1b74f",
+      "title": "otakufr Film 103",
+      "source_url": "https://otakufr.com/film/otakufr-film-103",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20103",
+      "content_type": "film",
+      "rating": 4.4,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_1302b65a177e",
+      "title": "otakufr Film 104",
+      "source_url": "https://otakufr.com/film/otakufr-film-104",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20104",
+      "content_type": "film",
+      "rating": 4.1,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_1c17d8c7850e",
+      "title": "otakufr Film 105",
+      "source_url": "https://otakufr.com/film/otakufr-film-105",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20105",
+      "content_type": "film",
+      "rating": 4.7,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_dbb41a83b675",
+      "title": "otakufr Film 106",
+      "source_url": "https://otakufr.com/film/otakufr-film-106",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20106",
+      "content_type": "film",
+      "rating": 4.5,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_deaf1da47fb5",
+      "title": "otakufr Film 107",
+      "source_url": "https://otakufr.com/film/otakufr-film-107",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20107",
+      "content_type": "film",
+      "rating": 3.8,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_a6dec1cc4071",
+      "title": "otakufr Film 108",
+      "source_url": "https://otakufr.com/film/otakufr-film-108",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20108",
+      "content_type": "film",
+      "rating": 4.5,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_936eaafd83f4",
+      "title": "otakufr Film 109",
+      "source_url": "https://otakufr.com/film/otakufr-film-109",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20109",
+      "content_type": "film",
+      "rating": 3.6,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_d743df971ecd",
+      "title": "otakufr Film 110",
+      "source_url": "https://otakufr.com/film/otakufr-film-110",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20110",
+      "content_type": "film",
+      "rating": 4.8,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_e3c44f410bda",
+      "title": "otakufr Film 111",
+      "source_url": "https://otakufr.com/film/otakufr-film-111",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20111",
+      "content_type": "film",
+      "rating": 4.6,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_a07164edcfb4",
+      "title": "otakufr Film 112",
+      "source_url": "https://otakufr.com/film/otakufr-film-112",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20112",
+      "content_type": "film",
+      "rating": 3.7,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_3cad6ca21189",
+      "title": "otakufr Film 113",
+      "source_url": "https://otakufr.com/film/otakufr-film-113",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20113",
+      "content_type": "film",
+      "rating": 3.9,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_65b20a963247",
+      "title": "otakufr Film 114",
+      "source_url": "https://otakufr.com/film/otakufr-film-114",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20114",
+      "content_type": "film",
+      "rating": 3.8,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_890136c3f086",
+      "title": "otakufr Film 115",
+      "source_url": "https://otakufr.com/film/otakufr-film-115",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20115",
+      "content_type": "film",
+      "rating": 4.3,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_2f1d23b2217e",
+      "title": "otakufr Film 116",
+      "source_url": "https://otakufr.com/film/otakufr-film-116",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20116",
+      "content_type": "film",
+      "rating": 4.9,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_fb2cbb166d48",
+      "title": "otakufr Film 117",
+      "source_url": "https://otakufr.com/film/otakufr-film-117",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20117",
+      "content_type": "film",
+      "rating": 4.7,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_05bf70ce40a6",
+      "title": "otakufr Film 118",
+      "source_url": "https://otakufr.com/film/otakufr-film-118",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20118",
+      "content_type": "film",
+      "rating": 3.8,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_95c3e2b59949",
+      "title": "otakufr Film 119",
+      "source_url": "https://otakufr.com/film/otakufr-film-119",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20119",
+      "content_type": "film",
+      "rating": 4.8,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_abcafbd1f8fe",
+      "title": "otakufr Film 120",
+      "source_url": "https://otakufr.com/film/otakufr-film-120",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20120",
+      "content_type": "film",
+      "rating": 4.7,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_a67a01b79546",
+      "title": "otakufr Film 121",
+      "source_url": "https://otakufr.com/film/otakufr-film-121",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20121",
+      "content_type": "film",
+      "rating": 3.7,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_7ca611918467",
+      "title": "otakufr Film 122",
+      "source_url": "https://otakufr.com/film/otakufr-film-122",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20122",
+      "content_type": "film",
+      "rating": 4.9,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_9fddc5797911",
+      "title": "otakufr Film 123",
+      "source_url": "https://otakufr.com/film/otakufr-film-123",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20123",
+      "content_type": "film",
+      "rating": 4.8,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_4853c2d285a1",
+      "title": "otakufr Film 124",
+      "source_url": "https://otakufr.com/film/otakufr-film-124",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20124",
+      "content_type": "film",
+      "rating": 4.8,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_bc2787be8c45",
+      "title": "otakufr Film 125",
+      "source_url": "https://otakufr.com/film/otakufr-film-125",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20125",
+      "content_type": "film",
+      "rating": 3.7,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_239c033f9b89",
+      "title": "otakufr Film 126",
+      "source_url": "https://otakufr.com/film/otakufr-film-126",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20126",
+      "content_type": "film",
+      "rating": 4,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_8e833340a96d",
+      "title": "otakufr Film 127",
+      "source_url": "https://otakufr.com/film/otakufr-film-127",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20127",
+      "content_type": "film",
+      "rating": 3.9,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_d066e5e450e9",
+      "title": "otakufr Film 128",
+      "source_url": "https://otakufr.com/film/otakufr-film-128",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20128",
+      "content_type": "film",
+      "rating": 5,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_ae4bf4886948",
+      "title": "otakufr Film 129",
+      "source_url": "https://otakufr.com/film/otakufr-film-129",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20129",
+      "content_type": "film",
+      "rating": 3.7,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_8380e26bf870",
+      "title": "otakufr Film 130",
+      "source_url": "https://otakufr.com/film/otakufr-film-130",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20130",
+      "content_type": "film",
+      "rating": 3.6,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_755527759336",
+      "title": "otakufr Film 131",
+      "source_url": "https://otakufr.com/film/otakufr-film-131",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20131",
+      "content_type": "film",
+      "rating": 4.5,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_3ac149b319cf",
+      "title": "otakufr Film 132",
+      "source_url": "https://otakufr.com/film/otakufr-film-132",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20132",
+      "content_type": "film",
+      "rating": 4.4,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_5b0804830fcb",
+      "title": "otakufr Film 133",
+      "source_url": "https://otakufr.com/film/otakufr-film-133",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20133",
+      "content_type": "film",
+      "rating": 4.8,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_59e781339bd7",
+      "title": "otakufr Film 134",
+      "source_url": "https://otakufr.com/film/otakufr-film-134",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20134",
+      "content_type": "film",
+      "rating": 4.6,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_e26e7e039087",
+      "title": "otakufr Film 135",
+      "source_url": "https://otakufr.com/film/otakufr-film-135",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20135",
+      "content_type": "film",
+      "rating": 3.8,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_cfda2481ab07",
+      "title": "otakufr Film 136",
+      "source_url": "https://otakufr.com/film/otakufr-film-136",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20136",
+      "content_type": "film",
+      "rating": 4.1,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_0ee4870aba2c",
+      "title": "otakufr Film 137",
+      "source_url": "https://otakufr.com/film/otakufr-film-137",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20137",
+      "content_type": "film",
+      "rating": 4.9,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_a8fab76b5a49",
+      "title": "otakufr Film 138",
+      "source_url": "https://otakufr.com/film/otakufr-film-138",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20138",
+      "content_type": "film",
+      "rating": 4.8,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_0e2ea8c39339",
+      "title": "otakufr Film 139",
+      "source_url": "https://otakufr.com/film/otakufr-film-139",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20139",
+      "content_type": "film",
+      "rating": 3.6,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_3c40ff8196f1",
+      "title": "otakufr Film 140",
+      "source_url": "https://otakufr.com/film/otakufr-film-140",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20140",
+      "content_type": "film",
+      "rating": 4.9,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_9d6e19d7d466",
+      "title": "otakufr Film 141",
+      "source_url": "https://otakufr.com/film/otakufr-film-141",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20141",
+      "content_type": "film",
+      "rating": 4,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_957e51a07e6d",
+      "title": "otakufr Film 142",
+      "source_url": "https://otakufr.com/film/otakufr-film-142",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20142",
+      "content_type": "film",
+      "rating": 4,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_eff19464f90c",
+      "title": "otakufr Film 143",
+      "source_url": "https://otakufr.com/film/otakufr-film-143",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20143",
+      "content_type": "film",
+      "rating": 3.5,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_c61a3e1d9d5b",
+      "title": "otakufr Film 144",
+      "source_url": "https://otakufr.com/film/otakufr-film-144",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20144",
+      "content_type": "film",
+      "rating": 4.4,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_bb7ea2b7aade",
+      "title": "otakufr Film 145",
+      "source_url": "https://otakufr.com/film/otakufr-film-145",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20145",
+      "content_type": "film",
+      "rating": 4.4,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_a8c9f06b4daf",
+      "title": "otakufr Film 146",
+      "source_url": "https://otakufr.com/film/otakufr-film-146",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20146",
+      "content_type": "film",
+      "rating": 3.9,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_e685d8a7a73d",
+      "title": "otakufr Film 147",
+      "source_url": "https://otakufr.com/film/otakufr-film-147",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20147",
+      "content_type": "film",
+      "rating": 4.2,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_701a19acdfe0",
+      "title": "otakufr Film 148",
+      "source_url": "https://otakufr.com/film/otakufr-film-148",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20148",
+      "content_type": "film",
+      "rating": 3.6,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_1d7db2d8d2f4",
+      "title": "otakufr Film 149",
+      "source_url": "https://otakufr.com/film/otakufr-film-149",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20149",
+      "content_type": "film",
+      "rating": 3.9,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_0a3559fb673f",
+      "title": "otakufr Film 150",
+      "source_url": "https://otakufr.com/film/otakufr-film-150",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20150",
+      "content_type": "film",
+      "rating": 4.3,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_558820301c00",
+      "title": "otakufr Film 151",
+      "source_url": "https://otakufr.com/film/otakufr-film-151",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20151",
+      "content_type": "film",
+      "rating": 4.9,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_2519a21c9a88",
+      "title": "otakufr Film 152",
+      "source_url": "https://otakufr.com/film/otakufr-film-152",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20152",
+      "content_type": "film",
+      "rating": 4,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_0b0afbdc60ed",
+      "title": "otakufr Film 153",
+      "source_url": "https://otakufr.com/film/otakufr-film-153",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20153",
+      "content_type": "film",
+      "rating": 4.4,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_e82c8b6114f1",
+      "title": "otakufr Film 154",
+      "source_url": "https://otakufr.com/film/otakufr-film-154",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20154",
+      "content_type": "film",
+      "rating": 4.6,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_6cda1d71e778",
+      "title": "otakufr Film 155",
+      "source_url": "https://otakufr.com/film/otakufr-film-155",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20155",
+      "content_type": "film",
+      "rating": 4.9,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_209ab7f6fa21",
+      "title": "otakufr Film 156",
+      "source_url": "https://otakufr.com/film/otakufr-film-156",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20156",
+      "content_type": "film",
+      "rating": 3.9,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_77c150d73702",
+      "title": "otakufr Film 157",
+      "source_url": "https://otakufr.com/film/otakufr-film-157",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20157",
+      "content_type": "film",
+      "rating": 3.7,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_d2f89a52a622",
+      "title": "otakufr Film 158",
+      "source_url": "https://otakufr.com/film/otakufr-film-158",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20158",
+      "content_type": "film",
+      "rating": 4.4,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_e04ea096fd7d",
+      "title": "otakufr Film 159",
+      "source_url": "https://otakufr.com/film/otakufr-film-159",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20159",
+      "content_type": "film",
+      "rating": 4,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_d2de22278797",
+      "title": "otakufr Film 160",
+      "source_url": "https://otakufr.com/film/otakufr-film-160",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20160",
+      "content_type": "film",
+      "rating": 4.6,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_179c01b171ab",
+      "title": "otakufr Film 161",
+      "source_url": "https://otakufr.com/film/otakufr-film-161",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20161",
+      "content_type": "film",
+      "rating": 4.1,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_e765d5d401c9",
+      "title": "otakufr Film 162",
+      "source_url": "https://otakufr.com/film/otakufr-film-162",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20162",
+      "content_type": "film",
+      "rating": 4.5,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_809a71e7ec28",
+      "title": "otakufr Film 163",
+      "source_url": "https://otakufr.com/film/otakufr-film-163",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20163",
+      "content_type": "film",
+      "rating": 4.3,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_ba07fa38eea9",
+      "title": "otakufr Film 164",
+      "source_url": "https://otakufr.com/film/otakufr-film-164",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20164",
+      "content_type": "film",
+      "rating": 4,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_d0b613cbc959",
+      "title": "otakufr Film 165",
+      "source_url": "https://otakufr.com/film/otakufr-film-165",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20165",
+      "content_type": "film",
+      "rating": 4.9,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_1611a92dbc11",
+      "title": "otakufr Film 166",
+      "source_url": "https://otakufr.com/film/otakufr-film-166",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20166",
+      "content_type": "film",
+      "rating": 3.5,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_6d702948b339",
+      "title": "otakufr Film 167",
+      "source_url": "https://otakufr.com/film/otakufr-film-167",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20167",
+      "content_type": "film",
+      "rating": 3.9,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_9b777f1fdaf9",
+      "title": "otakufr Film 168",
+      "source_url": "https://otakufr.com/film/otakufr-film-168",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20168",
+      "content_type": "film",
+      "rating": 3.7,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_abbcb627bf24",
+      "title": "otakufr Film 169",
+      "source_url": "https://otakufr.com/film/otakufr-film-169",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20169",
+      "content_type": "film",
+      "rating": 4,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_0e0a218c5f71",
+      "title": "otakufr Film 170",
+      "source_url": "https://otakufr.com/film/otakufr-film-170",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20170",
+      "content_type": "film",
+      "rating": 4.5,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_302185b78f4c",
+      "title": "otakufr Film 171",
+      "source_url": "https://otakufr.com/film/otakufr-film-171",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20171",
+      "content_type": "film",
+      "rating": 3.6,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_78d1c5564982",
+      "title": "otakufr Film 172",
+      "source_url": "https://otakufr.com/film/otakufr-film-172",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20172",
+      "content_type": "film",
+      "rating": 4.8,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_bde7af93e896",
+      "title": "otakufr Film 173",
+      "source_url": "https://otakufr.com/film/otakufr-film-173",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20173",
+      "content_type": "film",
+      "rating": 4.9,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_c4545d8ed130",
+      "title": "otakufr Film 174",
+      "source_url": "https://otakufr.com/film/otakufr-film-174",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20174",
+      "content_type": "film",
+      "rating": 3.6,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_d6b19b0a483d",
+      "title": "otakufr Film 175",
+      "source_url": "https://otakufr.com/film/otakufr-film-175",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20175",
+      "content_type": "film",
+      "rating": 3.8,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_4bd91532e969",
+      "title": "otakufr Film 176",
+      "source_url": "https://otakufr.com/film/otakufr-film-176",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20176",
+      "content_type": "film",
+      "rating": 4.7,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_463d25ae6512",
+      "title": "otakufr Film 177",
+      "source_url": "https://otakufr.com/film/otakufr-film-177",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20177",
+      "content_type": "film",
+      "rating": 4.4,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_4532f6a1a368",
+      "title": "otakufr Film 178",
+      "source_url": "https://otakufr.com/film/otakufr-film-178",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20178",
+      "content_type": "film",
+      "rating": 4.3,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_1345fbd4cfe9",
+      "title": "otakufr Film 179",
+      "source_url": "https://otakufr.com/film/otakufr-film-179",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20179",
+      "content_type": "film",
+      "rating": 4.1,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_eb96d0a8c36e",
+      "title": "otakufr Film 180",
+      "source_url": "https://otakufr.com/film/otakufr-film-180",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20180",
+      "content_type": "film",
+      "rating": 4.1,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_c5035c36d9c3",
+      "title": "otakufr Film 181",
+      "source_url": "https://otakufr.com/film/otakufr-film-181",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20181",
+      "content_type": "film",
+      "rating": 4.9,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_104fc8f11ac0",
+      "title": "otakufr Film 182",
+      "source_url": "https://otakufr.com/film/otakufr-film-182",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20182",
+      "content_type": "film",
+      "rating": 4.2,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_bf8d71a725aa",
+      "title": "otakufr Film 183",
+      "source_url": "https://otakufr.com/film/otakufr-film-183",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20183",
+      "content_type": "film",
+      "rating": 3.8,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_01a356adda36",
+      "title": "otakufr Film 184",
+      "source_url": "https://otakufr.com/film/otakufr-film-184",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20184",
+      "content_type": "film",
+      "rating": 4.6,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_b9740dc4b1e4",
+      "title": "otakufr Film 185",
+      "source_url": "https://otakufr.com/film/otakufr-film-185",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20185",
+      "content_type": "film",
+      "rating": 5,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_7c58422dce28",
+      "title": "otakufr Film 186",
+      "source_url": "https://otakufr.com/film/otakufr-film-186",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20186",
+      "content_type": "film",
+      "rating": 3.6,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_b4217cc53877",
+      "title": "otakufr Film 187",
+      "source_url": "https://otakufr.com/film/otakufr-film-187",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20187",
+      "content_type": "film",
+      "rating": 3.6,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_52489c450ad8",
+      "title": "otakufr Film 188",
+      "source_url": "https://otakufr.com/film/otakufr-film-188",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20188",
+      "content_type": "film",
+      "rating": 4.3,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_ccbcd837b634",
+      "title": "otakufr Film 189",
+      "source_url": "https://otakufr.com/film/otakufr-film-189",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20189",
+      "content_type": "film",
+      "rating": 4.1,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_d03dac795cac",
+      "title": "otakufr Film 190",
+      "source_url": "https://otakufr.com/film/otakufr-film-190",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20190",
+      "content_type": "film",
+      "rating": 3.8,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_6e2c61c91bbc",
+      "title": "otakufr Film 191",
+      "source_url": "https://otakufr.com/film/otakufr-film-191",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20191",
+      "content_type": "film",
+      "rating": 3.8,
+      "year": 2024
+    },
+    {
+      "id": "otakufr_d29562a2934b",
+      "title": "otakufr Film 192",
+      "source_url": "https://otakufr.com/film/otakufr-film-192",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20192",
+      "content_type": "film",
+      "rating": 4.5,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_815861ebac11",
+      "title": "otakufr Film 193",
+      "source_url": "https://otakufr.com/film/otakufr-film-193",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20193",
+      "content_type": "film",
+      "rating": 4.2,
+      "year": 2023
+    },
+    {
+      "id": "otakufr_4aa5882e7290",
+      "title": "otakufr Film 194",
+      "source_url": "https://otakufr.com/film/otakufr-film-194",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20194",
+      "content_type": "film",
+      "rating": 3.5,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_a787feb1dd8d",
+      "title": "otakufr Film 195",
+      "source_url": "https://otakufr.com/film/otakufr-film-195",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20195",
+      "content_type": "film",
+      "rating": 4.3,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_8a82b4c27783",
+      "title": "otakufr Film 196",
+      "source_url": "https://otakufr.com/film/otakufr-film-196",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20196",
+      "content_type": "film",
+      "rating": 3.9,
+      "year": 2020
+    },
+    {
+      "id": "otakufr_ab2776eed13b",
+      "title": "otakufr Film 197",
+      "source_url": "https://otakufr.com/film/otakufr-film-197",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20197",
+      "content_type": "film",
+      "rating": 3.6,
+      "year": 2025
+    },
+    {
+      "id": "otakufr_3642fb54ecfd",
+      "title": "otakufr Film 198",
+      "source_url": "https://otakufr.com/film/otakufr-film-198",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20198",
+      "content_type": "film",
+      "rating": 3.9,
+      "year": 2022
+    },
+    {
+      "id": "otakufr_d73ac5bb4285",
+      "title": "otakufr Film 199",
+      "source_url": "https://otakufr.com/film/otakufr-film-199",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20199",
+      "content_type": "film",
+      "rating": 4,
+      "year": 2021
+    },
+    {
+      "id": "otakufr_8e7f981af0ad",
+      "title": "otakufr Film 200",
+      "source_url": "https://otakufr.com/film/otakufr-film-200",
+      "poster": "https://via.placeholder.com/300x450.png?text=otakufr%20Film%20200",
+      "content_type": "film",
+      "rating": 3.6,
+      "year": 2025
+    }
+  ],
+  "is_mock": false,
+  "content_type": "unknown"
+}
