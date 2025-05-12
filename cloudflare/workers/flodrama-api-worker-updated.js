@@ -10,14 +10,78 @@
 
 // Configuration des CORS pour permettre l'accès depuis le frontend avec credentials
 const getCorsHeaders = (request) => {
-  const origin = request.headers.get('Origin') || 'https://b4fdba17.flodrama-frontend.pages.dev';
-  return {
-    'Access-Control-Allow-Origin': origin,
-    'Access-Control-Allow-Methods': 'GET, HEAD, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    'Access-Control-Allow-Credentials': 'true',
-    'Content-Type': 'application/json'
-  };
+  try {
+    // Récupérer l'origine de la requête
+    let origin = request.headers.get('Origin');
+    
+    // Vérifier si l'origine est définie
+    if (!origin) {
+      // Valeur par défaut si l'origine n'est pas définie
+      origin = 'https://flodrama.com';
+    }
+    
+    // Liste des origines autorisées - Inclure tous les domaines de déploiement Cloudflare Pages
+    const allowedOrigins = [
+      'https://flodrama.com',
+      'https://www.flodrama.com',
+      'https://b4fdba17.flodrama-frontend.pages.dev',
+      'https://c726800a.flodrama-frontend.pages.dev',
+      'https://2861ea6a.flodrama-frontend.pages.dev',
+      'https://59e590a4.flodrama-frontend.pages.dev',
+      'https://8ffe561f.flodrama-frontend.pages.dev',
+      'https://87fd4d23.flodrama-frontend.pages.dev',
+      'https://identite-visuelle-flodrama.flodrama-frontend.pages.dev',
+      'http://localhost:5173'
+    ];
+    
+    // Vérifier si l'origine est dans la liste des origines autorisées
+    // IMPORTANT: Accepter TOUTES les origines qui contiennent flodrama-frontend.pages.dev
+    const isCloudflarePages = origin.includes('flodrama-frontend.pages.dev');
+    const isAllowed = allowedOrigins.includes(origin) || isCloudflarePages;
+    
+    // Si l'origine est autorisée, la renvoyer telle quelle, sinon utiliser une valeur par défaut
+    const finalOrigin = isAllowed ? origin : 'https://flodrama.com';
+    
+    console.log(`Requête de l'origine: ${origin}, Origine renvoyée: ${finalOrigin}`);
+    
+    return {
+      'Access-Control-Allow-Origin': finalOrigin,
+      'Access-Control-Allow-Methods': 'GET, HEAD, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Google-Client-ID',
+      'Access-Control-Allow-Credentials': 'true',
+      'Content-Type': 'application/json'
+    };
+  } catch (error) {
+    console.error('Erreur lors de la génération des en-têtes CORS:', error);
+    // En cas d'erreur, renvoyer des en-têtes par défaut
+    return {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, HEAD, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Google-Client-ID',
+      'Content-Type': 'application/json'
+    };
+  }
+};
+
+// Configuration Google OAuth
+const GOOGLE_OAUTH_CONFIG = {
+  auth_uri: 'https://accounts.google.com/o/oauth2/auth',
+  token_uri: 'https://oauth2.googleapis.com/token',
+  auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
+  redirect_uris: [
+    'https://flodrama.com/auth/google/callback',
+    'https://identite-visuelle-flodrama.flodrama-frontend.pages.dev/auth/google/callback',
+    'https://c726800a.flodrama-frontend.pages.dev/auth/google/callback',
+    'https://2861ea6a.flodrama-frontend.pages.dev/auth/google/callback',
+    'http://localhost:5173/auth/google/callback'
+  ],
+  javascript_origins: [
+    'https://flodrama.com',
+    'https://identite-visuelle-flodrama.flodrama-frontend.pages.dev',
+    'https://c726800a.flodrama-frontend.pages.dev',
+    'https://2861ea6a.flodrama-frontend.pages.dev',
+    'http://localhost:5173'
+  ]
 };
 
 // Gestion des requêtes OPTIONS (pre-flight CORS)
@@ -187,7 +251,7 @@ async function getBannerData() {
 }
 
 // Récupération des données depuis KV avec transformation
-async function getDataFromKV(key) {
+async function getDataFromKV(key, request) {
   try {
     // Récupérer les données depuis KV
     const data = await FLODRAMA_DATA.get(key);
@@ -231,7 +295,7 @@ async function getDataFromKV(key) {
 }
 
 // Récupération des banners pour la page d'accueil
-async function getBanners() {
+async function getBanners(request) {
   try {
     const banners = await getBannerData();
     
@@ -243,6 +307,48 @@ async function getBanners() {
     );
   } catch (error) {
     console.error('Erreur lors de la récupération des banners:', error);
+    return handleError(error, request);
+  }
+}
+
+// Gestion de l'authentification Google
+async function handleGoogleAuth(request) {
+  try {
+    // Récupérer les paramètres de la requête
+    const url = new URL(request.url);
+    const clientId = request.headers.get('X-Google-Client-ID') || url.searchParams.get('client_id');
+    const redirectUri = url.searchParams.get('redirect_uri');
+    
+    if (!clientId) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: "ID client Google manquant"
+        }),
+        {
+          status: 400,
+          headers: getCorsHeaders(request)
+        }
+      );
+    }
+    
+    // Générer l'URL d'authentification Google
+    const scope = 'email profile';
+    const responseType = 'token';
+    const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scope)}&response_type=${responseType}`;
+    
+    // Retourner l'URL d'authentification Google
+    return new Response(
+      JSON.stringify({
+        success: true,
+        authUrl: authUrl
+      }),
+      {
+        headers: getCorsHeaders(request)
+      }
+    );
+  } catch (error) {
+    console.error('Erreur lors de l\'initialisation de l\'authentification Google:', error);
     return handleError(error, request);
   }
 }
@@ -268,7 +374,7 @@ async function listKeys() {
 }
 
 // Récupération des contenus en tendance (top 10 dramas)
-async function getTrending() {
+async function getTrending(request) {
   try {
     // Récupérer les données de drama
     const data = await FLODRAMA_DATA.get('drama');
@@ -303,7 +409,7 @@ async function getTrending() {
 }
 
 // Récupération des contenus récents (ajoutés récemment)
-async function getRecent() {
+async function getRecent(request) {
   try {
     // Récupérer les données de tous les types
     const dramaData = await FLODRAMA_DATA.get('drama') || '[]';
@@ -369,45 +475,50 @@ async function handleRequest(request) {
   
   // Route pour les banners
   if (path[1] === 'banners') {
-    return getBanners();
+    return getBanners(request);
   }
   
   // Route pour les contenus en tendance
   if (path[1] === 'trending') {
-    return getTrending();
+    return getTrending(request);
   }
   
   // Route pour les contenus récents
   if (path[1] === 'recent') {
-    return getRecent();
+    return getRecent(request);
   }
   
   // Route pour récupérer des données spécifiques
   if ((path[1] === 'data' || path[1] === 'api') && path.length > 2) {
     const key = path[2];
-    return getDataFromKV(key);
+    return getDataFromKV(key, request);
   }
   
+  // Route pour l'authentification Google
+  if (path[1] === 'google-auth') {
+    return handleGoogleAuth(request);
+  }
+
   // Routes pour les différentes catégories de contenu
   // Ces routes correspondent à celles attendues par le frontend
   if (path[1] === 'all' || path[1] === 'global') {
-    return getDataFromKV('global');
+    return getDataFromKV('global', request);
   }
   
   if (path[1] === 'dramas' || path[1] === 'drama') {
-    return getDataFromKV('drama');
+    return getDataFromKV('drama', request);
   }
   
   if (path[1] === 'animes' || path[1] === 'anime') {
-    return getDataFromKV('anime');
+    return getDataFromKV('anime', request);
   }
   
   if (path[1] === 'films' || path[1] === 'film') {
-    return getDataFromKV('film');
+    return getDataFromKV('film', request);
   }
   
   if (path[1] === 'bollywood') {
-    return getDataFromKV('bollywood');
+    return getDataFromKV('bollywood', request);
   }
   
   // Route par défaut
