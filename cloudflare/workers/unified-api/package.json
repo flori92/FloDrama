@@ -1,0 +1,27 @@
+{
+  "name": "flodrama-content-api",
+  "version": "1.0.0",
+  "description": "API unifiée pour accéder aux contenus Anime, Drama et Bollywood",
+  "main": "flodrama-content-api.js",
+  "scripts": {
+    "start": "wrangler dev",
+    "build": "webpack",
+    "deploy": "wrangler publish",
+    "deploy:staging": "wrangler publish --env staging",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "author": "FloDrama Team",
+  "license": "MIT",
+  "dependencies": {
+    "itty-router": "^3.0.12"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230518.0",
+    "jest": "^29.5.0",
+    "jest-environment-node": "^29.5.0",
+    "webpack": "^5.85.0",
+    "webpack-cli": "^5.1.1"
+  }
+}

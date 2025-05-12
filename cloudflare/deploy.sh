@@ -83,28 +83,70 @@ if [[ $R2_LIST == *"flodrama-storage"* ]]; then
 else
   warning "Création du bucket R2 'flodrama-storage'..."
   R2_CREATE=$(wrangler r2 bucket create flodrama-storage 2>&1)
-  if [ $? -ne 0 ]; then
-    error "Échec de la création du bucket R2. Erreur: $R2_CREATE"
+  # Vérifier si l'erreur indique que le bucket existe déjà
+  if [[ $R2_CREATE == *"already exists"* ]]; then
+    success "Bucket R2 'flodrama-storage' existe déjà."
+  elif [ $? -ne 0 ]; then
+    warning "Échec de la création du bucket R2. Tentative de continuer malgré l'erreur: $R2_CREATE"
+  else
+    success "Bucket R2 'flodrama-storage' créé avec succès."
   fi
-  success "Bucket R2 'flodrama-storage' créé avec succès."
 fi
 
 # Vérifier/créer le namespace KV
 echo "🔑 Vérification du namespace KV..."
-KV_LIST=$(wrangler kv:namespace list --json 2>&1)
+KV_LIST=$(wrangler kv namespace list 2>&1)
 if [[ $KV_LIST == *"FLODRAMA_METADATA"* ]]; then
   success "Namespace KV 'FLODRAMA_METADATA' existe déjà."
-  # Extraire l'ID du namespace KV
-  KV_ID=$(echo $KV_LIST | grep -o '"id":"[^"]*"' | grep -o '[^"]*$' | head -1)
+  # Extraire l'ID du namespace KV (adaptation pour le nouveau format de sortie)
+  KV_ID=$(echo "$KV_LIST" | grep -A 1 "FLODRAMA_METADATA" | grep -o '[a-f0-9]\{32\}' | head -1)
   echo "   ID du namespace KV: $KV_ID"
 else
   warning "Création du namespace KV 'FLODRAMA_METADATA'..."
-  KV_CREATE=$(wrangler kv:namespace create FLODRAMA_METADATA --json 2>&1)
-  if [ $? -ne 0 ]; then
-    error "Échec de la création du namespace KV. Erreur: $KV_CREATE"
+  KV_CREATE=$(wrangler kv namespace create FLODRAMA_METADATA 2>&1)
+  if [[ $KV_CREATE == *"already exists"* ]]; then
+    success "Namespace KV 'FLODRAMA_METADATA' existe déjà."
+    # Récupérer l'ID du namespace existant
+    KV_LIST=$(wrangler kv namespace list 2>&1)
+    KV_ID=$(echo "$KV_LIST" | grep -A 1 "FLODRAMA_METADATA" | grep -o '[a-f0-9]\{32\}' | head -1)
+  elif [ $? -ne 0 ]; then
+    warning "Échec de la création du namespace KV. Tentative de continuer: $KV_CREATE"
+    # Essayer de récupérer l'ID si le namespace existe déjà
+    KV_LIST=$(wrangler kv namespace list 2>&1)
+    KV_ID=$(echo "$KV_LIST" | grep -A 1 "FLODRAMA_METADATA" | grep -o '[a-f0-9]\{32\}' | head -1)
+  else
+    # Extraire l'ID du namespace KV (adaptation pour le nouveau format de sortie)
+    KV_ID=$(echo "$KV_CREATE" | grep -o '[a-f0-9]\{32\}' | head -1)
+    success "Namespace KV 'FLODRAMA_METADATA' créé avec succès. ID: $KV_ID"
   fi
-  KV_ID=$(echo $KV_CREATE | grep -o '"id":"[^"]*"' | grep -o '[^"]*$')
-  success "Namespace KV 'FLODRAMA_METADATA' créé avec succès. ID: $KV_ID"
+fi
+
+# Créer un second namespace KV pour les métriques si nécessaire
+echo "🔑 Vérification du namespace KV pour les métriques..."
+KV_METRICS_LIST=$(wrangler kv namespace list 2>&1)
+if [[ $KV_METRICS_LIST == *"FLODRAMA_METRICS"* ]]; then
+  success "Namespace KV 'FLODRAMA_METRICS' existe déjà."
+  # Extraire l'ID du namespace KV (adaptation pour le nouveau format de sortie)
+  KV_METRICS_ID=$(echo "$KV_METRICS_LIST" | grep -A 1 "FLODRAMA_METRICS" | grep -o '[a-f0-9]\{32\}' | head -1)
+  echo "   ID du namespace KV métriques: $KV_METRICS_ID"
+else
+  warning "Création du namespace KV 'FLODRAMA_METRICS'..."
+  KV_METRICS_CREATE=$(wrangler kv namespace create FLODRAMA_METRICS 2>&1)
+  if [[ $KV_METRICS_CREATE == *"already exists"* ]]; then
+    success "Namespace KV 'FLODRAMA_METRICS' existe déjà."
+    # Récupérer l'ID du namespace existant
+    KV_METRICS_LIST=$(wrangler kv namespace list 2>&1)
+    KV_METRICS_ID=$(echo "$KV_METRICS_LIST" | grep -A 1 "FLODRAMA_METRICS" | grep -o '[a-f0-9]\{32\}' | head -1)
+  elif [ $? -ne 0 ]; then
+    warning "Échec de la création du namespace KV pour les métriques. Tentative de continuer: $KV_METRICS_CREATE"
+    # Essayer de récupérer l'ID si le namespace existe déjà
+    KV_METRICS_LIST=$(wrangler kv namespace list 2>&1)
+    KV_METRICS_ID=$(echo "$KV_METRICS_LIST" | grep -A 1 "FLODRAMA_METRICS" | grep -o '[a-f0-9]\{32\}' | head -1)
+  else
+    # Extraire l'ID du namespace KV (adaptation pour le nouveau format de sortie)
+    KV_METRICS_ID=$(echo "$KV_METRICS_CREATE" | grep -o '[a-f0-9]\{32\}' | head -1)
+    success "Namespace KV 'FLODRAMA_METRICS' créé avec succès. ID: $KV_METRICS_ID"
+  fi
 fi
 
 # Mettre à jour les fichiers de configuration

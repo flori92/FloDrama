@@ -283,10 +283,48 @@ export default {
       }
     }
     
+    // Endpoint pour le tableau de bord de monitoring
+    if (path === '/dashboard') {
+      try {
+        // Récupérer toutes les données de monitoring
+        const [scrapingStatus, healthStatus, contentStats, metricsSuccess, metricsFailure] = await Promise.all([
+          getScrapingStatus(env),
+          env.FLODRAMA_METADATA.get('health:status', { type: 'json' }),
+          env.FLODRAMA_METADATA.get('metrics:content:stats', { type: 'json' }),
+          env.FLODRAMA_METRICS.get(METRIC_KEYS.SCRAPING_SUCCESS, { type: 'json' }),
+          env.FLODRAMA_METRICS.get(METRIC_KEYS.SCRAPING_FAILURE, { type: 'json' })
+        ]);
+        
+        // Générer le HTML du tableau de bord
+        const html = generateDashboardHtml({
+          scrapingStatus,
+          healthStatus,
+          contentStats,
+          metricsSuccess,
+          metricsFailure
+        });
+        
+        return new Response(html, {
+          headers: {
+            'Content-Type': 'text/html;charset=UTF-8',
+            'Access-Control-Allow-Origin': '*'
+          }
+        });
+      } catch (error) {
+        return new Response(`Erreur lors de la génération du tableau de bord: ${error.message}`, {
+          status: 500,
+          headers: {
+            'Content-Type': 'text/plain;charset=UTF-8',
+            'Access-Control-Allow-Origin': '*'
+          }
+        });
+      }
+    }
+    
     // Route par défaut
     return new Response(JSON.stringify({
       name: 'FloDrama Scraper',
-      endpoints: ['/run-all', '/run-category/{category}', '/status', '/admin/init-kv'],
+      endpoints: ['/run-all', '/run-category/{category}', '/status', '/admin/init-kv', '/dashboard'],
       valid_categories: Object.keys(SOURCES)
     }), {
       headers: {
@@ -499,110 +537,145 @@ export default {
 /**
  * Scrape une source spécifique
  */
-async function scrapSource(source, env) {
-  console.log(`Scraping de ${source.name} depuis ${source.baseUrl}`);
-  
-  const startTime = Date.now();
-  const results = {
-    sourceId: source.id,
-    sourceName: source.name,
-    baseUrl: source.baseUrl,
-    success: false,
-    itemsScraped: 0,
-    itemsSaved: 0,
-    errors: [],
-    startTime,
-    endTime: null,
-    duration: null
-  };
+// Scrape une source spécifique avec mécanisme de reprise sur erreur
+async function scrapSource(source, env, retryCount = 0, maxRetries = 3, delayMs = 5000) {
+  console.log(`Début du scraping de la source: ${source.name}${retryCount > 0 ? ` (tentative ${retryCount+1}/${maxRetries+1})` : ''}`);
   
   try {
     // Vérifier si la source est accessible
-    const testResponse = await fetch(source.testUrl, {
+    const response = await fetch(source.testUrl, {
+      method: 'HEAD',
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
       }
     });
     
-    if (!testResponse.ok) {
-      throw new Error(`URL de test inaccessible: ${testResponse.status} ${testResponse.statusText}`);
+    if (!response.ok) {
+      throw new Error(`Source inaccessible: ${response.status} ${response.statusText}`);
     }
     
-    // Extraire la liste des contenus
+    // Simuler le scraping (dans une version réelle, implémenter le scraping réel ici)
     const contentList = await extractContentList(source, env);
-    results.itemsScraped = contentList.length;
     
-    // Traiter et sauvegarder chaque contenu
-    const savedItems = [];
+    // Enrichir les contenus avec des métadonnées supplémentaires
+    const enrichedContent = [];
     for (const content of contentList) {
-      try {
-        // Enrichir le contenu (métadonnées, images, etc.)
-        const enrichedContent = await enrichContent(content, source, env);
+      const enriched = await enrichContent(content, source, env);
+      enrichedContent.push(enriched);
+    }
+    
+    // Enregistrer les résultats dans Cloudflare KV
+    const sourceKey = `source:${source.id}:content`;
+    await env.FLODRAMA_METADATA.put(sourceKey, JSON.stringify(enrichedContent), {
+      expirationTtl: source.expirationHours * 3600 // Convertir les heures en secondes
+    });
+    
+    // Mettre à jour les métriques
+    await updateMetricCounter(METRIC_KEYS.SCRAPING_SUCCESS, 1, env);
+    
+    // Mettre à jour le statut de santé
+    const healthStatus = await env.FLODRAMA_METADATA.get('health:status', { type: 'json' }) || {
+      status: 'operational',
+      services: {
+        scraping: { status: 'operational', lastRun: null, errors: [] }
+      }
+    };
+    
+    healthStatus.services.scraping.lastRun = new Date().toISOString();
+    healthStatus.services.scraping.status = 'operational';
+    
+    // Limiter la taille du tableau d'erreurs
+    if (healthStatus.services.scraping.errors.length > 10) {
+      healthStatus.services.scraping.errors = healthStatus.services.scraping.errors.slice(-10);
+    }
+    
+    await env.FLODRAMA_METADATA.put('health:status', JSON.stringify(healthStatus));
+    
+    console.log(`Scraping de la source ${source.name} terminé avec succès. ${enrichedContent.length} contenus récupérés.`);
+    return {
+      success: true,
+      source: source.id,
+      contentCount: enrichedContent.length,
+      retries: retryCount
+    };
+  } catch (error) {
+    console.error(`Erreur lors du scraping de ${source.name}: ${error.message}`);
+    
+    // Mécanisme de reprise sur erreur
+    if (retryCount < maxRetries) {
+      // Types d'erreurs qui justifient une nouvelle tentative
+      const retryableErrors = [
+        'Source inaccessible', 
+        'timeout', 
+        'network', 
+        'connection', 
+        'ECONNRESET',
+        'ETIMEDOUT',
+        '429',  // Too Many Requests
+        '500',  // Internal Server Error
+        '502',  // Bad Gateway
+        '503',  // Service Unavailable
+        '504'   // Gateway Timeout
+      ];
+      
+      // Vérifier si l'erreur justifie une nouvelle tentative
+      const shouldRetry = retryableErrors.some(errType => error.message.toLowerCase().includes(errType.toLowerCase()));
+      
+      if (shouldRetry) {
+        console.log(`Reprise du scraping de ${source.name} dans ${delayMs/1000} secondes...`);
         
-        // Sauvegarder le contenu dans KV
-        const contentKey = `content:${source.id}:${enrichedContent.id}`;
-        await env.FLODRAMA_METADATA.put(contentKey, JSON.stringify(enrichedContent), {
-          expirationTtl: source.expirationHours * 3600
-        });
+        // Attendre avant de réessayer (avec backoff exponentiel)
+        await new Promise(resolve => setTimeout(resolve, delayMs));
         
-        savedItems.push(enrichedContent);
-        results.itemsSaved++;
-      } catch (error) {
-        console.error(`Erreur lors du traitement du contenu:`, error);
-        results.errors.push({
-          contentId: content.id,
-          error: error.message
-        });
+        // Réessayer avec un délai plus long
+        return await scrapSource(source, env, retryCount + 1, maxRetries, delayMs * 2);
       }
     }
     
-    // Sauvegarder la liste complète des contenus pour cette source
-    const sourceListKey = `source_list:${source.id}`;
-    await env.FLODRAMA_METADATA.put(sourceListKey, JSON.stringify(savedItems), {
-      expirationTtl: source.expirationHours * 3600
+    // Si toutes les tentatives ont échoué ou erreur non récupérable, mettre à jour les métriques d'échec
+    await updateMetricCounter(METRIC_KEYS.SCRAPING_FAILURE, 1, env);
+    
+    // Mettre à jour le statut de santé
+    const healthStatus = await env.FLODRAMA_METADATA.get('health:status', { type: 'json' }) || {
+      status: 'operational',
+      services: {
+        scraping: { status: 'operational', lastRun: null, errors: [] }
+      }
+    };
+    
+    // Ajouter l'erreur à la liste
+    healthStatus.services.scraping.errors.unshift({
+      source: source.id,
+      timestamp: new Date().toISOString(),
+      message: error.message,
+      retries: retryCount
     });
     
-    results.success = true;
-  } catch (error) {
-    console.error(`Erreur lors du scraping de ${source.name}:`, error);
-    results.success = false;
-    results.error = error.message;
-  }
-  
-  results.endTime = Date.now();
-  results.duration = results.endTime - results.startTime;
-  
-  // Sauvegarder les résultats du scraping
-  const scrapingResultKey = `scraping_result:${source.id}:${Date.now()}`;
-  await env.FLODRAMA_METRICS.put(scrapingResultKey, JSON.stringify(results), {
-    expirationTtl: 7 * 24 * 3600 // 7 jours
-  });
-  
-  return results;
-}
-
-/**
- * Extrait la liste des contenus d'une source
- */
-async function extractContentList(source, env) {
-  // Dans un vrai scraper, cette fonction ferait une extraction complète
-  // Pour ce prototype, nous retournons des données de test
-  const mockContentList = [];
-  
-  // Simuler quelques contenus
-  for (let i = 1; i <= 10; i++) {
-    mockContentList.push({
-      id: `${source.id}-${i}`,
-      title: `${source.name} Content ${i}`,
-      url: `${source.baseUrl}/content-${i}`,
-      type: source.id.includes('anime') ? 'anime' : 
-            source.id.includes('drama') ? 'drama' :
-            source.id.includes('bolly') ? 'bollywood' : 'film',
-      timestamp: Date.now()
+    // Si trop d'erreurs récentes, marquer le service comme dégradé
+    const recentErrors = healthStatus.services.scraping.errors.filter(err => {
+      const errTime = new Date(err.timestamp).getTime();
+      const hourAgo = Date.now() - (60 * 60 * 1000);
+      return errTime > hourAgo;
     });
+    
+    if (recentErrors.length >= 3) {
+      healthStatus.services.scraping.status = 'degraded';
+    }
+    
+    await env.FLODRAMA_METADATA.put('health:status', JSON.stringify(healthStatus));
+    
+    // Notification Discord en cas d'échec après plusieurs tentatives
+    if (retryCount > 0) {
+      await sendDiscordNotification(`Échec du scraping de ${source.name} après ${retryCount+1} tentatives: ${error.message}`, 'error');
+    }
+    
+    return {
+      success: false,
+      source: source.id,
+      error: error.message,
+      retries: retryCount
+    };
   }
-  
-  return mockContentList;
 }
 
 /**
@@ -852,6 +925,363 @@ async function initializeKVStructures(env) {
     await sendDiscordNotification(`Erreur lors de l'initialisation des structures KV: ${error.message}`, 'error');
     throw error;
   }
+}
+
+/**
+ * Envoie une notification à Discord
+ */
+/**
+ * Génère le HTML du tableau de bord de monitoring
+ * @param {Object} data - Données de monitoring
+ * @returns {string} HTML du tableau de bord
+ */
+function generateDashboardHtml(data) {
+  const { scrapingStatus, healthStatus, contentStats, metricsSuccess, metricsFailure } = data;
+  
+  // Formater les dates
+  const formatDate = (dateString) => {
+    if (!dateString) return 'Jamais';
+    const date = new Date(dateString);
+    return date.toLocaleString('fr-FR', { 
+      day: '2-digit', 
+      month: '2-digit', 
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+  };
+  
+  // Calculer le taux de réussite
+  const successCount = metricsSuccess?.count || 0;
+  const failureCount = metricsFailure?.count || 0;
+  const totalAttempts = successCount + failureCount;
+  const successRate = totalAttempts > 0 ? ((successCount / totalAttempts) * 100).toFixed(1) : 0;
+  
+  // Générer le HTML
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FloDrama - Tableau de bord de monitoring</title>
+  <style>
+    :root {
+      --primary: #3b82f6;
+      --secondary: #d946ef;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --dark: #1f2937;
+      --light: #f3f4f6;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8fafc;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    h1 {
+      color: var(--primary);
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    .logo {
+      font-weight: bold;
+      font-size: 2rem;
+      color: var(--primary);
+    }
+    .logo span {
+      color: var(--secondary);
+    }
+    .status-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .card {
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      background-color: white;
+      border-left: 4px solid var(--primary);
+    }
+    .card.success {
+      border-left-color: var(--success);
+    }
+    .card.warning {
+      border-left-color: var(--warning);
+    }
+    .card.danger {
+      border-left-color: var(--danger);
+    }
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+    .card-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    .card-subtitle {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin: 5px 0 0;
+    }
+    .progress-container {
+      margin-top: 15px;
+      background-color: #e5e7eb;
+      border-radius: 9999px;
+      height: 8px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      border-radius: 9999px;
+    }
+    .progress-success {
+      background-color: var(--success);
+    }
+    .progress-warning {
+      background-color: var(--warning);
+    }
+    .progress-danger {
+      background-color: var(--danger);
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    .section-title {
+      font-size: 1.2rem;
+      color: var(--dark);
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    th {
+      background-color: #f9fafb;
+      font-weight: 600;
+    }
+    tr:hover {
+      background-color: #f9fafb;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .badge-success {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+    .badge-warning {
+      background-color: #fef3c7;
+      color: #92400e;
+    }
+    .badge-danger {
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      border: none;
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #2563eb;
+    }
+    .btn-secondary {
+      background-color: #e5e7eb;
+      color: #1f2937;
+    }
+    .btn-secondary:hover {
+      background-color: #d1d5db;
+    }
+    .refresh-time {
+      font-size: 0.9rem;
+      color: #6b7280;
+      text-align: right;
+      margin-top: 20px;
+    }
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">Flo<span>Drama</span> Monitoring</div>
+      <div>
+        <button class="btn btn-secondary" onclick="window.location.reload()">Actualiser</button>
+      </div>
+    </header>
+    
+    <div class="status-cards">
+      <div class="card ${healthStatus?.status === 'operational' ? 'success' : 'warning'}">
+        <h3 class="card-title">Statut du système</h3>
+        <p class="card-value">${healthStatus?.status === 'operational' ? 'Opérationnel' : 'Dégradé'}</p>
+        <p class="card-subtitle">Dernière vérification: ${formatDate(healthStatus?.lastCheck)}</p>
+      </div>
+      
+      <div class="card">
+        <h3 class="card-title">Contenu total</h3>
+        <p class="card-value">${contentStats?.totalContentCount || 0}</p>
+        <p class="card-subtitle">Dernière mise à jour: ${formatDate(contentStats?.lastUpdate)}</p>
+      </div>
+      
+      <div class="card ${successRate > 90 ? 'success' : successRate > 70 ? 'warning' : 'danger'}">
+        <h3 class="card-title">Taux de réussite du scraping</h3>
+        <p class="card-value">${successRate}%</p>
+        <p class="card-subtitle">${successCount} réussites / ${failureCount} échecs</p>
+        <div class="progress-container">
+          <div class="progress-bar ${successRate > 90 ? 'progress-success' : successRate > 70 ? 'progress-warning' : 'progress-danger'}" style="width: ${successRate}%"></div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <h3 class="card-title">Dernier scraping</h3>
+        <p class="card-value">${formatDate(scrapingStatus?.lastUpdate?.timestamp)}</p>
+        <p class="card-subtitle">Prochain scraping prévu: ${new Date(Date.now() + 6 * 60 * 60 * 1000).toLocaleString('fr-FR')}</p>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2 class="section-title">Statistiques par catégorie</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Catégorie</th>
+            <th>Nombre de contenus</th>
+            <th>Sources</th>
+            <th>Dernière mise à jour</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${Object.keys(SOURCES).map(category => `
+            <tr>
+              <td>${category}</td>
+              <td>${contentStats?.categoryCounts?.[category] || 0}</td>
+              <td>${SOURCES[category].length}</td>
+              <td>${formatDate(contentStats?.lastUpdate)}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="section">
+      <h2 class="section-title">Statut des services</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Statut</th>
+            <th>Dernière exécution</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Scraping</td>
+            <td>
+              <span class="badge ${healthStatus?.services?.scraping?.status === 'operational' ? 'badge-success' : 'badge-warning'}">
+                ${healthStatus?.services?.scraping?.status === 'operational' ? 'Opérationnel' : 'Dégradé'}
+              </span>
+            </td>
+            <td>${formatDate(healthStatus?.services?.scraping?.lastRun)}</td>
+          </tr>
+          <tr>
+            <td>Média</td>
+            <td>
+              <span class="badge ${healthStatus?.services?.media?.status === 'operational' ? 'badge-success' : 'badge-warning'}">
+                ${healthStatus?.services?.media?.status === 'operational' ? 'Opérationnel' : 'Dégradé'}
+              </span>
+            </td>
+            <td>Service continu</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="actions">
+      <a href="/run-all" class="btn btn-primary" onclick="return confirm('Êtes-vous sûr de vouloir déclencher un scraping complet?')">
+        Lancer un scraping complet
+      </a>
+      <a href="/status" class="btn btn-secondary">
+        Voir les détails techniques
+      </a>
+    </div>
+    
+    <p class="refresh-time">Dernière actualisation: ${formatDate(new Date().toISOString())}</p>
+    
+    <div class="footer">
+      <p>FloDrama Monitoring Dashboard v1.0 | &copy; ${new Date().getFullYear()} FloDrama</p>
+    </div>
+  </div>
+  
+  <script>
+    // Actualisation automatique toutes les 5 minutes
+    setTimeout(() => {
+      window.location.reload();
+    }, 5 * 60 * 1000);
+  </script>
+</body>
+</html>`;
 }
 
 /**
