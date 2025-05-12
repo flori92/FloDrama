@@ -61,3 +61,6 @@ Backend/api/.env
 
 # Dossier de résultats de scraping
 scraping-results/
+
+# APIs de référence externes
+Apis/
