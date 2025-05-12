@@ -15,6 +15,8 @@ const LikedMovies = lazy(() => import("./Pages/LikedMovies"));
 const History = lazy(() => import("./Pages/History"));
 const MoviesCategory = lazy(() => import("./Pages/MoviesCategory"));
 const WatchPartyPage = lazy(() => import("./Pages/WatchParty"));
+const WatchPage = lazy(() => import("./Pages/Watch"));
+const ContentDetails = lazy(() => import("./Pages/ContentDetails"));
 
 // Import des pages du footer
 const FAQ = lazy(() => import("./Pages/FooterPages/FAQ"));
@@ -67,6 +69,9 @@ function App() {
               <Route path="/history" element={<History />} />
               <Route path="/category/:category" element={<MoviesCategory />} />
               <Route path="/play/:id" element={<Play />} />
+              <Route path="/:type/:id" element={<ContentDetails />} />
+              <Route path="/watch/:type/:id" element={<Navigate to="/error" replace />} />
+              <Route path="/watch/:type/:id/:episode" element={<WatchPage />} />
               <Route path="/watch-party" element={<WatchPartyPage />} />
               <Route path="/watch-party/:partyId" element={<WatchPartyPage />} />
             </>

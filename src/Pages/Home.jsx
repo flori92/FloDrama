@@ -12,7 +12,8 @@ import {
   featured,
   trending,
   recent,
-  handleApiResponse
+  handleApiResponse,
+  getFullUrl
 } from "../Constants/FloDramaURLs";
 import { API_BASE_URL } from "../Cloudflare/CloudflareConfig";
 import { AuthContext } from "../Context/UserContext";
@@ -62,7 +63,7 @@ function Home() {
   // Charger les films en tendance pour la grille
   useEffect(() => {
     setTrendingLoading(true);
-    fetch(`${API_BASE_URL}/${trending}`)
+    fetch(getFullUrl(trending))
       .then(response => handleApiResponse(response))
       .then(data => {
         setTrendingMovies(data);
@@ -78,7 +79,7 @@ function Home() {
   // Charger les films récents pour la grille
   useEffect(() => {
     setRecentLoading(true);
-    fetch(`${API_BASE_URL}/${recent}`)
+    fetch(getFullUrl(recent))
       .then(response => handleApiResponse(response))
       .then(data => {
         setRecentMovies(data);
@@ -93,7 +94,7 @@ function Home() {
 
   return (
     <div>
-      <Banner url={featured} useCloudflareApi={true} />
+      <Banner url={getFullUrl(featured)} useCloudflareApi={true} />
       
       <div className="w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         {/* Section Tendances avec MovieGrid */}

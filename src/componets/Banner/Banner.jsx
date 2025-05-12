@@ -148,7 +148,9 @@ function Banner(props) {
 
   // Fonction utilitaire pour extraire l'ID YouTube d'une URL
   const extractYoutubeId = (url) => {
-    if (!url) return null;
+    if (!url) {
+      return null;
+    }
 
     // Regex pour extraire l'ID YouTube de différents formats d'URL
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -285,7 +287,7 @@ function Banner(props) {
                 starSpacing="0px"
               />
               <h1 className="ml-2 text-xs sm:text-sm text-gray-300">
-                {(movie.rating || movie.vote_average / 2 || 3.5).toFixed(1)}/5
+                {typeof movie.rating === 'number' ? movie.rating.toFixed(1) : (typeof movie.vote_average === 'number' ? (movie.vote_average / 2).toFixed(1) : '3.5')}/5
               </h1>
               {movie.year && (
                 <span className="ml-4 text-sm sm:text-base text-gray-300 border border-gray-600 px-2 py-0.5 rounded">

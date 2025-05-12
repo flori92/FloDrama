@@ -9,8 +9,12 @@
 // export const API_BASE_URL = 'https://flodrama-api.florifavi.workers.dev'; // URL actuelle avec problèmes CORS
 // export const API_BASE_URL = 'https://flodrama-api-worker.florifavi.workers.dev'; // URL directe de l'API (problèmes CORS)
 
-// Nouvelle URL avec le Worker CORS Proxy pour résoudre les problèmes CORS
-export const API_BASE_URL = 'https://flodrama-cors-proxy.florifavi.workers.dev';
+// Utilisation directe de l'API de contenu qui fonctionne
+export const API_BASE_URL = 'https://flodrama-content-api.florifavi.workers.dev';
+
+// Autres options d'URL (non utilisées actuellement)
+// export const API_BASE_URL = 'https://flodrama-cors-proxy.florifavi.workers.dev';
+// export const API_BASE_URL = 'https://flodrama-api-worker.florifavi.workers.dev';
 // Structure correcte pour les endpoints Cloudflare Workers
 export const AUTH_API_URL = `${API_BASE_URL}`;
 export const USERS_API_URL = `${API_BASE_URL}`;

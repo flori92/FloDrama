@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/UserContext";
 import { imageUrl, imageUrl2 } from "../../Constants/Constance";
+import { determineContentType } from "../../Cloudflare/CloudflareConfig";
 
 function RowPost(props) {
   const [isHover, setIsHover] = useState(false);
@@ -72,8 +73,11 @@ function RowPost(props) {
   const formatRating = (item) => {
     try {
       const rating = getRating(item);
-      // Convertir la note en chaîne avec une décimale
-      return rating.toFixed(1);
+      // Vérifier que rating est bien un nombre avant d'appeler toFixed
+      if (typeof rating === 'number' && !isNaN(rating)) {
+        return rating.toFixed(1);
+      }
+      return "3.5";
     } catch (error) {
       console.error("Erreur lors du formatage de la note:", error);
       return "3.5";
@@ -124,6 +128,27 @@ function RowPost(props) {
       return '/assets/poster-placeholder.jpg';
     }
   };
+  
+  // Fonction pour déterminer le type de contenu et construire l'URL de détail
+  const getDetailUrl = (obj) => {
+    try {
+      if (!obj || !obj.id) {
+        return '#';
+      }
+      
+      // Si le type est explicitement défini dans l'objet
+      if (obj.content_type) {
+        return `/${obj.content_type}/${obj.id}`;
+      }
+      
+      // Utiliser la fonction de détermination du type de contenu
+      const contentType = determineContentType(obj);
+      return `/${contentType}/${obj.id}`;
+    } catch (error) {
+      console.error("Erreur lors de la détermination de l'URL de détail:", error);
+      return '#';
+    }
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -159,7 +184,7 @@ function RowPost(props) {
               onMouseEnter={() => setIsHover(true)}
               onMouseLeave={() => setIsHover(false)}
             >
-              <Link to={obj.id ? `/play/${obj.id}` : '#'}>
+              <Link to={getDetailUrl(obj)}>
                 <img
                   className="w-40 h-60 object-cover rounded-md cursor-pointer transition-transform duration-300 hover:scale-105"
                   src={getImageUrl(obj)}

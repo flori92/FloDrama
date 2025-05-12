@@ -7,6 +7,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import useOptimizedImages from '../../hooks/useOptimizedImages';
 import StarRatings from 'react-star-ratings';
+import { determineContentType } from '../../Cloudflare/CloudflareConfig';
 
 // Fonction utilitaire pour garantir que les valeurs de notation sont valides
 const ensureValidRating = (rating) => {
@@ -51,6 +52,22 @@ const MovieCard = ({ movie, isLarge = false }) => {
   
   // Déterminer la note à afficher
   const rating = ensureValidRating(movie?.vote_average || movie?.rating);
+  
+  // Déterminer le type de contenu et construire l'URL de détail
+  const getDetailUrl = () => {
+    if (!movie || !movie.id) {
+      return '#';
+    }
+    
+    // Si le type est explicitement défini dans l'objet
+    if (movie.content_type) {
+      return `/${movie.content_type}/${movie.id}`;
+    }
+    
+    // Utiliser la fonction de détermination du type de contenu
+    const contentType = determineContentType(movie);
+    return `/${contentType}/${movie.id}`;
+  };
 
   return (
     <div className="movie-card relative rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105 hover:z-10">
@@ -59,7 +76,7 @@ const MovieCard = ({ movie, isLarge = false }) => {
           <span className="text-white">Chargement...</span>
         </div>
       ) : (
-        <Link to={`/play/${movie?.id || 'unknown'}`} className="block">
+        <Link to={getDetailUrl()} className="block">
           <div className="relative">
             {/* Image principale */}
             <img
@@ -87,7 +104,7 @@ const MovieCard = ({ movie, isLarge = false }) => {
                   starSpacing="1px"
                   name="rating"
                 />
-                <span className="text-white text-sm ml-2">{rating.toFixed(1)}</span>
+                <span className="text-white text-sm ml-2">{typeof rating === 'number' && !isNaN(rating) ? rating.toFixed(1) : '3.5'}</span>
               </div>
             </div>
           </div>
