@@ -508,3 +508,458 @@
 ================================================================================
 [2025-05-10T15:14:29.078Z] ✅ Tests de scraping terminés
 [2025-05-10T15:14:29.078Z] ================================================================================
+[2025-05-11T13:13:34.982Z] 🧪 Démarrage des tests de scraping
+[2025-05-11T13:13:34.992Z] ================================================================================
+[2025-05-11T13:13:34.992Z] 
+🔍 Test de la source: tmdb-films
+[2025-05-11T13:13:34.992Z] --------------------------------------------------------------------------------
+[2025-05-11T13:13:34.992Z] 🔍 Démarrage du scraping local pour la source: tmdb-films
+[2025-05-11T13:13:36.817Z] ✅ Scraping local terminé en 1.82s - 0 éléments récupérés
+[2025-05-11T13:13:36.818Z] 🔄 Démarrage du scraping via le service relais pour la source: tmdb-films
+[2025-05-11T13:13:36.818Z] 📡 Configuration utilisée pour tmdb-films:
+[2025-05-11T13:13:36.819Z]    URLs: https://api.themoviedb.org/3/movie/popular
+[2025-05-11T13:13:36.819Z]    Sélecteur principal: .movie-card
+[2025-05-11T13:13:36.819Z]    Sélecteur d'attente: .movie-list
+[2025-05-11T13:13:36.819Z]    Type: film
+[2025-05-11T13:14:08.265Z] ❌ Erreur lors du scraping via service relais: Request failed with status code 422
+[2025-05-11T13:14:08.266Z] 📊 Comparaison pour tmdb-films:
+[2025-05-11T13:14:08.267Z]    Local: ❌ - 1.82s - 0 éléments
+[2025-05-11T13:14:08.267Z]    Relay: ❌ - 0.00s - 0 éléments
+[2025-05-11T13:14:08.267Z]    Le plus rapide: relay (différence: 1.82s)
+[2025-05-11T13:14:08.267Z]    Le plus d'éléments: relay (différence: 0 éléments)
+[2025-05-11T13:14:08.267Z] --------------------------------------------------------------------------------
+[2025-05-11T13:14:08.267Z] 
+🔍 Test de la source: allocine-films
+[2025-05-11T13:14:08.267Z] --------------------------------------------------------------------------------
+[2025-05-11T13:14:08.267Z] 🔍 Démarrage du scraping local pour la source: allocine-films
+[2025-05-11T13:14:09.837Z] ✅ Scraping local terminé en 1.57s - 0 éléments récupérés
+[2025-05-11T13:14:09.837Z] 🔄 Démarrage du scraping via le service relais pour la source: allocine-films
+[2025-05-11T13:14:09.837Z] ⚠️ Configuration de la source allocine-films non trouvée, utilisation des valeurs par défaut
+[2025-05-11T13:14:09.837Z] 📡 Configuration utilisée pour allocine-films:
+[2025-05-11T13:14:09.837Z]    URLs: https://www.themoviedb.org/movie/popular
+[2025-05-11T13:14:09.837Z]    Sélecteur principal: .card
+[2025-05-11T13:14:09.838Z]    Sélecteur d'attente: .page_wrapper
+[2025-05-11T13:14:09.838Z]    Type: film
+[2025-05-11T13:14:10.464Z] ❌ Erreur lors du scraping via service relais: Request failed with status code 422
+[2025-05-11T13:14:10.465Z] 📊 Comparaison pour allocine-films:
+[2025-05-11T13:14:10.465Z]    Local: ❌ - 1.57s - 0 éléments
+[2025-05-11T13:14:10.465Z]    Relay: ❌ - 0.00s - 0 éléments
+[2025-05-11T13:14:10.466Z]    Le plus rapide: relay (différence: 1.57s)
+[2025-05-11T13:14:10.466Z]    Le plus d'éléments: relay (différence: 0 éléments)
+[2025-05-11T13:14:10.466Z] --------------------------------------------------------------------------------
+[2025-05-11T13:14:10.466Z] 
+🔍 Test de la source: allocine-series
+[2025-05-11T13:14:10.466Z] --------------------------------------------------------------------------------
+[2025-05-11T13:14:10.467Z] 🔍 Démarrage du scraping local pour la source: allocine-series
+[2025-05-11T13:14:11.336Z] ✅ Scraping local terminé en 0.87s - 0 éléments récupérés
+[2025-05-11T13:14:11.336Z] 🔄 Démarrage du scraping via le service relais pour la source: allocine-series
+[2025-05-11T13:14:11.337Z] ⚠️ Configuration de la source allocine-series non trouvée, utilisation des valeurs par défaut
+[2025-05-11T13:14:11.337Z] 📡 Configuration utilisée pour allocine-series:
+[2025-05-11T13:14:11.337Z]    URLs: https://www.themoviedb.org/movie/popular
+[2025-05-11T13:14:11.337Z]    Sélecteur principal: .card
+[2025-05-11T13:14:11.337Z]    Sélecteur d'attente: .page_wrapper
+[2025-05-11T13:14:11.337Z]    Type: film
+[2025-05-11T13:14:11.546Z] ❌ Erreur lors du scraping via service relais: Request failed with status code 422
+[2025-05-11T13:14:11.547Z] 📊 Comparaison pour allocine-series:
+[2025-05-11T13:14:11.547Z]    Local: ❌ - 0.87s - 0 éléments
+[2025-05-11T13:14:11.547Z]    Relay: ❌ - 0.00s - 0 éléments
+[2025-05-11T13:14:11.547Z]    Le plus rapide: relay (différence: 0.87s)
+[2025-05-11T13:14:11.547Z]    Le plus d'éléments: relay (différence: 0 éléments)
+[2025-05-11T13:14:11.547Z] --------------------------------------------------------------------------------
+[2025-05-11T13:14:11.547Z] 
+🔍 Test de la source: senscritique-films
+[2025-05-11T13:14:11.547Z] --------------------------------------------------------------------------------
+[2025-05-11T13:14:11.547Z] 🔍 Démarrage du scraping local pour la source: senscritique-films
+[2025-05-11T13:14:12.539Z] ✅ Scraping local terminé en 0.99s - 0 éléments récupérés
+[2025-05-11T13:14:12.539Z] 🔄 Démarrage du scraping via le service relais pour la source: senscritique-films
+[2025-05-11T13:14:12.539Z] ⚠️ Configuration de la source senscritique-films non trouvée, utilisation des valeurs par défaut
+[2025-05-11T13:14:12.539Z] 📡 Configuration utilisée pour senscritique-films:
+[2025-05-11T13:14:12.539Z]    URLs: https://www.themoviedb.org/movie/popular
+[2025-05-11T13:14:12.539Z]    Sélecteur principal: .card
+[2025-05-11T13:14:12.539Z]    Sélecteur d'attente: .page_wrapper
+[2025-05-11T13:14:12.539Z]    Type: film
+[2025-05-11T13:14:12.747Z] ❌ Erreur lors du scraping via service relais: Request failed with status code 422
+[2025-05-11T13:14:12.747Z] 📊 Comparaison pour senscritique-films:
+[2025-05-11T13:14:12.747Z]    Local: ❌ - 0.99s - 0 éléments
+[2025-05-11T13:14:12.747Z]    Relay: ❌ - 0.00s - 0 éléments
+[2025-05-11T13:14:12.747Z]    Le plus rapide: relay (différence: 0.99s)
+[2025-05-11T13:14:12.748Z]    Le plus d'éléments: relay (différence: 0 éléments)
+[2025-05-11T13:14:12.748Z] --------------------------------------------------------------------------------
+[2025-05-11T13:14:12.748Z] 
+📋 Rapport de synthèse:
+[2025-05-11T13:14:12.748Z] ================================================================================
+[2025-05-11T13:14:12.748Z] Sources testées: 4
+[2025-05-11T13:14:12.748Z] Succès en local: 0/4 (0%)
+[2025-05-11T13:14:12.748Z] Succès via relais: 0/4 (0%)
+[2025-05-11T13:14:12.748Z] Plus rapide en local: 0/4 (0%)
+[2025-05-11T13:14:12.748Z] Plus d'éléments en local: 0/4 (0%)
+[2025-05-11T13:14:12.749Z] 
+✅ Résultats sauvegardés dans /Users/floriace/FLO_DRAMA/FloDrama/cloudflare/scraping/test-results/test-results.json
+[2025-05-11T13:14:12.749Z] 
+================================================================================
+[2025-05-11T13:14:12.749Z] ✅ Tests de scraping terminés
+[2025-05-11T13:14:12.749Z] ================================================================================
+[2025-05-11T13:14:24.028Z] 🧪 Démarrage des tests de scraping
+[2025-05-11T13:14:24.033Z] ================================================================================
+[2025-05-11T13:14:24.033Z] 
+🔍 Test de la source: tmdb-films
+[2025-05-11T13:14:24.034Z] --------------------------------------------------------------------------------
+[2025-05-11T13:14:24.034Z] 🔍 Démarrage du scraping local pour la source: tmdb-films
+[2025-05-11T13:14:25.419Z] ✅ Scraping local terminé en 1.39s - 0 éléments récupérés
+[2025-05-11T13:14:25.420Z] 🔄 Démarrage du scraping via le service relais pour la source: tmdb-films
+[2025-05-11T13:14:25.420Z] 📡 Configuration utilisée pour tmdb-films:
+[2025-05-11T13:14:25.421Z]    URLs: https://api.themoviedb.org/3/movie/popular
+[2025-05-11T13:14:25.421Z]    Sélecteur principal: .movie-card
+[2025-05-11T13:14:25.421Z]    Sélecteur d'attente: .movie-list
+[2025-05-11T13:14:25.421Z]    Type: film
+[2025-05-11T13:14:25.715Z] ❌ Erreur lors du scraping via service relais: Request failed with status code 422
+[2025-05-11T13:14:25.716Z] 📊 Comparaison pour tmdb-films:
+[2025-05-11T13:14:25.716Z]    Local: ❌ - 1.39s - 0 éléments
+[2025-05-11T13:14:25.716Z]    Relay: ❌ - 0.00s - 0 éléments
+[2025-05-11T13:14:25.716Z]    Le plus rapide: relay (différence: 1.39s)
+[2025-05-11T13:14:25.716Z]    Le plus d'éléments: relay (différence: 0 éléments)
+[2025-05-11T13:14:25.716Z] --------------------------------------------------------------------------------
+[2025-05-11T13:14:25.716Z] 
+🔍 Test de la source: allocine-films
+[2025-05-11T13:14:25.716Z] --------------------------------------------------------------------------------
+[2025-05-11T13:14:25.717Z] 🔍 Démarrage du scraping local pour la source: allocine-films
+[2025-05-11T13:14:26.571Z] ✅ Scraping local terminé en 0.85s - 0 éléments récupérés
+[2025-05-11T13:14:26.572Z] 🔄 Démarrage du scraping via le service relais pour la source: allocine-films
+[2025-05-11T13:14:26.572Z] ⚠️ Configuration de la source allocine-films non trouvée, utilisation des valeurs par défaut
+[2025-05-11T13:14:26.572Z] 📡 Configuration utilisée pour allocine-films:
+[2025-05-11T13:14:26.572Z]    URLs: https://www.themoviedb.org/movie/popular
+[2025-05-11T13:14:26.572Z]    Sélecteur principal: .card
+[2025-05-11T13:14:26.572Z]    Sélecteur d'attente: .page_wrapper
+[2025-05-11T13:14:26.572Z]    Type: film
+[2025-05-11T13:14:27.164Z] ❌ Erreur lors du scraping via service relais: Request failed with status code 422
+[2025-05-11T13:14:27.165Z] 📊 Comparaison pour allocine-films:
+[2025-05-11T13:14:27.165Z]    Local: ❌ - 0.85s - 0 éléments
+[2025-05-11T13:14:27.165Z]    Relay: ❌ - 0.00s - 0 éléments
+[2025-05-11T13:14:27.165Z]    Le plus rapide: relay (différence: 0.85s)
+[2025-05-11T13:14:27.165Z]    Le plus d'éléments: relay (différence: 0 éléments)
+[2025-05-11T13:14:27.166Z] --------------------------------------------------------------------------------
+[2025-05-11T13:14:27.166Z] 
+🔍 Test de la source: allocine-series
+[2025-05-11T13:14:27.166Z] --------------------------------------------------------------------------------
+[2025-05-11T13:14:27.166Z] 🔍 Démarrage du scraping local pour la source: allocine-series
+[2025-05-11T13:14:28.145Z] ✅ Scraping local terminé en 0.98s - 0 éléments récupérés
+[2025-05-11T13:14:28.145Z] 🔄 Démarrage du scraping via le service relais pour la source: allocine-series
+[2025-05-11T13:14:28.146Z] ⚠️ Configuration de la source allocine-series non trouvée, utilisation des valeurs par défaut
+[2025-05-11T13:14:28.146Z] 📡 Configuration utilisée pour allocine-series:
+[2025-05-11T13:14:28.146Z]    URLs: https://www.themoviedb.org/movie/popular
+[2025-05-11T13:14:28.146Z]    Sélecteur principal: .card
+[2025-05-11T13:14:28.146Z]    Sélecteur d'attente: .page_wrapper
+[2025-05-11T13:14:28.146Z]    Type: film
+[2025-05-11T13:14:28.358Z] ❌ Erreur lors du scraping via service relais: Request failed with status code 422
+[2025-05-11T13:14:28.363Z] 📊 Comparaison pour allocine-series:
+[2025-05-11T13:14:28.364Z]    Local: ❌ - 0.98s - 0 éléments
+[2025-05-11T13:14:28.364Z]    Relay: ❌ - 0.00s - 0 éléments
+[2025-05-11T13:14:28.365Z]    Le plus rapide: relay (différence: 0.98s)
+[2025-05-11T13:14:28.365Z]    Le plus d'éléments: relay (différence: 0 éléments)
+[2025-05-11T13:14:28.367Z] --------------------------------------------------------------------------------
+[2025-05-11T13:14:28.369Z] 
+🔍 Test de la source: senscritique-films
+[2025-05-11T13:14:28.371Z] --------------------------------------------------------------------------------
+[2025-05-11T13:14:28.372Z] 🔍 Démarrage du scraping local pour la source: senscritique-films
+[2025-05-11T13:14:29.442Z] ✅ Scraping local terminé en 1.07s - 0 éléments récupérés
+[2025-05-11T13:14:29.442Z] 🔄 Démarrage du scraping via le service relais pour la source: senscritique-films
+[2025-05-11T13:14:29.442Z] ⚠️ Configuration de la source senscritique-films non trouvée, utilisation des valeurs par défaut
+[2025-05-11T13:14:29.442Z] 📡 Configuration utilisée pour senscritique-films:
+[2025-05-11T13:14:29.443Z]    URLs: https://www.themoviedb.org/movie/popular
+[2025-05-11T13:14:29.443Z]    Sélecteur principal: .card
+[2025-05-11T13:14:29.443Z]    Sélecteur d'attente: .page_wrapper
+[2025-05-11T13:14:29.443Z]    Type: film
+[2025-05-11T13:14:29.660Z] ❌ Erreur lors du scraping via service relais: Request failed with status code 422
+[2025-05-11T13:14:29.660Z] 📊 Comparaison pour senscritique-films:
+[2025-05-11T13:14:29.660Z]    Local: ❌ - 1.07s - 0 éléments
+[2025-05-11T13:14:29.660Z]    Relay: ❌ - 0.00s - 0 éléments
+[2025-05-11T13:14:29.660Z]    Le plus rapide: relay (différence: 1.07s)
+[2025-05-11T13:14:29.660Z]    Le plus d'éléments: relay (différence: 0 éléments)
+[2025-05-11T13:14:29.660Z] --------------------------------------------------------------------------------
+[2025-05-11T13:14:29.661Z] 
+📋 Rapport de synthèse:
+[2025-05-11T13:14:29.661Z] ================================================================================
+[2025-05-11T13:14:29.661Z] Sources testées: 4
+[2025-05-11T13:14:29.661Z] Succès en local: 0/4 (0%)
+[2025-05-11T13:14:29.661Z] Succès via relais: 0/4 (0%)
+[2025-05-11T13:14:29.661Z] Plus rapide en local: 0/4 (0%)
+[2025-05-11T13:14:29.661Z] Plus d'éléments en local: 0/4 (0%)
+[2025-05-11T13:14:29.661Z] 
+✅ Résultats sauvegardés dans /Users/floriace/FLO_DRAMA/FloDrama/cloudflare/scraping/test-results/test-results.json
+[2025-05-11T13:14:29.661Z] 
+================================================================================
+[2025-05-11T13:14:29.661Z] ✅ Tests de scraping terminés
+[2025-05-11T13:14:29.661Z] ================================================================================
+[2025-05-11T15:23:09.238Z] 🧪 Démarrage des tests de scraping
+[2025-05-11T15:23:09.292Z] ================================================================================
+[2025-05-11T15:23:09.294Z] 
+🔍 Test de la source: tmdb-films
+[2025-05-11T15:23:09.297Z] --------------------------------------------------------------------------------
+[2025-05-11T15:23:09.299Z] 🔍 Démarrage du scraping local pour la source: tmdb-films
+[2025-05-11T15:23:14.431Z] ✅ Scraping local terminé en 5.13s - 0 éléments récupérés
+[2025-05-11T15:23:14.439Z] 🔄 Démarrage du scraping via le service relais pour la source: tmdb-films
+[2025-05-11T15:23:14.443Z] 📡 Configuration utilisée pour tmdb-films:
+[2025-05-11T15:23:14.444Z]    URLs: https://api.themoviedb.org/3/movie/popular
+[2025-05-11T15:23:14.446Z]    Sélecteur principal: .movie-card
+[2025-05-11T15:23:14.448Z]    Sélecteur d'attente: .movie-list
+[2025-05-11T15:23:14.448Z]    Type: film
+[2025-05-11T15:23:46.020Z] ❌ Erreur lors du scraping via service relais: Request failed with status code 422
+[2025-05-11T15:23:46.021Z] 📊 Comparaison pour tmdb-films:
+[2025-05-11T15:23:46.022Z]    Local: ❌ - 5.13s - 0 éléments
+[2025-05-11T15:23:46.022Z]    Relay: ❌ - 0.00s - 0 éléments
+[2025-05-11T15:23:46.022Z]    Le plus rapide: relay (différence: 5.13s)
+[2025-05-11T15:23:46.022Z]    Le plus d'éléments: relay (différence: 0 éléments)
+[2025-05-11T15:23:46.022Z] --------------------------------------------------------------------------------
+[2025-05-11T15:23:46.022Z] 
+🔍 Test de la source: allocine-films
+[2025-05-11T15:23:46.022Z] --------------------------------------------------------------------------------
+[2025-05-11T15:23:46.022Z] 🔍 Démarrage du scraping local pour la source: allocine-films
+[2025-05-11T15:23:47.706Z] ✅ Scraping local terminé en 1.68s - 0 éléments récupérés
+[2025-05-11T15:23:47.706Z] 🔄 Démarrage du scraping via le service relais pour la source: allocine-films
+[2025-05-11T15:23:47.708Z] ⚠️ Configuration de la source allocine-films non trouvée, utilisation des valeurs par défaut
+[2025-05-11T15:23:47.708Z] 📡 Configuration utilisée pour allocine-films:
+[2025-05-11T15:23:47.708Z]    URLs: https://www.themoviedb.org/movie/popular
+[2025-05-11T15:23:47.709Z]    Sélecteur principal: .card
+[2025-05-11T15:23:47.709Z]    Sélecteur d'attente: .page_wrapper
+[2025-05-11T15:23:47.709Z]    Type: film
+[2025-05-11T15:23:48.081Z] ❌ Erreur lors du scraping via service relais: Request failed with status code 422
+[2025-05-11T15:23:48.082Z] 📊 Comparaison pour allocine-films:
+[2025-05-11T15:23:48.082Z]    Local: ❌ - 1.68s - 0 éléments
+[2025-05-11T15:23:48.083Z]    Relay: ❌ - 0.00s - 0 éléments
+[2025-05-11T15:23:48.083Z]    Le plus rapide: relay (différence: 1.68s)
+[2025-05-11T15:23:48.083Z]    Le plus d'éléments: relay (différence: 0 éléments)
+[2025-05-11T15:23:48.084Z] --------------------------------------------------------------------------------
+[2025-05-11T15:23:48.084Z] 
+🔍 Test de la source: allocine-series
+[2025-05-11T15:23:48.084Z] --------------------------------------------------------------------------------
+[2025-05-11T15:23:48.085Z] 🔍 Démarrage du scraping local pour la source: allocine-series
+[2025-05-11T15:23:50.560Z] ✅ Scraping local terminé en 2.47s - 0 éléments récupérés
+[2025-05-11T15:23:50.560Z] 🔄 Démarrage du scraping via le service relais pour la source: allocine-series
+[2025-05-11T15:23:50.561Z] ⚠️ Configuration de la source allocine-series non trouvée, utilisation des valeurs par défaut
+[2025-05-11T15:23:50.561Z] 📡 Configuration utilisée pour allocine-series:
+[2025-05-11T15:23:50.561Z]    URLs: https://www.themoviedb.org/movie/popular
+[2025-05-11T15:23:50.562Z]    Sélecteur principal: .card
+[2025-05-11T15:23:50.562Z]    Sélecteur d'attente: .page_wrapper
+[2025-05-11T15:23:50.562Z]    Type: film
+[2025-05-11T15:23:50.772Z] ❌ Erreur lors du scraping via service relais: Request failed with status code 422
+[2025-05-11T15:23:50.772Z] 📊 Comparaison pour allocine-series:
+[2025-05-11T15:23:50.772Z]    Local: ❌ - 2.47s - 0 éléments
+[2025-05-11T15:23:50.772Z]    Relay: ❌ - 0.00s - 0 éléments
+[2025-05-11T15:23:50.773Z]    Le plus rapide: relay (différence: 2.47s)
+[2025-05-11T15:23:50.773Z]    Le plus d'éléments: relay (différence: 0 éléments)
+[2025-05-11T15:23:50.773Z] --------------------------------------------------------------------------------
+[2025-05-11T15:23:50.773Z] 
+🔍 Test de la source: senscritique-films
+[2025-05-11T15:23:50.773Z] --------------------------------------------------------------------------------
+[2025-05-11T15:23:50.773Z] 🔍 Démarrage du scraping local pour la source: senscritique-films
+[2025-05-11T15:23:52.872Z] ✅ Scraping local terminé en 2.10s - 0 éléments récupérés
+[2025-05-11T15:23:52.874Z] 🔄 Démarrage du scraping via le service relais pour la source: senscritique-films
+[2025-05-11T15:23:52.875Z] ⚠️ Configuration de la source senscritique-films non trouvée, utilisation des valeurs par défaut
+[2025-05-11T15:23:52.875Z] 📡 Configuration utilisée pour senscritique-films:
+[2025-05-11T15:23:52.875Z]    URLs: https://www.themoviedb.org/movie/popular
+[2025-05-11T15:23:52.876Z]    Sélecteur principal: .card
+[2025-05-11T15:23:52.876Z]    Sélecteur d'attente: .page_wrapper
+[2025-05-11T15:23:52.876Z]    Type: film
+[2025-05-11T15:23:53.087Z] ❌ Erreur lors du scraping via service relais: Request failed with status code 422
+[2025-05-11T15:23:53.087Z] 📊 Comparaison pour senscritique-films:
+[2025-05-11T15:23:53.088Z]    Local: ❌ - 2.10s - 0 éléments
+[2025-05-11T15:23:53.088Z]    Relay: ❌ - 0.00s - 0 éléments
+[2025-05-11T15:23:53.088Z]    Le plus rapide: relay (différence: 2.10s)
+[2025-05-11T15:23:53.089Z]    Le plus d'éléments: relay (différence: 0 éléments)
+[2025-05-11T15:23:53.090Z] --------------------------------------------------------------------------------
+[2025-05-11T15:23:53.092Z] 
+📋 Rapport de synthèse:
+[2025-05-11T15:23:53.093Z] ================================================================================
+[2025-05-11T15:23:53.093Z] Sources testées: 4
+[2025-05-11T15:23:53.093Z] Succès en local: 0/4 (0%)
+[2025-05-11T15:23:53.093Z] Succès via relais: 0/4 (0%)
+[2025-05-11T15:23:53.093Z] Plus rapide en local: 0/4 (0%)
+[2025-05-11T15:23:53.093Z] Plus d'éléments en local: 0/4 (0%)
+[2025-05-11T15:23:53.095Z] 
+✅ Résultats sauvegardés dans /Users/floriace/FLO_DRAMA/FloDrama/cloudflare/scraping/test-results/test-results.json
+[2025-05-11T15:23:53.095Z] 
+================================================================================
+[2025-05-11T15:23:53.095Z] ✅ Tests de scraping terminés
+[2025-05-11T15:23:53.095Z] ================================================================================
+[2025-05-11T18:23:39.923Z] 🧪 Démarrage des tests de scraping
+[2025-05-11T18:23:39.935Z] ================================================================================
+[2025-05-11T18:23:39.935Z] 
+🔍 Test de la source: tmdb-films
+[2025-05-11T18:23:39.935Z] --------------------------------------------------------------------------------
+[2025-05-11T18:23:39.935Z] 🔍 Démarrage du scraping local pour la source: tmdb-films
+[2025-05-11T18:23:41.709Z] ✅ Scraping local terminé en 1.77s - 0 éléments récupérés
+[2025-05-11T18:23:41.710Z] 🔄 Démarrage du scraping via le service relais pour la source: tmdb-films
+[2025-05-11T18:23:41.711Z] 📡 Configuration utilisée pour tmdb-films:
+[2025-05-11T18:23:41.711Z]    URLs: https://api.themoviedb.org/3/movie/popular
+[2025-05-11T18:23:41.711Z]    Sélecteur principal: .movie-card
+[2025-05-11T18:23:41.712Z]    Sélecteur d'attente: .movie-list
+[2025-05-11T18:23:41.712Z]    Type: film
+[2025-05-11T18:24:13.302Z] ❌ Erreur lors du scraping via service relais: Request failed with status code 422
+[2025-05-11T18:24:13.303Z] 📊 Comparaison pour tmdb-films:
+[2025-05-11T18:24:13.303Z]    Local: ❌ - 1.77s - 0 éléments
+[2025-05-11T18:24:13.303Z]    Relay: ❌ - 0.00s - 0 éléments
+[2025-05-11T18:24:13.304Z]    Le plus rapide: relay (différence: 1.77s)
+[2025-05-11T18:24:13.304Z]    Le plus d'éléments: relay (différence: 0 éléments)
+[2025-05-11T18:24:13.304Z] --------------------------------------------------------------------------------
+[2025-05-11T18:24:13.304Z] 
+🔍 Test de la source: allocine-films
+[2025-05-11T18:24:13.304Z] --------------------------------------------------------------------------------
+[2025-05-11T18:24:13.304Z] 🔍 Démarrage du scraping local pour la source: allocine-films
+[2025-05-11T18:24:15.230Z] ✅ Scraping local terminé en 1.93s - 0 éléments récupérés
+[2025-05-11T18:24:15.230Z] 🔄 Démarrage du scraping via le service relais pour la source: allocine-films
+[2025-05-11T18:24:15.230Z] ⚠️ Configuration de la source allocine-films non trouvée, utilisation des valeurs par défaut
+[2025-05-11T18:24:15.230Z] 📡 Configuration utilisée pour allocine-films:
+[2025-05-11T18:24:15.231Z]    URLs: https://www.themoviedb.org/movie/popular
+[2025-05-11T18:24:15.231Z]    Sélecteur principal: .card
+[2025-05-11T18:24:15.231Z]    Sélecteur d'attente: .page_wrapper
+[2025-05-11T18:24:15.231Z]    Type: film
+[2025-05-11T18:24:15.790Z] ❌ Erreur lors du scraping via service relais: Request failed with status code 422
+[2025-05-11T18:24:15.790Z] 📊 Comparaison pour allocine-films:
+[2025-05-11T18:24:15.791Z]    Local: ❌ - 1.93s - 0 éléments
+[2025-05-11T18:24:15.791Z]    Relay: ❌ - 0.00s - 0 éléments
+[2025-05-11T18:24:15.791Z]    Le plus rapide: relay (différence: 1.93s)
+[2025-05-11T18:24:15.791Z]    Le plus d'éléments: relay (différence: 0 éléments)
+[2025-05-11T18:24:15.791Z] --------------------------------------------------------------------------------
+[2025-05-11T18:24:15.791Z] 
+🔍 Test de la source: allocine-series
+[2025-05-11T18:24:15.791Z] --------------------------------------------------------------------------------
+[2025-05-11T18:24:15.791Z] 🔍 Démarrage du scraping local pour la source: allocine-series
+[2025-05-11T18:24:18.211Z] ✅ Scraping local terminé en 2.42s - 0 éléments récupérés
+[2025-05-11T18:24:18.212Z] 🔄 Démarrage du scraping via le service relais pour la source: allocine-series
+[2025-05-11T18:24:18.213Z] ⚠️ Configuration de la source allocine-series non trouvée, utilisation des valeurs par défaut
+[2025-05-11T18:24:18.213Z] 📡 Configuration utilisée pour allocine-series:
+[2025-05-11T18:24:18.213Z]    URLs: https://www.themoviedb.org/movie/popular
+[2025-05-11T18:24:18.213Z]    Sélecteur principal: .card
+[2025-05-11T18:24:18.214Z]    Sélecteur d'attente: .page_wrapper
+[2025-05-11T18:24:18.214Z]    Type: film
+[2025-05-11T18:24:18.426Z] ❌ Erreur lors du scraping via service relais: Request failed with status code 422
+[2025-05-11T18:24:18.426Z] 📊 Comparaison pour allocine-series:
+[2025-05-11T18:24:18.427Z]    Local: ❌ - 2.42s - 0 éléments
+[2025-05-11T18:24:18.427Z]    Relay: ❌ - 0.00s - 0 éléments
+[2025-05-11T18:24:18.427Z]    Le plus rapide: relay (différence: 2.42s)
+[2025-05-11T18:24:18.427Z]    Le plus d'éléments: relay (différence: 0 éléments)
+[2025-05-11T18:24:18.427Z] --------------------------------------------------------------------------------
+[2025-05-11T18:24:18.427Z] 
+🔍 Test de la source: senscritique-films
+[2025-05-11T18:24:18.427Z] --------------------------------------------------------------------------------
+[2025-05-11T18:24:18.427Z] 🔍 Démarrage du scraping local pour la source: senscritique-films
+[2025-05-11T18:24:19.779Z] ✅ Scraping local terminé en 1.35s - 0 éléments récupérés
+[2025-05-11T18:24:19.779Z] 🔄 Démarrage du scraping via le service relais pour la source: senscritique-films
+[2025-05-11T18:24:19.780Z] ⚠️ Configuration de la source senscritique-films non trouvée, utilisation des valeurs par défaut
+[2025-05-11T18:24:19.780Z] 📡 Configuration utilisée pour senscritique-films:
+[2025-05-11T18:24:19.780Z]    URLs: https://www.themoviedb.org/movie/popular
+[2025-05-11T18:24:19.780Z]    Sélecteur principal: .card
+[2025-05-11T18:24:19.780Z]    Sélecteur d'attente: .page_wrapper
+[2025-05-11T18:24:19.780Z]    Type: film
+[2025-05-11T18:24:19.987Z] ❌ Erreur lors du scraping via service relais: Request failed with status code 422
+[2025-05-11T18:24:19.987Z] 📊 Comparaison pour senscritique-films:
+[2025-05-11T18:24:19.987Z]    Local: ❌ - 1.35s - 0 éléments
+[2025-05-11T18:24:19.987Z]    Relay: ❌ - 0.00s - 0 éléments
+[2025-05-11T18:24:19.987Z]    Le plus rapide: relay (différence: 1.35s)
+[2025-05-11T18:24:19.987Z]    Le plus d'éléments: relay (différence: 0 éléments)
+[2025-05-11T18:24:19.988Z] --------------------------------------------------------------------------------
+[2025-05-11T18:24:19.988Z] 
+📋 Rapport de synthèse:
+[2025-05-11T18:24:19.988Z] ================================================================================
+[2025-05-11T18:24:19.988Z] Sources testées: 4
+[2025-05-11T18:24:19.988Z] Succès en local: 0/4 (0%)
+[2025-05-11T18:24:19.988Z] Succès via relais: 0/4 (0%)
+[2025-05-11T18:24:19.988Z] Plus rapide en local: 0/4 (0%)
+[2025-05-11T18:24:19.988Z] Plus d'éléments en local: 0/4 (0%)
+[2025-05-11T18:24:19.989Z] 
+✅ Résultats sauvegardés dans /Users/floriace/FLO_DRAMA/FloDrama/cloudflare/scraping/test-results/test-results.json
+[2025-05-11T18:24:19.989Z] 
+================================================================================
+[2025-05-11T18:24:19.989Z] ✅ Tests de scraping terminés
+[2025-05-11T18:24:19.989Z] ================================================================================
+[2025-05-11T18:46:28.932Z] 🧪 Démarrage des tests de scraping
+[2025-05-11T18:46:28.937Z] ================================================================================
+[2025-05-11T18:46:28.938Z] 
+🔍 Test de la source: tmdb-films
+[2025-05-11T18:46:28.938Z] --------------------------------------------------------------------------------
+[2025-05-11T18:46:28.938Z] 🔍 Démarrage du scraping local pour la source: tmdb-films
+[2025-05-11T18:46:31.139Z] ✅ Scraping local terminé en 2.20s - 0 éléments récupérés
+[2025-05-11T18:46:31.141Z] 🔄 Démarrage du scraping via le service relais pour la source: tmdb-films
+[2025-05-11T18:46:31.141Z] 📡 Configuration utilisée pour tmdb-films:
+[2025-05-11T18:46:31.142Z]    URLs: https://api.themoviedb.org/3/movie/popular
+[2025-05-11T18:46:31.142Z]    Sélecteur principal: .movie-card
+[2025-05-11T18:46:31.143Z]    Sélecteur d'attente: .movie-list
+[2025-05-11T18:46:31.143Z]    Type: film
+[2025-05-11T18:47:03.586Z] ❌ Erreur lors du scraping via service relais: Request failed with status code 422
+[2025-05-11T18:47:03.588Z] 📊 Comparaison pour tmdb-films:
+[2025-05-11T18:47:03.589Z]    Local: ❌ - 2.20s - 0 éléments
+[2025-05-11T18:47:03.589Z]    Relay: ❌ - 0.00s - 0 éléments
+[2025-05-11T18:47:03.589Z]    Le plus rapide: relay (différence: 2.20s)
+[2025-05-11T18:47:03.589Z]    Le plus d'éléments: relay (différence: 0 éléments)
+[2025-05-11T18:47:03.589Z] --------------------------------------------------------------------------------
+[2025-05-11T18:47:03.589Z] 
+🔍 Test de la source: allocine-films
+[2025-05-11T18:47:03.589Z] --------------------------------------------------------------------------------
+[2025-05-11T18:47:03.589Z] 🔍 Démarrage du scraping local pour la source: allocine-films
+[2025-05-11T18:47:05.355Z] ✅ Scraping local terminé en 1.77s - 0 éléments récupérés
+[2025-05-11T18:47:05.356Z] 🔄 Démarrage du scraping via le service relais pour la source: allocine-films
+[2025-05-11T18:47:05.356Z] ⚠️ Configuration de la source allocine-films non trouvée, utilisation des valeurs par défaut
+[2025-05-11T18:47:05.356Z] 📡 Configuration utilisée pour allocine-films:
+[2025-05-11T18:47:05.356Z]    URLs: https://www.themoviedb.org/movie/popular
+[2025-05-11T18:47:05.356Z]    Sélecteur principal: .card
+[2025-05-11T18:47:05.357Z]    Sélecteur d'attente: .page_wrapper
+[2025-05-11T18:47:05.357Z]    Type: film
+[2025-05-11T18:47:05.571Z] ❌ Erreur lors du scraping via service relais: Request failed with status code 422
+[2025-05-11T18:47:05.572Z] 📊 Comparaison pour allocine-films:
+[2025-05-11T18:47:05.572Z]    Local: ❌ - 1.77s - 0 éléments
+[2025-05-11T18:47:05.572Z]    Relay: ❌ - 0.00s - 0 éléments
+[2025-05-11T18:47:05.572Z]    Le plus rapide: relay (différence: 1.77s)
+[2025-05-11T18:47:05.572Z]    Le plus d'éléments: relay (différence: 0 éléments)
+[2025-05-11T18:47:05.572Z] --------------------------------------------------------------------------------
+[2025-05-11T18:47:05.572Z] 
+🔍 Test de la source: allocine-series
+[2025-05-11T18:47:05.572Z] --------------------------------------------------------------------------------
+[2025-05-11T18:47:05.573Z] 🔍 Démarrage du scraping local pour la source: allocine-series
+[2025-05-11T18:47:06.549Z] ✅ Scraping local terminé en 0.98s - 0 éléments récupérés
+[2025-05-11T18:47:06.549Z] 🔄 Démarrage du scraping via le service relais pour la source: allocine-series
+[2025-05-11T18:47:06.550Z] ⚠️ Configuration de la source allocine-series non trouvée, utilisation des valeurs par défaut
+[2025-05-11T18:47:06.550Z] 📡 Configuration utilisée pour allocine-series:
+[2025-05-11T18:47:06.550Z]    URLs: https://www.themoviedb.org/movie/popular
+[2025-05-11T18:47:06.550Z]    Sélecteur principal: .card
+[2025-05-11T18:47:06.550Z]    Sélecteur d'attente: .page_wrapper
+[2025-05-11T18:47:06.550Z]    Type: film
+[2025-05-11T18:47:07.079Z] ❌ Erreur lors du scraping via service relais: Request failed with status code 422
+[2025-05-11T18:47:07.079Z] 📊 Comparaison pour allocine-series:
+[2025-05-11T18:47:07.080Z]    Local: ❌ - 0.98s - 0 éléments
+[2025-05-11T18:47:07.080Z]    Relay: ❌ - 0.00s - 0 éléments
+[2025-05-11T18:47:07.080Z]    Le plus rapide: relay (différence: 0.98s)
+[2025-05-11T18:47:07.080Z]    Le plus d'éléments: relay (différence: 0 éléments)
+[2025-05-11T18:47:07.080Z] --------------------------------------------------------------------------------
+[2025-05-11T18:47:07.080Z] 
+🔍 Test de la source: senscritique-films
+[2025-05-11T18:47:07.080Z] --------------------------------------------------------------------------------
+[2025-05-11T18:47:07.081Z] 🔍 Démarrage du scraping local pour la source: senscritique-films
+[2025-05-11T18:47:08.148Z] ✅ Scraping local terminé en 1.07s - 0 éléments récupérés
+[2025-05-11T18:47:08.149Z] 🔄 Démarrage du scraping via le service relais pour la source: senscritique-films
+[2025-05-11T18:47:08.149Z] ⚠️ Configuration de la source senscritique-films non trouvée, utilisation des valeurs par défaut
+[2025-05-11T18:47:08.149Z] 📡 Configuration utilisée pour senscritique-films:
+[2025-05-11T18:47:08.149Z]    URLs: https://www.themoviedb.org/movie/popular
+[2025-05-11T18:47:08.150Z]    Sélecteur principal: .card
+[2025-05-11T18:47:08.150Z]    Sélecteur d'attente: .page_wrapper
+[2025-05-11T18:47:08.150Z]    Type: film
+[2025-05-11T18:47:08.359Z] ❌ Erreur lors du scraping via service relais: Request failed with status code 422
+[2025-05-11T18:47:08.360Z] 📊 Comparaison pour senscritique-films:
+[2025-05-11T18:47:08.360Z]    Local: ❌ - 1.07s - 0 éléments
+[2025-05-11T18:47:08.360Z]    Relay: ❌ - 0.00s - 0 éléments
+[2025-05-11T18:47:08.360Z]    Le plus rapide: relay (différence: 1.07s)
+[2025-05-11T18:47:08.360Z]    Le plus d'éléments: relay (différence: 0 éléments)
+[2025-05-11T18:47:08.360Z] --------------------------------------------------------------------------------
+[2025-05-11T18:47:08.360Z] 
+📋 Rapport de synthèse:
+[2025-05-11T18:47:08.360Z] ================================================================================
+[2025-05-11T18:47:08.361Z] Sources testées: 4
+[2025-05-11T18:47:08.361Z] Succès en local: 0/4 (0%)
+[2025-05-11T18:47:08.361Z] Succès via relais: 0/4 (0%)
+[2025-05-11T18:47:08.361Z] Plus rapide en local: 0/4 (0%)
+[2025-05-11T18:47:08.361Z] Plus d'éléments en local: 0/4 (0%)
+[2025-05-11T18:47:08.361Z] 
+✅ Résultats sauvegardés dans /Users/floriace/FLO_DRAMA/FloDrama/cloudflare/scraping/test-results/test-results.json
+[2025-05-11T18:47:08.361Z] 
+================================================================================
+[2025-05-11T18:47:08.361Z] ✅ Tests de scraping terminés
+[2025-05-11T18:47:08.362Z] ================================================================================

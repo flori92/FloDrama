@@ -3,7 +3,7 @@
     "source": "tmdb-films",
     "local": {
       "success": false,
-      "duration": 1.559,
+      "duration": 2.201,
       "itemCount": 0
     },
     "relay": {
@@ -13,7 +13,7 @@
     },
     "comparison": {
       "fasterMethod": "relay",
-      "speedDifference": "1.56",
+      "speedDifference": "2.20",
       "moreItems": "relay",
       "itemDifference": 0
     }
@@ -22,7 +22,7 @@
     "source": "allocine-films",
     "local": {
       "success": false,
-      "duration": 1.281,
+      "duration": 1.766,
       "itemCount": 0
     },
     "relay": {
@@ -32,7 +32,7 @@
     },
     "comparison": {
       "fasterMethod": "relay",
-      "speedDifference": "1.28",
+      "speedDifference": "1.77",
       "moreItems": "relay",
       "itemDifference": 0
     }
@@ -41,7 +41,7 @@
     "source": "allocine-series",
     "local": {
       "success": false,
-      "duration": 0.79,
+      "duration": 0.976,
       "itemCount": 0
     },
     "relay": {
@@ -51,7 +51,7 @@
     },
     "comparison": {
       "fasterMethod": "relay",
-      "speedDifference": "0.79",
+      "speedDifference": "0.98",
       "moreItems": "relay",
       "itemDifference": 0
     }
@@ -60,7 +60,7 @@
     "source": "senscritique-films",
     "local": {
       "success": false,
-      "duration": 0.752,
+      "duration": 1.067,
       "itemCount": 0
     },
     "relay": {
@@ -70,7 +70,7 @@
     },
     "comparison": {
       "fasterMethod": "relay",
-      "speedDifference": "0.75",
+      "speedDifference": "1.07",
       "moreItems": "relay",
       "itemDifference": 0
     }

@@ -1,12 +1,5 @@
-❌ Erreur non capturée: listen EADDRINUSE: address already in use :::3000
-Error: listen EADDRINUSE: address already in use :::3000
-    at Server.setupListenHandle [as _listen2] (node:net:1939:16)
-    at listenInCluster (node:net:1996:12)
-    at Server.listen (node:net:2101:7)
-    at Function.listen (/Users/floriace/FLO_DRAMA/FloDrama/node_modules/express/lib/application.js:635:24)
-    at Object.<anonymous> (/Users/floriace/FLO_DRAMA/FloDrama/cloudflare/scraping/serveur-relay-local-v2.js:1106:5)
-    at Module._compile (node:internal/modules/cjs/loader:1734:14)
-    at Object..js (node:internal/modules/cjs/loader:1899:10)
-    at Module.load (node:internal/modules/cjs/loader:1469:32)
-    at Function._load (node:internal/modules/cjs/loader:1286:12)
-    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+✅ Serveur de relais local démarré sur le port 3000
+📌 URL: http://localhost:3000
+🔑 API Key: rnd_DJfpQC9gEu4KgTRvX8iQzMXxrteP
+📂 Dossier de sortie: /Users/floriace/FLO_DRAMA/FloDrama/cloudflare/scraping/relay-output
+📂 Dossier FloDrama: /Users/floriace/FLO_DRAMA/FloDrama/cloudflare/scraping/output
