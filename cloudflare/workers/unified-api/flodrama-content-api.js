@@ -7,12 +7,14 @@
 const AnimeController = require('./anime/controllers/AnimeController');
 const DramaController = require('./drama/controllers/DramaController');
 const BollywoodController = require('./bollywood/controllers/BollywoodController');
+const FilmController = require('./film/controllers/FilmController');
 const StreamingProxyService = require('./anime/services/StreamingProxyService');
 
 // Initialisation des contrôleurs et services
 const animeController = new AnimeController();
 const dramaController = new DramaController();
 const bollywoodController = new BollywoodController();
+const filmController = new FilmController();
 const streamingProxyService = new StreamingProxyService();
 
 /**
@@ -32,6 +34,8 @@ async function handleRequest(request, env, ctx) {
     'https://cddb57ab.flodrama-frontend.pages.dev',
     'https://identite-visuelle-flodrama.flodrama-frontend.pages.dev',
     'https://flodrama-frontend.pages.dev',
+    'https://1c38a83e.flodrama-frontend.pages.dev',
+    'https://4b7508c3.flodrama-frontend.pages.dev',
     'http://localhost:5173',
     'http://localhost:3000'
   ];
@@ -43,8 +47,8 @@ async function handleRequest(request, env, ctx) {
     // Si l'origine est dans la liste des origines autorisées, on l'utilise spécifiquement
     corsHeaders = {
       'Access-Control-Allow-Origin': origin,
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
+      'Access-Control-Allow-Methods': 'GET, HEAD, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       'Access-Control-Allow-Credentials': 'true',
       'Access-Control-Max-Age': '86400',
     };
@@ -52,17 +56,27 @@ async function handleRequest(request, env, ctx) {
     // Sinon, on utilise le wildcard mais sans credentials
     corsHeaders = {
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With',
+      'Access-Control-Allow-Methods': 'GET, HEAD, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       'Access-Control-Max-Age': '86400',
     };
   }
 
-  // Gestion des requêtes OPTIONS (CORS preflight)
+  // Gérer les en-têtes CORS pour les requêtes OPTIONS
   if (request.method === 'OPTIONS') {
+    // Vérifier si la requête a des credentials
+    const hasCredentials = request.headers.get('Access-Control-Request-Headers')?.includes('credentials');
+    
+    // Si la requête a des credentials, on ne peut pas utiliser le wildcard '*'
+    if (hasCredentials && corsHeaders['Access-Control-Allow-Origin'] === '*') {
+      // Utiliser l'origine spécifique au lieu du wildcard
+      corsHeaders['Access-Control-Allow-Origin'] = origin || 'https://4b7508c3.flodrama-frontend.pages.dev';
+      corsHeaders['Access-Control-Allow-Credentials'] = 'true';
+    }
+    
     return new Response(null, {
       status: 204,
-      headers: corsHeaders,
+      headers: corsHeaders
     });
   }
 
@@ -117,10 +131,20 @@ async function handleRequest(request, env, ctx) {
         return jsonResponse({ data: results });
       }
       
+      // Route: /api/anime (liste)
+      else if (path === '/api/anime') {
+        try {
+          const results = await animeController.getTrendingAnime(15);
+          return jsonResponse({ data: Array.isArray(results) ? results : [] });
+        } catch (e) {
+          return jsonResponse({ data: [] });
+        }
+      }
+      
       // Route: /api/anime/random
       else if (path === '/api/anime/random') {
         const result = await animeController.getRandomAnime();
-        return jsonResponse(result);
+        return jsonResponse({ data: result });
       }
       
       // Route: /api/anime/:id
@@ -134,8 +158,7 @@ async function handleRequest(request, env, ctx) {
       // Route: /api/anime/:id/episodes
       else if (segments.length === 4 && segments[3] === 'episodes') {
         const id = segments[2];
-        const page = parseInt(params.page) || 1;
-        const results = await animeController.getAnimeEpisodes(id, page);
+        const results = await animeController.getAnimeEpisodes(id);
         return jsonResponse(results);
       }
       
@@ -149,9 +172,8 @@ async function handleRequest(request, env, ctx) {
       // Route: /api/anime/:id/recommendations
       else if (segments.length === 4 && segments[3] === 'recommendations') {
         const id = segments[2];
-        const limit = parseInt(params.limit) || 10;
-        const results = await animeController.getAnimeRecommendations(id, limit);
-        return jsonResponse({ data: results });
+        const results = await animeController.getAnimeRecommendations(id);
+        return jsonResponse(results);
       }
       
       // Route: /api/anime/:id/streaming/:episode
@@ -159,13 +181,6 @@ async function handleRequest(request, env, ctx) {
         const id = segments[2];
         const episode = parseInt(segments[4]);
         const results = await animeController.getAnimeStreaming(id, episode);
-        
-        // Optimiser les sources de streaming avec le proxy
-        if (results && results.sources) {
-          const baseUrl = results.referer || `https://api.flodrama.com/api/anime/${id}`;
-          results.sources = streamingProxyService.optimizeSources(results.sources, baseUrl);
-        }
-        
         return jsonResponse(results);
       }
     }
@@ -225,6 +240,15 @@ async function handleRequest(request, env, ctx) {
         const result = await dramaController.getDramaById(id);
         return jsonResponse(result);
       }
+      // Route: /api/drama (liste)
+      else if (path === '/api/drama') {
+        try {
+          const results = await dramaController.getPopularDramas(15);
+          return jsonResponse({ data: Array.isArray(results) ? results : [] });
+        } catch (e) {
+          return jsonResponse({ data: [] });
+        }
+      }
       
       // Route: /api/drama/:id/episodes
       else if (segments.length === 4 && segments[3] === 'episodes') {
@@ -249,76 +273,75 @@ async function handleRequest(request, env, ctx) {
       }
     }
     
+    // Route: /api/film (liste)
+    else if (path === '/api/film') {
+      try {
+        const results = await filmController.getPopularFilms(15);
+        return jsonResponse({ data: Array.isArray(results) ? results : [] });
+      } catch (e) {
+        return jsonResponse({ data: [] });
+      }
+    }
     // Routes pour les films Bollywood
     else if (path.startsWith('/api/bollywood')) {
-      const segments = path.split('/').filter(Boolean);
-      
-      // Route: /api/bollywood/search
-      if (path === '/api/bollywood/search') {
-        const results = await bollywoodController.searchMovies(params);
-        return jsonResponse(results);
-      }
-      
-      // Route: /api/bollywood/trending
-      else if (path === '/api/bollywood/trending') {
-        const limit = parseInt(params.limit) || 15;
-        const results = await bollywoodController.getTrendingMovies(limit);
-        return jsonResponse({ data: results });
-      }
-      
-      // Route: /api/bollywood/recent
-      else if (path === '/api/bollywood/recent') {
-        const limit = parseInt(params.limit) || 15;
-        const results = await bollywoodController.getRecentMovies(limit);
-        return jsonResponse({ data: results });
-      }
-      
-      // Route: /api/bollywood/popular
-      else if (path === '/api/bollywood/popular') {
-        const limit = parseInt(params.limit) || 15;
-        const results = await bollywoodController.getPopularMovies(limit);
-        return jsonResponse({ data: results });
-      }
-      
-      // Route: /api/bollywood/genre/:genre
-      else if (segments.length === 4 && segments[2] === 'genre') {
-        const genre = segments[3];
-        const page = parseInt(params.page) || 1;
-        const limit = parseInt(params.limit) || 20;
-        const results = await bollywoodController.getMoviesByGenre(genre, page, limit);
-        return jsonResponse(results);
-      }
-      
-      // Route: /api/bollywood/actor/:actor
-      else if (segments.length === 4 && segments[2] === 'actor') {
-        const actor = segments[3];
-        const page = parseInt(params.page) || 1;
-        const limit = parseInt(params.limit) || 20;
-        const results = await bollywoodController.getMoviesByActor(actor, page, limit);
-        return jsonResponse(results);
-      }
-      
-      // Route: /api/bollywood/director/:director
-      else if (segments.length === 4 && segments[2] === 'director') {
-        const director = segments[3];
-        const page = parseInt(params.page) || 1;
-        const limit = parseInt(params.limit) || 20;
-        const results = await bollywoodController.getMoviesByDirector(director, page, limit);
-        return jsonResponse(results);
-      }
-      
-      // Route: /api/bollywood/:id
-      else if (segments.length === 3) {
-        const id = segments[2];
-        const result = await bollywoodController.getMovieById(id);
-        return jsonResponse(result);
-      }
-      
-      // Route: /api/bollywood/:id/streaming
-      else if (segments.length === 4 && segments[3] === 'streaming') {
-        const id = segments[2];
-        const results = await bollywoodController.getMovieStreaming(id);
-        return jsonResponse(results);
+      try {
+        const segments = path.split('/').filter(Boolean);
+        
+        // Route: /api/bollywood/search
+        if (path === '/api/bollywood/search') {
+          const results = await bollywoodController.searchMovies(params);
+          return jsonResponse(results);
+        }
+        
+        // Route: /api/bollywood/trending
+        else if (path === '/api/bollywood/trending') {
+          const limit = parseInt(params.limit) || 15;
+          const results = await bollywoodController.getTrendingMovies(limit);
+          return jsonResponse({ data: results });
+        }
+        
+        // Route: /api/bollywood/recent
+        else if (path === '/api/bollywood/recent') {
+          const limit = parseInt(params.limit) || 15;
+          const results = await bollywoodController.getRecentMovies(limit);
+          return jsonResponse({ data: results });
+        }
+        
+        // Route: /api/bollywood/popular
+        else if (path === '/api/bollywood/popular') {
+          const limit = parseInt(params.limit) || 15;
+          const results = await bollywoodController.getPopularMovies(limit);
+          return jsonResponse({ data: results });
+        }
+        
+        // Route: /api/bollywood/genre/:genre
+        else if (segments.length === 4 && segments[2] === 'genre') {
+          const genre = segments[3];
+          const page = parseInt(params.page) || 1;
+          const limit = parseInt(params.limit) || 20;
+          const results = await bollywoodController.getMoviesByGenre(genre, page, limit);
+          return jsonResponse(results);
+        }
+        
+        // Route: /api/bollywood/actor/:actor
+        else if (segments.length === 4 && segments[2] === 'actor') {
+          const actor = segments[3];
+          const page = parseInt(params.page) || 1;
+          const limit = parseInt(params.limit) || 20;
+          const results = await bollywoodController.getMoviesByActor(actor, page, limit);
+          return jsonResponse(results);
+        }
+        
+        // Route: /api/bollywood/director/:director
+        else if (segments.length === 4 && segments[2] === 'director') {
+          const director = segments[3];
+          const page = parseInt(params.page) || 1;
+          const limit = parseInt(params.limit) || 20;
+          return jsonResponse(results);
+        }
+      } catch (error) {
+        console.error(`Erreur Bollywood: ${error.message}`);
+        return errorResponse(error.message, 500);
       }
     }
     
@@ -338,15 +361,14 @@ async function handleRequest(request, env, ctx) {
           .map(item => ({
             id: item.id || Math.floor(Math.random() * 10000),
             title: item.title || item.name || 'Sans titre',
-            poster_path: item.poster_path || '/placeholder.jpg',
-            backdrop_path: item.backdrop_path || '/placeholder-backdrop.jpg',
-            overview: item.overview || 'Aucune description disponible',
-            vote_average: item.vote_average || 0,
-            release_date: item.release_date || item.first_air_date || new Date().toISOString().split('T')[0],
-            content_type: item.content_type || determineContentType(item),
-            ...item // Garder les autres propriétés originales
+            poster_path: item.poster_path || item.image || '',
+            backdrop_path: item.backdrop_path || item.image || '',
+            overview: item.overview || item.description || '',
+            vote_average: item.vote_average || (Math.random() * 5 + 5).toFixed(1),
+            content_type: determineContentType(item)
           }))
-          .sort(() => Math.random() - 0.5)
+          .filter(item => item.poster_path) // S'assurer qu'il y a une image
+          .sort(() => Math.random() - 0.5) // Mélanger
           .slice(0, limit);
           
         return jsonResponse({ data: allTrending });
@@ -356,67 +378,27 @@ async function handleRequest(request, env, ctx) {
       }
     }
     
-    // Route: /recent (agrégation de contenu récent)
-    else if (path === '/recent') {
-      const limit = parseInt(params.limit) || 15;
-      try {
-        // Récupérer les contenus récents de chaque catégorie
-        const [animes, dramas, bollywood] = await Promise.all([
-          animeController.getRecentAnime(limit),
-          dramaController.getRecentDramas(limit),
-          bollywoodController.getRecentMovies(limit)
-        ]);
-        
-        // Fusionner et trier par date (plus récent d'abord)
-        const allRecent = [...animes, ...dramas, ...bollywood]
-          .map(item => ({
-            id: item.id || Math.floor(Math.random() * 10000),
-            title: item.title || item.name || 'Sans titre',
-            poster_path: item.poster_path || '/placeholder.jpg',
-            backdrop_path: item.backdrop_path || '/placeholder-backdrop.jpg',
-            overview: item.overview || 'Aucune description disponible',
-            vote_average: item.vote_average || 0,
-            release_date: item.release_date || item.first_air_date || new Date().toISOString().split('T')[0],
-            content_type: item.content_type || determineContentType(item),
-            ...item // Garder les autres propriétés originales
-          }))
-          .sort((a, b) => {
-            const dateA = new Date(a.release_date || a.first_air_date || 0);
-            const dateB = new Date(b.release_date || b.first_air_date || 0);
-            return dateB - dateA;
-          })
-          .slice(0, limit);
-          
-        return jsonResponse({ data: allRecent });
-      } catch (error) {
-        console.error(`Erreur récupération recent: ${error.message}`);
-        return jsonResponse({ data: [] });
-      }
-    }
-    
-    // Route: /banners (pour les featured content)
+    // Route: /banners (pour le carousel de la page d'accueil)
     else if (path === '/banners') {
       const limit = parseInt(params.limit) || 5;
       try {
-        // Récupérer du contenu populaire pour les bannières
+        // Récupérer les contenus populaires de chaque catégorie
         const [animes, dramas, bollywood] = await Promise.all([
           animeController.getPopularAnime(limit),
           dramaController.getPopularDramas(limit),
           bollywoodController.getPopularMovies(limit)
         ]);
         
-        // Sélectionner quelques éléments pour les bannières
+        // S'assurer que chaque élément a les propriétés requises
         const banners = [...animes, ...dramas, ...bollywood]
           .map(item => ({
             id: item.id || Math.floor(Math.random() * 10000),
             title: item.title || item.name || 'Sans titre',
-            poster_path: item.poster_path || '/placeholder.jpg',
-            backdrop_path: item.backdrop_path || '/placeholder-backdrop.jpg',
-            overview: item.overview || 'Aucune description disponible',
-            vote_average: item.vote_average || 0,
-            release_date: item.release_date || item.first_air_date || new Date().toISOString().split('T')[0],
-            content_type: item.content_type || determineContentType(item),
-            ...item // Garder les autres propriétés originales
+            poster_path: item.poster_path || item.image || '',
+            backdrop_path: item.backdrop_path || item.image || '',
+            overview: item.overview || item.description || '',
+            vote_average: item.vote_average || (Math.random() * 5 + 5).toFixed(1),
+            content_type: determineContentType(item)
           }))
           .filter(item => item.backdrop_path) // S'assurer qu'il y a une image de fond
           .sort(() => Math.random() - 0.5) // Mélanger
@@ -432,47 +414,49 @@ async function handleRequest(request, env, ctx) {
     // Route d'accueil de l'API
     else if (path === '/api' || path === '/api/') {
       return jsonResponse({
-        name: 'FloDrama Content API',
-        version: '1.0.0',
-        description: 'API unifiée pour accéder aux contenus Anime, Drama et Bollywood',
-        endpoints: {
-          anime: [
-            '/api/anime/search',
-            '/api/anime/trending',
-            '/api/anime/recent',
-            '/api/anime/random',
-            '/api/anime/:id',
-            '/api/anime/:id/episodes',
-            '/api/anime/:id/characters',
-            '/api/anime/:id/recommendations',
-            '/api/anime/:id/streaming/:episode'
-          ],
-          streaming: [
-            '/api/stream/proxy?url={url}&referer={referer}'
-          ],
-          drama: [
-            '/api/drama/search',
-            '/api/drama/trending',
-            '/api/drama/recent',
-            '/api/drama/popular',
-            '/api/drama/genre/:genre',
-            '/api/drama/country/:country',
-            '/api/drama/:id',
-            '/api/drama/:id/episodes',
-            '/api/drama/:id/cast',
-            '/api/drama/:id/streaming/:episode'
-          ],
-          bollywood: [
-            '/api/bollywood/search',
-            '/api/bollywood/trending',
-            '/api/bollywood/recent',
-            '/api/bollywood/popular',
-            '/api/bollywood/genre/:genre',
-            '/api/bollywood/actor/:actor',
-            '/api/bollywood/director/:director',
-            '/api/bollywood/:id',
-            '/api/bollywood/:id/streaming'
-          ]
+        data: {
+          name: 'FloDrama Content API',
+          version: '1.0.0',
+          description: 'API unifiée pour accéder aux contenus Anime, Drama et Bollywood',
+          endpoints: {
+            anime: [
+              '/api/anime/search',
+              '/api/anime/trending',
+              '/api/anime/recent',
+              '/api/anime/random',
+              '/api/anime/:id',
+              '/api/anime/:id/episodes',
+              '/api/anime/:id/characters',
+              '/api/anime/:id/recommendations',
+              '/api/anime/:id/streaming/:episode'
+            ],
+            streaming: [
+              '/api/stream/proxy?url={url}&referer={referer}'
+            ],
+            drama: [
+              '/api/drama/search',
+              '/api/drama/trending',
+              '/api/drama/recent',
+              '/api/drama/popular',
+              '/api/drama/genre/:genre',
+              '/api/drama/country/:country',
+              '/api/drama/:id',
+              '/api/drama/:id/episodes',
+              '/api/drama/:id/cast',
+              '/api/drama/:id/streaming/:episode'
+            ],
+            bollywood: [
+              '/api/bollywood/search',
+              '/api/bollywood/trending',
+              '/api/bollywood/recent',
+              '/api/bollywood/popular',
+              '/api/bollywood/genre/:genre',
+              '/api/bollywood/actor/:actor',
+              '/api/bollywood/director/:director',
+              '/api/bollywood/:id',
+              '/api/bollywood/:id/streaming'
+            ]
+          }
         }
       });
     }
@@ -497,8 +481,8 @@ async function handleRequest(request, env, ctx) {
     // Route: /api/stream/proxy
     else if (path.startsWith('/api/stream/proxy')) {
       // Récupérer les paramètres de requête
-      const streamUrl = params.url;
-      const referer = params.referer;
+      // Utilisation de la destructuration d'objet comme recommandé
+      const { url: streamUrl, referer } = params;
       
       if (!streamUrl) {
         return errorResponse('URL de streaming manquante', 400);
@@ -515,12 +499,13 @@ async function handleRequest(request, env, ctx) {
     console.error(`Erreur API: ${error.message}`);
     return errorResponse(error.message, 500);
   }
-  
-  // Si aucune route ne correspond
-  return errorResponse('Endpoint non trouvé', 404);
 }
 
-// Helper pour déterminer le type de contenu
+/**
+ * Helper pour déterminer le type de contenu
+ * @param {Object} content - L'objet de contenu à analyser
+ * @returns {string} - Le type de contenu déterminé
+ */
 function determineContentType(content) {
   if (!content) {
     return 'film';

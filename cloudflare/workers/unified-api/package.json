@@ -15,7 +15,8 @@
   "author": "FloDrama Team",
   "license": "MIT",
   "dependencies": {
-    "itty-router": "^3.0.12"
+    "itty-router": "^3.0.12",
+    "node-fetch": "^2.7.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",

@@ -11,29 +11,71 @@ class StreamingSourcesService {
       drama: [
         {
           name: 'dramacool',
-          baseUrl: 'https://dramacool.hr',
+          baseUrl: 'https://dramacool.com.tr',
+          alternativeDomains: ['dramacool9.io', 'dramacool.cr', 'dramacool.sr'],
           searchEndpoint: '/search?keyword=',
-          episodePattern: '/drama-detail/'
+          episodePattern: '/drama-detail/',
+          needsCloudflareBypass: true,
+          expirationHours: 12,
+          waitSelector: '.list-episode-item',
+          mainSelector: '.list-drama-item'
         },
         {
           name: 'viewasian',
-          baseUrl: 'https://viewasian.co',
+          baseUrl: 'https://viewasian.lol',
+          alternativeDomains: ['viewasian.tv', 'viewasian.cc'],
           searchEndpoint: '/search?keyword=',
-          episodePattern: '/watch/'
+          episodePattern: '/watch/',
+          needsCloudflareBypass: true,
+          expirationHours: 6,
+          waitSelector: '.video-content',
+          mainSelector: '.play-video'
+        },
+        {
+          name: 'kissasian',
+          baseUrl: 'https://kissasian.com.lv',
+          alternativeDomains: ['kissasian.sh', 'kissasian.io', 'kissasian.cx'],
+          searchEndpoint: '/search?keyword=',
+          episodePattern: '/watch/',
+          needsCloudflareBypass: true,
+          expirationHours: 8,
+          waitSelector: '#centerDivVideo',
+          mainSelector: '#divContentVideo'
+        },
+        {
+          name: 'voirdrama',
+          baseUrl: 'https://voirdrama.org',
+          alternativeDomains: ['voirdrama.cc', 'voirdrama.tv'],
+          searchEndpoint: '/?s=',
+          episodePattern: '/episode-',
+          needsCloudflareBypass: true,
+          expirationHours: 10,
+          waitSelector: 'div.site-content',
+          mainSelector: 'div.wrap'
         }
       ],
       bollywood: [
         {
-          name: 'hindilinks4u',
-          baseUrl: 'https://hindilinks4u.to',
-          searchEndpoint: '/?s=',
-          episodePattern: '/watch/'
+          name: 'bollyplay',
+          baseUrl: 'https://bollyplay.app',
+          alternativeDomains: ['bollyplay.tv', 'bollyplay.cc', 'bollyplay.film'],
+          searchEndpoint: '/search/',
+          episodePattern: '/movies/',
+          needsCloudflareBypass: true,
+          expirationHours: 12,
+          waitSelector: '.movies-list',
+          mainSelector: '.ml-item'
         },
         {
-          name: 'einthusan',
-          baseUrl: 'https://einthusan.tv',
-          searchEndpoint: '/movie/results/?lang=hindi&query=',
-          episodePattern: '/movie/watch/'
+          name: 'hindilinks4u',
+          baseUrl: 'https://hindilinks4u.skin',
+          alternativeDomains: ['hindilinks4u.to', 'hindilinks4u.co', 'hindilinks4u.app'],
+          searchEndpoint: '/?s=',
+          episodePattern: '/watch/',
+          needsCloudflareBypass: true,
+          expirationHours: 12,
+          waitSelector: '.film-list',
+          mainSelector: '.film-item'
         }
       ]
     };
@@ -210,21 +252,62 @@ class StreamingSourcesService {
     await new Promise(resolve => setTimeout(resolve, 100));
     
     // Simuler des résultats de recherche
-    // Dans une implémentation réelle, ces données proviendraient d'une API
-    const sources = [
-      {
-        url: `https://example-cdn.com/bollywood/${movie.id}/movie.mp4`,
-        quality: '720p',
-        type: 'mp4',
-        referer: source.baseUrl
-      },
-      {
-        url: `https://example-cdn.com/bollywood/${movie.id}/movie_hd.mp4`,
-        quality: '1080p',
-        type: 'mp4',
-        referer: source.baseUrl
-      }
-    ];
+    // Dans une implémentation réelle, ces données proviendraient d'une API ou d'un scraping
+    let sources = [];
+    
+    // Générer des sources différentes selon la source utilisée
+    if (source.name === 'bollyplay') {
+      sources = [
+        {
+          url: `https://bollyplay-cdn.com/movies/${movie.id}/stream.mp4`,
+          quality: '720p',
+          type: 'mp4',
+          referer: source.baseUrl
+        },
+        {
+          url: `https://bollyplay-cdn.com/movies/${movie.id}/stream_hd.mp4`,
+          quality: '1080p',
+          type: 'mp4',
+          referer: source.baseUrl
+        }
+      ];
+    } else if (source.name === 'hindilinks4u') {
+      sources = [
+        {
+          url: `https://hindilinks-cdn.com/movies/${movie.id}/play.mp4`,
+          quality: '720p',
+          type: 'mp4',
+          referer: source.baseUrl
+        },
+        {
+          url: `https://hindilinks-cdn.com/movies/${movie.id}/play_hd.mp4`,
+          quality: '1080p',
+          type: 'mp4',
+          referer: source.baseUrl
+        }
+      ];
+    }
+    
+    // Ajouter des sous-titres si disponibles
+    if (movie.title && movie.title.length > 0) {
+      const subtitles = [
+        {
+          url: `https://flodrama-subtitles.com/bollywood/${movie.id}/fr.vtt`,
+          language: 'Français',
+          language_code: 'fr'
+        },
+        {
+          url: `https://flodrama-subtitles.com/bollywood/${movie.id}/en.vtt`,
+          language: 'English',
+          language_code: 'en'
+        }
+      ];
+      
+      // Ajouter les sous-titres aux sources
+      sources.forEach(source => {
+        source.subtitles = subtitles;
+      });
+    }
     
     return sources;
   }

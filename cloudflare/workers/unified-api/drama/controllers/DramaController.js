@@ -1,18 +1,24 @@
 const KDramasService = require('../services/KDramasService');
 const MyDramaListService = require('../services/MyDramaListService');
+const DramaApiService = require('../services/DramaApiService');
 const StreamingSourcesService = require('../../core/services/StreamingSourcesService');
 const StreamingProxyService = require('../../anime/services/StreamingProxyService');
 
 /**
- * Contrôleur pour gérer les requêtes liées aux dramas
- * Utilise plusieurs services pour fournir des données complètes
+ * Contrôleur pour gérer les requêtes liées aux dramas asiatiques
+ * Utilise plusieurs services pour fournir des données complètes et robustes
+ * Intègre des sources multiples avec système de fallback
  */
 class DramaController {
   constructor() {
     this.kDramasService = new KDramasService();
     this.myDramaListService = new MyDramaListService();
+    this.dramaApiService = new DramaApiService();
     this.streamingSourcesService = new StreamingSourcesService();
     this.streamingProxyService = new StreamingProxyService();
+    
+    // Ordre de priorité des services (pour les fallbacks)
+    this.servicesPriority = ['kDramas', 'dramaApi', 'myDramaList'];
   }
 
   /**
@@ -21,20 +27,38 @@ class DramaController {
    * @returns {Promise<Object>} - Le drama récupéré
    */
   async getDramaById(id) {
+    // Essayer tous les services dans l'ordre de priorité
+    let lastError;
+    
+    // 1. KDramas
     try {
-      // Essayer d'abord avec KDramas
       return await this.kDramasService.getDrama(id);
     } catch (error) {
-      console.log(`Erreur KDramas pour le drama ${id}: ${error.message}`);
-      
-      // Fallback sur MyDramaList
-      try {
-        return await this.myDramaListService.getDrama(id);
-      } catch (fallbackError) {
-        console.log(`Erreur MyDramaList pour le drama ${id}: ${fallbackError.message}`);
-        throw new Error(`Drama non trouvé: ${id}`);
-      }
+      console.log(`[DramaController] Erreur KDramas pour le drama ${id}: ${error.message}`);
+      lastError = error;
     }
+    
+    // 2. DramaApi
+    try {
+      const result = await this.dramaApiService.getDramaById(id);
+      if (result) {
+        return result;
+      }
+    } catch (error) {
+      console.log(`[DramaController] Erreur DramaApi pour le drama ${id}: ${error.message}`);
+      lastError = error;
+    }
+    
+    // 3. MyDramaList
+    try {
+      return await this.myDramaListService.getDrama(id);
+    } catch (error) {
+      console.log(`[DramaController] Erreur MyDramaList pour le drama ${id}: ${error.message}`);
+      lastError = error;
+    }
+    
+    // Si tous les services ont échoué
+    throw new Error(lastError?.message || `Drama non trouvé: ${id}`);
   }
 
   /**
@@ -75,29 +99,59 @@ class DramaController {
   async searchDramas(params) {
     const { q, page = 1, limit = 20 } = params;
     
-    try {
-      // Si nous avons un terme de recherche, utiliser KDramas
-      if (q) {
-        return await this.kDramasService.searchDramas(q, page, limit);
-      }
-      
-      // Sinon, retourner un tableau vide
-      return { data: [] };
-    } catch (error) {
-      console.log(`Erreur KDramas pour la recherche: ${error.message}`);
-      
-      // Fallback sur MyDramaList si nous avons un terme de recherche
-      if (q) {
-        try {
-          return await this.myDramaListService.searchDramas(q, page);
-        } catch (fallbackError) {
-          console.log(`Erreur MyDramaList pour la recherche: ${fallbackError.message}`);
-        }
-      }
-      
-      // En cas d'échec, retourner un tableau vide
+    // Si pas de terme de recherche, retourner un tableau vide
+    if (!q) {
       return { data: [] };
     }
+    
+    let lastError;
+    
+    // 1. KDramas
+    try {
+      const results = await this.kDramasService.searchDramas(q, page, limit);
+      if (results && results.data && results.data.length > 0) {
+        console.log(`[DramaController] Recherche "${q}" via KDramas: ${results.data.length} résultats`);
+        return results;
+      }
+    } catch (error) {
+      console.log(`[DramaController] Erreur KDramas pour la recherche "${q}": ${error.message}`);
+      lastError = error;
+    }
+    
+    // 2. DramaApi
+    try {
+      const results = await this.dramaApiService.searchDramas({ q, page, limit });
+      if (results && results.length > 0) {
+        console.log(`[DramaController] Recherche "${q}" via DramaApi: ${results.length} résultats`);
+        return { 
+          data: results,
+          pagination: {
+            current_page: page,
+            total_pages: Math.ceil(results.length / limit),
+            total_results: results.length
+          }
+        };
+      }
+    } catch (error) {
+      console.log(`[DramaController] Erreur DramaApi pour la recherche "${q}": ${error.message}`);
+      lastError = error;
+    }
+    
+    // 3. MyDramaList
+    try {
+      const results = await this.myDramaListService.searchDramas(q, page);
+      if (results && results.data && results.data.length > 0) {
+        console.log(`[DramaController] Recherche "${q}" via MyDramaList: ${results.data.length} résultats`);
+        return results;
+      }
+    } catch (error) {
+      console.log(`[DramaController] Erreur MyDramaList pour la recherche "${q}": ${error.message}`);
+      lastError = error;
+    }
+    
+    // En cas d'échec de tous les services
+    console.log(`[DramaController] Aucun résultat trouvé pour la recherche "${q}"`);
+    return { data: [] };
   }
 
   /**
@@ -106,25 +160,64 @@ class DramaController {
    * @returns {Promise<Array>} - Les dramas en tendance
    */
   async getTrendingDramas(limit = 15) {
+    let allResults = [];
+    let errors = 0;
+    
+    // 1. KDramas
     try {
-      // Essayer d'abord avec KDramas
-      const trendingFromKDramas = await this.kDramasService.getTrendingDramas(limit);
-      
-      if (trendingFromKDramas && trendingFromKDramas.length > 0) {
-        return trendingFromKDramas;
+      const results = await this.kDramasService.getTrendingDramas(limit);
+      if (results && results.length > 0) {
+        allResults = allResults.concat(results);
+        console.log(`[DramaController] Tendances via KDramas: ${results.length} dramas`);
       }
     } catch (error) {
-      console.log(`Erreur KDramas pour les tendances: ${error.message}`);
+      console.log(`[DramaController] Erreur KDramas pour les tendances: ${error.message}`);
+      errors++;
     }
     
-    // Fallback sur MyDramaList
+    // 2. DramaApi
     try {
-      return await this.myDramaListService.getTrendingDramas(limit);
+      const results = await this.dramaApiService.getPopularDramas(limit);
+      if (results && results.length > 0) {
+        // Marquer comme tendance
+        const enhancedResults = results.map(drama => {
+          return { ...drama, is_trending: true };
+        });
+        allResults = allResults.concat(enhancedResults);
+        console.log(`[DramaController] Tendances via DramaApi: ${results.length} dramas`);
+      }
     } catch (error) {
-      console.log(`Erreur MyDramaList pour les tendances: ${error.message}`);
+      console.log(`[DramaController] Erreur DramaApi pour les tendances: ${error.message}`);
+      errors++;
     }
     
-    // En cas d'échec, retourner un tableau vide
+    // 3. MyDramaList (seulement si nous avons peu de résultats)
+    if (allResults.length < limit) {
+      try {
+        const results = await this.myDramaListService.getTrendingDramas(limit);
+        if (results && results.length > 0) {
+          allResults = allResults.concat(results);
+          console.log(`[DramaController] Tendances via MyDramaList: ${results.length} dramas`);
+        }
+      } catch (error) {
+        console.log(`[DramaController] Erreur MyDramaList pour les tendances: ${error.message}`);
+        errors++;
+      }
+    }
+    
+    // Dédupliquer les résultats par ID
+    const uniqueResults = this._deduplicateResults(allResults);
+    
+    // Si nous avons des résultats, les retourner (limités au nombre demandé)
+    if (uniqueResults.length > 0) {
+      return uniqueResults.slice(0, limit);
+    }
+    
+    // Si tous les services ont échoué
+    if (errors === 3) {
+      console.log(`[DramaController] Tous les services ont échoué pour les tendances`);
+    }
+    
     return [];
   }
 
@@ -162,25 +255,60 @@ class DramaController {
    * @returns {Promise<Array>} - Les dramas populaires
    */
   async getPopularDramas(limit = 15) {
+    let allResults = [];
+    let errors = 0;
+    
+    // 1. KDramas
     try {
-      // Essayer d'abord avec KDramas
-      const popularFromKDramas = await this.kDramasService.getPopularDramas(limit);
-      
-      if (popularFromKDramas && popularFromKDramas.length > 0) {
-        return popularFromKDramas;
+      const results = await this.kDramasService.getPopularDramas(limit);
+      if (results && results.length > 0) {
+        allResults = allResults.concat(results);
+        console.log(`[DramaController] Populaires via KDramas: ${results.length} dramas`);
       }
     } catch (error) {
-      console.log(`Erreur KDramas pour les populaires: ${error.message}`);
+      console.log(`[DramaController] Erreur KDramas pour les populaires: ${error.message}`);
+      errors++;
     }
     
-    // Fallback sur MyDramaList
+    // 2. DramaApi (source prioritaire pour les contenus asiatiques)
     try {
-      return await this.myDramaListService.getPopularDramas(limit);
+      const results = await this.dramaApiService.getPopularDramas(limit);
+      if (results && results.length > 0) {
+        allResults = allResults.concat(results);
+        console.log(`[DramaController] Populaires via DramaApi: ${results.length} dramas`);
+      }
     } catch (error) {
-      console.log(`Erreur MyDramaList pour les populaires: ${error.message}`);
+      console.log(`[DramaController] Erreur DramaApi pour les populaires: ${error.message}`);
+      errors++;
     }
     
-    // En cas d'échec, retourner un tableau vide
+    // 3. MyDramaList (seulement si nous avons peu de résultats)
+    if (allResults.length < limit) {
+      try {
+        const results = await this.myDramaListService.getPopularDramas(limit);
+        if (results && results.length > 0) {
+          allResults = allResults.concat(results);
+          console.log(`[DramaController] Populaires via MyDramaList: ${results.length} dramas`);
+        }
+      } catch (error) {
+        console.log(`[DramaController] Erreur MyDramaList pour les populaires: ${error.message}`);
+        errors++;
+      }
+    }
+    
+    // Dédupliquer les résultats par ID
+    const uniqueResults = this._deduplicateResults(allResults);
+    
+    // Si nous avons des résultats, les retourner (limités au nombre demandé)
+    if (uniqueResults.length > 0) {
+      return uniqueResults.slice(0, limit);
+    }
+    
+    // Si tous les services ont échoué
+    if (errors === 3) {
+      console.log(`[DramaController] Tous les services ont échoué pour les populaires`);
+    }
+    
     return [];
   }
 
@@ -263,6 +391,30 @@ class DramaController {
       console.log(`Erreur pour le streaming du drama ${id}, épisode ${episode}: ${error.message}`);
       throw new Error(`Informations de streaming non trouvées pour le drama: ${id}, épisode: ${episode}`);
     }
+  }
+  
+  /**
+   * Déduplique les résultats par ID
+   * @param {Array} results - Les résultats à dédupliquer
+   * @returns {Array} - Les résultats dédupliqués
+   * @private
+   */
+  _deduplicateResults(results) {
+    if (!Array.isArray(results) || results.length === 0) {
+      return [];
+    }
+    
+    const uniqueMap = new Map();
+    
+    results.forEach(drama => {
+      // Utiliser l'ID comme clé pour la déduplication
+      const id = drama.id || drama.drama_id;
+      if (id && !uniqueMap.has(id)) {
+        uniqueMap.set(id, drama);
+      }
+    });
+    
+    return Array.from(uniqueMap.values());
   }
 }
 
