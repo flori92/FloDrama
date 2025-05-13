@@ -12,6 +12,63 @@
 // Utilisation directe de l'API de contenu qui fonctionne
 export const API_BASE_URL = 'https://flodrama-content-api.florifavi.workers.dev';
 
+// URL de fallback pour les données statiques (si l'API n'est pas disponible)
+// Utilisation du chemin absolu pour éviter les problèmes de routage
+export const FALLBACK_API_URL = window.location.origin + '/fallback';
+
+// Fonction pour obtenir des données de fallback si l'API échoue
+export const getFallbackData = async (endpoint) => {
+  try {
+    // Récupérer le type de contenu à partir de l'endpoint (/api/anime -> anime)
+    const contentType = endpoint.split('/').filter(Boolean).pop() || 'anime';
+    
+    // Construction de l'URL complète pour le fichier de fallback
+    const fallbackUrl = `${FALLBACK_API_URL}/${contentType}.json`;
+    console.log(`Tentative de récupération du fichier de fallback: ${fallbackUrl}`);
+    
+    // Utiliser les fichiers JSON locaux dans le dossier public/fallback
+    const response = await fetch(fallbackUrl, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      cache: 'no-store' // Éviter les problèmes de cache
+    });
+    
+    if (!response.ok) {
+      console.error(`Erreur HTTP ${response.status} lors de la récupération de ${fallbackUrl}`);
+      throw new Error(`Erreur ${response.status}`);
+    }
+    
+    // Vérifier le type de contenu de la réponse
+    const contentTypeHeader = response.headers.get('content-type');
+    if (!contentTypeHeader || !contentTypeHeader.includes('application/json')) {
+      console.warn(`Type de contenu inattendu: ${contentTypeHeader}. Tentative de parsing JSON quand même.`);
+    }
+    
+    // Récupérer le texte brut pour le déboguer si nécessaire
+    const text = await response.text();
+    
+    // Vérifier si le texte commence par '<!DOCTYPE' (signe d'une page HTML)
+    if (text.trim().startsWith('<!DOCTYPE')) {
+      console.error('Reçu une page HTML au lieu de JSON:', text.substring(0, 100));
+      return { data: [] };
+    }
+    
+    try {
+      // Tenter de parser le JSON et retourner directement le résultat
+      return JSON.parse(text);
+    } catch (parseError) {
+      console.error(`Erreur de parsing JSON: ${parseError.message}`);
+      console.error('Contenu reçu:', text.substring(0, 200));
+      return { data: [] };
+    }
+  } catch (error) {
+    console.error(`Erreur lors de la récupération des données de fallback: ${error.message}`);
+    return { data: [] };
+  }
+};
+
 // Autres options d'URL (non utilisées actuellement)
 // export const API_BASE_URL = 'https://flodrama-cors-proxy.florifavi.workers.dev';
 // export const API_BASE_URL = 'https://flodrama-api-worker.florifavi.workers.dev';

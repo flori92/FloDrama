@@ -26,7 +26,7 @@
   width: 50px;
   height: 50px;
   border: 5px solid rgba(255, 255, 255, 0.1);
-  border-top-color: #e50914;
+  border-top-color: #3b82f6;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 15px;
@@ -46,18 +46,18 @@
 }
 
 .error-message button {
-  background-color: #e50914;
+  background: linear-gradient(to right, #3b82f6, #d946ef);
   color: #fff;
   border: none;
   padding: 10px 20px;
   border-radius: 4px;
   font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: transform 0.3s;
 }
 
 .error-message button:hover {
-  background-color: #f40612;
+  transform: scale(1.05);
 }
 
 /* En-tête du contenu avec image de fond */
@@ -157,13 +157,12 @@
 }
 
 .primary-button {
-  background-color: #e50914;
+  background: linear-gradient(to right, #3b82f6, #d946ef);
   color: #fff;
   border: none;
 }
 
 .primary-button:hover {
-  background-color: #f40612;
   transform: scale(1.05);
 }
 
@@ -242,7 +241,7 @@
 
 .episode-card.completed .episode-number::after {
   content: "✓";
-  color: #e50914;
+  color: #d946ef;
   margin-left: 8px;
 }
 
@@ -296,7 +295,7 @@
 
 .progress {
   height: 100%;
-  background-color: #e50914;
+  background: linear-gradient(to right, #3b82f6, #d946ef);
 }
 
 .episode-info {

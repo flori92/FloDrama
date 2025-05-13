@@ -20,8 +20,15 @@ export const recent = '/recent'; // Contenu récent
 
 // Fonction pour obtenir l'URL complète
 export const getFullUrl = (path) => {
+  // Vérifier si le chemin est valide
+  if (!path) {
+    console.error('FloDramaURLs - getFullUrl: Chemin invalide', { path });
+    return API_BASE_URL;
+  }
+
   // Vérifier si le chemin contient déjà le domaine
   if (path.includes('http')) {
+    console.log('FloDramaURLs - getFullUrl: URL déjà complète', { path });
     return path;
   }
   
@@ -29,7 +36,15 @@ export const getFullUrl = (path) => {
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
   
   // Construire l'URL complète
-  return `${API_BASE_URL}${normalizedPath}`;
+  const fullUrl = `${API_BASE_URL}${normalizedPath}`;
+  console.log('FloDramaURLs - getFullUrl: URL construite', { 
+    baseUrl: API_BASE_URL, 
+    path, 
+    normalizedPath, 
+    fullUrl 
+  });
+  
+  return fullUrl;
 }
 
 // URLs pour les détails d'un contenu spécifique

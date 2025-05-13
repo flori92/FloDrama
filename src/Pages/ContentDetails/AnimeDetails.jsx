@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ContentDetails.css';
+import { API_BASE_URL } from '../../Cloudflare/CloudflareConfig';
+import { getFullUrl } from '../../Constants/FloDramaURLs';
 
 /**
  * Composant pour afficher les détails d'un anime
@@ -16,8 +18,8 @@ const AnimeDetails = () => {
   const [error, setError] = useState(null);
   const [watchHistory, setWatchHistory] = useState({});
   
-  // API de base
-  const apiBaseUrl = process.env.REACT_APP_API_BASE_URL || 'https://api.flodrama.com/api';
+  // API de base - Utilisation de l'API Cloudflare
+  const apiBaseUrl = API_BASE_URL;
   
   // Récupération des informations de l'anime
   useEffect(() => {
@@ -27,21 +29,25 @@ const AnimeDetails = () => {
       
       try {
         // Récupérer les détails de l'anime
-        const animeResponse = await fetch(`${apiBaseUrl}/anime/${id}`);
+        const animeResponse = await fetch(`${apiBaseUrl}/api/anime/${id}`);
         
         if (!animeResponse.ok) {
           throw new Error(`Erreur ${animeResponse.status}: ${animeResponse.statusText}`);
         }
         
         const animeData = await animeResponse.json();
-        setAnime(animeData);
+        // Vérifier si les données sont dans un format attendu
+        const animeContent = animeData.data || animeData;
+        setAnime(animeContent);
         
         // Récupérer les épisodes
-        const episodesResponse = await fetch(`${apiBaseUrl}/anime/${id}/episodes`);
+        const episodesResponse = await fetch(`${apiBaseUrl}/api/anime/${id}/episodes`);
         
         if (episodesResponse.ok) {
           const episodesData = await episodesResponse.json();
-          setEpisodes(episodesData.data || []);
+          // Vérifier si les données sont dans un format attendu
+          const episodesContent = episodesData.data || episodesData || [];
+          setEpisodes(Array.isArray(episodesContent) ? episodesContent : []);
         }
       } catch (error) {
         console.error('Erreur lors de la récupération des détails de l\'anime:', error);
