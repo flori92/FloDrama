@@ -1,20 +1,21 @@
 import React from "react";
 import { useEffect, useState, useContext } from "react";
-import Banner from "../componets/Banner/Banner";
-import Footer from "../componets/Footer/Footer";
-import RowPost from "../componets/RowPost/RowPost";
-import MovieGrid from "../componets/MovieGrid/MovieGrid";
+import Banner from "../components/Banner/Banner";
+import Footer from "../components/Footer/Footer";
+import RowPost from "../components/RowPost/RowPost";
+import MovieGrid from "../components/MovieGrid/MovieGrid";
 import {
   dramas,
   animes,
   films,
   bollywood,
-  featured,
-  trending,
-  recent,
+  // featured, // supprimé car endpoint inexistant
+  TRENDING_ENDPOINTS,
+  RECENT_ENDPOINTS,
   handleApiResponse,
   getFullUrl
 } from "../Constants/FloDramaURLs";
+import { fetchAggregatedContent } from "../utils/fetchAggregatedContent";
 import { API_BASE_URL } from "../Cloudflare/CloudflareConfig";
 import { AuthContext } from "../Context/UserContext";
 
@@ -60,33 +61,31 @@ function Home() {
   const [trendingError, setTrendingError] = useState(null);
   const [recentError, setRecentError] = useState(null);
 
-  // Charger les films en tendance pour la grille
+  // Agrégation des tendances globales (toutes catégories)
   useEffect(() => {
     setTrendingLoading(true);
-    fetch(getFullUrl(trending))
-      .then(response => handleApiResponse(response))
+    fetchAggregatedContent(TRENDING_ENDPOINTS, { limit: 24, handleApiResponse })
       .then(data => {
         setTrendingMovies(data);
         setTrendingLoading(false);
       })
       .catch(err => {
-        console.error("Erreur lors du chargement des tendances:", err);
+        console.error("Erreur lors de l'agrégation des tendances:", err);
         setTrendingError(err.message);
         setTrendingLoading(false);
       });
   }, []);
 
-  // Charger les films récents pour la grille
+  // Agrégation des ajouts récents globaux (toutes catégories)
   useEffect(() => {
     setRecentLoading(true);
-    fetch(getFullUrl(recent))
-      .then(response => handleApiResponse(response))
+    fetchAggregatedContent(RECENT_ENDPOINTS, { limit: 24, handleApiResponse })
       .then(data => {
         setRecentMovies(data);
         setRecentLoading(false);
       })
       .catch(err => {
-        console.error("Erreur lors du chargement des films récents:", err);
+        console.error("Erreur lors de l'agrégation des ajouts récents:", err);
         setRecentError(err.message);
         setRecentLoading(false);
       });
@@ -94,7 +93,8 @@ function Home() {
 
   return (
     <div>
-      <Banner url={getFullUrl(featured)} useCloudflareApi={true} />
+      {/* Bannière désactivée car endpoint 'featured' inexistant. À réactiver si une alternative est trouvée. */}
+      {/* <Banner url={getFullUrl(featured)} useCloudflareApi={true} /> */}
       
       <div className="w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         {/* Section Tendances avec MovieGrid */}

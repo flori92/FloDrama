@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import EnhancedStreamingPlayer from '../../componets/VideoPlayer/EnhancedStreamingPlayer';
+import EnhancedStreamingPlayer from '../../components/VideoPlayer/EnhancedStreamingPlayer';
 import './VideoPlayerContainer.css';
 
 /**

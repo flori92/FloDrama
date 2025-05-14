@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
-import Footer from "../componets/Footer/Footer";
-import NavbarWithoutUser from "../componets/Header/NavbarWithoutUser";
+import Footer from "../components/Footer/Footer";
+import NavbarWithoutUser from "../components/Header/NavbarWithoutUser";
 import { Fade } from "react-reveal";
 import { Link } from "react-router-dom";
 

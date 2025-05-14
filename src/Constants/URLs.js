@@ -1,13 +1,19 @@
 import { API_KEY } from "../Constants/Constance";
-export const TopRated = `/movie/top_rated?api_key=${API_KEY}&language=en-US`;
-export const originals = `discover/tv?api_key=${API_KEY}&with_networks=213&sort_by=popularity.desc&language=en-US`;
-export const action = `discover/movie?api_key=${API_KEY}&with_genres=28`;
-export const comedy = `discover/movie?api_key=${API_KEY}&with_genres=35`;
-export const horror = `discover/movie?api_key=${API_KEY}&with_genres=27`;
-export const Adventure = `discover/movie?api_key=${API_KEY}&with_genres=12`;
-export const SciFi = `discover/movie?api_key=${API_KEY}&with_genres=878`;
-export const Animated = `discover/movie?api_key=${API_KEY}&with_genres=16`;
-export const War = `discover/movie?api_key=${API_KEY}&with_genres=10752`;
-export const trending = `trending/all/week?api_key=${API_KEY}&sort_by=popularity.desc&language=en-US`;
-export const trendingSeries = `/trending/tv/week?api_key=${API_KEY}&sort_by=popularity.desc&language=en-US`;
-export const UpcomingMovies = `/movie/upcoming?api_key=${API_KEY}&language=en-US`;
+import { API_BASE_URL } from "../Cloudflare/CloudflareConfig";
+
+// Adaptation des URLs pour utiliser les endpoints disponibles dans l'API de production
+// Basé sur la documentation de l'API : https://flodrama-api-prod.florifavi.workers.dev/api
+
+// Films populaires et tendances
+export const TopRated = `${API_BASE_URL}/api/film/popular`;
+export const originals = `${API_BASE_URL}/api/drama/trending`;
+export const action = `${API_BASE_URL}/api/film/genre/action`;
+export const comedy = `${API_BASE_URL}/api/film/genre/comedy`;
+export const horror = `${API_BASE_URL}/api/film/genre/horror`;
+export const Adventure = `${API_BASE_URL}/api/film/genre/adventure`;
+export const SciFi = `${API_BASE_URL}/api/film/genre/sci-fi`;
+export const Animated = `${API_BASE_URL}/api/anime/trending`;
+export const War = `${API_BASE_URL}/api/film/genre/war`;
+export const trending = `${API_BASE_URL}/api/film/trending`;
+export const trendingSeries = `${API_BASE_URL}/api/drama/trending`;
+export const UpcomingMovies = `${API_BASE_URL}/api/film/recent`;

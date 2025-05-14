@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-import StreamingPlayer from '../componets/VideoPlayer/StreamingPlayer';
+import StreamingPlayer from '../components/VideoPlayer/StreamingPlayer';
 import '../componets/VideoPlayer/StreamingPlayer.css';
 import '../index.css';
 

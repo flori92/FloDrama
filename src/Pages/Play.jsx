@@ -5,8 +5,8 @@ import axios from "../axios";
 import { API_KEY, imageUrl, imageUrl2 } from "../Constants/Constance";
 import { useWatchParty } from "../Context/WatchPartyContext";
 
-import Navbar from "../componets/Header/Navbar";
-import Footer from "../componets/Footer/Footer";
+import Navbar from "../components/Header/Navbar";
+import Footer from "../components/Footer/Footer";
 import useUpdateMylist from "../CustomHooks/useUpdateMylist";
 import useUpdateLikedMovies from "../CustomHooks/useUpdateLikedMovies";
 

@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Fade } from "react-reveal";
-import Loader from "../componets/Loader/Loader";
+import Loader from "../components/Loader/Loader";
 import {
   getAuth,
   signInWithEmailAndPassword,

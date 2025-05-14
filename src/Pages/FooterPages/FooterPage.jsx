@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import Footer from '../../componets/Footer/Footer';
+import Footer from '../../components/Footer/Footer';
 
 const FooterPage = ({ title, children }) => {
   return (

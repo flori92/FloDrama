@@ -10,7 +10,7 @@
 // export const API_BASE_URL = 'https://flodrama-api-worker.florifavi.workers.dev'; // URL directe de l'API (problèmes CORS)
 
 // Utilisation directe de l'API de contenu qui fonctionne
-export const API_BASE_URL = 'https://flodrama-content-api.florifavi.workers.dev';
+export const API_BASE_URL = 'https://flodrama-api-prod.florifavi.workers.dev';
 
 // URL de fallback pour les données statiques (si l'API n'est pas disponible)
 // Utilisation du chemin absolu pour éviter les problèmes de routage

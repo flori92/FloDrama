@@ -11,7 +11,7 @@ import {
 import { setDoc, doc } from "../Cloudflare/CloudflareDB";
 import { db } from "../Cloudflare/CloudflareDB";
 import { AuthContext } from "../Context/UserContext";
-import Loader from "../componets/Loader/Loader";
+import Loader from "../components/Loader/Loader";
 // Utilisation de l'image bannière depuis le dossier public avec contournement du cache
 const timestamp = new Date().getTime();
 const WelcomePageBanner = `/images/WelcomePageBanner.jpg?v=${timestamp}`;

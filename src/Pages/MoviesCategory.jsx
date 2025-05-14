@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import MovieGrid from '../componets/MovieGrid/MovieGrid';
+import MovieGrid from '../components/MovieGrid/MovieGrid';
 import { handleApiResponse } from '../Constants/FloDramaURLs';
 import { API_BASE_URL } from '../Cloudflare/CloudflareConfig';
 

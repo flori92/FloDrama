@@ -1,4 +1,4 @@
-export const baseUrl = "https://flodrama-api-worker.florifavi.workers.dev";
+export const baseUrl = "https://flodrama-api-prod.florifavi.workers.dev";
 export const API_KEY = "flodrama-api-key-2025";
 // Utilisation de Cloudflare Images pour les ressources média
 export const imageUrl = "https://flodrama-content-api.florifavi.workers.dev/images/original";

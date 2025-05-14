@@ -13,10 +13,43 @@ export const films = `${API_BASE_URL}/api/film`;
 export const bollywood = `${API_BASE_URL}/api/bollywood`;
 
 // URLs pour les vues spéciales
-// Utilisation de chemins relatifs pour éviter les doublons de domaine
-export const featured = '/banners'; // Utilise les banners pour la section featured
-export const trending = '/trending'; // Contenu en tendance
-export const recent = '/recent'; // Contenu récent
+// Utilisation d'URLs absolues pour éviter les problèmes de domaine
+// Ces endpoints n'existent pas côté API FloDrama :
+// - featured (banners)
+// - trending (global)
+// - recent (global)
+// Pour une vue globale, agréger côté frontend les endpoints spécialisés ci-dessous.
+
+// Endpoints spécialisés pour l'agrégation frontend :
+export const TRENDING_ENDPOINTS = [
+  `${API_BASE_URL}/api/film/trending`,
+  `${API_BASE_URL}/api/drama/trending`,
+  `${API_BASE_URL}/api/anime/trending`,
+  `${API_BASE_URL}/api/bollywood/trending`
+];
+export const RECENT_ENDPOINTS = [
+  `${API_BASE_URL}/api/film/recent`,
+  `${API_BASE_URL}/api/drama/recent`,
+  `${API_BASE_URL}/api/anime/recent`,
+  `${API_BASE_URL}/api/bollywood/recent`
+];
+
+// URLs pour les vues spéciales par catégorie
+export const dramaTrending = `${API_BASE_URL}/api/drama/trending`;
+export const dramaRecent = `${API_BASE_URL}/api/drama/recent`;
+export const dramaPopular = `${API_BASE_URL}/api/drama/popular`;
+
+export const animeTrending = `${API_BASE_URL}/api/anime/trending`;
+export const animeRecent = `${API_BASE_URL}/api/anime/recent`;
+export const animePopular = `${API_BASE_URL}/api/anime/popular`;
+
+export const filmTrending = `${API_BASE_URL}/api/film/trending`;
+export const filmRecent = `${API_BASE_URL}/api/film/recent`;
+export const filmPopular = `${API_BASE_URL}/api/film/popular`;
+
+export const bollywoodTrending = `${API_BASE_URL}/api/bollywood/trending`;
+export const bollywoodRecent = `${API_BASE_URL}/api/bollywood/recent`;
+export const bollywoodPopular = `${API_BASE_URL}/api/bollywood/popular`;
 
 // Fonction pour obtenir l'URL complète
 export const getFullUrl = (path) => {

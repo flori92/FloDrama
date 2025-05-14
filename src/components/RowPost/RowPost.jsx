@@ -310,7 +310,18 @@ function RowPost(props) {
             })
             .map((obj, index) => {
               // Vérification supplémentaire pour s'assurer que l'objet a un titre ou un nom
-              const title = obj.title || obj.name || 'Film sans titre';
+              // Gestion des titres qui sont des objets avec {default, english, native}
+              let title = 'Film sans titre';
+              
+              // Si le titre est un objet avec des propriétés (format API FloDrama)
+              if (obj.title && typeof obj.title === 'object') {
+                // Utiliser default, puis english, puis native dans cet ordre
+                title = obj.title.default || obj.title.english || obj.title.native || 'Film sans titre';
+              } 
+              // Sinon, utiliser le titre ou le nom directement s'ils sont des chaînes
+              else {
+                title = obj.title || obj.name || 'Film sans titre';
+              }
               const detailUrl = getDetailUrl(obj);
               const imageSource = getImageUrl(obj);
               const rating = formatRating(obj);
