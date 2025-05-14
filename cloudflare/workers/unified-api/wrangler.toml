@@ -1,4 +1,4 @@
-name = "flodrama-content-api"
+name = "flodrama-api-prod"
 main = "flodrama-content-api.js"
 compatibility_date = "2023-05-12"
 compatibility_flags = ["nodejs_compat"]

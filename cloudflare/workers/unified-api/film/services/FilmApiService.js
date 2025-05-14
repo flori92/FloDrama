@@ -595,8 +595,231 @@ class FilmApiService {
       return cleanItem;
     });
   }
+  
+  /**
+   * Récupère les films tendance via JustWatch
+   * @param {number} limit - Nombre de films à récupérer
+   * @returns {Promise<Array>} - Liste des films tendance asiatiques
+   */
+  async getTrendingFilms(limit = 15) {
+    try {
+      // Clé de cache pour les films tendance asiatiques
+      const cacheKey = `justwatch_trending_asian_films_${limit}`;
+      
+      // Vérifier le cache
+      const cachedData = await this.cache.get(cacheKey);
+      if (cachedData) {
+        console.log(`[FilmApiService] Utilisation du cache pour getTrendingFilms (${limit})`);
+        return JSON.parse(cachedData);
+      }
+      
+      console.log(`[FilmApiService] Récupération des films tendance (${limit})`);
+      
+      // Nous allons faire des requêtes pour les films récents et populaires
+      const params = {
+        ...this.defaultParams,
+        sort_by: 'recency',
+        sort_asc: false,
+        page_size: 100,
+        release_year_from: new Date().getFullYear() - 2, // Films des 2 dernières années
+        release_year_until: new Date().getFullYear()
+      };
+      
+      const url = `${this.baseUrl}/titles/${this.locale}/new`;
+      const resp = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(params)
+      });
+      
+      if (!resp.ok) {
+        throw new Error(`Erreur API JustWatch: ${resp.status} ${resp.statusText}`);
+      }
+      
+      const data = await resp.json();
+      let results = this._normalizeResults(data.items || []);
+      
+      // Filtrer pour ne garder que les films asiatiques
+      results = this._filterAsianContent(results);
+      console.log(`[FilmApiService] Films tendance filtrés: ${results.length} films asiatiques trouvés`);
+      
+      // Trier par popularité (score)
+      results = results.sort((a, b) => (b.vote_average || 0) - (a.vote_average || 0));
+      
+      // Limiter le nombre de résultats
+      results = results.slice(0, limit);
+      
+      // Mettre en cache les résultats (6 heures)
+      if (results.length > 0) {
+        await this.cache.set(cacheKey, JSON.stringify(results), 21600);
+      }
+      
+      return results;
+    } catch (error) {
+      console.error(`[FilmApiService] Erreur getTrendingFilms: ${error.message}`);
+      return [];
+    }
+  }
+
+  /**
+   * Récupère les films récents via JustWatch
+   * @param {number} limit - Nombre de films à récupérer
+   * @returns {Promise<Array>} - Liste des films récents asiatiques
+   */
+  async getRecentFilms(limit = 15) {
+    try {
+      // Clé de cache pour les films récents asiatiques
+      const cacheKey = `justwatch_recent_asian_films_${limit}`;
+      
+      // Vérifier le cache
+      const cachedData = await this.cache.get(cacheKey);
+      if (cachedData) {
+        console.log(`[FilmApiService] Utilisation du cache pour getRecentFilms (${limit})`);
+        return JSON.parse(cachedData);
+      }
+      
+      console.log(`[FilmApiService] Récupération des films récents (${limit})`);
+      
+      // Paramètres pour les films récents
+      const params = {
+        ...this.defaultParams,
+        sort_by: 'recency',
+        sort_asc: false,
+        page_size: 100,
+        release_year_from: new Date().getFullYear() - 1, // Films de l'année dernière et cette année
+        release_year_until: new Date().getFullYear()
+      };
+      
+      const url = `${this.baseUrl}/titles/${this.locale}/new`;
+      const resp = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(params)
+      });
+      
+      if (!resp.ok) {
+        throw new Error(`Erreur API JustWatch: ${resp.status} ${resp.statusText}`);
+      }
+      
+      const data = await resp.json();
+      let results = this._normalizeResults(data.items || []);
+      
+      // Filtrer pour ne garder que les films asiatiques
+      results = this._filterAsianContent(results);
+      console.log(`[FilmApiService] Films récents filtrés: ${results.length} films asiatiques trouvés`);
+      
+      // Limiter le nombre de résultats
+      results = results.slice(0, limit);
+      
+      // Mettre en cache les résultats (4 heures)
+      if (results.length > 0) {
+        await this.cache.set(cacheKey, JSON.stringify(results), 14400);
+      }
+      
+      return results;
+    } catch (error) {
+      console.error(`[FilmApiService] Erreur getRecentFilms: ${error.message}`);
+      return [];
+    }
+  }
+
+  /**
+   * Récupère les films par genre via JustWatch
+   * @param {string} genre - Le genre des films à récupérer
+   * @param {number} page - La page à récupérer
+   * @param {number} limit - Le nombre de films par page
+   * @returns {Promise<Array>} - Les films du genre spécifié
+   */
+  async getFilmsByGenre(genre, page = 1, limit = 20) {
+    try {
+      // Clé de cache pour les films par genre
+      const cacheKey = `justwatch_genre_${genre}_p${page}_l${limit}`;
+      
+      // Vérifier le cache
+      const cachedData = await this.cache.get(cacheKey);
+      if (cachedData) {
+        console.log(`[FilmApiService] Utilisation du cache pour getFilmsByGenre (${genre}, page ${page})`);
+        return JSON.parse(cachedData);
+      }
+      
+      console.log(`[FilmApiService] Récupération des films par genre: ${genre}, page ${page}`);
+      
+      // Convertir le nom du genre en ID
+      const genreMap = {
+        'action': 1,
+        'animation': 2,
+        'comedie': 3,
+        'crime': 4,
+        'documentaire': 5,
+        'drame': 6,
+        'fantastique': 7,
+        'historique': 8,
+        'horreur': 9,
+        'famille': 10,
+        'musique': 11,
+        'mystere': 12,
+        'romance': 13,
+        'science-fiction': 14,
+        'thriller': 15,
+        'guerre': 16,
+        'western': 17
+      };
+      
+      const genreId = genreMap[genre.toLowerCase()] || null;
+      
+      if (!genreId) {
+        console.log(`[FilmApiService] Genre non reconnu: ${genre}`);
+        return [];
+      }
+      
+      // Paramètres pour les films par genre
+      const params = {
+        ...this.defaultParams,
+        genres: [genreId],
+        page: page,
+        page_size: limit * 2, // On récupère plus pour pouvoir filtrer ensuite
+        sort_by: 'popularity',
+        sort_asc: false
+      };
+      
+      const url = `${this.baseUrl}/titles/${this.locale}/popular`;
+      const resp = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(params)
+      });
+      
+      if (!resp.ok) {
+        throw new Error(`Erreur API JustWatch: ${resp.status} ${resp.statusText}`);
+      }
+      
+      const data = await resp.json();
+      let results = this._normalizeResults(data.items || []);
+      
+      // Filtrer pour ne garder que les films asiatiques
+      results = this._filterAsianContent(results);
+      console.log(`[FilmApiService] Films par genre filtrés: ${results.length} films asiatiques trouvés pour le genre ${genre}`);
+      
+      // Limiter le nombre de résultats
+      results = results.slice(0, limit);
+      
+      // Mettre en cache les résultats (12 heures)
+      if (results.length > 0) {
+        await this.cache.set(cacheKey, JSON.stringify(results), 43200);
+      }
+      
+      return results;
+    } catch (error) {
+      console.error(`[FilmApiService] Erreur getFilmsByGenre: ${error.message}`);
+      return [];
+    }
+  }
 }
-
-
 
 module.exports = FilmApiService;

@@ -218,6 +218,162 @@ class FilmScraperService {
       return null;
     }
   }
+  
+  /**
+   * Récupère les films tendance via scraping
+   * @param {number} limit - Nombre de films à récupérer
+   * @returns {Promise<Array>} - Liste des films tendance
+   */
+  async scrapeTrendingFilms(limit = 15) {
+    try {
+      // Clé de cache pour les films tendance
+      const cacheKey = `scraped_trending_films_${limit}`;
+      
+      // Vérifier le cache
+      const cachedData = await this.cache.get(cacheKey);
+      if (cachedData) {
+        console.log(`[FilmScraperService] Utilisation du cache pour scrapeTrendingFilms (${limit})`);
+        return JSON.parse(cachedData);
+      }
+      
+      console.log(`[FilmScraperService] Scraping des films tendance (limit=${limit})`);
+      
+      // Fonction de requête avec tentatives
+      const fetchTrendingFilms = async () => {
+        const response = await fetch(`${this.scrapingBaseUrl}/trending?limit=${limit}`);
+        
+        if (!response.ok) {
+          throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        return Array.isArray(data.data) ? data.data : [];
+      };
+      
+      // Exécuter la requête avec tentatives
+      const results = await this._retryRequest(
+        fetchTrendingFilms,
+        `scraping des films tendance (limit=${limit})`
+      );
+      
+      // Mettre en cache les résultats (8 heures)
+      if (results.length > 0) {
+        await this.cache.set(cacheKey, JSON.stringify(results), 28800);
+      }
+      
+      return results;
+    } catch (error) {
+      console.error(`[FilmScraperService] Erreur scrapeTrendingFilms: ${error.message}`);
+      return [];
+    }
+  }
+
+  /**
+   * Récupère les films récents via scraping
+   * @param {number} limit - Nombre de films à récupérer
+   * @returns {Promise<Array>} - Liste des films récents
+   */
+  async scrapeRecentFilms(limit = 15) {
+    try {
+      // Clé de cache pour les films récents
+      const cacheKey = `scraped_recent_films_${limit}`;
+      
+      // Vérifier le cache
+      const cachedData = await this.cache.get(cacheKey);
+      if (cachedData) {
+        console.log(`[FilmScraperService] Utilisation du cache pour scrapeRecentFilms (${limit})`);
+        return JSON.parse(cachedData);
+      }
+      
+      console.log(`[FilmScraperService] Scraping des films récents (limit=${limit})`);
+      
+      // Fonction de requête avec tentatives
+      const fetchRecentFilms = async () => {
+        const response = await fetch(`${this.scrapingBaseUrl}/recent?limit=${limit}`);
+        
+        if (!response.ok) {
+          throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        return Array.isArray(data.data) ? data.data : [];
+      };
+      
+      // Exécuter la requête avec tentatives
+      const results = await this._retryRequest(
+        fetchRecentFilms,
+        `scraping des films récents (limit=${limit})`
+      );
+      
+      // Mettre en cache les résultats (6 heures)
+      if (results.length > 0) {
+        await this.cache.set(cacheKey, JSON.stringify(results), 21600);
+      }
+      
+      return results;
+    } catch (error) {
+      console.error(`[FilmScraperService] Erreur scrapeRecentFilms: ${error.message}`);
+      return [];
+    }
+  }
+
+  /**
+   * Récupère les liens de streaming pour un film via scraping
+   * @param {string|number} id - ID du film
+   * @returns {Promise<Array>} - Liste des liens de streaming
+   */
+  async scrapeFilmStreaming(id) {
+    try {
+      if (!id) {
+        return [];
+      }
+      
+      // Clé de cache pour les liens de streaming
+      const cacheKey = `scraped_film_streaming_${id}`;
+      
+      // Vérifier le cache
+      const cachedData = await this.cache.get(cacheKey);
+      if (cachedData) {
+        console.log(`[FilmScraperService] Utilisation du cache pour scrapeFilmStreaming (id=${id})`);
+        return JSON.parse(cachedData);
+      }
+      
+      console.log(`[FilmScraperService] Scraping des liens de streaming pour le film (id=${id})`);
+      
+      // Fonction de requête avec tentatives
+      const fetchStreamingLinks = async () => {
+        const response = await fetch(`${this.scrapingBaseUrl}/${id}/streaming`);
+        
+        // Cas spécial: 404 signifie que le film n'existe pas, pas une erreur de scraping
+        if (response.status === 404) {
+          return [];
+        }
+        
+        if (!response.ok) {
+          throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        return Array.isArray(data.data) ? data.data : [];
+      };
+      
+      // Exécuter la requête avec tentatives
+      const results = await this._retryRequest(
+        fetchStreamingLinks,
+        `scraping des liens de streaming (id=${id})`
+      );
+      
+      // Mettre en cache les résultats (4 heures)
+      if (results.length > 0) {
+        await this.cache.set(cacheKey, JSON.stringify(results), 14400);
+      }
+      
+      return results;
+    } catch (error) {
+      console.error(`[FilmScraperService] Erreur scrapeFilmStreaming: ${error.message}`);
+      return [];
+    }
+  }
 }
 
 module.exports = FilmScraperService;

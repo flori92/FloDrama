@@ -48,7 +48,7 @@ async function handleRequest(request, env, ctx) {
     corsHeaders = {
       'Access-Control-Allow-Origin': origin,
       'Access-Control-Allow-Methods': 'GET, HEAD, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-google-client-id',
       'Access-Control-Allow-Credentials': 'true',
       'Access-Control-Max-Age': '86400',
     };
@@ -288,30 +288,36 @@ async function handleRequest(request, env, ctx) {
         const segments = path.split('/').filter(Boolean);
         
         // Route: /api/bollywood/search
-        if (path === '/api/bollywood/search') {
-          const results = await bollywoodController.searchMovies(params);
-          return jsonResponse(results);
+        if (segments[2] === 'search') {
+          console.log(`[API Gateway] /api/bollywood/search - Début avec paramètres:`, params);
+          const result = await bollywoodController.searchMovies(params);
+          console.log(`[API Gateway] /api/bollywood/search - Résultat obtenu:`, result);
+          return jsonResponse(result);
         }
         
         // Route: /api/bollywood/trending
-        else if (path === '/api/bollywood/trending') {
+        else if (segments[2] === 'trending') {
+          console.log(`[API Gateway] /api/bollywood/trending - Début`);
           const limit = parseInt(params.limit) || 15;
-          const results = await bollywoodController.getTrendingMovies(limit);
-          return jsonResponse({ data: results });
+          const result = await bollywoodController.getTrendingMovies({ query: { limit } });
+          console.log(`[API Gateway] /api/bollywood/trending - Résultat obtenu:`, result);
+          return jsonResponse(result);
         }
         
         // Route: /api/bollywood/recent
-        else if (path === '/api/bollywood/recent') {
+        else if (segments[2] === 'recent') {
+          console.log(`[API Gateway] /api/bollywood/recent - Début`);
           const limit = parseInt(params.limit) || 15;
-          const results = await bollywoodController.getRecentMovies(limit);
-          return jsonResponse({ data: results });
+          const result = await bollywoodController.getRecentMovies(limit);
+          return jsonResponse({ data: result });
         }
         
         // Route: /api/bollywood/popular
-        else if (path === '/api/bollywood/popular') {
+        else if (segments[2] === 'popular') {
+          console.log(`[API Gateway] /api/bollywood/popular - Début`);
           const limit = parseInt(params.limit) || 15;
-          const results = await bollywoodController.getPopularMovies(limit);
-          return jsonResponse({ data: results });
+          const result = await bollywoodController.getPopularMovies(limit);
+          return jsonResponse({ data: result });
         }
         
         // Route: /api/bollywood/genre/:genre
@@ -319,8 +325,8 @@ async function handleRequest(request, env, ctx) {
           const genre = segments[3];
           const page = parseInt(params.page) || 1;
           const limit = parseInt(params.limit) || 20;
-          const results = await bollywoodController.getMoviesByGenre(genre, page, limit);
-          return jsonResponse(results);
+          const result = await bollywoodController.getMoviesByGenre(genre, page, limit);
+          return jsonResponse(result);
         }
         
         // Route: /api/bollywood/actor/:actor
@@ -328,8 +334,8 @@ async function handleRequest(request, env, ctx) {
           const actor = segments[3];
           const page = parseInt(params.page) || 1;
           const limit = parseInt(params.limit) || 20;
-          const results = await bollywoodController.getMoviesByActor(actor, page, limit);
-          return jsonResponse(results);
+          const result = await bollywoodController.getMoviesByActor(actor, page, limit);
+          return jsonResponse(result);
         }
         
         // Route: /api/bollywood/director/:director
@@ -337,10 +343,31 @@ async function handleRequest(request, env, ctx) {
           const director = segments[3];
           const page = parseInt(params.page) || 1;
           const limit = parseInt(params.limit) || 20;
-          return jsonResponse(results);
+          const result = await bollywoodController.getMoviesByDirector(director, page, limit);
+          return jsonResponse(result);
+        }
+        
+        // Route: /api/bollywood/:id
+        else if (segments.length === 3) {
+          const id = segments[2];
+          const result = await bollywoodController.getMovieById(id);
+          return jsonResponse(result);
+        }
+        
+        // Route: /api/bollywood/:id/streaming
+        else if (segments.length === 4 && segments[3] === 'streaming') {
+          const id = segments[2];
+          const result = await bollywoodController.getMovieStreaming(id);
+          return jsonResponse(result);
+        }
+        
+        // Route non trouvée
+        else {
+          return errorResponse('Endpoint Bollywood non trouvé', 404);
         }
       } catch (error) {
         console.error(`Erreur Bollywood: ${error.message}`);
+        console.error(error.stack);
         return errorResponse(error.message, 500);
       }
     }
@@ -455,10 +482,91 @@ async function handleRequest(request, env, ctx) {
               '/api/bollywood/director/:director',
               '/api/bollywood/:id',
               '/api/bollywood/:id/streaming'
+            ],
+            film: [
+              '/api/film/search',
+              '/api/film/trending',
+              '/api/film/recent',
+              '/api/film/popular',
+              '/api/film/genre/:genre',
+              '/api/film/:id',
+              '/api/film/:id/streaming'
             ]
           }
         }
       });
+    }
+    
+    // Routes pour les films
+    else if (path.startsWith('/api/film')) {
+      try {
+        const segments = path.split('/').filter(Boolean);
+        
+        // Route: /api/film/search
+        if (segments[2] === 'search') {
+          console.log(`[API Gateway] /api/film/search - Début avec paramètres:`, params);
+          const result = await filmController.searchMovies(params);
+          console.log(`[API Gateway] /api/film/search - Résultat obtenu:`, result);
+          return jsonResponse(result);
+        }
+        
+        // Route: /api/film/trending
+        else if (segments[2] === 'trending') {
+          console.log(`[API Gateway] /api/film/trending - Début`);
+          const limit = parseInt(params.limit) || 15;
+          const result = await filmController.getTrendingMovies({ query: { limit } });
+          console.log(`[API Gateway] /api/film/trending - Résultat obtenu:`, result);
+          return jsonResponse(result);
+        }
+        
+        // Route: /api/film/recent
+        else if (segments[2] === 'recent') {
+          console.log(`[API Gateway] /api/film/recent - Début`);
+          const limit = parseInt(params.limit) || 15;
+          const result = await filmController.getRecentMovies(limit);
+          return jsonResponse({ data: result });
+        }
+        
+        // Route: /api/film/popular
+        else if (segments[2] === 'popular') {
+          console.log(`[API Gateway] /api/film/popular - Début`);
+          const limit = parseInt(params.limit) || 15;
+          const result = await filmController.getPopularMovies(limit);
+          return jsonResponse({ data: result });
+        }
+        
+        // Route: /api/film/genre/:genre
+        else if (segments.length === 4 && segments[2] === 'genre') {
+          const genre = segments[3];
+          const page = parseInt(params.page) || 1;
+          const limit = parseInt(params.limit) || 20;
+          const result = await filmController.getMoviesByGenre(genre, page, limit);
+          return jsonResponse(result);
+        }
+        
+        // Route: /api/film/:id
+        else if (segments.length === 3) {
+          const id = segments[2];
+          const result = await filmController.getMovieById(id);
+          return jsonResponse(result);
+        }
+        
+        // Route: /api/film/:id/streaming
+        else if (segments.length === 4 && segments[3] === 'streaming') {
+          const id = segments[2];
+          const result = await filmController.getMovieStreaming(id);
+          return jsonResponse(result);
+        }
+        
+        // Route non trouvée
+        else {
+          return errorResponse('Endpoint Film non trouvé', 404);
+        }
+      } catch (error) {
+        console.error(`Erreur Film: ${error.message}`);
+        console.error(error.stack);
+        return errorResponse(error.message, 500);
+      }
     }
     
     // Route: /api/users/:userId/history

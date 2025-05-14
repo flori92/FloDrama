@@ -89,24 +89,50 @@ class BollywoodController {
    * @param {number} limit - Le nombre de films à récupérer
    * @returns {Promise<Array>} - Les films en tendance
    */
-  async getTrendingMovies(limit = 15) {
-    // Tentative en cascade sur tous les services disponibles
-    for (const service of this.services) {
+  async getTrendingMovies(request) {
+    try {
+      console.log('[BollywoodController] getTrendingMovies - Début');
+      const limit = parseInt(request.query?.limit) || 15;
+      
+      // Essayer d'abord le service API Bollywood
+      let trendingMovies = [];
       try {
-        const movies = await service.getTrendingMovies(limit);
-        if (movies && movies.length > 0) {
-          console.log(`Films Bollywood en tendance trouvés via ${service.constructor.name}`);
-          return movies;
-        }
+        console.log('[BollywoodController] getTrendingMovies - Tentative via bollywoodApiService');
+        trendingMovies = await this.bollywoodApiService.getTrendingMovies(limit);
+        console.log(`[BollywoodController] getTrendingMovies - ${trendingMovies.length} films récupérés via API`);
       } catch (error) {
-        console.log(`Erreur pour les films Bollywood en tendance via ${service.constructor.name}: ${error.message}`);
-        // Continue avec le service suivant
+        console.error(`Erreur API pour les films en tendance: ${error.message}`);
       }
+      
+      // Si aucun résultat, essayer le service de scraping
+      if (trendingMovies.length === 0) {
+        try {
+          console.log('[BollywoodController] getTrendingMovies - Tentative via bollywoodScraperService');
+          trendingMovies = await this.bollywoodScraperService.scrapePopularFilms(limit);
+          console.log(`[BollywoodController] getTrendingMovies - ${trendingMovies.length} films récupérés via scraping`);
+        } catch (error) {
+          console.error(`Erreur de scraping pour les films en tendance: ${error.message}`);
+        }
+      }
+      
+      // Si toujours aucun résultat, essayer le service original
+      if (trendingMovies.length === 0) {
+        try {
+          console.log('[BollywoodController] getTrendingMovies - Tentative via bollywoodService');
+          trendingMovies = await this.bollywoodService.getTrendingMovies(limit);
+          console.log(`[BollywoodController] getTrendingMovies - ${trendingMovies.length} films récupérés via service original`);
+        } catch (error) {
+          console.error(`Erreur service original pour les films en tendance: ${error.message}`);
+        }
+      }
+      
+      console.log(`[BollywoodController] getTrendingMovies - Fin avec ${trendingMovies.length} films`);
+      return { data: trendingMovies };
+    } catch (error) {
+      console.error(`Erreur lors de la récupération des films en tendance: ${error.message}`);
+      console.error(error.stack);
+      return { data: [] };
     }
-    
-    // Si on arrive ici, aucun service n'a fonctionné
-    console.log(`Aucun film Bollywood en tendance trouvé sur tous les services`);
-    return [];
   }
 
   /**

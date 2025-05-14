@@ -170,10 +170,41 @@ class BollywoodApiService {
    */
   async getMovie(id) {
     try {
+      console.log(`[BollywoodApiService] getMovie - Début pour ID: ${id}`);
+      
+      // Vérifier le cache
+      const cacheKey = `bollywood_movie_${id}`;
+      const cachedData = await this.cache.get(cacheKey);
+      
+      if (cachedData) {
+        console.log(`[BollywoodApiService] getMovie - Film ${id} trouvé en cache`);
+        return JSON.parse(cachedData);
+      }
+      
+      console.log(`[BollywoodApiService] getMovie - Film ${id} non trouvé en cache, récupération depuis OMDb`);
+      
       // Si l'ID est un ID IMDb (commence par 'tt')
       if (typeof id === 'string' && id.startsWith('tt')) {
+        console.log(`[BollywoodApiService] getMovie - Appel à OMDb API pour ID: ${id}`);
         const data = await this._fetchFromOMDb({ i: id });
-        return this._convertToBollywood(data);
+        
+        if (!data) {
+          console.error(`[BollywoodApiService] getMovie - Film non trouvé avec l'ID: ${id}`);
+          throw new Error(`Film non trouvé avec l'ID: ${id}`);
+        }
+        
+        console.log(`[BollywoodApiService] getMovie - Film trouvé: ${data.Title}`);
+        
+        // Convertir en objet Bollywood
+        console.log(`[BollywoodApiService] getMovie - Conversion du film ${id} en objet Bollywood`);
+        const movie = this._convertToBollywood(data);
+        
+        // Mettre en cache le film (24 heures)
+        await this.cache.set(cacheKey, JSON.stringify(movie), 86400);
+        
+        console.log(`[BollywoodApiService] getMovie - Film ${id} mis en cache avec succès`);
+        
+        return movie;
       }
       
       // Si c'est un ID généré par notre service (commence par 'omdb-')
@@ -199,6 +230,7 @@ class BollywoodApiService {
       throw new Error(`Film non trouvé: ${id}`);
     } catch (error) {
       console.error(`Erreur lors de la récupération du film ${id}: ${error.message}`);
+      console.error(error.stack);
       throw error;
     }
   }
@@ -293,61 +325,74 @@ class BollywoodApiService {
    */
   async getTrendingMovies(limit = 15) {
     try {
-      // Utiliser une liste de films Bollywood populaires prédéfinis
-      const popularBollywoodMovies = [
-        'Pathaan',
-        'Jawan',
-        'Animal',
-        'Kalki 2898 AD',
-        'Dunki',
-        'Stree 2',
-        'Tiger 3',
-        'Brahmastra',
-        'RRR',
-        'Gadar 2',
-        'The Kerala Story',
-        'Pushpa',
-        'KGF Chapter 2',
-        'Kantara',
-        'Adipurush',
-        'Singham Again',
-        'Baahubali',
-        'Dangal',
-        'PK',
-        '3 Idiots'
-      ];
+      console.log('[BollywoodApiService] getTrendingMovies - Début');
       
-      // Récupérer les détails pour chaque film
-      const trendingMovies = [];
+      // Vérifier le cache
+      const cacheKey = `bollywood_trending_${limit}`;
+      const cachedData = await this.cache.get(cacheKey);
       
-      for (const title of popularBollywoodMovies.slice(0, limit)) {
-        try {
-          // Rechercher le film par titre
-          const searchParams = {
-            t: title,
-            y: '' // Année non spécifiée pour avoir plus de chances de trouver
-          };
-          
-          const movieData = await this._fetchFromOMDb(searchParams);
-          
-          if (movieData) {
-            const movie = this._convertToBollywood(movieData);
-            movie.is_trending = true;
-            trendingMovies.push(movie);
-            
-            // Mettre en cache le film
-            const cacheKey = `bollywood_movie_${movie.id}`;
-            await this.cache.set(cacheKey, JSON.stringify(movie), 86400);
-          }
-        } catch (error) {
-          console.error(`Erreur lors de la récupération du film ${title}: ${error.message}`);
-          // Continuer avec le film suivant
-        }
+      if (cachedData) {
+        console.log('[BollywoodApiService] getTrendingMovies - Données trouvées en cache');
+        return JSON.parse(cachedData);
       }
       
-      return trendingMovies;
+      console.log('[BollywoodApiService] getTrendingMovies - Pas de cache, récupération des données');
+      
+      // Liste de films Bollywood populaires pour garantir des résultats pertinents
+      const trendingBollywoodMovies = [
+        'tt6277440', // Pathaan
+        'tt10280252', // RRR
+        'tt10999120', // Brahmastra Part One: Shiva
+        'tt8983180', // Jawan
+        'tt9613374', // Kalki 2898 AD
+        'tt8291224', // Dangal
+        'tt8108198', // The Kerala Story
+        'tt11564570', // Pushpa: The Rise
+        'tt10189514', // Animal
+        'tt6452574', // Baahubali 2
+        'tt2631186', // 3 Idiots
+        'tt8176054', // Dil Bechara
+        'tt3863552', // Bajrangi Bhaijaan
+        'tt1187043', // Kaminey
+        'tt1562872', // Zindagi Na Milegi Dobara
+        'tt2338151', // PK
+        'tt2215477', // Yeh Jawaani Hai Deewani
+        'tt0451279', // Lagaan
+        'tt0169102', // Devdas
+        'tt0376994', // Dhoom 2
+      ];
+      
+      console.log(`[BollywoodApiService] getTrendingMovies - Liste de ${trendingBollywoodMovies.length} films à récupérer`);
+      
+      // Récupérer les détails de chaque film en parallèle
+      const moviePromises = trendingBollywoodMovies
+        .slice(0, limit)
+        .map(id => this.getMovie(id).catch(err => {
+          console.error(`Erreur lors de la récupération du film ${id}: ${err.message}`);
+          return null;
+        }));
+      
+      console.log(`[BollywoodApiService] getTrendingMovies - Lancement de ${moviePromises.length} requêtes en parallèle`);
+      
+      const movies = await Promise.all(moviePromises);
+      const validMovies = movies.filter(movie => movie !== null);
+      
+      console.log(`[BollywoodApiService] getTrendingMovies - ${validMovies.length} films valides récupérés`);
+      
+      // Marquer les films comme tendance
+      validMovies.forEach(movie => {
+        movie.is_trending = true;
+      });
+      
+      // Mettre en cache les résultats (6 heures)
+      await this.cache.set(cacheKey, JSON.stringify(validMovies), 21600);
+      
+      console.log(`[BollywoodApiService] getTrendingMovies - Fin avec succès, ${validMovies.length} films mis en cache`);
+      
+      return validMovies;
     } catch (error) {
       console.error(`Erreur lors de la récupération des films en tendance: ${error.message}`);
+      console.error(error.stack);
       return [];
     }
   }
