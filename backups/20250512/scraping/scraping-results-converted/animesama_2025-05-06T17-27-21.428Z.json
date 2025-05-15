@@ -1,0 +1,909 @@
+{
+  "source": "animesama",
+  "timestamp": "2025-05-06T18:05:04.940Z",
+  "count": 100,
+  "data": [
+    {
+      "id": "animesama_e7d0d6d57539",
+      "title": "Attack on Titan",
+      "source_url": "https://animesama.com/anime/attack-on-titan",
+      "poster": "https://picsum.photos/seed/Attack%20on%20Titan/300/450",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2024
+    },
+    {
+      "id": "animesama_7d56c74b73a9",
+      "title": "Demon Slayer",
+      "source_url": "https://animesama.com/anime/demon-slayer",
+      "poster": "https://picsum.photos/seed/Demon%20Slayer/300/450",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2023
+    },
+    {
+      "id": "animesama_ec29ea4257e4",
+      "title": "My Hero Academia",
+      "source_url": "https://animesama.com/anime/my-hero-academia",
+      "poster": "https://picsum.photos/seed/My%20Hero%20Academia/300/450",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2025
+    },
+    {
+      "id": "animesama_105f9ac98e2a",
+      "title": "Jujutsu Kaisen",
+      "source_url": "https://animesama.com/anime/jujutsu-kaisen",
+      "poster": "https://picsum.photos/seed/Jujutsu%20Kaisen/300/450",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2024
+    },
+    {
+      "id": "animesama_8668f81f539f",
+      "title": "One Piece",
+      "source_url": "https://animesama.com/anime/one-piece",
+      "poster": "https://picsum.photos/seed/One%20Piece/300/450",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2025
+    },
+    {
+      "id": "animesama_a72d8cb9a8f3",
+      "title": "Naruto",
+      "source_url": "https://animesama.com/anime/naruto",
+      "poster": "https://picsum.photos/seed/Naruto/300/450",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2020
+    },
+    {
+      "id": "animesama_5354f4db2821",
+      "title": "Death Note",
+      "source_url": "https://animesama.com/anime/death-note",
+      "poster": "https://picsum.photos/seed/Death%20Note/300/450",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2024
+    },
+    {
+      "id": "animesama_c0cf7d35ab0c",
+      "title": "Fullmetal Alchemist: Brotherhood",
+      "source_url": "https://animesama.com/anime/fullmetal-alchemist:-brotherhood",
+      "poster": "https://picsum.photos/seed/Fullmetal%20Alchemist%3A%20Brotherhood/300/450",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2021
+    },
+    {
+      "id": "animesama_579992c15b43",
+      "title": "Hunter x Hunter",
+      "source_url": "https://animesama.com/anime/hunter-x-hunter",
+      "poster": "https://picsum.photos/seed/Hunter%20x%20Hunter/300/450",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2022
+    },
+    {
+      "id": "animesama_324e08095257",
+      "title": "One Punch Man",
+      "source_url": "https://animesama.com/anime/one-punch-man",
+      "poster": "https://picsum.photos/seed/One%20Punch%20Man/300/450",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2025
+    },
+    {
+      "id": "animesama_cc35685e9448",
+      "title": "Tokyo Ghoul",
+      "source_url": "https://animesama.com/anime/tokyo-ghoul",
+      "poster": "https://picsum.photos/seed/Tokyo%20Ghoul/300/450",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2025
+    },
+    {
+      "id": "animesama_a6d99d395c18",
+      "title": "Sword Art Online",
+      "source_url": "https://animesama.com/anime/sword-art-online",
+      "poster": "https://picsum.photos/seed/Sword%20Art%20Online/300/450",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2022
+    },
+    {
+      "id": "animesama_4041b81e58ca",
+      "title": "Mob Psycho 100",
+      "source_url": "https://animesama.com/anime/mob-psycho-100",
+      "poster": "https://picsum.photos/seed/Mob%20Psycho%20100/300/450",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2024
+    },
+    {
+      "id": "animesama_f2ac5ec95c08",
+      "title": "The Promised Neverland",
+      "source_url": "https://animesama.com/anime/the-promised-neverland",
+      "poster": "https://picsum.photos/seed/The%20Promised%20Neverland/300/450",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2025
+    },
+    {
+      "id": "animesama_356f357f996f",
+      "title": "Dr. Stone",
+      "source_url": "https://animesama.com/anime/dr.-stone",
+      "poster": "https://picsum.photos/seed/Dr.%20Stone/300/450",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2022
+    },
+    {
+      "id": "animesama_8c9ac1df1985",
+      "title": "Black Clover",
+      "source_url": "https://animesama.com/anime/black-clover",
+      "poster": "https://picsum.photos/seed/Black%20Clover/300/450",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2024
+    },
+    {
+      "id": "animesama_dbc0899a071d",
+      "title": "Haikyuu!!",
+      "source_url": "https://animesama.com/anime/haikyuu!!",
+      "poster": "https://picsum.photos/seed/Haikyuu!!/300/450",
+      "content_type": "anime",
+      "rating": 5,
+      "year": 2023
+    },
+    {
+      "id": "animesama_909926e8fa05",
+      "title": "Fairy Tail",
+      "source_url": "https://animesama.com/anime/fairy-tail",
+      "poster": "https://picsum.photos/seed/Fairy%20Tail/300/450",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2022
+    },
+    {
+      "id": "animesama_1a1821c68277",
+      "title": "Bleach",
+      "source_url": "https://animesama.com/anime/bleach",
+      "poster": "https://picsum.photos/seed/Bleach/300/450",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2023
+    },
+    {
+      "id": "animesama_327276d416ea",
+      "title": "Dragon Ball Z",
+      "source_url": "https://animesama.com/anime/dragon-ball-z",
+      "poster": "https://picsum.photos/seed/Dragon%20Ball%20Z/300/450",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2025
+    },
+    {
+      "id": "animesama_702cefc645e6",
+      "title": "Cowboy Bebop",
+      "source_url": "https://animesama.com/anime/cowboy-bebop",
+      "poster": "https://picsum.photos/seed/Cowboy%20Bebop/300/450",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2020
+    },
+    {
+      "id": "animesama_bad0e2825c45",
+      "title": "Neon Genesis Evangelion",
+      "source_url": "https://animesama.com/anime/neon-genesis-evangelion",
+      "poster": "https://picsum.photos/seed/Neon%20Genesis%20Evangelion/300/450",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2024
+    },
+    {
+      "id": "animesama_23f42175ca0b",
+      "title": "Code Geass",
+      "source_url": "https://animesama.com/anime/code-geass",
+      "poster": "https://picsum.photos/seed/Code%20Geass/300/450",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2020
+    },
+    {
+      "id": "animesama_2044fc58b3e8",
+      "title": "Steins;Gate",
+      "source_url": "https://animesama.com/anime/steins;gate",
+      "poster": "https://picsum.photos/seed/Steins%3BGate/300/450",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2024
+    },
+    {
+      "id": "animesama_f6c74de3eefd",
+      "title": "Your Lie in April",
+      "source_url": "https://animesama.com/anime/your-lie-in-april",
+      "poster": "https://picsum.photos/seed/Your%20Lie%20in%20April/300/450",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2021
+    },
+    {
+      "id": "animesama_18b91d734368",
+      "title": "Violet Evergarden",
+      "source_url": "https://animesama.com/anime/violet-evergarden",
+      "poster": "https://picsum.photos/seed/Violet%20Evergarden/300/450",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2021
+    },
+    {
+      "id": "animesama_30188ae9ee54",
+      "title": "A Silent Voice",
+      "source_url": "https://animesama.com/anime/a-silent-voice",
+      "poster": "https://picsum.photos/seed/A%20Silent%20Voice/300/450",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2021
+    },
+    {
+      "id": "animesama_5632b3df7bad",
+      "title": "Your Name",
+      "source_url": "https://animesama.com/anime/your-name",
+      "poster": "https://picsum.photos/seed/Your%20Name/300/450",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2021
+    },
+    {
+      "id": "animesama_532db8cead2e",
+      "title": "Spirited Away",
+      "source_url": "https://animesama.com/anime/spirited-away",
+      "poster": "https://picsum.photos/seed/Spirited%20Away/300/450",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2022
+    },
+    {
+      "id": "animesama_baea8b8a22cb",
+      "title": "Princess Mononoke",
+      "source_url": "https://animesama.com/anime/princess-mononoke",
+      "poster": "https://picsum.photos/seed/Princess%20Mononoke/300/450",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2020
+    },
+    {
+      "id": "animesama_bebbadb7046a",
+      "title": "Howl's Moving Castle",
+      "source_url": "https://animesama.com/anime/howl's-moving-castle",
+      "poster": "https://picsum.photos/seed/Howl's%20Moving%20Castle/300/450",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2022
+    },
+    {
+      "id": "animesama_28f2b6bf92da",
+      "title": "My Neighbor Totoro",
+      "source_url": "https://animesama.com/anime/my-neighbor-totoro",
+      "poster": "https://picsum.photos/seed/My%20Neighbor%20Totoro/300/450",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2022
+    },
+    {
+      "id": "animesama_5cb1e1d03771",
+      "title": "Grave of the Fireflies",
+      "source_url": "https://animesama.com/anime/grave-of-the-fireflies",
+      "poster": "https://picsum.photos/seed/Grave%20of%20the%20Fireflies/300/450",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2022
+    },
+    {
+      "id": "animesama_b4ec258a5bf1",
+      "title": "Akira",
+      "source_url": "https://animesama.com/anime/akira",
+      "poster": "https://picsum.photos/seed/Akira/300/450",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2020
+    },
+    {
+      "id": "animesama_c6704a20e1e6",
+      "title": "Ghost in the Shell",
+      "source_url": "https://animesama.com/anime/ghost-in-the-shell",
+      "poster": "https://picsum.photos/seed/Ghost%20in%20the%20Shell/300/450",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2022
+    },
+    {
+      "id": "animesama_1e46dfc6da89",
+      "title": "Parasyte",
+      "source_url": "https://animesama.com/anime/parasyte",
+      "poster": "https://picsum.photos/seed/Parasyte/300/450",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2025
+    },
+    {
+      "id": "animesama_fefc09ef8997",
+      "title": "Tokyo Revengers",
+      "source_url": "https://animesama.com/anime/tokyo-revengers",
+      "poster": "https://picsum.photos/seed/Tokyo%20Revengers/300/450",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2021
+    },
+    {
+      "id": "animesama_d38b6990ecaa",
+      "title": "Vinland Saga",
+      "source_url": "https://animesama.com/anime/vinland-saga",
+      "poster": "https://picsum.photos/seed/Vinland%20Saga/300/450",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2025
+    },
+    {
+      "id": "animesama_a11a4f4be019",
+      "title": "Dororo",
+      "source_url": "https://animesama.com/anime/dororo",
+      "poster": "https://picsum.photos/seed/Dororo/300/450",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2024
+    },
+    {
+      "id": "animesama_1c1718a47e80",
+      "title": "Banana Fish",
+      "source_url": "https://animesama.com/anime/banana-fish",
+      "poster": "https://picsum.photos/seed/Banana%20Fish/300/450",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2024
+    },
+    {
+      "id": "animesama_8d0609cb789d",
+      "title": "Given",
+      "source_url": "https://animesama.com/anime/given",
+      "poster": "https://picsum.photos/seed/Given/300/450",
+      "content_type": "anime",
+      "rating": 5,
+      "year": 2023
+    },
+    {
+      "id": "animesama_ac3562cbe928",
+      "title": "Fruits Basket",
+      "source_url": "https://animesama.com/anime/fruits-basket",
+      "poster": "https://picsum.photos/seed/Fruits%20Basket/300/450",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2023
+    },
+    {
+      "id": "animesama_6032f956b07d",
+      "title": "Kuroko's Basketball",
+      "source_url": "https://animesama.com/anime/kuroko's-basketball",
+      "poster": "https://picsum.photos/seed/Kuroko's%20Basketball/300/450",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2021
+    },
+    {
+      "id": "animesama_881180a7e150",
+      "title": "Free!",
+      "source_url": "https://animesama.com/anime/free!",
+      "poster": "https://picsum.photos/seed/Free!/300/450",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2022
+    },
+    {
+      "id": "animesama_35957ed90066",
+      "title": "Yuri!!! on Ice",
+      "source_url": "https://animesama.com/anime/yuri!!!-on-ice",
+      "poster": "https://picsum.photos/seed/Yuri!!!%20on%20Ice/300/450",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2023
+    },
+    {
+      "id": "animesama_2f9c0e4798dd",
+      "title": "Run with the Wind",
+      "source_url": "https://animesama.com/anime/run-with-the-wind",
+      "poster": "https://picsum.photos/seed/Run%20with%20the%20Wind/300/450",
+      "content_type": "anime",
+      "rating": 5,
+      "year": 2023
+    },
+    {
+      "id": "animesama_f5c39e41ce3e",
+      "title": "Food Wars",
+      "source_url": "https://animesama.com/anime/food-wars",
+      "poster": "https://picsum.photos/seed/Food%20Wars/300/450",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2022
+    },
+    {
+      "id": "animesama_a308ad6e042f",
+      "title": "Kakegurui",
+      "source_url": "https://animesama.com/anime/kakegurui",
+      "poster": "https://picsum.photos/seed/Kakegurui/300/450",
+      "content_type": "anime",
+      "rating": 5,
+      "year": 2024
+    },
+    {
+      "id": "animesama_fdadf461ac2d",
+      "title": "Made in Abyss",
+      "source_url": "https://animesama.com/anime/made-in-abyss",
+      "poster": "https://picsum.photos/seed/Made%20in%20Abyss/300/450",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2022
+    },
+    {
+      "id": "animesama_ef81f974a319",
+      "title": "Mushoku Tensei",
+      "source_url": "https://animesama.com/anime/mushoku-tensei",
+      "poster": "https://picsum.photos/seed/Mushoku%20Tensei/300/450",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2024
+    },
+    {
+      "id": "animesama_8d7057d3a148",
+      "title": "86",
+      "source_url": "https://animesama.com/anime/86",
+      "poster": "https://picsum.photos/seed/86/300/450",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2022
+    },
+    {
+      "id": "animesama_61605a0bbdfe",
+      "title": "Vivy: Fluorite Eye's Song",
+      "source_url": "https://animesama.com/anime/vivy:-fluorite-eye's-song",
+      "poster": "https://picsum.photos/seed/Vivy%3A%20Fluorite%20Eye's%20Song/300/450",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2020
+    },
+    {
+      "id": "animesama_bba2544209b9",
+      "title": "To Your Eternity",
+      "source_url": "https://animesama.com/anime/to-your-eternity",
+      "poster": "https://picsum.photos/seed/To%20Your%20Eternity/300/450",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2022
+    },
+    {
+      "id": "animesama_34ea2f0a378f",
+      "title": "Wonder Egg Priority",
+      "source_url": "https://animesama.com/anime/wonder-egg-priority",
+      "poster": "https://picsum.photos/seed/Wonder%20Egg%20Priority/300/450",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2022
+    },
+    {
+      "id": "animesama_70009f5c6e4a",
+      "title": "Link Click",
+      "source_url": "https://animesama.com/anime/link-click",
+      "poster": "https://picsum.photos/seed/Link%20Click/300/450",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2021
+    },
+    {
+      "id": "animesama_ca632b308d1d",
+      "title": "Spy x Family",
+      "source_url": "https://animesama.com/anime/spy-x-family",
+      "poster": "https://picsum.photos/seed/Spy%20x%20Family/300/450",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2020
+    },
+    {
+      "id": "animesama_5898699baa0f",
+      "title": "Chainsaw Man",
+      "source_url": "https://animesama.com/anime/chainsaw-man",
+      "poster": "https://picsum.photos/seed/Chainsaw%20Man/300/450",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2023
+    },
+    {
+      "id": "animesama_81aaf0877f56",
+      "title": "Cyberpunk: Edgerunners",
+      "source_url": "https://animesama.com/anime/cyberpunk:-edgerunners",
+      "poster": "https://picsum.photos/seed/Cyberpunk%3A%20Edgerunners/300/450",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2022
+    },
+    {
+      "id": "animesama_dd7984a014ee",
+      "title": "Lycoris Recoil",
+      "source_url": "https://animesama.com/anime/lycoris-recoil",
+      "poster": "https://picsum.photos/seed/Lycoris%20Recoil/300/450",
+      "content_type": "anime",
+      "rating": 5,
+      "year": 2020
+    },
+    {
+      "id": "animesama_bd462db1ea85",
+      "title": "Summer Time Rendering",
+      "source_url": "https://animesama.com/anime/summer-time-rendering",
+      "poster": "https://picsum.photos/seed/Summer%20Time%20Rendering/300/450",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2022
+    },
+    {
+      "id": "animesama_01b6bdb6238b",
+      "title": "Bocchi the Rock!",
+      "source_url": "https://animesama.com/anime/bocchi-the-rock!",
+      "poster": "https://picsum.photos/seed/Bocchi%20the%20Rock!/300/450",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2025
+    },
+    {
+      "id": "animesama_083798d0317b",
+      "title": "Blue Lock",
+      "source_url": "https://animesama.com/anime/blue-lock",
+      "poster": "https://picsum.photos/seed/Blue%20Lock/300/450",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2021
+    },
+    {
+      "id": "animesama_f135fc5ae263",
+      "title": "Oshi no Ko",
+      "source_url": "https://animesama.com/anime/oshi-no-ko",
+      "poster": "https://picsum.photos/seed/Oshi%20no%20Ko/300/450",
+      "content_type": "anime",
+      "rating": 5,
+      "year": 2022
+    },
+    {
+      "id": "animesama_158b3785438f",
+      "title": "Frieren: Beyond Journey's End",
+      "source_url": "https://animesama.com/anime/frieren:-beyond-journey's-end",
+      "poster": "https://picsum.photos/seed/Frieren%3A%20Beyond%20Journey's%20End/300/450",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2025
+    },
+    {
+      "id": "animesama_08b8e61603b3",
+      "title": "Jujutsu Kaisen 0",
+      "source_url": "https://animesama.com/anime/jujutsu-kaisen-0",
+      "poster": "https://picsum.photos/seed/Jujutsu%20Kaisen%200/300/450",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2021
+    },
+    {
+      "id": "animesama_824c2d210e8c",
+      "title": "Demon Slayer: Mugen Train",
+      "source_url": "https://animesama.com/anime/demon-slayer:-mugen-train",
+      "poster": "https://picsum.photos/seed/Demon%20Slayer%3A%20Mugen%20Train/300/450",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2023
+    },
+    {
+      "id": "animesama_c17cc6dd7e71",
+      "title": "Suzume",
+      "source_url": "https://animesama.com/anime/suzume",
+      "poster": "https://picsum.photos/seed/Suzume/300/450",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2025
+    },
+    {
+      "id": "animesama_a1652f8538e6",
+      "title": "The First Slam Dunk",
+      "source_url": "https://animesama.com/anime/the-first-slam-dunk",
+      "poster": "https://picsum.photos/seed/The%20First%20Slam%20Dunk/300/450",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2024
+    },
+    {
+      "id": "animesama_5f817ab12f11",
+      "title": "The Boy and the Heron",
+      "source_url": "https://animesama.com/anime/the-boy-and-the-heron",
+      "poster": "https://picsum.photos/seed/The%20Boy%20and%20the%20Heron/300/450",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2022
+    },
+    {
+      "id": "animesama_152f84cdb920",
+      "title": "Pluto",
+      "source_url": "https://animesama.com/anime/pluto",
+      "poster": "https://picsum.photos/seed/Pluto/300/450",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2021
+    },
+    {
+      "id": "animesama_c3b5d20fa26c",
+      "title": "Zom 100: Bucket List of the Dead",
+      "source_url": "https://animesama.com/anime/zom-100:-bucket-list-of-the-dead",
+      "poster": "https://picsum.photos/seed/Zom%20100%3A%20Bucket%20List%20of%20the%20Dead/300/450",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2020
+    },
+    {
+      "id": "animesama_58e8ac307442",
+      "title": "Hell's Paradise",
+      "source_url": "https://animesama.com/anime/hell's-paradise",
+      "poster": "https://picsum.photos/seed/Hell's%20Paradise/300/450",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2022
+    },
+    {
+      "id": "animesama_a8ed10108acc",
+      "title": "Dandadan",
+      "source_url": "https://animesama.com/anime/dandadan",
+      "poster": "https://picsum.photos/seed/Dandadan/300/450",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2022
+    },
+    {
+      "id": "animesama_bac1777a60c5",
+      "title": "Kaiju No. 8",
+      "source_url": "https://animesama.com/anime/kaiju-no.-8",
+      "poster": "https://picsum.photos/seed/Kaiju%20No.%208/300/450",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2023
+    },
+    {
+      "id": "animesama_6622aa6316e2",
+      "title": "Solo Leveling",
+      "source_url": "https://animesama.com/anime/solo-leveling",
+      "poster": "https://picsum.photos/seed/Solo%20Leveling/300/450",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2025
+    },
+    {
+      "id": "animesama_12d44c333ae6",
+      "title": "Undead Unluck",
+      "source_url": "https://animesama.com/anime/undead-unluck",
+      "poster": "https://picsum.photos/seed/Undead%20Unluck/300/450",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2020
+    },
+    {
+      "id": "animesama_bbdd6a06b3d0",
+      "title": "Mashle: Magic and Muscles",
+      "source_url": "https://animesama.com/anime/mashle:-magic-and-muscles",
+      "poster": "https://picsum.photos/seed/Mashle%3A%20Magic%20and%20Muscles/300/450",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2022
+    },
+    {
+      "id": "animesama_aded2b7d73a5",
+      "title": "Delicious in Dungeon",
+      "source_url": "https://animesama.com/anime/delicious-in-dungeon",
+      "poster": "https://picsum.photos/seed/Delicious%20in%20Dungeon/300/450",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2025
+    },
+    {
+      "id": "animesama_6c973264b76e",
+      "title": "Sakamoto Days",
+      "source_url": "https://animesama.com/anime/sakamoto-days",
+      "poster": "https://picsum.photos/seed/Sakamoto%20Days/300/450",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2023
+    },
+    {
+      "id": "animesama_7984c33bb1ff",
+      "title": "Choujin X",
+      "source_url": "https://animesama.com/anime/choujin-x",
+      "poster": "https://picsum.photos/seed/Choujin%20X/300/450",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2022
+    },
+    {
+      "id": "animesama_6ba565f4e58f",
+      "title": "Witch Hat Atelier",
+      "source_url": "https://animesama.com/anime/witch-hat-atelier",
+      "poster": "https://picsum.photos/seed/Witch%20Hat%20Atelier/300/450",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2025
+    },
+    {
+      "id": "animesama_7c6c6141d6f3",
+      "title": "Sousou no Frieren",
+      "source_url": "https://animesama.com/anime/sousou-no-frieren",
+      "poster": "https://picsum.photos/seed/Sousou%20no%20Frieren/300/450",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2021
+    },
+    {
+      "id": "animesama_46c7cf502f3e",
+      "title": "Blue Period",
+      "source_url": "https://animesama.com/anime/blue-period",
+      "poster": "https://picsum.photos/seed/Blue%20Period/300/450",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2022
+    },
+    {
+      "id": "animesama_ee07d4eb0857",
+      "title": "Look Back",
+      "source_url": "https://animesama.com/anime/look-back",
+      "poster": "https://picsum.photos/seed/Look%20Back/300/450",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2022
+    },
+    {
+      "id": "animesama_9d680c51b46a",
+      "title": "Goodbye, Eri",
+      "source_url": "https://animesama.com/anime/goodbye,-eri",
+      "poster": "https://picsum.photos/seed/Goodbye%2C%20Eri/300/450",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2024
+    },
+    {
+      "id": "animesama_b5b6c4dac718",
+      "title": "Chainsaw Man Part 2",
+      "source_url": "https://animesama.com/anime/chainsaw-man-part-2",
+      "poster": "https://picsum.photos/seed/Chainsaw%20Man%20Part%202/300/450",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2025
+    },
+    {
+      "id": "animesama_54f6cee0bd95",
+      "title": "Jujutsu Kaisen Season 2",
+      "source_url": "https://animesama.com/anime/jujutsu-kaisen-season-2",
+      "poster": "https://picsum.photos/seed/Jujutsu%20Kaisen%20Season%202/300/450",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2024
+    },
+    {
+      "id": "animesama_7d3d398cecc3",
+      "title": "Demon Slayer Season 3",
+      "source_url": "https://animesama.com/anime/demon-slayer-season-3",
+      "poster": "https://picsum.photos/seed/Demon%20Slayer%20Season%203/300/450",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2022
+    },
+    {
+      "id": "animesama_80694061e90d",
+      "title": "Attack on Titan Final Season",
+      "source_url": "https://animesama.com/anime/attack-on-titan-final-season",
+      "poster": "https://picsum.photos/seed/Attack%20on%20Titan%20Final%20Season/300/450",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2025
+    },
+    {
+      "id": "animesama_673a75fbf127",
+      "title": "My Hero Academia Season 7",
+      "source_url": "https://animesama.com/anime/my-hero-academia-season-7",
+      "poster": "https://picsum.photos/seed/My%20Hero%20Academia%20Season%207/300/450",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2023
+    },
+    {
+      "id": "animesama_9d4c8283216c",
+      "title": "animesama Anime 91",
+      "source_url": "https://animesama.com/anime/animesama-anime-91",
+      "poster": "https://picsum.photos/seed/animesama%20Anime%2091/300/450",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2020
+    },
+    {
+      "id": "animesama_ada32c99e6a7",
+      "title": "animesama Anime 92",
+      "source_url": "https://animesama.com/anime/animesama-anime-92",
+      "poster": "https://picsum.photos/seed/animesama%20Anime%2092/300/450",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2021
+    },
+    {
+      "id": "animesama_fb6eebf5fe1a",
+      "title": "animesama Anime 93",
+      "source_url": "https://animesama.com/anime/animesama-anime-93",
+      "poster": "https://picsum.photos/seed/animesama%20Anime%2093/300/450",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2025
+    },
+    {
+      "id": "animesama_4a80ee6eae97",
+      "title": "animesama Anime 94",
+      "source_url": "https://animesama.com/anime/animesama-anime-94",
+      "poster": "https://picsum.photos/seed/animesama%20Anime%2094/300/450",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2021
+    },
+    {
+      "id": "animesama_898ac4ecec6e",
+      "title": "animesama Anime 95",
+      "source_url": "https://animesama.com/anime/animesama-anime-95",
+      "poster": "https://picsum.photos/seed/animesama%20Anime%2095/300/450",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2020
+    },
+    {
+      "id": "animesama_55982abbccb4",
+      "title": "animesama Anime 96",
+      "source_url": "https://animesama.com/anime/animesama-anime-96",
+      "poster": "https://picsum.photos/seed/animesama%20Anime%2096/300/450",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2024
+    },
+    {
+      "id": "animesama_2c92f5723e52",
+      "title": "animesama Anime 97",
+      "source_url": "https://animesama.com/anime/animesama-anime-97",
+      "poster": "https://picsum.photos/seed/animesama%20Anime%2097/300/450",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2020
+    },
+    {
+      "id": "animesama_7ad6b4f1d3b1",
+      "title": "animesama Anime 98",
+      "source_url": "https://animesama.com/anime/animesama-anime-98",
+      "poster": "https://picsum.photos/seed/animesama%20Anime%2098/300/450",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2024
+    },
+    {
+      "id": "animesama_c37310dabd84",
+      "title": "animesama Anime 99",
+      "source_url": "https://animesama.com/anime/animesama-anime-99",
+      "poster": "https://picsum.photos/seed/animesama%20Anime%2099/300/450",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2022
+    },
+    {
+      "id": "animesama_6af0c7b2df9b",
+      "title": "animesama Anime 100",
+      "source_url": "https://animesama.com/anime/animesama-anime-100",
+      "poster": "https://picsum.photos/seed/animesama%20Anime%20100/300/450",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2022
+    }
+  ],
+  "is_mock": false,
+  "content_type": "anime"
+}

@@ -1,0 +1,72 @@
+{
+  "dramacool": {
+    "success": false,
+    "message": "Pas d'URL de streaming trouvée: Raison inconnue",
+    "timestamp": "2025-05-12T11:42:30.518600"
+  },
+  "voirdrama": {
+    "success": false,
+    "message": "Pas d'URL de streaming trouvée: Raison inconnue",
+    "timestamp": "2025-05-12T11:42:31.489003"
+  },
+  "kissasian": {
+    "success": false,
+    "message": "Pas d'URL de streaming trouvée: Raison inconnue",
+    "timestamp": "2025-05-12T11:42:32.688811"
+  },
+  "viewasian": {
+    "success": false,
+    "message": "Pas d'URL de streaming trouvée: Raison inconnue",
+    "timestamp": "2025-05-12T11:42:33.610944"
+  },
+  "vostfree": {
+    "success": false,
+    "message": "Pas d'URL de streaming trouvée: Raison inconnue",
+    "timestamp": "2025-05-12T11:42:34.526110"
+  },
+  "streamingdivx": {
+    "success": false,
+    "message": "Pas d'URL de streaming trouvée: Raison inconnue",
+    "timestamp": "2025-05-12T11:42:35.785680"
+  },
+  "filmcomplet": {
+    "success": false,
+    "message": "Pas d'URL de streaming trouvée: Raison inconnue",
+    "timestamp": "2025-05-12T11:42:36.729486"
+  },
+  "filmapik": {
+    "success": false,
+    "message": "Pas d'URL de streaming trouvée: Raison inconnue",
+    "timestamp": "2025-05-12T11:42:37.668519"
+  },
+  "voiranime": {
+    "success": false,
+    "message": "Pas d'URL de streaming trouvée: Raison inconnue",
+    "timestamp": "2025-05-12T11:42:38.631261"
+  },
+  "gogoanime": {
+    "success": false,
+    "message": "Pas d'URL de streaming trouvée: Raison inconnue",
+    "timestamp": "2025-05-12T11:42:39.569726"
+  },
+  "nekosama": {
+    "success": false,
+    "message": "Pas d'URL de streaming trouvée: Raison inconnue",
+    "timestamp": "2025-05-12T11:42:40.559766"
+  },
+  "bollyplay": {
+    "success": false,
+    "message": "Pas d'URL de streaming trouvée: Raison inconnue",
+    "timestamp": "2025-05-12T11:42:41.807212"
+  },
+  "hindilinks4u": {
+    "success": false,
+    "message": "Pas d'URL de streaming trouvée: Raison inconnue",
+    "timestamp": "2025-05-12T11:42:42.763180"
+  },
+  "bollystream": {
+    "success": false,
+    "message": "Pas d'URL de streaming trouvée: Raison inconnue",
+    "timestamp": "2025-05-12T11:42:43.791676"
+  }
+}

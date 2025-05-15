@@ -1,0 +1,16 @@
+{
+  "total_duration": "551.13",
+  "total_sources": 1,
+  "total_errors": 0,
+  "total_items": 9,
+  "sources": [
+    {
+      "source": "dramacool",
+      "count": 9,
+      "duration": "551.13",
+      "file": "/Users/floriace/FLO_DRAMA/FloDrama/cloudflare/scraping/extraction-massive/dramas/dramacool_20250512_084203.json/dramacool_2025-05-12T06-51-14.662Z.json",
+      "is_mock": false,
+      "content_type": "drama"
+    }
+  ]
+}

@@ -1,0 +1,1809 @@
+{
+  "source": "animesama",
+  "timestamp": "2025-05-06T18:05:04.939Z",
+  "count": 200,
+  "data": [
+    {
+      "id": "animesama_864e7fe027f5",
+      "title": "Attack on Titan",
+      "source_url": "https://animesama.com/anime/attack-on-titan",
+      "poster": "https://via.placeholder.com/300x450.png?text=Attack%20on%20Titan",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2021
+    },
+    {
+      "id": "animesama_916961965661",
+      "title": "Demon Slayer",
+      "source_url": "https://animesama.com/anime/demon-slayer",
+      "poster": "https://via.placeholder.com/300x450.png?text=Demon%20Slayer",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2023
+    },
+    {
+      "id": "animesama_a3f40cfad250",
+      "title": "My Hero Academia",
+      "source_url": "https://animesama.com/anime/my-hero-academia",
+      "poster": "https://via.placeholder.com/300x450.png?text=My%20Hero%20Academia",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2024
+    },
+    {
+      "id": "animesama_fa90614eb875",
+      "title": "One Piece",
+      "source_url": "https://animesama.com/anime/one-piece",
+      "poster": "https://via.placeholder.com/300x450.png?text=One%20Piece",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2020
+    },
+    {
+      "id": "animesama_e87de033b602",
+      "title": "Naruto",
+      "source_url": "https://animesama.com/anime/naruto",
+      "poster": "https://via.placeholder.com/300x450.png?text=Naruto",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2024
+    },
+    {
+      "id": "animesama_0d019a51bb99",
+      "title": "Dragon Ball",
+      "source_url": "https://animesama.com/anime/dragon-ball",
+      "poster": "https://via.placeholder.com/300x450.png?text=Dragon%20Ball",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2020
+    },
+    {
+      "id": "animesama_8d700f68b144",
+      "title": "Death Note",
+      "source_url": "https://animesama.com/anime/death-note",
+      "poster": "https://via.placeholder.com/300x450.png?text=Death%20Note",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2022
+    },
+    {
+      "id": "animesama_bed97e6ba08f",
+      "title": "Fullmetal Alchemist",
+      "source_url": "https://animesama.com/anime/fullmetal-alchemist",
+      "poster": "https://via.placeholder.com/300x450.png?text=Fullmetal%20Alchemist",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2020
+    },
+    {
+      "id": "animesama_bf17020a7a86",
+      "title": "Hunter x Hunter",
+      "source_url": "https://animesama.com/anime/hunter-x-hunter",
+      "poster": "https://via.placeholder.com/300x450.png?text=Hunter%20x%20Hunter",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2023
+    },
+    {
+      "id": "animesama_05dcb5cf3e80",
+      "title": "Tokyo Ghoul",
+      "source_url": "https://animesama.com/anime/tokyo-ghoul",
+      "poster": "https://via.placeholder.com/300x450.png?text=Tokyo%20Ghoul",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2021
+    },
+    {
+      "id": "animesama_91356a76f4b1",
+      "title": "Sword Art Online",
+      "source_url": "https://animesama.com/anime/sword-art-online",
+      "poster": "https://via.placeholder.com/300x450.png?text=Sword%20Art%20Online",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2025
+    },
+    {
+      "id": "animesama_da7f0d358c38",
+      "title": "One Punch Man",
+      "source_url": "https://animesama.com/anime/one-punch-man",
+      "poster": "https://via.placeholder.com/300x450.png?text=One%20Punch%20Man",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2020
+    },
+    {
+      "id": "animesama_6e89de10fb77",
+      "title": "Jujutsu Kaisen",
+      "source_url": "https://animesama.com/anime/jujutsu-kaisen",
+      "poster": "https://via.placeholder.com/300x450.png?text=Jujutsu%20Kaisen",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2024
+    },
+    {
+      "id": "animesama_2d454967e67a",
+      "title": "Chainsaw Man",
+      "source_url": "https://animesama.com/anime/chainsaw-man",
+      "poster": "https://via.placeholder.com/300x450.png?text=Chainsaw%20Man",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2024
+    },
+    {
+      "id": "animesama_d4f46d050823",
+      "title": "Spy x Family",
+      "source_url": "https://animesama.com/anime/spy-x-family",
+      "poster": "https://via.placeholder.com/300x450.png?text=Spy%20x%20Family",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2021
+    },
+    {
+      "id": "animesama_2554d819efd3",
+      "title": "Your Name",
+      "source_url": "https://animesama.com/anime/your-name",
+      "poster": "https://via.placeholder.com/300x450.png?text=Your%20Name",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2024
+    },
+    {
+      "id": "animesama_62fa4436ebcc",
+      "title": "Spirited Away",
+      "source_url": "https://animesama.com/anime/spirited-away",
+      "poster": "https://via.placeholder.com/300x450.png?text=Spirited%20Away",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2022
+    },
+    {
+      "id": "animesama_9d022188f8a9",
+      "title": "Princess Mononoke",
+      "source_url": "https://animesama.com/anime/princess-mononoke",
+      "poster": "https://via.placeholder.com/300x450.png?text=Princess%20Mononoke",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2022
+    },
+    {
+      "id": "animesama_ccfcdb94a62d",
+      "title": "Howl's Moving Castle",
+      "source_url": "https://animesama.com/anime/howl's-moving-castle",
+      "poster": "https://via.placeholder.com/300x450.png?text=Howl's%20Moving%20Castle",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2023
+    },
+    {
+      "id": "animesama_2b88ab7f2a7d",
+      "title": "My Neighbor Totoro",
+      "source_url": "https://animesama.com/anime/my-neighbor-totoro",
+      "poster": "https://via.placeholder.com/300x450.png?text=My%20Neighbor%20Totoro",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2023
+    },
+    {
+      "id": "animesama_47d06853f294",
+      "title": "Violet Evergarden",
+      "source_url": "https://animesama.com/anime/violet-evergarden",
+      "poster": "https://via.placeholder.com/300x450.png?text=Violet%20Evergarden",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2024
+    },
+    {
+      "id": "animesama_9f1c6f768e14",
+      "title": "Your Lie in April",
+      "source_url": "https://animesama.com/anime/your-lie-in-april",
+      "poster": "https://via.placeholder.com/300x450.png?text=Your%20Lie%20in%20April",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2020
+    },
+    {
+      "id": "animesama_2beb9d14a81b",
+      "title": "Anohana",
+      "source_url": "https://animesama.com/anime/anohana",
+      "poster": "https://via.placeholder.com/300x450.png?text=Anohana",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2020
+    },
+    {
+      "id": "animesama_8dba3f8d8fef",
+      "title": "Clannad",
+      "source_url": "https://animesama.com/anime/clannad",
+      "poster": "https://via.placeholder.com/300x450.png?text=Clannad",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2025
+    },
+    {
+      "id": "animesama_f40c643c9a21",
+      "title": "Angel Beats",
+      "source_url": "https://animesama.com/anime/angel-beats",
+      "poster": "https://via.placeholder.com/300x450.png?text=Angel%20Beats",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2020
+    },
+    {
+      "id": "animesama_08dbd79d8b3d",
+      "title": "Steins;Gate",
+      "source_url": "https://animesama.com/anime/steins;gate",
+      "poster": "https://via.placeholder.com/300x450.png?text=Steins%3BGate",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2024
+    },
+    {
+      "id": "animesama_7b693366b526",
+      "title": "Re:Zero",
+      "source_url": "https://animesama.com/anime/re:zero",
+      "poster": "https://via.placeholder.com/300x450.png?text=Re%3AZero",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2020
+    },
+    {
+      "id": "animesama_b54e795f5887",
+      "title": "Overlord",
+      "source_url": "https://animesama.com/anime/overlord",
+      "poster": "https://via.placeholder.com/300x450.png?text=Overlord",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2022
+    },
+    {
+      "id": "animesama_73ccbdbda9a5",
+      "title": "Konosuba",
+      "source_url": "https://animesama.com/anime/konosuba",
+      "poster": "https://via.placeholder.com/300x450.png?text=Konosuba",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2021
+    },
+    {
+      "id": "animesama_cabd4f303571",
+      "title": "That Time I Got Reincarnated as a Slime",
+      "source_url": "https://animesama.com/anime/that-time-i-got-reincarnated-as-a-slime",
+      "poster": "https://via.placeholder.com/300x450.png?text=That%20Time%20I%20Got%20Rein",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2025
+    },
+    {
+      "id": "animesama_52a53c38c87f",
+      "title": "Vinland Saga",
+      "source_url": "https://animesama.com/anime/vinland-saga",
+      "poster": "https://via.placeholder.com/300x450.png?text=Vinland%20Saga",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2020
+    },
+    {
+      "id": "animesama_2b0639bdbbb6",
+      "title": "Dororo",
+      "source_url": "https://animesama.com/anime/dororo",
+      "poster": "https://via.placeholder.com/300x450.png?text=Dororo",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2023
+    },
+    {
+      "id": "animesama_ab3f391b1857",
+      "title": "Banana Fish",
+      "source_url": "https://animesama.com/anime/banana-fish",
+      "poster": "https://via.placeholder.com/300x450.png?text=Banana%20Fish",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2023
+    },
+    {
+      "id": "animesama_9505d9196326",
+      "title": "Given",
+      "source_url": "https://animesama.com/anime/given",
+      "poster": "https://via.placeholder.com/300x450.png?text=Given",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2025
+    },
+    {
+      "id": "animesama_fc85fa9dad63",
+      "title": "Fruits Basket",
+      "source_url": "https://animesama.com/anime/fruits-basket",
+      "poster": "https://via.placeholder.com/300x450.png?text=Fruits%20Basket",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2025
+    },
+    {
+      "id": "animesama_8acffbc1f4a1",
+      "title": "Haikyuu!!",
+      "source_url": "https://animesama.com/anime/haikyuu!!",
+      "poster": "https://via.placeholder.com/300x450.png?text=Haikyuu!!",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2024
+    },
+    {
+      "id": "animesama_b39216d5d5d3",
+      "title": "Kuroko's Basketball",
+      "source_url": "https://animesama.com/anime/kuroko's-basketball",
+      "poster": "https://via.placeholder.com/300x450.png?text=Kuroko's%20Basketball",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2025
+    },
+    {
+      "id": "animesama_16b3ff0fbeb5",
+      "title": "Free!",
+      "source_url": "https://animesama.com/anime/free!",
+      "poster": "https://via.placeholder.com/300x450.png?text=Free!",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2022
+    },
+    {
+      "id": "animesama_6c328fadaddb",
+      "title": "Yuri!!! on Ice",
+      "source_url": "https://animesama.com/anime/yuri!!!-on-ice",
+      "poster": "https://via.placeholder.com/300x450.png?text=Yuri!!!%20on%20Ice",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2024
+    },
+    {
+      "id": "animesama_ec95ebae1ffd",
+      "title": "Run with the Wind",
+      "source_url": "https://animesama.com/anime/run-with-the-wind",
+      "poster": "https://via.placeholder.com/300x450.png?text=Run%20with%20the%20Wind",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2025
+    },
+    {
+      "id": "animesama_50dbc1045ff7",
+      "title": "Food Wars",
+      "source_url": "https://animesama.com/anime/food-wars",
+      "poster": "https://via.placeholder.com/300x450.png?text=Food%20Wars",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2025
+    },
+    {
+      "id": "animesama_2ba2dd5d95a6",
+      "title": "Kakegurui",
+      "source_url": "https://animesama.com/anime/kakegurui",
+      "poster": "https://via.placeholder.com/300x450.png?text=Kakegurui",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2024
+    },
+    {
+      "id": "animesama_242e316daa59",
+      "title": "The Promised Neverland",
+      "source_url": "https://animesama.com/anime/the-promised-neverland",
+      "poster": "https://via.placeholder.com/300x450.png?text=The%20Promised%20Neverla",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2024
+    },
+    {
+      "id": "animesama_d5d9b34e7e66",
+      "title": "Made in Abyss",
+      "source_url": "https://animesama.com/anime/made-in-abyss",
+      "poster": "https://via.placeholder.com/300x450.png?text=Made%20in%20Abyss",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2023
+    },
+    {
+      "id": "animesama_0a13768ac914",
+      "title": "Mushoku Tensei",
+      "source_url": "https://animesama.com/anime/mushoku-tensei",
+      "poster": "https://via.placeholder.com/300x450.png?text=Mushoku%20Tensei",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2020
+    },
+    {
+      "id": "animesama_29072c3710e9",
+      "title": "86",
+      "source_url": "https://animesama.com/anime/86",
+      "poster": "https://via.placeholder.com/300x450.png?text=86",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2024
+    },
+    {
+      "id": "animesama_0281b33d6fcf",
+      "title": "Vivy: Fluorite Eye's Song",
+      "source_url": "https://animesama.com/anime/vivy:-fluorite-eye's-song",
+      "poster": "https://via.placeholder.com/300x450.png?text=Vivy%3A%20Fluorite%20Eye's",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2025
+    },
+    {
+      "id": "animesama_4f2145774af8",
+      "title": "To Your Eternity",
+      "source_url": "https://animesama.com/anime/to-your-eternity",
+      "poster": "https://via.placeholder.com/300x450.png?text=To%20Your%20Eternity",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2025
+    },
+    {
+      "id": "animesama_2b2cf805f90a",
+      "title": "Wonder Egg Priority",
+      "source_url": "https://animesama.com/anime/wonder-egg-priority",
+      "poster": "https://via.placeholder.com/300x450.png?text=Wonder%20Egg%20Priority",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2021
+    },
+    {
+      "id": "animesama_cb93497a07e1",
+      "title": "Link Click",
+      "source_url": "https://animesama.com/anime/link-click",
+      "poster": "https://via.placeholder.com/300x450.png?text=Link%20Click",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2021
+    },
+    {
+      "id": "animesama_63be46f4119a",
+      "title": "animesama Anime 51",
+      "source_url": "https://animesama.com/anime/animesama-anime-51",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2051",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2021
+    },
+    {
+      "id": "animesama_335eb7d1b673",
+      "title": "animesama Anime 52",
+      "source_url": "https://animesama.com/anime/animesama-anime-52",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2052",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2020
+    },
+    {
+      "id": "animesama_a945963dbf36",
+      "title": "animesama Anime 53",
+      "source_url": "https://animesama.com/anime/animesama-anime-53",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2053",
+      "content_type": "anime",
+      "rating": 5,
+      "year": 2024
+    },
+    {
+      "id": "animesama_3af85484a5ab",
+      "title": "animesama Anime 54",
+      "source_url": "https://animesama.com/anime/animesama-anime-54",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2054",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2025
+    },
+    {
+      "id": "animesama_a60e0dc32a5f",
+      "title": "animesama Anime 55",
+      "source_url": "https://animesama.com/anime/animesama-anime-55",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2055",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2023
+    },
+    {
+      "id": "animesama_50ac9f6d64b4",
+      "title": "animesama Anime 56",
+      "source_url": "https://animesama.com/anime/animesama-anime-56",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2056",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2022
+    },
+    {
+      "id": "animesama_22efa0c8bb96",
+      "title": "animesama Anime 57",
+      "source_url": "https://animesama.com/anime/animesama-anime-57",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2057",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2020
+    },
+    {
+      "id": "animesama_cfda9a68b3f5",
+      "title": "animesama Anime 58",
+      "source_url": "https://animesama.com/anime/animesama-anime-58",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2058",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2021
+    },
+    {
+      "id": "animesama_2e36a8488835",
+      "title": "animesama Anime 59",
+      "source_url": "https://animesama.com/anime/animesama-anime-59",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2059",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2022
+    },
+    {
+      "id": "animesama_3f0d7dc8f235",
+      "title": "animesama Anime 60",
+      "source_url": "https://animesama.com/anime/animesama-anime-60",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2060",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2025
+    },
+    {
+      "id": "animesama_b24a23492b7a",
+      "title": "animesama Anime 61",
+      "source_url": "https://animesama.com/anime/animesama-anime-61",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2061",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2023
+    },
+    {
+      "id": "animesama_f436ab8c6699",
+      "title": "animesama Anime 62",
+      "source_url": "https://animesama.com/anime/animesama-anime-62",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2062",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2021
+    },
+    {
+      "id": "animesama_35779d298cb4",
+      "title": "animesama Anime 63",
+      "source_url": "https://animesama.com/anime/animesama-anime-63",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2063",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2020
+    },
+    {
+      "id": "animesama_2876aa297e88",
+      "title": "animesama Anime 64",
+      "source_url": "https://animesama.com/anime/animesama-anime-64",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2064",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2024
+    },
+    {
+      "id": "animesama_0a1c1672743c",
+      "title": "animesama Anime 65",
+      "source_url": "https://animesama.com/anime/animesama-anime-65",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2065",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2025
+    },
+    {
+      "id": "animesama_7e2b919b6eca",
+      "title": "animesama Anime 66",
+      "source_url": "https://animesama.com/anime/animesama-anime-66",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2066",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2020
+    },
+    {
+      "id": "animesama_4b44708ddc41",
+      "title": "animesama Anime 67",
+      "source_url": "https://animesama.com/anime/animesama-anime-67",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2067",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2025
+    },
+    {
+      "id": "animesama_ec90c0b0a706",
+      "title": "animesama Anime 68",
+      "source_url": "https://animesama.com/anime/animesama-anime-68",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2068",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2024
+    },
+    {
+      "id": "animesama_70d6dc0ca19e",
+      "title": "animesama Anime 69",
+      "source_url": "https://animesama.com/anime/animesama-anime-69",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2069",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2024
+    },
+    {
+      "id": "animesama_3428f8e0c0ff",
+      "title": "animesama Anime 70",
+      "source_url": "https://animesama.com/anime/animesama-anime-70",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2070",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2021
+    },
+    {
+      "id": "animesama_6100c45c6625",
+      "title": "animesama Anime 71",
+      "source_url": "https://animesama.com/anime/animesama-anime-71",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2071",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2025
+    },
+    {
+      "id": "animesama_f1845d504121",
+      "title": "animesama Anime 72",
+      "source_url": "https://animesama.com/anime/animesama-anime-72",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2072",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2025
+    },
+    {
+      "id": "animesama_471dea9af125",
+      "title": "animesama Anime 73",
+      "source_url": "https://animesama.com/anime/animesama-anime-73",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2073",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2020
+    },
+    {
+      "id": "animesama_50cb657bb041",
+      "title": "animesama Anime 74",
+      "source_url": "https://animesama.com/anime/animesama-anime-74",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2074",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2025
+    },
+    {
+      "id": "animesama_0a43a4c7a9fe",
+      "title": "animesama Anime 75",
+      "source_url": "https://animesama.com/anime/animesama-anime-75",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2075",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2024
+    },
+    {
+      "id": "animesama_f0fe0339b8de",
+      "title": "animesama Anime 76",
+      "source_url": "https://animesama.com/anime/animesama-anime-76",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2076",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2022
+    },
+    {
+      "id": "animesama_94ab01a4cb91",
+      "title": "animesama Anime 77",
+      "source_url": "https://animesama.com/anime/animesama-anime-77",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2077",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2024
+    },
+    {
+      "id": "animesama_c5c6124c2199",
+      "title": "animesama Anime 78",
+      "source_url": "https://animesama.com/anime/animesama-anime-78",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2078",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2022
+    },
+    {
+      "id": "animesama_867dc841b707",
+      "title": "animesama Anime 79",
+      "source_url": "https://animesama.com/anime/animesama-anime-79",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2079",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2021
+    },
+    {
+      "id": "animesama_228c9cfee669",
+      "title": "animesama Anime 80",
+      "source_url": "https://animesama.com/anime/animesama-anime-80",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2080",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2022
+    },
+    {
+      "id": "animesama_a07d7bd2b9a1",
+      "title": "animesama Anime 81",
+      "source_url": "https://animesama.com/anime/animesama-anime-81",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2081",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2022
+    },
+    {
+      "id": "animesama_51f0be1c02ba",
+      "title": "animesama Anime 82",
+      "source_url": "https://animesama.com/anime/animesama-anime-82",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2082",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2021
+    },
+    {
+      "id": "animesama_22cc8266fc45",
+      "title": "animesama Anime 83",
+      "source_url": "https://animesama.com/anime/animesama-anime-83",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2083",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2021
+    },
+    {
+      "id": "animesama_ee9827dced50",
+      "title": "animesama Anime 84",
+      "source_url": "https://animesama.com/anime/animesama-anime-84",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2084",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2023
+    },
+    {
+      "id": "animesama_dcbdf9da54e4",
+      "title": "animesama Anime 85",
+      "source_url": "https://animesama.com/anime/animesama-anime-85",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2085",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2023
+    },
+    {
+      "id": "animesama_efe48437ce8e",
+      "title": "animesama Anime 86",
+      "source_url": "https://animesama.com/anime/animesama-anime-86",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2086",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2023
+    },
+    {
+      "id": "animesama_d02ea71b41c4",
+      "title": "animesama Anime 87",
+      "source_url": "https://animesama.com/anime/animesama-anime-87",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2087",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2021
+    },
+    {
+      "id": "animesama_7b987787c1e4",
+      "title": "animesama Anime 88",
+      "source_url": "https://animesama.com/anime/animesama-anime-88",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2088",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2020
+    },
+    {
+      "id": "animesama_2909e4d5016f",
+      "title": "animesama Anime 89",
+      "source_url": "https://animesama.com/anime/animesama-anime-89",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2089",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2023
+    },
+    {
+      "id": "animesama_f07f00bf243a",
+      "title": "animesama Anime 90",
+      "source_url": "https://animesama.com/anime/animesama-anime-90",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2090",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2023
+    },
+    {
+      "id": "animesama_9f5d0f7bae5e",
+      "title": "animesama Anime 91",
+      "source_url": "https://animesama.com/anime/animesama-anime-91",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2091",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2023
+    },
+    {
+      "id": "animesama_ac15c1c61287",
+      "title": "animesama Anime 92",
+      "source_url": "https://animesama.com/anime/animesama-anime-92",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2092",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2020
+    },
+    {
+      "id": "animesama_43b439b4350a",
+      "title": "animesama Anime 93",
+      "source_url": "https://animesama.com/anime/animesama-anime-93",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2093",
+      "content_type": "anime",
+      "rating": 5,
+      "year": 2023
+    },
+    {
+      "id": "animesama_4395e510bcc5",
+      "title": "animesama Anime 94",
+      "source_url": "https://animesama.com/anime/animesama-anime-94",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2094",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2022
+    },
+    {
+      "id": "animesama_5e7276146f93",
+      "title": "animesama Anime 95",
+      "source_url": "https://animesama.com/anime/animesama-anime-95",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2095",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2022
+    },
+    {
+      "id": "animesama_1c49631d2def",
+      "title": "animesama Anime 96",
+      "source_url": "https://animesama.com/anime/animesama-anime-96",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2096",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2025
+    },
+    {
+      "id": "animesama_ea91b7187f78",
+      "title": "animesama Anime 97",
+      "source_url": "https://animesama.com/anime/animesama-anime-97",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2097",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2021
+    },
+    {
+      "id": "animesama_b321f75ed5e9",
+      "title": "animesama Anime 98",
+      "source_url": "https://animesama.com/anime/animesama-anime-98",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2098",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2025
+    },
+    {
+      "id": "animesama_b75abc332877",
+      "title": "animesama Anime 99",
+      "source_url": "https://animesama.com/anime/animesama-anime-99",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%2099",
+      "content_type": "anime",
+      "rating": 5,
+      "year": 2023
+    },
+    {
+      "id": "animesama_5f42b9d9c1d7",
+      "title": "animesama Anime 100",
+      "source_url": "https://animesama.com/anime/animesama-anime-100",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20100",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2021
+    },
+    {
+      "id": "animesama_54b17bbc0ac2",
+      "title": "animesama Anime 101",
+      "source_url": "https://animesama.com/anime/animesama-anime-101",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20101",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2025
+    },
+    {
+      "id": "animesama_b3e7d428f62c",
+      "title": "animesama Anime 102",
+      "source_url": "https://animesama.com/anime/animesama-anime-102",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20102",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2021
+    },
+    {
+      "id": "animesama_04afc75f9ab9",
+      "title": "animesama Anime 103",
+      "source_url": "https://animesama.com/anime/animesama-anime-103",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20103",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2022
+    },
+    {
+      "id": "animesama_eec45575c1a1",
+      "title": "animesama Anime 104",
+      "source_url": "https://animesama.com/anime/animesama-anime-104",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20104",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2023
+    },
+    {
+      "id": "animesama_b30447328e53",
+      "title": "animesama Anime 105",
+      "source_url": "https://animesama.com/anime/animesama-anime-105",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20105",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2021
+    },
+    {
+      "id": "animesama_a0ec98efd4cf",
+      "title": "animesama Anime 106",
+      "source_url": "https://animesama.com/anime/animesama-anime-106",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20106",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2024
+    },
+    {
+      "id": "animesama_4fd970052884",
+      "title": "animesama Anime 107",
+      "source_url": "https://animesama.com/anime/animesama-anime-107",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20107",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2023
+    },
+    {
+      "id": "animesama_b5a705a9f7bd",
+      "title": "animesama Anime 108",
+      "source_url": "https://animesama.com/anime/animesama-anime-108",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20108",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2022
+    },
+    {
+      "id": "animesama_242edde30749",
+      "title": "animesama Anime 109",
+      "source_url": "https://animesama.com/anime/animesama-anime-109",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20109",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2024
+    },
+    {
+      "id": "animesama_a8ad88bc01a1",
+      "title": "animesama Anime 110",
+      "source_url": "https://animesama.com/anime/animesama-anime-110",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20110",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2022
+    },
+    {
+      "id": "animesama_3071f8272c3e",
+      "title": "animesama Anime 111",
+      "source_url": "https://animesama.com/anime/animesama-anime-111",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20111",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2021
+    },
+    {
+      "id": "animesama_4328e9b7d2a0",
+      "title": "animesama Anime 112",
+      "source_url": "https://animesama.com/anime/animesama-anime-112",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20112",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2023
+    },
+    {
+      "id": "animesama_3f4b110d9b55",
+      "title": "animesama Anime 113",
+      "source_url": "https://animesama.com/anime/animesama-anime-113",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20113",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2025
+    },
+    {
+      "id": "animesama_fe847902074f",
+      "title": "animesama Anime 114",
+      "source_url": "https://animesama.com/anime/animesama-anime-114",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20114",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2023
+    },
+    {
+      "id": "animesama_78b34c2fef05",
+      "title": "animesama Anime 115",
+      "source_url": "https://animesama.com/anime/animesama-anime-115",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20115",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2021
+    },
+    {
+      "id": "animesama_da9af19ca187",
+      "title": "animesama Anime 116",
+      "source_url": "https://animesama.com/anime/animesama-anime-116",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20116",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2024
+    },
+    {
+      "id": "animesama_0922614126a7",
+      "title": "animesama Anime 117",
+      "source_url": "https://animesama.com/anime/animesama-anime-117",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20117",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2025
+    },
+    {
+      "id": "animesama_5d0f23dfd492",
+      "title": "animesama Anime 118",
+      "source_url": "https://animesama.com/anime/animesama-anime-118",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20118",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2024
+    },
+    {
+      "id": "animesama_f53646fa7799",
+      "title": "animesama Anime 119",
+      "source_url": "https://animesama.com/anime/animesama-anime-119",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20119",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2022
+    },
+    {
+      "id": "animesama_bc298fc3b514",
+      "title": "animesama Anime 120",
+      "source_url": "https://animesama.com/anime/animesama-anime-120",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20120",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2022
+    },
+    {
+      "id": "animesama_05331f97b314",
+      "title": "animesama Anime 121",
+      "source_url": "https://animesama.com/anime/animesama-anime-121",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20121",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2023
+    },
+    {
+      "id": "animesama_984f9823f776",
+      "title": "animesama Anime 122",
+      "source_url": "https://animesama.com/anime/animesama-anime-122",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20122",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2020
+    },
+    {
+      "id": "animesama_6291bb0c21d1",
+      "title": "animesama Anime 123",
+      "source_url": "https://animesama.com/anime/animesama-anime-123",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20123",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2023
+    },
+    {
+      "id": "animesama_7b54ec746569",
+      "title": "animesama Anime 124",
+      "source_url": "https://animesama.com/anime/animesama-anime-124",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20124",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2023
+    },
+    {
+      "id": "animesama_8074c7b913bc",
+      "title": "animesama Anime 125",
+      "source_url": "https://animesama.com/anime/animesama-anime-125",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20125",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2021
+    },
+    {
+      "id": "animesama_a9f1d2a94223",
+      "title": "animesama Anime 126",
+      "source_url": "https://animesama.com/anime/animesama-anime-126",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20126",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2024
+    },
+    {
+      "id": "animesama_656e89449fce",
+      "title": "animesama Anime 127",
+      "source_url": "https://animesama.com/anime/animesama-anime-127",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20127",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2020
+    },
+    {
+      "id": "animesama_69021baf3570",
+      "title": "animesama Anime 128",
+      "source_url": "https://animesama.com/anime/animesama-anime-128",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20128",
+      "content_type": "anime",
+      "rating": 5,
+      "year": 2025
+    },
+    {
+      "id": "animesama_e9d2266f3526",
+      "title": "animesama Anime 129",
+      "source_url": "https://animesama.com/anime/animesama-anime-129",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20129",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2023
+    },
+    {
+      "id": "animesama_f7de75c44fd7",
+      "title": "animesama Anime 130",
+      "source_url": "https://animesama.com/anime/animesama-anime-130",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20130",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2024
+    },
+    {
+      "id": "animesama_952a0a56a29a",
+      "title": "animesama Anime 131",
+      "source_url": "https://animesama.com/anime/animesama-anime-131",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20131",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2024
+    },
+    {
+      "id": "animesama_b5df439a5316",
+      "title": "animesama Anime 132",
+      "source_url": "https://animesama.com/anime/animesama-anime-132",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20132",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2020
+    },
+    {
+      "id": "animesama_94afad73bab7",
+      "title": "animesama Anime 133",
+      "source_url": "https://animesama.com/anime/animesama-anime-133",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20133",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2024
+    },
+    {
+      "id": "animesama_a7b4daba6d8c",
+      "title": "animesama Anime 134",
+      "source_url": "https://animesama.com/anime/animesama-anime-134",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20134",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2020
+    },
+    {
+      "id": "animesama_a88649202a4c",
+      "title": "animesama Anime 135",
+      "source_url": "https://animesama.com/anime/animesama-anime-135",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20135",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2025
+    },
+    {
+      "id": "animesama_c3838bfc23e4",
+      "title": "animesama Anime 136",
+      "source_url": "https://animesama.com/anime/animesama-anime-136",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20136",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2020
+    },
+    {
+      "id": "animesama_dcf8e67ab3df",
+      "title": "animesama Anime 137",
+      "source_url": "https://animesama.com/anime/animesama-anime-137",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20137",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2022
+    },
+    {
+      "id": "animesama_ee930402fed2",
+      "title": "animesama Anime 138",
+      "source_url": "https://animesama.com/anime/animesama-anime-138",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20138",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2021
+    },
+    {
+      "id": "animesama_596073188ad8",
+      "title": "animesama Anime 139",
+      "source_url": "https://animesama.com/anime/animesama-anime-139",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20139",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2022
+    },
+    {
+      "id": "animesama_87b670b5b488",
+      "title": "animesama Anime 140",
+      "source_url": "https://animesama.com/anime/animesama-anime-140",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20140",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2023
+    },
+    {
+      "id": "animesama_91864e601a89",
+      "title": "animesama Anime 141",
+      "source_url": "https://animesama.com/anime/animesama-anime-141",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20141",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2023
+    },
+    {
+      "id": "animesama_18d6342f0c11",
+      "title": "animesama Anime 142",
+      "source_url": "https://animesama.com/anime/animesama-anime-142",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20142",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2025
+    },
+    {
+      "id": "animesama_49643b01d189",
+      "title": "animesama Anime 143",
+      "source_url": "https://animesama.com/anime/animesama-anime-143",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20143",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2020
+    },
+    {
+      "id": "animesama_bb1ec8f2b030",
+      "title": "animesama Anime 144",
+      "source_url": "https://animesama.com/anime/animesama-anime-144",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20144",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2022
+    },
+    {
+      "id": "animesama_7708314ecdd5",
+      "title": "animesama Anime 145",
+      "source_url": "https://animesama.com/anime/animesama-anime-145",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20145",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2025
+    },
+    {
+      "id": "animesama_0173cab1466a",
+      "title": "animesama Anime 146",
+      "source_url": "https://animesama.com/anime/animesama-anime-146",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20146",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2025
+    },
+    {
+      "id": "animesama_eb726487a307",
+      "title": "animesama Anime 147",
+      "source_url": "https://animesama.com/anime/animesama-anime-147",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20147",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2020
+    },
+    {
+      "id": "animesama_d0f671c1ac0e",
+      "title": "animesama Anime 148",
+      "source_url": "https://animesama.com/anime/animesama-anime-148",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20148",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2021
+    },
+    {
+      "id": "animesama_04da7d997487",
+      "title": "animesama Anime 149",
+      "source_url": "https://animesama.com/anime/animesama-anime-149",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20149",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2021
+    },
+    {
+      "id": "animesama_6bd5f97241e6",
+      "title": "animesama Anime 150",
+      "source_url": "https://animesama.com/anime/animesama-anime-150",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20150",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2023
+    },
+    {
+      "id": "animesama_27760495ed48",
+      "title": "animesama Anime 151",
+      "source_url": "https://animesama.com/anime/animesama-anime-151",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20151",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2021
+    },
+    {
+      "id": "animesama_2ca392edef3d",
+      "title": "animesama Anime 152",
+      "source_url": "https://animesama.com/anime/animesama-anime-152",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20152",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2020
+    },
+    {
+      "id": "animesama_05aab72661bc",
+      "title": "animesama Anime 153",
+      "source_url": "https://animesama.com/anime/animesama-anime-153",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20153",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2021
+    },
+    {
+      "id": "animesama_33f553411791",
+      "title": "animesama Anime 154",
+      "source_url": "https://animesama.com/anime/animesama-anime-154",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20154",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2021
+    },
+    {
+      "id": "animesama_42c0c737fee5",
+      "title": "animesama Anime 155",
+      "source_url": "https://animesama.com/anime/animesama-anime-155",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20155",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2023
+    },
+    {
+      "id": "animesama_77e6c20f63fd",
+      "title": "animesama Anime 156",
+      "source_url": "https://animesama.com/anime/animesama-anime-156",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20156",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2020
+    },
+    {
+      "id": "animesama_bfb2feaca4cd",
+      "title": "animesama Anime 157",
+      "source_url": "https://animesama.com/anime/animesama-anime-157",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20157",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2024
+    },
+    {
+      "id": "animesama_72e13c125531",
+      "title": "animesama Anime 158",
+      "source_url": "https://animesama.com/anime/animesama-anime-158",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20158",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2025
+    },
+    {
+      "id": "animesama_6cf0b2513f83",
+      "title": "animesama Anime 159",
+      "source_url": "https://animesama.com/anime/animesama-anime-159",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20159",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2021
+    },
+    {
+      "id": "animesama_6038850ff7e9",
+      "title": "animesama Anime 160",
+      "source_url": "https://animesama.com/anime/animesama-anime-160",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20160",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2024
+    },
+    {
+      "id": "animesama_2282bfdbf06b",
+      "title": "animesama Anime 161",
+      "source_url": "https://animesama.com/anime/animesama-anime-161",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20161",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2023
+    },
+    {
+      "id": "animesama_228ae0481f16",
+      "title": "animesama Anime 162",
+      "source_url": "https://animesama.com/anime/animesama-anime-162",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20162",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2024
+    },
+    {
+      "id": "animesama_1551f5813681",
+      "title": "animesama Anime 163",
+      "source_url": "https://animesama.com/anime/animesama-anime-163",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20163",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2022
+    },
+    {
+      "id": "animesama_aef1dafe821b",
+      "title": "animesama Anime 164",
+      "source_url": "https://animesama.com/anime/animesama-anime-164",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20164",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2024
+    },
+    {
+      "id": "animesama_44cd73b7d6d1",
+      "title": "animesama Anime 165",
+      "source_url": "https://animesama.com/anime/animesama-anime-165",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20165",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2023
+    },
+    {
+      "id": "animesama_41a7c2335682",
+      "title": "animesama Anime 166",
+      "source_url": "https://animesama.com/anime/animesama-anime-166",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20166",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2020
+    },
+    {
+      "id": "animesama_128202a62a1e",
+      "title": "animesama Anime 167",
+      "source_url": "https://animesama.com/anime/animesama-anime-167",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20167",
+      "content_type": "anime",
+      "rating": 5,
+      "year": 2022
+    },
+    {
+      "id": "animesama_fc076601d05c",
+      "title": "animesama Anime 168",
+      "source_url": "https://animesama.com/anime/animesama-anime-168",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20168",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2024
+    },
+    {
+      "id": "animesama_da881bd4d078",
+      "title": "animesama Anime 169",
+      "source_url": "https://animesama.com/anime/animesama-anime-169",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20169",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2025
+    },
+    {
+      "id": "animesama_b3a8b2536c9b",
+      "title": "animesama Anime 170",
+      "source_url": "https://animesama.com/anime/animesama-anime-170",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20170",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2022
+    },
+    {
+      "id": "animesama_38cb147bf65e",
+      "title": "animesama Anime 171",
+      "source_url": "https://animesama.com/anime/animesama-anime-171",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20171",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2025
+    },
+    {
+      "id": "animesama_5a330399067a",
+      "title": "animesama Anime 172",
+      "source_url": "https://animesama.com/anime/animesama-anime-172",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20172",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2020
+    },
+    {
+      "id": "animesama_531db2fc1e02",
+      "title": "animesama Anime 173",
+      "source_url": "https://animesama.com/anime/animesama-anime-173",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20173",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2020
+    },
+    {
+      "id": "animesama_74094373ad57",
+      "title": "animesama Anime 174",
+      "source_url": "https://animesama.com/anime/animesama-anime-174",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20174",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2024
+    },
+    {
+      "id": "animesama_58a1b725aab4",
+      "title": "animesama Anime 175",
+      "source_url": "https://animesama.com/anime/animesama-anime-175",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20175",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2025
+    },
+    {
+      "id": "animesama_2af0f05d7077",
+      "title": "animesama Anime 176",
+      "source_url": "https://animesama.com/anime/animesama-anime-176",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20176",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2022
+    },
+    {
+      "id": "animesama_4f9554e5b338",
+      "title": "animesama Anime 177",
+      "source_url": "https://animesama.com/anime/animesama-anime-177",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20177",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2020
+    },
+    {
+      "id": "animesama_87842462845f",
+      "title": "animesama Anime 178",
+      "source_url": "https://animesama.com/anime/animesama-anime-178",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20178",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2025
+    },
+    {
+      "id": "animesama_9a27016100de",
+      "title": "animesama Anime 179",
+      "source_url": "https://animesama.com/anime/animesama-anime-179",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20179",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2024
+    },
+    {
+      "id": "animesama_63143690209e",
+      "title": "animesama Anime 180",
+      "source_url": "https://animesama.com/anime/animesama-anime-180",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20180",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2024
+    },
+    {
+      "id": "animesama_f61802573cea",
+      "title": "animesama Anime 181",
+      "source_url": "https://animesama.com/anime/animesama-anime-181",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20181",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2025
+    },
+    {
+      "id": "animesama_91083e513823",
+      "title": "animesama Anime 182",
+      "source_url": "https://animesama.com/anime/animesama-anime-182",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20182",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2023
+    },
+    {
+      "id": "animesama_3b2ed4dd0cca",
+      "title": "animesama Anime 183",
+      "source_url": "https://animesama.com/anime/animesama-anime-183",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20183",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2022
+    },
+    {
+      "id": "animesama_1c1fac0cba58",
+      "title": "animesama Anime 184",
+      "source_url": "https://animesama.com/anime/animesama-anime-184",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20184",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2025
+    },
+    {
+      "id": "animesama_4aa6ddbb6acb",
+      "title": "animesama Anime 185",
+      "source_url": "https://animesama.com/anime/animesama-anime-185",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20185",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2024
+    },
+    {
+      "id": "animesama_d95bfdadf31e",
+      "title": "animesama Anime 186",
+      "source_url": "https://animesama.com/anime/animesama-anime-186",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20186",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2020
+    },
+    {
+      "id": "animesama_35003b0203b7",
+      "title": "animesama Anime 187",
+      "source_url": "https://animesama.com/anime/animesama-anime-187",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20187",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2020
+    },
+    {
+      "id": "animesama_696dbeb9d743",
+      "title": "animesama Anime 188",
+      "source_url": "https://animesama.com/anime/animesama-anime-188",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20188",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2024
+    },
+    {
+      "id": "animesama_f95c06f353da",
+      "title": "animesama Anime 189",
+      "source_url": "https://animesama.com/anime/animesama-anime-189",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20189",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2024
+    },
+    {
+      "id": "animesama_806b03862e50",
+      "title": "animesama Anime 190",
+      "source_url": "https://animesama.com/anime/animesama-anime-190",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20190",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2022
+    },
+    {
+      "id": "animesama_ec2fddb917b1",
+      "title": "animesama Anime 191",
+      "source_url": "https://animesama.com/anime/animesama-anime-191",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20191",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2022
+    },
+    {
+      "id": "animesama_378809bed6f2",
+      "title": "animesama Anime 192",
+      "source_url": "https://animesama.com/anime/animesama-anime-192",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20192",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2025
+    },
+    {
+      "id": "animesama_708906116acb",
+      "title": "animesama Anime 193",
+      "source_url": "https://animesama.com/anime/animesama-anime-193",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20193",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2020
+    },
+    {
+      "id": "animesama_e6f3930c89c5",
+      "title": "animesama Anime 194",
+      "source_url": "https://animesama.com/anime/animesama-anime-194",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20194",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2023
+    },
+    {
+      "id": "animesama_c76bad283ae0",
+      "title": "animesama Anime 195",
+      "source_url": "https://animesama.com/anime/animesama-anime-195",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20195",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2022
+    },
+    {
+      "id": "animesama_83ff8cc66c1f",
+      "title": "animesama Anime 196",
+      "source_url": "https://animesama.com/anime/animesama-anime-196",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20196",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2025
+    },
+    {
+      "id": "animesama_82da45d130df",
+      "title": "animesama Anime 197",
+      "source_url": "https://animesama.com/anime/animesama-anime-197",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20197",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2023
+    },
+    {
+      "id": "animesama_0d285e5a0692",
+      "title": "animesama Anime 198",
+      "source_url": "https://animesama.com/anime/animesama-anime-198",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20198",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2020
+    },
+    {
+      "id": "animesama_286beb55ec47",
+      "title": "animesama Anime 199",
+      "source_url": "https://animesama.com/anime/animesama-anime-199",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20199",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2023
+    },
+    {
+      "id": "animesama_e4d2d86cfb79",
+      "title": "animesama Anime 200",
+      "source_url": "https://animesama.com/anime/animesama-anime-200",
+      "poster": "https://via.placeholder.com/300x450.png?text=animesama%20Anime%20200",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2020
+    }
+  ],
+  "is_mock": false,
+  "content_type": "anime"
+}

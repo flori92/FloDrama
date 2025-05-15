@@ -1,0 +1,248 @@
+{
+  "timestamp": "2025-05-10T16-08-02.410Z",
+  "status": "critical",
+  "keyReports": [
+    {
+      "key": "anime",
+      "status": "critical",
+      "timestamp": "2025-05-10T16:08:03.237Z",
+      "issues": [
+        "Impossible de récupérer les métadonnées"
+      ],
+      "warnings": [],
+      "metadata": null,
+      "value": null,
+      "size": 0,
+      "itemCount": 271,
+      "lastModified": null
+    },
+    {
+      "key": "anime-index",
+      "status": "critical",
+      "timestamp": "2025-05-10T16:08:04.445Z",
+      "issues": [
+        "Impossible de récupérer les métadonnées"
+      ],
+      "warnings": [
+        "Nombre de propriétés faible (1)"
+      ],
+      "metadata": null,
+      "value": null,
+      "size": 0,
+      "itemCount": 1,
+      "lastModified": null
+    },
+    {
+      "key": "bollywood",
+      "status": "critical",
+      "timestamp": "2025-05-10T16:08:05.457Z",
+      "issues": [
+        "Impossible de récupérer les métadonnées"
+      ],
+      "warnings": [
+        "Nombre d'éléments faible (2)"
+      ],
+      "metadata": null,
+      "value": null,
+      "size": 0,
+      "itemCount": 2,
+      "lastModified": null
+    },
+    {
+      "key": "bollywood-index",
+      "status": "critical",
+      "timestamp": "2025-05-10T16:08:09.929Z",
+      "issues": [
+        "Impossible de récupérer les métadonnées"
+      ],
+      "warnings": [
+        "Nombre de propriétés faible (1)"
+      ],
+      "metadata": null,
+      "value": null,
+      "size": 0,
+      "itemCount": 1,
+      "lastModified": null
+    },
+    {
+      "key": "drama",
+      "status": "critical",
+      "timestamp": "2025-05-10T16:08:11.157Z",
+      "issues": [
+        "Impossible de récupérer les métadonnées"
+      ],
+      "warnings": [],
+      "metadata": null,
+      "value": null,
+      "size": 0,
+      "itemCount": 82,
+      "lastModified": null
+    },
+    {
+      "key": "drama-index",
+      "status": "critical",
+      "timestamp": "2025-05-10T16:08:12.202Z",
+      "issues": [
+        "Impossible de récupérer les métadonnées"
+      ],
+      "warnings": [
+        "Nombre de propriétés faible (1)"
+      ],
+      "metadata": null,
+      "value": null,
+      "size": 0,
+      "itemCount": 1,
+      "lastModified": null
+    },
+    {
+      "key": "film",
+      "status": "critical",
+      "timestamp": "2025-05-10T16:08:13.490Z",
+      "issues": [
+        "Impossible de récupérer les métadonnées"
+      ],
+      "warnings": [
+        "Nombre d'éléments faible (1)"
+      ],
+      "metadata": null,
+      "value": null,
+      "size": 0,
+      "itemCount": 1,
+      "lastModified": null
+    },
+    {
+      "key": "film-index",
+      "status": "critical",
+      "timestamp": "2025-05-10T16:08:14.722Z",
+      "issues": [
+        "Impossible de récupérer les métadonnées"
+      ],
+      "warnings": [
+        "Nombre de propriétés faible (1)"
+      ],
+      "metadata": null,
+      "value": null,
+      "size": 0,
+      "itemCount": 1,
+      "lastModified": null
+    },
+    {
+      "key": "global",
+      "status": "critical",
+      "timestamp": "2025-05-10T16:08:15.826Z",
+      "issues": [
+        "Impossible de récupérer les métadonnées"
+      ],
+      "warnings": [],
+      "metadata": null,
+      "value": null,
+      "size": 0,
+      "itemCount": 768,
+      "lastModified": null
+    },
+    {
+      "key": "global-index",
+      "status": "critical",
+      "timestamp": "2025-05-10T16:08:16.949Z",
+      "issues": [
+        "Impossible de récupérer les métadonnées"
+      ],
+      "warnings": [
+        "Nombre de propriétés faible (1)"
+      ],
+      "metadata": null,
+      "value": null,
+      "size": 0,
+      "itemCount": 1,
+      "lastModified": null
+    },
+    {
+      "key": "mydramalist",
+      "status": "critical",
+      "timestamp": "2025-05-10T16:08:18.263Z",
+      "issues": [
+        "Impossible de récupérer les métadonnées"
+      ],
+      "warnings": [],
+      "metadata": null,
+      "value": null,
+      "size": 0,
+      "itemCount": 23,
+      "lastModified": null
+    },
+    {
+      "key": "nekosama",
+      "status": "critical",
+      "timestamp": "2025-05-10T16:08:19.390Z",
+      "issues": [
+        "Impossible de récupérer les métadonnées"
+      ],
+      "warnings": [],
+      "metadata": null,
+      "value": null,
+      "size": 0,
+      "itemCount": 269,
+      "lastModified": null
+    },
+    {
+      "key": "streamingdivx",
+      "status": "critical",
+      "timestamp": "2025-05-10T16:08:20.443Z",
+      "issues": [
+        "Impossible de récupérer les métadonnées"
+      ],
+      "warnings": [],
+      "metadata": null,
+      "value": null,
+      "size": 0,
+      "itemCount": 418,
+      "lastModified": null
+    },
+    {
+      "key": "voiranime",
+      "status": "critical",
+      "timestamp": "2025-05-10T16:08:21.737Z",
+      "issues": [
+        "Impossible de récupérer les métadonnées"
+      ],
+      "warnings": [],
+      "metadata": null,
+      "value": null,
+      "size": 0,
+      "itemCount": 9,
+      "lastModified": null
+    },
+    {
+      "key": "voirdrama",
+      "status": "critical",
+      "timestamp": "2025-05-10T16:08:22.883Z",
+      "issues": [
+        "Impossible de récupérer les métadonnées"
+      ],
+      "warnings": [],
+      "metadata": null,
+      "value": null,
+      "size": 0,
+      "itemCount": 9,
+      "lastModified": null
+    },
+    {
+      "key": "bollystream",
+      "status": "critical",
+      "timestamp": "2025-05-10T16:08:23.900Z",
+      "issues": [
+        "Impossible de récupérer les métadonnées"
+      ],
+      "warnings": [],
+      "metadata": null,
+      "value": null,
+      "size": 0,
+      "itemCount": 39,
+      "lastModified": null
+    }
+  ],
+  "healthyCount": 0,
+  "warningCount": 0,
+  "criticalCount": 16,
+  "totalCount": 16
+}

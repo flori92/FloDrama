@@ -1,0 +1,50 @@
+{
+  "category": [
+    {
+      "selector": "#target",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "@media (max-width: 500px) {\n  .header2 {\n    displ"
+    },
+    {
+      "selector": "#sales-banner",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "@media (max-width: 500px) {\n  .header2 {\n    displ"
+    },
+    {
+      "selector": ".hide-sales-banner",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "@media (max-width: 500px) {\n  .header2 {\n    displ"
+    },
+    {
+      "selector": ".pk-page-ready",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "@media (max-width: 500px) {\n  .header2 {\n    displ"
+    },
+    {
+      "selector": ".top",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "@media (max-width: 500px) {\n  .header2 {\n    displ"
+    },
+    {
+      "selector": ".header2",
+      "count": 1,
+      "tag": "div",
+      "sample_text": ""
+    }
+  ],
+  "drama_list": [],
+  "drama_item": [],
+  "episode_list": [],
+  "episode_item": [],
+  "player": [],
+  "video": [],
+  "metadata": [],
+  "title": [],
+  "image": [],
+  "trailer": []
+}

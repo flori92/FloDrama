@@ -1,0 +1,59 @@
+{
+  "source": "asianwiki",
+  "timestamp": "2025-05-06T12-37-28.666Z",
+  "count": 3,
+  "data": [
+    {
+      "id": "mock-asianwiki-1",
+      "title": "AsianWiki - Item 1",
+      "original_title": "Original Title 1",
+      "description": "Description générée pour l'élément 1 de type drama depuis AsianWiki.",
+      "poster": "https://via.placeholder.com/300x450.png?text=AsianWiki",
+      "backdrop": "https://via.placeholder.com/1280x720.png?text=AsianWiki",
+      "year": 2021,
+      "rating": "9.3",
+      "content_type": "drama",
+      "source_url": "https://asianwiki.com/item/mock-asianwiki-1",
+      "created_at": "2025-05-06T12:37:28.666Z",
+      "updated_at": "2025-05-06T12:37:28.666Z",
+      "episodes_count": 13,
+      "country": "Japon",
+      "status": "En cours"
+    },
+    {
+      "id": "mock-asianwiki-2",
+      "title": "AsianWiki - Item 2",
+      "original_title": "Original Title 2",
+      "description": "Description générée pour l'élément 2 de type drama depuis AsianWiki.",
+      "poster": "https://via.placeholder.com/300x450.png?text=AsianWiki",
+      "backdrop": "https://via.placeholder.com/1280x720.png?text=AsianWiki",
+      "year": 2025,
+      "rating": "7.9",
+      "content_type": "drama",
+      "source_url": "https://asianwiki.com/item/mock-asianwiki-2",
+      "created_at": "2025-05-06T12:37:28.666Z",
+      "updated_at": "2025-05-06T12:37:28.666Z",
+      "episodes_count": 3,
+      "country": "Taïwan",
+      "status": "En cours"
+    },
+    {
+      "id": "mock-asianwiki-3",
+      "title": "AsianWiki - Item 3",
+      "original_title": "Original Title 3",
+      "description": "Description générée pour l'élément 3 de type drama depuis AsianWiki.",
+      "poster": "https://via.placeholder.com/300x450.png?text=AsianWiki",
+      "backdrop": "https://via.placeholder.com/1280x720.png?text=AsianWiki",
+      "year": 2023,
+      "rating": "8.3",
+      "content_type": "drama",
+      "source_url": "https://asianwiki.com/item/mock-asianwiki-3",
+      "created_at": "2025-05-06T12:37:28.666Z",
+      "updated_at": "2025-05-06T12:37:28.666Z",
+      "episodes_count": 1,
+      "country": "Chine",
+      "status": "Terminé"
+    }
+  ],
+  "is_mock": true
+}

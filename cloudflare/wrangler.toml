@@ -2,7 +2,19 @@ name = "flodrama"
 account_id = "42fc982266a2c31b942593b18097e4b3"
 compatibility_date = "2023-09-04"
 
+# Base de données principale
 [[d1_databases]]
 binding = "DB"
 database_name = "flodrama-db"
 database_id = "39a4a8fd-f1fd-49ab-abcc-290fd473a311"
+
+# Base de données pour le système de streaming
+[[d1_databases]]
+binding = "STREAMING_DB"
+database_name = "flodrama-streaming"
+database_id = "0a84e5f8-2822-490a-8613-41869431e19c"
+
+# Namespace KV pour les métadonnées
+[[kv_namespaces]]
+binding = "FLODRAMA_METADATA"
+id = "7388919bd83241cfab509b44f819bb2f"

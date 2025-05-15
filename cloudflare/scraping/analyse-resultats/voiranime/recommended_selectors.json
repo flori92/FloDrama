@@ -1,0 +1,30 @@
+{
+  "category": [
+    ".menu-item",
+    ".menu-item-type-taxonomy",
+    ".menu-item-object-wp-manga-genre"
+  ],
+  "drama_item": [
+    ".menu-item",
+    ".menu-item-type-taxonomy",
+    ".menu-item-object-wp-manga-genre"
+  ],
+  "player": [
+    ".c-selectpicker",
+    ".selectpicker",
+    ".select-view"
+  ],
+  "video": [
+    ".video-light",
+    "#chapter-video-frame",
+    "#chapter-video-captcha-validator"
+  ],
+  "title": [
+    "#madara-css-inline-css",
+    "#set_title3_1",
+    "#set_title2_1"
+  ],
+  "image": [
+    "#imagesloaded-js"
+  ]
+}

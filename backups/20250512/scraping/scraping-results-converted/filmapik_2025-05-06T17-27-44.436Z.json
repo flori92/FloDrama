@@ -1,0 +1,468 @@
+{
+  "source": "filmapik",
+  "timestamp": "2025-05-06T18:05:04.963Z",
+  "count": 51,
+  "data": [
+    {
+      "id": "filmapik_470793f25b74",
+      "title": "HOME",
+      "source_url": "https://filmapik.bio/",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.7,
+      "year": 2025
+    },
+    {
+      "id": "filmapik_362e8c8fedee",
+      "title": "POPULERTOP IMDbRatingsTrendingFilm Tahun 2023",
+      "source_url": "https://filmapik.bio/#",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.1,
+      "year": 2023
+    },
+    {
+      "id": "filmapik_0fa5ce3e99d1",
+      "title": "TOP IMDb",
+      "source_url": "https://filmapik.bio/imdb-3",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.2,
+      "year": 2020
+    },
+    {
+      "id": "filmapik_a4c89801159c",
+      "title": "Ratings",
+      "source_url": "https://filmapik.bio/ratings-2",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 3.7,
+      "year": 2024
+    },
+    {
+      "id": "filmapik_f724a4574db2",
+      "title": "Trending",
+      "source_url": "https://filmapik.bio/trending-2",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 3.9,
+      "year": 2021
+    },
+    {
+      "id": "filmapik_d031317bd528",
+      "title": "Film Tahun 2023",
+      "source_url": "https://filmapik.bio/release-year/2023",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.7,
+      "year": 2025
+    },
+    {
+      "id": "filmapik_7d482c9a5fbc",
+      "title": "KATEGORIActionComedyDramaThrillerHorrorFamilyCrimeAdventureScience Fiction",
+      "source_url": "https://filmapik.bio/#",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.1,
+      "year": 2023
+    },
+    {
+      "id": "filmapik_0417a1ef8baf",
+      "title": "Action",
+      "source_url": "https://filmapik.bio/category/action",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 3.5,
+      "year": 2020
+    },
+    {
+      "id": "filmapik_fc6b69b54fff",
+      "title": "Comedy",
+      "source_url": "https://filmapik.bio/category/comedy",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 3.6,
+      "year": 2022
+    },
+    {
+      "id": "filmapik_fdb3e3caf8d5",
+      "title": "Drama",
+      "source_url": "https://filmapik.bio/category/drama",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.9,
+      "year": 2022
+    },
+    {
+      "id": "filmapik_805926b1b87d",
+      "title": "Thriller",
+      "source_url": "https://filmapik.bio/category/thriller",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.8,
+      "year": 2021
+    },
+    {
+      "id": "filmapik_bf69e2706334",
+      "title": "Horror",
+      "source_url": "https://filmapik.bio/category/horror",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.8,
+      "year": 2020
+    },
+    {
+      "id": "filmapik_0d5ade2c6ac9",
+      "title": "Family",
+      "source_url": "https://filmapik.bio/category/family",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 3.6,
+      "year": 2025
+    },
+    {
+      "id": "filmapik_771a97c4212b",
+      "title": "Crime",
+      "source_url": "https://filmapik.bio/category/crime",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.2,
+      "year": 2024
+    },
+    {
+      "id": "filmapik_a8904aeb2331",
+      "title": "Adventure",
+      "source_url": "https://filmapik.bio/category/adventure",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 3.6,
+      "year": 2024
+    },
+    {
+      "id": "filmapik_2ccaa2b37920",
+      "title": "Science Fiction",
+      "source_url": "https://filmapik.bio/category/science-fiction",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.1,
+      "year": 2023
+    },
+    {
+      "id": "filmapik_d54e06b5a537",
+      "title": "TV SeriesDrama KoreaWest-SeriesDrama MandarinDrama IndiaDrama SingaporeDrama JepangDrama ThailandDrama Lainnya",
+      "source_url": "https://filmapik.bio/#",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 3.7,
+      "year": 2020
+    },
+    {
+      "id": "filmapik_290f603d03e1",
+      "title": "Drama Korea",
+      "source_url": "https://filmapik.bio/tvshows-genre/k-drama",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4,
+      "year": 2024
+    },
+    {
+      "id": "filmapik_492d1711910b",
+      "title": "West-Series",
+      "source_url": "https://filmapik.bio/tvshows-genre/west-series",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.7,
+      "year": 2020
+    },
+    {
+      "id": "filmapik_6efe36e72d9b",
+      "title": "Drama Mandarin",
+      "source_url": "https://filmapik.bio/tvshows-genre/china-drama",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.9,
+      "year": 2024
+    },
+    {
+      "id": "filmapik_426077de176c",
+      "title": "Drama India",
+      "source_url": "https://filmapik.bio/tvshows-genre/drama-india",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.2,
+      "year": 2022
+    },
+    {
+      "id": "filmapik_2b338f5e9367",
+      "title": "Drama Singapore",
+      "source_url": "https://filmapik.bio/tvshows-genre/drama-singapure",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.9,
+      "year": 2022
+    },
+    {
+      "id": "filmapik_9c24a2a9e20a",
+      "title": "Drama Jepang",
+      "source_url": "https://filmapik.bio/tvshows-genre/japan-drama",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.1,
+      "year": 2021
+    },
+    {
+      "id": "filmapik_5479ce10b36b",
+      "title": "Drama Thailand",
+      "source_url": "https://filmapik.bio/tvshows-genre/thailand-drama",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.3,
+      "year": 2024
+    },
+    {
+      "id": "filmapik_f8952d09e86c",
+      "title": "Drama Lainnya",
+      "source_url": "https://filmapik.bio/tvshows-genre/drama-lainnya",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.3,
+      "year": 2022
+    },
+    {
+      "id": "filmapik_520f5703489e",
+      "title": "NegaraUSAUnited StatesJapanCanadaFranceIndiaGermanySouth Korea",
+      "source_url": "https://filmapik.bio/#",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 3.7,
+      "year": 2021
+    },
+    {
+      "id": "filmapik_77678b9cdd37",
+      "title": "USA",
+      "source_url": "https://filmapik.bio/negara/usa",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.3,
+      "year": 2025
+    },
+    {
+      "id": "filmapik_c065b2bc5f17",
+      "title": "United States",
+      "source_url": "https://filmapik.bio/negara/united-states",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.1,
+      "year": 2023
+    },
+    {
+      "id": "filmapik_ec3b50e28b67",
+      "title": "Japan",
+      "source_url": "https://filmapik.bio/negara/japan",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.2,
+      "year": 2020
+    },
+    {
+      "id": "filmapik_60ae45e6e1da",
+      "title": "Canada",
+      "source_url": "https://filmapik.bio/negara/canada",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.6,
+      "year": 2024
+    },
+    {
+      "id": "filmapik_b1b9460b0fa4",
+      "title": "France",
+      "source_url": "https://filmapik.bio/negara/france",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 3.7,
+      "year": 2025
+    },
+    {
+      "id": "filmapik_45d46c35be9c",
+      "title": "India",
+      "source_url": "https://filmapik.bio/negara/india",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 3.8,
+      "year": 2020
+    },
+    {
+      "id": "filmapik_3c146b06bb94",
+      "title": "Germany",
+      "source_url": "https://filmapik.bio/negara/germany",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 3.7,
+      "year": 2024
+    },
+    {
+      "id": "filmapik_85650a15dcff",
+      "title": "South Korea",
+      "source_url": "https://filmapik.bio/negara/south-korea",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4,
+      "year": 2021
+    },
+    {
+      "id": "filmapik_9ec41a291258",
+      "title": "Tahun20112012201320142015201620172018201920202021202220232010",
+      "source_url": "https://filmapik.bio/#",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.3,
+      "year": 2025
+    },
+    {
+      "id": "filmapik_0e03b4a842c7",
+      "title": "2011",
+      "source_url": "https://filmapik.bio/release-year/2011",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 3.7,
+      "year": 2023
+    },
+    {
+      "id": "filmapik_e4cb4363ac86",
+      "title": "2012",
+      "source_url": "https://filmapik.bio/release-year/2012",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.5,
+      "year": 2021
+    },
+    {
+      "id": "filmapik_f75d59673872",
+      "title": "2013",
+      "source_url": "https://filmapik.bio/release-year/2013",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.9,
+      "year": 2022
+    },
+    {
+      "id": "filmapik_11defd20cde3",
+      "title": "2014",
+      "source_url": "https://filmapik.bio/release-year/2014",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 3.9,
+      "year": 2024
+    },
+    {
+      "id": "filmapik_7c10d33bce4d",
+      "title": "2015",
+      "source_url": "https://filmapik.bio/release-year/2015",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 3.5,
+      "year": 2021
+    },
+    {
+      "id": "filmapik_0be8d438aa12",
+      "title": "2016",
+      "source_url": "https://filmapik.bio/release-year/2016",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.2,
+      "year": 2023
+    },
+    {
+      "id": "filmapik_0e419fd045ce",
+      "title": "2017",
+      "source_url": "https://filmapik.bio/release-year/2017",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.7,
+      "year": 2022
+    },
+    {
+      "id": "filmapik_dc5aedac9fe1",
+      "title": "2018",
+      "source_url": "https://filmapik.bio/release-year/2018",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.6,
+      "year": 2020
+    },
+    {
+      "id": "filmapik_14b12cf2ad38",
+      "title": "2019",
+      "source_url": "https://filmapik.bio/release-year/2019",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 3.6,
+      "year": 2024
+    },
+    {
+      "id": "filmapik_dfc04441645a",
+      "title": "2020",
+      "source_url": "https://filmapik.bio/release-year/2020",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.3,
+      "year": 2020
+    },
+    {
+      "id": "filmapik_b276212e32e0",
+      "title": "2021",
+      "source_url": "https://filmapik.bio/release-year/2021",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.8,
+      "year": 2025
+    },
+    {
+      "id": "filmapik_185267f1a43d",
+      "title": "2022",
+      "source_url": "https://filmapik.bio/release-year/2022",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.1,
+      "year": 2021
+    },
+    {
+      "id": "filmapik_12354a388ed1",
+      "title": "2023",
+      "source_url": "https://filmapik.bio/release-year/2023",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 3.8,
+      "year": 2024
+    },
+    {
+      "id": "filmapik_2de413cb39ad",
+      "title": "2010",
+      "source_url": "https://filmapik.bio/release-year/2010",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4,
+      "year": 2024
+    },
+    {
+      "id": "filmapik_3f6b53c67682",
+      "title": "Screamboat (2025)Screamboat (2025)28 Degree Celsius (2020)28 Degree Celsius (2020)Life Hangs by a Shot (2025)Life Hangs by a Shot (2025)Forgive Me Father (2024)Forgive Me Father (2024)In the Land of Brothers (2024)In the Land of Brothers (2024)Pasahero (2024)Pasahero (2024)Hiteumaen 2 (2025)Hiteumaen 2 (2025)14 Days: Girlfriend Intlo (2025)14 Days: Girlfriend Intlo (2025)Another Simple Favor (2025)Another Simple Favor (2025)The Biggest Fan (2025)The Biggest Fan (2025)Day of Reckoning (2025)Day of Reckoning (2025)Hoshiar Singh (2025)Hoshiar Singh (2025)Money Games (2025)Money Games (2025)Rob1n (2025)Rob1n (2025)The Boy with Pink Trousers (2024)The Boy with Pink Trousers (2024)GATAO: Like Father Like Son (2024)GATAO: Like Father Like Son (2024)The Deep Web: Murdershow (2023)The Deep Web: Murdershow (2023)The Cliche (2024)The Cliche (2024)Birds Flying East (2024)Birds Flying East (2024)The Waves of Madness (2024)The Waves of Madness (2024)Yù jiàn ni zhi hòu (2022)Yù jiàn ni zhi hòu (2022)2345Next Akhir 2345",
+      "source_url": "https://filmapik.bio/nonton-film-screamboat-2025-subtitle-indonesia",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.26,
+      "year": 2021
+    },
+    {
+      "id": "filmapik_cdb31a0d9502",
+      "title": "Screamboat (2025)Screamboat (2025)",
+      "source_url": "https://filmapik.bio/nonton-film-screamboat-2025-subtitle-indonesia",
+      "poster": "",
+      "content_type": "movie",
+      "rating": 4.2,
+      "year": 2020
+    }
+  ],
+  "is_mock": false,
+  "content_type": "movie"
+}

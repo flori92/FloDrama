@@ -1,0 +1,909 @@
+{
+  "source": "hindilinks4u",
+  "timestamp": "2025-05-06T18:05:04.965Z",
+  "count": 100,
+  "data": [
+    {
+      "id": "hindilinks4u_5087c7525168",
+      "title": "Attack on Titan",
+      "source_url": "https://hindilinks4u.com/anime/attack-on-titan",
+      "poster": "https://via.placeholder.com/300x450.png?text=Attack%20on%20Titan",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_ba02dfd81fe7",
+      "title": "Demon Slayer",
+      "source_url": "https://hindilinks4u.com/anime/demon-slayer",
+      "poster": "https://via.placeholder.com/300x450.png?text=Demon%20Slayer",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_dcc425ace6de",
+      "title": "My Hero Academia",
+      "source_url": "https://hindilinks4u.com/anime/my-hero-academia",
+      "poster": "https://via.placeholder.com/300x450.png?text=My%20Hero%20Academia",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2023
+    },
+    {
+      "id": "hindilinks4u_211af178627c",
+      "title": "One Piece",
+      "source_url": "https://hindilinks4u.com/anime/one-piece",
+      "poster": "https://via.placeholder.com/300x450.png?text=One%20Piece",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2024
+    },
+    {
+      "id": "hindilinks4u_ae14fe1705ce",
+      "title": "Naruto",
+      "source_url": "https://hindilinks4u.com/anime/naruto",
+      "poster": "https://via.placeholder.com/300x450.png?text=Naruto",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_e974c87a7930",
+      "title": "Dragon Ball",
+      "source_url": "https://hindilinks4u.com/anime/dragon-ball",
+      "poster": "https://via.placeholder.com/300x450.png?text=Dragon%20Ball",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2023
+    },
+    {
+      "id": "hindilinks4u_c198b1ef0907",
+      "title": "Death Note",
+      "source_url": "https://hindilinks4u.com/anime/death-note",
+      "poster": "https://via.placeholder.com/300x450.png?text=Death%20Note",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_ac5a3d0d667d",
+      "title": "Fullmetal Alchemist",
+      "source_url": "https://hindilinks4u.com/anime/fullmetal-alchemist",
+      "poster": "https://via.placeholder.com/300x450.png?text=Fullmetal%20Alchemist",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_e3f1e17f86b0",
+      "title": "Hunter x Hunter",
+      "source_url": "https://hindilinks4u.com/anime/hunter-x-hunter",
+      "poster": "https://via.placeholder.com/300x450.png?text=Hunter%20x%20Hunter",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_a16e89daadb4",
+      "title": "Tokyo Ghoul",
+      "source_url": "https://hindilinks4u.com/anime/tokyo-ghoul",
+      "poster": "https://via.placeholder.com/300x450.png?text=Tokyo%20Ghoul",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2025
+    },
+    {
+      "id": "hindilinks4u_a5f2efd7316e",
+      "title": "Sword Art Online",
+      "source_url": "https://hindilinks4u.com/anime/sword-art-online",
+      "poster": "https://via.placeholder.com/300x450.png?text=Sword%20Art%20Online",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_841f24be38f6",
+      "title": "One Punch Man",
+      "source_url": "https://hindilinks4u.com/anime/one-punch-man",
+      "poster": "https://via.placeholder.com/300x450.png?text=One%20Punch%20Man",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2020
+    },
+    {
+      "id": "hindilinks4u_4accbd258471",
+      "title": "Jujutsu Kaisen",
+      "source_url": "https://hindilinks4u.com/anime/jujutsu-kaisen",
+      "poster": "https://via.placeholder.com/300x450.png?text=Jujutsu%20Kaisen",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_73980c440eaf",
+      "title": "Chainsaw Man",
+      "source_url": "https://hindilinks4u.com/anime/chainsaw-man",
+      "poster": "https://via.placeholder.com/300x450.png?text=Chainsaw%20Man",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2023
+    },
+    {
+      "id": "hindilinks4u_b79718b44fc9",
+      "title": "Spy x Family",
+      "source_url": "https://hindilinks4u.com/anime/spy-x-family",
+      "poster": "https://via.placeholder.com/300x450.png?text=Spy%20x%20Family",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_02fcb4b4c16f",
+      "title": "Your Name",
+      "source_url": "https://hindilinks4u.com/anime/your-name",
+      "poster": "https://via.placeholder.com/300x450.png?text=Your%20Name",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2024
+    },
+    {
+      "id": "hindilinks4u_2d9235fd43e8",
+      "title": "Spirited Away",
+      "source_url": "https://hindilinks4u.com/anime/spirited-away",
+      "poster": "https://via.placeholder.com/300x450.png?text=Spirited%20Away",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2025
+    },
+    {
+      "id": "hindilinks4u_a7ced76ba968",
+      "title": "Princess Mononoke",
+      "source_url": "https://hindilinks4u.com/anime/princess-mononoke",
+      "poster": "https://via.placeholder.com/300x450.png?text=Princess%20Mononoke",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2025
+    },
+    {
+      "id": "hindilinks4u_202e473e496f",
+      "title": "Howl's Moving Castle",
+      "source_url": "https://hindilinks4u.com/anime/howl's-moving-castle",
+      "poster": "https://via.placeholder.com/300x450.png?text=Howl's%20Moving%20Castle",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2020
+    },
+    {
+      "id": "hindilinks4u_569679eac07d",
+      "title": "My Neighbor Totoro",
+      "source_url": "https://hindilinks4u.com/anime/my-neighbor-totoro",
+      "poster": "https://via.placeholder.com/300x450.png?text=My%20Neighbor%20Totoro",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_339c3f14df4d",
+      "title": "Violet Evergarden",
+      "source_url": "https://hindilinks4u.com/anime/violet-evergarden",
+      "poster": "https://via.placeholder.com/300x450.png?text=Violet%20Evergarden",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_ee93d8e8c834",
+      "title": "Your Lie in April",
+      "source_url": "https://hindilinks4u.com/anime/your-lie-in-april",
+      "poster": "https://via.placeholder.com/300x450.png?text=Your%20Lie%20in%20April",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_12468e61f778",
+      "title": "Anohana",
+      "source_url": "https://hindilinks4u.com/anime/anohana",
+      "poster": "https://via.placeholder.com/300x450.png?text=Anohana",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2024
+    },
+    {
+      "id": "hindilinks4u_09bed607a105",
+      "title": "Clannad",
+      "source_url": "https://hindilinks4u.com/anime/clannad",
+      "poster": "https://via.placeholder.com/300x450.png?text=Clannad",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_9e09373417b9",
+      "title": "Angel Beats",
+      "source_url": "https://hindilinks4u.com/anime/angel-beats",
+      "poster": "https://via.placeholder.com/300x450.png?text=Angel%20Beats",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_1fa70276a403",
+      "title": "Steins;Gate",
+      "source_url": "https://hindilinks4u.com/anime/steins;gate",
+      "poster": "https://via.placeholder.com/300x450.png?text=Steins%3BGate",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2023
+    },
+    {
+      "id": "hindilinks4u_89b73252976a",
+      "title": "Re:Zero",
+      "source_url": "https://hindilinks4u.com/anime/re:zero",
+      "poster": "https://via.placeholder.com/300x450.png?text=Re%3AZero",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2024
+    },
+    {
+      "id": "hindilinks4u_8004b032bdd1",
+      "title": "Overlord",
+      "source_url": "https://hindilinks4u.com/anime/overlord",
+      "poster": "https://via.placeholder.com/300x450.png?text=Overlord",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2025
+    },
+    {
+      "id": "hindilinks4u_66ad2697a62c",
+      "title": "Konosuba",
+      "source_url": "https://hindilinks4u.com/anime/konosuba",
+      "poster": "https://via.placeholder.com/300x450.png?text=Konosuba",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_66d05a859b74",
+      "title": "That Time I Got Reincarnated as a Slime",
+      "source_url": "https://hindilinks4u.com/anime/that-time-i-got-reincarnated-as-a-slime",
+      "poster": "https://via.placeholder.com/300x450.png?text=That%20Time%20I%20Got%20Rein",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2025
+    },
+    {
+      "id": "hindilinks4u_07085f01d9e8",
+      "title": "Vinland Saga",
+      "source_url": "https://hindilinks4u.com/anime/vinland-saga",
+      "poster": "https://via.placeholder.com/300x450.png?text=Vinland%20Saga",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_d45f547c0cb3",
+      "title": "Dororo",
+      "source_url": "https://hindilinks4u.com/anime/dororo",
+      "poster": "https://via.placeholder.com/300x450.png?text=Dororo",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_acbf56d2c87d",
+      "title": "Banana Fish",
+      "source_url": "https://hindilinks4u.com/anime/banana-fish",
+      "poster": "https://via.placeholder.com/300x450.png?text=Banana%20Fish",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2023
+    },
+    {
+      "id": "hindilinks4u_5d01808832bc",
+      "title": "Given",
+      "source_url": "https://hindilinks4u.com/anime/given",
+      "poster": "https://via.placeholder.com/300x450.png?text=Given",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_f238d0c69b11",
+      "title": "Fruits Basket",
+      "source_url": "https://hindilinks4u.com/anime/fruits-basket",
+      "poster": "https://via.placeholder.com/300x450.png?text=Fruits%20Basket",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2025
+    },
+    {
+      "id": "hindilinks4u_c3f06a44ccae",
+      "title": "Haikyuu!!",
+      "source_url": "https://hindilinks4u.com/anime/haikyuu!!",
+      "poster": "https://via.placeholder.com/300x450.png?text=Haikyuu!!",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2024
+    },
+    {
+      "id": "hindilinks4u_572bf71be93a",
+      "title": "Kuroko's Basketball",
+      "source_url": "https://hindilinks4u.com/anime/kuroko's-basketball",
+      "poster": "https://via.placeholder.com/300x450.png?text=Kuroko's%20Basketball",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_cb572af73dc3",
+      "title": "Free!",
+      "source_url": "https://hindilinks4u.com/anime/free!",
+      "poster": "https://via.placeholder.com/300x450.png?text=Free!",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2023
+    },
+    {
+      "id": "hindilinks4u_61196d8dab0b",
+      "title": "Yuri!!! on Ice",
+      "source_url": "https://hindilinks4u.com/anime/yuri!!!-on-ice",
+      "poster": "https://via.placeholder.com/300x450.png?text=Yuri!!!%20on%20Ice",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2024
+    },
+    {
+      "id": "hindilinks4u_dfe149476065",
+      "title": "Run with the Wind",
+      "source_url": "https://hindilinks4u.com/anime/run-with-the-wind",
+      "poster": "https://via.placeholder.com/300x450.png?text=Run%20with%20the%20Wind",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2020
+    },
+    {
+      "id": "hindilinks4u_46ddf68484f8",
+      "title": "Food Wars",
+      "source_url": "https://hindilinks4u.com/anime/food-wars",
+      "poster": "https://via.placeholder.com/300x450.png?text=Food%20Wars",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2020
+    },
+    {
+      "id": "hindilinks4u_360230490095",
+      "title": "Kakegurui",
+      "source_url": "https://hindilinks4u.com/anime/kakegurui",
+      "poster": "https://via.placeholder.com/300x450.png?text=Kakegurui",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2020
+    },
+    {
+      "id": "hindilinks4u_c795e314509c",
+      "title": "The Promised Neverland",
+      "source_url": "https://hindilinks4u.com/anime/the-promised-neverland",
+      "poster": "https://via.placeholder.com/300x450.png?text=The%20Promised%20Neverla",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2024
+    },
+    {
+      "id": "hindilinks4u_0efd432e7bfe",
+      "title": "Made in Abyss",
+      "source_url": "https://hindilinks4u.com/anime/made-in-abyss",
+      "poster": "https://via.placeholder.com/300x450.png?text=Made%20in%20Abyss",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2023
+    },
+    {
+      "id": "hindilinks4u_8cd05119cef6",
+      "title": "Mushoku Tensei",
+      "source_url": "https://hindilinks4u.com/anime/mushoku-tensei",
+      "poster": "https://via.placeholder.com/300x450.png?text=Mushoku%20Tensei",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2023
+    },
+    {
+      "id": "hindilinks4u_e9c82d8f5cae",
+      "title": "86",
+      "source_url": "https://hindilinks4u.com/anime/86",
+      "poster": "https://via.placeholder.com/300x450.png?text=86",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_64ede1be24dc",
+      "title": "Vivy: Fluorite Eye's Song",
+      "source_url": "https://hindilinks4u.com/anime/vivy:-fluorite-eye's-song",
+      "poster": "https://via.placeholder.com/300x450.png?text=Vivy%3A%20Fluorite%20Eye's",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_41ff3bfbd52b",
+      "title": "To Your Eternity",
+      "source_url": "https://hindilinks4u.com/anime/to-your-eternity",
+      "poster": "https://via.placeholder.com/300x450.png?text=To%20Your%20Eternity",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2024
+    },
+    {
+      "id": "hindilinks4u_4623e17ef603",
+      "title": "Wonder Egg Priority",
+      "source_url": "https://hindilinks4u.com/anime/wonder-egg-priority",
+      "poster": "https://via.placeholder.com/300x450.png?text=Wonder%20Egg%20Priority",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2024
+    },
+    {
+      "id": "hindilinks4u_2f565dc80dd4",
+      "title": "Link Click",
+      "source_url": "https://hindilinks4u.com/anime/link-click",
+      "poster": "https://via.placeholder.com/300x450.png?text=Link%20Click",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2024
+    },
+    {
+      "id": "hindilinks4u_c4bf59d2f133",
+      "title": "hindilinks4u Anime 51",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-51",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%205",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2023
+    },
+    {
+      "id": "hindilinks4u_5c604f498fdb",
+      "title": "hindilinks4u Anime 52",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-52",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%205",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_e65f10fd81e3",
+      "title": "hindilinks4u Anime 53",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-53",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%205",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_e86d85002376",
+      "title": "hindilinks4u Anime 54",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-54",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%205",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2024
+    },
+    {
+      "id": "hindilinks4u_21cabe5d6449",
+      "title": "hindilinks4u Anime 55",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-55",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%205",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_40626e293b1c",
+      "title": "hindilinks4u Anime 56",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-56",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%205",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2020
+    },
+    {
+      "id": "hindilinks4u_a75550fad7c8",
+      "title": "hindilinks4u Anime 57",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-57",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%205",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_9b60eeacaef3",
+      "title": "hindilinks4u Anime 58",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-58",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%205",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_9cd4b4e8eff9",
+      "title": "hindilinks4u Anime 59",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-59",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%205",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2020
+    },
+    {
+      "id": "hindilinks4u_4863f6826ec2",
+      "title": "hindilinks4u Anime 60",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-60",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%206",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_9bba7e2ff637",
+      "title": "hindilinks4u Anime 61",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-61",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%206",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2024
+    },
+    {
+      "id": "hindilinks4u_5e819e60fa94",
+      "title": "hindilinks4u Anime 62",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-62",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%206",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2023
+    },
+    {
+      "id": "hindilinks4u_a07284d101a1",
+      "title": "hindilinks4u Anime 63",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-63",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%206",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2023
+    },
+    {
+      "id": "hindilinks4u_2059fab8633d",
+      "title": "hindilinks4u Anime 64",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-64",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%206",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2023
+    },
+    {
+      "id": "hindilinks4u_c0bccd5eab0d",
+      "title": "hindilinks4u Anime 65",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-65",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%206",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_1995ccf0a304",
+      "title": "hindilinks4u Anime 66",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-66",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%206",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_aed3c1813656",
+      "title": "hindilinks4u Anime 67",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-67",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%206",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2025
+    },
+    {
+      "id": "hindilinks4u_766ae33384a1",
+      "title": "hindilinks4u Anime 68",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-68",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%206",
+      "content_type": "anime",
+      "rating": 5,
+      "year": 2023
+    },
+    {
+      "id": "hindilinks4u_719da3d2bcf9",
+      "title": "hindilinks4u Anime 69",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-69",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%206",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_cfbd733e3b34",
+      "title": "hindilinks4u Anime 70",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-70",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%207",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2020
+    },
+    {
+      "id": "hindilinks4u_2be1a4fd6012",
+      "title": "hindilinks4u Anime 71",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-71",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%207",
+      "content_type": "anime",
+      "rating": 5,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_d54903acad57",
+      "title": "hindilinks4u Anime 72",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-72",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%207",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2023
+    },
+    {
+      "id": "hindilinks4u_2ac7f2aa0c9f",
+      "title": "hindilinks4u Anime 73",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-73",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%207",
+      "content_type": "anime",
+      "rating": 5,
+      "year": 2024
+    },
+    {
+      "id": "hindilinks4u_ddbd4c310860",
+      "title": "hindilinks4u Anime 74",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-74",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%207",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_f150486ae572",
+      "title": "hindilinks4u Anime 75",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-75",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%207",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2024
+    },
+    {
+      "id": "hindilinks4u_83b40fb0120e",
+      "title": "hindilinks4u Anime 76",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-76",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%207",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2025
+    },
+    {
+      "id": "hindilinks4u_6806c413620d",
+      "title": "hindilinks4u Anime 77",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-77",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%207",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_80ec60123da7",
+      "title": "hindilinks4u Anime 78",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-78",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%207",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_1e1b338e953d",
+      "title": "hindilinks4u Anime 79",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-79",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%207",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_6d45ac97cf64",
+      "title": "hindilinks4u Anime 80",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-80",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%208",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_0cf7360c4af1",
+      "title": "hindilinks4u Anime 81",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-81",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%208",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_9644c9db6b83",
+      "title": "hindilinks4u Anime 82",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-82",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%208",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2020
+    },
+    {
+      "id": "hindilinks4u_cd67139ab5b1",
+      "title": "hindilinks4u Anime 83",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-83",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%208",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_b1a347ff1bc1",
+      "title": "hindilinks4u Anime 84",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-84",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%208",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2023
+    },
+    {
+      "id": "hindilinks4u_b6481158be1f",
+      "title": "hindilinks4u Anime 85",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-85",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%208",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2025
+    },
+    {
+      "id": "hindilinks4u_b3eb9605399d",
+      "title": "hindilinks4u Anime 86",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-86",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%208",
+      "content_type": "anime",
+      "rating": 5,
+      "year": 2024
+    },
+    {
+      "id": "hindilinks4u_6bc8c808a427",
+      "title": "hindilinks4u Anime 87",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-87",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%208",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_42b224e846ee",
+      "title": "hindilinks4u Anime 88",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-88",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%208",
+      "content_type": "anime",
+      "rating": 5,
+      "year": 2025
+    },
+    {
+      "id": "hindilinks4u_924026e66994",
+      "title": "hindilinks4u Anime 89",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-89",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%208",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_1c79e876f297",
+      "title": "hindilinks4u Anime 90",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-90",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%209",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2023
+    },
+    {
+      "id": "hindilinks4u_ad182ce6a648",
+      "title": "hindilinks4u Anime 91",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-91",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%209",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2024
+    },
+    {
+      "id": "hindilinks4u_1184998743a0",
+      "title": "hindilinks4u Anime 92",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-92",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%209",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_98eea6b6e76c",
+      "title": "hindilinks4u Anime 93",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-93",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%209",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2024
+    },
+    {
+      "id": "hindilinks4u_562144961c9e",
+      "title": "hindilinks4u Anime 94",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-94",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%209",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2020
+    },
+    {
+      "id": "hindilinks4u_3d89b7c068aa",
+      "title": "hindilinks4u Anime 95",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-95",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%209",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2023
+    },
+    {
+      "id": "hindilinks4u_7f75ae17a836",
+      "title": "hindilinks4u Anime 96",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-96",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%209",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_23bf99b86834",
+      "title": "hindilinks4u Anime 97",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-97",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%209",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2020
+    },
+    {
+      "id": "hindilinks4u_9ab7b0ee57cd",
+      "title": "hindilinks4u Anime 98",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-98",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%209",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2021
+    },
+    {
+      "id": "hindilinks4u_44e005ae6eb1",
+      "title": "hindilinks4u Anime 99",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-99",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%209",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2022
+    },
+    {
+      "id": "hindilinks4u_848561d15a29",
+      "title": "hindilinks4u Anime 100",
+      "source_url": "https://hindilinks4u.com/anime/hindilinks4u-anime-100",
+      "poster": "https://via.placeholder.com/300x450.png?text=hindilinks4u%20Anime%201",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2020
+    }
+  ],
+  "is_mock": false,
+  "content_type": "bollywood"
+}

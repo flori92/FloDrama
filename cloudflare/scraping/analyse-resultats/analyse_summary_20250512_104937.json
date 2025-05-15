@@ -1,0 +1,18 @@
+{
+  "dramacool": {
+    "success": true,
+    "streaming_urls": 0
+  },
+  "voirdrama": {
+    "success": true,
+    "streaming_urls": 0
+  },
+  "voiranime": {
+    "success": true,
+    "streaming_urls": 0
+  },
+  "vostfree": {
+    "success": true,
+    "streaming_urls": 0
+  }
+}

@@ -1,0 +1,16 @@
+name = "flodrama-media-gateway"
+main = "media-gateway-enhanced.js"
+compatibility_date = "2025-05-10"
+
+account_id = "42fc982266a2c31b942593b18097e4b3"
+workers_dev = true
+
+# Liaison avec les namespaces KV
+kv_namespaces = [
+  { binding = "FLODRAMA_METADATA", id = "7388919bd83241cfab509b44f819bb2f" },
+  { binding = "FLODRAMA_METRICS", id = "66e94f7c3887464e8798d114652b4f31" }
+]
+
+# Variables d'environnement
+[vars]
+ALLOWED_ORIGINS = "*.flodrama-frontend.pages.dev,flodrama.com,*.flodrama.com,localhost:*"

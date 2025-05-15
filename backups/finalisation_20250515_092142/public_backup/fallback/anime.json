@@ -1,0 +1,88 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "title": "Solo Leveling",
+      "name": "Solo Leveling",
+      "original_title": "나 혼자만 레벨업",
+      "poster_path": "/posters/sololeveling.jpg",
+      "backdrop_path": "/backdrops/sololeveling.jpg",
+      "overview": "Dans un monde où des chasseurs dotés de pouvoirs magiques combattent des monstres mortels, Sung Jinwoo, le chasseur le plus faible de l'humanité, se retrouve dans un donjon de très haute difficulté et frôle la mort. Suite à cet événement, il devient le seul joueur capable de monter en niveau dans ce monde.",
+      "vote_average": 9.2,
+      "first_air_date": "2024-01-06",
+      "content_type": "anime"
+    },
+    {
+      "id": "2",
+      "title": "Demon Slayer: Arc du Village des Forgerons",
+      "name": "Demon Slayer: Kimetsu no Yaiba - Saison 4",
+      "original_title": "鬼滅の刃 刀鍛冶の里編",
+      "poster_path": "/posters/demonslayer4.jpg",
+      "backdrop_path": "/backdrops/demonslayer4.jpg",
+      "overview": "Tanjirō et ses compagnons se rendent au Village des Forgerons pour réparer leurs armes endommagées. Ils y découvrent les secrets de fabrication des Nichirin, ces lames capables de tuer les démons.",
+      "vote_average": 8.9,
+      "first_air_date": "2024-05-12",
+      "content_type": "anime"
+    },
+    {
+      "id": "3",
+      "title": "Dandadan",
+      "name": "Dandadan",
+      "original_title": "ダンダダン",
+      "poster_path": "/posters/dandadan.jpg",
+      "backdrop_path": "/backdrops/dandadan.jpg",
+      "overview": "Momo Ayase croit aux fantômes mais pas aux extraterrestres, tandis qu'Okarun croit aux extraterrestres mais pas aux fantômes. Lorsqu'ils se mettent au défi de prouver leurs croyances, ils se retrouvent tous deux confrontés à des phénomènes surnaturels qui bouleversent leur vision du monde.",
+      "vote_average": 8.7,
+      "first_air_date": "2024-10-03",
+      "content_type": "anime"
+    },
+    {
+      "id": "4",
+      "title": "Kaiju No. 8",
+      "name": "Kaiju No. 8",
+      "original_title": "怪獣8号",
+      "poster_path": "/posters/kaiju8.jpg",
+      "backdrop_path": "/backdrops/kaiju8.jpg",
+      "overview": "Dans un Japon régulièrement attaqué par des monstres géants appelés Kaiju, Kafka Hibino a abandonné son rêve d'intégrer la Force de Défense pour devenir nettoyeur de cadavres de Kaiju. Sa vie bascule lorsqu'une mystérieuse créature s'infiltre dans son corps, lui donnant le pouvoir de se transformer en Kaiju.",
+      "vote_average": 8.5,
+      "first_air_date": "2024-04-13",
+      "content_type": "anime"
+    },
+    {
+      "id": "5",
+      "title": "Mushoku Tensei: Jobless Reincarnation Saison 2",
+      "name": "Mushoku Tensei: Jobless Reincarnation",
+      "original_title": "無職転生 〜異世界行ったら本気だす〜",
+      "poster_path": "/posters/mushoku2.jpg",
+      "backdrop_path": "/backdrops/mushoku2.jpg",
+      "overview": "Après avoir été séparé de sa famille lors d'une catastrophe magique, Rudeus Greyrat continue son voyage pour les retrouver tout en développant ses compétences magiques et en forgeant de nouvelles alliances dans ce monde fantastique.",
+      "vote_average": 8.8,
+      "first_air_date": "2023-07-02",
+      "content_type": "anime"
+    },
+    {
+      "id": "6",
+      "title": "Jujutsu Kaisen Saison 2",
+      "name": "Jujutsu Kaisen Saison 2",
+      "original_title": "呪術廻戦 第2期",
+      "poster_path": "/posters/jjk2.jpg",
+      "backdrop_path": "/backdrops/jjk2.jpg",
+      "overview": "La deuxième saison couvre l'arc du Passé de Gojo et l'arc de l'Incident de Shibuya, révélant les origines de Gojo Satoru et Suguru Geto, avant de plonger dans une bataille dévastatrice au cœur de Tokyo.",
+      "vote_average": 9.1,
+      "first_air_date": "2023-07-06",
+      "content_type": "anime"
+    },
+    {
+      "id": "7",
+      "title": "Frieren: Beyond Journey's End",
+      "name": "Frieren: Au-delà du voyage",
+      "original_title": "葬送のフリーレン",
+      "poster_path": "/posters/frieren.jpg",
+      "backdrop_path": "/backdrops/frieren.jpg",
+      "overview": "Après avoir vaincu le Roi Démon avec ses compagnons, l'elfe mage Frieren, qui a vécu plus de mille ans, commence à ressentir le poids de la mortalité lorsque ses amis humains vieillissent et meurent. Elle entreprend alors un voyage pour mieux comprendre l'humanité.",
+      "vote_average": 9.0,
+      "first_air_date": "2023-09-29",
+      "content_type": "anime"
+    }
+  ]
+}

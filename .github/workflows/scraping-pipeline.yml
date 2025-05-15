@@ -1,0 +1,146 @@
+name: FloDrama - Pipeline de Scraping
+
+on:
+  # Exécution manuelle
+  workflow_dispatch:
+    inputs:
+      skip_scraping:
+        description: 'Sauter l''étape de scraping'
+        required: false
+        default: false
+        type: boolean
+      skip_enrichment:
+        description: 'Sauter l''étape d''enrichissement'
+        required: false
+        default: false
+        type: boolean
+      skip_distribution:
+        description: 'Sauter l''étape de distribution'
+        required: false
+        default: false
+        type: boolean
+  
+  # Exécution planifiée (tous les jours à 2h du matin)
+  schedule:
+    - cron: '0 2 * * *'
+  
+  # Exécution lors d'un push sur les branches main et integration-cloudflare dans les dossiers spécifiques
+  push:
+    branches:
+      - main
+      - integration-cloudflare
+    paths:
+      - '.github/scripts/stealth/**'
+      - '.github/workflows/scraping-pipeline.yml'
+      - 'cloudflare/scraping/**'
+
+jobs:
+  scraping-pipeline:
+    name: Exécution du pipeline de scraping
+    runs-on: ubuntu-latest
+    
+    env:
+      TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v3
+      
+      - name: Configuration de Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Installation des dépendances
+        run: |
+          npm install
+          npm install -g wrangler
+          npm install fs-extra axios cheerio puppeteer puppeteer-extra puppeteer-extra-plugin-stealth
+      
+      - name: Installation des dépendances système pour Puppeteer
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgbm-dev gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
+      
+      - name: Préparation des répertoires
+        run: |
+          mkdir -p ./cloudflare/scraping/scraping-results
+          mkdir -p ./Frontend/src/data/content
+      
+      - name: Exécution du pipeline de scraping
+        id: pipeline
+        run: |
+          SKIP_SCRAPING_ARG=""
+          SKIP_ENRICHMENT_ARG=""
+          SKIP_DISTRIBUTION_ARG=""
+          
+          if [ "${{ github.event.inputs.skip_scraping }}" == "true" ]; then
+            SKIP_SCRAPING_ARG="--skip-scraping"
+          fi
+          
+          if [ "${{ github.event.inputs.skip_enrichment }}" == "true" ]; then
+            SKIP_ENRICHMENT_ARG="--skip-enrichment"
+          fi
+          
+          if [ "${{ github.event.inputs.skip_distribution }}" == "true" ]; then
+            SKIP_DISTRIBUTION_ARG="--skip-distribution"
+          fi
+          
+          bash .github/scripts/stealth/run-pipeline.sh $SKIP_SCRAPING_ARG $SKIP_ENRICHMENT_ARG $SKIP_DISTRIBUTION_ARG --verbose
+      
+      - name: Vérification des fichiers générés
+        run: |
+          echo "Vérification des fichiers générés..."
+          ls -la ./Frontend/src/data/content
+          
+          # Compter les fichiers JSON
+          JSON_COUNT=$(find ./Frontend/src/data/content -name "*.json" | wc -l)
+          echo "Nombre de fichiers JSON: $JSON_COUNT"
+          
+          # Vérifier la présence des fichiers essentiels
+          for category in drama anime film bollywood; do
+            if [ -f "./Frontend/src/data/content/$category/index.json" ]; then
+              echo "✅ $category/index.json existe"
+            else
+              echo "❌ $category/index.json n'existe pas"
+              exit 1
+            fi
+          done
+      
+      - name: Commit des changements
+        run: |
+          git config --global user.name "FloDrama Bot"
+          git config --global user.email "bot@flodrama.com"
+          
+          git add ./Frontend/src/data/content
+          
+          # Vérifier s'il y a des changements à commiter
+          if git diff --staged --quiet; then
+            echo "Aucun changement à commiter"
+          else
+            git commit -m "✨ [DATA] Mise à jour des données de contenu via le pipeline de scraping"
+            git push
+          fi
+      
+      - name: Déploiement sur Cloudflare Pages
+        run: |
+          echo "Déploiement sur Cloudflare Pages..."
+          cd Frontend
+          npm run build
+          npx wrangler pages deploy dist --project-name=flodrama-frontend
+      
+      - name: Notification de fin de pipeline
+        if: always()
+        run: |
+          STATUS="✅ Succès"
+          if [ "${{ job.status }}" != "success" ]; then
+            STATUS="❌ Échec"
+          fi
+          
+          curl -X POST -H "Content-Type: application/json" \
+            -d "{\"embeds\":[{\"title\":\"$STATUS - Pipeline de Scraping FloDrama\",\"description\":\"Le pipeline de scraping s'est terminé avec le statut: ${{ job.status }}\",\"color\":\"${{ job.status == 'success' && '65280' || '16711680' }}\",\"fields\":[{\"name\":\"Commit\",\"value\":\"${{ github.sha }}\",\"inline\":true},{\"name\":\"Branche\",\"value\":\"${{ github.ref_name }}\",\"inline\":true},{\"name\":\"Déclencheur\",\"value\":\"${{ github.event_name }}\",\"inline\":true}]}]}" \
+            ${{ secrets.DISCORD_WEBHOOK_URL }}

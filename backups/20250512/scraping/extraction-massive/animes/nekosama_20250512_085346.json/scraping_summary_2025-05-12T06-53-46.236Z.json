@@ -1,0 +1,16 @@
+{
+  "total_duration": "0.00",
+  "total_sources": 1,
+  "total_errors": 0,
+  "total_items": 0,
+  "sources": [
+    {
+      "source": "nekosama",
+      "count": 0,
+      "duration": "0.00",
+      "file": "/Users/floriace/FLO_DRAMA/FloDrama/cloudflare/scraping/extraction-massive/animes/nekosama_20250512_085346.json/nekosama_2025-05-12T06-53-46.236Z.json",
+      "is_mock": false,
+      "content_type": "anime"
+    }
+  ]
+}

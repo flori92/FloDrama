@@ -1,0 +1,78 @@
+[
+  {
+    "source": "tmdb-films",
+    "local": {
+      "success": false,
+      "duration": 2.201,
+      "itemCount": 0
+    },
+    "relay": {
+      "success": false,
+      "duration": 0,
+      "itemCount": 0
+    },
+    "comparison": {
+      "fasterMethod": "relay",
+      "speedDifference": "2.20",
+      "moreItems": "relay",
+      "itemDifference": 0
+    }
+  },
+  {
+    "source": "allocine-films",
+    "local": {
+      "success": false,
+      "duration": 1.766,
+      "itemCount": 0
+    },
+    "relay": {
+      "success": false,
+      "duration": 0,
+      "itemCount": 0
+    },
+    "comparison": {
+      "fasterMethod": "relay",
+      "speedDifference": "1.77",
+      "moreItems": "relay",
+      "itemDifference": 0
+    }
+  },
+  {
+    "source": "allocine-series",
+    "local": {
+      "success": false,
+      "duration": 0.976,
+      "itemCount": 0
+    },
+    "relay": {
+      "success": false,
+      "duration": 0,
+      "itemCount": 0
+    },
+    "comparison": {
+      "fasterMethod": "relay",
+      "speedDifference": "0.98",
+      "moreItems": "relay",
+      "itemDifference": 0
+    }
+  },
+  {
+    "source": "senscritique-films",
+    "local": {
+      "success": false,
+      "duration": 1.067,
+      "itemCount": 0
+    },
+    "relay": {
+      "success": false,
+      "duration": 0,
+      "itemCount": 0
+    },
+    "comparison": {
+      "fasterMethod": "relay",
+      "speedDifference": "1.07",
+      "moreItems": "relay",
+      "itemDifference": 0
+    }
+  }
+]

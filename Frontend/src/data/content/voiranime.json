@@ -1,0 +1,1804 @@
+{
+  "results": [
+    {
+      "id": "voiranime-fallback-1",
+      "title": "Mecha Ninja 1",
+      "original_title": "Mecha Ninja 1",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.0",
+      "year": 2021,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-2",
+      "title": "Isekai Slayer 2",
+      "original_title": "Isekai Slayer 2",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2021,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-3",
+      "title": "Shojo Ninja 3",
+      "original_title": "Shojo Ninja 3",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2021,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-4",
+      "title": "Shonen Ninja 4",
+      "original_title": "Shonen Ninja 4",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-5",
+      "title": "Shonen Academy 5",
+      "original_title": "Shonen Academy 5",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-6",
+      "title": "Shojo Adventure 6",
+      "original_title": "Shojo Adventure 6",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-7",
+      "title": "Isekai Academy 7",
+      "original_title": "Isekai Academy 7",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2021,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-8",
+      "title": "Mecha Academy 8",
+      "original_title": "Mecha Academy 8",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-9",
+      "title": "Isekai Academy 9",
+      "original_title": "Isekai Academy 9",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2021,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-10",
+      "title": "Shonen Slayer 10",
+      "original_title": "Shonen Slayer 10",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2023,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-11",
+      "title": "Shonen Quest 11",
+      "original_title": "Shonen Quest 11",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.0",
+      "year": 2021,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-12",
+      "title": "Seinen Quest 12",
+      "original_title": "Seinen Quest 12",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-13",
+      "title": "Mecha Ninja 13",
+      "original_title": "Mecha Ninja 13",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2023,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-14",
+      "title": "Shonen Ninja 14",
+      "original_title": "Shonen Ninja 14",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-15",
+      "title": "Shojo Slayer 15",
+      "original_title": "Shojo Slayer 15",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2023,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-16",
+      "title": "Shojo Adventure 16",
+      "original_title": "Shojo Adventure 16",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2021,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-17",
+      "title": "Seinen Adventure 17",
+      "original_title": "Seinen Adventure 17",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2024,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-18",
+      "title": "Mecha Titan 18",
+      "original_title": "Mecha Titan 18",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-19",
+      "title": "Shonen Ninja 19",
+      "original_title": "Shonen Ninja 19",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.6",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-20",
+      "title": "Shonen Ninja 20",
+      "original_title": "Shonen Ninja 20",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-21",
+      "title": "Shojo Slayer 21",
+      "original_title": "Shojo Slayer 21",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-22",
+      "title": "Mecha Slayer 22",
+      "original_title": "Mecha Slayer 22",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-23",
+      "title": "Isekai Hero 23",
+      "original_title": "Isekai Hero 23",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2024,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-24",
+      "title": "Shonen Adventure 24",
+      "original_title": "Shonen Adventure 24",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2021,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-25",
+      "title": "Shojo Slayer 25",
+      "original_title": "Shojo Slayer 25",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2024,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-26",
+      "title": "Isekai Titan 26",
+      "original_title": "Isekai Titan 26",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-27",
+      "title": "Seinen Ninja 27",
+      "original_title": "Seinen Ninja 27",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2024,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-28",
+      "title": "Seinen Titan 28",
+      "original_title": "Seinen Titan 28",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-29",
+      "title": "Mecha Slayer 29",
+      "original_title": "Mecha Slayer 29",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2023,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-30",
+      "title": "Isekai Academy 30",
+      "original_title": "Isekai Academy 30",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-31",
+      "title": "Seinen Hero 31",
+      "original_title": "Seinen Hero 31",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2023,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-32",
+      "title": "Shojo Quest 32",
+      "original_title": "Shojo Quest 32",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2021,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-33",
+      "title": "Shojo Hero 33",
+      "original_title": "Shojo Hero 33",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2024,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-34",
+      "title": "Shonen Quest 34",
+      "original_title": "Shonen Quest 34",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2021,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-35",
+      "title": "Isekai Academy 35",
+      "original_title": "Isekai Academy 35",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-36",
+      "title": "Seinen Quest 36",
+      "original_title": "Seinen Quest 36",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2023,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-37",
+      "title": "Seinen Adventure 37",
+      "original_title": "Seinen Adventure 37",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-38",
+      "title": "Shonen Adventure 38",
+      "original_title": "Shonen Adventure 38",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.0",
+      "year": 2023,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-39",
+      "title": "Mecha Titan 39",
+      "original_title": "Mecha Titan 39",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2021,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-40",
+      "title": "Mecha Academy 40",
+      "original_title": "Mecha Academy 40",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-41",
+      "title": "Isekai Ninja 41",
+      "original_title": "Isekai Ninja 41",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-42",
+      "title": "Shojo Adventure 42",
+      "original_title": "Shojo Adventure 42",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2024,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-43",
+      "title": "Seinen Slayer 43",
+      "original_title": "Seinen Slayer 43",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-44",
+      "title": "Mecha Slayer 44",
+      "original_title": "Mecha Slayer 44",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.0",
+      "year": 2024,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-45",
+      "title": "Isekai Titan 45",
+      "original_title": "Isekai Titan 45",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2021,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-46",
+      "title": "Mecha Slayer 46",
+      "original_title": "Mecha Slayer 46",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2021,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-47",
+      "title": "Shonen Adventure 47",
+      "original_title": "Shonen Adventure 47",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-48",
+      "title": "Shonen Adventure 48",
+      "original_title": "Shonen Adventure 48",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.4",
+      "year": 2024,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-49",
+      "title": "Shojo Slayer 49",
+      "original_title": "Shojo Slayer 49",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-50",
+      "title": "Shonen Slayer 50",
+      "original_title": "Shonen Slayer 50",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2024,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-51",
+      "title": "Isekai Slayer 51",
+      "original_title": "Isekai Slayer 51",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2023,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-52",
+      "title": "Shojo Slayer 52",
+      "original_title": "Shojo Slayer 52",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2023,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-53",
+      "title": "Shonen Titan 53",
+      "original_title": "Shonen Titan 53",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "10.0",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-54",
+      "title": "Isekai Ninja 54",
+      "original_title": "Isekai Ninja 54",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-55",
+      "title": "Shojo Ninja 55",
+      "original_title": "Shojo Ninja 55",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-56",
+      "title": "Shonen Ninja 56",
+      "original_title": "Shonen Ninja 56",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-57",
+      "title": "Isekai Slayer 57",
+      "original_title": "Isekai Slayer 57",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2024,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-58",
+      "title": "Shojo Ninja 58",
+      "original_title": "Shojo Ninja 58",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-59",
+      "title": "Seinen Academy 59",
+      "original_title": "Seinen Academy 59",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-60",
+      "title": "Mecha Hero 60",
+      "original_title": "Mecha Hero 60",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.5",
+      "year": 2024,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-61",
+      "title": "Shonen Hero 61",
+      "original_title": "Shonen Hero 61",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2021,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-62",
+      "title": "Isekai Dragon 62",
+      "original_title": "Isekai Dragon 62",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2021,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-63",
+      "title": "Seinen Slayer 63",
+      "original_title": "Seinen Slayer 63",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.2",
+      "year": 2023,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-64",
+      "title": "Mecha Ninja 64",
+      "original_title": "Mecha Ninja 64",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.7",
+      "year": 2021,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-65",
+      "title": "Shojo Academy 65",
+      "original_title": "Shojo Academy 65",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2024,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-66",
+      "title": "Shonen Quest 66",
+      "original_title": "Shonen Quest 66",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2023,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-67",
+      "title": "Shojo Adventure 67",
+      "original_title": "Shojo Adventure 67",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.8",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-68",
+      "title": "Isekai Adventure 68",
+      "original_title": "Isekai Adventure 68",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.3",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-69",
+      "title": "Isekai Adventure 69",
+      "original_title": "Isekai Adventure 69",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2023,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-70",
+      "title": "Shojo Slayer 70",
+      "original_title": "Shojo Slayer 70",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.5",
+      "year": 2021,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-71",
+      "title": "Seinen Ninja 71",
+      "original_title": "Seinen Ninja 71",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-72",
+      "title": "Isekai Adventure 72",
+      "original_title": "Isekai Adventure 72",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.9",
+      "year": 2021,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-73",
+      "title": "Mecha Hero 73",
+      "original_title": "Mecha Hero 73",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-74",
+      "title": "Mecha Hero 74",
+      "original_title": "Mecha Hero 74",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2023,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-75",
+      "title": "Shonen Ninja 75",
+      "original_title": "Shonen Ninja 75",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-76",
+      "title": "Shojo Slayer 76",
+      "original_title": "Shojo Slayer 76",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2024,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-77",
+      "title": "Shonen Academy 77",
+      "original_title": "Shonen Academy 77",
+      "description": "Une histoire captivante qui vous tiendra en haleine du début à la fin.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-78",
+      "title": "Shonen Adventure 78",
+      "original_title": "Shonen Adventure 78",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.9",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-79",
+      "title": "Mecha Adventure 79",
+      "original_title": "Mecha Adventure 79",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.1",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-80",
+      "title": "Isekai Slayer 80",
+      "original_title": "Isekai Slayer 80",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.8",
+      "year": 2023,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-81",
+      "title": "Shojo Titan 81",
+      "original_title": "Shojo Titan 81",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.0",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-82",
+      "title": "Shonen Hero 82",
+      "original_title": "Shonen Hero 82",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.8",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-83",
+      "title": "Shonen Adventure 83",
+      "original_title": "Shonen Adventure 83",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.4",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-84",
+      "title": "Shojo Titan 84",
+      "original_title": "Shojo Titan 84",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.2",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-85",
+      "title": "Isekai Slayer 85",
+      "original_title": "Isekai Slayer 85",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2024,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-86",
+      "title": "Shonen Titan 86",
+      "original_title": "Shonen Titan 86",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.4",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-87",
+      "title": "Seinen Slayer 87",
+      "original_title": "Seinen Slayer 87",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-88",
+      "title": "Shojo Academy 88",
+      "original_title": "Shojo Academy 88",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.6",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-89",
+      "title": "Mecha Titan 89",
+      "original_title": "Mecha Titan 89",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.7",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-90",
+      "title": "Shojo Dragon 90",
+      "original_title": "Shojo Dragon 90",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.4",
+      "year": 2023,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-91",
+      "title": "Mecha Academy 91",
+      "original_title": "Mecha Academy 91",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.6",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-92",
+      "title": "Isekai Hero 92",
+      "original_title": "Isekai Hero 92",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.5",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-93",
+      "title": "Shojo Titan 93",
+      "original_title": "Shojo Titan 93",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.2",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-94",
+      "title": "Mecha Titan 94",
+      "original_title": "Mecha Titan 94",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.7",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-95",
+      "title": "Shonen Ninja 95",
+      "original_title": "Shonen Ninja 95",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2023,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-96",
+      "title": "Seinen Academy 96",
+      "original_title": "Seinen Academy 96",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "8.1",
+      "year": 2023,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-97",
+      "title": "Seinen Quest 97",
+      "original_title": "Seinen Quest 97",
+      "description": "Une aventure épique remplie d'émotions et de rebondissements inattendus.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.1",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-98",
+      "title": "Isekai Quest 98",
+      "original_title": "Isekai Quest 98",
+      "description": "Un chef-d'œuvre du genre qui a conquis des millions de spectateurs à travers le monde.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.3",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-99",
+      "title": "Mecha Adventure 99",
+      "original_title": "Mecha Adventure 99",
+      "description": "Une production originale avec des scènes mémorables et des personnages charismatiques.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "9.3",
+      "year": 2020,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    },
+    {
+      "id": "voiranime-fallback-100",
+      "title": "Seinen Adventure 100",
+      "original_title": "Seinen Adventure 100",
+      "description": "Découvrez l'histoire extraordinaire de personnages attachants dans ce animes.",
+      "poster": "/placeholders/animes-poster.jpg",
+      "backdrop": "/placeholders/animes-backdrop.jpg",
+      "rating": "7.9",
+      "year": 2022,
+      "source": "voiranime",
+      "is_mock": true,
+      "is_fallback": true,
+      "genres": [
+        "Mock",
+        "Animes"
+      ],
+      "episodes_count": null
+    }
+  ]
+}

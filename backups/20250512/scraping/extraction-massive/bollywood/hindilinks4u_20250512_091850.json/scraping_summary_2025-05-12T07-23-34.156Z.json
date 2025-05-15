@@ -1,0 +1,16 @@
+{
+  "total_duration": "283.14",
+  "total_sources": 1,
+  "total_errors": 0,
+  "total_items": 0,
+  "sources": [
+    {
+      "source": "hindilinks4u",
+      "count": 0,
+      "duration": "283.14",
+      "file": "/Users/floriace/FLO_DRAMA/FloDrama/cloudflare/scraping/extraction-massive/bollywood/hindilinks4u_20250512_091850.json/hindilinks4u_2025-05-12T07-23-34.155Z.json",
+      "is_mock": false,
+      "content_type": "bollywood"
+    }
+  ]
+}

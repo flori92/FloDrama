@@ -1,0 +1,435 @@
+{
+  "url": "https://bollystream.eu/tv-show-genre/series-indiennes",
+  "element_type": "bollywood",
+  "analysis_method": "domain-specific",
+  "movie_containers": [
+    {
+      "selector": "section.home-section",
+      "text": "SERIES INDIENNESBIN KUCH KAHE – LES FILLES DE MME KHOLINewest Episode: BIN KUCH KAHE – LES FIL",
+      "has_links": true,
+      "has_images": true
+    }
+  ],
+  "movie_links": [
+    {
+      "selector": "a.custom-logo-link",
+      "href": "https://bollystream.eu/",
+      "text": ""
+    },
+    {
+      "selector": "a.custom-logo-link",
+      "href": "https://bollystream.eu/",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/bin-kuch-kahe-les-filles-de-mme-kholi",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/bin-kuch-kahe-les-filles-de-mme-kholi",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/koi-chand-rakh-serie-pakistanaise-complete-vostfr",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/koi-chand-rakh-serie-pakistanaise-complete-vostfr",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/jamai-rajai-le-gendre-parfait-serie-indienne-vf",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/jamai-rajai-le-gendre-parfait-serie-indienne-vf",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/jaan-nisar-serie-pakistanaise-vostfr",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/jaan-nisar-serie-pakistanaise-vostfr",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/ishq-hai-vostfr",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/ishq-hai-vostfr",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/qurbaan-hua-un-amour-desespere-135-episodes",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/qurbaan-hua-un-amour-desespere-135-episodes",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/baarish-saison-1-complete-vostfr",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/baarish-saison-1-complete-vostfr",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/le-caprice-du-destin-bepannah",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/le-caprice-du-destin-bepannah",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/bin-kuch-kahe-les-filles-de-mme-kholi",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/bin-kuch-kahe-les-filles-de-mme-kholi",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/ek-muthi-aasmaan-atteindre-les-etoiles-serie-indienne-vf",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/ek-muthi-aasmaan-atteindre-les-etoiles-serie-indienne-vf",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/rangrasiya-ma-vie-sans-elle",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/rangrasiya-ma-vie-sans-elle",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/qurbaan-hua-un-amour-desespere-135-episodes",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/qurbaan-hua-un-amour-desespere-135-episodes",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/heeramandi-the-diamond-bazaar-vostfr-version-francaise",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/heeramandi-the-diamond-bazaar-vostfr-version-francaise",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/baarish-saison-1-complete-vostfr",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/baarish-saison-1-complete-vostfr",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/silsila-badalte-rishton-ka-vostfr",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/silsila-badalte-rishton-ka-vostfr",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/le-caprice-du-destin-bepannah",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/le-caprice-du-destin-bepannah",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/the-romantics-dynastie-bollywood-2023",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/the-romantics-dynastie-bollywood-2023",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/bin-kuch-kahe-les-filles-de-mme-kholi",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/koi-chand-rakh-serie-pakistanaise-complete-vostfr",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/jamai-rajai-le-gendre-parfait-serie-indienne-vf",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/jaan-nisar-serie-pakistanaise-vostfr",
+      "text": ""
+    },
+    {
+      "selector": "a.masvideos-LoopTvShow-link",
+      "href": "https://bollystream.eu/tv-show/ishq-hai-vostfr",
+      "text": ""
+    },
+    {
+      "selector": "a.custom-logo-link",
+      "href": "https://bollystream.eu/",
+      "text": ""
+    }
+  ],
+  "grid_containers": [
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    },
+    {
+      "selector": "div.tv-show-actions--link_add-to-playlist",
+      "text": "+ Playlist\n\nSign in to add this tv show to a playlist.",
+      "child_count": 3,
+      "link_count": 2
+    }
+  ],
+  "recommended_movie_selector": "section.home-section",
+  "recommended_grid_selector": "div.tv-show-actions--link_add-to-playlist",
+  "recommended_link_selector": "a.custom-logo-link",
+  "has_pagination": false
+}

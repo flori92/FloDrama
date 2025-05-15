@@ -1,0 +1,79 @@
+name: Crawlee Scraping et Distribution de Contenu
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Toutes les 6 heures
+  workflow_dispatch:  # Permet le déclenchement manuel
+
+jobs:
+  scrape-and-distribute:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60  # Limite de temps augmentée pour gérer plus de sources
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm install crawlee playwright fs-extra cheerio
+          npx playwright install-deps
+          npx playwright install chromium
+          
+      - name: Run Crawlee scraper
+        run: node .github/scripts/crawlee-scraper.js
+        env:
+          MIN_ITEMS_PER_SOURCE: 200
+          SOURCES: 'filmapik,mydramalist,voiranime,nekosama,bollywoodmdb,vostfree,dramacool,myasiantv,voirdrama,gogoanime'
+          CACHE_TTL: '43200000'  # 12 heures
+          PARALLEL_SCRAPING: 'true'
+          MAX_RETRIES: '3'
+          OUTPUT_DIR: './Frontend/src/data/content'
+      
+      - name: Generate category files
+        run: node .github/scripts/crawlee/categoryGenerator.js
+        env:
+          INPUT_DIR: './Frontend/src/data/content'
+          OUTPUT_DIR: './Frontend/src/data/content'
+          GENERATE_CHUNKS: 'true'
+          CHUNK_SIZE: '200'
+          INCLUDE_TRENDING: 'true'
+          INCLUDE_HERO_BANNER: 'true'
+      
+      - name: Generate search index
+        run: node .github/scripts/crawlee/searchIndexGenerator.js
+        env:
+          INPUT_DIR: './Frontend/src/data/content'
+          OUTPUT_DIR: './Frontend/src/data/search'
+      
+      - name: Optimize images (if any new)
+        run: |
+          if [ -d "./Frontend/src/data/images" ]; then
+            find ./Frontend/src/data/images -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" \) -exec jpegoptim --strip-all --max=85 {} \;
+          fi
+      
+      - name: Prepare distribution files
+        run: |
+          mkdir -p ./dist
+          cp -r ./Frontend/src/data/* ./dist/
+          echo '{"version":"'$(date +%Y%m%d%H%M%S)'","updated_at":"'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'"}'  > ./dist/version.json
+      
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "✨ FEAT: Mise à jour des données via Crawlee ($(date +%Y-%m-%d))"
+          file_pattern: 'Frontend/src/data/**/*.json'
+      
+      - name: Deploy to Cloudflare R2 (si configuré)
+        if: false  # Désactivé par défaut, activer si R2 est configuré
+        run: |
+          npm install -g @cloudflare/wrangler
+          wrangler r2 bucket create flodrama-content || true
+          wrangler r2 object put flodrama-content/data --path ./dist/

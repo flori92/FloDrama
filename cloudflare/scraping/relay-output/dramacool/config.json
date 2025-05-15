@@ -1,0 +1,17 @@
+{
+  "source": "dramacool",
+  "type": "drama",
+  "urls": [
+    "https://dramacool.cr/most-popular-drama"
+  ],
+  "selectors": {
+    "main": ".block",
+    "wait": ".content"
+  },
+  "pagination": {
+    "pattern": "page={page}",
+    "max": 3,
+    "offsetMultiplier": 1
+  },
+  "timestamp": "2025-05-10T13:01:26.929Z"
+}

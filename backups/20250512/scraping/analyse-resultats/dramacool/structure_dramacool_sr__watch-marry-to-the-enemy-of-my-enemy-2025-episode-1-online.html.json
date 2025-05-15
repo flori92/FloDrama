@@ -1,0 +1,363 @@
+{
+  "url": "https://wwv.dramacool.sr/",
+  "title": "Dramacool | Asian Drama, Movies and Shows English Sub Full HD",
+  "elements": {
+    "#dsq-count-scr": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" async=\"\" src=\"https://dramacool-ukph88jvsw.disqus.com/count.js?\" id=\"dsq-count-scr\"></script>"
+    },
+    "#search-type": {
+      "count": 1,
+      "tag": "select",
+      "text": "Drama",
+      "html": "<select name=\"type\" id=\"search-type\">\n        <!-- <option value=\"movies\">Movies</option> -->\n        <option value=\"drama\">Drama</option>\n      </select>"
+    },
+    "#search-key": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"text\" id=\"search-key\" name=\"keyword\" placeholder=\"Search\" style=\"\">"
+    },
+    ".container": {
+      "count": 1,
+      "tag": "div",
+      "text": "ALL\n    #\n    \n  \n        \n    \n    A\n    \n       ",
+      "html": "<div class=\"container\">\n        <!-- initiate header-->\n        <header>\n  <ul class=\"char-list\">\n    <li><a href=\"https://wwv.dramacool.sr/all-drama-list\" title=\"Drama List\">ALL</a></li>\n    <li><a h"
+    },
+    ".char-list": {
+      "count": 1,
+      "tag": "ul",
+      "text": "ALL\n    #\n    \n  \n        \n    \n    A\n    \n       ",
+      "html": "<ul class=\"char-list\">\n    <li><a href=\"https://wwv.dramacool.sr/all-drama-list\" title=\"Drama List\">ALL</a></li>\n    <li><a href=\"https://wwv.dramacool.sr/all-drama-list/char-start-other\" title=\"Drama"
+    },
+    ".logo": {
+      "count": 1,
+      "tag": "div",
+      "text": "Drama",
+      "html": "<div class=\"logo\">\n    <a href=\"https://wwv.dramacool.sr\" class=\"ads-evt\" title=\"Home\">\n      <img src=\"https://wwv.dramacool.sr/frontend/images/logo.jpg\" alt=\"Watchasian - Asian Drama, Movies\">  </a>"
+    },
+    ".ads-evt": {
+      "count": 1,
+      "tag": "a",
+      "text": "",
+      "html": "<a href=\"https://wwv.dramacool.sr\" class=\"ads-evt\" title=\"Home\">\n      <img src=\"https://wwv.dramacool.sr/frontend/images/logo.jpg\" alt=\"Watchasian - Asian Drama, Movies\">  </a>"
+    },
+    ".res_mobi": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"res_mobi menu_m\">\n        <div class=\"left\"><a href=\"#\" class=\"up-down menu_mobile\"><img src=\"https://wwv.dramacool.sr/frontend/images/mobi/up_down.png\" alt=\"up-dow\"></a></div>\n        <di"
+    },
+    ".menu_m": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"res_mobi menu_m\">\n        <div class=\"left\"><a href=\"#\" class=\"up-down menu_mobile\"><img src=\"https://wwv.dramacool.sr/frontend/images/mobi/up_down.png\" alt=\"up-dow\"></a></div>\n        <di"
+    },
+    ".left": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"left\"><a href=\"#\" class=\"up-down menu_mobile\"><img src=\"https://wwv.dramacool.sr/frontend/images/mobi/up_down.png\" alt=\"up-dow\"></a></div>"
+    },
+    ".up-down": {
+      "count": 1,
+      "tag": "a",
+      "text": "",
+      "html": "<a href=\"#\" class=\"up-down menu_mobile\"><img src=\"https://wwv.dramacool.sr/frontend/images/mobi/up_down.png\" alt=\"up-dow\"></a>"
+    },
+    ".menu_mobile": {
+      "count": 1,
+      "tag": "a",
+      "text": "",
+      "html": "<a href=\"#\" class=\"up-down menu_mobile\"><img src=\"https://wwv.dramacool.sr/frontend/images/mobi/up_down.png\" alt=\"up-dow\"></a>"
+    },
+    ".right": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"right\"><a href=\"https://wwv.dramacool.sr\"><img src=\"https://wwv.dramacool.sr/frontend/images/mobi/logo.png\" alt=\"logo\">\n        </a></div>"
+    },
+    ".search": {
+      "count": 1,
+      "tag": "form",
+      "text": "Drama",
+      "html": "<form class=\"search\" action=\"https://wwv.dramacool.sr/search\">\n      <select name=\"type\" id=\"search-type\">\n        <!-- <option value=\"movies\">Movies</option> -->\n        <option value=\"drama\">Drama</"
+    },
+    ".menu_top": {
+      "count": 1,
+      "tag": "nav",
+      "text": "Drama List\n        \n\n            \n                ",
+      "html": "<nav class=\"menu_top\">\n    <ul class=\"navbar\">\n      <li class=\"selected\"><a href=\"https://wwv.dramacool.sr\" title=\"Home\"><img src=\"https://wwv.dramacool.sr/frontend/images/home.png\n        \" alt=\"hom"
+    },
+    ".navbar": {
+      "count": 1,
+      "tag": "ul",
+      "text": "Drama List\n        \n\n            \n                ",
+      "html": "<ul class=\"navbar\">\n      <li class=\"selected\"><a href=\"https://wwv.dramacool.sr\" title=\"Home\"><img src=\"https://wwv.dramacool.sr/frontend/images/home.png\n        \" alt=\"home\"></a></li>\n      <li>\n   "
+    },
+    ".selected": {
+      "count": 8,
+      "tag": "li",
+      "text": "",
+      "html": "<li class=\"selected\"><a href=\"https://wwv.dramacool.sr\" title=\"Home\"><img src=\"https://wwv.dramacool.sr/frontend/images/home.png\n        \" alt=\"home\"></a></li>"
+    },
+    ".sub-nav": {
+      "count": 2,
+      "tag": "ul",
+      "text": "Korean Drama\n\n            \n                Hong Ko",
+      "html": "<ul class=\"sub-nav\">\n\n            \n                <li><a href=\"https://wwv.dramacool.sr/country/korean-drama/etc\" title=\"Korean Drama\">Korean Drama</a></li>\n\n            \n                <li><a href="
+    },
+    ".content": {
+      "count": 1,
+      "tag": "div",
+      "text": "Recently Drama\n      Recently Movie\n      Recently",
+      "html": "<div class=\"content\">\n                <!-- yeild contents here -->\n                \n\n\n\n\n\n\n\n<div class=\"content-left\">\n  <div class=\"block-tab\">\n    <ul class=\"tab\">\n      <li data-tab=\"left-tab-1\" cla"
+    },
+    ".content-left": {
+      "count": 1,
+      "tag": "div",
+      "text": "Recently Drama\n      Recently Movie\n      Recently",
+      "html": "<div class=\"content-left\">\n  <div class=\"block-tab\">\n    <ul class=\"tab\">\n      <li data-tab=\"left-tab-1\" class=\"Recently selected\">Recently Drama</li>\n      <li class=\"Added\" data-tab=\"left-tab-2\">Re"
+    },
+    ".block-tab": {
+      "count": 3,
+      "tag": "div",
+      "text": "Recently Drama\n      Recently Movie\n      Recently",
+      "html": "<div class=\"block-tab\">\n    <ul class=\"tab\">\n      <li data-tab=\"left-tab-1\" class=\"Recently selected\">Recently Drama</li>\n      <li class=\"Added\" data-tab=\"left-tab-2\">Recently Movie</li>\n      <li c"
+    },
+    ".tab": {
+      "count": 3,
+      "tag": "ul",
+      "text": "Recently Drama\n      Recently Movie\n      Recently",
+      "html": "<ul class=\"tab\">\n      <li data-tab=\"left-tab-1\" class=\"Recently selected\">Recently Drama</li>\n      <li class=\"Added\" data-tab=\"left-tab-2\">Recently Movie</li>\n      <li class=\"Kshow\" data-tab=\"left-"
+    },
+    ".Recently": {
+      "count": 1,
+      "tag": "li",
+      "text": "Recently Drama",
+      "html": "<li data-tab=\"left-tab-1\" class=\"Recently selected\">Recently Drama</li>"
+    },
+    ".Added": {
+      "count": 1,
+      "tag": "li",
+      "text": "Recently Movie",
+      "html": "<li class=\"Added\" data-tab=\"left-tab-2\">Recently Movie</li>"
+    },
+    ".Kshow": {
+      "count": 1,
+      "tag": "li",
+      "text": "Recently Kshow",
+      "html": "<li class=\"Kshow\" data-tab=\"left-tab-3\">Recently Kshow</li>"
+    },
+    ".switch-view": {
+      "count": 1,
+      "tag": "ul",
+      "text": "",
+      "html": "<ul class=\"switch-view\">\n      <li class=\"selected\" data-view=\"list-episode-item\"></li>\n      <li data-view=\"list-episode-item-2\"></li>\n    </ul>"
+    },
+    ".block": {
+      "count": 4,
+      "tag": "div",
+      "text": "SUB\n                The Secret Contract of the Wit",
+      "html": "<div class=\"block tab-container\">\n      <div class=\"tab-content left-tab-1 selected\">\n        <ul class=\"switch-block list-episode-item\">\n\n        \t\t        \t\t        \t\t<li>\n              <a href=\"htt"
+    },
+    ".tab-container": {
+      "count": 3,
+      "tag": "div",
+      "text": "SUB\n                The Secret Contract of the Wit",
+      "html": "<div class=\"block tab-container\">\n      <div class=\"tab-content left-tab-1 selected\">\n        <ul class=\"switch-block list-episode-item\">\n\n        \t\t        \t\t        \t\t<li>\n              <a href=\"htt"
+    },
+    ".tab-content": {
+      "count": 7,
+      "tag": "div",
+      "text": "SUB\n                The Secret Contract of the Wit",
+      "html": "<div class=\"tab-content left-tab-1 selected\">\n        <ul class=\"switch-block list-episode-item\">\n\n        \t\t        \t\t        \t\t<li>\n              <a href=\"https://wwv.dramacool.sr/video-watch/the-se"
+    },
+    ".left-tab-1": {
+      "count": 1,
+      "tag": "div",
+      "text": "SUB\n                The Secret Contract of the Wit",
+      "html": "<div class=\"tab-content left-tab-1 selected\">\n        <ul class=\"switch-block list-episode-item\">\n\n        \t\t        \t\t        \t\t<li>\n              <a href=\"https://wwv.dramacool.sr/video-watch/the-se"
+    },
+    ".switch-block": {
+      "count": 3,
+      "tag": "ul",
+      "text": "SUB\n                The Secret Contract of the Wit",
+      "html": "<ul class=\"switch-block list-episode-item\">\n\n        \t\t        \t\t        \t\t<li>\n              <a href=\"https://wwv.dramacool.sr/video-watch/the-secret-contract-of-the-witch-2025-episode-20\" class=\"img"
+    },
+    ".list-episode-item": {
+      "count": 3,
+      "tag": "ul",
+      "text": "SUB\n                The Secret Contract of the Wit",
+      "html": "<ul class=\"switch-block list-episode-item\">\n\n        \t\t        \t\t        \t\t<li>\n              <a href=\"https://wwv.dramacool.sr/video-watch/the-secret-contract-of-the-witch-2025-episode-20\" class=\"img"
+    },
+    ".img": {
+      "count": 41,
+      "tag": "a",
+      "text": "SUB\n                The Secret Contract of the Wit",
+      "html": "<a href=\"https://wwv.dramacool.sr/video-watch/the-secret-contract-of-the-witch-2025-episode-20\" class=\"img\" title=\"The Secret Contract of the Witch (2025)\">\n                <img src=\"https://wwv.drama"
+    },
+    ".lazy": {
+      "count": 41,
+      "tag": "img",
+      "text": "",
+      "html": "<img src=\"https://wwv.dramacool.sr/public/storage/drama/17464502245302.webp\" class=\"lazy\" alt=\"The Secret Contract of the Witch (2025) Episode 20\" data-original=\"https://wwv.dramacool.sr/public/storag"
+    },
+    ".type": {
+      "count": 41,
+      "tag": "span",
+      "text": "SUB",
+      "html": "<span class=\"type SUB\">SUB</span>"
+    },
+    ".SUB": {
+      "count": 82,
+      "tag": "span",
+      "text": "SUB",
+      "html": "<span class=\"type SUB\">SUB</span>"
+    },
+    ".title": {
+      "count": 41,
+      "tag": "h3",
+      "text": "The Secret Contract of the Witch (2025)",
+      "html": "<h3 class=\"title\" onclick=\"if (!window.__cfRLUnblockHandlers) return false; window.location = the-secret-contract-of-the-witch-2025-episode-20\">The Secret Contract of the Witch (2025)</h3>"
+    },
+    ".time": {
+      "count": 41,
+      "tag": "span",
+      "text": "1 hour ago",
+      "html": "<span class=\"time\"> 1 hour ago  </span>"
+    },
+    ".ep": {
+      "count": 41,
+      "tag": "span",
+      "text": "EP 20",
+      "html": "<span class=\"ep SUB\">EP 20</span>"
+    },
+    ".view-more": {
+      "count": 6,
+      "tag": "div",
+      "text": "View more",
+      "html": "<div class=\"view-more\"><a href=\"https://wwv.dramacool.sr/all-recently-added/drama\" title=\"Recently Added Drama\">View more</a></div>"
+    },
+    ".left-tab-2": {
+      "count": 1,
+      "tag": "div",
+      "text": "SUB\n                A Traveler&#039;s Needs (2024)",
+      "html": "<div class=\"tab-content left-tab-2\">\n        <ul class=\"switch-block list-episode-item\">\n\n        \t\n                  \t\t<li>\n              <a href=\"https://wwv.dramacool.sr/movie-watch/a-traveler039s-"
+    },
+    ".left-tab-3": {
+      "count": 1,
+      "tag": "div",
+      "text": "SUB\n                Running Man (2010)\n           ",
+      "html": "<div class=\"tab-content left-tab-3\">\n\t\t<ul class=\"switch-block list-episode-item\">\n\n\n\t\t\t        \t\t<li>\n              <a href=\"https://wwv.dramacool.sr/video-watch/running-man-2010-episode-752\" class=\""
+    },
+    ".list-popular": {
+      "count": 1,
+      "tag": "div",
+      "text": "Culinary Vendetta (2025)\n                    Justi",
+      "html": "<div class=\"block tab-container list-popular\">\n\t  <div class=\"tab-content left-tab-4 selected\">\n\t\t<ul>  \n                              <li><a href=\"https://wwv.dramacool.sr/drama-detail/culinary-vende"
+    },
+    ".left-tab-4": {
+      "count": 1,
+      "tag": "div",
+      "text": "Culinary Vendetta (2025)\n                    Justi",
+      "html": "<div class=\"tab-content left-tab-4 selected\">\n\t\t<ul>  \n                              <li><a href=\"https://wwv.dramacool.sr/drama-detail/culinary-vendetta-2025\" title=\"Culinary Vendetta (2025)\">Culinar"
+    },
+    ".content-right": {
+      "count": 1,
+      "tag": "div",
+      "text": "Follow us on Instagram\n    \n  \n  \n        Follow u",
+      "html": "<div class=\"content-right\">\n    <div class=\"block fanpage\">\n<div>\n    <img src=\"/instagram.png\" alt=\"Follow us on Instagram\" title=\"Follow us on Discord\">    <div><a href=\"https://www.instagram.com/dr"
+    },
+    ".fanpage": {
+      "count": 1,
+      "tag": "div",
+      "text": "Follow us on Instagram\n    \n  \n  \n        Follow u",
+      "html": "<div class=\"block fanpage\">\n<div>\n    <img src=\"/instagram.png\" alt=\"Follow us on Instagram\" title=\"Follow us on Discord\">    <div><a href=\"https://www.instagram.com/dramacoolcom\" target=\"_blank\">Foll"
+    },
+    ".clearfix": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"clearfix\"></div>"
+    },
+    ".clr": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"clr\"></div>"
+    },
+    ".list-right": {
+      "count": 1,
+      "tag": "div",
+      "text": "Ads\n        \n        \n             Coming Episode\n",
+      "html": "<div class=\"block tab-container list-right\">\n        <div class=\"tab-content right-tab-1\">\n            <h4 class=\"content-right-title\"><i class=\"fa fa-clock-o\"></i> Ads</h4>\n        </div>\n        <di"
+    },
+    ".right-tab-1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Ads",
+      "html": "<div class=\"tab-content right-tab-1\">\n            <h4 class=\"content-right-title\"><i class=\"fa fa-clock-o\"></i> Ads</h4>\n        </div>"
+    },
+    ".content-right-title": {
+      "count": 3,
+      "tag": "h4",
+      "text": "Ads",
+      "html": "<h4 class=\"content-right-title\"><i class=\"fa fa-clock-o\"></i> Ads</h4>"
+    },
+    ".fa": {
+      "count": 4,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"fa fa-clock-o\"></i>"
+    },
+    ".fa-clock-o": {
+      "count": 2,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"fa fa-clock-o\"></i>"
+    },
+    ".right-tab-2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Coming Episode\n\n            \n                \n    ",
+      "html": "<div class=\"tab-content right-tab-2\">\n            <h4 class=\"content-right-title\"><i class=\"fa fa-clock-o\"></i> Coming Episode</h4>\n\n            <ul>\n                \n                   <!--  <span cl"
+    },
+    ".right-tab-3": {
+      "count": 1,
+      "tag": "div",
+      "text": "Popular Ongoing\n            \n                     ",
+      "html": "<div class=\"tab-content right-tab-3 selected\">\n            <h4 class=\"content-right-title\"><i class=\"fa fa-heart\"></i> Popular Ongoing</h4>\n            <ul>\n                                           "
+    },
+    ".fa-heart": {
+      "count": 1,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"fa fa-heart\"></i>"
+    },
+    ".btn-btt": {
+      "count": 1,
+      "tag": "button",
+      "text": "TOP",
+      "html": "<button class=\"btn-btt\"><i class=\"fa fa-arrow-up\"></i> TOP</button>"
+    },
+    ".fa-arrow-up": {
+      "count": 1,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"fa fa-arrow-up\"></i>"
+    }
+  },
+  "specialElements": {
+    "video": 0,
+    "iframe": 1,
+    ".jwplayer": 0,
+    ".plyr": 0,
+    ".video-js": 0,
+    "[data-player]": 0,
+    "[data-video]": 0
+  }
+}

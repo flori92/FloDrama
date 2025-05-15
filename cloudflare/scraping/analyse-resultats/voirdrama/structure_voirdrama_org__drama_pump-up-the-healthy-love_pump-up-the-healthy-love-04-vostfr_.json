@@ -1,0 +1,3147 @@
+{
+  "url": "https://voirdrama.org/drama/pump-up-the-healthy-love/pump-up-the-healthy-love-04-vostfr/",
+  "title": "Pump Up the Healthy Love - Pump Up the Healthy Love - 04 VOSTFR - 04 - Voirdrama",
+  "elements": {
+    "#wp-emoji-styles-inline-css": {
+      "count": 1,
+      "tag": "style",
+      "text": "img.wp-smiley, img.emoji {\n\t\tdisplay: inline !impo",
+      "html": "<style id=\"wp-emoji-styles-inline-css\" type=\"text/css\">\n\n\timg.wp-smiley, img.emoji {\n\t\tdisplay: inline !important;\n\t\tborder: none !important;\n\t\tbox-shadow: none !important;\n\t\theight: 1em !important;\n\t"
+    },
+    "#wp-block-library-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"wp-block-library-css\" href=\"https://voirdrama.org/wp-includes/css/dist/block-library/style.min.css?ver=6.7.2\" type=\"text/css\" media=\"all\">"
+    },
+    "#wp-block-library-theme-inline-css": {
+      "count": 1,
+      "tag": "style",
+      "text": ".wp-block-audio :where(figcaption){color:#555;font",
+      "html": "<style id=\"wp-block-library-theme-inline-css\" type=\"text/css\">\n.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#f"
+    },
+    "#block-widget-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"block-widget-css\" href=\"https://voirdrama.org/wp-content/plugins/widget-logic/block_widget/css/widget.css?ver=1724900631\" type=\"text/css\" media=\"all\">"
+    },
+    "#classic-theme-styles-inline-css": {
+      "count": 1,
+      "tag": "style",
+      "text": "/*! This file is auto-generated */\n.wp-block-butto",
+      "html": "<style id=\"classic-theme-styles-inline-css\" type=\"text/css\">\n/*! This file is auto-generated */\n.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-dec"
+    },
+    "#global-styles-inline-css": {
+      "count": 1,
+      "tag": "style",
+      "text": ":root{--wp--preset--aspect-ratio--square: 1;--wp--",
+      "html": "<style id=\"global-styles-inline-css\" type=\"text/css\">\n:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--"
+    },
+    "#ct-shortcode-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"ct-shortcode-css\" href=\"https://voirdrama.org/wp-content/plugins/madara-shortcodes/shortcodes/css/shortcodes.css?ver=6.7.2\" type=\"text/css\" media=\"all\">"
+    },
+    "#fontawesome-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"fontawesome-css\" href=\"https://voirdrama.org/wp-content/themes/madara/app/lib/fontawesome/web-fonts-with-css/css/all.min.css?ver=5.15.3\" type=\"text/css\" media=\"all\">"
+    },
+    "#bootstrap-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"bootstrap-css\" href=\"https://voirdrama.org/wp-content/themes/madara/css/bootstrap.min.css?ver=4.3.1\" type=\"text/css\" media=\"all\">"
+    },
+    "#slick-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"slick-css\" href=\"https://voirdrama.org/wp-content/themes/madara/js/slick/slick.css?ver=1.9.0\" type=\"text/css\" media=\"all\">"
+    },
+    "#slick-theme-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"slick-theme-css\" href=\"https://voirdrama.org/wp-content/themes/madara/js/slick/slick-theme.css?ver=6.7.2\" type=\"text/css\" media=\"all\">"
+    },
+    "#madara-css-child-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"madara-css-child-css\" href=\"https://voirdrama.org/wp-content/themes/madara/style.css?ver=6.7.2\" type=\"text/css\" media=\"all\">"
+    },
+    "#ionicons-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"ionicons-css\" href=\"https://voirdrama.org/wp-content/themes/madara/css/fonts/ionicons/css/ionicons.min.css?ver=4.5.10\" type=\"text/css\" media=\"all\">"
+    },
+    "#madara-icons-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"madara-icons-css\" href=\"https://voirdrama.org/wp-content/themes/madara/css/fonts/ct-icon/ct-icon.css?ver=6.7.2\" type=\"text/css\" media=\"all\">"
+    },
+    "#loaders-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"loaders-css\" href=\"https://voirdrama.org/wp-content/themes/madara/css/loaders.min.css?ver=6.7.2\" type=\"text/css\" media=\"all\">"
+    },
+    "#madara-css-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"madara-css-css\" href=\"https://voirdrama.org/wp-content/themes/madara-child-voiranime/style.css?ver=1.6.6\" type=\"text/css\" media=\"all\">"
+    },
+    "#madara-css-inline-css": {
+      "count": 1,
+      "tag": "style",
+      "text": ".c-blog__heading.style-2 i:after, .settings-page .",
+      "html": "<style id=\"madara-css-inline-css\" type=\"text/css\">\n.c-blog__heading.style-2 i:after, .settings-page .nav-tabs-wrap ul.nav-tabs li.active:after { border-left-color: #2e2d34 ;border-right-color: #2e2d34"
+    },
+    "#wp-pagenavi-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"wp-pagenavi-css\" href=\"https://voirdrama.org/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.70\" type=\"text/css\" media=\"all\">"
+    },
+    "#lity-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"lity-css\" href=\"https://voirdrama.org/wp-content/plugins/madara-core/assets/css/lity.min.css?ver=6.7.2\" type=\"text/css\" media=\"all\">"
+    },
+    "#jquery-core-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-includes/js/jquery/jquery.min.js?ver=3.7.1\" id=\"jquery-core-js\"></script>"
+    },
+    "#jquery-migrate-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1\" id=\"jquery-migrate-js\"></script>"
+    },
+    "#child_manga_single-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-content/themes/madara-child-voiranime/assets/js/script.js?ver=1.1\" id=\"child_manga_single-js\"></script>"
+    },
+    "#asp-basic": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"asp-basic\" href=\"https://voirdrama.org/wp-content/cache/asp/style.basic-ho-is-po-no-da-co-au-ga-se-is.css?mq=G0bO8K\" media=\"all\">"
+    },
+    "#asp-instance-6": {
+      "count": 1,
+      "tag": "style",
+      "text": "div[id*='ajaxsearchpro6_'] div.asp_loader,div[id*=",
+      "html": "<style id=\"asp-instance-6\">div[id*='ajaxsearchpro6_'] div.asp_loader,div[id*='ajaxsearchpro6_'] div.asp_loader *{box-sizing:border-box !important;margin:0;padding:0;box-shadow:none}div[id*='ajaxsearch"
+    },
+    "#asp-instance-7": {
+      "count": 1,
+      "tag": "style",
+      "text": "div[id*='ajaxsearchpro7_'] div.asp_loader,div[id*=",
+      "html": "<style id=\"asp-instance-7\">div[id*='ajaxsearchpro7_'] div.asp_loader,div[id*='ajaxsearchpro7_'] div.asp_loader *{box-sizing:border-box !important;margin:0;padding:0;box-shadow:none}div[id*='ajaxsearch"
+    },
+    "#ajaxsearchpro7_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_7 asp_m_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro asp_main_container  asp_non_compact\" data-id=\"7\" data-name=\"classic VOSTFR\" data-instance=\"1\" id=\"ajaxsearchpr"
+    },
+    "#asp_init_id_7_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_init_data\" style=\"display:none !important;\" id=\"asp_init_id_7_1\" data-asp-id=\"7\" data-asp-instance=\"1\" data-aspdata=\"eyJob21ldXJsIjoiaHR0cHM6XC9cL3ZvaXJkcmFtYS5vcmdcLyIsImlzX3Jlc3VsdHN"
+    },
+    "#__original__ajaxsearchprores7_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores7_1\" class=\"asp_w asp_r asp_r_7 asp_r_7_1 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-7\" data-id=\"7\" data-instance=\"1\">\n\n    \n    \n    \n    <div class=\""
+    },
+    "#__original__ajaxsearchprosettings7_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Generic filters\n    \n    \n        \n\t\t\n    \n    \n  ",
+      "html": "<div id=\"__original__ajaxsearchprosettings7_1\" class=\"asp_w asp_ss asp_ss_7 asp_s asp_s_7 asp_s_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro searchsettings\" data-id=\"7\" data-instance=\"1\">\n\t<for"
+    },
+    "#set_exact7_1": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"exact\" id=\"set_exact7_1\" aria-label=\"Exact matches only\" name=\"asp_gen[]\" style=\"\">"
+    },
+    "#set_title7_1": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"title\" id=\"set_title7_1\" data-origvalue=\"1\" aria-label=\"Search in title\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#set_content7_1": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"content\" id=\"set_content7_1\" data-origvalue=\"1\" aria-label=\"Search in content\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#set_excerpt7_1": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"excerpt\" id=\"set_excerpt7_1\" data-origvalue=\"1\" aria-label=\"Search in excerpt\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#aspf7_11[vf__1]": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"hidden\" value=\"vf\" data-origvalue=\"vf\" id=\"aspf7_11[vf__1]\" name=\"aspf[vf__1]\" style=\"\">"
+    },
+    "#ajaxsearchpro6_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_6 asp_m_6_1 wpdreams_asp_sc wpdreams_asp_sc-6 ajaxsearchpro asp_main_container  asp_non_compact\" data-id=\"6\" data-name=\"classic VF\" data-instance=\"1\" id=\"ajaxsearchpro6_1"
+    },
+    "#asp_init_id_6_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_init_data\" style=\"display:none !important;\" id=\"asp_init_id_6_1\" data-asp-id=\"6\" data-asp-instance=\"1\" data-aspdata=\"eyJob21ldXJsIjoiaHR0cHM6XC9cL3ZvaXJkcmFtYS5vcmdcLyIsImlzX3Jlc3VsdHN"
+    },
+    "#__original__ajaxsearchprores6_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores6_1\" class=\"asp_w asp_r asp_r_6 asp_r_6_1 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-6\" data-id=\"6\" data-instance=\"1\">\n\n    \n    \n    \n    <div class=\""
+    },
+    "#__original__ajaxsearchprosettings6_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Generic filters\n    \n    \n        \n\t\t\n    \n    \n  ",
+      "html": "<div id=\"__original__ajaxsearchprosettings6_1\" class=\"asp_w asp_ss asp_ss_6 asp_s asp_s_6 asp_s_6_1 wpdreams_asp_sc wpdreams_asp_sc-6 ajaxsearchpro searchsettings\" data-id=\"6\" data-instance=\"1\">\n\t<for"
+    },
+    "#set_exact6_1": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"exact\" id=\"set_exact6_1\" aria-label=\"Exact matches only\" name=\"asp_gen[]\" style=\"\">"
+    },
+    "#set_title6_1": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"title\" id=\"set_title6_1\" data-origvalue=\"1\" aria-label=\"Search in title\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#set_content6_1": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"content\" id=\"set_content6_1\" data-origvalue=\"1\" aria-label=\"Search in content\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#set_excerpt6_1": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"excerpt\" id=\"set_excerpt6_1\" data-origvalue=\"1\" aria-label=\"Search in excerpt\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#aspf6_11[vf__1]": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"hidden\" value=\"vf\" data-origvalue=\"vf\" id=\"aspf6_11[vf__1]\" name=\"aspf[vf__1]\" style=\"\">"
+    },
+    "#menu-item-31": {
+      "count": 1,
+      "tag": "li",
+      "text": "ACCUEIL",
+      "html": "<li id=\"menu-item-31\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-31\"><a href=\"https://voirdrama.org/\">ACCUEIL</a></li>"
+    },
+    "#menu-item-32": {
+      "count": 1,
+      "tag": "li",
+      "text": "LISTE",
+      "html": "<li id=\"menu-item-32\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-32\"><a href=\"https://voirdrama.org/liste-dramas/\">LISTE</a></li>"
+    },
+    "#menu-item-36483": {
+      "count": 1,
+      "tag": "li",
+      "text": "NOUVEAU",
+      "html": "<li id=\"menu-item-36483\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-36483\"><a href=\"https://voirdrama.org/nouveaux-ajouts/\">NOUVEAU</a></li>"
+    },
+    "#menu-item-27": {
+      "count": 1,
+      "tag": "li",
+      "text": "RECHERCHE AV",
+      "html": "<li id=\"menu-item-27\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-27\"><a href=\"https://voirdrama.org/?s=&amp;post_type=wp-manga\">RECHERCHE AV</a></li>"
+    },
+    "#menu-item-30505": {
+      "count": 1,
+      "tag": "li",
+      "text": "VOIRANIME",
+      "html": "<li id=\"menu-item-30505\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-30505\"><a href=\"https://voiranime.com\">VOIRANIME</a></li>"
+    },
+    "#menu-main-menu-1": {
+      "count": 1,
+      "tag": "ul",
+      "text": "ACCUEIL \nLISTE \nNOUVEAU \nRECHERCHE AV \nVOIRANIME",
+      "html": "<ul id=\"menu-main-menu-1\" class=\"nav navbar-nav main-navbar\"><li id=\"nav-menu-item-31\" class=\"main-menu-item menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page menu-item-home\">"
+    },
+    "#nav-menu-item-31": {
+      "count": 1,
+      "tag": "li",
+      "text": "ACCUEIL",
+      "html": "<li id=\"nav-menu-item-31\" class=\"main-menu-item menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page menu-item-home\"><a href=\"https://voirdrama.org/\" class=\"menu-link  main-menu-"
+    },
+    "#nav-menu-item-32": {
+      "count": 1,
+      "tag": "li",
+      "text": "LISTE",
+      "html": "<li id=\"nav-menu-item-32\" class=\"main-menu-item menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page\"><a href=\"https://voirdrama.org/liste-dramas/\" class=\"menu-link  main-menu-li"
+    },
+    "#nav-menu-item-36483": {
+      "count": 1,
+      "tag": "li",
+      "text": "NOUVEAU",
+      "html": "<li id=\"nav-menu-item-36483\" class=\"main-menu-item menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page\"><a href=\"https://voirdrama.org/nouveaux-ajouts/\" class=\"menu-link  main-m"
+    },
+    "#nav-menu-item-27": {
+      "count": 1,
+      "tag": "li",
+      "text": "RECHERCHE AV",
+      "html": "<li id=\"nav-menu-item-27\" class=\"main-menu-item menu-item-depth-0 menu-item menu-item-type-custom menu-item-object-custom\"><a href=\"https://voirdrama.org/?s=&amp;post_type=wp-manga\" class=\"menu-link  "
+    },
+    "#nav-menu-item-30505": {
+      "count": 1,
+      "tag": "li",
+      "text": "VOIRANIME",
+      "html": "<li id=\"nav-menu-item-30505\" class=\"main-menu-item menu-item-depth-0 menu-item menu-item-type-custom menu-item-object-custom\"><a href=\"https://voiranime.com\" class=\"menu-link  main-menu-link\">VOIRANIM"
+    },
+    "#menu-item-2415": {
+      "count": 1,
+      "tag": "li",
+      "text": "Action",
+      "html": "<li id=\"menu-item-2415\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2415\"><a href=\"https://voirdrama.org/drama-genre/action/\">Action</a></li>"
+    },
+    "#menu-item-2416": {
+      "count": 1,
+      "tag": "li",
+      "text": "Affaires",
+      "html": "<li id=\"menu-item-2416\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2416\"><a href=\"https://voirdrama.org/drama-genre/affaires/\">Affaires</a></li>"
+    },
+    "#menu-item-2417": {
+      "count": 1,
+      "tag": "li",
+      "text": "Amiti\u00e9",
+      "html": "<li id=\"menu-item-2417\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2417\"><a href=\"https://voirdrama.org/drama-genre/amitie/\">Amiti\u00e9</a></li>"
+    },
+    "#menu-item-2418": {
+      "count": 1,
+      "tag": "li",
+      "text": "Arts martiaux",
+      "html": "<li id=\"menu-item-2418\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2418\"><a href=\"https://voirdrama.org/drama-genre/arts-martiaux/\">Arts martiaux</a></li>"
+    },
+    "#menu-item-2419": {
+      "count": 1,
+      "tag": "li",
+      "text": "Aventure",
+      "html": "<li id=\"menu-item-2419\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2419\"><a href=\"https://voirdrama.org/drama-genre/aventure/\">Aventure</a></li>"
+    },
+    "#menu-item-2420": {
+      "count": 1,
+      "tag": "li",
+      "text": "Com\u00e9die",
+      "html": "<li id=\"menu-item-2420\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre current-wp-manga-ancestor current-menu-parent current-wp-manga-parent menu-item-2420\"><a href=\"https://"
+    },
+    "#menu-item-49": {
+      "count": 1,
+      "tag": "li",
+      "text": "Plus\n\n\tContexte scolaire\n\tCrime\n\tCulinaire\n\tDocume",
+      "html": "<li id=\"menu-item-49\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children parent menu-item-49\"><a href=\"#\">Plus</a>\n<ul class=\"sub-menu\">\n\t<li id=\"menu-item-2421\" cla"
+    },
+    "#menu-item-2421": {
+      "count": 1,
+      "tag": "li",
+      "text": "Contexte scolaire",
+      "html": "<li id=\"menu-item-2421\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2421\"><a href=\"https://voirdrama.org/drama-genre/contexte-scolaire/\">Contexte scolaire</a></l"
+    },
+    "#menu-item-2422": {
+      "count": 1,
+      "tag": "li",
+      "text": "Crime",
+      "html": "<li id=\"menu-item-2422\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2422\"><a href=\"https://voirdrama.org/drama-genre/crime/\">Crime</a></li>"
+    },
+    "#menu-item-2423": {
+      "count": 1,
+      "tag": "li",
+      "text": "Culinaire",
+      "html": "<li id=\"menu-item-2423\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2423\"><a href=\"https://voirdrama.org/drama-genre/culinaire/\">Culinaire</a></li>"
+    },
+    "#menu-item-2424": {
+      "count": 1,
+      "tag": "li",
+      "text": "Documentaire",
+      "html": "<li id=\"menu-item-2424\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2424\"><a href=\"https://voirdrama.org/drama-genre/documentaire/\">Documentaire</a></li>"
+    },
+    "#menu-item-2425": {
+      "count": 1,
+      "tag": "li",
+      "text": "Drame",
+      "html": "<li id=\"menu-item-2425\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2425\"><a href=\"https://voirdrama.org/drama-genre/drame/\">Drame</a></li>"
+    },
+    "#menu-item-2426": {
+      "count": 1,
+      "tag": "li",
+      "text": "Famille",
+      "html": "<li id=\"menu-item-2426\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2426\"><a href=\"https://voirdrama.org/drama-genre/famille/\">Famille</a></li>"
+    },
+    "#menu-item-2427": {
+      "count": 1,
+      "tag": "li",
+      "text": "Fantastique",
+      "html": "<li id=\"menu-item-2427\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2427\"><a href=\"https://voirdrama.org/drama-genre/fantastique/\">Fantastique</a></li>"
+    },
+    "#menu-item-2428": {
+      "count": 1,
+      "tag": "li",
+      "text": "Guerre",
+      "html": "<li id=\"menu-item-2428\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2428\"><a href=\"https://voirdrama.org/drama-genre/guerre/\">Guerre</a></li>"
+    },
+    "#menu-item-2429": {
+      "count": 1,
+      "tag": "li",
+      "text": "Historique",
+      "html": "<li id=\"menu-item-2429\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2429\"><a href=\"https://voirdrama.org/drama-genre/historique/\">Historique</a></li>"
+    },
+    "#menu-item-2430": {
+      "count": 1,
+      "tag": "li",
+      "text": "Horreur",
+      "html": "<li id=\"menu-item-2430\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2430\"><a href=\"https://voirdrama.org/drama-genre/horreur/\">Horreur</a></li>"
+    },
+    "#menu-item-2431": {
+      "count": 1,
+      "tag": "li",
+      "text": "Jeunesse",
+      "html": "<li id=\"menu-item-2431\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2431\"><a href=\"https://voirdrama.org/drama-genre/jeunesse/\">Jeunesse</a></li>"
+    },
+    "#menu-item-2432": {
+      "count": 1,
+      "tag": "li",
+      "text": "Judiciaire",
+      "html": "<li id=\"menu-item-2432\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2432\"><a href=\"https://voirdrama.org/drama-genre/judiciaire/\">Judiciaire</a></li>"
+    },
+    "#menu-item-2433": {
+      "count": 1,
+      "tag": "li",
+      "text": "Mature",
+      "html": "<li id=\"menu-item-2433\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2433\"><a href=\"https://voirdrama.org/drama-genre/mature/\">Mature</a></li>"
+    },
+    "#menu-item-2434": {
+      "count": 1,
+      "tag": "li",
+      "text": "M\u00e9dical",
+      "html": "<li id=\"menu-item-2434\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2434\"><a href=\"https://voirdrama.org/drama-genre/medical/\">M\u00e9dical</a></li>"
+    },
+    "#menu-item-2435": {
+      "count": 1,
+      "tag": "li",
+      "text": "M\u00e9lodrame",
+      "html": "<li id=\"menu-item-2435\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2435\"><a href=\"https://voirdrama.org/drama-genre/melodrame/\">M\u00e9lodrame</a></li>"
+    },
+    "#menu-item-2436": {
+      "count": 1,
+      "tag": "li",
+      "text": "Militaire",
+      "html": "<li id=\"menu-item-2436\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2436\"><a href=\"https://voirdrama.org/drama-genre/militaire/\">Militaire</a></li>"
+    },
+    "#menu-item-2437": {
+      "count": 1,
+      "tag": "li",
+      "text": "Musique",
+      "html": "<li id=\"menu-item-2437\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2437\"><a href=\"https://voirdrama.org/drama-genre/musique/\">Musique</a></li>"
+    },
+    "#menu-item-2438": {
+      "count": 1,
+      "tag": "li",
+      "text": "Myst\u00e8re",
+      "html": "<li id=\"menu-item-2438\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2438\"><a href=\"https://voirdrama.org/drama-genre/mystere/\">Myst\u00e8re</a></li>"
+    },
+    "#menu-item-2439": {
+      "count": 1,
+      "tag": "li",
+      "text": "Politique",
+      "html": "<li id=\"menu-item-2439\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2439\"><a href=\"https://voirdrama.org/drama-genre/politique/\">Politique</a></li>"
+    },
+    "#menu-item-2440": {
+      "count": 1,
+      "tag": "li",
+      "text": "Psychologique",
+      "html": "<li id=\"menu-item-2440\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2440\"><a href=\"https://voirdrama.org/drama-genre/psychologique/\">Psychologique</a></li>"
+    },
+    "#menu-item-2441": {
+      "count": 1,
+      "tag": "li",
+      "text": "Romance",
+      "html": "<li id=\"menu-item-2441\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre current-wp-manga-ancestor current-menu-parent current-wp-manga-parent menu-item-2441\"><a href=\"https://"
+    },
+    "#menu-item-2442": {
+      "count": 1,
+      "tag": "li",
+      "text": "SF",
+      "html": "<li id=\"menu-item-2442\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2442\"><a href=\"https://voirdrama.org/drama-genre/sf/\">SF</a></li>"
+    },
+    "#menu-item-2443": {
+      "count": 1,
+      "tag": "li",
+      "text": "Sitcom",
+      "html": "<li id=\"menu-item-2443\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2443\"><a href=\"https://voirdrama.org/drama-genre/sitcom/\">Sitcom</a></li>"
+    },
+    "#menu-item-2444": {
+      "count": 1,
+      "tag": "li",
+      "text": "Sport",
+      "html": "<li id=\"menu-item-2444\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2444\"><a href=\"https://voirdrama.org/drama-genre/sport/\">Sport</a></li>"
+    },
+    "#menu-item-2445": {
+      "count": 1,
+      "tag": "li",
+      "text": "Surnaturel",
+      "html": "<li id=\"menu-item-2445\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2445\"><a href=\"https://voirdrama.org/drama-genre/surnaturel/\">Surnaturel</a></li>"
+    },
+    "#menu-item-2446": {
+      "count": 1,
+      "tag": "li",
+      "text": "Thriller",
+      "html": "<li id=\"menu-item-2446\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2446\"><a href=\"https://voirdrama.org/drama-genre/thriller/\">Thriller</a></li>"
+    },
+    "#menu-item-2447": {
+      "count": 1,
+      "tag": "li",
+      "text": "Tokusatsu",
+      "html": "<li id=\"menu-item-2447\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2447\"><a href=\"https://voirdrama.org/drama-genre/tokusatsu/\">Tokusatsu</a></li>"
+    },
+    "#menu-item-2448": {
+      "count": 1,
+      "tag": "li",
+      "text": "Vie quotidienne",
+      "html": "<li id=\"menu-item-2448\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2448\"><a href=\"https://voirdrama.org/drama-genre/vie-quotidienne/\">Vie quotidienne</a></li>"
+    },
+    "#menu-item-2449": {
+      "count": 1,
+      "tag": "li",
+      "text": "Wuxia",
+      "html": "<li id=\"menu-item-2449\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2449\"><a href=\"https://voirdrama.org/drama-genre/wuxia/\">Wuxia</a></li>"
+    },
+    "#manga-reading-nav-head": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"entry-header header\" id=\"manga-reading-nav-head\" data-position=\"header\" data-chapter=\"pump-up-the-healthy-love-04-vostfr\" data-id=\"71682\">\t\t\t\t<div class=\"wp-manga-nav\">\n\t\t\t\t\t<div class=\"en"
+    },
+    "#wp-manga-current-chap": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"hidden\" id=\"wp-manga-current-chap\" data-id=\"61581\" value=\"pump-up-the-healthy-love-04-vostfr\" style=\"\">"
+    },
+    "#chapter-video-frame": {
+      "count": 1,
+      "tag": "div",
+      "text": "Valider",
+      "html": "<div class=\"chapter-video-frame\" id=\"chapter-video-frame\">\n\t\t\t\t\n<div class=\"chapter-video-content-validator\">\n\t\t\t\t\t<script src=\"https://www.google.com/recaptcha/api.js?hl=fr\"></script><p></p>\n<form id"
+    },
+    "#chapter-video-captcha-validator": {
+      "count": 1,
+      "tag": "form",
+      "text": "Valider",
+      "html": "<form id=\"chapter-video-captcha-validator\" action=\"https://voirdrama.org/wp-admin/admin-ajax.php\" data-error-msg=\"Please check on reCaptcha\"><p></p>\n<div class=\"g-recaptcha\" data-sitekey=\"6Le3G1YhAAAA"
+    },
+    "#g-recaptcha-response": {
+      "count": 1,
+      "tag": "textarea",
+      "text": "",
+      "html": "<textarea id=\"g-recaptcha-response\" name=\"g-recaptcha-response\" class=\"g-recaptcha-response\" style=\"width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; r"
+    },
+    "#manga-reading-nav-foot": {
+      "count": 1,
+      "tag": "div",
+      "text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR",
+      "html": "<div class=\"entry-header footer\" id=\"manga-reading-nav-foot\" data-position=\"footer\" data-id=\"71682\">\n            <div class=\"wp-manga-nav\">\n                <div class=\"select-view\">\n\t\t\t\t\t\n\t\t\t\t\t       "
+    },
+    "#manga-discussion": {
+      "count": 1,
+      "tag": "div",
+      "text": "DISCUSSION \n\n\t\t\t\t                    \n            ",
+      "html": "<div id=\"manga-discussion\" class=\"c-blog__heading style-2 font-heading\">\n                <i class=\"ion-ios-star\"></i>\n                <h4> DISCUSSION </h4>\n\n\t\t\t\t                    <div class=\"comment"
+    },
+    "#manga-discussion-local": {
+      "count": 1,
+      "tag": "div",
+      "text": "Laisser un commentaire Cancel reply\n\t\t\t\t\t vous dev",
+      "html": "<div id=\"manga-discussion-local\">\n\t\t\t\t\t\t\n<div class=\"hr mv40\"></div>\n\n<div id=\"madara-comments\" class=\"comments-area\">\n\n\t\n\t\t<div id=\"respond\" class=\"comment-respond\">\n\t\t<h4 id=\"reply-title\" class=\"com"
+    },
+    "#madara-comments": {
+      "count": 1,
+      "tag": "div",
+      "text": "Laisser un commentaire Cancel reply\n\t\t\t\t\t vous dev",
+      "html": "<div id=\"madara-comments\" class=\"comments-area\">\n\n\t\n\t\t<div id=\"respond\" class=\"comment-respond\">\n\t\t<h4 id=\"reply-title\" class=\"comment-reply-title\">Laisser un commentaire <small><a rel=\"nofollow\" id=\""
+    },
+    "#respond": {
+      "count": 1,
+      "tag": "div",
+      "text": "Laisser un commentaire Cancel reply\n\t\t\t\t\t vous dev",
+      "html": "<div id=\"respond\" class=\"comment-respond\">\n\t\t<h4 id=\"reply-title\" class=\"comment-reply-title\">Laisser un commentaire <small><a rel=\"nofollow\" id=\"cancel-comment-reply-link\" href=\"/drama/pump-up-the-he"
+    },
+    "#reply-title": {
+      "count": 1,
+      "tag": "h4",
+      "text": "Laisser un commentaire Cancel reply",
+      "html": "<h4 id=\"reply-title\" class=\"comment-reply-title\">Laisser un commentaire <small><a rel=\"nofollow\" id=\"cancel-comment-reply-link\" href=\"/drama/pump-up-the-healthy-love/pump-up-the-healthy-love-04-vostfr"
+    },
+    "#cancel-comment-reply-link": {
+      "count": 1,
+      "tag": "a",
+      "text": "Cancel reply",
+      "html": "<a rel=\"nofollow\" id=\"cancel-comment-reply-link\" href=\"/drama/pump-up-the-healthy-love/pump-up-the-healthy-love-04-vostfr/#respond\" style=\"display:none;\">Cancel reply</a>"
+    },
+    "#comments": {
+      "count": 1,
+      "tag": "ol",
+      "text": "Sdo.23\n                \n                \n         ",
+      "html": "<ol class=\"comment-list\" id=\"comments\">\n\t\t\t            <li class=\"comment byuser comment-author-sdo-23 even thread-even depth-1\" id=\"comment-24177\">\n\t\t\t                <article id=\"div-comment-24177\" "
+    },
+    "#comment-24177": {
+      "count": 1,
+      "tag": "li",
+      "text": "Sdo.23\n                \n                \n         ",
+      "html": "<li class=\"comment byuser comment-author-sdo-23 even thread-even depth-1\" id=\"comment-24177\">\n\t\t\t                <article id=\"div-comment-24177\" class=\"comment-body\">\n\t\t\t            <div class=\"block "
+    },
+    "#div-comment-24177": {
+      "count": 1,
+      "tag": "article",
+      "text": "Sdo.23\n                \n                \n         ",
+      "html": "<article id=\"div-comment-24177\" class=\"comment-body\">\n\t\t\t            <div class=\"block block-left\">\n                <footer class=\"comment-meta\">\n                    <div class=\"comment-avatar\">\n\t\t\t\t\t"
+    },
+    "#comment-24190": {
+      "count": 1,
+      "tag": "li",
+      "text": "nanalsg\n                \n                \n        ",
+      "html": "<li class=\"comment byuser comment-author-nanalsg odd alt thread-odd thread-alt depth-1\" id=\"comment-24190\">\n\t\t\t                <article id=\"div-comment-24190\" class=\"comment-body\">\n\t\t\t            <div"
+    },
+    "#div-comment-24190": {
+      "count": 1,
+      "tag": "article",
+      "text": "nanalsg\n                \n                \n        ",
+      "html": "<article id=\"div-comment-24190\" class=\"comment-body\">\n\t\t\t            <div class=\"block block-left\">\n                <footer class=\"comment-meta\">\n                    <div class=\"comment-avatar\">\n\t\t\t\t\t"
+    },
+    "#manga-discussion-disqus": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"manga-discussion-disqus\" style=\"display:none;\">\n\t\t\t\t\t\t                    </div>"
+    },
+    "#main-sidebar": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div id=\"main-sidebar\" class=\"main-sidebar\" role=\"complementary\">\n\t\t\t<div class=\"row\"><div id=\"block-9\" class=\"widget col-12 col-md-12   default no-icon  widget_block\"><div class=\"widget__inner widget"
+    },
+    "#block-9": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div id=\"block-9\" class=\"widget col-12 col-md-12   default no-icon  widget_block\"><div class=\"widget__inner widget_block__inner c-widget-wrap\"><div class=\"widget-content\"><p></p><div class=\"asp_w_cont"
+    },
+    "#ajaxsearchpro7_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_7 asp_m_7_2 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro asp_main_container  asp_non_compact\" data-id=\"7\" data-name=\"classic VOSTFR\" data-instance=\"2\" id=\"ajaxsearchpr"
+    },
+    "#asp_init_id_7_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_init_data\" style=\"display:none !important;\" id=\"asp_init_id_7_2\" data-asp-id=\"7\" data-asp-instance=\"2\" data-aspdata=\"eyJob21ldXJsIjoiaHR0cHM6XC9cL3ZvaXJkcmFtYS5vcmdcLyIsImlzX3Jlc3VsdHN"
+    },
+    "#__original__ajaxsearchprores7_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores7_2\" class=\"asp_w asp_r asp_r_7 asp_r_7_2 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-7\" data-id=\"7\" data-instance=\"2\">\n\n    \n    \n    \n    <div class=\""
+    },
+    "#__original__ajaxsearchprosettings7_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Generic filters\n    \n    \n        \n\t\t\n    \n    \n  ",
+      "html": "<div id=\"__original__ajaxsearchprosettings7_2\" class=\"asp_w asp_ss asp_ss_7 asp_s asp_s_7 asp_s_7_2 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro searchsettings\" data-id=\"7\" data-instance=\"2\">\n\t<for"
+    },
+    "#set_exact7_2": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"exact\" id=\"set_exact7_2\" aria-label=\"Exact matches only\" name=\"asp_gen[]\" style=\"\">"
+    },
+    "#set_title7_2": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"title\" id=\"set_title7_2\" data-origvalue=\"1\" aria-label=\"Search in title\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#set_content7_2": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"content\" id=\"set_content7_2\" data-origvalue=\"1\" aria-label=\"Search in content\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#set_excerpt7_2": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"excerpt\" id=\"set_excerpt7_2\" data-origvalue=\"1\" aria-label=\"Search in excerpt\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#aspf7_21[vf__1]": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"hidden\" value=\"vf\" data-origvalue=\"vf\" id=\"aspf7_21[vf__1]\" name=\"aspf[vf__1]\" style=\"\">"
+    },
+    "#ajaxsearchpro6_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_6 asp_m_6_2 wpdreams_asp_sc wpdreams_asp_sc-6 ajaxsearchpro asp_main_container  asp_non_compact\" data-id=\"6\" data-name=\"classic VF\" data-instance=\"2\" id=\"ajaxsearchpro6_2"
+    },
+    "#asp_init_id_6_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_init_data\" style=\"display:none !important;\" id=\"asp_init_id_6_2\" data-asp-id=\"6\" data-asp-instance=\"2\" data-aspdata=\"eyJob21ldXJsIjoiaHR0cHM6XC9cL3ZvaXJkcmFtYS5vcmdcLyIsImlzX3Jlc3VsdHN"
+    },
+    "#__original__ajaxsearchprores6_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores6_2\" class=\"asp_w asp_r asp_r_6 asp_r_6_2 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-6\" data-id=\"6\" data-instance=\"2\">\n\n    \n    \n    \n    <div class=\""
+    },
+    "#__original__ajaxsearchprosettings6_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Generic filters\n    \n    \n        \n\t\t\n    \n    \n  ",
+      "html": "<div id=\"__original__ajaxsearchprosettings6_2\" class=\"asp_w asp_ss asp_ss_6 asp_s asp_s_6 asp_s_6_2 wpdreams_asp_sc wpdreams_asp_sc-6 ajaxsearchpro searchsettings\" data-id=\"6\" data-instance=\"2\">\n\t<for"
+    },
+    "#set_exact6_2": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"exact\" id=\"set_exact6_2\" aria-label=\"Exact matches only\" name=\"asp_gen[]\" style=\"\">"
+    },
+    "#set_title6_2": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"title\" id=\"set_title6_2\" data-origvalue=\"1\" aria-label=\"Search in title\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#set_content6_2": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"content\" id=\"set_content6_2\" data-origvalue=\"1\" aria-label=\"Search in content\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#set_excerpt6_2": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"excerpt\" id=\"set_excerpt6_2\" data-origvalue=\"1\" aria-label=\"Search in excerpt\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#aspf6_21[vf__1]": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"hidden\" value=\"vf\" data-origvalue=\"vf\" id=\"aspf6_21[vf__1]\" name=\"aspf[vf__1]\" style=\"\">"
+    },
+    "#menu-item-2254": {
+      "count": 1,
+      "tag": "li",
+      "text": "CONTACT",
+      "html": "<li id=\"menu-item-2254\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-2254\"><a href=\"mailto:voirdrama@proton.me\">CONTACT</a></li>"
+    },
+    "#form-login": {
+      "count": 1,
+      "tag": "div",
+      "text": "\u00d7\n                \n                \n              ",
+      "html": "<div class=\"modal fade\" id=\"form-login\" tabindex=\"-1\" role=\"dialog\">\n        <div class=\"modal-dialog\" role=\"document\">\n            <div class=\"modal-content\">\n                <div class=\"modal-header"
+    },
+    "#login": {
+      "count": 1,
+      "tag": "div",
+      "text": "S'enregistrer\n                        \n           ",
+      "html": "<div id=\"login\" class=\"login\">\n                        <h3>\n                            <a href=\"https://voirdrama.org/\" title=\"Voirdrama\" tabindex=\"-1\">S'enregistrer</a>\n                        </h3>"
+    },
+    "#loginform": {
+      "count": 1,
+      "tag": "form",
+      "text": "Email ou Nom d'utilisateur *                      ",
+      "html": "<form name=\"loginform\" id=\"loginform\" method=\"post\">\n                            <p>\n                                <label>Email ou Nom d'utilisateur *                                    <br> <input "
+    },
+    "#rememberme": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input name=\"rememberme\" type=\"checkbox\" id=\"rememberme\" value=\"forever\" style=\"\">"
+    },
+    "#form-sign-up": {
+      "count": 1,
+      "tag": "div",
+      "text": "\u00d7\n                \n                \n              ",
+      "html": "<div class=\"modal fade\" id=\"form-sign-up\" tabindex=\"-1\" role=\"dialog\">\n        <div class=\"modal-dialog\" role=\"document\">\n            <div class=\"modal-content\">\n                <div class=\"modal-head"
+    },
+    "#sign-up": {
+      "count": 1,
+      "tag": "div",
+      "text": "S'enregistrer\n                        \n           ",
+      "html": "<div id=\"sign-up\" class=\"login\">\n                        <h3>\n                            <a href=\"https://voirdrama.org/\" title=\"Voirdrama\" tabindex=\"-1\">S'enregistrer</a>\n                        </h"
+    },
+    "#registerform": {
+      "count": 1,
+      "tag": "form",
+      "text": "Nom d\u2019utilisateur *                               ",
+      "html": "<form name=\"registerform\" id=\"registerform\" novalidate=\"novalidate\">\n                            <p>\n                                <label>Nom d\u2019utilisateur *                                    <br>\n"
+    },
+    "#form-reset": {
+      "count": 1,
+      "tag": "div",
+      "text": "\u00d7\n                \n                \n              ",
+      "html": "<div class=\"modal fade\" id=\"form-reset\" tabindex=\"-1\" role=\"dialog\">\n        <div class=\"modal-dialog\" role=\"document\">\n            <div class=\"modal-content\">\n                <div class=\"modal-header"
+    },
+    "#reset": {
+      "count": 1,
+      "tag": "div",
+      "text": "Mot de passe oubli\u00e9 ?\n                        \n   ",
+      "html": "<div id=\"reset\" class=\"login\">\n                        <h3>\n                            <a href=\"javascript:void(0)\" class=\"to-reset\">Mot de passe oubli\u00e9 ?</a>\n                        </h3>\n          "
+    },
+    "#resetform": {
+      "count": 1,
+      "tag": "form",
+      "text": "Username or Email Address",
+      "html": "<form name=\"resetform\" id=\"resetform\" method=\"post\">\n                            <p>\n                                <label>Username or Email Address                                    <br>\n          "
+    },
+    "#user_reset": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"text\" name=\"user_reset\" id=\"user_reset\" class=\"input\" value=\"\" size=\"20\" style=\"\">"
+    },
+    "#asp_hidden_data": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_hidden_data\" id=\"asp_hidden_data\" style=\"display: none !important;\">\n\t\t\t<svg style=\"position:absolute\" height=\"0\" width=\"0\">\n\t\t\t\t<filter id=\"aspblur\">\n\t\t\t\t\t<feGaussianBlur in=\"SourceGr"
+    },
+    "#aspblur": {
+      "count": 1,
+      "tag": "filter",
+      "text": "",
+      "html": "<filter id=\"aspblur\">\n\t\t\t\t\t<feGaussianBlur in=\"SourceGraphic\" stdDeviation=\"4\"></feGaussianBlur>\n\t\t\t\t</filter>"
+    },
+    "#no_aspblur": {
+      "count": 1,
+      "tag": "filter",
+      "text": "",
+      "html": "<filter id=\"no_aspblur\"></filter>"
+    },
+    "#widget-logic_live_match_widget-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://widgetlogic.org/v2/js/data.js?t=1746921600&amp;ver=6.0.0\" id=\"widget-logic_live_match_widget-js\"></script>"
+    },
+    "#comment-reply-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-includes/js/comment-reply.min.js?ver=6.7.2\" id=\"comment-reply-js\" async=\"async\" data-wp-strategy=\"async\"></script>"
+    },
+    "#madara-core-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-content/themes/madara/js/core.js?ver=6.7.2\" id=\"madara-core-js\"></script>"
+    },
+    "#bootstrap-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-content/themes/madara/js/bootstrap.min.js?ver=4.6.0\" id=\"bootstrap-js\"></script>"
+    },
+    "#shuffle-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-content/themes/madara/js/shuffle.min.js?ver=5.3.0\" id=\"shuffle-js\"></script>"
+    },
+    "#imagesloaded-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-includes/js/imagesloaded.min.js?ver=5.0.0\" id=\"imagesloaded-js\"></script>"
+    },
+    "#aos-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-content/themes/madara/js/aos.js?ver=6.7.2\" id=\"aos-js\"></script>"
+    },
+    "#madara-js-js-extra": {
+      "count": 1,
+      "tag": "script",
+      "text": "/* <![CDATA[ */\nvar madara = {\"ajaxurl\":\"https:\\/\\",
+      "html": "<script type=\"text/javascript\" id=\"madara-js-js-extra\">\n/* <![CDATA[ */\nvar madara = {\"ajaxurl\":\"https:\\/\\/voirdrama.org\\/wp-admin\\/admin-ajax.php\",\"query_vars\":{\"manga-core\":\"pump-up-the-healthy-love"
+    },
+    "#madara-js-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-content/themes/madara/js/template.js?ver=1.7.3\" id=\"madara-js-js\"></script>"
+    },
+    "#madara-ajax-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-content/themes/madara/js/ajax.js?ver=6.7.2\" id=\"madara-ajax-js\"></script>"
+    },
+    "#wp-manga-login-ajax-js-extra": {
+      "count": 1,
+      "tag": "script",
+      "text": "/* <![CDATA[ */\nvar wpMangaLogin = {\"admin_ajax\":\"",
+      "html": "<script type=\"text/javascript\" id=\"wp-manga-login-ajax-js-extra\">\n/* <![CDATA[ */\nvar wpMangaLogin = {\"admin_ajax\":\"https:\\/\\/voirdrama.org\\/wp-admin\\/admin-ajax.php\",\"home_url\":\"https:\\/\\/voirdrama.o"
+    },
+    "#wp-manga-login-ajax-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-content/plugins/madara-core/assets/js/login.js?ver=1.7.2\" id=\"wp-manga-login-ajax-js\"></script>"
+    },
+    "#wp-manga-slick-js-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-content/plugins/madara-core/assets/slick/slick.min.js?ver=6.7.2\" id=\"wp-manga-slick-js-js\"></script>"
+    },
+    "#jquery-ui-core-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-includes/js/jquery/ui/core.min.js?ver=1.13.3\" id=\"jquery-ui-core-js\"></script>"
+    },
+    "#jquery-ui-menu-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-includes/js/jquery/ui/menu.min.js?ver=1.13.3\" id=\"jquery-ui-menu-js\"></script>"
+    },
+    "#wp-dom-ready-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-includes/js/dist/dom-ready.min.js?ver=f77871ff7694fffea381\" id=\"wp-dom-ready-js\"></script>"
+    },
+    "#wp-hooks-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-includes/js/dist/hooks.min.js?ver=4d63a3d491d11ffd8ac6\" id=\"wp-hooks-js\"></script>"
+    },
+    "#wp-i18n-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-includes/js/dist/i18n.min.js?ver=5e580eb46a90c2b997e6\" id=\"wp-i18n-js\"></script>"
+    },
+    "#wp-i18n-js-after": {
+      "count": 1,
+      "tag": "script",
+      "text": "/* <![CDATA[ */\nwp.i18n.setLocaleData( { 'text dir",
+      "html": "<script type=\"text/javascript\" id=\"wp-i18n-js-after\">\n/* <![CDATA[ */\nwp.i18n.setLocaleData( { 'text direction\\u0004ltr': [ 'ltr' ] } );\n/* ]]> */\n</script>"
+    },
+    "#wp-a11y-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-includes/js/dist/a11y.min.js?ver=3156534cc54473497e14\" id=\"wp-a11y-js\"></script>"
+    },
+    "#jquery-ui-autocomplete-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-includes/js/jquery/ui/autocomplete.min.js?ver=1.13.3\" id=\"jquery-ui-autocomplete-js\"></script>"
+    },
+    "#wp-manga-js-extra": {
+      "count": 1,
+      "tag": "script",
+      "text": "/* <![CDATA[ */\nvar mangaNav = {\"mangaUrl\":\"https:",
+      "html": "<script type=\"text/javascript\" id=\"wp-manga-js-extra\">\n/* <![CDATA[ */\nvar mangaNav = {\"mangaUrl\":\"https:\\/\\/voirdrama.org\\/drama\\/pump-up-the-healthy-love\\/\",\"backInfoPage\":\"off\",\"text\":{\"backInfoPag"
+    },
+    "#wp-manga-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-content/plugins/madara-core/assets/js/script.js?ver=1.7.1\" id=\"wp-manga-js\"></script>"
+    },
+    "#lity-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-content/plugins/madara-core/assets/js/lity.min.js?ver=2.4.1\" id=\"lity-js\"></script>"
+    },
+    "#slick-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-content/themes/madara/js/slick/slick.min.js?ver=1.9.0\" id=\"slick-js\"></script>"
+    },
+    "#ct-shortcode-js-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://voirdrama.org/wp-content/plugins/madara-shortcodes/shortcodes/js/ct-shortcodes.js?ver=1.5.2.1\" id=\"ct-shortcode-js-js\"></script>"
+    },
+    "#wd-asp-instances-9aa3154b": {
+      "count": 1,
+      "tag": "script",
+      "text": "window.ASP_INSTANCES = [];window.ASP_INSTANCES[6] ",
+      "html": "<script id=\"wd-asp-instances-9aa3154b\">window.ASP_INSTANCES = [];window.ASP_INSTANCES[6] = {\"homeurl\":\"https:\\/\\/voirdrama.org\\/\",\"is_results_page\":0,\"resultstype\":\"vertical\",\"resultsposition\":\"hover\""
+    },
+    "#asp-bfa89e86-js-before": {
+      "count": 1,
+      "tag": "script",
+      "text": "if ( typeof window.ASP == 'undefined') { window.AS",
+      "html": "<script type=\"text/javascript\" id=\"asp-bfa89e86-js-before\">if ( typeof window.ASP == 'undefined') { window.ASP = {wp_rocket_exception: \"DOMContentLoaded\", ajaxurl: \"https:\\/\\/voirdrama.org\\/wp-admin\\/"
+    },
+    "#asp-bfa89e86-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script async=\"\" type=\"text/javascript\" src=\"https://voirdrama.org/wp-content/cache/asp/asp-bfa89e86.js\" id=\"asp-bfa89e86-js\"></script>"
+    },
+    "#a11y-speak-intro-text": {
+      "count": 1,
+      "tag": "p",
+      "text": "Notifications",
+      "html": "<p id=\"a11y-speak-intro-text\" class=\"a11y-speak-intro-text\" style=\"position: absolute;margin: -1px;padding: 0;height: 1px;width: 1px;overflow: hidden;clip: rect(1px, 1px, 1px, 1px);-webkit-clip-path: "
+    },
+    "#a11y-speak-assertive": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"a11y-speak-assertive\" class=\"a11y-speak-region\" style=\"position: absolute;margin: -1px;padding: 0;height: 1px;width: 1px;overflow: hidden;clip: rect(1px, 1px, 1px, 1px);-webkit-clip-path: ins"
+    },
+    "#a11y-speak-polite": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"a11y-speak-polite\" class=\"a11y-speak-region\" style=\"position: absolute;margin: -1px;padding: 0;height: 1px;width: 1px;overflow: hidden;clip: rect(1px, 1px, 1px, 1px);-webkit-clip-path: inset("
+    },
+    ".yoast-schema-graph": {
+      "count": 1,
+      "tag": "script",
+      "text": "{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type",
+      "html": "<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://voirdrama.org/drama/pump-up-the-healthy-love/\",\"url\":\"https:/"
+    },
+    ".wp-manga-template-default": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-71682 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 is-sidebar text-ui-dark manga-reading-p"
+    },
+    ".single": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-71682 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 is-sidebar text-ui-dark manga-reading-p"
+    },
+    ".single-wp-manga": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-71682 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 is-sidebar text-ui-dark manga-reading-p"
+    },
+    ".postid-71682": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-71682 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 is-sidebar text-ui-dark manga-reading-p"
+    },
+    ".wp-embed-responsive": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-71682 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 is-sidebar text-ui-dark manga-reading-p"
+    },
+    ".wp-manga-page": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-71682 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 is-sidebar text-ui-dark manga-reading-p"
+    },
+    ".reading-manga": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-71682 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 is-sidebar text-ui-dark manga-reading-p"
+    },
+    ".keyboard-navigate": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-71682 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 is-sidebar text-ui-dark manga-reading-p"
+    },
+    ".page": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-71682 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 is-sidebar text-ui-dark manga-reading-p"
+    },
+    ".header-style-1": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-71682 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 is-sidebar text-ui-dark manga-reading-p"
+    },
+    ".is-sidebar": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-71682 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 is-sidebar text-ui-dark manga-reading-p"
+    },
+    ".text-ui-dark": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-71682 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 is-sidebar text-ui-dark manga-reading-p"
+    },
+    ".manga-reading-paged-style": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-71682 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 is-sidebar text-ui-dark manga-reading-p"
+    },
+    ".wrap": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div class=\"wrap\">\n    <div class=\"body-wrap\">\n\t\t        <header class=\"site-header\">\n            <div class=\"c-header__top\">\n                <ul class=\"search-main-menu\">\n                    <li>\n\t\t\t"
+    },
+    ".body-wrap": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div class=\"body-wrap\">\n\t\t        <header class=\"site-header\">\n            <div class=\"c-header__top\">\n                <ul class=\"search-main-menu\">\n                    <li>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<"
+    },
+    ".site-header": {
+      "count": 1,
+      "tag": "header",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<header class=\"site-header\">\n            <div class=\"c-header__top\">\n                <ul class=\"search-main-menu\">\n                    <li>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"container\">\n\t\t\t\t\t\t\t\t<di"
+    },
+    ".c-header__top": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div class=\"c-header__top\">\n                <ul class=\"search-main-menu\">\n                    <li>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"container\">\n\t\t\t\t\t\t\t\t<div class=\"asp_w_container asp_w_container_"
+    },
+    ".search-main-menu": {
+      "count": 1,
+      "tag": "ul",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<ul class=\"search-main-menu\">\n                    <li>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"container\">\n\t\t\t\t\t\t\t\t<div class=\"asp_w_container asp_w_container_7 asp_w_container_7_1\" data-id=\"7\">\n\t<div cl"
+    },
+    ".container": {
+      "count": 6,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div class=\"container\">\n\t\t\t\t\t\t\t\t<div class=\"asp_w_container asp_w_container_7 asp_w_container_7_1\" data-id=\"7\">\n\t<div class=\"asp_w asp_m asp_m_7 asp_m_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchp"
+    },
+    ".asp_w_container": {
+      "count": 4,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div class=\"asp_w_container asp_w_container_7 asp_w_container_7_1\" data-id=\"7\">\n\t<div class=\"asp_w asp_m asp_m_7 asp_m_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro asp_main_container  asp_non_c"
+    },
+    ".asp_w_container_7": {
+      "count": 2,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div class=\"asp_w_container asp_w_container_7 asp_w_container_7_1\" data-id=\"7\">\n\t<div class=\"asp_w asp_m asp_m_7 asp_m_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro asp_main_container  asp_non_c"
+    },
+    ".asp_w_container_7_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div class=\"asp_w_container asp_w_container_7 asp_w_container_7_1\" data-id=\"7\">\n\t<div class=\"asp_w asp_m asp_m_7 asp_m_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro asp_main_container  asp_non_c"
+    },
+    ".asp_w": {
+      "count": 12,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_7 asp_m_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro asp_main_container  asp_non_compact\" data-id=\"7\" data-name=\"classic VOSTFR\" data-instance=\"1\" id=\"ajaxsearchpr"
+    },
+    ".asp_m": {
+      "count": 4,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_7 asp_m_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro asp_main_container  asp_non_compact\" data-id=\"7\" data-name=\"classic VOSTFR\" data-instance=\"1\" id=\"ajaxsearchpr"
+    },
+    ".asp_m_7": {
+      "count": 2,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_7 asp_m_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro asp_main_container  asp_non_compact\" data-id=\"7\" data-name=\"classic VOSTFR\" data-instance=\"1\" id=\"ajaxsearchpr"
+    },
+    ".asp_m_7_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_7 asp_m_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro asp_main_container  asp_non_compact\" data-id=\"7\" data-name=\"classic VOSTFR\" data-instance=\"1\" id=\"ajaxsearchpr"
+    },
+    ".wpdreams_asp_sc": {
+      "count": 12,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_7 asp_m_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro asp_main_container  asp_non_compact\" data-id=\"7\" data-name=\"classic VOSTFR\" data-instance=\"1\" id=\"ajaxsearchpr"
+    },
+    ".wpdreams_asp_sc-7": {
+      "count": 6,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_7 asp_m_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro asp_main_container  asp_non_compact\" data-id=\"7\" data-name=\"classic VOSTFR\" data-instance=\"1\" id=\"ajaxsearchpr"
+    },
+    ".ajaxsearchpro": {
+      "count": 12,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_7 asp_m_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro asp_main_container  asp_non_compact\" data-id=\"7\" data-name=\"classic VOSTFR\" data-instance=\"1\" id=\"ajaxsearchpr"
+    },
+    ".asp_main_container": {
+      "count": 4,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_7 asp_m_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro asp_main_container  asp_non_compact\" data-id=\"7\" data-name=\"classic VOSTFR\" data-instance=\"1\" id=\"ajaxsearchpr"
+    },
+    ".asp_non_compact": {
+      "count": 4,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_7 asp_m_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro asp_main_container  asp_non_compact\" data-id=\"7\" data-name=\"classic VOSTFR\" data-instance=\"1\" id=\"ajaxsearchpr"
+    },
+    ".probox": {
+      "count": 4,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"probox\">\n\n    \n    <div class=\"prosettings\" style=\"display:none;\" data-opened=\"0\">\n                <div class=\"innericon\">\n            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"22\" he"
+    },
+    ".prosettings": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"prosettings\" style=\"display:none;\" data-opened=\"0\">\n                <div class=\"innericon\">\n            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"22\" height=\"22\" viewBox=\"0 0 512 512\""
+    },
+    ".innericon": {
+      "count": 8,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"innericon\">\n            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"22\" height=\"22\" viewBox=\"0 0 512 512\"><polygon transform=\"rotate(90 256 256)\" points=\"142.332,104.886 197.48,50 402.5"
+    },
+    ".proinput": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"proinput\">\n        <form role=\"search\" action=\"#\" autocomplete=\"off\" aria-label=\"Search form\">\n            <input type=\"search\" class=\"orig\" placeholder=\"Rechercher en VOSTFR...\" name=\"phr"
+    },
+    ".orig": {
+      "count": 4,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"search\" class=\"orig\" placeholder=\"Rechercher en VOSTFR...\" name=\"phrase\" value=\"\" aria-label=\"Search input\" autocomplete=\"off\" style=\"\">"
+    },
+    ".autocomplete": {
+      "count": 4,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"text\" class=\"autocomplete\" name=\"phrase\" value=\"\" aria-label=\"Search autocomplete input\" aria-hidden=\"true\" tabindex=\"-1\" autocomplete=\"off\" disabled=\"\" style=\"\">"
+    },
+    ".promagnifier": {
+      "count": 4,
+      "tag": "button",
+      "text": "Search",
+      "html": "<button class=\"promagnifier\" aria-label=\"Search magnifier button\">\n\t\t\t\t<div class=\"asp_text_button hiddend\">\n\t\t\tSearch\t\t</div>\n\t\t<div class=\"innericon\">\n\t\t\t<svg xmlns=\"http://www.w3.org/2000/svg\" widt"
+    },
+    ".asp_text_button": {
+      "count": 4,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_text_button hiddend\">\n\t\t\tSearch\t\t</div>"
+    },
+    ".hiddend": {
+      "count": 8,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_text_button hiddend\">\n\t\t\tSearch\t\t</div>"
+    },
+    ".asp_clear": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_clear\"></div>"
+    },
+    ".proloading": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"proloading\">\n                        <div class=\"asp_loader\">\n            <div class=\"asp_loader-inner asp_ball-scale\">\n            \n                <div></div>\n                           "
+    },
+    ".asp_loader": {
+      "count": 8,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_loader\">\n            <div class=\"asp_loader-inner asp_ball-scale\">\n            \n                <div></div>\n                            </div>\n        </div>"
+    },
+    ".asp_loader-inner": {
+      "count": 8,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_loader-inner asp_ball-scale\">\n            \n                <div></div>\n                            </div>"
+    },
+    ".asp_ball-scale": {
+      "count": 8,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_loader-inner asp_ball-scale\">\n            \n                <div></div>\n                            </div>"
+    },
+    ".proclose": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"proclose\">\n            <svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" width=\"512px\" height=\"512px\" viewBox=\"0 0 512 512\" e"
+    },
+    ".asp_data_container": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_data_container\" style=\"display:none !important;\">\n\t\t<div class=\"asp_init_data\" style=\"display:none !important;\" id=\"asp_init_id_7_1\" data-asp-id=\"7\" data-asp-instance=\"1\" data-aspdata="
+    },
+    ".asp_init_data": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_init_data\" style=\"display:none !important;\" id=\"asp_init_id_7_1\" data-asp-id=\"7\" data-asp-instance=\"1\" data-aspdata=\"eyJob21ldXJsIjoiaHR0cHM6XC9cL3ZvaXJkcmFtYS5vcmdcLyIsImlzX3Jlc3VsdHN"
+    },
+    ".asp_hidden_data": {
+      "count": 5,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_hidden_data\" style=\"display:none !important;\">\n    <div class=\"asp_item_overlay\">\n        <div class=\"asp_item_inner\">\n            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"22\" he"
+    },
+    ".asp_item_overlay": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_item_overlay\">\n        <div class=\"asp_item_inner\">\n            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"22\" height=\"22\" viewBox=\"0 0 512 512\"><path d=\"M448.225 394.243l-85.387-8"
+    },
+    ".asp_item_inner": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_item_inner\">\n            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"22\" height=\"22\" viewBox=\"0 0 512 512\"><path d=\"M448.225 394.243l-85.387-85.385c16.55-26.08 26.146-56.986 26.146-"
+    },
+    ".asp_r": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores7_1\" class=\"asp_w asp_r asp_r_7 asp_r_7_1 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-7\" data-id=\"7\" data-instance=\"1\">\n\n    \n    \n    \n    <div class=\""
+    },
+    ".asp_r_7": {
+      "count": 2,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores7_1\" class=\"asp_w asp_r asp_r_7 asp_r_7_1 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-7\" data-id=\"7\" data-instance=\"1\">\n\n    \n    \n    \n    <div class=\""
+    },
+    ".asp_r_7_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores7_1\" class=\"asp_w asp_r asp_r_7 asp_r_7_1 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-7\" data-id=\"7\" data-instance=\"1\">\n\n    \n    \n    \n    <div class=\""
+    },
+    ".vertical": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores7_1\" class=\"asp_w asp_r asp_r_7 asp_r_7_1 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-7\" data-id=\"7\" data-instance=\"1\">\n\n    \n    \n    \n    <div class=\""
+    },
+    ".results": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"results\">\n\n        \n        <div class=\"resdrg\">\n        </div>\n\n        \n    </div>"
+    },
+    ".resdrg": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"resdrg\">\n        </div>"
+    },
+    ".asp_res_loader": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_res_loader hiddend\">\n                    <div class=\"asp_loader\">\n                <div class=\"asp_loader-inner asp_ball-scale\">\n                \n                    <div></div>\n       "
+    },
+    ".asp_ss": {
+      "count": 4,
+      "tag": "div",
+      "text": "Generic filters\n    \n    \n        \n\t\t\n    \n    \n  ",
+      "html": "<div id=\"__original__ajaxsearchprosettings7_1\" class=\"asp_w asp_ss asp_ss_7 asp_s asp_s_7 asp_s_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro searchsettings\" data-id=\"7\" data-instance=\"1\">\n\t<for"
+    },
+    ".asp_ss_7": {
+      "count": 2,
+      "tag": "div",
+      "text": "Generic filters\n    \n    \n        \n\t\t\n    \n    \n  ",
+      "html": "<div id=\"__original__ajaxsearchprosettings7_1\" class=\"asp_w asp_ss asp_ss_7 asp_s asp_s_7 asp_s_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro searchsettings\" data-id=\"7\" data-instance=\"1\">\n\t<for"
+    },
+    ".asp_s": {
+      "count": 4,
+      "tag": "div",
+      "text": "Generic filters\n    \n    \n        \n\t\t\n    \n    \n  ",
+      "html": "<div id=\"__original__ajaxsearchprosettings7_1\" class=\"asp_w asp_ss asp_ss_7 asp_s asp_s_7 asp_s_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro searchsettings\" data-id=\"7\" data-instance=\"1\">\n\t<for"
+    },
+    ".asp_s_7": {
+      "count": 2,
+      "tag": "div",
+      "text": "Generic filters\n    \n    \n        \n\t\t\n    \n    \n  ",
+      "html": "<div id=\"__original__ajaxsearchprosettings7_1\" class=\"asp_w asp_ss asp_ss_7 asp_s asp_s_7 asp_s_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro searchsettings\" data-id=\"7\" data-instance=\"1\">\n\t<for"
+    },
+    ".asp_s_7_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Generic filters\n    \n    \n        \n\t\t\n    \n    \n  ",
+      "html": "<div id=\"__original__ajaxsearchprosettings7_1\" class=\"asp_w asp_ss asp_ss_7 asp_s asp_s_7 asp_s_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro searchsettings\" data-id=\"7\" data-instance=\"1\">\n\t<for"
+    },
+    ".searchsettings": {
+      "count": 4,
+      "tag": "div",
+      "text": "Generic filters\n    \n    \n        \n\t\t\n    \n    \n  ",
+      "html": "<div id=\"__original__ajaxsearchprosettings7_1\" class=\"asp_w asp_ss asp_ss_7 asp_s asp_s_7 asp_s_7_1 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro searchsettings\" data-id=\"7\" data-instance=\"1\">\n\t<for"
+    },
+    ".asp-fss-flex": {
+      "count": 4,
+      "tag": "form",
+      "text": "Generic filters\n    \n    \n        \n\t\t\n    \n    \n  ",
+      "html": "<form name=\"options\" class=\"asp-fss-flex\" aria-label=\"Search settings form\" autocomplete=\"off\">\n        <input type=\"hidden\" name=\"current_page_id\" value=\"71682\" style=\"\">\n        \t    <input type=\"hi"
+    },
+    ".asp_filter_generic": {
+      "count": 4,
+      "tag": "fieldset",
+      "text": "Generic filters\n    \n    \n        \n\t\t\n    \n    \n  ",
+      "html": "<fieldset class=\"asp_filter_generic asp_filter_id_2 asp_filter_n_1\">\n            <legend>Generic filters</legend>\n    <div class=\"asp_option\" tabindex=\"0\">\n    <div class=\"asp_option_inner\">\n        <"
+    },
+    ".asp_filter_id_2": {
+      "count": 4,
+      "tag": "fieldset",
+      "text": "Generic filters\n    \n    \n        \n\t\t\n    \n    \n  ",
+      "html": "<fieldset class=\"asp_filter_generic asp_filter_id_2 asp_filter_n_1\">\n            <legend>Generic filters</legend>\n    <div class=\"asp_option\" tabindex=\"0\">\n    <div class=\"asp_option_inner\">\n        <"
+    },
+    ".asp_filter_n_1": {
+      "count": 4,
+      "tag": "fieldset",
+      "text": "Generic filters\n    \n    \n        \n\t\t\n    \n    \n  ",
+      "html": "<fieldset class=\"asp_filter_generic asp_filter_id_2 asp_filter_n_1\">\n            <legend>Generic filters</legend>\n    <div class=\"asp_option\" tabindex=\"0\">\n    <div class=\"asp_option_inner\">\n        <"
+    },
+    ".asp_option": {
+      "count": 16,
+      "tag": "div",
+      "text": "Exact matches only",
+      "html": "<div class=\"asp_option\" tabindex=\"0\">\n    <div class=\"asp_option_inner\">\n        <input type=\"checkbox\" value=\"exact\" id=\"set_exact7_1\" aria-label=\"Exact matches only\" name=\"asp_gen[]\" style=\"\">\n\t\t<di"
+    },
+    ".asp_option_inner": {
+      "count": 16,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_option_inner\">\n        <input type=\"checkbox\" value=\"exact\" id=\"set_exact7_1\" aria-label=\"Exact matches only\" name=\"asp_gen[]\" style=\"\">\n\t\t<div class=\"asp_option_checkbox\"></div>\n    <"
+    },
+    ".asp_option_checkbox": {
+      "count": 16,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_option_checkbox\"></div>"
+    },
+    ".asp_option_label": {
+      "count": 16,
+      "tag": "div",
+      "text": "Exact matches only",
+      "html": "<div class=\"asp_option_label\">\n        Exact matches only    </div>"
+    },
+    ".asp_w_container_6": {
+      "count": 2,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div class=\"asp_w_container asp_w_container_6 asp_w_container_6_1\" data-id=\"6\">\n\t<div class=\"asp_w asp_m asp_m_6 asp_m_6_1 wpdreams_asp_sc wpdreams_asp_sc-6 ajaxsearchpro asp_main_container  asp_non_c"
+    },
+    ".asp_w_container_6_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div class=\"asp_w_container asp_w_container_6 asp_w_container_6_1\" data-id=\"6\">\n\t<div class=\"asp_w asp_m asp_m_6 asp_m_6_1 wpdreams_asp_sc wpdreams_asp_sc-6 ajaxsearchpro asp_main_container  asp_non_c"
+    },
+    ".asp_m_6": {
+      "count": 2,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_6 asp_m_6_1 wpdreams_asp_sc wpdreams_asp_sc-6 ajaxsearchpro asp_main_container  asp_non_compact\" data-id=\"6\" data-name=\"classic VF\" data-instance=\"1\" id=\"ajaxsearchpro6_1"
+    },
+    ".asp_m_6_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_6 asp_m_6_1 wpdreams_asp_sc wpdreams_asp_sc-6 ajaxsearchpro asp_main_container  asp_non_compact\" data-id=\"6\" data-name=\"classic VF\" data-instance=\"1\" id=\"ajaxsearchpro6_1"
+    },
+    ".wpdreams_asp_sc-6": {
+      "count": 6,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_6 asp_m_6_1 wpdreams_asp_sc wpdreams_asp_sc-6 ajaxsearchpro asp_main_container  asp_non_compact\" data-id=\"6\" data-name=\"classic VF\" data-instance=\"1\" id=\"ajaxsearchpro6_1"
+    },
+    ".asp_r_6": {
+      "count": 2,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores6_1\" class=\"asp_w asp_r asp_r_6 asp_r_6_1 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-6\" data-id=\"6\" data-instance=\"1\">\n\n    \n    \n    \n    <div class=\""
+    },
+    ".asp_r_6_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores6_1\" class=\"asp_w asp_r asp_r_6 asp_r_6_1 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-6\" data-id=\"6\" data-instance=\"1\">\n\n    \n    \n    \n    <div class=\""
+    },
+    ".asp_ss_6": {
+      "count": 2,
+      "tag": "div",
+      "text": "Generic filters\n    \n    \n        \n\t\t\n    \n    \n  ",
+      "html": "<div id=\"__original__ajaxsearchprosettings6_1\" class=\"asp_w asp_ss asp_ss_6 asp_s asp_s_6 asp_s_6_1 wpdreams_asp_sc wpdreams_asp_sc-6 ajaxsearchpro searchsettings\" data-id=\"6\" data-instance=\"1\">\n\t<for"
+    },
+    ".asp_s_6": {
+      "count": 2,
+      "tag": "div",
+      "text": "Generic filters\n    \n    \n        \n\t\t\n    \n    \n  ",
+      "html": "<div id=\"__original__ajaxsearchprosettings6_1\" class=\"asp_w asp_ss asp_ss_6 asp_s asp_s_6 asp_s_6_1 wpdreams_asp_sc wpdreams_asp_sc-6 ajaxsearchpro searchsettings\" data-id=\"6\" data-instance=\"1\">\n\t<for"
+    },
+    ".asp_s_6_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Generic filters\n    \n    \n        \n\t\t\n    \n    \n  ",
+      "html": "<div id=\"__original__ajaxsearchprosettings6_1\" class=\"asp_w asp_ss asp_ss_6 asp_s asp_s_6 asp_s_6_1 wpdreams_asp_sc wpdreams_asp_sc-6 ajaxsearchpro searchsettings\" data-id=\"6\" data-instance=\"1\">\n\t<for"
+    },
+    ".main-navigation": {
+      "count": 1,
+      "tag": "div",
+      "text": "ACCUEIL\nLISTE\nNOUVEAU\nRECHERCHE AV\nVOIRANIME",
+      "html": "<div class=\"main-navigation style-1 \">\n                    <div class=\"container \">\n                        <div class=\"row\">\n                            <div class=\"col-md-12\">\n                      "
+    },
+    ".style-1": {
+      "count": 2,
+      "tag": "div",
+      "text": "ACCUEIL\nLISTE\nNOUVEAU\nRECHERCHE AV\nVOIRANIME",
+      "html": "<div class=\"main-navigation style-1 \">\n                    <div class=\"container \">\n                        <div class=\"row\">\n                            <div class=\"col-md-12\">\n                      "
+    },
+    ".row": {
+      "count": 6,
+      "tag": "div",
+      "text": "ACCUEIL\nLISTE\nNOUVEAU\nRECHERCHE AV\nVOIRANIME",
+      "html": "<div class=\"row\">\n                            <div class=\"col-md-12\">\n                                <div class=\"main-navigation_wrap\">\n                                    <div class=\"wrap_branding\">"
+    },
+    ".col-md-12": {
+      "count": 5,
+      "tag": "div",
+      "text": "ACCUEIL\nLISTE\nNOUVEAU\nRECHERCHE AV\nVOIRANIME",
+      "html": "<div class=\"col-md-12\">\n                                <div class=\"main-navigation_wrap\">\n                                    <div class=\"wrap_branding\">\n                                        <a cl"
+    },
+    ".main-navigation_wrap": {
+      "count": 1,
+      "tag": "div",
+      "text": "ACCUEIL\nLISTE\nNOUVEAU\nRECHERCHE AV\nVOIRANIME",
+      "html": "<div class=\"main-navigation_wrap\">\n                                    <div class=\"wrap_branding\">\n                                        <a class=\"logo\" href=\"https://voirdrama.org/\" title=\"Voirdram"
+    },
+    ".wrap_branding": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"wrap_branding\">\n                                        <a class=\"logo\" href=\"https://voirdrama.org/\" title=\"Voirdrama\">\n\t\t\t\t\t\t\t\t\t\t\t                                            <img class=\""
+    },
+    ".logo": {
+      "count": 1,
+      "tag": "a",
+      "text": "",
+      "html": "<a class=\"logo\" href=\"https://voirdrama.org/\" title=\"Voirdrama\">\n\t\t\t\t\t\t\t\t\t\t\t                                            <img class=\"img-responsive\" src=\"https://voirdrama.org/wp-content/uploads/2022/0"
+    },
+    ".img-responsive": {
+      "count": 1,
+      "tag": "img",
+      "text": "",
+      "html": "<img class=\"img-responsive\" src=\"https://voirdrama.org/wp-content/uploads/2022/07/voirdrama-logo.png\" alt=\"Voirdrama\">"
+    },
+    ".main-menu": {
+      "count": 1,
+      "tag": "div",
+      "text": "ACCUEIL\nLISTE\nNOUVEAU\nRECHERCHE AV\nVOIRANIME",
+      "html": "<div class=\"main-menu\">\n\t\t<ul class=\"nav navbar-nav main-navbar\"><li id=\"menu-item-31\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-31\"><a href=\"https://voi"
+    },
+    ".nav": {
+      "count": 4,
+      "tag": "ul",
+      "text": "ACCUEIL\nLISTE\nNOUVEAU\nRECHERCHE AV\nVOIRANIME",
+      "html": "<ul class=\"nav navbar-nav main-navbar\"><li id=\"menu-item-31\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-31\"><a href=\"https://voirdrama.org/\">ACCUEIL</a></"
+    },
+    ".navbar-nav": {
+      "count": 2,
+      "tag": "ul",
+      "text": "ACCUEIL\nLISTE\nNOUVEAU\nRECHERCHE AV\nVOIRANIME",
+      "html": "<ul class=\"nav navbar-nav main-navbar\"><li id=\"menu-item-31\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-31\"><a href=\"https://voirdrama.org/\">ACCUEIL</a></"
+    },
+    ".main-navbar": {
+      "count": 2,
+      "tag": "ul",
+      "text": "ACCUEIL\nLISTE\nNOUVEAU\nRECHERCHE AV\nVOIRANIME",
+      "html": "<ul class=\"nav navbar-nav main-navbar\"><li id=\"menu-item-31\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-31\"><a href=\"https://voirdrama.org/\">ACCUEIL</a></"
+    },
+    ".menu-item": {
+      "count": 47,
+      "tag": "li",
+      "text": "ACCUEIL",
+      "html": "<li id=\"menu-item-31\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-31\"><a href=\"https://voirdrama.org/\">ACCUEIL</a></li>"
+    },
+    ".menu-item-type-post_type": {
+      "count": 6,
+      "tag": "li",
+      "text": "ACCUEIL",
+      "html": "<li id=\"menu-item-31\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-31\"><a href=\"https://voirdrama.org/\">ACCUEIL</a></li>"
+    },
+    ".menu-item-object-page": {
+      "count": 6,
+      "tag": "li",
+      "text": "ACCUEIL",
+      "html": "<li id=\"menu-item-31\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-31\"><a href=\"https://voirdrama.org/\">ACCUEIL</a></li>"
+    },
+    ".menu-item-home": {
+      "count": 2,
+      "tag": "li",
+      "text": "ACCUEIL",
+      "html": "<li id=\"menu-item-31\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-31\"><a href=\"https://voirdrama.org/\">ACCUEIL</a></li>"
+    },
+    ".menu-item-31": {
+      "count": 1,
+      "tag": "li",
+      "text": "ACCUEIL",
+      "html": "<li id=\"menu-item-31\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-31\"><a href=\"https://voirdrama.org/\">ACCUEIL</a></li>"
+    },
+    ".menu-item-32": {
+      "count": 1,
+      "tag": "li",
+      "text": "LISTE",
+      "html": "<li id=\"menu-item-32\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-32\"><a href=\"https://voirdrama.org/liste-dramas/\">LISTE</a></li>"
+    },
+    ".menu-item-36483": {
+      "count": 1,
+      "tag": "li",
+      "text": "NOUVEAU",
+      "html": "<li id=\"menu-item-36483\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-36483\"><a href=\"https://voirdrama.org/nouveaux-ajouts/\">NOUVEAU</a></li>"
+    },
+    ".menu-item-type-custom": {
+      "count": 6,
+      "tag": "li",
+      "text": "RECHERCHE AV",
+      "html": "<li id=\"menu-item-27\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-27\"><a href=\"https://voirdrama.org/?s=&amp;post_type=wp-manga\">RECHERCHE AV</a></li>"
+    },
+    ".menu-item-object-custom": {
+      "count": 6,
+      "tag": "li",
+      "text": "RECHERCHE AV",
+      "html": "<li id=\"menu-item-27\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-27\"><a href=\"https://voirdrama.org/?s=&amp;post_type=wp-manga\">RECHERCHE AV</a></li>"
+    },
+    ".menu-item-27": {
+      "count": 1,
+      "tag": "li",
+      "text": "RECHERCHE AV",
+      "html": "<li id=\"menu-item-27\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-27\"><a href=\"https://voirdrama.org/?s=&amp;post_type=wp-manga\">RECHERCHE AV</a></li>"
+    },
+    ".menu-item-30505": {
+      "count": 1,
+      "tag": "li",
+      "text": "VOIRANIME",
+      "html": "<li id=\"menu-item-30505\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-30505\"><a href=\"https://voiranime.com\">VOIRANIME</a></li>"
+    },
+    ".search-navigation": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"search-navigation search-sidebar\">\n\n\t\t\n            <div class=\"search-navigation__wrap\">\n                <ul class=\"main-menu-search nav-menu\">\n                    <li class=\"menu-search\">"
+    },
+    ".search-sidebar": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"search-navigation search-sidebar\">\n\n\t\t\n            <div class=\"search-navigation__wrap\">\n                <ul class=\"main-menu-search nav-menu\">\n                    <li class=\"menu-search\">"
+    },
+    ".search-navigation__wrap": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"search-navigation__wrap\">\n                <ul class=\"main-menu-search nav-menu\">\n                    <li class=\"menu-search\">\n                        <a href=\"javascript:;\" class=\"open-sea"
+    },
+    ".main-menu-search": {
+      "count": 1,
+      "tag": "ul",
+      "text": "",
+      "html": "<ul class=\"main-menu-search nav-menu\">\n                    <li class=\"menu-search\">\n                        <a href=\"javascript:;\" class=\"open-search-main-menu\"> <i class=\"icon ion-ios-search\"></i>\n  "
+    },
+    ".nav-menu": {
+      "count": 1,
+      "tag": "ul",
+      "text": "",
+      "html": "<ul class=\"main-menu-search nav-menu\">\n                    <li class=\"menu-search\">\n                        <a href=\"javascript:;\" class=\"open-search-main-menu\"> <i class=\"icon ion-ios-search\"></i>\n  "
+    },
+    ".menu-search": {
+      "count": 1,
+      "tag": "li",
+      "text": "",
+      "html": "<li class=\"menu-search\">\n                        <a href=\"javascript:;\" class=\"open-search-main-menu\"> <i class=\"icon ion-ios-search\"></i>\n                            <i class=\"icon ion-android-close\""
+    },
+    ".open-search-main-menu": {
+      "count": 1,
+      "tag": "a",
+      "text": "",
+      "html": "<a href=\"javascript:;\" class=\"open-search-main-menu\"> <i class=\"icon ion-ios-search\"></i>\n                            <i class=\"icon ion-android-close\"></i> </a>"
+    },
+    ".icon": {
+      "count": 4,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"icon ion-ios-search\"></i>"
+    },
+    ".ion-ios-search": {
+      "count": 1,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"icon ion-ios-search\"></i>"
+    },
+    ".ion-android-close": {
+      "count": 1,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"icon ion-android-close\"></i>"
+    },
+    ".c-togle__menu": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"c-togle__menu\">\n        <button type=\"button\" class=\"menu_icon__open\">\n            <span></span> <span></span> <span></span>\n        </button>\n    </div>"
+    },
+    ".menu_icon__open": {
+      "count": 1,
+      "tag": "button",
+      "text": "",
+      "html": "<button type=\"button\" class=\"menu_icon__open\">\n            <span></span> <span></span> <span></span>\n        </button>"
+    },
+    ".mobile-menu": {
+      "count": 1,
+      "tag": "div",
+      "text": "Se connecter\n            \n\n            \n          ",
+      "html": "<div class=\"mobile-menu menu-collapse off-canvas\">\n    <div class=\"close-nav\">\n        <button class=\"menu_icon__close\">\n            <span></span> <span></span>\n        </button>\n    </div>\n\n\t\n       "
+    },
+    ".menu-collapse": {
+      "count": 1,
+      "tag": "div",
+      "text": "Se connecter\n            \n\n            \n          ",
+      "html": "<div class=\"mobile-menu menu-collapse off-canvas\">\n    <div class=\"close-nav\">\n        <button class=\"menu_icon__close\">\n            <span></span> <span></span>\n        </button>\n    </div>\n\n\t\n       "
+    },
+    ".off-canvas": {
+      "count": 1,
+      "tag": "div",
+      "text": "Se connecter\n            \n\n            \n          ",
+      "html": "<div class=\"mobile-menu menu-collapse off-canvas\">\n    <div class=\"close-nav\">\n        <button class=\"menu_icon__close\">\n            <span></span> <span></span>\n        </button>\n    </div>\n\n\t\n       "
+    },
+    ".close-nav": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"close-nav\">\n        <button class=\"menu_icon__close\">\n            <span></span> <span></span>\n        </button>\n    </div>"
+    },
+    ".menu_icon__close": {
+      "count": 1,
+      "tag": "button",
+      "text": "",
+      "html": "<button class=\"menu_icon__close\">\n            <span></span> <span></span>\n        </button>"
+    },
+    ".c-modal_item": {
+      "count": 2,
+      "tag": "div",
+      "text": "Se connecter\n            \n\n            \n          ",
+      "html": "<div class=\"c-modal_item\">\n            <!-- Button trigger modal -->\n            <span class=\"c-modal_sign-in\">\n                <a href=\"#\" data-toggle=\"modal\" data-target=\"#form-login\" class=\"btn-act"
+    },
+    ".c-modal_sign-in": {
+      "count": 1,
+      "tag": "span",
+      "text": "Se connecter",
+      "html": "<span class=\"c-modal_sign-in\">\n                <a href=\"#\" data-toggle=\"modal\" data-target=\"#form-login\" class=\"btn-active-modal\">Se connecter</a>\n            </span>"
+    },
+    ".btn-active-modal": {
+      "count": 4,
+      "tag": "a",
+      "text": "Se connecter",
+      "html": "<a href=\"#\" data-toggle=\"modal\" data-target=\"#form-login\" class=\"btn-active-modal\">Se connecter</a>"
+    },
+    ".c-modal_sign-up": {
+      "count": 1,
+      "tag": "span",
+      "text": "S'enregistrer",
+      "html": "<span class=\"c-modal_sign-up\">\n                <a href=\"javascript:void(0)\" data-toggle=\"modal\" data-target=\"#form-sign-up\" class=\"btn-active-modal\">S'enregistrer</a>\n            </span>"
+    },
+    ".off-menu": {
+      "count": 1,
+      "tag": "nav",
+      "text": "ACCUEIL \nLISTE \nNOUVEAU \nRECHERCHE AV \nVOIRANIME",
+      "html": "<nav class=\"off-menu\">\n\t\t<ul id=\"menu-main-menu-1\" class=\"nav navbar-nav main-navbar\"><li id=\"nav-menu-item-31\" class=\"main-menu-item menu-item-depth-0 menu-item menu-item-type-post_type menu-item-obj"
+    },
+    ".main-menu-item": {
+      "count": 5,
+      "tag": "li",
+      "text": "ACCUEIL",
+      "html": "<li id=\"nav-menu-item-31\" class=\"main-menu-item menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page menu-item-home\"><a href=\"https://voirdrama.org/\" class=\"menu-link  main-menu-"
+    },
+    ".menu-item-depth-0": {
+      "count": 5,
+      "tag": "li",
+      "text": "ACCUEIL",
+      "html": "<li id=\"nav-menu-item-31\" class=\"main-menu-item menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page menu-item-home\"><a href=\"https://voirdrama.org/\" class=\"menu-link  main-menu-"
+    },
+    ".menu-link": {
+      "count": 5,
+      "tag": "a",
+      "text": "ACCUEIL",
+      "html": "<a href=\"https://voirdrama.org/\" class=\"menu-link  main-menu-link\">ACCUEIL </a>"
+    },
+    ".main-menu-link": {
+      "count": 5,
+      "tag": "a",
+      "text": "ACCUEIL",
+      "html": "<a href=\"https://voirdrama.org/\" class=\"menu-link  main-menu-link\">ACCUEIL </a>"
+    },
+    ".center": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"center\"></div>"
+    },
+    ".clone-header": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"clone-header\"></div>"
+    },
+    ".c-sub-header-nav": {
+      "count": 1,
+      "tag": "div",
+      "text": "Action\nAffaires\nAmiti\u00e9\nArts martiaux\nAventure\nCom\u00e9",
+      "html": "<div class=\" c-sub-header-nav with-border  \">\n            <div class=\"container \">\n                <div class=\"c-sub-nav_wrap\">\n                    <div class=\"sub-nav_content\">\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t"
+    },
+    ".with-border": {
+      "count": 1,
+      "tag": "div",
+      "text": "Action\nAffaires\nAmiti\u00e9\nArts martiaux\nAventure\nCom\u00e9",
+      "html": "<div class=\" c-sub-header-nav with-border  \">\n            <div class=\"container \">\n                <div class=\"c-sub-nav_wrap\">\n                    <div class=\"sub-nav_content\">\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t"
+    },
+    ".c-sub-nav_wrap": {
+      "count": 1,
+      "tag": "div",
+      "text": "Action\nAffaires\nAmiti\u00e9\nArts martiaux\nAventure\nCom\u00e9",
+      "html": "<div class=\"c-sub-nav_wrap\">\n                    <div class=\"sub-nav_content\">\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t                        <ul class=\"sub-nav_list list-inline second-menu\">\n\t\t\t\t\t\t\t<li id=\"menu-i"
+    },
+    ".sub-nav_content": {
+      "count": 1,
+      "tag": "div",
+      "text": "Action\nAffaires\nAmiti\u00e9\nArts martiaux\nAventure\nCom\u00e9",
+      "html": "<div class=\"sub-nav_content\">\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t                        <ul class=\"sub-nav_list list-inline second-menu\">\n\t\t\t\t\t\t\t<li id=\"menu-item-2415\" class=\"menu-item menu-item-type-taxonom"
+    },
+    ".sub-nav_list": {
+      "count": 1,
+      "tag": "ul",
+      "text": "Action\nAffaires\nAmiti\u00e9\nArts martiaux\nAventure\nCom\u00e9",
+      "html": "<ul class=\"sub-nav_list list-inline second-menu\">\n\t\t\t\t\t\t\t<li id=\"menu-item-2415\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2415\"><a href=\"https://voirdrama.org"
+    },
+    ".list-inline": {
+      "count": 4,
+      "tag": "ul",
+      "text": "Action\nAffaires\nAmiti\u00e9\nArts martiaux\nAventure\nCom\u00e9",
+      "html": "<ul class=\"sub-nav_list list-inline second-menu\">\n\t\t\t\t\t\t\t<li id=\"menu-item-2415\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2415\"><a href=\"https://voirdrama.org"
+    },
+    ".second-menu": {
+      "count": 1,
+      "tag": "ul",
+      "text": "Action\nAffaires\nAmiti\u00e9\nArts martiaux\nAventure\nCom\u00e9",
+      "html": "<ul class=\"sub-nav_list list-inline second-menu\">\n\t\t\t\t\t\t\t<li id=\"menu-item-2415\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2415\"><a href=\"https://voirdrama.org"
+    },
+    ".menu-item-type-taxonomy": {
+      "count": 35,
+      "tag": "li",
+      "text": "Action",
+      "html": "<li id=\"menu-item-2415\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2415\"><a href=\"https://voirdrama.org/drama-genre/action/\">Action</a></li>"
+    },
+    ".menu-item-object-wp-manga-genre": {
+      "count": 35,
+      "tag": "li",
+      "text": "Action",
+      "html": "<li id=\"menu-item-2415\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2415\"><a href=\"https://voirdrama.org/drama-genre/action/\">Action</a></li>"
+    },
+    ".menu-item-2415": {
+      "count": 1,
+      "tag": "li",
+      "text": "Action",
+      "html": "<li id=\"menu-item-2415\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2415\"><a href=\"https://voirdrama.org/drama-genre/action/\">Action</a></li>"
+    },
+    ".menu-item-2416": {
+      "count": 1,
+      "tag": "li",
+      "text": "Affaires",
+      "html": "<li id=\"menu-item-2416\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2416\"><a href=\"https://voirdrama.org/drama-genre/affaires/\">Affaires</a></li>"
+    },
+    ".menu-item-2417": {
+      "count": 1,
+      "tag": "li",
+      "text": "Amiti\u00e9",
+      "html": "<li id=\"menu-item-2417\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2417\"><a href=\"https://voirdrama.org/drama-genre/amitie/\">Amiti\u00e9</a></li>"
+    },
+    ".menu-item-2418": {
+      "count": 1,
+      "tag": "li",
+      "text": "Arts martiaux",
+      "html": "<li id=\"menu-item-2418\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2418\"><a href=\"https://voirdrama.org/drama-genre/arts-martiaux/\">Arts martiaux</a></li>"
+    },
+    ".menu-item-2419": {
+      "count": 1,
+      "tag": "li",
+      "text": "Aventure",
+      "html": "<li id=\"menu-item-2419\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2419\"><a href=\"https://voirdrama.org/drama-genre/aventure/\">Aventure</a></li>"
+    },
+    ".current-wp-manga-ancestor": {
+      "count": 2,
+      "tag": "li",
+      "text": "Com\u00e9die",
+      "html": "<li id=\"menu-item-2420\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre current-wp-manga-ancestor current-menu-parent current-wp-manga-parent menu-item-2420\"><a href=\"https://"
+    },
+    ".current-menu-parent": {
+      "count": 2,
+      "tag": "li",
+      "text": "Com\u00e9die",
+      "html": "<li id=\"menu-item-2420\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre current-wp-manga-ancestor current-menu-parent current-wp-manga-parent menu-item-2420\"><a href=\"https://"
+    },
+    ".current-wp-manga-parent": {
+      "count": 2,
+      "tag": "li",
+      "text": "Com\u00e9die",
+      "html": "<li id=\"menu-item-2420\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre current-wp-manga-ancestor current-menu-parent current-wp-manga-parent menu-item-2420\"><a href=\"https://"
+    },
+    ".menu-item-2420": {
+      "count": 1,
+      "tag": "li",
+      "text": "Com\u00e9die",
+      "html": "<li id=\"menu-item-2420\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre current-wp-manga-ancestor current-menu-parent current-wp-manga-parent menu-item-2420\"><a href=\"https://"
+    },
+    ".menu-item-has-children": {
+      "count": 1,
+      "tag": "li",
+      "text": "Plus\n\n\tContexte scolaire\n\tCrime\n\tCulinaire\n\tDocume",
+      "html": "<li id=\"menu-item-49\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children parent menu-item-49\"><a href=\"#\">Plus</a>\n<ul class=\"sub-menu\">\n\t<li id=\"menu-item-2421\" cla"
+    },
+    ".parent": {
+      "count": 1,
+      "tag": "li",
+      "text": "Plus\n\n\tContexte scolaire\n\tCrime\n\tCulinaire\n\tDocume",
+      "html": "<li id=\"menu-item-49\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children parent menu-item-49\"><a href=\"#\">Plus</a>\n<ul class=\"sub-menu\">\n\t<li id=\"menu-item-2421\" cla"
+    },
+    ".menu-item-49": {
+      "count": 1,
+      "tag": "li",
+      "text": "Plus\n\n\tContexte scolaire\n\tCrime\n\tCulinaire\n\tDocume",
+      "html": "<li id=\"menu-item-49\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children parent menu-item-49\"><a href=\"#\">Plus</a>\n<ul class=\"sub-menu\">\n\t<li id=\"menu-item-2421\" cla"
+    },
+    ".sub-menu": {
+      "count": 1,
+      "tag": "ul",
+      "text": "Contexte scolaire\n\tCrime\n\tCulinaire\n\tDocumentaire\n",
+      "html": "<ul class=\"sub-menu\">\n\t<li id=\"menu-item-2421\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2421\"><a href=\"https://voirdrama.org/drama-genre/contexte-scolaire/\">C"
+    },
+    ".menu-item-2421": {
+      "count": 1,
+      "tag": "li",
+      "text": "Contexte scolaire",
+      "html": "<li id=\"menu-item-2421\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2421\"><a href=\"https://voirdrama.org/drama-genre/contexte-scolaire/\">Contexte scolaire</a></l"
+    },
+    ".menu-item-2422": {
+      "count": 1,
+      "tag": "li",
+      "text": "Crime",
+      "html": "<li id=\"menu-item-2422\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2422\"><a href=\"https://voirdrama.org/drama-genre/crime/\">Crime</a></li>"
+    },
+    ".menu-item-2423": {
+      "count": 1,
+      "tag": "li",
+      "text": "Culinaire",
+      "html": "<li id=\"menu-item-2423\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2423\"><a href=\"https://voirdrama.org/drama-genre/culinaire/\">Culinaire</a></li>"
+    },
+    ".menu-item-2424": {
+      "count": 1,
+      "tag": "li",
+      "text": "Documentaire",
+      "html": "<li id=\"menu-item-2424\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2424\"><a href=\"https://voirdrama.org/drama-genre/documentaire/\">Documentaire</a></li>"
+    },
+    ".menu-item-2425": {
+      "count": 1,
+      "tag": "li",
+      "text": "Drame",
+      "html": "<li id=\"menu-item-2425\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2425\"><a href=\"https://voirdrama.org/drama-genre/drame/\">Drame</a></li>"
+    },
+    ".menu-item-2426": {
+      "count": 1,
+      "tag": "li",
+      "text": "Famille",
+      "html": "<li id=\"menu-item-2426\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2426\"><a href=\"https://voirdrama.org/drama-genre/famille/\">Famille</a></li>"
+    },
+    ".menu-item-2427": {
+      "count": 1,
+      "tag": "li",
+      "text": "Fantastique",
+      "html": "<li id=\"menu-item-2427\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2427\"><a href=\"https://voirdrama.org/drama-genre/fantastique/\">Fantastique</a></li>"
+    },
+    ".menu-item-2428": {
+      "count": 1,
+      "tag": "li",
+      "text": "Guerre",
+      "html": "<li id=\"menu-item-2428\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2428\"><a href=\"https://voirdrama.org/drama-genre/guerre/\">Guerre</a></li>"
+    },
+    ".menu-item-2429": {
+      "count": 1,
+      "tag": "li",
+      "text": "Historique",
+      "html": "<li id=\"menu-item-2429\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2429\"><a href=\"https://voirdrama.org/drama-genre/historique/\">Historique</a></li>"
+    },
+    ".menu-item-2430": {
+      "count": 1,
+      "tag": "li",
+      "text": "Horreur",
+      "html": "<li id=\"menu-item-2430\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2430\"><a href=\"https://voirdrama.org/drama-genre/horreur/\">Horreur</a></li>"
+    },
+    ".menu-item-2431": {
+      "count": 1,
+      "tag": "li",
+      "text": "Jeunesse",
+      "html": "<li id=\"menu-item-2431\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2431\"><a href=\"https://voirdrama.org/drama-genre/jeunesse/\">Jeunesse</a></li>"
+    },
+    ".menu-item-2432": {
+      "count": 1,
+      "tag": "li",
+      "text": "Judiciaire",
+      "html": "<li id=\"menu-item-2432\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2432\"><a href=\"https://voirdrama.org/drama-genre/judiciaire/\">Judiciaire</a></li>"
+    },
+    ".menu-item-2433": {
+      "count": 1,
+      "tag": "li",
+      "text": "Mature",
+      "html": "<li id=\"menu-item-2433\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2433\"><a href=\"https://voirdrama.org/drama-genre/mature/\">Mature</a></li>"
+    },
+    ".menu-item-2434": {
+      "count": 1,
+      "tag": "li",
+      "text": "M\u00e9dical",
+      "html": "<li id=\"menu-item-2434\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2434\"><a href=\"https://voirdrama.org/drama-genre/medical/\">M\u00e9dical</a></li>"
+    },
+    ".menu-item-2435": {
+      "count": 1,
+      "tag": "li",
+      "text": "M\u00e9lodrame",
+      "html": "<li id=\"menu-item-2435\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2435\"><a href=\"https://voirdrama.org/drama-genre/melodrame/\">M\u00e9lodrame</a></li>"
+    },
+    ".menu-item-2436": {
+      "count": 1,
+      "tag": "li",
+      "text": "Militaire",
+      "html": "<li id=\"menu-item-2436\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2436\"><a href=\"https://voirdrama.org/drama-genre/militaire/\">Militaire</a></li>"
+    },
+    ".menu-item-2437": {
+      "count": 1,
+      "tag": "li",
+      "text": "Musique",
+      "html": "<li id=\"menu-item-2437\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2437\"><a href=\"https://voirdrama.org/drama-genre/musique/\">Musique</a></li>"
+    },
+    ".menu-item-2438": {
+      "count": 1,
+      "tag": "li",
+      "text": "Myst\u00e8re",
+      "html": "<li id=\"menu-item-2438\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2438\"><a href=\"https://voirdrama.org/drama-genre/mystere/\">Myst\u00e8re</a></li>"
+    },
+    ".menu-item-2439": {
+      "count": 1,
+      "tag": "li",
+      "text": "Politique",
+      "html": "<li id=\"menu-item-2439\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2439\"><a href=\"https://voirdrama.org/drama-genre/politique/\">Politique</a></li>"
+    },
+    ".menu-item-2440": {
+      "count": 1,
+      "tag": "li",
+      "text": "Psychologique",
+      "html": "<li id=\"menu-item-2440\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2440\"><a href=\"https://voirdrama.org/drama-genre/psychologique/\">Psychologique</a></li>"
+    },
+    ".menu-item-2441": {
+      "count": 1,
+      "tag": "li",
+      "text": "Romance",
+      "html": "<li id=\"menu-item-2441\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre current-wp-manga-ancestor current-menu-parent current-wp-manga-parent menu-item-2441\"><a href=\"https://"
+    },
+    ".menu-item-2442": {
+      "count": 1,
+      "tag": "li",
+      "text": "SF",
+      "html": "<li id=\"menu-item-2442\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2442\"><a href=\"https://voirdrama.org/drama-genre/sf/\">SF</a></li>"
+    },
+    ".menu-item-2443": {
+      "count": 1,
+      "tag": "li",
+      "text": "Sitcom",
+      "html": "<li id=\"menu-item-2443\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2443\"><a href=\"https://voirdrama.org/drama-genre/sitcom/\">Sitcom</a></li>"
+    },
+    ".menu-item-2444": {
+      "count": 1,
+      "tag": "li",
+      "text": "Sport",
+      "html": "<li id=\"menu-item-2444\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2444\"><a href=\"https://voirdrama.org/drama-genre/sport/\">Sport</a></li>"
+    },
+    ".menu-item-2445": {
+      "count": 1,
+      "tag": "li",
+      "text": "Surnaturel",
+      "html": "<li id=\"menu-item-2445\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2445\"><a href=\"https://voirdrama.org/drama-genre/surnaturel/\">Surnaturel</a></li>"
+    },
+    ".menu-item-2446": {
+      "count": 1,
+      "tag": "li",
+      "text": "Thriller",
+      "html": "<li id=\"menu-item-2446\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2446\"><a href=\"https://voirdrama.org/drama-genre/thriller/\">Thriller</a></li>"
+    },
+    ".menu-item-2447": {
+      "count": 1,
+      "tag": "li",
+      "text": "Tokusatsu",
+      "html": "<li id=\"menu-item-2447\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2447\"><a href=\"https://voirdrama.org/drama-genre/tokusatsu/\">Tokusatsu</a></li>"
+    },
+    ".menu-item-2448": {
+      "count": 1,
+      "tag": "li",
+      "text": "Vie quotidienne",
+      "html": "<li id=\"menu-item-2448\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2448\"><a href=\"https://voirdrama.org/drama-genre/vie-quotidienne/\">Vie quotidienne</a></li>"
+    },
+    ".menu-item-2449": {
+      "count": 1,
+      "tag": "li",
+      "text": "Wuxia",
+      "html": "<li id=\"menu-item-2449\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-2449\"><a href=\"https://voirdrama.org/drama-genre/wuxia/\">Wuxia</a></li>"
+    },
+    ".mobile-icon": {
+      "count": 1,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"mobile-icon icon ion-md-more\"></i>"
+    },
+    ".ion-md-more": {
+      "count": 1,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"mobile-icon icon ion-md-more\"></i>"
+    },
+    ".entry-header": {
+      "count": 3,
+      "tag": "div",
+      "text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR",
+      "html": "<div class=\"entry-header\">\n\t\t\t\t\t\t\n            <div class=\"wp-manga-nav\">\n                <div class=\"select-view\">\n\t\t\t\t\t\n\t\t\t\t\t                            <!-- select host -->\n                         "
+    },
+    ".wp-manga-nav": {
+      "count": 3,
+      "tag": "div",
+      "text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR",
+      "html": "<div class=\"wp-manga-nav\">\n                <div class=\"select-view\">\n\t\t\t\t\t\n\t\t\t\t\t                            <!-- select host -->\n                            <div class=\"c-selectpicker selectpicker_ver"
+    },
+    ".select-view": {
+      "count": 3,
+      "tag": "div",
+      "text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR",
+      "html": "<div class=\"select-view\">\n\t\t\t\t\t\n\t\t\t\t\t                            <!-- select host -->\n                            <div class=\"c-selectpicker selectpicker_version\">\n                                <lab"
+    },
+    ".c-selectpicker": {
+      "count": 9,
+      "tag": "div",
+      "text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR",
+      "html": "<div class=\"c-selectpicker selectpicker_version\">\n                                <label>\n                                    <select class=\"selectpicker host-select\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option da"
+    },
+    ".selectpicker_version": {
+      "count": 3,
+      "tag": "div",
+      "text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR",
+      "html": "<div class=\"c-selectpicker selectpicker_version\">\n                                <label>\n                                    <select class=\"selectpicker host-select\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option da"
+    },
+    ".selectpicker": {
+      "count": 6,
+      "tag": "select",
+      "text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR",
+      "html": "<select class=\"selectpicker host-select\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option data-redirect=\"/drama/pump-up-the-healthy-love/pump-up-the-healthy-love-04-vostfr/?host=\u2630 LECTEUR 6 VIDM\" value=\"\u2630 LECTEUR 6 VID"
+    },
+    ".host-select": {
+      "count": 3,
+      "tag": "select",
+      "text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR",
+      "html": "<select class=\"selectpicker host-select\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option data-redirect=\"/drama/pump-up-the-healthy-love/pump-up-the-healthy-love-04-vostfr/?host=\u2630 LECTEUR 6 VIDM\" value=\"\u2630 LECTEUR 6 VID"
+    },
+    ".selectpicker_chapter": {
+      "count": 6,
+      "tag": "div",
+      "text": "04\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t03\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t02\n\n\t\t\t\t\t\t\t\t\t\t\t\t",
+      "html": "<div class=\"c-selectpicker selectpicker_chapter chapters_selectbox_holder\" data-manga=\"71682\" data-chapter=\"pump-up-the-healthy-love-04-vostfr\" data-vol=\"0\" data-type=\"content\">\n\t\t\t\t\t\t\t<label>\n\t\t\t\t\t\t\t"
+    },
+    ".chapters_selectbox_holder": {
+      "count": 3,
+      "tag": "div",
+      "text": "04\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t03\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t02\n\n\t\t\t\t\t\t\t\t\t\t\t\t",
+      "html": "<div class=\"c-selectpicker selectpicker_chapter chapters_selectbox_holder\" data-manga=\"71682\" data-chapter=\"pump-up-the-healthy-love-04-vostfr\" data-vol=\"0\" data-type=\"content\">\n\t\t\t\t\t\t\t<label>\n\t\t\t\t\t\t\t"
+    },
+    ".single-chapter-select": {
+      "count": 3,
+      "tag": "select",
+      "text": "04\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t03\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t02\n\n\t\t\t\t\t\t\t\t\t\t\t\t",
+      "html": "<select class=\"c-selectpicker selectpicker_chapter selectpicker single-chapter-select\" style=\"\" for=\"volume-id-0\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option class=\"short \" data-limit=\"40\" value=\"pump-up-the-healthy-lo"
+    },
+    ".short": {
+      "count": 12,
+      "tag": "option",
+      "text": "04",
+      "html": "<option class=\"short \" data-limit=\"40\" value=\"pump-up-the-healthy-love-04-vostfr\" data-redirect=\"https://voirdrama.org/drama/pump-up-the-healthy-love/pump-up-the-healthy-love-04-vostfr/\" selected=\"sel"
+    },
+    ".video-light": {
+      "count": 3,
+      "tag": "a",
+      "text": "Light off Light on",
+      "html": "<a href=\"#chapter-video-frame\" class=\"video-light\" data-lity=\"\"><i class=\"fas fa-lightbulb\"></i> <span class=\"text text-off\">Light off</span> <span class=\"text text-on\">Light on</span></a>"
+    },
+    ".fas": {
+      "count": 3,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"fas fa-lightbulb\"></i>"
+    },
+    ".fa-lightbulb": {
+      "count": 3,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"fas fa-lightbulb\"></i>"
+    },
+    ".text": {
+      "count": 6,
+      "tag": "span",
+      "text": "Light off",
+      "html": "<span class=\"text text-off\">Light off</span>"
+    },
+    ".text-off": {
+      "count": 3,
+      "tag": "span",
+      "text": "Light off",
+      "html": "<span class=\"text text-off\">Light off</span>"
+    },
+    ".text-on": {
+      "count": 3,
+      "tag": "span",
+      "text": "Light on",
+      "html": "<span class=\"text text-on\">Light on</span>"
+    },
+    ".select-pagination": {
+      "count": 3,
+      "tag": "div",
+      "text": "Prev",
+      "html": "<div class=\"select-pagination\">\n                    <div class=\"nav-links\">\n\t\t\t\t\t\t                            <div class=\"nav-previous \"><a href=\"https://voirdrama.org/drama/pump-up-the-healthy-love/p"
+    },
+    ".nav-links": {
+      "count": 3,
+      "tag": "div",
+      "text": "Prev",
+      "html": "<div class=\"nav-links\">\n\t\t\t\t\t\t                            <div class=\"nav-previous \"><a href=\"https://voirdrama.org/drama/pump-up-the-healthy-love/pump-up-the-healthy-love-03-vostfr/\" class=\"btn prev_"
+    },
+    ".nav-previous": {
+      "count": 3,
+      "tag": "div",
+      "text": "Prev",
+      "html": "<div class=\"nav-previous \"><a href=\"https://voirdrama.org/drama/pump-up-the-healthy-love/pump-up-the-healthy-love-03-vostfr/\" class=\"btn prev_page\" title=\"03\">Prev</a>\n                            </di"
+    },
+    ".btn": {
+      "count": 4,
+      "tag": "a",
+      "text": "Prev",
+      "html": "<a href=\"https://voirdrama.org/drama/pump-up-the-healthy-love/pump-up-the-healthy-love-03-vostfr/\" class=\"btn prev_page\" title=\"03\">Prev</a>"
+    },
+    ".prev_page": {
+      "count": 3,
+      "tag": "a",
+      "text": "Prev",
+      "html": "<a href=\"https://voirdrama.org/drama/pump-up-the-healthy-love/pump-up-the-healthy-love-03-vostfr/\" class=\"btn prev_page\" title=\"03\">Prev</a>"
+    },
+    ".site-content": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"site-content\">\n    <div class=\"c-page-content style-1 reading-content-wrap chapter-type-video\" data-site-url=\"https://voirdrama.org/\">\n        <div class=\"content-area\">\n            <div c"
+    },
+    ".c-page-content": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"c-page-content style-1 reading-content-wrap chapter-type-video\" data-site-url=\"https://voirdrama.org/\">\n        <div class=\"content-area\">\n            <div class=\"container\">\n             "
+    },
+    ".reading-content-wrap": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"c-page-content style-1 reading-content-wrap chapter-type-video\" data-site-url=\"https://voirdrama.org/\">\n        <div class=\"content-area\">\n            <div class=\"container\">\n             "
+    },
+    ".chapter-type-video": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"c-page-content style-1 reading-content-wrap chapter-type-video\" data-site-url=\"https://voirdrama.org/\">\n        <div class=\"content-area\">\n            <div class=\"container\">\n             "
+    },
+    ".content-area": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"content-area\">\n            <div class=\"container\">\n                <div class=\"row\">\n                    <div class=\"main-col col-md-12 col-sm-12 sidebar-hidden\">\n\t\t\t\t\t\t\t\t\t\t\t\t\n            "
+    },
+    ".main-col": {
+      "count": 2,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"main-col col-md-12 col-sm-12 sidebar-hidden\">\n\t\t\t\t\t\t\t\t\t\t\t\t\n                        <!-- container & no-sidebar-->\n                        <div class=\"main-col-inner\">\n                     "
+    },
+    ".col-sm-12": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"main-col col-md-12 col-sm-12 sidebar-hidden\">\n\t\t\t\t\t\t\t\t\t\t\t\t\n                        <!-- container & no-sidebar-->\n                        <div class=\"main-col-inner\">\n                     "
+    },
+    ".sidebar-hidden": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"main-col col-md-12 col-sm-12 sidebar-hidden\">\n\t\t\t\t\t\t\t\t\t\t\t\t\n                        <!-- container & no-sidebar-->\n                        <div class=\"main-col-inner\">\n                     "
+    },
+    ".main-col-inner": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"main-col-inner\">\n                            <div class=\"c-blog-post\">\n                                <div class=\"entry-header header\" id=\"manga-reading-nav-head\" data-position=\"header\" d"
+    },
+    ".c-blog-post": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"c-blog-post\">\n                                <div class=\"entry-header header\" id=\"manga-reading-nav-head\" data-position=\"header\" data-chapter=\"pump-up-the-healthy-love-04-vostfr\" data-id="
+    },
+    ".header": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"entry-header header\" id=\"manga-reading-nav-head\" data-position=\"header\" data-chapter=\"pump-up-the-healthy-love-04-vostfr\" data-id=\"71682\">\t\t\t\t<div class=\"wp-manga-nav\">\n\t\t\t\t\t<div class=\"en"
+    },
+    ".entry-header_wrap": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"entry-header_wrap\">\n\t\t\t\t\t\t\n        <div class=\"c-breadcrumb-wrapper\">\n\n\t\t\t\n                        <div class=\"c-breadcrumb\">\n                            <ol class=\"breadcrumb\">\n          "
+    },
+    ".c-breadcrumb-wrapper": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"c-breadcrumb-wrapper\">\n\n\t\t\t\n                        <div class=\"c-breadcrumb\">\n                            <ol class=\"breadcrumb\">\n                                <li>\n                    "
+    },
+    ".c-breadcrumb": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"c-breadcrumb\">\n                            <ol class=\"breadcrumb\">\n                                <li>\n                                    <a href=\"https://voirdrama.org/\">\n\t\t\t\t\t\t\t\t\t\tHome"
+    },
+    ".breadcrumb": {
+      "count": 1,
+      "tag": "ol",
+      "text": "Home                                    \n         ",
+      "html": "<ol class=\"breadcrumb\">\n                                <li>\n                                    <a href=\"https://voirdrama.org/\">\n\t\t\t\t\t\t\t\t\t\tHome                                    </a>\n              "
+    },
+    ".active": {
+      "count": 1,
+      "tag": "li",
+      "text": "Pump Up the Healthy Love - 04 VOSTFR - 04",
+      "html": "<li class=\"active\">\n\t\t\t\t\t\t\t\t\t\t\t\tPump Up the Healthy Love - 04 VOSTFR - 04                                            </li>"
+    },
+    ".action-icon": {
+      "count": 1,
+      "tag": "div",
+      "text": "var requireLogin2BookMark = true;",
+      "html": "<div class=\"action-icon\">\n                                <ul class=\"action_list_icon list-inline\">\n\t\t\t\t\t\t\t\t\t                                    <li>\n\t\t\t\t\t\t\t\t\t\t<script type=\"text/javascript\"> var requ"
+    },
+    ".action_list_icon": {
+      "count": 1,
+      "tag": "ul",
+      "text": "var requireLogin2BookMark = true;",
+      "html": "<ul class=\"action_list_icon list-inline\">\n\t\t\t\t\t\t\t\t\t                                    <li>\n\t\t\t\t\t\t\t\t\t\t<script type=\"text/javascript\"> var requireLogin2BookMark = true; </script><a href=\"#\" class=\"wp-m"
+    },
+    ".wp-manga-action-button": {
+      "count": 1,
+      "tag": "a",
+      "text": "",
+      "html": "<a href=\"#\" class=\"wp-manga-action-button\" data-action=\"bookmark\" data-post=\"71682\" data-chapter=\"61581\" data-page=\"1\" title=\"Bookmark\"><i class=\"icon ion-ios-bookmark\"></i></a>"
+    },
+    ".ion-ios-bookmark": {
+      "count": 1,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"icon ion-ios-bookmark\"></i>"
+    },
+    ".entry-content": {
+      "count": 1,
+      "tag": "div",
+      "text": "Valider\n\t\t\t\t\t\n\n            \n\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\tvar th",
+      "html": "<div class=\"entry-content\">\n                                    <div class=\"entry-content_wrap\">\n\n                                        <div class=\"read-container\">\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n         "
+    },
+    ".entry-content_wrap": {
+      "count": 1,
+      "tag": "div",
+      "text": "Valider\n\t\t\t\t\t\n\n            \n\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\tvar th",
+      "html": "<div class=\"entry-content_wrap\">\n\n                                        <div class=\"read-container\">\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n                                            <div class=\"reading-content\">"
+    },
+    ".read-container": {
+      "count": 1,
+      "tag": "div",
+      "text": "Valider\n\t\t\t\t\t\n\n            \n\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\tvar th",
+      "html": "<div class=\"read-container\">\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n                                            <div class=\"reading-content\">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"hidden\" id=\"wp-manga-current-chap\" data-id=\"6158"
+    },
+    ".reading-content": {
+      "count": 1,
+      "tag": "div",
+      "text": "Valider\n\t\t\t\t\t\n\n            \n\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\tvar th",
+      "html": "<div class=\"reading-content\">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"hidden\" id=\"wp-manga-current-chap\" data-id=\"61581\" value=\"pump-up-the-healthy-love-04-vostfr\" style=\"\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\n            <div class"
+    },
+    ".chapter-video-frame": {
+      "count": 1,
+      "tag": "div",
+      "text": "Valider",
+      "html": "<div class=\"chapter-video-frame\" id=\"chapter-video-frame\">\n\t\t\t\t\n<div class=\"chapter-video-content-validator\">\n\t\t\t\t\t<script src=\"https://www.google.com/recaptcha/api.js?hl=fr\"></script><p></p>\n<form id"
+    },
+    ".chapter-video-content-validator": {
+      "count": 1,
+      "tag": "div",
+      "text": "Valider",
+      "html": "<div class=\"chapter-video-content-validator\">\n\t\t\t\t\t<script src=\"https://www.google.com/recaptcha/api.js?hl=fr\"></script><p></p>\n<form id=\"chapter-video-captcha-validator\" action=\"https://voirdrama.org"
+    },
+    ".g-recaptcha": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"g-recaptcha\" data-sitekey=\"6Le3G1YhAAAAAFki-FGyOj0WvqKt6a3SHCDXy91Q\" data-callback=\"enableSubmitreCaptchaBtn\" data-expired-callback=\"disableSubmitreCaptchaBtn\" data-error-callback=\"disable"
+    },
+    ".g-recaptcha-response": {
+      "count": 1,
+      "tag": "textarea",
+      "text": "",
+      "html": "<textarea id=\"g-recaptcha-response\" name=\"g-recaptcha-response\" class=\"g-recaptcha-response\" style=\"width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; r"
+    },
+    ".footer": {
+      "count": 1,
+      "tag": "div",
+      "text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR",
+      "html": "<div class=\"entry-header footer\" id=\"manga-reading-nav-foot\" data-position=\"footer\" data-id=\"71682\">\n            <div class=\"wp-manga-nav\">\n                <div class=\"select-view\">\n\t\t\t\t\t\n\t\t\t\t\t       "
+    },
+    ".col-12": {
+      "count": 2,
+      "tag": "div",
+      "text": "DISCUSSION \n\n\t\t\t\t                    \n            ",
+      "html": "<div class=\"main-col col-12 col-sm-8 col-md-8 col-lg-8\">\n                                        <!-- comments-area -->\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t            <div id=\"manga-discussion\" class=\"c-blog__headin"
+    },
+    ".col-sm-8": {
+      "count": 1,
+      "tag": "div",
+      "text": "DISCUSSION \n\n\t\t\t\t                    \n            ",
+      "html": "<div class=\"main-col col-12 col-sm-8 col-md-8 col-lg-8\">\n                                        <!-- comments-area -->\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t            <div id=\"manga-discussion\" class=\"c-blog__headin"
+    },
+    ".col-md-8": {
+      "count": 1,
+      "tag": "div",
+      "text": "DISCUSSION \n\n\t\t\t\t                    \n            ",
+      "html": "<div class=\"main-col col-12 col-sm-8 col-md-8 col-lg-8\">\n                                        <!-- comments-area -->\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t            <div id=\"manga-discussion\" class=\"c-blog__headin"
+    },
+    ".col-lg-8": {
+      "count": 1,
+      "tag": "div",
+      "text": "DISCUSSION \n\n\t\t\t\t                    \n            ",
+      "html": "<div class=\"main-col col-12 col-sm-8 col-md-8 col-lg-8\">\n                                        <!-- comments-area -->\n\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t            <div id=\"manga-discussion\" class=\"c-blog__headin"
+    },
+    ".c-blog__heading": {
+      "count": 1,
+      "tag": "div",
+      "text": "DISCUSSION \n\n\t\t\t\t                    \n            ",
+      "html": "<div id=\"manga-discussion\" class=\"c-blog__heading style-2 font-heading\">\n                <i class=\"ion-ios-star\"></i>\n                <h4> DISCUSSION </h4>\n\n\t\t\t\t                    <div class=\"comment"
+    },
+    ".style-2": {
+      "count": 1,
+      "tag": "div",
+      "text": "DISCUSSION \n\n\t\t\t\t                    \n            ",
+      "html": "<div id=\"manga-discussion\" class=\"c-blog__heading style-2 font-heading\">\n                <i class=\"ion-ios-star\"></i>\n                <h4> DISCUSSION </h4>\n\n\t\t\t\t                    <div class=\"comment"
+    },
+    ".font-heading": {
+      "count": 1,
+      "tag": "div",
+      "text": "DISCUSSION \n\n\t\t\t\t                    \n            ",
+      "html": "<div id=\"manga-discussion\" class=\"c-blog__heading style-2 font-heading\">\n                <i class=\"ion-ios-star\"></i>\n                <h4> DISCUSSION </h4>\n\n\t\t\t\t                    <div class=\"comment"
+    },
+    ".ion-ios-star": {
+      "count": 1,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"ion-ios-star\"></i>"
+    },
+    ".comment-selection-wrapper": {
+      "count": 1,
+      "tag": "div",
+      "text": "Local\n                            Disqus",
+      "html": "<div class=\"comment-selection-wrapper\">\n                        <select class=\"comment-selection\" name=\"\">\n                            <option value=\"local\">Local</option>\n                            "
+    },
+    ".comment-selection": {
+      "count": 1,
+      "tag": "select",
+      "text": "Local\n                            Disqus",
+      "html": "<select class=\"comment-selection\" name=\"\">\n                            <option value=\"local\">Local</option>\n                            <option value=\"disqus\">Disqus</option>\n                        <"
+    },
+    ".manga-discussion": {
+      "count": 1,
+      "tag": "div",
+      "text": "Laisser un commentaire Cancel reply\n\t\t\t\t\t vous dev",
+      "html": "<div class=\"manga-discussion wrapper\">\n\t\t\t\t                    <div id=\"manga-discussion-local\">\n\t\t\t\t\t\t\n<div class=\"hr mv40\"></div>\n\n<div id=\"madara-comments\" class=\"comments-area\">\n\n\t\n\t\t<div id=\"resp"
+    },
+    ".wrapper": {
+      "count": 1,
+      "tag": "div",
+      "text": "Laisser un commentaire Cancel reply\n\t\t\t\t\t vous dev",
+      "html": "<div class=\"manga-discussion wrapper\">\n\t\t\t\t                    <div id=\"manga-discussion-local\">\n\t\t\t\t\t\t\n<div class=\"hr mv40\"></div>\n\n<div id=\"madara-comments\" class=\"comments-area\">\n\n\t\n\t\t<div id=\"resp"
+    },
+    ".hr": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"hr mv40\"></div>"
+    },
+    ".mv40": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"hr mv40\"></div>"
+    },
+    ".comments-area": {
+      "count": 1,
+      "tag": "div",
+      "text": "Laisser un commentaire Cancel reply\n\t\t\t\t\t vous dev",
+      "html": "<div id=\"madara-comments\" class=\"comments-area\">\n\n\t\n\t\t<div id=\"respond\" class=\"comment-respond\">\n\t\t<h4 id=\"reply-title\" class=\"comment-reply-title\">Laisser un commentaire <small><a rel=\"nofollow\" id=\""
+    },
+    ".comment-respond": {
+      "count": 1,
+      "tag": "div",
+      "text": "Laisser un commentaire Cancel reply\n\t\t\t\t\t vous dev",
+      "html": "<div id=\"respond\" class=\"comment-respond\">\n\t\t<h4 id=\"reply-title\" class=\"comment-reply-title\">Laisser un commentaire <small><a rel=\"nofollow\" id=\"cancel-comment-reply-link\" href=\"/drama/pump-up-the-he"
+    },
+    ".comment-reply-title": {
+      "count": 1,
+      "tag": "h4",
+      "text": "Laisser un commentaire Cancel reply",
+      "html": "<h4 id=\"reply-title\" class=\"comment-reply-title\">Laisser un commentaire <small><a rel=\"nofollow\" id=\"cancel-comment-reply-link\" href=\"/drama/pump-up-the-healthy-love/pump-up-the-healthy-love-04-vostfr"
+    },
+    ".must-log-in": {
+      "count": 1,
+      "tag": "p",
+      "text": "vous devez vous inscrire ou vous \n\t\t\t\t\t connecter ",
+      "html": "<p class=\"must-log-in\">\n\t\t\t\t\t vous devez vous <a href=\"https://voirdrama.org/wp-login.php?action=register\" data-toggle=\"modal\" data-target=\"#form-sign-up\">inscrire</a> ou vous \n\t\t\t\t\t <a href=\"https://"
+    },
+    ".comments-title": {
+      "count": 1,
+      "tag": "h4",
+      "text": "2 Comments",
+      "html": "<h4 class=\"comments-title\">\n\t\t\t2 Comments        </h4>"
+    },
+    ".comment-list": {
+      "count": 1,
+      "tag": "ol",
+      "text": "Sdo.23\n                \n                \n         ",
+      "html": "<ol class=\"comment-list\" id=\"comments\">\n\t\t\t            <li class=\"comment byuser comment-author-sdo-23 even thread-even depth-1\" id=\"comment-24177\">\n\t\t\t                <article id=\"div-comment-24177\" "
+    },
+    ".comment": {
+      "count": 2,
+      "tag": "li",
+      "text": "Sdo.23\n                \n                \n         ",
+      "html": "<li class=\"comment byuser comment-author-sdo-23 even thread-even depth-1\" id=\"comment-24177\">\n\t\t\t                <article id=\"div-comment-24177\" class=\"comment-body\">\n\t\t\t            <div class=\"block "
+    },
+    ".byuser": {
+      "count": 2,
+      "tag": "li",
+      "text": "Sdo.23\n                \n                \n         ",
+      "html": "<li class=\"comment byuser comment-author-sdo-23 even thread-even depth-1\" id=\"comment-24177\">\n\t\t\t                <article id=\"div-comment-24177\" class=\"comment-body\">\n\t\t\t            <div class=\"block "
+    },
+    ".comment-author-sdo-23": {
+      "count": 1,
+      "tag": "li",
+      "text": "Sdo.23\n                \n                \n         ",
+      "html": "<li class=\"comment byuser comment-author-sdo-23 even thread-even depth-1\" id=\"comment-24177\">\n\t\t\t                <article id=\"div-comment-24177\" class=\"comment-body\">\n\t\t\t            <div class=\"block "
+    },
+    ".even": {
+      "count": 1,
+      "tag": "li",
+      "text": "Sdo.23\n                \n                \n         ",
+      "html": "<li class=\"comment byuser comment-author-sdo-23 even thread-even depth-1\" id=\"comment-24177\">\n\t\t\t                <article id=\"div-comment-24177\" class=\"comment-body\">\n\t\t\t            <div class=\"block "
+    },
+    ".thread-even": {
+      "count": 1,
+      "tag": "li",
+      "text": "Sdo.23\n                \n                \n         ",
+      "html": "<li class=\"comment byuser comment-author-sdo-23 even thread-even depth-1\" id=\"comment-24177\">\n\t\t\t                <article id=\"div-comment-24177\" class=\"comment-body\">\n\t\t\t            <div class=\"block "
+    },
+    ".depth-1": {
+      "count": 2,
+      "tag": "li",
+      "text": "Sdo.23\n                \n                \n         ",
+      "html": "<li class=\"comment byuser comment-author-sdo-23 even thread-even depth-1\" id=\"comment-24177\">\n\t\t\t                <article id=\"div-comment-24177\" class=\"comment-body\">\n\t\t\t            <div class=\"block "
+    },
+    ".comment-body": {
+      "count": 2,
+      "tag": "article",
+      "text": "Sdo.23\n                \n                \n         ",
+      "html": "<article id=\"div-comment-24177\" class=\"comment-body\">\n\t\t\t            <div class=\"block block-left\">\n                <footer class=\"comment-meta\">\n                    <div class=\"comment-avatar\">\n\t\t\t\t\t"
+    },
+    ".block": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"block block-left\">\n                <footer class=\"comment-meta\">\n                    <div class=\"comment-avatar\">\n\t\t\t\t\t\t<img alt=\"\" src=\"https://secure.gravatar.com/avatar/441d32fdc19b6357"
+    },
+    ".block-left": {
+      "count": 2,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"block block-left\">\n                <footer class=\"comment-meta\">\n                    <div class=\"comment-avatar\">\n\t\t\t\t\t\t<img alt=\"\" src=\"https://secure.gravatar.com/avatar/441d32fdc19b6357"
+    },
+    ".comment-meta": {
+      "count": 2,
+      "tag": "footer",
+      "text": "",
+      "html": "<footer class=\"comment-meta\">\n                    <div class=\"comment-avatar\">\n\t\t\t\t\t\t<img alt=\"\" src=\"https://secure.gravatar.com/avatar/441d32fdc19b6357597a9a45137a5356?s=60&amp;d=mm&amp;r=g\" srcset="
+    },
+    ".comment-avatar": {
+      "count": 2,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"comment-avatar\">\n\t\t\t\t\t\t<img alt=\"\" src=\"https://secure.gravatar.com/avatar/441d32fdc19b6357597a9a45137a5356?s=60&amp;d=mm&amp;r=g\" srcset=\"https://secure.gravatar.com/avatar/441d32fdc19b63"
+    },
+    ".avatar": {
+      "count": 2,
+      "tag": "img",
+      "text": "",
+      "html": "<img alt=\"\" src=\"https://secure.gravatar.com/avatar/441d32fdc19b6357597a9a45137a5356?s=60&amp;d=mm&amp;r=g\" srcset=\"https://secure.gravatar.com/avatar/441d32fdc19b6357597a9a45137a5356?s=120&amp;d=mm&a"
+    },
+    ".avatar-60": {
+      "count": 2,
+      "tag": "img",
+      "text": "",
+      "html": "<img alt=\"\" src=\"https://secure.gravatar.com/avatar/441d32fdc19b6357597a9a45137a5356?s=60&amp;d=mm&amp;r=g\" srcset=\"https://secure.gravatar.com/avatar/441d32fdc19b6357597a9a45137a5356?s=120&amp;d=mm&a"
+    },
+    ".photo": {
+      "count": 2,
+      "tag": "img",
+      "text": "",
+      "html": "<img alt=\"\" src=\"https://secure.gravatar.com/avatar/441d32fdc19b6357597a9a45137a5356?s=60&amp;d=mm&amp;r=g\" srcset=\"https://secure.gravatar.com/avatar/441d32fdc19b6357597a9a45137a5356?s=120&amp;d=mm&a"
+    },
+    ".block-right": {
+      "count": 2,
+      "tag": "div",
+      "text": "Sdo.23\n                \n                \n         ",
+      "html": "<div class=\"block block-right\">\n                <div class=\"comment-author\">\n                    <h6 class=\"heading fn\">Sdo.23</h6>\n                </div>\n                <!--!comment-author-->\n      "
+    },
+    ".comment-author": {
+      "count": 2,
+      "tag": "div",
+      "text": "Sdo.23",
+      "html": "<div class=\"comment-author\">\n                    <h6 class=\"heading fn\">Sdo.23</h6>\n                </div>"
+    },
+    ".heading": {
+      "count": 2,
+      "tag": "h6",
+      "text": "Sdo.23",
+      "html": "<h6 class=\"heading fn\">Sdo.23</h6>"
+    },
+    ".fn": {
+      "count": 2,
+      "tag": "h6",
+      "text": "Sdo.23",
+      "html": "<h6 class=\"heading fn\">Sdo.23</h6>"
+    },
+    ".comment-content": {
+      "count": 2,
+      "tag": "div",
+      "text": "C\u2019est quand la suite",
+      "html": "<div class=\"comment-content\">\n\t\t\t\t\t<p>C\u2019est quand la suite</p>\n\n\t\t\t\t\t\n\t\t\t\t\t                </div>"
+    },
+    ".comment-metadata": {
+      "count": 2,
+      "tag": "div",
+      "text": "May 10, 2025 at 4:32 pm",
+      "html": "<div class=\"comment-metadata\">\n                    <a href=\"https://voirdrama.org/drama/pump-up-the-healthy-love/pump-up-the-healthy-love-04-vostfr/#comment-24177\">\n\t\t\t\t\t\tMay 10, 2025 at 4:32 pm</a>\n "
+    },
+    ".reply": {
+      "count": 2,
+      "tag": "div",
+      "text": "Log in to Reply",
+      "html": "<div class=\"reply\">\n\t\t\t\t<a rel=\"nofollow\" class=\"comment-reply-login\" href=\"https://voirdrama.org/wp-login.php?redirect_to=https%3A%2F%2Fvoirdrama.org%2Fdrama%2Fpump-up-the-healthy-love%2F\">Log in to "
+    },
+    ".comment-reply-login": {
+      "count": 2,
+      "tag": "a",
+      "text": "Log in to Reply",
+      "html": "<a rel=\"nofollow\" class=\"comment-reply-login\" href=\"https://voirdrama.org/wp-login.php?redirect_to=https%3A%2F%2Fvoirdrama.org%2Fdrama%2Fpump-up-the-healthy-love%2F\">Log in to Reply</a>"
+    },
+    ".comment-author-nanalsg": {
+      "count": 1,
+      "tag": "li",
+      "text": "nanalsg\n                \n                \n        ",
+      "html": "<li class=\"comment byuser comment-author-nanalsg odd alt thread-odd thread-alt depth-1\" id=\"comment-24190\">\n\t\t\t                <article id=\"div-comment-24190\" class=\"comment-body\">\n\t\t\t            <div"
+    },
+    ".odd": {
+      "count": 1,
+      "tag": "li",
+      "text": "nanalsg\n                \n                \n        ",
+      "html": "<li class=\"comment byuser comment-author-nanalsg odd alt thread-odd thread-alt depth-1\" id=\"comment-24190\">\n\t\t\t                <article id=\"div-comment-24190\" class=\"comment-body\">\n\t\t\t            <div"
+    },
+    ".alt": {
+      "count": 1,
+      "tag": "li",
+      "text": "nanalsg\n                \n                \n        ",
+      "html": "<li class=\"comment byuser comment-author-nanalsg odd alt thread-odd thread-alt depth-1\" id=\"comment-24190\">\n\t\t\t                <article id=\"div-comment-24190\" class=\"comment-body\">\n\t\t\t            <div"
+    },
+    ".thread-odd": {
+      "count": 1,
+      "tag": "li",
+      "text": "nanalsg\n                \n                \n        ",
+      "html": "<li class=\"comment byuser comment-author-nanalsg odd alt thread-odd thread-alt depth-1\" id=\"comment-24190\">\n\t\t\t                <article id=\"div-comment-24190\" class=\"comment-body\">\n\t\t\t            <div"
+    },
+    ".thread-alt": {
+      "count": 1,
+      "tag": "li",
+      "text": "nanalsg\n                \n                \n        ",
+      "html": "<li class=\"comment byuser comment-author-nanalsg odd alt thread-odd thread-alt depth-1\" id=\"comment-24190\">\n\t\t\t                <article id=\"div-comment-24190\" class=\"comment-body\">\n\t\t\t            <div"
+    },
+    ".sidebar-col": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div class=\"sidebar-col col-md-4 col-sm-4\">\n\t\t\t\t\t\t\t\t\t\t\t\t        <div id=\"main-sidebar\" class=\"main-sidebar\" role=\"complementary\">\n\t\t\t<div class=\"row\"><div id=\"block-9\" class=\"widget col-12 col-md-12  "
+    },
+    ".col-md-4": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div class=\"sidebar-col col-md-4 col-sm-4\">\n\t\t\t\t\t\t\t\t\t\t\t\t        <div id=\"main-sidebar\" class=\"main-sidebar\" role=\"complementary\">\n\t\t\t<div class=\"row\"><div id=\"block-9\" class=\"widget col-12 col-md-12  "
+    },
+    ".col-sm-4": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div class=\"sidebar-col col-md-4 col-sm-4\">\n\t\t\t\t\t\t\t\t\t\t\t\t        <div id=\"main-sidebar\" class=\"main-sidebar\" role=\"complementary\">\n\t\t\t<div class=\"row\"><div id=\"block-9\" class=\"widget col-12 col-md-12  "
+    },
+    ".main-sidebar": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div id=\"main-sidebar\" class=\"main-sidebar\" role=\"complementary\">\n\t\t\t<div class=\"row\"><div id=\"block-9\" class=\"widget col-12 col-md-12   default no-icon  widget_block\"><div class=\"widget__inner widget"
+    },
+    ".widget": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div id=\"block-9\" class=\"widget col-12 col-md-12   default no-icon  widget_block\"><div class=\"widget__inner widget_block__inner c-widget-wrap\"><div class=\"widget-content\"><p></p><div class=\"asp_w_cont"
+    },
+    ".default": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div id=\"block-9\" class=\"widget col-12 col-md-12   default no-icon  widget_block\"><div class=\"widget__inner widget_block__inner c-widget-wrap\"><div class=\"widget-content\"><p></p><div class=\"asp_w_cont"
+    },
+    ".no-icon": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div id=\"block-9\" class=\"widget col-12 col-md-12   default no-icon  widget_block\"><div class=\"widget__inner widget_block__inner c-widget-wrap\"><div class=\"widget-content\"><p></p><div class=\"asp_w_cont"
+    },
+    ".widget_block": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div id=\"block-9\" class=\"widget col-12 col-md-12   default no-icon  widget_block\"><div class=\"widget__inner widget_block__inner c-widget-wrap\"><div class=\"widget-content\"><p></p><div class=\"asp_w_cont"
+    },
+    ".widget__inner": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div class=\"widget__inner widget_block__inner c-widget-wrap\"><div class=\"widget-content\"><p></p><div class=\"asp_w_container asp_w_container_7 asp_w_container_7_2\" data-id=\"7\">\n\t<div class=\"asp_w asp_m"
+    },
+    ".widget_block__inner": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div class=\"widget__inner widget_block__inner c-widget-wrap\"><div class=\"widget-content\"><p></p><div class=\"asp_w_container asp_w_container_7 asp_w_container_7_2\" data-id=\"7\">\n\t<div class=\"asp_w asp_m"
+    },
+    ".c-widget-wrap": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div class=\"widget__inner widget_block__inner c-widget-wrap\"><div class=\"widget-content\"><p></p><div class=\"asp_w_container asp_w_container_7 asp_w_container_7_2\" data-id=\"7\">\n\t<div class=\"asp_w asp_m"
+    },
+    ".widget-content": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div class=\"widget-content\"><p></p><div class=\"asp_w_container asp_w_container_7 asp_w_container_7_2\" data-id=\"7\">\n\t<div class=\"asp_w asp_m asp_m_7 asp_m_7_2 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsear"
+    },
+    ".asp_w_container_7_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div class=\"asp_w_container asp_w_container_7 asp_w_container_7_2\" data-id=\"7\">\n\t<div class=\"asp_w asp_m asp_m_7 asp_m_7_2 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro asp_main_container  asp_non_c"
+    },
+    ".asp_m_7_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_7 asp_m_7_2 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro asp_main_container  asp_non_compact\" data-id=\"7\" data-name=\"classic VOSTFR\" data-instance=\"2\" id=\"ajaxsearchpr"
+    },
+    ".asp_r_7_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores7_2\" class=\"asp_w asp_r asp_r_7 asp_r_7_2 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-7\" data-id=\"7\" data-instance=\"2\">\n\n    \n    \n    \n    <div class=\""
+    },
+    ".asp_s_7_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Generic filters\n    \n    \n        \n\t\t\n    \n    \n  ",
+      "html": "<div id=\"__original__ajaxsearchprosettings7_2\" class=\"asp_w asp_ss asp_ss_7 asp_s asp_s_7 asp_s_7_2 wpdreams_asp_sc wpdreams_asp_sc-7 ajaxsearchpro searchsettings\" data-id=\"7\" data-instance=\"2\">\n\t<for"
+    },
+    ".asp_w_container_6_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              ",
+      "html": "<div class=\"asp_w_container asp_w_container_6 asp_w_container_6_2\" data-id=\"6\">\n\t<div class=\"asp_w asp_m asp_m_6 asp_m_6_2 wpdreams_asp_sc wpdreams_asp_sc-6 ajaxsearchpro asp_main_container  asp_non_c"
+    },
+    ".asp_m_6_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_6 asp_m_6_2 wpdreams_asp_sc wpdreams_asp_sc-6 ajaxsearchpro asp_main_container  asp_non_compact\" data-id=\"6\" data-name=\"classic VF\" data-instance=\"2\" id=\"ajaxsearchpro6_2"
+    },
+    ".asp_r_6_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores6_2\" class=\"asp_w asp_r asp_r_6 asp_r_6_2 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-6\" data-id=\"6\" data-instance=\"2\">\n\n    \n    \n    \n    <div class=\""
+    },
+    ".asp_s_6_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Generic filters\n    \n    \n        \n\t\t\n    \n    \n  ",
+      "html": "<div id=\"__original__ajaxsearchprosettings6_2\" class=\"asp_w asp_ss asp_ss_6 asp_s asp_s_6 asp_s_6_2 wpdreams_asp_sc wpdreams_asp_sc-6 ajaxsearchpro searchsettings\" data-id=\"6\" data-instance=\"2\">\n\t<for"
+    },
+    ".site-footer": {
+      "count": 1,
+      "tag": "footer",
+      "text": "CONTACT\n\n                            \n\t\t\t\t\t\t\t\tRega",
+      "html": "<footer class=\"site-footer\">\n\n\t\t\t\n\t\t\t                <div class=\"top-footer\">\n                    <div class=\"container\">\n                        <div class=\"row\">\n                            <div cla"
+    },
+    ".top-footer": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"top-footer\">\n                    <div class=\"container\">\n                        <div class=\"row\">\n                            <div class=\"col-md-12\">\n                                <div "
+    },
+    ".wrap_social_account": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"wrap_social_account\">\n\t\t\t\t\t\t\t\t\t<ul class=\"list-inline social_account__item\"><li><a class=\"social-icons\" target=\"_blank\" rel=\"noopener\" href=\"https://twitter.com/voirdramacom\" title=\"Twitte"
+    },
+    ".social_account__item": {
+      "count": 1,
+      "tag": "ul",
+      "text": "",
+      "html": "<ul class=\"list-inline social_account__item\"><li><a class=\"social-icons\" target=\"_blank\" rel=\"noopener\" href=\"https://twitter.com/voirdramacom\" title=\"Twitter\"><i class=\"fab fa-twitter\" aria-hidden=\"t"
+    },
+    ".social-icons": {
+      "count": 2,
+      "tag": "a",
+      "text": "",
+      "html": "<a class=\"social-icons\" target=\"_blank\" rel=\"noopener\" href=\"https://twitter.com/voirdramacom\" title=\"Twitter\"><i class=\"fab fa-twitter\" aria-hidden=\"true\"></i></a>"
+    },
+    ".fab": {
+      "count": 2,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"fab fa-twitter\" aria-hidden=\"true\"></i>"
+    },
+    ".fa-twitter": {
+      "count": 1,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"fab fa-twitter\" aria-hidden=\"true\"></i>"
+    },
+    ".fa-discord": {
+      "count": 1,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"fab fa-discord\" aria-hidden=\"true\"></i>"
+    },
+    ".bottom-footer": {
+      "count": 1,
+      "tag": "div",
+      "text": "CONTACT\n\n                            \n\t\t\t\t\t\t\t\tRega",
+      "html": "<div class=\"bottom-footer\">\n                <div class=\"container\">\n                    <div class=\"row\">\n                        <div class=\"col-md-12\">\n\n\t\t\t\t\t\t\t<div class=\"nav-footer\"><ul class=\"lis"
+    },
+    ".nav-footer": {
+      "count": 1,
+      "tag": "div",
+      "text": "CONTACT",
+      "html": "<div class=\"nav-footer\"><ul class=\"list-inline font-nav\"><li id=\"menu-item-2254\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-2254\"><a href=\"mailto:voirdrama@proton.me\">CON"
+    },
+    ".font-nav": {
+      "count": 1,
+      "tag": "ul",
+      "text": "CONTACT",
+      "html": "<ul class=\"list-inline font-nav\"><li id=\"menu-item-2254\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-2254\"><a href=\"mailto:voirdrama@proton.me\">CONTACT</a></li>\n</ul>"
+    },
+    ".menu-item-2254": {
+      "count": 1,
+      "tag": "li",
+      "text": "CONTACT",
+      "html": "<li id=\"menu-item-2254\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-2254\"><a href=\"mailto:voirdrama@proton.me\">CONTACT</a></li>"
+    },
+    ".copyright": {
+      "count": 1,
+      "tag": "div",
+      "text": "Regarder gratuitement vos dramas en HD sur VOIRDRA",
+      "html": "<div class=\"copyright\">\n\t\t\t\t\t\t\t\t<p>Regarder gratuitement vos dramas en HD sur VOIRDRAMA</p>                            </div>"
+    },
+    ".wp-manga-section": {
+      "count": 1,
+      "tag": "div",
+      "text": "\u00d7\n                \n                \n              ",
+      "html": "<div class=\"wp-manga-section\">\n    <input type=\"hidden\" name=\"bookmarking\" value=\"0\" style=\"\">\n    <div class=\"modal fade\" id=\"form-login\" tabindex=\"-1\" role=\"dialog\">\n        <div class=\"modal-dialog"
+    },
+    ".modal": {
+      "count": 3,
+      "tag": "div",
+      "text": "\u00d7\n                \n                \n              ",
+      "html": "<div class=\"modal fade\" id=\"form-login\" tabindex=\"-1\" role=\"dialog\">\n        <div class=\"modal-dialog\" role=\"document\">\n            <div class=\"modal-content\">\n                <div class=\"modal-header"
+    },
+    ".fade": {
+      "count": 3,
+      "tag": "div",
+      "text": "\u00d7\n                \n                \n              ",
+      "html": "<div class=\"modal fade\" id=\"form-login\" tabindex=\"-1\" role=\"dialog\">\n        <div class=\"modal-dialog\" role=\"document\">\n            <div class=\"modal-content\">\n                <div class=\"modal-header"
+    },
+    ".modal-dialog": {
+      "count": 3,
+      "tag": "div",
+      "text": "\u00d7\n                \n                \n              ",
+      "html": "<div class=\"modal-dialog\" role=\"document\">\n            <div class=\"modal-content\">\n                <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"moda"
+    },
+    ".modal-content": {
+      "count": 3,
+      "tag": "div",
+      "text": "\u00d7\n                \n                \n              ",
+      "html": "<div class=\"modal-content\">\n                <div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                        <span ar"
+    },
+    ".modal-header": {
+      "count": 3,
+      "tag": "div",
+      "text": "\u00d7",
+      "html": "<div class=\"modal-header\">\n                    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                        <span aria-hidden=\"true\">\u00d7</span></button>\n         "
+    },
+    ".close": {
+      "count": 3,
+      "tag": "button",
+      "text": "\u00d7",
+      "html": "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\n                        <span aria-hidden=\"true\">\u00d7</span></button>"
+    },
+    ".modal-body": {
+      "count": 3,
+      "tag": "div",
+      "text": "S'enregistrer\n                        \n           ",
+      "html": "<div class=\"modal-body\">\n                    <div id=\"login\" class=\"login\">\n                        <h3>\n                            <a href=\"https://voirdrama.org/\" title=\"Voirdrama\" tabindex=\"-1\">S'"
+    },
+    ".login": {
+      "count": 4,
+      "tag": "div",
+      "text": "S'enregistrer\n                        \n           ",
+      "html": "<div id=\"login\" class=\"login\">\n                        <h3>\n                            <a href=\"https://voirdrama.org/\" title=\"Voirdrama\" tabindex=\"-1\">S'enregistrer</a>\n                        </h3>"
+    },
+    ".message": {
+      "count": 3,
+      "tag": "p",
+      "text": "",
+      "html": "<p class=\"message login\"></p>"
+    },
+    ".input": {
+      "count": 6,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"text\" name=\"log\" class=\"input user_login\" value=\"\" size=\"20\" style=\"\">"
+    },
+    ".user_login": {
+      "count": 2,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"text\" name=\"log\" class=\"input user_login\" value=\"\" size=\"20\" style=\"\">"
+    },
+    ".user_pass": {
+      "count": 2,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"password\" autocomplete=\"\" name=\"pwd\" class=\"input user_pass\" value=\"\" size=\"20\" style=\"\">"
+    },
+    ".forgetmenot": {
+      "count": 1,
+      "tag": "p",
+      "text": "Remember Me",
+      "html": "<p class=\"forgetmenot\">\n                                <label>\n                                    <input name=\"rememberme\" type=\"checkbox\" id=\"rememberme\" value=\"forever\" style=\"\">Remember Me       "
+    },
+    ".submit": {
+      "count": 3,
+      "tag": "p",
+      "text": "",
+      "html": "<p class=\"submit\">\n\t\t\t\t\t\t\t\t<input type=\"submit\" name=\"wp-submit\" class=\"button button-primary button-large wp-submit\" value=\"Se Connecter\" style=\"\">                                <input type=\"hidden\""
+    },
+    ".button": {
+      "count": 3,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"submit\" name=\"wp-submit\" class=\"button button-primary button-large wp-submit\" value=\"Se Connecter\" style=\"\">"
+    },
+    ".button-primary": {
+      "count": 3,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"submit\" name=\"wp-submit\" class=\"button button-primary button-large wp-submit\" value=\"Se Connecter\" style=\"\">"
+    },
+    ".button-large": {
+      "count": 3,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"submit\" name=\"wp-submit\" class=\"button button-primary button-large wp-submit\" value=\"Se Connecter\" style=\"\">"
+    },
+    ".wp-submit": {
+      "count": 3,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"submit\" name=\"wp-submit\" class=\"button button-primary button-large wp-submit\" value=\"Se Connecter\" style=\"\">"
+    },
+    ".to-reset": {
+      "count": 3,
+      "tag": "a",
+      "text": "Mot de passe oubli\u00e9 ?",
+      "html": "<a href=\"javascript:avoid(0)\" class=\"to-reset\">Mot de passe oubli\u00e9 ?</a>"
+    },
+    ".backtoblog": {
+      "count": 3,
+      "tag": "p",
+      "text": "\u2190 Retourner sur Voirdrama",
+      "html": "<p class=\"backtoblog\">\n                            <a href=\"javascript:void(0)\">\u2190 Retourner sur Voirdrama</a>\n                        </p>"
+    },
+    ".modal-footer": {
+      "count": 3,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"modal-footer\"></div>"
+    },
+    ".register": {
+      "count": 1,
+      "tag": "p",
+      "text": "S'enregister sur Voirdrama",
+      "html": "<p class=\"message register\">S'enregister sur Voirdrama</p>"
+    },
+    ".user_email": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"email\" name=\"email_sign-up\" class=\"input user_email\" value=\"\" size=\"20\" style=\"\">"
+    },
+    ".action": {
+      "count": 1,
+      "tag": "p",
+      "text": "",
+      "html": "<p class=\"action\">\n\t\t\t\t\t\t\t\t                            </p>"
+    },
+    ".to-login": {
+      "count": 1,
+      "tag": "a",
+      "text": "Se Connecter",
+      "html": "<a href=\"javascript:void(0)\" class=\"to-login\">Se Connecter</a>"
+    },
+    ".reset": {
+      "count": 1,
+      "tag": "p",
+      "text": "Please enter your username or email address. You w",
+      "html": "<p class=\"message reset\">Please enter your username or email address. You will receive a link to create a new password via email.</p>"
+    },
+    ".a11y-speak-intro-text": {
+      "count": 1,
+      "tag": "p",
+      "text": "Notifications",
+      "html": "<p id=\"a11y-speak-intro-text\" class=\"a11y-speak-intro-text\" style=\"position: absolute;margin: -1px;padding: 0;height: 1px;width: 1px;overflow: hidden;clip: rect(1px, 1px, 1px, 1px);-webkit-clip-path: "
+    },
+    ".a11y-speak-region": {
+      "count": 2,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"a11y-speak-assertive\" class=\"a11y-speak-region\" style=\"position: absolute;margin: -1px;padding: 0;height: 1px;width: 1px;overflow: hidden;clip: rect(1px, 1px, 1px, 1px);-webkit-clip-path: ins"
+    }
+  },
+  "specialElements": {
+    "video": 0,
+    "iframe": 3,
+    ".jwplayer": 0,
+    ".plyr": 0,
+    ".video-js": 0,
+    "[data-player]": 0,
+    "[data-video]": 0
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "total_duration": "0.00",
+  "total_sources": 1,
+  "total_errors": 0,
+  "total_items": 0,
+  "sources": [
+    {
+      "source": "streamingdivx",
+      "count": 0,
+      "duration": "0.00",
+      "file": "/Users/floriace/FLO_DRAMA/FloDrama/cloudflare/scraping/extraction-massive/films/streamingdivx_20250512_091243.json/streamingdivx_2025-05-12T07-12-43.540Z.json",
+      "is_mock": false,
+      "content_type": "film"
+    }
+  ]
+}

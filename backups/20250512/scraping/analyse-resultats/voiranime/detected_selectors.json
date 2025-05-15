@@ -1,0 +1,1321 @@
+{
+  "category": [
+    {
+      "selector": "#wp-pagenavi-css",
+      "count": 1,
+      "tag": "link",
+      "sample_text": ""
+    },
+    {
+      "selector": "#menu-item-915",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": "#menu-item-48192",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "LISTE"
+    },
+    {
+      "selector": "#menu-item-88326",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "NOUVEAU"
+    },
+    {
+      "selector": "#menu-item-53504",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "BIENTOT"
+    },
+    {
+      "selector": "#menu-item-2061",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "RECHERCHE AV"
+    },
+    {
+      "selector": "#menu-item-92149",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "VOIRDRAMA"
+    },
+    {
+      "selector": "#menu-main-menu-1",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "ACCUEIL \nLISTE \nNOUVEAU \nBIENTOT \nRECHERCHE AV \nVO"
+    },
+    {
+      "selector": "#nav-menu-item-915",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": "#nav-menu-item-48192",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "LISTE"
+    },
+    {
+      "selector": "#nav-menu-item-88326",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "NOUVEAU"
+    },
+    {
+      "selector": "#nav-menu-item-53504",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "BIENTOT"
+    },
+    {
+      "selector": "#nav-menu-item-2061",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "RECHERCHE AV"
+    },
+    {
+      "selector": "#nav-menu-item-92149",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "VOIRDRAMA"
+    },
+    {
+      "selector": "#menu-item-62593",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Action"
+    },
+    {
+      "selector": "#menu-item-62594",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Adventure"
+    },
+    {
+      "selector": "#menu-item-62595",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Chinese"
+    },
+    {
+      "selector": "#menu-item-62596",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Comedy"
+    },
+    {
+      "selector": "#menu-item-62597",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drama"
+    },
+    {
+      "selector": "#menu-item-62598",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Ecchi"
+    },
+    {
+      "selector": "#menu-item-62612",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Plus\n\n\tFantasy\n\tHorror\n\tMahou Shoujo\n\tMecha\n\tMusic"
+    },
+    {
+      "selector": "#menu-item-62599",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Fantasy"
+    },
+    {
+      "selector": "#menu-item-62600",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Horror"
+    },
+    {
+      "selector": "#menu-item-62601",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Mahou Shoujo"
+    },
+    {
+      "selector": "#menu-item-62602",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Mecha"
+    },
+    {
+      "selector": "#menu-item-62603",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Music"
+    },
+    {
+      "selector": "#menu-item-62604",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Mystery"
+    },
+    {
+      "selector": "#menu-item-62605",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Psychological"
+    },
+    {
+      "selector": "#menu-item-62606",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Romance"
+    },
+    {
+      "selector": "#menu-item-62607",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Sci-Fi"
+    },
+    {
+      "selector": "#menu-item-62608",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Slice of Life"
+    },
+    {
+      "selector": "#menu-item-62609",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Sports"
+    },
+    {
+      "selector": "#menu-item-62610",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Supernatural"
+    },
+    {
+      "selector": "#menu-item-62611",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Thriller"
+    },
+    {
+      "selector": "#manga-reading-nav-head",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Home                                    \n         "
+    },
+    {
+      "selector": "#manga-reading-nav-foot",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "LECTEUR myTV\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLECTEUR MOON\n"
+    },
+    {
+      "selector": "#menu-item-916",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "CONTACT"
+    },
+    {
+      "selector": "#jquery-ui-menu-js",
+      "count": 1,
+      "tag": "script",
+      "sample_text": ""
+    },
+    {
+      "selector": "#wp-manga-js-extra",
+      "count": 1,
+      "tag": "script",
+      "sample_text": "/* <![CDATA[ */\nvar mangaNav = {\"mangaUrl\":\"https:"
+    },
+    {
+      "selector": ".keyboard-navigate",
+      "count": 1,
+      "tag": "body",
+      "sample_text": "Search Generic filters Exact matches only  Search "
+    },
+    {
+      "selector": ".header-style-1",
+      "count": 1,
+      "tag": "body",
+      "sample_text": "Search Generic filters Exact matches only  Search "
+    },
+    {
+      "selector": ".site-header",
+      "count": 1,
+      "tag": "header",
+      "sample_text": "Search Generic filters Exact matches only  Search "
+    },
+    {
+      "selector": ".c-header__top",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Search Generic filters Exact matches only  Search "
+    },
+    {
+      "selector": ".search-main-menu",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "Search Generic filters Exact matches only  Search "
+    },
+    {
+      "selector": ".main-navigation",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "ACCUEIL\nLISTE\nNOUVEAU\nBIENTOT\nRECHERCHE AV\nVOIRDRA"
+    },
+    {
+      "selector": ".main-navigation_wrap",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "ACCUEIL\nLISTE\nNOUVEAU\nBIENTOT\nRECHERCHE AV\nVOIRDRA"
+    },
+    {
+      "selector": ".main-menu",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "ACCUEIL\nLISTE\nNOUVEAU\nBIENTOT\nRECHERCHE AV\nVOIRDRA"
+    },
+    {
+      "selector": ".nav",
+      "count": 2,
+      "tag": "ul",
+      "sample_text": "ACCUEIL\nLISTE\nNOUVEAU\nBIENTOT\nRECHERCHE AV\nVOIRDRA"
+    },
+    {
+      "selector": ".navbar-nav",
+      "count": 2,
+      "tag": "ul",
+      "sample_text": "ACCUEIL\nLISTE\nNOUVEAU\nBIENTOT\nRECHERCHE AV\nVOIRDRA"
+    },
+    {
+      "selector": ".main-navbar",
+      "count": 2,
+      "tag": "ul",
+      "sample_text": "ACCUEIL\nLISTE\nNOUVEAU\nBIENTOT\nRECHERCHE AV\nVOIRDRA"
+    },
+    {
+      "selector": ".menu-item",
+      "count": 33,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-type-post_type",
+      "count": 8,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-object-page",
+      "count": 8,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-home",
+      "count": 2,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-915",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-48192",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "LISTE"
+    },
+    {
+      "selector": ".menu-item-88326",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "NOUVEAU"
+    },
+    {
+      "selector": ".menu-item-53504",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "BIENTOT"
+    },
+    {
+      "selector": ".menu-item-type-custom",
+      "count": 6,
+      "tag": "li",
+      "sample_text": "RECHERCHE AV"
+    },
+    {
+      "selector": ".menu-item-object-custom",
+      "count": 6,
+      "tag": "li",
+      "sample_text": "RECHERCHE AV"
+    },
+    {
+      "selector": ".menu-item-2061",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "RECHERCHE AV"
+    },
+    {
+      "selector": ".menu-item-92149",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "VOIRDRAMA"
+    },
+    {
+      "selector": ".search-navigation",
+      "count": 1,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".search-navigation__wrap",
+      "count": 1,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".main-menu-search",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": ""
+    },
+    {
+      "selector": ".nav-menu",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": ""
+    },
+    {
+      "selector": ".menu-search",
+      "count": 1,
+      "tag": "li",
+      "sample_text": ""
+    },
+    {
+      "selector": ".open-search-main-menu",
+      "count": 1,
+      "tag": "a",
+      "sample_text": ""
+    },
+    {
+      "selector": ".c-togle__menu",
+      "count": 1,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".menu_icon__open",
+      "count": 1,
+      "tag": "button",
+      "sample_text": ""
+    },
+    {
+      "selector": ".mobile-menu",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "ACCUEIL \nLISTE \nNOUVEAU \nBIENTOT \nRECHERCHE AV \nVO"
+    },
+    {
+      "selector": ".menu-collapse",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "ACCUEIL \nLISTE \nNOUVEAU \nBIENTOT \nRECHERCHE AV \nVO"
+    },
+    {
+      "selector": ".close-nav",
+      "count": 1,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".menu_icon__close",
+      "count": 1,
+      "tag": "button",
+      "sample_text": ""
+    },
+    {
+      "selector": ".off-menu",
+      "count": 1,
+      "tag": "nav",
+      "sample_text": "ACCUEIL \nLISTE \nNOUVEAU \nBIENTOT \nRECHERCHE AV \nVO"
+    },
+    {
+      "selector": ".main-menu-item",
+      "count": 6,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-depth-0",
+      "count": 6,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-link",
+      "count": 6,
+      "tag": "a",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".main-menu-link",
+      "count": 6,
+      "tag": "a",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".clone-header",
+      "count": 1,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".c-sub-header-nav",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Action\nAdventure\nChinese\nComedy\nDrama\nEcchi\nPlus\n\n"
+    },
+    {
+      "selector": ".c-sub-nav_wrap",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Action\nAdventure\nChinese\nComedy\nDrama\nEcchi\nPlus\n\n"
+    },
+    {
+      "selector": ".sub-nav_content",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Action\nAdventure\nChinese\nComedy\nDrama\nEcchi\nPlus\n\n"
+    },
+    {
+      "selector": ".sub-nav_list",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "Action\nAdventure\nChinese\nComedy\nDrama\nEcchi\nPlus\n\n"
+    },
+    {
+      "selector": ".second-menu",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "Action\nAdventure\nChinese\nComedy\nDrama\nEcchi\nPlus\n\n"
+    },
+    {
+      "selector": ".menu-item-type-taxonomy",
+      "count": 19,
+      "tag": "li",
+      "sample_text": "Action"
+    },
+    {
+      "selector": ".menu-item-object-wp-manga-genre",
+      "count": 19,
+      "tag": "li",
+      "sample_text": "Action"
+    },
+    {
+      "selector": ".current-menu-parent",
+      "count": 3,
+      "tag": "li",
+      "sample_text": "Action"
+    },
+    {
+      "selector": ".menu-item-62593",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Action"
+    },
+    {
+      "selector": ".menu-item-62594",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Adventure"
+    },
+    {
+      "selector": ".menu-item-62595",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Chinese"
+    },
+    {
+      "selector": ".menu-item-62596",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Comedy"
+    },
+    {
+      "selector": ".menu-item-62597",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drama"
+    },
+    {
+      "selector": ".menu-item-62598",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Ecchi"
+    },
+    {
+      "selector": ".menu-item-has-children",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Plus\n\n\tFantasy\n\tHorror\n\tMahou Shoujo\n\tMecha\n\tMusic"
+    },
+    {
+      "selector": ".menu-item-62612",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Plus\n\n\tFantasy\n\tHorror\n\tMahou Shoujo\n\tMecha\n\tMusic"
+    },
+    {
+      "selector": ".sub-menu",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "Fantasy\n\tHorror\n\tMahou Shoujo\n\tMecha\n\tMusic\n\tMyste"
+    },
+    {
+      "selector": ".menu-item-62599",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Fantasy"
+    },
+    {
+      "selector": ".menu-item-62600",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Horror"
+    },
+    {
+      "selector": ".menu-item-62601",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Mahou Shoujo"
+    },
+    {
+      "selector": ".menu-item-62602",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Mecha"
+    },
+    {
+      "selector": ".menu-item-62603",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Music"
+    },
+    {
+      "selector": ".menu-item-62604",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Mystery"
+    },
+    {
+      "selector": ".menu-item-62605",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Psychological"
+    },
+    {
+      "selector": ".menu-item-62606",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Romance"
+    },
+    {
+      "selector": ".menu-item-62607",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Sci-Fi"
+    },
+    {
+      "selector": ".menu-item-62608",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Slice of Life"
+    },
+    {
+      "selector": ".menu-item-62609",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Sports"
+    },
+    {
+      "selector": ".menu-item-62610",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Supernatural"
+    },
+    {
+      "selector": ".menu-item-62611",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Thriller"
+    },
+    {
+      "selector": ".entry-header",
+      "count": 2,
+      "tag": "div",
+      "sample_text": "Home                                    \n         "
+    },
+    {
+      "selector": ".header",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Home                                    \n         "
+    },
+    {
+      "selector": ".wp-manga-nav",
+      "count": 2,
+      "tag": "div",
+      "sample_text": "Home                                    \n         "
+    },
+    {
+      "selector": ".entry-header_wrap",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Home                                    \n         "
+    },
+    {
+      "selector": ".nav-links",
+      "count": 2,
+      "tag": "div",
+      "sample_text": "Next"
+    },
+    {
+      "selector": ".nav-next",
+      "count": 2,
+      "tag": "div",
+      "sample_text": "Next"
+    },
+    {
+      "selector": ".nav-footer",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "CONTACT"
+    },
+    {
+      "selector": ".font-nav",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "CONTACT"
+    },
+    {
+      "selector": ".menu-item-916",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "CONTACT"
+    },
+    {
+      "selector": ".current-menu-parent",
+      "count": 4,
+      "tag": "li",
+      "sample_text": "Comedy"
+    }
+  ],
+  "drama_list": [],
+  "drama_item": [
+    {
+      "selector": "#menu-item-915",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": "#menu-item-48192",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "LISTE"
+    },
+    {
+      "selector": "#menu-item-88326",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "NOUVEAU"
+    },
+    {
+      "selector": "#menu-item-53504",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "BIENTOT"
+    },
+    {
+      "selector": "#menu-item-2061",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "RECHERCHE AV"
+    },
+    {
+      "selector": "#menu-item-92149",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "VOIRDRAMA"
+    },
+    {
+      "selector": "#nav-menu-item-915",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": "#nav-menu-item-48192",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "LISTE"
+    },
+    {
+      "selector": "#nav-menu-item-88326",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "NOUVEAU"
+    },
+    {
+      "selector": "#nav-menu-item-53504",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "BIENTOT"
+    },
+    {
+      "selector": "#nav-menu-item-2061",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "RECHERCHE AV"
+    },
+    {
+      "selector": "#nav-menu-item-92149",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "VOIRDRAMA"
+    },
+    {
+      "selector": "#menu-item-62593",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Action"
+    },
+    {
+      "selector": "#menu-item-62594",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Adventure"
+    },
+    {
+      "selector": "#menu-item-62595",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Chinese"
+    },
+    {
+      "selector": "#menu-item-62596",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Comedy"
+    },
+    {
+      "selector": "#menu-item-62597",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drama"
+    },
+    {
+      "selector": "#menu-item-62598",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Ecchi"
+    },
+    {
+      "selector": "#menu-item-62612",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Plus\n\n\tFantasy\n\tHorror\n\tMahou Shoujo\n\tMecha\n\tMusic"
+    },
+    {
+      "selector": "#menu-item-62599",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Fantasy"
+    },
+    {
+      "selector": "#menu-item-62600",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Horror"
+    },
+    {
+      "selector": "#menu-item-62601",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Mahou Shoujo"
+    },
+    {
+      "selector": "#menu-item-62602",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Mecha"
+    },
+    {
+      "selector": "#menu-item-62603",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Music"
+    },
+    {
+      "selector": "#menu-item-62604",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Mystery"
+    },
+    {
+      "selector": "#menu-item-62605",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Psychological"
+    },
+    {
+      "selector": "#menu-item-62606",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Romance"
+    },
+    {
+      "selector": "#menu-item-62607",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Sci-Fi"
+    },
+    {
+      "selector": "#menu-item-62608",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Slice of Life"
+    },
+    {
+      "selector": "#menu-item-62609",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Sports"
+    },
+    {
+      "selector": "#menu-item-62610",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Supernatural"
+    },
+    {
+      "selector": "#menu-item-62611",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Thriller"
+    },
+    {
+      "selector": "#menu-item-916",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "CONTACT"
+    },
+    {
+      "selector": ".postid-97947",
+      "count": 1,
+      "tag": "body",
+      "sample_text": "Search Generic filters Exact matches only  Search "
+    },
+    {
+      "selector": ".asp_item_overlay",
+      "count": 4,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".asp_item_inner",
+      "count": 4,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".menu-item",
+      "count": 33,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-type-post_type",
+      "count": 8,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-object-page",
+      "count": 8,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-home",
+      "count": 2,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-915",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-48192",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "LISTE"
+    },
+    {
+      "selector": ".menu-item-88326",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "NOUVEAU"
+    },
+    {
+      "selector": ".menu-item-53504",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "BIENTOT"
+    },
+    {
+      "selector": ".menu-item-type-custom",
+      "count": 6,
+      "tag": "li",
+      "sample_text": "RECHERCHE AV"
+    },
+    {
+      "selector": ".menu-item-object-custom",
+      "count": 6,
+      "tag": "li",
+      "sample_text": "RECHERCHE AV"
+    },
+    {
+      "selector": ".menu-item-2061",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "RECHERCHE AV"
+    },
+    {
+      "selector": ".menu-item-92149",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "VOIRDRAMA"
+    },
+    {
+      "selector": ".main-menu-item",
+      "count": 6,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-depth-0",
+      "count": 6,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-type-taxonomy",
+      "count": 19,
+      "tag": "li",
+      "sample_text": "Action"
+    },
+    {
+      "selector": ".menu-item-object-wp-manga-genre",
+      "count": 19,
+      "tag": "li",
+      "sample_text": "Action"
+    },
+    {
+      "selector": ".menu-item-62593",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Action"
+    },
+    {
+      "selector": ".menu-item-62594",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Adventure"
+    },
+    {
+      "selector": ".menu-item-62595",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Chinese"
+    },
+    {
+      "selector": ".menu-item-62596",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Comedy"
+    },
+    {
+      "selector": ".menu-item-62597",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drama"
+    },
+    {
+      "selector": ".menu-item-62598",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Ecchi"
+    },
+    {
+      "selector": ".menu-item-has-children",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Plus\n\n\tFantasy\n\tHorror\n\tMahou Shoujo\n\tMecha\n\tMusic"
+    },
+    {
+      "selector": ".menu-item-62612",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Plus\n\n\tFantasy\n\tHorror\n\tMahou Shoujo\n\tMecha\n\tMusic"
+    },
+    {
+      "selector": ".menu-item-62599",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Fantasy"
+    },
+    {
+      "selector": ".menu-item-62600",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Horror"
+    },
+    {
+      "selector": ".menu-item-62601",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Mahou Shoujo"
+    },
+    {
+      "selector": ".menu-item-62602",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Mecha"
+    },
+    {
+      "selector": ".menu-item-62603",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Music"
+    },
+    {
+      "selector": ".menu-item-62604",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Mystery"
+    },
+    {
+      "selector": ".menu-item-62605",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Psychological"
+    },
+    {
+      "selector": ".menu-item-62606",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Romance"
+    },
+    {
+      "selector": ".menu-item-62607",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Sci-Fi"
+    },
+    {
+      "selector": ".menu-item-62608",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Slice of Life"
+    },
+    {
+      "selector": ".menu-item-62609",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Sports"
+    },
+    {
+      "selector": ".menu-item-62610",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Supernatural"
+    },
+    {
+      "selector": ".menu-item-62611",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Thriller"
+    },
+    {
+      "selector": ".c-blog-post",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Home                                    \n         "
+    },
+    {
+      "selector": ".social_account__item",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": ""
+    },
+    {
+      "selector": ".menu-item-916",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "CONTACT"
+    },
+    {
+      "selector": ".copyright",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Regarder gratuitement vos animes en HD sur VOIRANI"
+    },
+    {
+      "selector": ".postid-105755",
+      "count": 1,
+      "tag": "body",
+      "sample_text": "Search Generic filters Exact matches only  Search "
+    }
+  ],
+  "episode_list": [],
+  "episode_item": [],
+  "player": [
+    {
+      "selector": "#manga-reading-nav-foot",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "LECTEUR myTV\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLECTEUR MOON\n"
+    },
+    {
+      "selector": ".select-view",
+      "count": 2,
+      "tag": "div",
+      "sample_text": "LECTEUR myTV\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLECTEUR MOON\n"
+    },
+    {
+      "selector": ".c-selectpicker",
+      "count": 6,
+      "tag": "div",
+      "sample_text": "LECTEUR myTV\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLECTEUR MOON\n"
+    },
+    {
+      "selector": ".selectpicker_version",
+      "count": 2,
+      "tag": "div",
+      "sample_text": "LECTEUR myTV\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLECTEUR MOON\n"
+    },
+    {
+      "selector": ".selectpicker",
+      "count": 4,
+      "tag": "select",
+      "sample_text": "LECTEUR myTV\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLECTEUR MOON\n"
+    },
+    {
+      "selector": ".host-select",
+      "count": 2,
+      "tag": "select",
+      "sample_text": "LECTEUR myTV\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLECTEUR MOON\n"
+    },
+    {
+      "selector": ".footer",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "LECTEUR myTV\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLECTEUR MOON\n"
+    }
+  ],
+  "video": [
+    {
+      "selector": "#chapter-video-frame",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Valider\n\nBy clicking \u201cValider\u201d, you acknowledge th"
+    },
+    {
+      "selector": "#chapter-video-captcha-validator",
+      "count": 1,
+      "tag": "form",
+      "sample_text": "Valider\n\nBy clicking \u201cValider\u201d, you acknowledge th"
+    },
+    {
+      "selector": ".chapter-type-video",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Home                                    \n         "
+    },
+    {
+      "selector": ".video-light",
+      "count": 2,
+      "tag": "a",
+      "sample_text": "Light off Light on"
+    },
+    {
+      "selector": ".chapter-video-frame",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Valider\n\nBy clicking \u201cValider\u201d, you acknowledge th"
+    },
+    {
+      "selector": ".chapter-video-content-validator",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Valider\n\nBy clicking \u201cValider\u201d, you acknowledge th"
+    }
+  ],
+  "metadata": [],
+  "title": [
+    {
+      "selector": "#madara-css-inline-css",
+      "count": 1,
+      "tag": "style",
+      "sample_text": ".c-blog__heading.style-2 i:after, .settings-page ."
+    },
+    {
+      "selector": "#set_title3_1",
+      "count": 1,
+      "tag": "input",
+      "sample_text": ""
+    },
+    {
+      "selector": "#set_title2_1",
+      "count": 1,
+      "tag": "input",
+      "sample_text": ""
+    },
+    {
+      "selector": "#set_title3_2",
+      "count": 1,
+      "tag": "input",
+      "sample_text": ""
+    },
+    {
+      "selector": "#set_title2_2",
+      "count": 1,
+      "tag": "input",
+      "sample_text": ""
+    }
+  ],
+  "image": [
+    {
+      "selector": "#imagesloaded-js",
+      "count": 1,
+      "tag": "script",
+      "sample_text": ""
+    }
+  ],
+  "trailer": []
+}

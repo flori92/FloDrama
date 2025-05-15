@@ -1,0 +1,50 @@
+{
+  "dramacool": {
+    "success": true,
+    "stats": {
+      "categories_found": 0,
+      "contents_found": 0,
+      "episodes_found": 0,
+      "player_pages_found": 0,
+      "streaming_urls_found": 0,
+      "errors": 0
+    },
+    "player_pages_count": 0
+  },
+  "voirdrama": {
+    "success": true,
+    "stats": {
+      "categories_found": 47,
+      "contents_found": 0,
+      "episodes_found": 0,
+      "player_pages_found": 0,
+      "streaming_urls_found": 0,
+      "errors": 0
+    },
+    "player_pages_count": 0
+  },
+  "voiranime": {
+    "success": true,
+    "stats": {
+      "categories_found": 34,
+      "contents_found": 0,
+      "episodes_found": 0,
+      "player_pages_found": 0,
+      "streaming_urls_found": 0,
+      "errors": 0
+    },
+    "player_pages_count": 0
+  },
+  "vostfree": {
+    "success": true,
+    "stats": {
+      "categories_found": 0,
+      "contents_found": 0,
+      "episodes_found": 0,
+      "player_pages_found": 0,
+      "streaming_urls_found": 0,
+      "errors": 0
+    },
+    "player_pages_count": 0
+  }
+}

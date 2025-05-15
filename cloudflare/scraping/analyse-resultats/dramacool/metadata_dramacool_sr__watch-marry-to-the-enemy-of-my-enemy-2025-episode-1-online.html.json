@@ -1,0 +1,19 @@
+{
+  "title": "Dramacool | Asian Drama, Movies and Shows English Sub Full HD",
+  "h1": null,
+  "images": [
+    "https://wwv.dramacool.sr/frontend/images/logo.jpg",
+    "https://wwv.dramacool.sr/frontend/images/mobi/up_down.png",
+    "https://wwv.dramacool.sr/frontend/images/mobi/logo.png",
+    "https://wwv.dramacool.sr/frontend/images/button-search.png",
+    "https://wwv.dramacool.sr/frontend/images/home.png"
+  ],
+  "description": "Asian Drama, Watch drama asian Online for free releases in Korean, Taiwanese, Hong Kong,Thailand and Chinese with English subtitles on Dramacool, Dramacool9",
+  "jsonLd": [
+    "{\"@context\": \"http://schema.org\",\"@type\": \"Organization\",\"url\": \"https://dramacool.ge/\",\"logo\": \"https://dramacool.ge/frontend/images/logo.jpg\",\"contactPoint\": [{\"@type\": \"ContactPoint\",\"telephone\": \"03347858018\",\"contactType\": \"customer service\"}],\"sameAs\": [\"https://www.facebook.com/reelsvideosfun\",\"https://twitter.com/dramacoolae\",\"youtube.com/@dramacoolsr\",\"https://www.pinterest.co.uk/dramacoolsr/\"]}",
+    "{\"@context\": \"http://schema.org\",\"@type\": \"WebSite\",\"name\": \"Dramacool\",\"url\": \"https://dramacool.ge/\"}",
+    "{\"@id\":\"https://dramacool.ge/\",\"@type\":\"WebPage\",\"@context\":\"http://schema.org\"}"
+  ],
+  "text_.title": "The Secret Contract of the Witch (2025)",
+  "text_.content-right-title": "Ads"
+}

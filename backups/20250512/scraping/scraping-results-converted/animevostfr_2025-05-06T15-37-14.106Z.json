@@ -1,0 +1,909 @@
+{
+  "source": "animevostfr",
+  "timestamp": "2025-05-06T18:05:04.941Z",
+  "count": 100,
+  "data": [
+    {
+      "id": "animevostfr_b996ecee1b2f",
+      "title": "Attack on Titan",
+      "source_url": "https://animevostfr.com/anime/attack-on-titan",
+      "poster": "https://via.placeholder.com/300x450.png?text=Attack%20on%20Titan",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2022
+    },
+    {
+      "id": "animevostfr_d75ace5cd6c4",
+      "title": "Demon Slayer",
+      "source_url": "https://animevostfr.com/anime/demon-slayer",
+      "poster": "https://via.placeholder.com/300x450.png?text=Demon%20Slayer",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2025
+    },
+    {
+      "id": "animevostfr_42ab7bed8128",
+      "title": "My Hero Academia",
+      "source_url": "https://animevostfr.com/anime/my-hero-academia",
+      "poster": "https://via.placeholder.com/300x450.png?text=My%20Hero%20Academia",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2024
+    },
+    {
+      "id": "animevostfr_a6fd098c98b1",
+      "title": "One Piece",
+      "source_url": "https://animevostfr.com/anime/one-piece",
+      "poster": "https://via.placeholder.com/300x450.png?text=One%20Piece",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2025
+    },
+    {
+      "id": "animevostfr_1a9a54719142",
+      "title": "Naruto",
+      "source_url": "https://animevostfr.com/anime/naruto",
+      "poster": "https://via.placeholder.com/300x450.png?text=Naruto",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2025
+    },
+    {
+      "id": "animevostfr_1343b6f954da",
+      "title": "Dragon Ball",
+      "source_url": "https://animevostfr.com/anime/dragon-ball",
+      "poster": "https://via.placeholder.com/300x450.png?text=Dragon%20Ball",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2022
+    },
+    {
+      "id": "animevostfr_ffefb73c9bdf",
+      "title": "Death Note",
+      "source_url": "https://animevostfr.com/anime/death-note",
+      "poster": "https://via.placeholder.com/300x450.png?text=Death%20Note",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2023
+    },
+    {
+      "id": "animevostfr_e4b0aabf5997",
+      "title": "Fullmetal Alchemist",
+      "source_url": "https://animevostfr.com/anime/fullmetal-alchemist",
+      "poster": "https://via.placeholder.com/300x450.png?text=Fullmetal%20Alchemist",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2021
+    },
+    {
+      "id": "animevostfr_61f3d0141bc4",
+      "title": "Hunter x Hunter",
+      "source_url": "https://animevostfr.com/anime/hunter-x-hunter",
+      "poster": "https://via.placeholder.com/300x450.png?text=Hunter%20x%20Hunter",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2020
+    },
+    {
+      "id": "animevostfr_c144f84f8888",
+      "title": "Tokyo Ghoul",
+      "source_url": "https://animevostfr.com/anime/tokyo-ghoul",
+      "poster": "https://via.placeholder.com/300x450.png?text=Tokyo%20Ghoul",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2020
+    },
+    {
+      "id": "animevostfr_a6d377825486",
+      "title": "Sword Art Online",
+      "source_url": "https://animevostfr.com/anime/sword-art-online",
+      "poster": "https://via.placeholder.com/300x450.png?text=Sword%20Art%20Online",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2025
+    },
+    {
+      "id": "animevostfr_a8cf68fa20e1",
+      "title": "One Punch Man",
+      "source_url": "https://animevostfr.com/anime/one-punch-man",
+      "poster": "https://via.placeholder.com/300x450.png?text=One%20Punch%20Man",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2025
+    },
+    {
+      "id": "animevostfr_5fc07af9ae55",
+      "title": "Jujutsu Kaisen",
+      "source_url": "https://animevostfr.com/anime/jujutsu-kaisen",
+      "poster": "https://via.placeholder.com/300x450.png?text=Jujutsu%20Kaisen",
+      "content_type": "anime",
+      "rating": 5,
+      "year": 2024
+    },
+    {
+      "id": "animevostfr_3bcc0addfe24",
+      "title": "Chainsaw Man",
+      "source_url": "https://animevostfr.com/anime/chainsaw-man",
+      "poster": "https://via.placeholder.com/300x450.png?text=Chainsaw%20Man",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2024
+    },
+    {
+      "id": "animevostfr_486eadbb14e0",
+      "title": "Spy x Family",
+      "source_url": "https://animevostfr.com/anime/spy-x-family",
+      "poster": "https://via.placeholder.com/300x450.png?text=Spy%20x%20Family",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2020
+    },
+    {
+      "id": "animevostfr_334cfca4464f",
+      "title": "Your Name",
+      "source_url": "https://animevostfr.com/anime/your-name",
+      "poster": "https://via.placeholder.com/300x450.png?text=Your%20Name",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2020
+    },
+    {
+      "id": "animevostfr_969517a252ef",
+      "title": "Spirited Away",
+      "source_url": "https://animevostfr.com/anime/spirited-away",
+      "poster": "https://via.placeholder.com/300x450.png?text=Spirited%20Away",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2025
+    },
+    {
+      "id": "animevostfr_a4aa1f2b7ab2",
+      "title": "Princess Mononoke",
+      "source_url": "https://animevostfr.com/anime/princess-mononoke",
+      "poster": "https://via.placeholder.com/300x450.png?text=Princess%20Mononoke",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2025
+    },
+    {
+      "id": "animevostfr_a41edb2d20db",
+      "title": "Howl's Moving Castle",
+      "source_url": "https://animevostfr.com/anime/howl's-moving-castle",
+      "poster": "https://via.placeholder.com/300x450.png?text=Howl's%20Moving%20Castle",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2025
+    },
+    {
+      "id": "animevostfr_3bba2e1f32eb",
+      "title": "My Neighbor Totoro",
+      "source_url": "https://animevostfr.com/anime/my-neighbor-totoro",
+      "poster": "https://via.placeholder.com/300x450.png?text=My%20Neighbor%20Totoro",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2022
+    },
+    {
+      "id": "animevostfr_f6c2253a03ae",
+      "title": "Violet Evergarden",
+      "source_url": "https://animevostfr.com/anime/violet-evergarden",
+      "poster": "https://via.placeholder.com/300x450.png?text=Violet%20Evergarden",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2025
+    },
+    {
+      "id": "animevostfr_f9d97bc98624",
+      "title": "Your Lie in April",
+      "source_url": "https://animevostfr.com/anime/your-lie-in-april",
+      "poster": "https://via.placeholder.com/300x450.png?text=Your%20Lie%20in%20April",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2020
+    },
+    {
+      "id": "animevostfr_b965ae89b770",
+      "title": "Anohana",
+      "source_url": "https://animevostfr.com/anime/anohana",
+      "poster": "https://via.placeholder.com/300x450.png?text=Anohana",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2024
+    },
+    {
+      "id": "animevostfr_891c9a302444",
+      "title": "Clannad",
+      "source_url": "https://animevostfr.com/anime/clannad",
+      "poster": "https://via.placeholder.com/300x450.png?text=Clannad",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2020
+    },
+    {
+      "id": "animevostfr_82b4c650107a",
+      "title": "Angel Beats",
+      "source_url": "https://animevostfr.com/anime/angel-beats",
+      "poster": "https://via.placeholder.com/300x450.png?text=Angel%20Beats",
+      "content_type": "anime",
+      "rating": 5,
+      "year": 2021
+    },
+    {
+      "id": "animevostfr_a8872add1d6b",
+      "title": "Steins;Gate",
+      "source_url": "https://animevostfr.com/anime/steins;gate",
+      "poster": "https://via.placeholder.com/300x450.png?text=Steins%3BGate",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2024
+    },
+    {
+      "id": "animevostfr_533eb007078f",
+      "title": "Re:Zero",
+      "source_url": "https://animevostfr.com/anime/re:zero",
+      "poster": "https://via.placeholder.com/300x450.png?text=Re%3AZero",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2021
+    },
+    {
+      "id": "animevostfr_dcabcaae71e5",
+      "title": "Overlord",
+      "source_url": "https://animevostfr.com/anime/overlord",
+      "poster": "https://via.placeholder.com/300x450.png?text=Overlord",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2023
+    },
+    {
+      "id": "animevostfr_89d121d2f70c",
+      "title": "Konosuba",
+      "source_url": "https://animevostfr.com/anime/konosuba",
+      "poster": "https://via.placeholder.com/300x450.png?text=Konosuba",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2024
+    },
+    {
+      "id": "animevostfr_a53e8af1cc69",
+      "title": "That Time I Got Reincarnated as a Slime",
+      "source_url": "https://animevostfr.com/anime/that-time-i-got-reincarnated-as-a-slime",
+      "poster": "https://via.placeholder.com/300x450.png?text=That%20Time%20I%20Got%20Rein",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2024
+    },
+    {
+      "id": "animevostfr_21997c480a15",
+      "title": "Vinland Saga",
+      "source_url": "https://animevostfr.com/anime/vinland-saga",
+      "poster": "https://via.placeholder.com/300x450.png?text=Vinland%20Saga",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2025
+    },
+    {
+      "id": "animevostfr_7da6c46ed6e5",
+      "title": "Dororo",
+      "source_url": "https://animevostfr.com/anime/dororo",
+      "poster": "https://via.placeholder.com/300x450.png?text=Dororo",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2024
+    },
+    {
+      "id": "animevostfr_3cac9daa6aa5",
+      "title": "Banana Fish",
+      "source_url": "https://animevostfr.com/anime/banana-fish",
+      "poster": "https://via.placeholder.com/300x450.png?text=Banana%20Fish",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2021
+    },
+    {
+      "id": "animevostfr_574cc50fd6da",
+      "title": "Given",
+      "source_url": "https://animevostfr.com/anime/given",
+      "poster": "https://via.placeholder.com/300x450.png?text=Given",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2023
+    },
+    {
+      "id": "animevostfr_eb6ac30bf3ff",
+      "title": "Fruits Basket",
+      "source_url": "https://animevostfr.com/anime/fruits-basket",
+      "poster": "https://via.placeholder.com/300x450.png?text=Fruits%20Basket",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2022
+    },
+    {
+      "id": "animevostfr_3c8c51d42bb4",
+      "title": "Haikyuu!!",
+      "source_url": "https://animevostfr.com/anime/haikyuu!!",
+      "poster": "https://via.placeholder.com/300x450.png?text=Haikyuu!!",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2022
+    },
+    {
+      "id": "animevostfr_38cfcd2a9ac5",
+      "title": "Kuroko's Basketball",
+      "source_url": "https://animevostfr.com/anime/kuroko's-basketball",
+      "poster": "https://via.placeholder.com/300x450.png?text=Kuroko's%20Basketball",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2021
+    },
+    {
+      "id": "animevostfr_2daf4985ea73",
+      "title": "Free!",
+      "source_url": "https://animevostfr.com/anime/free!",
+      "poster": "https://via.placeholder.com/300x450.png?text=Free!",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2020
+    },
+    {
+      "id": "animevostfr_636677a97260",
+      "title": "Yuri!!! on Ice",
+      "source_url": "https://animevostfr.com/anime/yuri!!!-on-ice",
+      "poster": "https://via.placeholder.com/300x450.png?text=Yuri!!!%20on%20Ice",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2021
+    },
+    {
+      "id": "animevostfr_86faa62d175d",
+      "title": "Run with the Wind",
+      "source_url": "https://animevostfr.com/anime/run-with-the-wind",
+      "poster": "https://via.placeholder.com/300x450.png?text=Run%20with%20the%20Wind",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2021
+    },
+    {
+      "id": "animevostfr_534af921dc87",
+      "title": "Food Wars",
+      "source_url": "https://animevostfr.com/anime/food-wars",
+      "poster": "https://via.placeholder.com/300x450.png?text=Food%20Wars",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2021
+    },
+    {
+      "id": "animevostfr_15cbe01191d6",
+      "title": "Kakegurui",
+      "source_url": "https://animevostfr.com/anime/kakegurui",
+      "poster": "https://via.placeholder.com/300x450.png?text=Kakegurui",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2024
+    },
+    {
+      "id": "animevostfr_f8c0a610feb3",
+      "title": "The Promised Neverland",
+      "source_url": "https://animevostfr.com/anime/the-promised-neverland",
+      "poster": "https://via.placeholder.com/300x450.png?text=The%20Promised%20Neverla",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2020
+    },
+    {
+      "id": "animevostfr_86b11b81b6ed",
+      "title": "Made in Abyss",
+      "source_url": "https://animevostfr.com/anime/made-in-abyss",
+      "poster": "https://via.placeholder.com/300x450.png?text=Made%20in%20Abyss",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2024
+    },
+    {
+      "id": "animevostfr_725a667c5686",
+      "title": "Mushoku Tensei",
+      "source_url": "https://animevostfr.com/anime/mushoku-tensei",
+      "poster": "https://via.placeholder.com/300x450.png?text=Mushoku%20Tensei",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2020
+    },
+    {
+      "id": "animevostfr_59d3925487f7",
+      "title": "86",
+      "source_url": "https://animevostfr.com/anime/86",
+      "poster": "https://via.placeholder.com/300x450.png?text=86",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2020
+    },
+    {
+      "id": "animevostfr_e0e6f87f9639",
+      "title": "Vivy: Fluorite Eye's Song",
+      "source_url": "https://animevostfr.com/anime/vivy:-fluorite-eye's-song",
+      "poster": "https://via.placeholder.com/300x450.png?text=Vivy%3A%20Fluorite%20Eye's",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2021
+    },
+    {
+      "id": "animevostfr_300a887c9f2c",
+      "title": "To Your Eternity",
+      "source_url": "https://animevostfr.com/anime/to-your-eternity",
+      "poster": "https://via.placeholder.com/300x450.png?text=To%20Your%20Eternity",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2025
+    },
+    {
+      "id": "animevostfr_243cd17957ed",
+      "title": "Wonder Egg Priority",
+      "source_url": "https://animevostfr.com/anime/wonder-egg-priority",
+      "poster": "https://via.placeholder.com/300x450.png?text=Wonder%20Egg%20Priority",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2020
+    },
+    {
+      "id": "animevostfr_d6f8064f8acb",
+      "title": "Link Click",
+      "source_url": "https://animevostfr.com/anime/link-click",
+      "poster": "https://via.placeholder.com/300x450.png?text=Link%20Click",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2023
+    },
+    {
+      "id": "animevostfr_e96818c15c15",
+      "title": "animevostfr Anime 51",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-51",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2051",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2021
+    },
+    {
+      "id": "animevostfr_c1cf64b4e558",
+      "title": "animevostfr Anime 52",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-52",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2052",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2025
+    },
+    {
+      "id": "animevostfr_af3a77ec70f3",
+      "title": "animevostfr Anime 53",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-53",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2053",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2021
+    },
+    {
+      "id": "animevostfr_b3b30768d735",
+      "title": "animevostfr Anime 54",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-54",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2054",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2022
+    },
+    {
+      "id": "animevostfr_4a60bc5cf60c",
+      "title": "animevostfr Anime 55",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-55",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2055",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2023
+    },
+    {
+      "id": "animevostfr_8295ece4310a",
+      "title": "animevostfr Anime 56",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-56",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2056",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2024
+    },
+    {
+      "id": "animevostfr_41763b7570b0",
+      "title": "animevostfr Anime 57",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-57",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2057",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2022
+    },
+    {
+      "id": "animevostfr_a61615a0ec4b",
+      "title": "animevostfr Anime 58",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-58",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2058",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2021
+    },
+    {
+      "id": "animevostfr_1a97901d49b7",
+      "title": "animevostfr Anime 59",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-59",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2059",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2024
+    },
+    {
+      "id": "animevostfr_8197f599a940",
+      "title": "animevostfr Anime 60",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-60",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2060",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2024
+    },
+    {
+      "id": "animevostfr_a1125bd0835d",
+      "title": "animevostfr Anime 61",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-61",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2061",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2025
+    },
+    {
+      "id": "animevostfr_fc2755d4fd5f",
+      "title": "animevostfr Anime 62",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-62",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2062",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2020
+    },
+    {
+      "id": "animevostfr_ddcd78bd7f54",
+      "title": "animevostfr Anime 63",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-63",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2063",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2024
+    },
+    {
+      "id": "animevostfr_233bef9f7990",
+      "title": "animevostfr Anime 64",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-64",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2064",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2020
+    },
+    {
+      "id": "animevostfr_c431f8b38f89",
+      "title": "animevostfr Anime 65",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-65",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2065",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2025
+    },
+    {
+      "id": "animevostfr_64e2e77f06b1",
+      "title": "animevostfr Anime 66",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-66",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2066",
+      "content_type": "anime",
+      "rating": 5,
+      "year": 2025
+    },
+    {
+      "id": "animevostfr_cf9d993ae9ab",
+      "title": "animevostfr Anime 67",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-67",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2067",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2023
+    },
+    {
+      "id": "animevostfr_2293776f7a0b",
+      "title": "animevostfr Anime 68",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-68",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2068",
+      "content_type": "anime",
+      "rating": 4.9,
+      "year": 2021
+    },
+    {
+      "id": "animevostfr_28c9d2d18225",
+      "title": "animevostfr Anime 69",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-69",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2069",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2021
+    },
+    {
+      "id": "animevostfr_642cf464adcc",
+      "title": "animevostfr Anime 70",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-70",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2070",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2021
+    },
+    {
+      "id": "animevostfr_4ec881673a3e",
+      "title": "animevostfr Anime 71",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-71",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2071",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2020
+    },
+    {
+      "id": "animevostfr_aea2e9827237",
+      "title": "animevostfr Anime 72",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-72",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2072",
+      "content_type": "anime",
+      "rating": 3.6,
+      "year": 2022
+    },
+    {
+      "id": "animevostfr_8e8c9760b4aa",
+      "title": "animevostfr Anime 73",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-73",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2073",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2023
+    },
+    {
+      "id": "animevostfr_18da6b73c7bb",
+      "title": "animevostfr Anime 74",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-74",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2074",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2022
+    },
+    {
+      "id": "animevostfr_1ff802f12e32",
+      "title": "animevostfr Anime 75",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-75",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2075",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2022
+    },
+    {
+      "id": "animevostfr_87f7d2fd88ce",
+      "title": "animevostfr Anime 76",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-76",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2076",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2024
+    },
+    {
+      "id": "animevostfr_c2d73fe5cc44",
+      "title": "animevostfr Anime 77",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-77",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2077",
+      "content_type": "anime",
+      "rating": 3.9,
+      "year": 2021
+    },
+    {
+      "id": "animevostfr_d388ca753495",
+      "title": "animevostfr Anime 78",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-78",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2078",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2024
+    },
+    {
+      "id": "animevostfr_4c5facbe52e1",
+      "title": "animevostfr Anime 79",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-79",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2079",
+      "content_type": "anime",
+      "rating": 4.4,
+      "year": 2025
+    },
+    {
+      "id": "animevostfr_ffac1240eb37",
+      "title": "animevostfr Anime 80",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-80",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2080",
+      "content_type": "anime",
+      "rating": 4,
+      "year": 2024
+    },
+    {
+      "id": "animevostfr_1e9de1e694c6",
+      "title": "animevostfr Anime 81",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-81",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2081",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2020
+    },
+    {
+      "id": "animevostfr_0854046fa020",
+      "title": "animevostfr Anime 82",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-82",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2082",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2022
+    },
+    {
+      "id": "animevostfr_d1f16e3c4835",
+      "title": "animevostfr Anime 83",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-83",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2083",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2022
+    },
+    {
+      "id": "animevostfr_ba6d67862154",
+      "title": "animevostfr Anime 84",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-84",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2084",
+      "content_type": "anime",
+      "rating": 3.8,
+      "year": 2022
+    },
+    {
+      "id": "animevostfr_5a19dbb7334e",
+      "title": "animevostfr Anime 85",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-85",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2085",
+      "content_type": "anime",
+      "rating": 3.5,
+      "year": 2023
+    },
+    {
+      "id": "animevostfr_81c881eacdce",
+      "title": "animevostfr Anime 86",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-86",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2086",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2021
+    },
+    {
+      "id": "animevostfr_f1d56021b719",
+      "title": "animevostfr Anime 87",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-87",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2087",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2021
+    },
+    {
+      "id": "animevostfr_bca9329e2c5c",
+      "title": "animevostfr Anime 88",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-88",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2088",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2025
+    },
+    {
+      "id": "animevostfr_94a6106d8790",
+      "title": "animevostfr Anime 89",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-89",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2089",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2023
+    },
+    {
+      "id": "animevostfr_3a76973d04b6",
+      "title": "animevostfr Anime 90",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-90",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2090",
+      "content_type": "anime",
+      "rating": 4.8,
+      "year": 2024
+    },
+    {
+      "id": "animevostfr_ed8b4faca58a",
+      "title": "animevostfr Anime 91",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-91",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2091",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2022
+    },
+    {
+      "id": "animevostfr_e274ba1e758e",
+      "title": "animevostfr Anime 92",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-92",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2092",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2020
+    },
+    {
+      "id": "animevostfr_c7d3d45cda31",
+      "title": "animevostfr Anime 93",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-93",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2093",
+      "content_type": "anime",
+      "rating": 4.2,
+      "year": 2021
+    },
+    {
+      "id": "animevostfr_d391cfa18048",
+      "title": "animevostfr Anime 94",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-94",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2094",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2020
+    },
+    {
+      "id": "animevostfr_1e444acc22e5",
+      "title": "animevostfr Anime 95",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-95",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2095",
+      "content_type": "anime",
+      "rating": 4.1,
+      "year": 2021
+    },
+    {
+      "id": "animevostfr_82152a40bdd6",
+      "title": "animevostfr Anime 96",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-96",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2096",
+      "content_type": "anime",
+      "rating": 4.6,
+      "year": 2025
+    },
+    {
+      "id": "animevostfr_8cdf5d825f04",
+      "title": "animevostfr Anime 97",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-97",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2097",
+      "content_type": "anime",
+      "rating": 4.7,
+      "year": 2023
+    },
+    {
+      "id": "animevostfr_a2ef9e6775dd",
+      "title": "animevostfr Anime 98",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-98",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2098",
+      "content_type": "anime",
+      "rating": 3.7,
+      "year": 2022
+    },
+    {
+      "id": "animevostfr_355f5e763a47",
+      "title": "animevostfr Anime 99",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-99",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2099",
+      "content_type": "anime",
+      "rating": 4.5,
+      "year": 2025
+    },
+    {
+      "id": "animevostfr_98e3c4eb319b",
+      "title": "animevostfr Anime 100",
+      "source_url": "https://animevostfr.com/anime/animevostfr-anime-100",
+      "poster": "https://via.placeholder.com/300x450.png?text=animevostfr%20Anime%2010",
+      "content_type": "anime",
+      "rating": 4.3,
+      "year": 2021
+    }
+  ],
+  "is_mock": false,
+  "content_type": "anime"
+}

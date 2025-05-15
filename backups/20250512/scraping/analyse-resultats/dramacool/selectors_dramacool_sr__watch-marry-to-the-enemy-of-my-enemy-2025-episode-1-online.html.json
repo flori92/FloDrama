@@ -1,0 +1,90 @@
+{
+  "category": [
+    {
+      "selector": ".menu_m",
+      "count": 1,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".menu_mobile",
+      "count": 1,
+      "tag": "a",
+      "sample_text": ""
+    },
+    {
+      "selector": ".menu_top",
+      "count": 1,
+      "tag": "nav",
+      "sample_text": "Drama List\n        \n\n            \n                "
+    },
+    {
+      "selector": ".navbar",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "Drama List\n        \n\n            \n                "
+    },
+    {
+      "selector": ".sub-nav",
+      "count": 2,
+      "tag": "ul",
+      "sample_text": "Korean Drama\n\n            \n                Hong Ko"
+    }
+  ],
+  "drama_list": [],
+  "drama_item": [
+    {
+      "selector": ".list-episode-item",
+      "count": 3,
+      "tag": "ul",
+      "sample_text": "SUB\n                The Secret Contract of the Wit"
+    }
+  ],
+  "episode_list": [
+    {
+      "selector": ".list-episode-item",
+      "count": 3,
+      "tag": "ul",
+      "sample_text": "SUB\n                The Secret Contract of the Wit"
+    }
+  ],
+  "episode_item": [
+    {
+      "selector": ".list-episode-item",
+      "count": 3,
+      "tag": "ul",
+      "sample_text": "SUB\n                The Secret Contract of the Wit"
+    },
+    {
+      "selector": ".list-right",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Ads\n        \n        \n             Coming Episode\n"
+    },
+    {
+      "selector": ".right-tab-2",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Coming Episode\n\n            \n                \n    "
+    }
+  ],
+  "player": [],
+  "video": [],
+  "metadata": [],
+  "title": [
+    {
+      "selector": ".title",
+      "count": 41,
+      "tag": "h3",
+      "sample_text": "The Secret Contract of the Witch (2025)"
+    },
+    {
+      "selector": ".content-right-title",
+      "count": 3,
+      "tag": "h4",
+      "sample_text": "Ads"
+    }
+  ],
+  "image": [],
+  "trailer": []
+}

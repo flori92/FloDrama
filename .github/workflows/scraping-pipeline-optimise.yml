@@ -1,0 +1,199 @@
+name: Pipeline de Scraping FloDrama
+
+on:
+  # Exécution manuelle avec options configurables
+  workflow_dispatch:
+    inputs:
+      skip_scraping:
+        description: 'Sauter l''étape de scraping'
+        required: false
+        default: false
+        type: boolean
+      skip_enrichment:
+        description: 'Sauter l''étape d''enrichissement'
+        required: false
+        default: false
+        type: boolean
+      skip_distribution:
+        description: 'Sauter l''étape de distribution'
+        required: false
+        default: false
+        type: boolean
+      debug_mode:
+        description: 'Activer le mode debug'
+        required: false
+        default: false
+        type: boolean
+      use_relay_service:
+        description: 'Utiliser le service relais Render pour le scraping'
+        required: false
+        default: true
+        type: boolean
+      sources:
+        description: 'Sources à scraper (séparées par des virgules, vide = toutes)'
+        required: false
+        type: string
+  
+  # Exécution planifiée (tous les jours à 2h du matin)
+  schedule:
+    - cron: '0 2 * * *'
+  
+  # Exécution lors d'un push sur les branches main et integration-cloudflare
+  push:
+    branches:
+      - main
+      - integration-cloudflare
+    paths:
+      - '.github/scripts/stealth/**'
+      - '.github/workflows/scraping-pipeline-optimise.yml'
+      - 'cloudflare/scraping/**'
+
+# Définition des limites de temps et des permissions
+concurrency:
+  group: scraping-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  scraping-pipeline:
+    name: Exécution du pipeline de scraping
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    
+    env:
+      TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      RENDER_API_KEY: ${{ secrets.RENDER_API_KEY || 'rnd_DJfpQC9gEu4KgTRvX8iQzMXxrteP' }}
+      USE_RELAY_SERVICE: ${{ github.event.inputs.use_relay_service != 'false' }}
+      DEBUG_MODE: ${{ github.event.inputs.debug_mode == 'true' }}
+    
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v3
+      
+      - name: Configuration de Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Installation des dépendances
+        run: |
+          # Désactiver les scripts d'installation automatiques
+          npm install --ignore-scripts
+          npm install -g wrangler
+          # Installation directe des dépendances nécessaires
+          npm install --no-save fs-extra axios cheerio playwright playwright-extra playwright-extra-plugin-stealth
+      
+      - name: Installation des dépendances de Playwright
+        run: |
+          npx playwright install-deps
+          npx playwright install chromium
+      
+      # Vérification du service relais Render
+      - name: Vérification du service relais Render
+        if: ${{ github.event.inputs.skip_scraping != 'true' && github.event.inputs.use_relay_service != 'false' }}
+        id: check_relay
+        run: |
+          echo "🔄 Vérification de la disponibilité du service relais Render..."
+          RELAY_STATUS=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Bearer $RENDER_API_KEY" https://flodrama-scraper.onrender.com/status)
+          
+          if [ "$RELAY_STATUS" = "200" ]; then
+            echo "✅ Service relais Render disponible"
+            echo "use_relay_service=true" >> $GITHUB_ENV
+          else
+            echo "⚠️ Service relais Render indisponible (code: $RELAY_STATUS), utilisation du fallback local"
+            echo "use_relay_service=false" >> $GITHUB_ENV
+          fi
+      
+      # Étape de scraping
+      - name: Exécution du scraping
+        if: ${{ github.event.inputs.skip_scraping != 'true' }}
+        id: scraping
+        run: |
+          echo "🔍 Démarrage du scraping..."
+          
+          # Déterminer les sources à scraper
+          SOURCES_ARG=""
+          if [ -n "${{ github.event.inputs.sources }}" ]; then
+            SOURCES_ARG="--sources=${{ github.event.inputs.sources }}"
+            echo "Sources spécifiées: ${{ github.event.inputs.sources }}"
+          else
+            echo "Scraping de toutes les sources"
+          fi
+          
+          # Exécuter le script de scraping optimisé
+          node .github/scripts/stealth/scraper-optimise.js $SOURCES_ARG
+          
+          # Vérifier si des données ont été générées
+          if [ -d "./cloudflare/scraping/output" ] && [ "$(find ./cloudflare/scraping/output -name '*.json' | wc -l)" -gt 0 ]; then
+            echo "✅ Scraping terminé avec succès"
+            echo "scraping_success=true" >> $GITHUB_ENV
+          else
+            echo "⚠️ Le scraping n'a pas généré de données, vérifiez les logs pour plus d'informations"
+            echo "scraping_success=false" >> $GITHUB_ENV
+          fi
+      
+      # Vérification du statut de scraping
+      - name: Vérification du statut de scraping
+        id: check_scraping
+        if: ${{ github.event.inputs.skip_scraping != 'true' }}
+        run: |
+          if [ -d "./cloudflare/scraping/output" ] && [ "$(find ./cloudflare/scraping/output -name '*.json' | wc -l)" -gt 0 ]; then
+            echo "::set-output name=success::true"
+          else
+            echo "::set-output name=success::false"
+          fi
+      
+      # Étape d'enrichissement des données
+      - name: Enrichissement des données via TMDB
+        if: ${{ github.event.inputs.skip_enrichment != 'true' && (steps.scraping.outcome == 'success' || steps.check_scraping.outputs.success == 'true') }}
+        run: |
+          echo "🔍 Démarrage de l'enrichissement des données..."
+          node .github/scripts/enrichment/tmdb-enricher.js
+          echo "✅ Enrichissement terminé avec succès"
+      
+      # Étape de distribution des données
+      - name: Distribution des données vers Cloudflare D1
+        if: ${{ github.event.inputs.skip_distribution != 'true' && (steps.scraping.outcome == 'success' || steps.check_scraping.outputs.success == 'true' || github.event.inputs.skip_scraping == 'true') }}
+        run: |
+          echo "📦 Démarrage de la distribution des données..."
+          
+          # Créer la base de données D1 si elle n'existe pas
+          wrangler d1 create flodrama-content --json || echo "Base de données existe déjà"
+          
+          # Exécuter les migrations de schéma
+          cd cloudflare/scraping
+          wrangler d1 execute flodrama-content --file=./schema.sql
+          
+          # Importer les données
+          node ./import-to-d1.js
+          
+          echo "✅ Distribution terminée avec succès"
+      
+      # Notification de résultat
+      - name: Notification Discord
+        if: always()
+        run: |
+          STATUS="${{ job.status }}"
+          COLOR="0xFF0000"  # Rouge par défaut (échec)
+          
+          if [ "$STATUS" == "success" ]; then
+            COLOR="0x00FF00"  # Vert (succès)
+            MESSAGE="✅ Le pipeline de scraping s'est terminé avec succès!"
+          else
+            MESSAGE="❌ Le pipeline de scraping a échoué!"
+          fi
+          
+          # Ajouter des informations sur le mode de scraping utilisé
+          if [ "$USE_RELAY_SERVICE" == "true" ]; then
+            SCRAPING_MODE="Service relais Render"
+          else
+            SCRAPING_MODE="Scraping local + fallback TMDB"
+          fi
+          
+          # Envoyer la notification Discord avec plus de détails
+          curl -H "Content-Type: application/json" \
+               -d "{\"embeds\": [{\"title\": \"FloDrama Scraping\", \"description\": \"$MESSAGE\", \"color\": $COLOR, \"fields\": [{\"name\": \"Mode de scraping\", \"value\": \"$SCRAPING_MODE\", \"inline\": true}, {\"name\": \"Déclenché par\", \"value\": \"${{ github.event_name }}\", \"inline\": true}, {\"name\": \"Date\", \"value\": \"$(date +\"%d/%m/%Y %H:%M\")\", \"inline\": true}]}]}" \
+               $DISCORD_WEBHOOK

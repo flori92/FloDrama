@@ -1,0 +1,5 @@
+{
+  "error": "Error analyzing page: HTTPSConnectionPool(host='streamingdivx.co', port=443): Max retries exceeded with url: /films/ (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x103f53250>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+  "url": "https://streamingdivx.co/films/",
+  "element_type": "film"
+}

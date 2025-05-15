@@ -6,14 +6,12 @@ compatibility_date = "2023-10-30"
 [site]
 bucket = "./dist"
 entry-point = "."
+pages_build_output_dir = "dist"
 
 # Configuration de construction
 [build]
 command = "npm run build"
 output_dir = "dist"
-
-# Configuration spécifique pour Pages
-pages_build_output_dir = "dist"
 
 # Configuration des variables d'environnement
 [env.production]

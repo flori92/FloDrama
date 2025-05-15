@@ -1,0 +1,829 @@
+{
+  "category": [
+    {
+      "selector": "#main-menu",
+      "count": 1,
+      "tag": "nav",
+      "sample_text": "Drama List\n\n\tKorean Drama\n\tChinese Drama\n\tThailand"
+    },
+    {
+      "selector": "#menu-home",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "Drama List\n\n\tKorean Drama\n\tChinese Drama\n\tThailand"
+    },
+    {
+      "selector": "#menu-item-2500",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drama List\n\n\tKorean Drama\n\tChinese Drama\n\tThailand"
+    },
+    {
+      "selector": "#menu-item-6685",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Korean Drama"
+    },
+    {
+      "selector": "#menu-item-6676",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Chinese Drama"
+    },
+    {
+      "selector": "#menu-item-6696",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Thailand Drama"
+    },
+    {
+      "selector": "#menu-item-6679",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Japanese Drama"
+    },
+    {
+      "selector": "#menu-item-6688",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Taiwanese Drama"
+    },
+    {
+      "selector": "#menu-item-6720",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Hong Kong Drama"
+    },
+    {
+      "selector": "#menu-item-6725",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "American Drama"
+    },
+    {
+      "selector": "#menu-item-6715",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Indian Drama"
+    },
+    {
+      "selector": "#menu-item-89253",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Philippines Drama"
+    },
+    {
+      "selector": "#menu-item-6694",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Other Asia Drama"
+    },
+    {
+      "selector": "#menu-item-35945",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drama Movie"
+    },
+    {
+      "selector": "#menu-item-35946",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "KShow"
+    },
+    {
+      "selector": "#menu-item-2506",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Popular Drama"
+    },
+    {
+      "selector": "#menu-item-2504",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drama Calendar"
+    },
+    {
+      "selector": "#menu-item-2507",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Register Dramas"
+    },
+    {
+      "selector": "#menu-footer",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "Conatct Us\nPrivacy Policy"
+    },
+    {
+      "selector": "#menu-item-78389",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Conatct Us"
+    },
+    {
+      "selector": "#menu-item-78392",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Privacy Policy"
+    },
+    {
+      "selector": ".menu_m",
+      "count": 1,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".menu_mobile",
+      "count": 1,
+      "tag": "a",
+      "sample_text": ""
+    },
+    {
+      "selector": ".menu_top",
+      "count": 1,
+      "tag": "nav",
+      "sample_text": "Drama List\n\n\tKorean Drama\n\tChinese Drama\n\tThailand"
+    },
+    {
+      "selector": ".navbar",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "Drama List\n\n\tKorean Drama\n\tChinese Drama\n\tThailand"
+    },
+    {
+      "selector": ".menu-item",
+      "count": 18,
+      "tag": "li",
+      "sample_text": "Drama List\n\n\tKorean Drama\n\tChinese Drama\n\tThailand"
+    },
+    {
+      "selector": ".menu-item-type-post_type",
+      "count": 6,
+      "tag": "li",
+      "sample_text": "Drama List\n\n\tKorean Drama\n\tChinese Drama\n\tThailand"
+    },
+    {
+      "selector": ".menu-item-object-page",
+      "count": 6,
+      "tag": "li",
+      "sample_text": "Drama List\n\n\tKorean Drama\n\tChinese Drama\n\tThailand"
+    },
+    {
+      "selector": ".menu-item-has-children",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drama List\n\n\tKorean Drama\n\tChinese Drama\n\tThailand"
+    },
+    {
+      "selector": ".menu-item-2500",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drama List\n\n\tKorean Drama\n\tChinese Drama\n\tThailand"
+    },
+    {
+      "selector": ".sub-nav",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "Korean Drama\n\tChinese Drama\n\tThailand Drama\n\tJapan"
+    },
+    {
+      "selector": ".menu-item-type-custom",
+      "count": 12,
+      "tag": "li",
+      "sample_text": "Korean Drama"
+    },
+    {
+      "selector": ".menu-item-object-custom",
+      "count": 12,
+      "tag": "li",
+      "sample_text": "Korean Drama"
+    },
+    {
+      "selector": ".menu-item-6685",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Korean Drama"
+    },
+    {
+      "selector": ".menu-item-6676",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Chinese Drama"
+    },
+    {
+      "selector": ".menu-item-6696",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Thailand Drama"
+    },
+    {
+      "selector": ".menu-item-6679",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Japanese Drama"
+    },
+    {
+      "selector": ".menu-item-6688",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Taiwanese Drama"
+    },
+    {
+      "selector": ".menu-item-6720",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Hong Kong Drama"
+    },
+    {
+      "selector": ".menu-item-6725",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "American Drama"
+    },
+    {
+      "selector": ".menu-item-6715",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Indian Drama"
+    },
+    {
+      "selector": ".menu-item-89253",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Philippines Drama"
+    },
+    {
+      "selector": ".menu-item-6694",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Other Asia Drama"
+    },
+    {
+      "selector": ".menu-item-35945",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drama Movie"
+    },
+    {
+      "selector": ".menu-item-35946",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "KShow"
+    },
+    {
+      "selector": ".menu-item-2506",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Popular Drama"
+    },
+    {
+      "selector": ".menu-item-2504",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drama Calendar"
+    },
+    {
+      "selector": ".menu-item-2507",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Register Dramas"
+    },
+    {
+      "selector": ".category",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Category: Marry to the Enemy of My Enemy (2025)"
+    },
+    {
+      "selector": ".menu-item-78389",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Conatct Us"
+    },
+    {
+      "selector": ".menu-item-privacy-policy",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Privacy Policy"
+    },
+    {
+      "selector": ".menu-item-78392",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Privacy Policy"
+    },
+    {
+      "selector": ".menu_top",
+      "count": 1,
+      "tag": "nav",
+      "sample_text": "Drama List\n        \n\n            \n                "
+    },
+    {
+      "selector": ".navbar",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "Drama List\n        \n\n            \n                "
+    },
+    {
+      "selector": ".sub-nav",
+      "count": 2,
+      "tag": "ul",
+      "sample_text": "Korean Drama\n\n            \n                Hong Ko"
+    }
+  ],
+  "drama_list": [],
+  "drama_item": [
+    {
+      "selector": "#menu-item-2500",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drama List\n\n\tKorean Drama\n\tChinese Drama\n\tThailand"
+    },
+    {
+      "selector": "#menu-item-6685",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Korean Drama"
+    },
+    {
+      "selector": "#menu-item-6676",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Chinese Drama"
+    },
+    {
+      "selector": "#menu-item-6696",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Thailand Drama"
+    },
+    {
+      "selector": "#menu-item-6679",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Japanese Drama"
+    },
+    {
+      "selector": "#menu-item-6688",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Taiwanese Drama"
+    },
+    {
+      "selector": "#menu-item-6720",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Hong Kong Drama"
+    },
+    {
+      "selector": "#menu-item-6725",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "American Drama"
+    },
+    {
+      "selector": "#menu-item-6715",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Indian Drama"
+    },
+    {
+      "selector": "#menu-item-89253",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Philippines Drama"
+    },
+    {
+      "selector": "#menu-item-6694",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Other Asia Drama"
+    },
+    {
+      "selector": "#menu-item-35945",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drama Movie"
+    },
+    {
+      "selector": "#menu-item-35946",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "KShow"
+    },
+    {
+      "selector": "#menu-item-2506",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Popular Drama"
+    },
+    {
+      "selector": "#menu-item-2504",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drama Calendar"
+    },
+    {
+      "selector": "#menu-item-2507",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Register Dramas"
+    },
+    {
+      "selector": "#comment_post_ID",
+      "count": 1,
+      "tag": "input",
+      "sample_text": ""
+    },
+    {
+      "selector": "#menu-item-78389",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Conatct Us"
+    },
+    {
+      "selector": "#menu-item-78392",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Privacy Policy"
+    },
+    {
+      "selector": ".menu-item",
+      "count": 18,
+      "tag": "li",
+      "sample_text": "Drama List\n\n\tKorean Drama\n\tChinese Drama\n\tThailand"
+    },
+    {
+      "selector": ".menu-item-type-post_type",
+      "count": 6,
+      "tag": "li",
+      "sample_text": "Drama List\n\n\tKorean Drama\n\tChinese Drama\n\tThailand"
+    },
+    {
+      "selector": ".menu-item-object-page",
+      "count": 6,
+      "tag": "li",
+      "sample_text": "Drama List\n\n\tKorean Drama\n\tChinese Drama\n\tThailand"
+    },
+    {
+      "selector": ".menu-item-has-children",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drama List\n\n\tKorean Drama\n\tChinese Drama\n\tThailand"
+    },
+    {
+      "selector": ".menu-item-2500",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drama List\n\n\tKorean Drama\n\tChinese Drama\n\tThailand"
+    },
+    {
+      "selector": ".menu-item-type-custom",
+      "count": 12,
+      "tag": "li",
+      "sample_text": "Korean Drama"
+    },
+    {
+      "selector": ".menu-item-object-custom",
+      "count": 12,
+      "tag": "li",
+      "sample_text": "Korean Drama"
+    },
+    {
+      "selector": ".menu-item-6685",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Korean Drama"
+    },
+    {
+      "selector": ".menu-item-6676",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Chinese Drama"
+    },
+    {
+      "selector": ".menu-item-6696",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Thailand Drama"
+    },
+    {
+      "selector": ".menu-item-6679",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Japanese Drama"
+    },
+    {
+      "selector": ".menu-item-6688",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Taiwanese Drama"
+    },
+    {
+      "selector": ".menu-item-6720",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Hong Kong Drama"
+    },
+    {
+      "selector": ".menu-item-6725",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "American Drama"
+    },
+    {
+      "selector": ".menu-item-6715",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Indian Drama"
+    },
+    {
+      "selector": ".menu-item-89253",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Philippines Drama"
+    },
+    {
+      "selector": ".menu-item-6694",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Other Asia Drama"
+    },
+    {
+      "selector": ".menu-item-35945",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drama Movie"
+    },
+    {
+      "selector": ".menu-item-35946",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "KShow"
+    },
+    {
+      "selector": ".menu-item-2506",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Popular Drama"
+    },
+    {
+      "selector": ".menu-item-2504",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drama Calendar"
+    },
+    {
+      "selector": ".menu-item-2507",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Register Dramas"
+    },
+    {
+      "selector": ".list-episode-item-2",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "SUB\n                Marry to the Enemy of My Enemy"
+    },
+    {
+      "selector": ".menu-item-78389",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Conatct Us"
+    },
+    {
+      "selector": ".menu-item-privacy-policy",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Privacy Policy"
+    },
+    {
+      "selector": ".menu-item-78392",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Privacy Policy"
+    },
+    {
+      "selector": ".list-episode-item",
+      "count": 3,
+      "tag": "ul",
+      "sample_text": "SUB\n                The Secret Contract of the Wit"
+    }
+  ],
+  "episode_list": [
+    {
+      "selector": ".show-all",
+      "count": 1,
+      "tag": "span",
+      "sample_text": "Show all episodes"
+    },
+    {
+      "selector": ".list-episode-item-2",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "SUB\n                Marry to the Enemy of My Enemy"
+    },
+    {
+      "selector": ".list-episode-item",
+      "count": 3,
+      "tag": "ul",
+      "sample_text": "SUB\n                The Secret Contract of the Wit"
+    }
+  ],
+  "episode_item": [
+    {
+      "selector": ".content",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Marry to the Enemy of My Enemy (2025) Episode 24 E"
+    },
+    {
+      "selector": ".content-left",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Marry to the Enemy of My Enemy (2025) Episode 24 E"
+    },
+    {
+      "selector": ".block",
+      "count": 5,
+      "tag": "div",
+      "sample_text": "Marry to the Enemy of My Enemy (2025) Episode 24 E"
+    },
+    {
+      "selector": ".watch-drama",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Marry to the Enemy of My Enemy (2025) Episode 24 E"
+    },
+    {
+      "selector": ".block-tab",
+      "count": 3,
+      "tag": "div",
+      "sample_text": "! Report This Episode"
+    },
+    {
+      "selector": ".report2",
+      "count": 2,
+      "tag": "span",
+      "sample_text": "! Report This Episode"
+    },
+    {
+      "selector": ".direction",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Prev            \n            \nEpisode 24\nEpisode 2"
+    },
+    {
+      "selector": ".show-all",
+      "count": 1,
+      "tag": "span",
+      "sample_text": "Show all episodes"
+    },
+    {
+      "selector": ".list-episode-item-2",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "SUB\n                Marry to the Enemy of My Enemy"
+    },
+    {
+      "selector": ".all-episode",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "SUB\n                Marry to the Enemy of My Enemy"
+    },
+    {
+      "selector": ".title",
+      "count": 54,
+      "tag": "h3",
+      "sample_text": "Marry to the Enemy of My Enemy (2025) Episode 24"
+    },
+    {
+      "selector": ".list-right",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Coming Episode\n      \n\n       \n    \t\n\t\t\t\t\t\n\t\t\t\n\n\tK"
+    },
+    {
+      "selector": ".right-tab-2",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Coming Episode\n      \n\n       \n    \t\n\t\t\t\t\t\n\t\t\t\n\n\tK"
+    },
+    {
+      "selector": ".content-right-title",
+      "count": 2,
+      "tag": "h4",
+      "sample_text": "Coming Episode"
+    },
+    {
+      "selector": ".list-episode-item",
+      "count": 3,
+      "tag": "ul",
+      "sample_text": "SUB\n                The Secret Contract of the Wit"
+    },
+    {
+      "selector": ".list-right",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Ads\n        \n        \n             Coming Episode\n"
+    },
+    {
+      "selector": ".right-tab-2",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Coming Episode\n\n            \n                \n    "
+    }
+  ],
+  "player": [],
+  "video": [
+    {
+      "selector": "#block-tab-video",
+      "count": 1,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".tab-content-video",
+      "count": 1,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".tab-video-1",
+      "count": 1,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".watch_video",
+      "count": 1,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".watch-iframe",
+      "count": 1,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".tab",
+      "count": 2,
+      "tag": "ul",
+      "sample_text": "View more video"
+    }
+  ],
+  "metadata": [],
+  "title": [
+    {
+      "selector": "#reply-title",
+      "count": 1,
+      "tag": "h3",
+      "sample_text": "Leave a Reply Cancel reply"
+    },
+    {
+      "selector": ".comment-reply-title",
+      "count": 1,
+      "tag": "h3",
+      "sample_text": "Leave a Reply Cancel reply"
+    },
+    {
+      "selector": ".comment-form-author",
+      "count": 1,
+      "tag": "p",
+      "sample_text": "Name *"
+    },
+    {
+      "selector": ".comment-form-cookies-consent",
+      "count": 1,
+      "tag": "p",
+      "sample_text": "Save my name, email, and website in this browser f"
+    },
+    {
+      "selector": ".title",
+      "count": 54,
+      "tag": "h3",
+      "sample_text": "Marry to the Enemy of My Enemy (2025) Episode 24"
+    },
+    {
+      "selector": ".content-right-title",
+      "count": 2,
+      "tag": "h4",
+      "sample_text": "Coming Episode"
+    },
+    {
+      "selector": ".title",
+      "count": 41,
+      "tag": "h3",
+      "sample_text": "The Secret Contract of the Witch (2025)"
+    },
+    {
+      "selector": ".content-right-title",
+      "count": 3,
+      "tag": "h4",
+      "sample_text": "Ads"
+    }
+  ],
+  "image": [],
+  "trailer": []
+}

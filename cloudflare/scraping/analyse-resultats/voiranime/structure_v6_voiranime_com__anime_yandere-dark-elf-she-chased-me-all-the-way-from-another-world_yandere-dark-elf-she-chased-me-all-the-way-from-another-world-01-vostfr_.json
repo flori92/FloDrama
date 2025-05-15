@@ -1,0 +1,2397 @@
+{
+  "url": "https://v6.voiranime.com/anime/yandere-dark-elf-she-chased-me-all-the-way-from-another-world/yandere-dark-elf-she-chased-me-all-the-way-from-another-world-01-vostfr/",
+  "title": "Yandere Dark Elf: She Chased Me All the Way From Another World! - Yandere Dark Elf She Chased Me All the Way From Another World - 01 VOSTFR - 01 - Voiranime",
+  "elements": {
+    "#wp-emoji-styles-inline-css": {
+      "count": 1,
+      "tag": "style",
+      "text": "img.wp-smiley, img.emoji {\n\t\tdisplay: inline !impo",
+      "html": "<style id=\"wp-emoji-styles-inline-css\" type=\"text/css\">\n\n\timg.wp-smiley, img.emoji {\n\t\tdisplay: inline !important;\n\t\tborder: none !important;\n\t\tbox-shadow: none !important;\n\t\theight: 1em !important;\n\t"
+    },
+    "#wp-block-library-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"wp-block-library-css\" href=\"https://v6.voiranime.com/wp-includes/css/dist/block-library/style.min.css?ver=6.7.2\" type=\"text/css\" media=\"all\">"
+    },
+    "#wp-block-library-theme-inline-css": {
+      "count": 1,
+      "tag": "style",
+      "text": ".wp-block-audio :where(figcaption){color:#555;font",
+      "html": "<style id=\"wp-block-library-theme-inline-css\" type=\"text/css\">\n.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#f"
+    },
+    "#block-widget-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"block-widget-css\" href=\"https://v6.voiranime.com/wp-content/plugins/widget-logic/block_widget/css/widget.css?ver=1736093213\" type=\"text/css\" media=\"all\">"
+    },
+    "#classic-theme-styles-inline-css": {
+      "count": 1,
+      "tag": "style",
+      "text": "/*! This file is auto-generated */\n.wp-block-butto",
+      "html": "<style id=\"classic-theme-styles-inline-css\" type=\"text/css\">\n/*! This file is auto-generated */\n.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-dec"
+    },
+    "#global-styles-inline-css": {
+      "count": 1,
+      "tag": "style",
+      "text": ":root{--wp--preset--aspect-ratio--square: 1;--wp--",
+      "html": "<style id=\"global-styles-inline-css\" type=\"text/css\">\n:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--"
+    },
+    "#fontawesome-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"fontawesome-css\" href=\"https://v6.voiranime.com/wp-content/themes/madara/app/lib/fontawesome/web-fonts-with-css/css/all.min.css?ver=5.15.3\" type=\"text/css\" media=\"all\">"
+    },
+    "#bootstrap-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"bootstrap-css\" href=\"https://v6.voiranime.com/wp-content/themes/madara/css/bootstrap.min.css?ver=4.3.1\" type=\"text/css\" media=\"all\">"
+    },
+    "#slick-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"slick-css\" href=\"https://v6.voiranime.com/wp-content/themes/madara/js/slick/slick.css?ver=1.9.0\" type=\"text/css\" media=\"all\">"
+    },
+    "#slick-theme-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"slick-theme-css\" href=\"https://v6.voiranime.com/wp-content/themes/madara/js/slick/slick-theme.css?ver=6.7.2\" type=\"text/css\" media=\"all\">"
+    },
+    "#madara-css-child-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"madara-css-child-css\" href=\"https://v6.voiranime.com/wp-content/themes/madara/style.css?ver=6.7.2\" type=\"text/css\" media=\"all\">"
+    },
+    "#ionicons-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"ionicons-css\" href=\"https://v6.voiranime.com/wp-content/themes/madara/css/fonts/ionicons/css/ionicons.min.css?ver=4.5.10\" type=\"text/css\" media=\"all\">"
+    },
+    "#madara-icons-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"madara-icons-css\" href=\"https://v6.voiranime.com/wp-content/themes/madara/css/fonts/ct-icon/ct-icon.css?ver=6.7.2\" type=\"text/css\" media=\"all\">"
+    },
+    "#loaders-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"loaders-css\" href=\"https://v6.voiranime.com/wp-content/themes/madara/css/loaders.min.css?ver=6.7.2\" type=\"text/css\" media=\"all\">"
+    },
+    "#madara-css-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"madara-css-css\" href=\"https://v6.voiranime.com/wp-content/themes/madara-child-voiranime/style.css?ver=1.6.6\" type=\"text/css\" media=\"all\">"
+    },
+    "#madara-css-inline-css": {
+      "count": 1,
+      "tag": "style",
+      "text": ".c-blog__heading.style-2 i:after, .settings-page .",
+      "html": "<style id=\"madara-css-inline-css\" type=\"text/css\">\n.c-blog__heading.style-2 i:after, .settings-page .nav-tabs-wrap ul.nav-tabs li.active:after { border-left-color: #2e2d34 ;border-right-color: #2e2d34"
+    },
+    "#wp-pagenavi-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"wp-pagenavi-css\" href=\"https://v6.voiranime.com/wp-content/plugins/wp-pagenavi/pagenavi-css.css?ver=2.70\" type=\"text/css\" media=\"all\">"
+    },
+    "#lity-css": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"lity-css\" href=\"https://v6.voiranime.com/wp-content/plugins/madara-core/assets/css/lity.min.css?ver=6.7.2\" type=\"text/css\" media=\"all\">"
+    },
+    "#jquery-core-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1\" id=\"jquery-core-js\"></script>"
+    },
+    "#jquery-migrate-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1\" id=\"jquery-migrate-js\"></script>"
+    },
+    "#child_manga_single-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-content/themes/madara-child-voiranime/assets/js/script.js?ver=1.1\" id=\"child_manga_single-js\"></script>"
+    },
+    "#asp-basic": {
+      "count": 1,
+      "tag": "link",
+      "text": "",
+      "html": "<link rel=\"stylesheet\" id=\"asp-basic\" href=\"https://v6.voiranime.com/wp-content/cache/asp/style.basic-ho-is-po-no-da-co-au-ga-se-is.css?mq=Cw65Zq\" media=\"all\">"
+    },
+    "#asp-instance-2": {
+      "count": 1,
+      "tag": "style",
+      "text": "div[id*='ajaxsearchpro2_'] div.asp_loader,div[id*=",
+      "html": "<style id=\"asp-instance-2\">div[id*='ajaxsearchpro2_'] div.asp_loader,div[id*='ajaxsearchpro2_'] div.asp_loader *{box-sizing:border-box !important;margin:0;padding:0;box-shadow:none}div[id*='ajaxsearch"
+    },
+    "#asp-instance-3": {
+      "count": 1,
+      "tag": "style",
+      "text": "div[id*='ajaxsearchpro3_'] div.asp_loader,div[id*=",
+      "html": "<style id=\"asp-instance-3\">div[id*='ajaxsearchpro3_'] div.asp_loader,div[id*='ajaxsearchpro3_'] div.asp_loader *{box-sizing:border-box !important;margin:0;padding:0;box-shadow:none}div[id*='ajaxsearch"
+    },
+    "#ajaxsearchpro3_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_3 asp_m_3_1 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro asp_main_container asp_non_compact\" data-id=\"3\" data-name=\"classic VOSTFR imported\" data-instance=\"1\" id=\"ajax"
+    },
+    "#asp_init_id_3_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_init_data\" style=\"display:none !important;\" id=\"asp_init_id_3_1\" data-asp-id=\"3\" data-asp-instance=\"1\" data-aspdata=\"eyJob21ldXJsIjoiaHR0cHM6XC9cL3Y2LnZvaXJhbmltZS5jb21cLyIsImlzX3Jlc3V"
+    },
+    "#__original__ajaxsearchprores3_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores3_1\" class=\"asp_w asp_r asp_r_3 asp_r_3_1 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-3\" data-id=\"3\" data-instance=\"1\"><div class=\"results\"><div class=\""
+    },
+    "#__original__ajaxsearchprosettings3_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Generic filters Exact matches only  Search in titl",
+      "html": "<div id=\"__original__ajaxsearchprosettings3_1\" class=\"asp_w asp_ss asp_ss_3 asp_s asp_s_3 asp_s_3_1 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro searchsettings\" data-id=\"3\" data-instance=\"1\"><form "
+    },
+    "#set_exact3_1": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"exact\" id=\"set_exact3_1\" aria-label=\"Exact matches only\" name=\"asp_gen[]\" style=\"\">"
+    },
+    "#set_title3_1": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"title\" id=\"set_title3_1\" data-origvalue=\"1\" aria-label=\"Search in title\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#set_content3_1": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"content\" id=\"set_content3_1\" data-origvalue=\"1\" aria-label=\"Search in content\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#set_excerpt3_1": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"excerpt\" id=\"set_excerpt3_1\" data-origvalue=\"1\" aria-label=\"Search in excerpt\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#aspf3_11[vf__1]": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"hidden\" value=\"vf\" data-origvalue=\"vf\" id=\"aspf3_11[vf__1]\" name=\"aspf[vf__1]\" style=\"\">"
+    },
+    "#ajaxsearchpro2_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_2 asp_m_2_1 wpdreams_asp_sc wpdreams_asp_sc-2 ajaxsearchpro asp_main_container asp_non_compact\" data-id=\"2\" data-name=\"classic VF imported\" data-instance=\"1\" id=\"ajaxsear"
+    },
+    "#asp_init_id_2_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_init_data\" style=\"display:none !important;\" id=\"asp_init_id_2_1\" data-asp-id=\"2\" data-asp-instance=\"1\" data-aspdata=\"eyJob21ldXJsIjoiaHR0cHM6XC9cL3Y2LnZvaXJhbmltZS5jb21cLyIsImlzX3Jlc3V"
+    },
+    "#__original__ajaxsearchprores2_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores2_1\" class=\"asp_w asp_r asp_r_2 asp_r_2_1 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-2\" data-id=\"2\" data-instance=\"1\"><div class=\"results\"><div class=\""
+    },
+    "#__original__ajaxsearchprosettings2_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Generic filters Exact matches only  Search in titl",
+      "html": "<div id=\"__original__ajaxsearchprosettings2_1\" class=\"asp_w asp_ss asp_ss_2 asp_s asp_s_2 asp_s_2_1 wpdreams_asp_sc wpdreams_asp_sc-2 ajaxsearchpro searchsettings\" data-id=\"2\" data-instance=\"1\"><form "
+    },
+    "#set_exact2_1": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"exact\" id=\"set_exact2_1\" aria-label=\"Exact matches only\" name=\"asp_gen[]\" style=\"\">"
+    },
+    "#set_title2_1": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"title\" id=\"set_title2_1\" data-origvalue=\"1\" aria-label=\"Search in title\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#set_content2_1": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"content\" id=\"set_content2_1\" data-origvalue=\"1\" aria-label=\"Search in content\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#set_excerpt2_1": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"excerpt\" id=\"set_excerpt2_1\" data-origvalue=\"1\" aria-label=\"Search in excerpt\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#aspf2_11[vf__1]": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"hidden\" value=\"vf\" data-origvalue=\"vf\" id=\"aspf2_11[vf__1]\" name=\"aspf[vf__1]\" style=\"\">"
+    },
+    "#menu-item-915": {
+      "count": 1,
+      "tag": "li",
+      "text": "ACCUEIL",
+      "html": "<li id=\"menu-item-915\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-915\"><a href=\"https://v6.voiranime.com/\">ACCUEIL</a></li>"
+    },
+    "#menu-item-48192": {
+      "count": 1,
+      "tag": "li",
+      "text": "LISTE",
+      "html": "<li id=\"menu-item-48192\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-48192\"><a href=\"https://v6.voiranime.com/liste-danimes/\">LISTE</a></li>"
+    },
+    "#menu-item-88326": {
+      "count": 1,
+      "tag": "li",
+      "text": "NOUVEAU",
+      "html": "<li id=\"menu-item-88326\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-88326\"><a href=\"https://v6.voiranime.com/nouveaux-ajouts/\">NOUVEAU</a></li>"
+    },
+    "#menu-item-53504": {
+      "count": 1,
+      "tag": "li",
+      "text": "BIENTOT",
+      "html": "<li id=\"menu-item-53504\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-53504\"><a href=\"https://v6.voiranime.com/prochainement/\">BIENTOT</a></li>"
+    },
+    "#menu-item-2061": {
+      "count": 1,
+      "tag": "li",
+      "text": "RECHERCHE AV",
+      "html": "<li id=\"menu-item-2061\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-2061\"><a href=\"https://v6.voiranime.com/?s=&amp;post_type=wp-manga\">RECHERCHE AV</a></li>"
+    },
+    "#menu-item-92149": {
+      "count": 1,
+      "tag": "li",
+      "text": "VOIRDRAMA",
+      "html": "<li id=\"menu-item-92149\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-92149\"><a href=\"https://voirdrama.org/\">VOIRDRAMA</a></li>"
+    },
+    "#menu-main-menu-1": {
+      "count": 1,
+      "tag": "ul",
+      "text": "ACCUEIL \nLISTE \nNOUVEAU \nBIENTOT \nRECHERCHE AV \nVO",
+      "html": "<ul id=\"menu-main-menu-1\" class=\"nav navbar-nav main-navbar\"><li id=\"nav-menu-item-915\" class=\"main-menu-item menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page menu-item-home\""
+    },
+    "#nav-menu-item-915": {
+      "count": 1,
+      "tag": "li",
+      "text": "ACCUEIL",
+      "html": "<li id=\"nav-menu-item-915\" class=\"main-menu-item menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page menu-item-home\"><a href=\"https://v6.voiranime.com/\" class=\"menu-link  main-m"
+    },
+    "#nav-menu-item-48192": {
+      "count": 1,
+      "tag": "li",
+      "text": "LISTE",
+      "html": "<li id=\"nav-menu-item-48192\" class=\"main-menu-item menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page\"><a href=\"https://v6.voiranime.com/liste-danimes/\" class=\"menu-link  main-"
+    },
+    "#nav-menu-item-88326": {
+      "count": 1,
+      "tag": "li",
+      "text": "NOUVEAU",
+      "html": "<li id=\"nav-menu-item-88326\" class=\"main-menu-item menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page\"><a href=\"https://v6.voiranime.com/nouveaux-ajouts/\" class=\"menu-link  mai"
+    },
+    "#nav-menu-item-53504": {
+      "count": 1,
+      "tag": "li",
+      "text": "BIENTOT",
+      "html": "<li id=\"nav-menu-item-53504\" class=\"main-menu-item menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page\"><a href=\"https://v6.voiranime.com/prochainement/\" class=\"menu-link  main-"
+    },
+    "#nav-menu-item-2061": {
+      "count": 1,
+      "tag": "li",
+      "text": "RECHERCHE AV",
+      "html": "<li id=\"nav-menu-item-2061\" class=\"main-menu-item menu-item-depth-0 menu-item menu-item-type-custom menu-item-object-custom\"><a href=\"https://v6.voiranime.com/?s=&amp;post_type=wp-manga\" class=\"menu-l"
+    },
+    "#nav-menu-item-92149": {
+      "count": 1,
+      "tag": "li",
+      "text": "VOIRDRAMA",
+      "html": "<li id=\"nav-menu-item-92149\" class=\"main-menu-item menu-item-depth-0 menu-item menu-item-type-custom menu-item-object-custom\"><a href=\"https://voirdrama.org/\" class=\"menu-link  main-menu-link\">VOIRDRA"
+    },
+    "#menu-item-62593": {
+      "count": 1,
+      "tag": "li",
+      "text": "Action",
+      "html": "<li id=\"menu-item-62593\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62593\"><a href=\"https://v6.voiranime.com/anime-genre/action/\">Action</a></li>"
+    },
+    "#menu-item-62594": {
+      "count": 1,
+      "tag": "li",
+      "text": "Adventure",
+      "html": "<li id=\"menu-item-62594\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62594\"><a href=\"https://v6.voiranime.com/anime-genre/adventure/\">Adventure</a></li>"
+    },
+    "#menu-item-62595": {
+      "count": 1,
+      "tag": "li",
+      "text": "Chinese",
+      "html": "<li id=\"menu-item-62595\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62595\"><a href=\"https://v6.voiranime.com/anime-genre/chinese/\">Chinese</a></li>"
+    },
+    "#menu-item-62596": {
+      "count": 1,
+      "tag": "li",
+      "text": "Comedy",
+      "html": "<li id=\"menu-item-62596\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre current-wp-manga-ancestor current-menu-parent current-wp-manga-parent menu-item-62596\"><a href=\"https:"
+    },
+    "#menu-item-62597": {
+      "count": 1,
+      "tag": "li",
+      "text": "Drama",
+      "html": "<li id=\"menu-item-62597\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62597\"><a href=\"https://v6.voiranime.com/anime-genre/drama/\">Drama</a></li>"
+    },
+    "#menu-item-62598": {
+      "count": 1,
+      "tag": "li",
+      "text": "Ecchi",
+      "html": "<li id=\"menu-item-62598\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre current-wp-manga-ancestor current-menu-parent current-wp-manga-parent menu-item-62598\"><a href=\"https:"
+    },
+    "#menu-item-62612": {
+      "count": 1,
+      "tag": "li",
+      "text": "Plus\n\n\tFantasy\n\tHorror\n\tMahou Shoujo\n\tMecha\n\tMusic",
+      "html": "<li id=\"menu-item-62612\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children parent menu-item-62612\"><a href=\"#\">Plus</a>\n<ul class=\"sub-menu\">\n\t<li id=\"menu-item-625"
+    },
+    "#menu-item-62599": {
+      "count": 1,
+      "tag": "li",
+      "text": "Fantasy",
+      "html": "<li id=\"menu-item-62599\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre current-wp-manga-ancestor current-menu-parent current-wp-manga-parent menu-item-62599\"><a href=\"https:"
+    },
+    "#menu-item-62600": {
+      "count": 1,
+      "tag": "li",
+      "text": "Horror",
+      "html": "<li id=\"menu-item-62600\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62600\"><a href=\"https://v6.voiranime.com/anime-genre/horror/\">Horror</a></li>"
+    },
+    "#menu-item-62601": {
+      "count": 1,
+      "tag": "li",
+      "text": "Mahou Shoujo",
+      "html": "<li id=\"menu-item-62601\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62601\"><a href=\"https://v6.voiranime.com/anime-genre/mahou-shoujo/\">Mahou Shoujo</a></li>"
+    },
+    "#menu-item-62602": {
+      "count": 1,
+      "tag": "li",
+      "text": "Mecha",
+      "html": "<li id=\"menu-item-62602\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62602\"><a href=\"https://v6.voiranime.com/anime-genre/mecha/\">Mecha</a></li>"
+    },
+    "#menu-item-62603": {
+      "count": 1,
+      "tag": "li",
+      "text": "Music",
+      "html": "<li id=\"menu-item-62603\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62603\"><a href=\"https://v6.voiranime.com/anime-genre/music/\">Music</a></li>"
+    },
+    "#menu-item-62604": {
+      "count": 1,
+      "tag": "li",
+      "text": "Mystery",
+      "html": "<li id=\"menu-item-62604\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62604\"><a href=\"https://v6.voiranime.com/anime-genre/mystery/\">Mystery</a></li>"
+    },
+    "#menu-item-62605": {
+      "count": 1,
+      "tag": "li",
+      "text": "Psychological",
+      "html": "<li id=\"menu-item-62605\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62605\"><a href=\"https://v6.voiranime.com/anime-genre/psychological/\">Psychological</a></li>"
+    },
+    "#menu-item-62606": {
+      "count": 1,
+      "tag": "li",
+      "text": "Romance",
+      "html": "<li id=\"menu-item-62606\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre current-wp-manga-ancestor current-menu-parent current-wp-manga-parent menu-item-62606\"><a href=\"https:"
+    },
+    "#menu-item-62607": {
+      "count": 1,
+      "tag": "li",
+      "text": "Sci-Fi",
+      "html": "<li id=\"menu-item-62607\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62607\"><a href=\"https://v6.voiranime.com/anime-genre/sci-fi/\">Sci-Fi</a></li>"
+    },
+    "#menu-item-62608": {
+      "count": 1,
+      "tag": "li",
+      "text": "Slice of Life",
+      "html": "<li id=\"menu-item-62608\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62608\"><a href=\"https://v6.voiranime.com/anime-genre/slice-of-life/\">Slice of Life</a></li>"
+    },
+    "#menu-item-62609": {
+      "count": 1,
+      "tag": "li",
+      "text": "Sports",
+      "html": "<li id=\"menu-item-62609\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62609\"><a href=\"https://v6.voiranime.com/anime-genre/sports/\">Sports</a></li>"
+    },
+    "#menu-item-62610": {
+      "count": 1,
+      "tag": "li",
+      "text": "Supernatural",
+      "html": "<li id=\"menu-item-62610\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62610\"><a href=\"https://v6.voiranime.com/anime-genre/supernatural/\">Supernatural</a></li>"
+    },
+    "#menu-item-62611": {
+      "count": 1,
+      "tag": "li",
+      "text": "Thriller",
+      "html": "<li id=\"menu-item-62611\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62611\"><a href=\"https://v6.voiranime.com/anime-genre/thriller/\">Thriller</a></li>"
+    },
+    "#manga-reading-nav-head": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"entry-header header\" id=\"manga-reading-nav-head\" data-position=\"header\" data-chapter=\"yandere-dark-elf-she-chased-me-all-the-way-from-another-world-01-vostfr\" data-id=\"105755\">\t\t\t\t<div cla"
+    },
+    "#wp-manga-current-chap": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"hidden\" id=\"wp-manga-current-chap\" data-id=\"91877\" value=\"yandere-dark-elf-she-chased-me-all-the-way-from-another-world-01-vostfr\" style=\"\">"
+    },
+    "#chapter-video-frame": {
+      "count": 1,
+      "tag": "div",
+      "text": "Valider\n\nBy clicking \u201cValider\u201d, you acknowledge th",
+      "html": "<div class=\"chapter-video-frame\" id=\"chapter-video-frame\">\n\t\t\t\t\n<div class=\"chapter-video-content-validator\">\n\t\t\t\t\t<script src=\"https://www.google.com/recaptcha/api.js?hl=fr\"></script><p></p>\n<form id"
+    },
+    "#chapter-video-captcha-validator": {
+      "count": 1,
+      "tag": "form",
+      "text": "Valider\n\nBy clicking \u201cValider\u201d, you acknowledge th",
+      "html": "<form id=\"chapter-video-captcha-validator\" action=\"https://v6.voiranime.com/wp-admin/admin-ajax.php\" data-error-msg=\"Please check on reCaptcha\"><p></p>\n<div class=\"g-recaptcha\" data-sitekey=\"6Lfd5wobA"
+    },
+    "#g-recaptcha-response": {
+      "count": 1,
+      "tag": "textarea",
+      "text": "",
+      "html": "<textarea id=\"g-recaptcha-response\" name=\"g-recaptcha-response\" class=\"g-recaptcha-response\" style=\"width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; r"
+    },
+    "#manga-reading-nav-foot": {
+      "count": 1,
+      "tag": "div",
+      "text": "LECTEUR myTV\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLECTEUR MOON\n",
+      "html": "<div class=\"entry-header footer\" id=\"manga-reading-nav-foot\" data-position=\"footer\" data-id=\"105755\">\n            <div class=\"wp-manga-nav\">\n                <div class=\"select-view\">\n\t\t\t\t\t\n\t\t\t\t\t      "
+    },
+    "#main-sidebar": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div id=\"main-sidebar\" class=\"main-sidebar\" role=\"complementary\">\n\t\t\t<div class=\"row\"><div id=\"block-5\" class=\"widget col-12 col-md-12   default no-icon  widget_block\"><div class=\"widget__inner widget"
+    },
+    "#block-5": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div id=\"block-5\" class=\"widget col-12 col-md-12   default no-icon  widget_block\"><div class=\"widget__inner widget_block__inner c-widget-wrap\"><div class=\"widget-content\"><p></p><div class=\"asp_w_cont"
+    },
+    "#ajaxsearchpro3_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_3 asp_m_3_2 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro asp_main_container asp_non_compact\" data-id=\"3\" data-name=\"classic VOSTFR imported\" data-instance=\"2\" id=\"ajax"
+    },
+    "#asp_init_id_3_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_init_data\" style=\"display:none !important;\" id=\"asp_init_id_3_2\" data-asp-id=\"3\" data-asp-instance=\"2\" data-aspdata=\"eyJob21ldXJsIjoiaHR0cHM6XC9cL3Y2LnZvaXJhbmltZS5jb21cLyIsImlzX3Jlc3V"
+    },
+    "#__original__ajaxsearchprores3_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores3_2\" class=\"asp_w asp_r asp_r_3 asp_r_3_2 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-3\" data-id=\"3\" data-instance=\"2\"><div class=\"results\"><div class=\""
+    },
+    "#__original__ajaxsearchprosettings3_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Generic filters Exact matches only  Search in titl",
+      "html": "<div id=\"__original__ajaxsearchprosettings3_2\" class=\"asp_w asp_ss asp_ss_3 asp_s asp_s_3 asp_s_3_2 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro searchsettings\" data-id=\"3\" data-instance=\"2\"><form "
+    },
+    "#set_exact3_2": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"exact\" id=\"set_exact3_2\" aria-label=\"Exact matches only\" name=\"asp_gen[]\" style=\"\">"
+    },
+    "#set_title3_2": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"title\" id=\"set_title3_2\" data-origvalue=\"1\" aria-label=\"Search in title\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#set_content3_2": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"content\" id=\"set_content3_2\" data-origvalue=\"1\" aria-label=\"Search in content\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#set_excerpt3_2": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"excerpt\" id=\"set_excerpt3_2\" data-origvalue=\"1\" aria-label=\"Search in excerpt\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#aspf3_21[vf__1]": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"hidden\" value=\"vf\" data-origvalue=\"vf\" id=\"aspf3_21[vf__1]\" name=\"aspf[vf__1]\" style=\"\">"
+    },
+    "#ajaxsearchpro2_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_2 asp_m_2_2 wpdreams_asp_sc wpdreams_asp_sc-2 ajaxsearchpro asp_main_container asp_non_compact\" data-id=\"2\" data-name=\"classic VF imported\" data-instance=\"2\" id=\"ajaxsear"
+    },
+    "#asp_init_id_2_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_init_data\" style=\"display:none !important;\" id=\"asp_init_id_2_2\" data-asp-id=\"2\" data-asp-instance=\"2\" data-aspdata=\"eyJob21ldXJsIjoiaHR0cHM6XC9cL3Y2LnZvaXJhbmltZS5jb21cLyIsImlzX3Jlc3V"
+    },
+    "#__original__ajaxsearchprores2_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores2_2\" class=\"asp_w asp_r asp_r_2 asp_r_2_2 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-2\" data-id=\"2\" data-instance=\"2\"><div class=\"results\"><div class=\""
+    },
+    "#__original__ajaxsearchprosettings2_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Generic filters Exact matches only  Search in titl",
+      "html": "<div id=\"__original__ajaxsearchprosettings2_2\" class=\"asp_w asp_ss asp_ss_2 asp_s asp_s_2 asp_s_2_2 wpdreams_asp_sc wpdreams_asp_sc-2 ajaxsearchpro searchsettings\" data-id=\"2\" data-instance=\"2\"><form "
+    },
+    "#set_exact2_2": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"exact\" id=\"set_exact2_2\" aria-label=\"Exact matches only\" name=\"asp_gen[]\" style=\"\">"
+    },
+    "#set_title2_2": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"title\" id=\"set_title2_2\" data-origvalue=\"1\" aria-label=\"Search in title\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#set_content2_2": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"content\" id=\"set_content2_2\" data-origvalue=\"1\" aria-label=\"Search in content\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#set_excerpt2_2": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"checkbox\" value=\"excerpt\" id=\"set_excerpt2_2\" data-origvalue=\"1\" aria-label=\"Search in excerpt\" name=\"asp_gen[]\" checked=\"checked\" style=\"\">"
+    },
+    "#aspf2_21[vf__1]": {
+      "count": 1,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"hidden\" value=\"vf\" data-origvalue=\"vf\" id=\"aspf2_21[vf__1]\" name=\"aspf[vf__1]\" style=\"\">"
+    },
+    "#menu-item-916": {
+      "count": 1,
+      "tag": "li",
+      "text": "CONTACT",
+      "html": "<li id=\"menu-item-916\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-916\"><a href=\"mailto:voiranime@gmail.com\">CONTACT</a></li>"
+    },
+    "#asp_hidden_data": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_hidden_data\" id=\"asp_hidden_data\" style=\"display: none !important;\">\n\t\t\t<svg style=\"position:absolute\" height=\"0\" width=\"0\">\n\t\t\t\t<filter id=\"aspblur\">\n\t\t\t\t\t<feGaussianBlur in=\"SourceGr"
+    },
+    "#aspblur": {
+      "count": 1,
+      "tag": "filter",
+      "text": "",
+      "html": "<filter id=\"aspblur\">\n\t\t\t\t\t<feGaussianBlur in=\"SourceGraphic\" stdDeviation=\"4\"></feGaussianBlur>\n\t\t\t\t</filter>"
+    },
+    "#no_aspblur": {
+      "count": 1,
+      "tag": "filter",
+      "text": "",
+      "html": "<filter id=\"no_aspblur\"></filter>"
+    },
+    "#widget-logic_live_match_widget-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://widgetlogic.org/v2/js/data.js?t=1746964800&amp;ver=6.0.0\" id=\"widget-logic_live_match_widget-js\"></script>"
+    },
+    "#madara-core-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-content/themes/madara/js/core.js?ver=6.7.2\" id=\"madara-core-js\"></script>"
+    },
+    "#bootstrap-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-content/themes/madara/js/bootstrap.min.js?ver=4.6.0\" id=\"bootstrap-js\"></script>"
+    },
+    "#shuffle-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-content/themes/madara/js/shuffle.min.js?ver=5.3.0\" id=\"shuffle-js\"></script>"
+    },
+    "#imagesloaded-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-includes/js/imagesloaded.min.js?ver=5.0.0\" id=\"imagesloaded-js\"></script>"
+    },
+    "#aos-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-content/themes/madara/js/aos.js?ver=6.7.2\" id=\"aos-js\"></script>"
+    },
+    "#madara-js-js-extra": {
+      "count": 1,
+      "tag": "script",
+      "text": "/* <![CDATA[ */\nvar madara = {\"ajaxurl\":\"https:\\/\\",
+      "html": "<script type=\"text/javascript\" id=\"madara-js-js-extra\">\n/* <![CDATA[ */\nvar madara = {\"ajaxurl\":\"https:\\/\\/v6.voiranime.com\\/wp-admin\\/admin-ajax.php\",\"query_vars\":{\"manga-core\":\"yandere-dark-elf-she-"
+    },
+    "#madara-js-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-content/themes/madara/js/template.js?ver=1.7.3\" id=\"madara-js-js\"></script>"
+    },
+    "#madara-ajax-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-content/themes/madara/js/ajax.js?ver=6.7.2\" id=\"madara-ajax-js\"></script>"
+    },
+    "#wp-manga-login-ajax-js-extra": {
+      "count": 1,
+      "tag": "script",
+      "text": "/* <![CDATA[ */\nvar wpMangaLogin = {\"admin_ajax\":\"",
+      "html": "<script type=\"text/javascript\" id=\"wp-manga-login-ajax-js-extra\">\n/* <![CDATA[ */\nvar wpMangaLogin = {\"admin_ajax\":\"https:\\/\\/v6.voiranime.com\\/wp-admin\\/admin-ajax.php\",\"home_url\":\"https:\\/\\/v6.voira"
+    },
+    "#wp-manga-login-ajax-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-content/plugins/madara-core/assets/js/login.js?ver=1.7.2\" id=\"wp-manga-login-ajax-js\"></script>"
+    },
+    "#wp-manga-slick-js-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-content/plugins/madara-core/assets/slick/slick.min.js?ver=6.7.2\" id=\"wp-manga-slick-js-js\"></script>"
+    },
+    "#jquery-ui-core-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-includes/js/jquery/ui/core.min.js?ver=1.13.3\" id=\"jquery-ui-core-js\"></script>"
+    },
+    "#jquery-ui-menu-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-includes/js/jquery/ui/menu.min.js?ver=1.13.3\" id=\"jquery-ui-menu-js\"></script>"
+    },
+    "#wp-dom-ready-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-includes/js/dist/dom-ready.min.js?ver=f77871ff7694fffea381\" id=\"wp-dom-ready-js\"></script>"
+    },
+    "#wp-hooks-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-includes/js/dist/hooks.min.js?ver=4d63a3d491d11ffd8ac6\" id=\"wp-hooks-js\"></script>"
+    },
+    "#wp-i18n-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-includes/js/dist/i18n.min.js?ver=5e580eb46a90c2b997e6\" id=\"wp-i18n-js\"></script>"
+    },
+    "#wp-i18n-js-after": {
+      "count": 1,
+      "tag": "script",
+      "text": "/* <![CDATA[ */\nwp.i18n.setLocaleData( { 'text dir",
+      "html": "<script type=\"text/javascript\" id=\"wp-i18n-js-after\">\n/* <![CDATA[ */\nwp.i18n.setLocaleData( { 'text direction\\u0004ltr': [ 'ltr' ] } );\n/* ]]> */\n</script>"
+    },
+    "#wp-a11y-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-includes/js/dist/a11y.min.js?ver=3156534cc54473497e14\" id=\"wp-a11y-js\"></script>"
+    },
+    "#jquery-ui-autocomplete-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-includes/js/jquery/ui/autocomplete.min.js?ver=1.13.3\" id=\"jquery-ui-autocomplete-js\"></script>"
+    },
+    "#wp-manga-js-extra": {
+      "count": 1,
+      "tag": "script",
+      "text": "/* <![CDATA[ */\nvar mangaNav = {\"mangaUrl\":\"https:",
+      "html": "<script type=\"text/javascript\" id=\"wp-manga-js-extra\">\n/* <![CDATA[ */\nvar mangaNav = {\"mangaUrl\":\"https:\\/\\/v6.voiranime.com\\/anime\\/yandere-dark-elf-she-chased-me-all-the-way-from-another-world\\/\",\""
+    },
+    "#wp-manga-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-content/plugins/madara-core/assets/js/script.js?ver=1.7.1\" id=\"wp-manga-js\"></script>"
+    },
+    "#lity-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-content/plugins/madara-core/assets/js/lity.min.js?ver=2.4.1\" id=\"lity-js\"></script>"
+    },
+    "#wd-asp-instances-04001723": {
+      "count": 1,
+      "tag": "script",
+      "text": "window.ASP_INSTANCES = [];window.ASP_INSTANCES[2] ",
+      "html": "<script id=\"wd-asp-instances-04001723\">window.ASP_INSTANCES = [];window.ASP_INSTANCES[2] = {\"homeurl\":\"https:\\/\\/v6.voiranime.com\\/\",\"is_results_page\":0,\"resultstype\":\"vertical\",\"resultsposition\":\"hov"
+    },
+    "#asp-4d1289b6-js-before": {
+      "count": 1,
+      "tag": "script",
+      "text": "if ( typeof window.ASP == 'undefined') { window.AS",
+      "html": "<script type=\"text/javascript\" id=\"asp-4d1289b6-js-before\">if ( typeof window.ASP == 'undefined') { window.ASP = {wp_rocket_exception: \"DOMContentLoaded\", ajaxurl: \"https:\\/\\/v6.voiranime.com\\/wp-admi"
+    },
+    "#asp-4d1289b6-js": {
+      "count": 1,
+      "tag": "script",
+      "text": "",
+      "html": "<script async=\"\" type=\"text/javascript\" src=\"https://v6.voiranime.com/wp-content/cache/asp/asp-4d1289b6.min.js\" id=\"asp-4d1289b6-js\"></script>"
+    },
+    "#a11y-speak-intro-text": {
+      "count": 1,
+      "tag": "p",
+      "text": "Notifications",
+      "html": "<p id=\"a11y-speak-intro-text\" class=\"a11y-speak-intro-text\" style=\"position: absolute;margin: -1px;padding: 0;height: 1px;width: 1px;overflow: hidden;clip: rect(1px, 1px, 1px, 1px);-webkit-clip-path: "
+    },
+    "#a11y-speak-assertive": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"a11y-speak-assertive\" class=\"a11y-speak-region\" style=\"position: absolute;margin: -1px;padding: 0;height: 1px;width: 1px;overflow: hidden;clip: rect(1px, 1px, 1px, 1px);-webkit-clip-path: ins"
+    },
+    "#a11y-speak-polite": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"a11y-speak-polite\" class=\"a11y-speak-region\" style=\"position: absolute;margin: -1px;padding: 0;height: 1px;width: 1px;overflow: hidden;clip: rect(1px, 1px, 1px, 1px);-webkit-clip-path: inset("
+    },
+    ".yoast-schema-graph": {
+      "count": 1,
+      "tag": "script",
+      "text": "{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type",
+      "html": "<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://v6.voiranime.com/anime/yandere-dark-elf-she-chased-me-all-the"
+    },
+    ".wp-manga-template-default": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-105755 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 sticky-enabled sticky-style-1 is-sideb"
+    },
+    ".single": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-105755 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 sticky-enabled sticky-style-1 is-sideb"
+    },
+    ".single-wp-manga": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-105755 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 sticky-enabled sticky-style-1 is-sideb"
+    },
+    ".postid-105755": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-105755 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 sticky-enabled sticky-style-1 is-sideb"
+    },
+    ".wp-embed-responsive": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-105755 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 sticky-enabled sticky-style-1 is-sideb"
+    },
+    ".wp-manga-page": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-105755 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 sticky-enabled sticky-style-1 is-sideb"
+    },
+    ".reading-manga": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-105755 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 sticky-enabled sticky-style-1 is-sideb"
+    },
+    ".keyboard-navigate": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-105755 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 sticky-enabled sticky-style-1 is-sideb"
+    },
+    ".page": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-105755 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 sticky-enabled sticky-style-1 is-sideb"
+    },
+    ".header-style-1": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-105755 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 sticky-enabled sticky-style-1 is-sideb"
+    },
+    ".sticky-enabled": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-105755 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 sticky-enabled sticky-style-1 is-sideb"
+    },
+    ".sticky-style-1": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-105755 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 sticky-enabled sticky-style-1 is-sideb"
+    },
+    ".is-sidebar": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-105755 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 sticky-enabled sticky-style-1 is-sideb"
+    },
+    ".text-ui-dark": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-105755 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 sticky-enabled sticky-style-1 is-sideb"
+    },
+    ".manga-reading-paged-style": {
+      "count": 1,
+      "tag": "body",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<body class=\"wp-manga-template-default single single-wp-manga postid-105755 wp-embed-responsive wp-manga-page reading-manga keyboard-navigate page header-style-1 sticky-enabled sticky-style-1 is-sideb"
+    },
+    ".wrap": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div class=\"wrap\">\n    <div class=\"body-wrap\">\n\t\t        <header class=\"site-header\">\n            <div class=\"c-header__top\">\n                <ul class=\"search-main-menu\">\n                    <li>\n\t\t\t"
+    },
+    ".body-wrap": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div class=\"body-wrap\">\n\t\t        <header class=\"site-header\">\n            <div class=\"c-header__top\">\n                <ul class=\"search-main-menu\">\n                    <li>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<"
+    },
+    ".site-header": {
+      "count": 1,
+      "tag": "header",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<header class=\"site-header\">\n            <div class=\"c-header__top\">\n                <ul class=\"search-main-menu\">\n                    <li>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"container\">\n\t\t\t\t\t\t\t\t<di"
+    },
+    ".c-header__top": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div class=\"c-header__top\">\n                <ul class=\"search-main-menu\">\n                    <li>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"container\">\n\t\t\t\t\t\t\t\t<div class=\"asp_w_container asp_w_container_"
+    },
+    ".search-main-menu": {
+      "count": 1,
+      "tag": "ul",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<ul class=\"search-main-menu\">\n                    <li>\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"container\">\n\t\t\t\t\t\t\t\t<div class=\"asp_w_container asp_w_container_3 asp_w_container_3_1\" data-id=\"3\" data-inst"
+    },
+    ".container": {
+      "count": 6,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div class=\"container\">\n\t\t\t\t\t\t\t\t<div class=\"asp_w_container asp_w_container_3 asp_w_container_3_1\" data-id=\"3\" data-instance=\"1\"><div class=\"asp_w asp_m asp_m_3 asp_m_3_1 wpdreams_asp_sc wpdreams_asp_"
+    },
+    ".asp_w_container": {
+      "count": 4,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div class=\"asp_w_container asp_w_container_3 asp_w_container_3_1\" data-id=\"3\" data-instance=\"1\"><div class=\"asp_w asp_m asp_m_3 asp_m_3_1 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro asp_main_cont"
+    },
+    ".asp_w_container_3": {
+      "count": 2,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div class=\"asp_w_container asp_w_container_3 asp_w_container_3_1\" data-id=\"3\" data-instance=\"1\"><div class=\"asp_w asp_m asp_m_3 asp_m_3_1 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro asp_main_cont"
+    },
+    ".asp_w_container_3_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div class=\"asp_w_container asp_w_container_3 asp_w_container_3_1\" data-id=\"3\" data-instance=\"1\"><div class=\"asp_w asp_m asp_m_3 asp_m_3_1 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro asp_main_cont"
+    },
+    ".asp_w": {
+      "count": 12,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_3 asp_m_3_1 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro asp_main_container asp_non_compact\" data-id=\"3\" data-name=\"classic VOSTFR imported\" data-instance=\"1\" id=\"ajax"
+    },
+    ".asp_m": {
+      "count": 4,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_3 asp_m_3_1 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro asp_main_container asp_non_compact\" data-id=\"3\" data-name=\"classic VOSTFR imported\" data-instance=\"1\" id=\"ajax"
+    },
+    ".asp_m_3": {
+      "count": 2,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_3 asp_m_3_1 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro asp_main_container asp_non_compact\" data-id=\"3\" data-name=\"classic VOSTFR imported\" data-instance=\"1\" id=\"ajax"
+    },
+    ".asp_m_3_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_3 asp_m_3_1 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro asp_main_container asp_non_compact\" data-id=\"3\" data-name=\"classic VOSTFR imported\" data-instance=\"1\" id=\"ajax"
+    },
+    ".wpdreams_asp_sc": {
+      "count": 12,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_3 asp_m_3_1 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro asp_main_container asp_non_compact\" data-id=\"3\" data-name=\"classic VOSTFR imported\" data-instance=\"1\" id=\"ajax"
+    },
+    ".wpdreams_asp_sc-3": {
+      "count": 6,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_3 asp_m_3_1 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro asp_main_container asp_non_compact\" data-id=\"3\" data-name=\"classic VOSTFR imported\" data-instance=\"1\" id=\"ajax"
+    },
+    ".ajaxsearchpro": {
+      "count": 12,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_3 asp_m_3_1 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro asp_main_container asp_non_compact\" data-id=\"3\" data-name=\"classic VOSTFR imported\" data-instance=\"1\" id=\"ajax"
+    },
+    ".asp_main_container": {
+      "count": 4,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_3 asp_m_3_1 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro asp_main_container asp_non_compact\" data-id=\"3\" data-name=\"classic VOSTFR imported\" data-instance=\"1\" id=\"ajax"
+    },
+    ".asp_non_compact": {
+      "count": 4,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_3 asp_m_3_1 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro asp_main_container asp_non_compact\" data-id=\"3\" data-name=\"classic VOSTFR imported\" data-instance=\"1\" id=\"ajax"
+    },
+    ".probox": {
+      "count": 4,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"probox\"><div class=\"prosettings\" style=\"display:none;\" data-opened=\"0\"><div class=\"innericon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"22\" height=\"22\" viewBox=\"0 0 512 512\"><polygon "
+    },
+    ".prosettings": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"prosettings\" style=\"display:none;\" data-opened=\"0\"><div class=\"innericon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"22\" height=\"22\" viewBox=\"0 0 512 512\"><polygon transform=\"rotate(90"
+    },
+    ".innericon": {
+      "count": 8,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"innericon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"22\" height=\"22\" viewBox=\"0 0 512 512\"><polygon transform=\"rotate(90 256 256)\" points=\"142.332,104.886 197.48,50 402.5,256 197.48,4"
+    },
+    ".proinput": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"proinput\"><form role=\"search\" action=\"#\" autocomplete=\"off\" aria-label=\"Search form\"><input type=\"search\" class=\"orig\" placeholder=\"Rechercher en VOSTFR...\" name=\"phrase\" value=\"\" aria-lab"
+    },
+    ".orig": {
+      "count": 4,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"search\" class=\"orig\" placeholder=\"Rechercher en VOSTFR...\" name=\"phrase\" value=\"\" aria-label=\"Search input\" autocomplete=\"off\" style=\"\">"
+    },
+    ".autocomplete": {
+      "count": 4,
+      "tag": "input",
+      "text": "",
+      "html": "<input type=\"text\" class=\"autocomplete\" name=\"phrase\" value=\"\" aria-label=\"Search autocomplete input\" aria-hidden=\"true\" tabindex=\"-1\" autocomplete=\"off\" disabled=\"\" style=\"\">"
+    },
+    ".promagnifier": {
+      "count": 4,
+      "tag": "button",
+      "text": "Search",
+      "html": "<button class=\"promagnifier\" aria-label=\"Search magnifier button\"><span class=\"asp_text_button hiddend\"> Search </span><span class=\"innericon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"22\" height"
+    },
+    ".asp_text_button": {
+      "count": 4,
+      "tag": "span",
+      "text": "Search",
+      "html": "<span class=\"asp_text_button hiddend\"> Search </span>"
+    },
+    ".hiddend": {
+      "count": 8,
+      "tag": "span",
+      "text": "Search",
+      "html": "<span class=\"asp_text_button hiddend\"> Search </span>"
+    },
+    ".asp_clear": {
+      "count": 4,
+      "tag": "span",
+      "text": "",
+      "html": "<span class=\"asp_clear\"></span>"
+    },
+    ".proloading": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"proloading\"><div class=\"asp_loader\"><div class=\"asp_loader-inner asp_ball-scale\"><div></div></div></div></div>"
+    },
+    ".asp_loader": {
+      "count": 8,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_loader\"><div class=\"asp_loader-inner asp_ball-scale\"><div></div></div></div>"
+    },
+    ".asp_loader-inner": {
+      "count": 8,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_loader-inner asp_ball-scale\"><div></div></div>"
+    },
+    ".asp_ball-scale": {
+      "count": 8,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_loader-inner asp_ball-scale\"><div></div></div>"
+    },
+    ".proclose": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"proclose\"><svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" width=\"512px\" height=\"512px\" viewBox=\"0 0 512 512\" enable-backgro"
+    },
+    ".asp_data_container": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_data_container\" style=\"display:none !important;\"><div class=\"asp_init_data\" style=\"display:none !important;\" id=\"asp_init_id_3_1\" data-asp-id=\"3\" data-asp-instance=\"1\" data-aspdata=\"ey"
+    },
+    ".asp_init_data": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_init_data\" style=\"display:none !important;\" id=\"asp_init_id_3_1\" data-asp-id=\"3\" data-asp-instance=\"1\" data-aspdata=\"eyJob21ldXJsIjoiaHR0cHM6XC9cL3Y2LnZvaXJhbmltZS5jb21cLyIsImlzX3Jlc3V"
+    },
+    ".asp_hidden_data": {
+      "count": 5,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_hidden_data\" style=\"display:none !important;\"><div class=\"asp_item_overlay\"><div class=\"asp_item_inner\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"22\" height=\"22\" viewBox=\"0 0 512 "
+    },
+    ".asp_item_overlay": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_item_overlay\"><div class=\"asp_item_inner\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"22\" height=\"22\" viewBox=\"0 0 512 512\"><path d=\"M448.225 394.243l-85.387-85.385c16.55-26.08 26.1"
+    },
+    ".asp_item_inner": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_item_inner\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"22\" height=\"22\" viewBox=\"0 0 512 512\"><path d=\"M448.225 394.243l-85.387-85.385c16.55-26.08 26.146-56.986 26.146-90.094 0-92.9"
+    },
+    ".asp_r": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores3_1\" class=\"asp_w asp_r asp_r_3 asp_r_3_1 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-3\" data-id=\"3\" data-instance=\"1\"><div class=\"results\"><div class=\""
+    },
+    ".asp_r_3": {
+      "count": 2,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores3_1\" class=\"asp_w asp_r asp_r_3 asp_r_3_1 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-3\" data-id=\"3\" data-instance=\"1\"><div class=\"results\"><div class=\""
+    },
+    ".asp_r_3_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores3_1\" class=\"asp_w asp_r asp_r_3 asp_r_3_1 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-3\" data-id=\"3\" data-instance=\"1\"><div class=\"results\"><div class=\""
+    },
+    ".vertical": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores3_1\" class=\"asp_w asp_r asp_r_3 asp_r_3_1 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-3\" data-id=\"3\" data-instance=\"1\"><div class=\"results\"><div class=\""
+    },
+    ".results": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"results\"><div class=\"resdrg\"></div></div>"
+    },
+    ".resdrg": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"resdrg\"></div>"
+    },
+    ".asp_res_loader": {
+      "count": 4,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_res_loader hiddend\"><div class=\"asp_loader\"><div class=\"asp_loader-inner asp_ball-scale\"><div></div></div></div></div>"
+    },
+    ".asp_ss": {
+      "count": 4,
+      "tag": "div",
+      "text": "Generic filters Exact matches only  Search in titl",
+      "html": "<div id=\"__original__ajaxsearchprosettings3_1\" class=\"asp_w asp_ss asp_ss_3 asp_s asp_s_3 asp_s_3_1 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro searchsettings\" data-id=\"3\" data-instance=\"1\"><form "
+    },
+    ".asp_ss_3": {
+      "count": 2,
+      "tag": "div",
+      "text": "Generic filters Exact matches only  Search in titl",
+      "html": "<div id=\"__original__ajaxsearchprosettings3_1\" class=\"asp_w asp_ss asp_ss_3 asp_s asp_s_3 asp_s_3_1 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro searchsettings\" data-id=\"3\" data-instance=\"1\"><form "
+    },
+    ".asp_s": {
+      "count": 4,
+      "tag": "div",
+      "text": "Generic filters Exact matches only  Search in titl",
+      "html": "<div id=\"__original__ajaxsearchprosettings3_1\" class=\"asp_w asp_ss asp_ss_3 asp_s asp_s_3 asp_s_3_1 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro searchsettings\" data-id=\"3\" data-instance=\"1\"><form "
+    },
+    ".asp_s_3": {
+      "count": 2,
+      "tag": "div",
+      "text": "Generic filters Exact matches only  Search in titl",
+      "html": "<div id=\"__original__ajaxsearchprosettings3_1\" class=\"asp_w asp_ss asp_ss_3 asp_s asp_s_3 asp_s_3_1 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro searchsettings\" data-id=\"3\" data-instance=\"1\"><form "
+    },
+    ".asp_s_3_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Generic filters Exact matches only  Search in titl",
+      "html": "<div id=\"__original__ajaxsearchprosettings3_1\" class=\"asp_w asp_ss asp_ss_3 asp_s asp_s_3 asp_s_3_1 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro searchsettings\" data-id=\"3\" data-instance=\"1\"><form "
+    },
+    ".searchsettings": {
+      "count": 4,
+      "tag": "div",
+      "text": "Generic filters Exact matches only  Search in titl",
+      "html": "<div id=\"__original__ajaxsearchprosettings3_1\" class=\"asp_w asp_ss asp_ss_3 asp_s asp_s_3 asp_s_3_1 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro searchsettings\" data-id=\"3\" data-instance=\"1\"><form "
+    },
+    ".asp-fss-flex": {
+      "count": 4,
+      "tag": "form",
+      "text": "Generic filters Exact matches only  Search in titl",
+      "html": "<form name=\"options\" class=\"asp-fss-flex\" aria-label=\"Search settings form\" autocomplete=\"off\"><input type=\"hidden\" name=\"current_page_id\" value=\"105755\" style=\"\"><input type=\"hidden\" name=\"qtranslate"
+    },
+    ".asp_filter_generic": {
+      "count": 4,
+      "tag": "fieldset",
+      "text": "Generic filters Exact matches only  Search in titl",
+      "html": "<fieldset class=\"asp_filter_generic asp_filter_id_2 asp_filter_n_1\"><legend>Generic filters</legend><div class=\"asp_option\" tabindex=\"0\"><div class=\"asp_option_inner\"><input type=\"checkbox\" value=\"exa"
+    },
+    ".asp_filter_id_2": {
+      "count": 4,
+      "tag": "fieldset",
+      "text": "Generic filters Exact matches only  Search in titl",
+      "html": "<fieldset class=\"asp_filter_generic asp_filter_id_2 asp_filter_n_1\"><legend>Generic filters</legend><div class=\"asp_option\" tabindex=\"0\"><div class=\"asp_option_inner\"><input type=\"checkbox\" value=\"exa"
+    },
+    ".asp_filter_n_1": {
+      "count": 4,
+      "tag": "fieldset",
+      "text": "Generic filters Exact matches only  Search in titl",
+      "html": "<fieldset class=\"asp_filter_generic asp_filter_id_2 asp_filter_n_1\"><legend>Generic filters</legend><div class=\"asp_option\" tabindex=\"0\"><div class=\"asp_option_inner\"><input type=\"checkbox\" value=\"exa"
+    },
+    ".asp_option": {
+      "count": 16,
+      "tag": "div",
+      "text": "Exact matches only",
+      "html": "<div class=\"asp_option\" tabindex=\"0\"><div class=\"asp_option_inner\"><input type=\"checkbox\" value=\"exact\" id=\"set_exact3_1\" aria-label=\"Exact matches only\" name=\"asp_gen[]\" style=\"\"><div class=\"asp_opti"
+    },
+    ".asp_option_inner": {
+      "count": 16,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_option_inner\"><input type=\"checkbox\" value=\"exact\" id=\"set_exact3_1\" aria-label=\"Exact matches only\" name=\"asp_gen[]\" style=\"\"><div class=\"asp_option_checkbox\"></div></div>"
+    },
+    ".asp_option_checkbox": {
+      "count": 16,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"asp_option_checkbox\"></div>"
+    },
+    ".asp_option_label": {
+      "count": 16,
+      "tag": "div",
+      "text": "Exact matches only",
+      "html": "<div class=\"asp_option_label\"> Exact matches only </div>"
+    },
+    ".asp_w_container_2": {
+      "count": 2,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div class=\"asp_w_container asp_w_container_2 asp_w_container_2_1\" data-id=\"2\" data-instance=\"1\"><div class=\"asp_w asp_m asp_m_2 asp_m_2_1 wpdreams_asp_sc wpdreams_asp_sc-2 ajaxsearchpro asp_main_cont"
+    },
+    ".asp_w_container_2_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div class=\"asp_w_container asp_w_container_2 asp_w_container_2_1\" data-id=\"2\" data-instance=\"1\"><div class=\"asp_w asp_m asp_m_2 asp_m_2_1 wpdreams_asp_sc wpdreams_asp_sc-2 ajaxsearchpro asp_main_cont"
+    },
+    ".asp_m_2": {
+      "count": 2,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_2 asp_m_2_1 wpdreams_asp_sc wpdreams_asp_sc-2 ajaxsearchpro asp_main_container asp_non_compact\" data-id=\"2\" data-name=\"classic VF imported\" data-instance=\"1\" id=\"ajaxsear"
+    },
+    ".asp_m_2_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_2 asp_m_2_1 wpdreams_asp_sc wpdreams_asp_sc-2 ajaxsearchpro asp_main_container asp_non_compact\" data-id=\"2\" data-name=\"classic VF imported\" data-instance=\"1\" id=\"ajaxsear"
+    },
+    ".wpdreams_asp_sc-2": {
+      "count": 6,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_2 asp_m_2_1 wpdreams_asp_sc wpdreams_asp_sc-2 ajaxsearchpro asp_main_container asp_non_compact\" data-id=\"2\" data-name=\"classic VF imported\" data-instance=\"1\" id=\"ajaxsear"
+    },
+    ".asp_r_2": {
+      "count": 2,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores2_1\" class=\"asp_w asp_r asp_r_2 asp_r_2_1 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-2\" data-id=\"2\" data-instance=\"1\"><div class=\"results\"><div class=\""
+    },
+    ".asp_r_2_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores2_1\" class=\"asp_w asp_r asp_r_2 asp_r_2_1 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-2\" data-id=\"2\" data-instance=\"1\"><div class=\"results\"><div class=\""
+    },
+    ".asp_ss_2": {
+      "count": 2,
+      "tag": "div",
+      "text": "Generic filters Exact matches only  Search in titl",
+      "html": "<div id=\"__original__ajaxsearchprosettings2_1\" class=\"asp_w asp_ss asp_ss_2 asp_s asp_s_2 asp_s_2_1 wpdreams_asp_sc wpdreams_asp_sc-2 ajaxsearchpro searchsettings\" data-id=\"2\" data-instance=\"1\"><form "
+    },
+    ".asp_s_2": {
+      "count": 2,
+      "tag": "div",
+      "text": "Generic filters Exact matches only  Search in titl",
+      "html": "<div id=\"__original__ajaxsearchprosettings2_1\" class=\"asp_w asp_ss asp_ss_2 asp_s asp_s_2 asp_s_2_1 wpdreams_asp_sc wpdreams_asp_sc-2 ajaxsearchpro searchsettings\" data-id=\"2\" data-instance=\"1\"><form "
+    },
+    ".asp_s_2_1": {
+      "count": 1,
+      "tag": "div",
+      "text": "Generic filters Exact matches only  Search in titl",
+      "html": "<div id=\"__original__ajaxsearchprosettings2_1\" class=\"asp_w asp_ss asp_ss_2 asp_s asp_s_2 asp_s_2_1 wpdreams_asp_sc wpdreams_asp_sc-2 ajaxsearchpro searchsettings\" data-id=\"2\" data-instance=\"1\"><form "
+    },
+    ".main-navigation": {
+      "count": 1,
+      "tag": "div",
+      "text": "ACCUEIL\nLISTE\nNOUVEAU\nBIENTOT\nRECHERCHE AV\nVOIRDRA",
+      "html": "<div class=\"main-navigation style-1 \">\n                    <div class=\"container \">\n                        <div class=\"row\">\n                            <div class=\"col-md-12\">\n                      "
+    },
+    ".style-1": {
+      "count": 2,
+      "tag": "div",
+      "text": "ACCUEIL\nLISTE\nNOUVEAU\nBIENTOT\nRECHERCHE AV\nVOIRDRA",
+      "html": "<div class=\"main-navigation style-1 \">\n                    <div class=\"container \">\n                        <div class=\"row\">\n                            <div class=\"col-md-12\">\n                      "
+    },
+    ".row": {
+      "count": 6,
+      "tag": "div",
+      "text": "ACCUEIL\nLISTE\nNOUVEAU\nBIENTOT\nRECHERCHE AV\nVOIRDRA",
+      "html": "<div class=\"row\">\n                            <div class=\"col-md-12\">\n                                <div class=\"main-navigation_wrap\">\n                                    <div class=\"wrap_branding\">"
+    },
+    ".col-md-12": {
+      "count": 5,
+      "tag": "div",
+      "text": "ACCUEIL\nLISTE\nNOUVEAU\nBIENTOT\nRECHERCHE AV\nVOIRDRA",
+      "html": "<div class=\"col-md-12\">\n                                <div class=\"main-navigation_wrap\">\n                                    <div class=\"wrap_branding\">\n                                        <a cl"
+    },
+    ".main-navigation_wrap": {
+      "count": 1,
+      "tag": "div",
+      "text": "ACCUEIL\nLISTE\nNOUVEAU\nBIENTOT\nRECHERCHE AV\nVOIRDRA",
+      "html": "<div class=\"main-navigation_wrap\">\n                                    <div class=\"wrap_branding\">\n                                        <a class=\"logo\" href=\"https://v6.voiranime.com/\" title=\"Voira"
+    },
+    ".wrap_branding": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"wrap_branding\">\n                                        <a class=\"logo\" href=\"https://v6.voiranime.com/\" title=\"Voiranime\">\n\t\t\t\t\t\t\t\t\t\t\t                                            <img clas"
+    },
+    ".logo": {
+      "count": 1,
+      "tag": "a",
+      "text": "",
+      "html": "<a class=\"logo\" href=\"https://v6.voiranime.com/\" title=\"Voiranime\">\n\t\t\t\t\t\t\t\t\t\t\t                                            <img class=\"img-responsive\" src=\"https://voiranime.com/wp-content/uploads/201"
+    },
+    ".img-responsive": {
+      "count": 1,
+      "tag": "img",
+      "text": "",
+      "html": "<img class=\"img-responsive\" src=\"https://voiranime.com/wp-content/uploads/2019/12/vato.png\" alt=\"Voiranime\">"
+    },
+    ".main-menu": {
+      "count": 1,
+      "tag": "div",
+      "text": "ACCUEIL\nLISTE\nNOUVEAU\nBIENTOT\nRECHERCHE AV\nVOIRDRA",
+      "html": "<div class=\"main-menu\">\n\t\t<ul class=\"nav navbar-nav main-navbar\"><li id=\"menu-item-915\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-915\"><a href=\"https://v"
+    },
+    ".nav": {
+      "count": 2,
+      "tag": "ul",
+      "text": "ACCUEIL\nLISTE\nNOUVEAU\nBIENTOT\nRECHERCHE AV\nVOIRDRA",
+      "html": "<ul class=\"nav navbar-nav main-navbar\"><li id=\"menu-item-915\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-915\"><a href=\"https://v6.voiranime.com/\">ACCUEIL<"
+    },
+    ".navbar-nav": {
+      "count": 2,
+      "tag": "ul",
+      "text": "ACCUEIL\nLISTE\nNOUVEAU\nBIENTOT\nRECHERCHE AV\nVOIRDRA",
+      "html": "<ul class=\"nav navbar-nav main-navbar\"><li id=\"menu-item-915\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-915\"><a href=\"https://v6.voiranime.com/\">ACCUEIL<"
+    },
+    ".main-navbar": {
+      "count": 2,
+      "tag": "ul",
+      "text": "ACCUEIL\nLISTE\nNOUVEAU\nBIENTOT\nRECHERCHE AV\nVOIRDRA",
+      "html": "<ul class=\"nav navbar-nav main-navbar\"><li id=\"menu-item-915\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-915\"><a href=\"https://v6.voiranime.com/\">ACCUEIL<"
+    },
+    ".menu-item": {
+      "count": 33,
+      "tag": "li",
+      "text": "ACCUEIL",
+      "html": "<li id=\"menu-item-915\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-915\"><a href=\"https://v6.voiranime.com/\">ACCUEIL</a></li>"
+    },
+    ".menu-item-type-post_type": {
+      "count": 8,
+      "tag": "li",
+      "text": "ACCUEIL",
+      "html": "<li id=\"menu-item-915\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-915\"><a href=\"https://v6.voiranime.com/\">ACCUEIL</a></li>"
+    },
+    ".menu-item-object-page": {
+      "count": 8,
+      "tag": "li",
+      "text": "ACCUEIL",
+      "html": "<li id=\"menu-item-915\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-915\"><a href=\"https://v6.voiranime.com/\">ACCUEIL</a></li>"
+    },
+    ".menu-item-home": {
+      "count": 2,
+      "tag": "li",
+      "text": "ACCUEIL",
+      "html": "<li id=\"menu-item-915\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-915\"><a href=\"https://v6.voiranime.com/\">ACCUEIL</a></li>"
+    },
+    ".menu-item-915": {
+      "count": 1,
+      "tag": "li",
+      "text": "ACCUEIL",
+      "html": "<li id=\"menu-item-915\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-915\"><a href=\"https://v6.voiranime.com/\">ACCUEIL</a></li>"
+    },
+    ".menu-item-48192": {
+      "count": 1,
+      "tag": "li",
+      "text": "LISTE",
+      "html": "<li id=\"menu-item-48192\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-48192\"><a href=\"https://v6.voiranime.com/liste-danimes/\">LISTE</a></li>"
+    },
+    ".menu-item-88326": {
+      "count": 1,
+      "tag": "li",
+      "text": "NOUVEAU",
+      "html": "<li id=\"menu-item-88326\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-88326\"><a href=\"https://v6.voiranime.com/nouveaux-ajouts/\">NOUVEAU</a></li>"
+    },
+    ".menu-item-53504": {
+      "count": 1,
+      "tag": "li",
+      "text": "BIENTOT",
+      "html": "<li id=\"menu-item-53504\" class=\"menu-item menu-item-type-post_type menu-item-object-page menu-item-53504\"><a href=\"https://v6.voiranime.com/prochainement/\">BIENTOT</a></li>"
+    },
+    ".menu-item-type-custom": {
+      "count": 6,
+      "tag": "li",
+      "text": "RECHERCHE AV",
+      "html": "<li id=\"menu-item-2061\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-2061\"><a href=\"https://v6.voiranime.com/?s=&amp;post_type=wp-manga\">RECHERCHE AV</a></li>"
+    },
+    ".menu-item-object-custom": {
+      "count": 6,
+      "tag": "li",
+      "text": "RECHERCHE AV",
+      "html": "<li id=\"menu-item-2061\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-2061\"><a href=\"https://v6.voiranime.com/?s=&amp;post_type=wp-manga\">RECHERCHE AV</a></li>"
+    },
+    ".menu-item-2061": {
+      "count": 1,
+      "tag": "li",
+      "text": "RECHERCHE AV",
+      "html": "<li id=\"menu-item-2061\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-2061\"><a href=\"https://v6.voiranime.com/?s=&amp;post_type=wp-manga\">RECHERCHE AV</a></li>"
+    },
+    ".menu-item-92149": {
+      "count": 1,
+      "tag": "li",
+      "text": "VOIRDRAMA",
+      "html": "<li id=\"menu-item-92149\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-92149\"><a href=\"https://voirdrama.org/\">VOIRDRAMA</a></li>"
+    },
+    ".search-navigation": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"search-navigation search-sidebar\">\n\n\t\t\n            <div class=\"search-navigation__wrap\">\n                <ul class=\"main-menu-search nav-menu\">\n                    <li class=\"menu-search\">"
+    },
+    ".search-sidebar": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"search-navigation search-sidebar\">\n\n\t\t\n            <div class=\"search-navigation__wrap\">\n                <ul class=\"main-menu-search nav-menu\">\n                    <li class=\"menu-search\">"
+    },
+    ".search-navigation__wrap": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"search-navigation__wrap\">\n                <ul class=\"main-menu-search nav-menu\">\n                    <li class=\"menu-search\">\n                        <a href=\"javascript:;\" class=\"open-sea"
+    },
+    ".main-menu-search": {
+      "count": 1,
+      "tag": "ul",
+      "text": "",
+      "html": "<ul class=\"main-menu-search nav-menu\">\n                    <li class=\"menu-search\">\n                        <a href=\"javascript:;\" class=\"open-search-main-menu\"> <i class=\"icon ion-ios-search\"></i>\n  "
+    },
+    ".nav-menu": {
+      "count": 1,
+      "tag": "ul",
+      "text": "",
+      "html": "<ul class=\"main-menu-search nav-menu\">\n                    <li class=\"menu-search\">\n                        <a href=\"javascript:;\" class=\"open-search-main-menu\"> <i class=\"icon ion-ios-search\"></i>\n  "
+    },
+    ".menu-search": {
+      "count": 1,
+      "tag": "li",
+      "text": "",
+      "html": "<li class=\"menu-search\">\n                        <a href=\"javascript:;\" class=\"open-search-main-menu\"> <i class=\"icon ion-ios-search\"></i>\n                            <i class=\"icon ion-android-close\""
+    },
+    ".open-search-main-menu": {
+      "count": 1,
+      "tag": "a",
+      "text": "",
+      "html": "<a href=\"javascript:;\" class=\"open-search-main-menu\"> <i class=\"icon ion-ios-search\"></i>\n                            <i class=\"icon ion-android-close\"></i> </a>"
+    },
+    ".icon": {
+      "count": 3,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"icon ion-ios-search\"></i>"
+    },
+    ".ion-ios-search": {
+      "count": 1,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"icon ion-ios-search\"></i>"
+    },
+    ".ion-android-close": {
+      "count": 1,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"icon ion-android-close\"></i>"
+    },
+    ".c-togle__menu": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"c-togle__menu\">\n        <button type=\"button\" class=\"menu_icon__open\">\n            <span></span> <span></span> <span></span>\n        </button>\n    </div>"
+    },
+    ".menu_icon__open": {
+      "count": 1,
+      "tag": "button",
+      "text": "",
+      "html": "<button type=\"button\" class=\"menu_icon__open\">\n            <span></span> <span></span> <span></span>\n        </button>"
+    },
+    ".mobile-menu": {
+      "count": 1,
+      "tag": "div",
+      "text": "ACCUEIL \nLISTE \nNOUVEAU \nBIENTOT \nRECHERCHE AV \nVO",
+      "html": "<div class=\"mobile-menu menu-collapse off-canvas\">\n    <div class=\"close-nav\">\n        <button class=\"menu_icon__close\">\n            <span></span> <span></span>\n        </button>\n    </div>\n\n\t\n    <na"
+    },
+    ".menu-collapse": {
+      "count": 1,
+      "tag": "div",
+      "text": "ACCUEIL \nLISTE \nNOUVEAU \nBIENTOT \nRECHERCHE AV \nVO",
+      "html": "<div class=\"mobile-menu menu-collapse off-canvas\">\n    <div class=\"close-nav\">\n        <button class=\"menu_icon__close\">\n            <span></span> <span></span>\n        </button>\n    </div>\n\n\t\n    <na"
+    },
+    ".off-canvas": {
+      "count": 1,
+      "tag": "div",
+      "text": "ACCUEIL \nLISTE \nNOUVEAU \nBIENTOT \nRECHERCHE AV \nVO",
+      "html": "<div class=\"mobile-menu menu-collapse off-canvas\">\n    <div class=\"close-nav\">\n        <button class=\"menu_icon__close\">\n            <span></span> <span></span>\n        </button>\n    </div>\n\n\t\n    <na"
+    },
+    ".close-nav": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"close-nav\">\n        <button class=\"menu_icon__close\">\n            <span></span> <span></span>\n        </button>\n    </div>"
+    },
+    ".menu_icon__close": {
+      "count": 1,
+      "tag": "button",
+      "text": "",
+      "html": "<button class=\"menu_icon__close\">\n            <span></span> <span></span>\n        </button>"
+    },
+    ".off-menu": {
+      "count": 1,
+      "tag": "nav",
+      "text": "ACCUEIL \nLISTE \nNOUVEAU \nBIENTOT \nRECHERCHE AV \nVO",
+      "html": "<nav class=\"off-menu\">\n\t\t<ul id=\"menu-main-menu-1\" class=\"nav navbar-nav main-navbar\"><li id=\"nav-menu-item-915\" class=\"main-menu-item menu-item-depth-0 menu-item menu-item-type-post_type menu-item-ob"
+    },
+    ".main-menu-item": {
+      "count": 6,
+      "tag": "li",
+      "text": "ACCUEIL",
+      "html": "<li id=\"nav-menu-item-915\" class=\"main-menu-item menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page menu-item-home\"><a href=\"https://v6.voiranime.com/\" class=\"menu-link  main-m"
+    },
+    ".menu-item-depth-0": {
+      "count": 6,
+      "tag": "li",
+      "text": "ACCUEIL",
+      "html": "<li id=\"nav-menu-item-915\" class=\"main-menu-item menu-item-depth-0 menu-item menu-item-type-post_type menu-item-object-page menu-item-home\"><a href=\"https://v6.voiranime.com/\" class=\"menu-link  main-m"
+    },
+    ".menu-link": {
+      "count": 6,
+      "tag": "a",
+      "text": "ACCUEIL",
+      "html": "<a href=\"https://v6.voiranime.com/\" class=\"menu-link  main-menu-link\">ACCUEIL </a>"
+    },
+    ".main-menu-link": {
+      "count": 6,
+      "tag": "a",
+      "text": "ACCUEIL",
+      "html": "<a href=\"https://v6.voiranime.com/\" class=\"menu-link  main-menu-link\">ACCUEIL </a>"
+    },
+    ".center": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"center\"></div>"
+    },
+    ".clone-header": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"clone-header\"></div>"
+    },
+    ".c-sub-header-nav": {
+      "count": 1,
+      "tag": "div",
+      "text": "Action\nAdventure\nChinese\nComedy\nDrama\nEcchi\nPlus\n\n",
+      "html": "<div class=\" c-sub-header-nav with-border  \">\n            <div class=\"container \">\n                <div class=\"c-sub-nav_wrap\">\n                    <div class=\"sub-nav_content\">\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t"
+    },
+    ".with-border": {
+      "count": 1,
+      "tag": "div",
+      "text": "Action\nAdventure\nChinese\nComedy\nDrama\nEcchi\nPlus\n\n",
+      "html": "<div class=\" c-sub-header-nav with-border  \">\n            <div class=\"container \">\n                <div class=\"c-sub-nav_wrap\">\n                    <div class=\"sub-nav_content\">\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t"
+    },
+    ".c-sub-nav_wrap": {
+      "count": 1,
+      "tag": "div",
+      "text": "Action\nAdventure\nChinese\nComedy\nDrama\nEcchi\nPlus\n\n",
+      "html": "<div class=\"c-sub-nav_wrap\">\n                    <div class=\"sub-nav_content\">\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t                        <ul class=\"sub-nav_list list-inline second-menu\">\n\t\t\t\t\t\t\t<li id=\"menu-i"
+    },
+    ".sub-nav_content": {
+      "count": 1,
+      "tag": "div",
+      "text": "Action\nAdventure\nChinese\nComedy\nDrama\nEcchi\nPlus\n\n",
+      "html": "<div class=\"sub-nav_content\">\n\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t                        <ul class=\"sub-nav_list list-inline second-menu\">\n\t\t\t\t\t\t\t<li id=\"menu-item-62593\" class=\"menu-item menu-item-type-taxono"
+    },
+    ".sub-nav_list": {
+      "count": 1,
+      "tag": "ul",
+      "text": "Action\nAdventure\nChinese\nComedy\nDrama\nEcchi\nPlus\n\n",
+      "html": "<ul class=\"sub-nav_list list-inline second-menu\">\n\t\t\t\t\t\t\t<li id=\"menu-item-62593\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62593\"><a href=\"https://v6.voiranim"
+    },
+    ".list-inline": {
+      "count": 4,
+      "tag": "ul",
+      "text": "Action\nAdventure\nChinese\nComedy\nDrama\nEcchi\nPlus\n\n",
+      "html": "<ul class=\"sub-nav_list list-inline second-menu\">\n\t\t\t\t\t\t\t<li id=\"menu-item-62593\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62593\"><a href=\"https://v6.voiranim"
+    },
+    ".second-menu": {
+      "count": 1,
+      "tag": "ul",
+      "text": "Action\nAdventure\nChinese\nComedy\nDrama\nEcchi\nPlus\n\n",
+      "html": "<ul class=\"sub-nav_list list-inline second-menu\">\n\t\t\t\t\t\t\t<li id=\"menu-item-62593\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62593\"><a href=\"https://v6.voiranim"
+    },
+    ".menu-item-type-taxonomy": {
+      "count": 19,
+      "tag": "li",
+      "text": "Action",
+      "html": "<li id=\"menu-item-62593\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62593\"><a href=\"https://v6.voiranime.com/anime-genre/action/\">Action</a></li>"
+    },
+    ".menu-item-object-wp-manga-genre": {
+      "count": 19,
+      "tag": "li",
+      "text": "Action",
+      "html": "<li id=\"menu-item-62593\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62593\"><a href=\"https://v6.voiranime.com/anime-genre/action/\">Action</a></li>"
+    },
+    ".menu-item-62593": {
+      "count": 1,
+      "tag": "li",
+      "text": "Action",
+      "html": "<li id=\"menu-item-62593\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62593\"><a href=\"https://v6.voiranime.com/anime-genre/action/\">Action</a></li>"
+    },
+    ".menu-item-62594": {
+      "count": 1,
+      "tag": "li",
+      "text": "Adventure",
+      "html": "<li id=\"menu-item-62594\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62594\"><a href=\"https://v6.voiranime.com/anime-genre/adventure/\">Adventure</a></li>"
+    },
+    ".menu-item-62595": {
+      "count": 1,
+      "tag": "li",
+      "text": "Chinese",
+      "html": "<li id=\"menu-item-62595\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62595\"><a href=\"https://v6.voiranime.com/anime-genre/chinese/\">Chinese</a></li>"
+    },
+    ".current-wp-manga-ancestor": {
+      "count": 4,
+      "tag": "li",
+      "text": "Comedy",
+      "html": "<li id=\"menu-item-62596\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre current-wp-manga-ancestor current-menu-parent current-wp-manga-parent menu-item-62596\"><a href=\"https:"
+    },
+    ".current-menu-parent": {
+      "count": 4,
+      "tag": "li",
+      "text": "Comedy",
+      "html": "<li id=\"menu-item-62596\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre current-wp-manga-ancestor current-menu-parent current-wp-manga-parent menu-item-62596\"><a href=\"https:"
+    },
+    ".current-wp-manga-parent": {
+      "count": 4,
+      "tag": "li",
+      "text": "Comedy",
+      "html": "<li id=\"menu-item-62596\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre current-wp-manga-ancestor current-menu-parent current-wp-manga-parent menu-item-62596\"><a href=\"https:"
+    },
+    ".menu-item-62596": {
+      "count": 1,
+      "tag": "li",
+      "text": "Comedy",
+      "html": "<li id=\"menu-item-62596\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre current-wp-manga-ancestor current-menu-parent current-wp-manga-parent menu-item-62596\"><a href=\"https:"
+    },
+    ".menu-item-62597": {
+      "count": 1,
+      "tag": "li",
+      "text": "Drama",
+      "html": "<li id=\"menu-item-62597\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62597\"><a href=\"https://v6.voiranime.com/anime-genre/drama/\">Drama</a></li>"
+    },
+    ".menu-item-62598": {
+      "count": 1,
+      "tag": "li",
+      "text": "Ecchi",
+      "html": "<li id=\"menu-item-62598\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre current-wp-manga-ancestor current-menu-parent current-wp-manga-parent menu-item-62598\"><a href=\"https:"
+    },
+    ".menu-item-has-children": {
+      "count": 1,
+      "tag": "li",
+      "text": "Plus\n\n\tFantasy\n\tHorror\n\tMahou Shoujo\n\tMecha\n\tMusic",
+      "html": "<li id=\"menu-item-62612\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children parent menu-item-62612\"><a href=\"#\">Plus</a>\n<ul class=\"sub-menu\">\n\t<li id=\"menu-item-625"
+    },
+    ".parent": {
+      "count": 1,
+      "tag": "li",
+      "text": "Plus\n\n\tFantasy\n\tHorror\n\tMahou Shoujo\n\tMecha\n\tMusic",
+      "html": "<li id=\"menu-item-62612\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children parent menu-item-62612\"><a href=\"#\">Plus</a>\n<ul class=\"sub-menu\">\n\t<li id=\"menu-item-625"
+    },
+    ".menu-item-62612": {
+      "count": 1,
+      "tag": "li",
+      "text": "Plus\n\n\tFantasy\n\tHorror\n\tMahou Shoujo\n\tMecha\n\tMusic",
+      "html": "<li id=\"menu-item-62612\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children parent menu-item-62612\"><a href=\"#\">Plus</a>\n<ul class=\"sub-menu\">\n\t<li id=\"menu-item-625"
+    },
+    ".sub-menu": {
+      "count": 1,
+      "tag": "ul",
+      "text": "Fantasy\n\tHorror\n\tMahou Shoujo\n\tMecha\n\tMusic\n\tMyste",
+      "html": "<ul class=\"sub-menu\">\n\t<li id=\"menu-item-62599\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre current-wp-manga-ancestor current-menu-parent current-wp-manga-parent menu-item"
+    },
+    ".menu-item-62599": {
+      "count": 1,
+      "tag": "li",
+      "text": "Fantasy",
+      "html": "<li id=\"menu-item-62599\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre current-wp-manga-ancestor current-menu-parent current-wp-manga-parent menu-item-62599\"><a href=\"https:"
+    },
+    ".menu-item-62600": {
+      "count": 1,
+      "tag": "li",
+      "text": "Horror",
+      "html": "<li id=\"menu-item-62600\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62600\"><a href=\"https://v6.voiranime.com/anime-genre/horror/\">Horror</a></li>"
+    },
+    ".menu-item-62601": {
+      "count": 1,
+      "tag": "li",
+      "text": "Mahou Shoujo",
+      "html": "<li id=\"menu-item-62601\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62601\"><a href=\"https://v6.voiranime.com/anime-genre/mahou-shoujo/\">Mahou Shoujo</a></li>"
+    },
+    ".menu-item-62602": {
+      "count": 1,
+      "tag": "li",
+      "text": "Mecha",
+      "html": "<li id=\"menu-item-62602\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62602\"><a href=\"https://v6.voiranime.com/anime-genre/mecha/\">Mecha</a></li>"
+    },
+    ".menu-item-62603": {
+      "count": 1,
+      "tag": "li",
+      "text": "Music",
+      "html": "<li id=\"menu-item-62603\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62603\"><a href=\"https://v6.voiranime.com/anime-genre/music/\">Music</a></li>"
+    },
+    ".menu-item-62604": {
+      "count": 1,
+      "tag": "li",
+      "text": "Mystery",
+      "html": "<li id=\"menu-item-62604\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62604\"><a href=\"https://v6.voiranime.com/anime-genre/mystery/\">Mystery</a></li>"
+    },
+    ".menu-item-62605": {
+      "count": 1,
+      "tag": "li",
+      "text": "Psychological",
+      "html": "<li id=\"menu-item-62605\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62605\"><a href=\"https://v6.voiranime.com/anime-genre/psychological/\">Psychological</a></li>"
+    },
+    ".menu-item-62606": {
+      "count": 1,
+      "tag": "li",
+      "text": "Romance",
+      "html": "<li id=\"menu-item-62606\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre current-wp-manga-ancestor current-menu-parent current-wp-manga-parent menu-item-62606\"><a href=\"https:"
+    },
+    ".menu-item-62607": {
+      "count": 1,
+      "tag": "li",
+      "text": "Sci-Fi",
+      "html": "<li id=\"menu-item-62607\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62607\"><a href=\"https://v6.voiranime.com/anime-genre/sci-fi/\">Sci-Fi</a></li>"
+    },
+    ".menu-item-62608": {
+      "count": 1,
+      "tag": "li",
+      "text": "Slice of Life",
+      "html": "<li id=\"menu-item-62608\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62608\"><a href=\"https://v6.voiranime.com/anime-genre/slice-of-life/\">Slice of Life</a></li>"
+    },
+    ".menu-item-62609": {
+      "count": 1,
+      "tag": "li",
+      "text": "Sports",
+      "html": "<li id=\"menu-item-62609\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62609\"><a href=\"https://v6.voiranime.com/anime-genre/sports/\">Sports</a></li>"
+    },
+    ".menu-item-62610": {
+      "count": 1,
+      "tag": "li",
+      "text": "Supernatural",
+      "html": "<li id=\"menu-item-62610\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62610\"><a href=\"https://v6.voiranime.com/anime-genre/supernatural/\">Supernatural</a></li>"
+    },
+    ".menu-item-62611": {
+      "count": 1,
+      "tag": "li",
+      "text": "Thriller",
+      "html": "<li id=\"menu-item-62611\" class=\"menu-item menu-item-type-taxonomy menu-item-object-wp-manga-genre menu-item-62611\"><a href=\"https://v6.voiranime.com/anime-genre/thriller/\">Thriller</a></li>"
+    },
+    ".mobile-icon": {
+      "count": 1,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"mobile-icon icon ion-md-more\"></i>"
+    },
+    ".ion-md-more": {
+      "count": 1,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"mobile-icon icon ion-md-more\"></i>"
+    },
+    ".site-content": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"site-content\">\n    <div class=\"c-page-content style-1 reading-content-wrap chapter-type-video\" data-site-url=\"https://v6.voiranime.com/\">\n        <div class=\"content-area\">\n            <di"
+    },
+    ".c-page-content": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"c-page-content style-1 reading-content-wrap chapter-type-video\" data-site-url=\"https://v6.voiranime.com/\">\n        <div class=\"content-area\">\n            <div class=\"container\">\n          "
+    },
+    ".reading-content-wrap": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"c-page-content style-1 reading-content-wrap chapter-type-video\" data-site-url=\"https://v6.voiranime.com/\">\n        <div class=\"content-area\">\n            <div class=\"container\">\n          "
+    },
+    ".chapter-type-video": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"c-page-content style-1 reading-content-wrap chapter-type-video\" data-site-url=\"https://v6.voiranime.com/\">\n        <div class=\"content-area\">\n            <div class=\"container\">\n          "
+    },
+    ".content-area": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"content-area\">\n            <div class=\"container\">\n                <div class=\"row\">\n                    <div class=\"main-col col-md-12 col-sm-12 sidebar-hidden\">\n\t\t\t\t\t\t\t\t\t\t\t\t\n            "
+    },
+    ".main-col": {
+      "count": 2,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"main-col col-md-12 col-sm-12 sidebar-hidden\">\n\t\t\t\t\t\t\t\t\t\t\t\t\n                        <!-- container & no-sidebar-->\n                        <div class=\"main-col-inner\">\n                     "
+    },
+    ".col-sm-12": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"main-col col-md-12 col-sm-12 sidebar-hidden\">\n\t\t\t\t\t\t\t\t\t\t\t\t\n                        <!-- container & no-sidebar-->\n                        <div class=\"main-col-inner\">\n                     "
+    },
+    ".sidebar-hidden": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"main-col col-md-12 col-sm-12 sidebar-hidden\">\n\t\t\t\t\t\t\t\t\t\t\t\t\n                        <!-- container & no-sidebar-->\n                        <div class=\"main-col-inner\">\n                     "
+    },
+    ".main-col-inner": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"main-col-inner\">\n                            <div class=\"c-blog-post\">\n                                <div class=\"entry-header header\" id=\"manga-reading-nav-head\" data-position=\"header\" d"
+    },
+    ".c-blog-post": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"c-blog-post\">\n                                <div class=\"entry-header header\" id=\"manga-reading-nav-head\" data-position=\"header\" data-chapter=\"yandere-dark-elf-she-chased-me-all-the-way-f"
+    },
+    ".entry-header": {
+      "count": 2,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"entry-header header\" id=\"manga-reading-nav-head\" data-position=\"header\" data-chapter=\"yandere-dark-elf-she-chased-me-all-the-way-from-another-world-01-vostfr\" data-id=\"105755\">\t\t\t\t<div cla"
+    },
+    ".header": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"entry-header header\" id=\"manga-reading-nav-head\" data-position=\"header\" data-chapter=\"yandere-dark-elf-she-chased-me-all-the-way-from-another-world-01-vostfr\" data-id=\"105755\">\t\t\t\t<div cla"
+    },
+    ".wp-manga-nav": {
+      "count": 2,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"wp-manga-nav\">\n\t\t\t\t\t<div class=\"entry-header_wrap\">\n\t\t\t\t\t\t\n        <div class=\"c-breadcrumb-wrapper\">\n\n\t\t\t\n                        <div class=\"c-breadcrumb\">\n                            <o"
+    },
+    ".entry-header_wrap": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"entry-header_wrap\">\n\t\t\t\t\t\t\n        <div class=\"c-breadcrumb-wrapper\">\n\n\t\t\t\n                        <div class=\"c-breadcrumb\">\n                            <ol class=\"breadcrumb\">\n          "
+    },
+    ".c-breadcrumb-wrapper": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"c-breadcrumb-wrapper\">\n\n\t\t\t\n                        <div class=\"c-breadcrumb\">\n                            <ol class=\"breadcrumb\">\n                                <li>\n                    "
+    },
+    ".c-breadcrumb": {
+      "count": 1,
+      "tag": "div",
+      "text": "Home                                    \n         ",
+      "html": "<div class=\"c-breadcrumb\">\n                            <ol class=\"breadcrumb\">\n                                <li>\n                                    <a href=\"https://v6.voiranime.com/\">\n\t\t\t\t\t\t\t\t\t\tH"
+    },
+    ".breadcrumb": {
+      "count": 1,
+      "tag": "ol",
+      "text": "Home                                    \n         ",
+      "html": "<ol class=\"breadcrumb\">\n                                <li>\n                                    <a href=\"https://v6.voiranime.com/\">\n\t\t\t\t\t\t\t\t\t\tHome                                    </a>\n           "
+    },
+    ".active": {
+      "count": 1,
+      "tag": "li",
+      "text": "Yandere Dark Elf She Chased Me All the Way From An",
+      "html": "<li class=\"active\">\n\t\t\t\t\t\t\t\t\t\t\t\tYandere Dark Elf She Chased Me All the Way From Another World - 01 VOSTFR - 01                                            </li>"
+    },
+    ".action-icon": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"action-icon\">\n                                <ul class=\"action_list_icon list-inline\">\n\t\t\t\t\t\t\t\t\t                                </ul>\n                            </div>"
+    },
+    ".action_list_icon": {
+      "count": 1,
+      "tag": "ul",
+      "text": "",
+      "html": "<ul class=\"action_list_icon list-inline\">\n\t\t\t\t\t\t\t\t\t                                </ul>"
+    },
+    ".select-view": {
+      "count": 2,
+      "tag": "div",
+      "text": "LECTEUR myTV\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLECTEUR MOON\n",
+      "html": "<div class=\"select-view\">\n\t\t\t\t\t\n\t\t\t\t\t                            <!-- select host -->\n                            <div class=\"c-selectpicker selectpicker_version\">\n                                <lab"
+    },
+    ".c-selectpicker": {
+      "count": 6,
+      "tag": "div",
+      "text": "LECTEUR myTV\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLECTEUR MOON\n",
+      "html": "<div class=\"c-selectpicker selectpicker_version\">\n                                <label>\n                                    <select class=\"selectpicker host-select\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option da"
+    },
+    ".selectpicker_version": {
+      "count": 2,
+      "tag": "div",
+      "text": "LECTEUR myTV\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLECTEUR MOON\n",
+      "html": "<div class=\"c-selectpicker selectpicker_version\">\n                                <label>\n                                    <select class=\"selectpicker host-select\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option da"
+    },
+    ".selectpicker": {
+      "count": 4,
+      "tag": "select",
+      "text": "LECTEUR myTV\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLECTEUR MOON\n",
+      "html": "<select class=\"selectpicker host-select\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option data-redirect=\"/anime/yandere-dark-elf-she-chased-me-all-the-way-from-another-world/yandere-dark-elf-she-chased-me-all-the-way-f"
+    },
+    ".host-select": {
+      "count": 2,
+      "tag": "select",
+      "text": "LECTEUR myTV\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLECTEUR MOON\n",
+      "html": "<select class=\"selectpicker host-select\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option data-redirect=\"/anime/yandere-dark-elf-she-chased-me-all-the-way-from-another-world/yandere-dark-elf-she-chased-me-all-the-way-f"
+    },
+    ".selectpicker_chapter": {
+      "count": 4,
+      "tag": "div",
+      "text": "06\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t05\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t04\n\n\t\t\t\t\t\t\t\t\t\t\t\t",
+      "html": "<div class=\"c-selectpicker selectpicker_chapter chapters_selectbox_holder\" data-manga=\"105755\" data-chapter=\"yandere-dark-elf-she-chased-me-all-the-way-from-another-world-01-vostfr\" data-vol=\"0\" data-"
+    },
+    ".chapters_selectbox_holder": {
+      "count": 2,
+      "tag": "div",
+      "text": "06\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t05\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t04\n\n\t\t\t\t\t\t\t\t\t\t\t\t",
+      "html": "<div class=\"c-selectpicker selectpicker_chapter chapters_selectbox_holder\" data-manga=\"105755\" data-chapter=\"yandere-dark-elf-she-chased-me-all-the-way-from-another-world-01-vostfr\" data-vol=\"0\" data-"
+    },
+    ".single-chapter-select": {
+      "count": 2,
+      "tag": "select",
+      "text": "06\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t05\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t04\n\n\t\t\t\t\t\t\t\t\t\t\t\t",
+      "html": "<select class=\"c-selectpicker selectpicker_chapter selectpicker single-chapter-select\" style=\"\" for=\"volume-id-0\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<option class=\"short \" data-limit=\"40\" value=\"yandere-dark-elf-she-c"
+    },
+    ".short": {
+      "count": 12,
+      "tag": "option",
+      "text": "06",
+      "html": "<option class=\"short \" data-limit=\"40\" value=\"yandere-dark-elf-she-chased-me-all-the-way-from-another-world-01-vostfr\" data-redirect=\"https://v6.voiranime.com/anime/yandere-dark-elf-she-chased-me-all-"
+    },
+    ".video-light": {
+      "count": 2,
+      "tag": "a",
+      "text": "Light off Light on",
+      "html": "<a href=\"#chapter-video-frame\" class=\"video-light\" data-lity=\"\"><i class=\"fas fa-lightbulb\"></i> <span class=\"text text-off\">Light off</span> <span class=\"text text-on\">Light on</span></a>"
+    },
+    ".fas": {
+      "count": 2,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"fas fa-lightbulb\"></i>"
+    },
+    ".fa-lightbulb": {
+      "count": 2,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"fas fa-lightbulb\"></i>"
+    },
+    ".text": {
+      "count": 4,
+      "tag": "span",
+      "text": "Light off",
+      "html": "<span class=\"text text-off\">Light off</span>"
+    },
+    ".text-off": {
+      "count": 2,
+      "tag": "span",
+      "text": "Light off",
+      "html": "<span class=\"text text-off\">Light off</span>"
+    },
+    ".text-on": {
+      "count": 2,
+      "tag": "span",
+      "text": "Light on",
+      "html": "<span class=\"text text-on\">Light on</span>"
+    },
+    ".select-pagination": {
+      "count": 2,
+      "tag": "div",
+      "text": "Next",
+      "html": "<div class=\"select-pagination\">\n                    <div class=\"nav-links\">\n\t\t\t\t\t\t                            <div class=\"nav-next \"><a href=\"https://v6.voiranime.com/anime/yandere-dark-elf-she-chased"
+    },
+    ".nav-links": {
+      "count": 2,
+      "tag": "div",
+      "text": "Next",
+      "html": "<div class=\"nav-links\">\n\t\t\t\t\t\t                            <div class=\"nav-next \"><a href=\"https://v6.voiranime.com/anime/yandere-dark-elf-she-chased-me-all-the-way-from-another-world/yandere-dark-elf-"
+    },
+    ".nav-next": {
+      "count": 2,
+      "tag": "div",
+      "text": "Next",
+      "html": "<div class=\"nav-next \"><a href=\"https://v6.voiranime.com/anime/yandere-dark-elf-she-chased-me-all-the-way-from-another-world/yandere-dark-elf-she-chased-me-all-the-way-from-another-world-02-vostfr/\" c"
+    },
+    ".btn": {
+      "count": 3,
+      "tag": "a",
+      "text": "Next",
+      "html": "<a href=\"https://v6.voiranime.com/anime/yandere-dark-elf-she-chased-me-all-the-way-from-another-world/yandere-dark-elf-she-chased-me-all-the-way-from-another-world-02-vostfr/\" class=\"btn next_page\" ti"
+    },
+    ".next_page": {
+      "count": 2,
+      "tag": "a",
+      "text": "Next",
+      "html": "<a href=\"https://v6.voiranime.com/anime/yandere-dark-elf-she-chased-me-all-the-way-from-another-world/yandere-dark-elf-she-chased-me-all-the-way-from-another-world-02-vostfr/\" class=\"btn next_page\" ti"
+    },
+    ".entry-content": {
+      "count": 1,
+      "tag": "div",
+      "text": "Valider\n\nBy clicking \u201cValider\u201d, you acknowledge th",
+      "html": "<div class=\"entry-content\">\n                                    <div class=\"entry-content_wrap\">\n\n                                        <div class=\"read-container\">\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n         "
+    },
+    ".entry-content_wrap": {
+      "count": 1,
+      "tag": "div",
+      "text": "Valider\n\nBy clicking \u201cValider\u201d, you acknowledge th",
+      "html": "<div class=\"entry-content_wrap\">\n\n                                        <div class=\"read-container\">\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n                                            <div class=\"reading-content\">"
+    },
+    ".read-container": {
+      "count": 1,
+      "tag": "div",
+      "text": "Valider\n\nBy clicking \u201cValider\u201d, you acknowledge th",
+      "html": "<div class=\"read-container\">\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\n                                            <div class=\"reading-content\">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"hidden\" id=\"wp-manga-current-chap\" data-id=\"9187"
+    },
+    ".reading-content": {
+      "count": 1,
+      "tag": "div",
+      "text": "Valider\n\nBy clicking \u201cValider\u201d, you acknowledge th",
+      "html": "<div class=\"reading-content\">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"hidden\" id=\"wp-manga-current-chap\" data-id=\"91877\" value=\"yandere-dark-elf-she-chased-me-all-the-way-from-another-world-01-vostfr\" style=\"\">\n\t\t\t\t"
+    },
+    ".chapter-video-frame": {
+      "count": 1,
+      "tag": "div",
+      "text": "Valider\n\nBy clicking \u201cValider\u201d, you acknowledge th",
+      "html": "<div class=\"chapter-video-frame\" id=\"chapter-video-frame\">\n\t\t\t\t\n<div class=\"chapter-video-content-validator\">\n\t\t\t\t\t<script src=\"https://www.google.com/recaptcha/api.js?hl=fr\"></script><p></p>\n<form id"
+    },
+    ".chapter-video-content-validator": {
+      "count": 1,
+      "tag": "div",
+      "text": "Valider\n\nBy clicking \u201cValider\u201d, you acknowledge th",
+      "html": "<div class=\"chapter-video-content-validator\">\n\t\t\t\t\t<script src=\"https://www.google.com/recaptcha/api.js?hl=fr\"></script><p></p>\n<form id=\"chapter-video-captcha-validator\" action=\"https://v6.voiranime."
+    },
+    ".g-recaptcha": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"g-recaptcha\" data-sitekey=\"6Lfd5wobAAAAACjTkOIXohTrPz9RIhNwRqRq2_R9\" data-callback=\"enableSubmitreCaptchaBtn\" data-expired-callback=\"disableSubmitreCaptchaBtn\" data-error-callback=\"disable"
+    },
+    ".g-recaptcha-response": {
+      "count": 1,
+      "tag": "textarea",
+      "text": "",
+      "html": "<textarea id=\"g-recaptcha-response\" name=\"g-recaptcha-response\" class=\"g-recaptcha-response\" style=\"width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; r"
+    },
+    ".mt-4": {
+      "count": 1,
+      "tag": "div",
+      "text": "By clicking \u201cValider\u201d, you acknowledge that Popup ",
+      "html": "<div class=\"mt-4 text-center text-white\">\n<p>By clicking \u201cValider\u201d, you acknowledge that Popup ads will appear when you click the play button before the video starts</p>\n</div>"
+    },
+    ".text-center": {
+      "count": 1,
+      "tag": "div",
+      "text": "By clicking \u201cValider\u201d, you acknowledge that Popup ",
+      "html": "<div class=\"mt-4 text-center text-white\">\n<p>By clicking \u201cValider\u201d, you acknowledge that Popup ads will appear when you click the play button before the video starts</p>\n</div>"
+    },
+    ".text-white": {
+      "count": 1,
+      "tag": "div",
+      "text": "By clicking \u201cValider\u201d, you acknowledge that Popup ",
+      "html": "<div class=\"mt-4 text-center text-white\">\n<p>By clicking \u201cValider\u201d, you acknowledge that Popup ads will appear when you click the play button before the video starts</p>\n</div>"
+    },
+    ".footer": {
+      "count": 1,
+      "tag": "div",
+      "text": "LECTEUR myTV\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLECTEUR MOON\n",
+      "html": "<div class=\"entry-header footer\" id=\"manga-reading-nav-foot\" data-position=\"footer\" data-id=\"105755\">\n            <div class=\"wp-manga-nav\">\n                <div class=\"select-view\">\n\t\t\t\t\t\n\t\t\t\t\t      "
+    },
+    ".col-12": {
+      "count": 2,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"main-col col-12 col-sm-8 col-md-8 col-lg-8\">\n                                        <!-- comments-area -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- END comments-area -->\n                                 "
+    },
+    ".col-sm-8": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"main-col col-12 col-sm-8 col-md-8 col-lg-8\">\n                                        <!-- comments-area -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- END comments-area -->\n                                 "
+    },
+    ".col-md-8": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"main-col col-12 col-sm-8 col-md-8 col-lg-8\">\n                                        <!-- comments-area -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- END comments-area -->\n                                 "
+    },
+    ".col-lg-8": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"main-col col-12 col-sm-8 col-md-8 col-lg-8\">\n                                        <!-- comments-area -->\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<!-- END comments-area -->\n                                 "
+    },
+    ".sidebar-col": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div class=\"sidebar-col col-md-4 col-sm-4\">\n\t\t\t\t\t\t\t\t\t\t\t\t        <div id=\"main-sidebar\" class=\"main-sidebar\" role=\"complementary\">\n\t\t\t<div class=\"row\"><div id=\"block-5\" class=\"widget col-12 col-md-12  "
+    },
+    ".col-md-4": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div class=\"sidebar-col col-md-4 col-sm-4\">\n\t\t\t\t\t\t\t\t\t\t\t\t        <div id=\"main-sidebar\" class=\"main-sidebar\" role=\"complementary\">\n\t\t\t<div class=\"row\"><div id=\"block-5\" class=\"widget col-12 col-md-12  "
+    },
+    ".col-sm-4": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div class=\"sidebar-col col-md-4 col-sm-4\">\n\t\t\t\t\t\t\t\t\t\t\t\t        <div id=\"main-sidebar\" class=\"main-sidebar\" role=\"complementary\">\n\t\t\t<div class=\"row\"><div id=\"block-5\" class=\"widget col-12 col-md-12  "
+    },
+    ".main-sidebar": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div id=\"main-sidebar\" class=\"main-sidebar\" role=\"complementary\">\n\t\t\t<div class=\"row\"><div id=\"block-5\" class=\"widget col-12 col-md-12   default no-icon  widget_block\"><div class=\"widget__inner widget"
+    },
+    ".widget": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div id=\"block-5\" class=\"widget col-12 col-md-12   default no-icon  widget_block\"><div class=\"widget__inner widget_block__inner c-widget-wrap\"><div class=\"widget-content\"><p></p><div class=\"asp_w_cont"
+    },
+    ".default": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div id=\"block-5\" class=\"widget col-12 col-md-12   default no-icon  widget_block\"><div class=\"widget__inner widget_block__inner c-widget-wrap\"><div class=\"widget-content\"><p></p><div class=\"asp_w_cont"
+    },
+    ".no-icon": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div id=\"block-5\" class=\"widget col-12 col-md-12   default no-icon  widget_block\"><div class=\"widget__inner widget_block__inner c-widget-wrap\"><div class=\"widget-content\"><p></p><div class=\"asp_w_cont"
+    },
+    ".widget_block": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div id=\"block-5\" class=\"widget col-12 col-md-12   default no-icon  widget_block\"><div class=\"widget__inner widget_block__inner c-widget-wrap\"><div class=\"widget-content\"><p></p><div class=\"asp_w_cont"
+    },
+    ".widget__inner": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div class=\"widget__inner widget_block__inner c-widget-wrap\"><div class=\"widget-content\"><p></p><div class=\"asp_w_container asp_w_container_3 asp_w_container_3_2\" data-id=\"3\" data-instance=\"2\"><div cl"
+    },
+    ".widget_block__inner": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div class=\"widget__inner widget_block__inner c-widget-wrap\"><div class=\"widget-content\"><p></p><div class=\"asp_w_container asp_w_container_3 asp_w_container_3_2\" data-id=\"3\" data-instance=\"2\"><div cl"
+    },
+    ".c-widget-wrap": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div class=\"widget__inner widget_block__inner c-widget-wrap\"><div class=\"widget-content\"><p></p><div class=\"asp_w_container asp_w_container_3 asp_w_container_3_2\" data-id=\"3\" data-instance=\"2\"><div cl"
+    },
+    ".widget-content": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div class=\"widget-content\"><p></p><div class=\"asp_w_container asp_w_container_3 asp_w_container_3_2\" data-id=\"3\" data-instance=\"2\"><div class=\"asp_w asp_m asp_m_3 asp_m_3_2 wpdreams_asp_sc wpdreams_a"
+    },
+    ".asp_w_container_3_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div class=\"asp_w_container asp_w_container_3 asp_w_container_3_2\" data-id=\"3\" data-instance=\"2\"><div class=\"asp_w asp_m asp_m_3 asp_m_3_2 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro asp_main_cont"
+    },
+    ".asp_m_3_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_3 asp_m_3_2 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro asp_main_container asp_non_compact\" data-id=\"3\" data-name=\"classic VOSTFR imported\" data-instance=\"2\" id=\"ajax"
+    },
+    ".asp_r_3_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores3_2\" class=\"asp_w asp_r asp_r_3 asp_r_3_2 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-3\" data-id=\"3\" data-instance=\"2\"><div class=\"results\"><div class=\""
+    },
+    ".asp_s_3_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Generic filters Exact matches only  Search in titl",
+      "html": "<div id=\"__original__ajaxsearchprosettings3_2\" class=\"asp_w asp_ss asp_ss_3 asp_s asp_s_3 asp_s_3_2 wpdreams_asp_sc wpdreams_asp_sc-3 ajaxsearchpro searchsettings\" data-id=\"3\" data-instance=\"2\"><form "
+    },
+    ".asp_w_container_2_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search Generic filters Exact matches only  Search ",
+      "html": "<div class=\"asp_w_container asp_w_container_2 asp_w_container_2_2\" data-id=\"2\" data-instance=\"2\"><div class=\"asp_w asp_m asp_m_2 asp_m_2_2 wpdreams_asp_sc wpdreams_asp_sc-2 ajaxsearchpro asp_main_cont"
+    },
+    ".asp_m_2_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Search",
+      "html": "<div class=\"asp_w asp_m asp_m_2 asp_m_2_2 wpdreams_asp_sc wpdreams_asp_sc-2 ajaxsearchpro asp_main_container asp_non_compact\" data-id=\"2\" data-name=\"classic VF imported\" data-instance=\"2\" id=\"ajaxsear"
+    },
+    ".asp_r_2_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"__original__ajaxsearchprores2_2\" class=\"asp_w asp_r asp_r_2 asp_r_2_2 vertical ajaxsearchpro wpdreams_asp_sc wpdreams_asp_sc-2\" data-id=\"2\" data-instance=\"2\"><div class=\"results\"><div class=\""
+    },
+    ".asp_s_2_2": {
+      "count": 1,
+      "tag": "div",
+      "text": "Generic filters Exact matches only  Search in titl",
+      "html": "<div id=\"__original__ajaxsearchprosettings2_2\" class=\"asp_w asp_ss asp_ss_2 asp_s asp_s_2 asp_s_2_2 wpdreams_asp_sc wpdreams_asp_sc-2 ajaxsearchpro searchsettings\" data-id=\"2\" data-instance=\"2\"><form "
+    },
+    ".site-footer": {
+      "count": 1,
+      "tag": "footer",
+      "text": "CONTACT\n\n                            \n\t\t\t\t\t\t\t\tRega",
+      "html": "<footer class=\"site-footer\">\n\n\t\t\t\n\t\t\t                <div class=\"top-footer\">\n                    <div class=\"container\">\n                        <div class=\"row\">\n                            <div cla"
+    },
+    ".top-footer": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"top-footer\">\n                    <div class=\"container\">\n                        <div class=\"row\">\n                            <div class=\"col-md-12\">\n                                <div "
+    },
+    ".wrap_social_account": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"wrap_social_account\">\n\t\t\t\t\t\t\t\t\t<ul class=\"list-inline social_account__item\"><li><a class=\"social-icons\" target=\"_blank\" rel=\"noopener\" href=\"https://www.facebook.com/voiranime/\" title=\"Fac"
+    },
+    ".social_account__item": {
+      "count": 1,
+      "tag": "ul",
+      "text": "",
+      "html": "<ul class=\"list-inline social_account__item\"><li><a class=\"social-icons\" target=\"_blank\" rel=\"noopener\" href=\"https://www.facebook.com/voiranime/\" title=\"Facebook\"><i class=\"fab fa-facebook-f\" aria-hi"
+    },
+    ".social-icons": {
+      "count": 3,
+      "tag": "a",
+      "text": "",
+      "html": "<a class=\"social-icons\" target=\"_blank\" rel=\"noopener\" href=\"https://www.facebook.com/voiranime/\" title=\"Facebook\"><i class=\"fab fa-facebook-f\" aria-hidden=\"true\"></i></a>"
+    },
+    ".fab": {
+      "count": 3,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"fab fa-facebook-f\" aria-hidden=\"true\"></i>"
+    },
+    ".fa-facebook-f": {
+      "count": 1,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"fab fa-facebook-f\" aria-hidden=\"true\"></i>"
+    },
+    ".fa-twitter": {
+      "count": 1,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"fab fa-twitter\" aria-hidden=\"true\"></i>"
+    },
+    ".fa-discord": {
+      "count": 1,
+      "tag": "i",
+      "text": "",
+      "html": "<i class=\"fab fa-discord\" aria-hidden=\"true\"></i>"
+    },
+    ".bottom-footer": {
+      "count": 1,
+      "tag": "div",
+      "text": "CONTACT\n\n                            \n\t\t\t\t\t\t\t\tRega",
+      "html": "<div class=\"bottom-footer\">\n                <div class=\"container\">\n                    <div class=\"row\">\n                        <div class=\"col-md-12\">\n\n\t\t\t\t\t\t\t<div class=\"nav-footer\"><ul class=\"lis"
+    },
+    ".nav-footer": {
+      "count": 1,
+      "tag": "div",
+      "text": "CONTACT",
+      "html": "<div class=\"nav-footer\"><ul class=\"list-inline font-nav\"><li id=\"menu-item-916\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-916\"><a href=\"mailto:voiranime@gmail.com\">CONTA"
+    },
+    ".font-nav": {
+      "count": 1,
+      "tag": "ul",
+      "text": "CONTACT",
+      "html": "<ul class=\"list-inline font-nav\"><li id=\"menu-item-916\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-916\"><a href=\"mailto:voiranime@gmail.com\">CONTACT</a></li>\n</ul>"
+    },
+    ".menu-item-916": {
+      "count": 1,
+      "tag": "li",
+      "text": "CONTACT",
+      "html": "<li id=\"menu-item-916\" class=\"menu-item menu-item-type-custom menu-item-object-custom menu-item-916\"><a href=\"mailto:voiranime@gmail.com\">CONTACT</a></li>"
+    },
+    ".copyright": {
+      "count": 1,
+      "tag": "div",
+      "text": "Regarder gratuitement vos animes en HD sur VOIRANI",
+      "html": "<div class=\"copyright\">\n\t\t\t\t\t\t\t\t<p>Regarder gratuitement vos animes en HD sur VOIRANIME</p>                            </div>"
+    },
+    ".a11y-speak-intro-text": {
+      "count": 1,
+      "tag": "p",
+      "text": "Notifications",
+      "html": "<p id=\"a11y-speak-intro-text\" class=\"a11y-speak-intro-text\" style=\"position: absolute;margin: -1px;padding: 0;height: 1px;width: 1px;overflow: hidden;clip: rect(1px, 1px, 1px, 1px);-webkit-clip-path: "
+    },
+    ".a11y-speak-region": {
+      "count": 2,
+      "tag": "div",
+      "text": "",
+      "html": "<div id=\"a11y-speak-assertive\" class=\"a11y-speak-region\" style=\"position: absolute;margin: -1px;padding: 0;height: 1px;width: 1px;overflow: hidden;clip: rect(1px, 1px, 1px, 1px);-webkit-clip-path: ins"
+    },
+    ".g-recaptcha-bubble-arrow": {
+      "count": 2,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"g-recaptcha-bubble-arrow\" style=\"border: 11px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -11px; z-index: 2000000000;\"></div>"
+    }
+  },
+  "specialElements": {
+    "video": 0,
+    "iframe": 3,
+    ".jwplayer": 0,
+    ".plyr": 0,
+    ".video-js": 0,
+    "[data-player]": 0,
+    "[data-video]": 0
+  }
+}
