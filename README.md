@@ -1,38 +1,44 @@
-# Netflix Clone React.js
+# FloDrama - Nouvelle Version
 
-## Overview
-This project is a Netflix clone built using React.js, designed to enhance skills in web development. It features a fully interactive user interface with various functionalities, making it a comprehensive movie-watching experience. The project is powered by TMDB API, utilizing Firebase for database management.
+Ce dépôt contient la nouvelle version de FloDrama, avec une architecture modernisée et optimisée.
 
-## Screenshots
+## Structure du projet
 
-![PC screen](https://i.imgur.com/FLNs9Qy.jpg)
+- **frontend/** : Application React avec Vite et Tailwind CSS
+- **backend/** : Services backend basés sur Cloudflare Workers
+  - **api/** : API principale pour les contenus et fonctionnalités
+  - **auth/** : Service d'authentification et gestion des utilisateurs
+- **docs/** : Documentation du projet
 
+## Démarrage rapide
 
+### Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-### mobile experience 
-![mobile screens](https://i.imgur.com/ForTeQi.jpg)
- 
-## Key Functionalities
-- Sign In / Sign Up
-- Home Page for browsing movies
-- My List Section for user-specific movie selections
-- Liked Movies Page
-- Watched Movies Page
-- Profile Page
-- Play Movie Page
-- Search Movie Page
+### Backend API
+```bash
+cd backend/api
+npm install
+npx wrangler dev
+```
 
-## Technologies Used
-- [React.js](https://react.dev/)
-- [TMDB API](https://www.themoviedb.org/)
-- [Firebase](https://firebase.google.com/)
-- [Axios](https://www.npmjs.com/package/axios)
-- [Swiper.js](https://swiperjs.com/)
-- [React-Youtube](https://www.npmjs.com/package/react-youtube)
-- [Tailwind CSS](https://tailwindcss.com/)
+### Backend Auth
+```bash
+cd backend/auth
+npm install
+npx wrangler dev
+```
 
-## Description
-This Netflix clone project was developed to deepen understanding and proficiency in React.js. Leveraging popular technologies and APIs like TMDB and Firebase, it encompasses a range of features, from user authentication to dynamic movie listings. The design is tailored to provide an immersive streaming experience, and the codebase reflects best practices in modern web development.
+## Déploiement
 
-## Link to the Site
-[Netflix Clone](https://netflicz-reactjs-rho.vercel.app/)
+Le frontend est déployé sur Cloudflare Pages, tandis que les backends sont déployés comme Cloudflare Workers.
+
+Pour plus d'informations, consultez la documentation dans le dossier `docs/`.
+
+## Historique
+
+Ce projet est une refonte complète de l'application FloDrama, avec une architecture moderne basée sur Cloudflare Workers et Pages.

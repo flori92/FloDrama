@@ -1,19 +1,12 @@
-[site]
-bucket = "./dist"
-compatibility_date = "2023-05-08"
-
-[site.dev]
-compatibility_date = "2023-05-08"
-
-[build]
-command = "npm run build"
-output_dir = "dist"
-pages_build_output_dir = "dist"
+# Configuration globale pour le projet FloDrama
 
 [env.production]
-name = "FloDrama-frontend"
+name = "flodrama"
 type = "webpack"
 account_id = "42fc982266a2c31b942593b18097e4b3"
-zone_id = "fc2dcbd3d7c4c44db22cf8c8de01f0c9"
-pages_build_output_dir = "dist"
 workers_dev = true
+
+# Variables d'environnement communes
+[vars]
+ENVIRONMENT = "production"
+API_VERSION = "1.0.0"
