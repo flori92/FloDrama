@@ -1,0 +1,396 @@
+openapi: 3.1.0
+info:
+  title: FloDrama API
+  version: 1.0.0
+  description: API REST pour la plateforme de streaming FloDrama (Cloudflare Workers)
+servers:
+  - url: https://flodrama.example.com
+paths:
+  /api/drama:
+    get:
+      summary: Liste paginée des dramas
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: Page courante
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+          description: Nombre d'éléments par page
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedVideos'
+  /api/drama/trending:
+    get:
+      summary: Dramas en tendance
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoList'
+  /api/anime:
+    get:
+      summary: Liste paginée des animes
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedVideos'
+  /api/film:
+    get:
+      summary: Liste paginée des films
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+        - in: query
+          name: per_page
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedVideos'
+  /api/global/trending:
+    get:
+      summary: Contenus en tendance toutes catégories
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoList'
+  /api/tmdb/popular:
+    get:
+      summary: films populaires TMDB
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                  error:
+                    type: string
+                    nullable: true
+  /api/tmdb/toprated:
+    get:
+      summary: films les mieux notés TMDB
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                  error:
+                    type: string
+                    nullable: true
+  /api/tmdb/trending:
+    get:
+      summary: films en tendance (trending) TMDB
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                  error:
+                    type: string
+                    nullable: true
+  /api/tmdb/details:
+    get:
+      summary: détails d'un film TMDB
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                  error:
+                    type: string
+                    nullable: true
+  /api/tmdb/search:
+    get:
+      summary: recherche de films TMDB
+      parameters:
+        - in: query
+          name: query
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: page
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                  error:
+                    type: string
+                    nullable: true
+  /api/tmdb/multi:
+    get:
+      summary: recherche multi (films, séries, personnes) TMDB
+      parameters:
+        - in: query
+          name: query
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: page
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                  error:
+                    type: string
+                    nullable: true
+  /api/user:
+    get:
+      summary: Liste des utilisateurs (admin)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+    post:
+      summary: Inscription utilisateur
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '201':
+          description: Utilisateur créé
+  /api/auth:
+    post:
+      summary: Authentification utilisateur
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthInput'
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+  /api/upload:
+    post:
+      summary: Upload vidéo (admin)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadInput'
+      responses:
+        '201':
+          description: Vidéo enregistrée
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Video:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        category_id:
+          type: string
+        image_url:
+          type: string
+        video_url:
+          type: string
+        is_trending:
+          type: boolean
+        is_featured:
+          type: boolean
+        created_at:
+          type: string
+        updated_at:
+          type: string
+    VideoList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Video'
+        error:
+          type: string
+          nullable: true
+    PaginatedVideos:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Video'
+        pagination:
+          type: object
+          properties:
+            page:
+              type: integer
+            per_page:
+              type: integer
+            total:
+              type: integer
+        error:
+          type: string
+          nullable: true
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        display_name:
+          type: string
+        avatar_url:
+          type: string
+        created_at:
+          type: string
+    UserList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+        error:
+          type: string
+          nullable: true
+    UserInput:
+      type: object
+      properties:
+        email:
+          type: string
+        password_hash:
+          type: string
+        display_name:
+          type: string
+    AuthInput:
+      type: object
+      properties:
+        email:
+          type: string
+        password_hash:
+          type: string
+    AuthResponse:
+      type: object
+      properties:
+        data:
+          type: object
+        error:
+          type: string
+          nullable: true
+    UploadInput:
+      type: object
+      properties:
+        video_url:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        category_id:
+          type: string
+        image_url:
+          type: string

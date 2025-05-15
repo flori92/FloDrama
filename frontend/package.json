@@ -1,0 +1,47 @@
+{
+  "name": "netflix-reactjs",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1 --strictPort",
+    "deploy": "npm run build && npx wrangler pages deploy dist --project-name=flodrama-frontend",
+    "security-audit": "npm audit --production"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.7.17",
+    "@tailwindcss/line-clamp": "^0.4.4",
+    "@tanstack/react-query": "^4.35.3",
+    "@tanstack/react-query-devtools": "^4.35.3",
+    "axios": "^1.6.8",
+    "esbuild": "^0.25.4",
+    "react": "^18.2.0",
+    "react-copy-to-clipboard": "^5.1.0",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
+    "react-reveal": "^1.2.2",
+    "react-router-dom": "^6.21.3",
+    "react-spinners": "^0.13.8",
+    "react-star-ratings": "^2.3.0",
+    "react-youtube": "^10.1.0",
+    "socket.io-client": "^4.8.1",
+    "swiper": "^8.4.7",
+    "tailwindcss-textshadow": "^2.1.3",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "@types/testing-library__jest-dom": "^5.14.9",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.35",
+    "sass": "^1.70.0",
+    "tailwindcss": "^3.4.1",
+    "terser": "^5.39.0",
+    "vite": "^5.1.4",
+    "wrangler": "^3.29.0"
+  }
+}

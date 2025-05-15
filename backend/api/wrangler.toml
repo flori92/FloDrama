@@ -1,0 +1,14 @@
+name = "flodrama-api"
+main = "src/index.js"
+compatibility_date = "2023-11-15"
+
+# Variables d'environnement pour les différents environnements
+[vars]
+ENVIRONMENT = "development"
+STREAM_ACCOUNT_ID = "ehlynuge6dnzfnfd"
+LOG_LEVEL = "debug"
+
+# Configuration des namespaces KV
+[[kv_namespaces]]
+binding = "FLODRAMA_AUTH"
+id = "7388919bd83241cfab509b44f819bb2f"

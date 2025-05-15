@@ -1,0 +1,9 @@
+name = "flodrama-backend"
+main = "src/index.ts"
+compatibility_date = "2025-05-14"
+type = "javascript"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "flodrama"
+database_id = "A_REMPLACER_PAR_TON_ID_D1"
