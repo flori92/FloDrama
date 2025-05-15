@@ -1,8 +1,0 @@
-<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1280" height="720" fill="#1F1F1F"/>
-  <rect x="440" y="210" width="400" height="300" rx="8" fill="#333333"/>
-  <text x="640" y="360" font-family="Arial, sans-serif" font-size="48" fill="#FF4F9A" text-anchor="middle">FloDrama</text>
-  <text x="640" y="420" font-family="Arial, sans-serif" font-size="24" fill="#FFFFFF" text-anchor="middle">Image d'arrière-plan non disponible</text>
-  <path d="M640 210C673.137 210 700 183.137 700 150C700 116.863 673.137 90 640 90C606.863 90 580 116.863 580 150C580 183.137 606.863 210 640 210Z" fill="#333333"/>
-  <path d="M640 240C593.833 240 556.667 277.167 556.667 323.333V345H723.333V323.333C723.333 277.167 686.167 240 640 240Z" fill="#333333"/>
-</svg>
