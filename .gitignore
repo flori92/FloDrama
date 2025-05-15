@@ -64,3 +64,4 @@ scraping-results/
 
 # APIs de référence externes
 Apis/
+.env
