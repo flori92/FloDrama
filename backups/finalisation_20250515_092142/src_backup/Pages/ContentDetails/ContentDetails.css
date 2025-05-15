@@ -1,0 +1,526 @@
+/* 
+ * ContentDetails.css
+ * Styles pour les pages de détails de contenu (anime, drama, bollywood)
+ */
+
+.content-details-container {
+  width: 100%;
+  color: #f5f5f5;
+  font-family: 'Roboto', sans-serif;
+  min-height: 100vh;
+  background-color: #141414;
+}
+
+.content-details-container.loading,
+.content-details-container.error {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.error-message {
+  max-width: 80%;
+}
+
+.error-message p {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.error-message button {
+  background: linear-gradient(to right, #3b82f6, #d946ef);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.error-message button:hover {
+  transform: scale(1.05);
+}
+
+/* En-tête du contenu avec image de fond */
+.content-header {
+  width: 100%;
+  height: 70vh;
+  min-height: 500px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.content-header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, 
+    rgba(20, 20, 20, 0.7) 0%, 
+    rgba(20, 20, 20, 0.5) 50%, 
+    rgba(20, 20, 20, 1) 100%);
+  display: flex;
+  align-items: center;
+  padding: 0 5%;
+}
+
+.content-poster {
+  width: 250px;
+  height: 375px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+  margin-right: 40px;
+}
+
+.content-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content-info {
+  flex: 1;
+  max-width: 800px;
+}
+
+.content-info h1 {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.alternative-titles {
+  font-size: 16px;
+  color: #ccc;
+  margin-bottom: 15px;
+}
+
+.content-metadata {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.content-metadata span {
+  font-size: 14px;
+  color: #ddd;
+}
+
+.rating i {
+  color: #ffd700;
+  margin-right: 5px;
+}
+
+.content-actions {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.primary-button, 
+.secondary-button {
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.primary-button {
+  background: linear-gradient(to right, #3b82f6, #d946ef);
+  color: #fff;
+  border: none;
+}
+
+.primary-button:hover {
+  transform: scale(1.05);
+}
+
+.secondary-button {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.secondary-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.genre-tag {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ddd;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.synopsis {
+  max-width: 700px;
+}
+
+.synopsis p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #ddd;
+  margin: 0;
+}
+
+/* Corps du contenu */
+.content-body {
+  padding: 40px 5%;
+}
+
+.content-body h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 20px 0;
+  color: #fff;
+}
+
+.episodes-section,
+.characters-section,
+.recommendations-section {
+  margin-bottom: 50px;
+}
+
+.episodes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.episode-card {
+  background-color: rgba(40, 40, 40, 0.8);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.episode-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.episode-card.completed .episode-number::after {
+  content: "✓";
+  color: #d946ef;
+  margin-left: 8px;
+}
+
+.episode-thumbnail {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* Ratio 16:9 */
+}
+
+.episode-thumbnail img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.play-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.play-overlay i {
+  font-size: 48px;
+  color: #fff;
+}
+
+.episode-card:hover .play-overlay {
+  opacity: 1;
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(to right, #3b82f6, #d946ef);
+}
+
+.episode-info {
+  padding: 15px;
+}
+
+.episode-number {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.episode-title {
+  font-size: 14px;
+  color: #ddd;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.episode-duration {
+  font-size: 12px;
+  color: #aaa;
+}
+
+.no-episodes {
+  background-color: rgba(40, 40, 40, 0.8);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.no-episodes p {
+  margin: 0;
+  color: #ddd;
+}
+
+/* Personnages */
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+}
+
+.character-card {
+  background-color: rgba(40, 40, 40, 0.8);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.character-card:hover {
+  transform: translateY(-5px);
+}
+
+.character-image {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%; /* Ratio 1:1 */
+  position: relative;
+}
+
+.character-image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.character-info {
+  padding: 10px;
+}
+
+.character-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.character-role {
+  font-size: 12px;
+  color: #aaa;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Recommandations */
+.recommendations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.recommendation-card {
+  background-color: rgba(40, 40, 40, 0.8);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.recommendation-card:hover {
+  transform: scale(1.05);
+}
+
+.recommendation-image {
+  width: 100%;
+  height: 0;
+  padding-bottom: 150%; /* Ratio 2:3 */
+  position: relative;
+}
+
+.recommendation-image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recommendation-info {
+  padding: 10px;
+}
+
+.recommendation-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .content-header {
+    height: auto;
+  }
+  
+  .content-header-overlay {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 80px 5% 40px;
+  }
+  
+  .content-poster {
+    width: 200px;
+    height: 300px;
+    margin-bottom: 20px;
+    margin-right: 0;
+  }
+  
+  .content-info h1 {
+    font-size: 28px;
+  }
+  
+  .episodes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .content-poster {
+    width: 150px;
+    height: 225px;
+  }
+  
+  .content-info h1 {
+    font-size: 24px;
+  }
+  
+  .synopsis p {
+    font-size: 14px;
+  }
+  
+  .episodes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  
+  .characters-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+  
+  .recommendations-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .content-header-overlay {
+    padding: 60px 5% 30px;
+  }
+  
+  .content-poster {
+    width: 120px;
+    height: 180px;
+  }
+  
+  .content-info h1 {
+    font-size: 20px;
+  }
+  
+  .content-actions {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+  
+  .primary-button, 
+  .secondary-button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .episodes-grid {
+    grid-template-columns: 1fr;
+  }
+}

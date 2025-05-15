@@ -1,0 +1,215 @@
+/* 
+ * ContentBanner.css
+ * Styles pour la bannière de contenu
+ */
+
+.content-banner {
+  width: 100%;
+  height: 70vh;
+  min-height: 500px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.content-banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, 
+    rgba(20, 20, 20, 0.7) 0%, 
+    rgba(20, 20, 20, 0.5) 50%, 
+    rgba(20, 20, 20, 1) 100%);
+  display: flex;
+  align-items: center;
+}
+
+.content-banner-container {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+.content-banner-poster {
+  width: 250px;
+  height: 375px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+  margin-right: 40px;
+}
+
+.content-banner-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content-banner-info {
+  flex: 1;
+  max-width: 800px;
+}
+
+.content-banner-title {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.content-banner-metadata {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.content-banner-metadata span {
+  font-size: 14px;
+  color: #ddd;
+}
+
+.content-banner-rating i {
+  color: #ffd700;
+  margin-right: 5px;
+}
+
+.content-banner-actions {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.content-banner-play-button, 
+.content-banner-list-button {
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.content-banner-play-button {
+  background-color: #e50914;
+  color: #fff;
+  border: none;
+}
+
+.content-banner-play-button:hover {
+  background-color: #f40612;
+  transform: scale(1.05);
+}
+
+.content-banner-list-button {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.content-banner-list-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.content-banner-genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.content-banner-genre {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ddd;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.content-banner-overview {
+  max-width: 700px;
+}
+
+.content-banner-overview p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #ddd;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .content-banner {
+    height: auto;
+  }
+  
+  .content-banner-overlay {
+    position: relative;
+    padding: 80px 0 40px;
+  }
+  
+  .content-banner-container {
+    flex-direction: column;
+  }
+  
+  .content-banner-poster {
+    width: 200px;
+    height: 300px;
+    margin-bottom: 20px;
+    margin-right: 0;
+  }
+  
+  .content-banner-title {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .content-banner-poster {
+    width: 150px;
+    height: 225px;
+  }
+  
+  .content-banner-title {
+    font-size: 24px;
+  }
+  
+  .content-banner-overview p {
+    font-size: 14px;
+  }
+  
+  .content-banner-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .content-banner-play-button, 
+  .content-banner-list-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-banner-overlay {
+    padding: 60px 0 30px;
+  }
+  
+  .content-banner-poster {
+    width: 120px;
+    height: 180px;
+  }
+  
+  .content-banner-title {
+    font-size: 20px;
+  }
+}

@@ -1,0 +1,284 @@
+/* 
+ * VideoPlayerContainer.css
+ * Styles pour le conteneur du lecteur vidéo amélioré de FloDrama
+ */
+
+.video-player-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  color: #f5f5f5;
+  font-family: 'Roboto', sans-serif;
+}
+
+.video-player-container.loading,
+.video-player-container.error {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #e50914;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.error-message {
+  max-width: 80%;
+}
+
+.error-message p {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.error-message button {
+  background-color: #e50914;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.error-message button:hover {
+  background-color: #f40612;
+}
+
+.player-wrapper {
+  width: 100%;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.content-info {
+  padding: 20px;
+  background-color: rgba(20, 20, 20, 0.8);
+  border-radius: 8px;
+  margin-top: 30px;
+}
+
+.content-info h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+  color: #fff;
+}
+
+.episode-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.episode-navigation h3 {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+  color: #e50914;
+}
+
+.episode-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.episode-controls button {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.episode-controls button:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.episode-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.content-details {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.content-description p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+  color: #e0e0e0;
+}
+
+.content-metadata {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.content-metadata > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.metadata-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #aaa;
+}
+
+.metadata-value {
+  font-size: 15px;
+  color: #fff;
+}
+
+.episodes-list {
+  margin-top: 30px;
+}
+
+.episodes-list h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  color: #fff;
+}
+
+.episodes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.episode-item {
+  background-color: rgba(40, 40, 40, 0.8);
+  border-radius: 6px;
+  padding: 15px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.episode-item:hover {
+  background-color: rgba(60, 60, 60, 0.8);
+  transform: translateY(-3px);
+}
+
+.episode-item.active {
+  background-color: rgba(229, 9, 20, 0.2);
+  border: 1px solid rgba(229, 9, 20, 0.5);
+}
+
+.episode-number {
+  font-size: 14px;
+  font-weight: 600;
+  color: #e50914;
+  margin-bottom: 5px;
+}
+
+.episode-title {
+  font-size: 13px;
+  color: #e0e0e0;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.progress-indicator {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #e50914;
+  border-radius: 2px;
+}
+
+.completed-indicator {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #e50914;
+  font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .content-details {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .episodes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  
+  .episode-navigation {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .content-info h1 {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-player-container {
+    padding: 10px;
+  }
+  
+  .episodes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+  
+  .episode-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .episode-controls button {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+}

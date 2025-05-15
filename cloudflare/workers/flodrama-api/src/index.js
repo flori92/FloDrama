@@ -15,6 +15,7 @@
 import { handleContentRequest } from './handlers/contentHandler.js';
 import { handleStreamRequest } from './handlers/streamHandler.js';
 import { handleMediaRequest } from './handlers/mediaHandler.js';
+import { handleAuthRequest } from './handlers/authHandler.js';
 import { createResponse, errorResponse } from './utils/responseHelper.js';
 import { setupCORS } from './utils/corsHelper.js';
 import { logRequest, logError } from './utils/logger.js';
@@ -79,6 +80,11 @@ export default {
       
       if (url.pathname.startsWith('/media/')) {
         return await handleMediaRequest(request, env, ctx, reqContext);
+      }
+      
+      // Gestion des routes d'authentification
+      if (url.pathname.startsWith('/api/auth/')) {
+        return await handleAuthRequest(request, env, ctx, reqContext);
       }
 
       // Route par défaut
