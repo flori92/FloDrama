@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Configuration des variables d'environnement pour le déploiement Cloudflare
+# Remplacer les valeurs entre < > par vos informations
+
+echo "Configuration des variables d'environnement..."
+
+# Google OAuth
+CLIENT_ID="<votre-client-id>"
+CLIENT_SECRET="<votre-client-secret>"
+REDIRECT_URI="https://votredomaine.com/oauth-callback"
+
+# Cloudflare
+ACCOUNT_ID="<votre-account-id>"
+WORKER_NAME="<nom-du-worker>"
+
+# Mise à jour des variables d'environnement
+echo "Mise à jour des variables d'environnement du worker Cloudflare..."
+wrangler secret put CLIENT_ID <<< "$CLIENT_ID"
+wrangler secret put CLIENT_SECRET <<< "$CLIENT_SECRET"
+wrangler secret put REDIRECT_URI <<< "$REDIRECT_URI"
+
+echo "Configuration terminée !"
