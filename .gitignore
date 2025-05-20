@@ -65,3 +65,34 @@ scraping-results/
 # APIs de référence externes
 Apis/
 .env
+
+# Secrets and sensitive data
+*.env
+.env.local
+*.pem
+*.key
+*.crt
+secrets.*
+*_secrets.*
+*_secret.*
+*secret*
+*credentials*
+*password*
+*oauth*
+*client_*
+*_id
+*_secret
+*_token
+*_key
+*_keys
+*_cert
+*_certs
+*_pwd
+*_pass
+*_auth
+*_creds
+*_credential*
+*_confidential*
+*_private*
+*_sensitive*
+*_personal*
