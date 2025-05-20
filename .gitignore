@@ -108,3 +108,9 @@ secrets.*
 *_private*
 *_sensitive*
 *_personal*
+
+# Dossier New-FloDrama (géré comme un sous-projet séparé)
+New-FloDrama/*
+!New-FloDrama/.gitignore
+!New-FloDrama/README.md
+!New-FloDrama/LICENSE
