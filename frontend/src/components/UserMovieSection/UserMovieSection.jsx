@@ -1,20 +1,19 @@
 import React from "react";
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import MoviePopUp from "../../PopUp/MoviePopUp";
-import { imageUrl2, API_KEY } from "../../../Constants/Constance";
-import useUpdateMylist from "../../../CustomHooks/useUpdateMylist";
-import usePlayMovie from "../../../CustomHooks/usePlayMovie";
-import useUpdateWatchedMovies from "../../../CustomHooks/useUpdateWatchedMovies";
-import useUpdateLikedMovies from "../../../CustomHooks/useUpdateLikedMovies";
-import useGenereConverter from "../../../CustomHooks/useGenereConverter";
-import { db } from "../../../Cloudflare/CloudflareDB";
-import { doc, getDoc } from "../../../Cloudflare/CloudflareDB";
-import { AuthContext } from "../../../Context/UserContext";
-import { PopUpContext } from "../../../Context/moviePopUpContext";
-import axios from "../../../axios";
+import MoviePopUp from "../PopUp/MoviePopUp";
+import { imageUrl2, API_KEY } from "../../Constants/Constance";
+import useUpdateMylist from "../../CustomHooks/useUpdateMylist";
+import usePlayMovie from "../../CustomHooks/usePlayMovie";
+import useUpdateWatchedMovies from "../../CustomHooks/useUpdateWatchedMovies";
+import useUpdateLikedMovies from "../../CustomHooks/useUpdateLikedMovies";
+import useGenereConverter from "../../CustomHooks/useGenereConverter";
+import { doc, getDoc } from "../../Cloudflare/CloudflareDB";
+import { AuthContext } from "../../Context/UserContext";
+import { PopUpContext } from "../../Context/moviePopUpContext";
+import axios from "../../axios";
 import StarRatings from "react-star-ratings";
-import Loader from "../../Loader/Loader";
+import Loader from "../Loader/Loader";
 
 function UserMovieSection(props) {
   const { User } = useContext(AuthContext);
@@ -35,7 +34,7 @@ function UserMovieSection(props) {
 
   const navigate = useNavigate();
 
-  async function getMovies() {
+  const getMovies = async () => {
     try {
       // Récupérer les données depuis Cloudflare D1 via notre service CloudflareDB
       const result = await getDoc(doc(db, props.from, User.uid));
