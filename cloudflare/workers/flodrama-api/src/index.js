@@ -15,10 +15,11 @@
 import { handleContentRequest } from './handlers/contentHandler.js';
 import { handleStreamRequest } from './handlers/streamHandler.js';
 import { handleMediaRequest } from './handlers/mediaHandler.js';
-import { handleAuthRequest } from './handlers/authHandler.js';
+import { handleAuth } from './handlers/authHandler.js';
 import { createResponse, errorResponse } from './utils/responseHelper.js';
 import { setupCORS } from './utils/corsHelper.js';
 import { logRequest, logError } from './utils/logger.js';
+import { applySecurityHeaders } from './security/security-headers.js';
 
 /**
  * Gestionnaire principal des requêtes entrantes vers l'API
@@ -84,7 +85,7 @@ export default {
       
       // Gestion des routes d'authentification
       if (url.pathname.startsWith('/api/auth/')) {
-        return await handleAuthRequest(request, env, ctx, reqContext);
+        return await handleAuth(request, env, reqContext);
       }
 
       // Route par défaut
@@ -93,22 +94,20 @@ export default {
         const origin = request.headers.get('Origin');
         const corsInfo = origin ? { corsOrigin: origin } : {};
         
-        return createResponse({ 
+        const response = createResponse({ 
           status: 'ok',
           version: '1.0.0',
           environment: env.ENVIRONMENT,
           endpoints: ['/api/content', '/api/stream', '/media/'],
           ...corsInfo
-        }, 200, request); // Transmettre la requête pour les en-têtes CORS
+        }, 200, request);
+        
+        return applySecurityHeaders(response);
       }
       
       // Route non trouvée
-      return errorResponse({
-        status: 404,
-        error: 'Route non trouvée',
-        path: url.pathname,
-        request // Transmettre la requête pour les en-têtes CORS
-      });
+      const response = createResponse(404, { error: 'Route non trouvée' });
+      return applySecurityHeaders(response);
     } catch (error) {
       // Détection spécifique des erreurs CORS
       const isCorsError = error.message && (
@@ -127,22 +126,20 @@ export default {
       }, env);
       
       // Si c'est une erreur CORS, ajouter des informations spécifiques
-      const corsInfo = isCorsError ? {
-        corsError: true,
-        corsOrigin: request.headers.get('Origin'),
-        corsHelp: "Vérifiez que l'origine est autorisée dans corsHelper.js"
-      } : {};
-      
-      return errorResponse({
+      const errorResponse = {
         status: 500,
         error: isCorsError ? 'Erreur CORS' : 'Erreur interne du serveur',
         reference: requestId,
-        request, // Transmettre la requête pour les en-têtes CORS
         message: env.ENVIRONMENT === 'production' ? 
           'Une erreur est survenue lors du traitement de votre requête.' : 
           error.message,
-        ...corsInfo
-      });
+        ...(isCorsError && {
+          corsHelp: "Vérifiez que l'origine est autorisée dans corsHelper.js"
+        })
+      };
+      
+      const response = createResponse(500, errorResponse, request);
+      return applySecurityHeaders(response);
     } finally {
       // Journalisation du temps de traitement total
       const processingTime = Date.now() - startTime;

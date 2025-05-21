@@ -4,9 +4,12 @@ compatibility_date = "2023-11-15"
 
 # Variables d'environnement pour les différents environnements
 [vars]
-ENVIRONMENT = "development"
+ENVIRONMENT = "production"
 STREAM_ACCOUNT_ID = "ehlynuge6dnzfnfd"
-LOG_LEVEL = "debug"
+LOG_LEVEL = "info"
+GOOGLE_CLIENT_ID = "votre-google-client-id"
+GOOGLE_CLIENT_SECRET = "votre-google-client-secret"
+JWT_SECRET = "votre-jwt-secret-tres-securise"
 
 # Configuration des namespaces KV
 [[kv_namespaces]]

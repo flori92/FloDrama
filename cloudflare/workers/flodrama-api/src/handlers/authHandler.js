@@ -1,15 +1,14 @@
 import { setupCORS } from '../utils/corsHelper.js';
 
-// Configuration Google OAuth
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
-
 // URLs de redirection autorisées - utiliser l'API comme point de redirection
 const REDIRECT_URIS = [
   'https://flodrama-api-prod.florifavi.workers.dev/api/auth/callback'
 ];
 
 // Handler pour l'authentification
-export async function handleAuth(request) {
+export async function handleAuth(request, env) {
+  // Configuration Google OAuth
+  const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = env;
   // Configuration CORS
   if (request.method === 'OPTIONS') {
     return setupCORS(request);

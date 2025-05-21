@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Script d'exécution du scraping pour FloDrama
-# Ce script utilise les outils de scraping éprouvés pour contourner
-# les protections Cloudflare et récupérer des milliers de contenus réels
+# Version améliorée avec gestion des erreurs et timeouts
 
 # Couleurs pour les messages
 GREEN='\033[0;32m'
@@ -11,13 +10,24 @@ RED='\033[0;31m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-# Répertoire de sortie
+# Configuration
+MAX_RETRIES=3
+TIMEOUT_SECONDS=300  # 5 minutes par source
 OUTPUT_DIR="./Frontend/src/data/content"
 TEMP_DIR="./cloudflare/scraping/scraping-results"
+LOG_FILE="$TEMP_DIR/scraping_$(date +%Y%m%d_%H%M%S).log"
 
 # Créer les répertoires nécessaires
 mkdir -p "$OUTPUT_DIR"
 mkdir -p "$TEMP_DIR"
+
+# Initialiser le fichier de log
+{
+    echo "=== Début du scraping - $(date) ==="
+    echo "Répertoire de sortie: $OUTPUT_DIR"
+    echo "Répertoire temporaire: $TEMP_DIR"
+    echo ""
+} > "$LOG_FILE"
 
 # Liste des sources par catégorie
 DRAMA_SOURCES=("mydramalist" "dramacool" "voirdrama" "asianwiki")
@@ -33,24 +43,100 @@ function show_banner() {
     echo ""
 }
 
-# Fonction pour scraper une source
+# Journalisation des messages
+function log_message() {
+    local message="$1"
+    local level="${2:-INFO}"
+    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+    
+    case $level in
+        "ERROR") echo -e "${RED}[$timestamp] [$level] $message${NC}" ;;
+        "WARN")  echo -e "${YELLOW}[$timestamp] [$level] $message${NC}" ;;
+        "INFO")  echo -e "${BLUE}[$timestamp] [$level] $message${NC}" ;;
+        "SUCCESS") echo -e "${GREEN}[$timestamp] [$level] $message${NC}" ;;
+        *)        echo "[$timestamp] [$level] $message" ;;
+    esac
+    
+    # Écrire dans le fichier de log
+    echo "[$timestamp] [$level] $message" >> "$LOG_FILE"
+}
+
+# Vérifier les dépendances
+function check_dependencies() {
+    local missing_deps=()
+    
+    # Vérifier Node.js
+    if ! command -v node &> /dev/null; then
+        missing_deps+=("Node.js")
+    fi
+    
+    # Vérifier npm
+    if ! command -v npm &> /dev/null; then
+        missing_deps+=("npm")
+    fi
+    
+    # Vérifier jq
+    if ! command -v jq &> /dev/null; then
+        missing_deps+=("jq")
+    fi
+    
+    if [ ${#missing_deps[@]} -gt 0 ]; then
+        log_message "Dépendances manquantes: ${missing_deps[*]}" "ERROR"
+        return 1
+    fi
+    
+    log_message "Toutes les dépendances sont installées" "SUCCESS"
+    return 0
+}
+
+# Fonction pour scraper une source avec gestion des erreurs et des réessais
 function scrape_source() {
     local source=$1
     local category=$2
+    local retry_count=0
+    local success=false
     
-    echo -e "${YELLOW}🔍 Scraping de ${source} (catégorie: ${category})...${NC}"
+    log_message "Début du scraping de ${source} (catégorie: ${category})..." "INFO"
     
-    # Exécuter le scraper CLI avec les options appropriées
-    node ./cloudflare/scraping/src/cli-scraper.js --source=$source --limit=100 --output=$TEMP_DIR --debug --save
+    while [ $retry_count -lt $MAX_RETRIES ] && [ "$success" = false ]; do
+        log_message "Tentative $(($retry_count + 1))/$MAX_RETRIES pour ${source}" "INFO"
+        
+        # Exécuter le scraper avec timeout
+        timeout $TIMEOUT_SECONDS \
+            node ./cloudflare/scraping/src/cli-scraper.js \
+                --source=$source \
+                --limit=100 \
+                --output=$TEMP_DIR \
+                --debug \
+                --save 2>> "$LOG_FILE"
+        
+        local exit_code=$?
+        
+        if [ $exit_code -eq 0 ]; then
+            log_message "Scraping de ${source} réussi" "SUCCESS"
+            success=true
+        elif [ $exit_code -eq 124 ]; then
+            log_message "Timeout lors du scraping de ${source}" "WARN"
+        else
+            log_message "Échec du scraping de ${source} (code: $exit_code)" "ERROR"
+        fi
+        
+        ((retry_count++))
+        
+        # Attendre avant de réessayer
+        if [ "$success" = false ] && [ $retry_count -lt $MAX_RETRIES ]; then
+            local wait_time=$((retry_count * 10))
+            log_message "Nouvelle tentative dans ${wait_time} secondes..." "INFO"
+            sleep $wait_time
+        fi
+    done
     
-    # Vérifier si le scraping a réussi
-    if [ $? -eq 0 ]; then
-        echo -e "${GREEN}✅ Scraping de ${source} terminé avec succès${NC}"
-        return 0
-    else
-        echo -e "${RED}❌ Échec du scraping de ${source}${NC}"
+    if [ "$success" = false ]; then
+        log_message "Échec après $MAX_RETRIES tentatives pour ${source}" "ERROR"
         return 1
     fi
+    
+    return 0
 }
 
 # Fonction pour copier les résultats vers le répertoire de sortie
