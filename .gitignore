@@ -1,13 +1,9 @@
 # Fichiers générés par le scraping
-Backend/data/
-Backend/.env
-#Backend/reports/
 exported_data/
 
 # Données exportées pour le frontend
-# Note: On garde la structure mais pas les données
-Frontend/public/data/*.json
-Frontend/public/recherche/*.txt
+New-FloDrama/frontend/public/data/*.json
+New-FloDrama/frontend/public/recherche/*.txt
 
 # Environnement Python
 __pycache__/

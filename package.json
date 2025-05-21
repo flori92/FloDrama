@@ -1,28 +1,15 @@
 {
   "name": "flodrama-project",
   "version": "1.0.0",
+  "private": true,
   "description": "FloDrama - Plateforme de streaming de dramas, films et animés",
   "scripts": {
-    "start": "node server.js",
-    "install": "echo 'Installation terminée avec succès'"
-  },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "crawlee": "^3.13.3",
-    "express": "^4.21.2",
-    "node-fetch": "^2.7.0",
-    "playwright": "^1.52.0",
-    "playwright-extra": "^4.3.6",
-    "puppeteer": "^24.8.2",
-    "puppeteer-extra": "^3.3.6",
-    "puppeteer-extra-plugin-stealth": "^2.11.2"
+    "start": "echo 'Veuillez utiliser les scripts dans le dossier New-FloDrama/frontend'"
   },
   "engines": {
     "node": ">=18.0.0"
   },
-  "devDependencies": {
-    "axios": "^1.9.0",
-    "cheerio": "^1.0.0",
-    "fs-extra": "^11.3.0"
-  }
+  "workspaces": [
+    "New-FloDrama/frontend"
+  ]
 }
