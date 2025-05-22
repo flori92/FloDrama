@@ -1,0 +1,196 @@
+{
+  "voirdrama": {
+    "url": "https://voirdrama.org/dramas/",
+    "element_type": "drama",
+    "analysis_method": "domain-specific",
+    "content_area_selector": "div.site-content",
+    "drama_items": [
+      {
+        "selector": "div.wrap",
+        "has_image": true,
+        "has_link": true,
+        "text_sample": "Search"
+      },
+      {
+        "selector": "div.body-wrap",
+        "has_image": true,
+        "has_link": true,
+        "text_sample": "Search"
+      },
+      {
+        "selector": "div.c-header__top",
+        "has_image": true,
+        "has_link": true,
+        "text_sample": "Search"
+      },
+      {
+        "selector": "div.main-navigation.style-1",
+        "has_image": true,
+        "has_link": true,
+        "text_sample": "ACCUEIL\nLISTE\nNOUVEAU\nRECHERCHE AV\nVOIR"
+      },
+      {
+        "selector": "div.container",
+        "has_image": true,
+        "has_link": true,
+        "text_sample": "ACCUEIL\nLISTE\nNOUVEAU\nRECHERCHE AV\nVOIRA"
+      }
+    ],
+    "recommended_wait_selector": "div.site-content",
+    "recommended_main_selector": "div.wrap"
+  },
+  "dramavostfr": {
+    "error": "Error analyzing page: HTTPSConnectionPool(host='dramavostfr.cc', port=443): Max retries exceeded with url: /films/ (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x10659ec10>: Failed to resolve 'dramavostfr.cc' ([Errno 8] nodename nor servname provided, or not known)\"))",
+    "url": "https://dramavostfr.cc/films/",
+    "element_type": "drama"
+  },
+  "mydramalist": {
+    "title_selector": "h1.film-title",
+    "items_selector": ".box",
+    "recommended_wait_selector": "#content",
+    "recommended_main_selector": ".box"
+  },
+  "asianwiki": {
+    "error": "Error analyzing page: 404 Client Error: Not Found for url: https://asianwiki.com/Special:BrowseData/Dramas",
+    "url": "https://asianwiki.com/Special:BrowseData/Dramas",
+    "element_type": "drama"
+  },
+  "dramacore": {
+    "error": "Error analyzing page: HTTPSConnectionPool(host='dramacore.cc', port=443): Max retries exceeded with url: /films/ (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x10659fc50>: Failed to resolve 'dramacore.cc' ([Errno 8] nodename nor servname provided, or not known)\"))",
+    "url": "https://dramacore.cc/films/",
+    "element_type": "drama"
+  },
+  "dramacool": {
+    "title_selector": "h1.title",
+    "recommended_wait_selector": ".list-episode-item",
+    "recommended_main_selector": ".list-drama-item"
+  },
+  "voiranime": {
+    "error": "Error analyzing page: 404 Client Error: Not Found for url: https://v6.voiranime.com/films/",
+    "url": "https://voiranime.com/films/",
+    "element_type": "anime"
+  },
+  "nekosama": {
+    "error": "Error analyzing page: 410 Client Error: Gone for url: https://nekosama.fr/animes",
+    "url": "https://nekosama.fr/animes",
+    "element_type": "anime"
+  },
+  "anime-sama": {
+    "url": null,
+    "element_type": "anime",
+    "analysis_method": "generic",
+    "title_selector": "h1.text-white.font-bold.uppercase.text-md.line-clamp-2",
+    "title_text": "#DRCL midnight children",
+    "potential_containers": [
+      {
+        "selector": "#blocEntier",
+        "links_count": 63,
+        "images_count": 48,
+        "children_count": 971,
+        "text_sample": "catalogue\r\n\t\t\n\n\n\n\r\n\t\t\t\t\tTrier par types\r\n\t\t\t\t\t\n\n\n\n\n\nAnime"
+      },
+      {
+        "selector": "#sousBlocMiddle",
+        "links_count": 63,
+        "images_count": 48,
+        "children_count": 962,
+        "text_sample": "catalogue\r\n\t\t\n\n\n\n\r\n\t\t\t\t\tTrier par types\r\n\t\t\t\t\t\n\n\n\n\n\nAnime                \n\n\n\nScans"
+      },
+      {
+        "selector": "#list_catalog",
+        "links_count": 48,
+        "images_count": 48,
+        "children_count": 576,
+        "text_sample": "#DRCL midnight children\n\n\nDrame, Fantastique, Surnaturel\n\nScans\n\n\n\n\n\n\n\n\n\n'Tis Time for \"Torture"
+      },
+      {
+        "selector": "#list_pagination",
+        "links_count": 11,
+        "images_count": 0,
+        "children_count": 12,
+        "text_sample": "123456...3132333435"
+      },
+      {
+        "selector": "div.navbar-menu.relative.z-50.hidden",
+        "links_count": 7,
+        "images_count": 1,
+        "children_count": 40,
+        "text_sample": "catalogue\n\n\n\n\n\n\n\n\nplanning\n\n\n\n\n\n\n\npage aide\n\n\n\n\n\n\n\nprofil\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\u00a9 2025"
+      }
+    ],
+    "potential_items": [
+      {
+        "selector": "div.navbar-menu.relative.z-50.hidden",
+        "has_image": true,
+        "has_link": true,
+        "text_sample": "catalogue\n\n\n\n\n\n\n\n\nplanning"
+      },
+      {
+        "selector": "div.flex.items-center.mb-8.border-b-2.border-sky-900",
+        "has_image": true,
+        "has_link": true,
+        "text_sample": ""
+      },
+      {
+        "selector": "#blocEntier",
+        "has_image": true,
+        "has_link": true,
+        "text_sample": "catalogue\r\n\t\t\n\n\n\n\r\n\t\t\t\t\tTri"
+      },
+      {
+        "selector": "#sousBlocMiddle",
+        "has_image": true,
+        "has_link": true,
+        "text_sample": "catalogue\r\n\t\t\n\n\n\n\r\n\t\t\t\t\tTrier par types"
+      },
+      {
+        "selector": "#list_catalog",
+        "has_image": true,
+        "has_link": true,
+        "text_sample": "#DRCL midnight children\n\n\nDrame, Fantastique,"
+      }
+    ],
+    "recommended_wait_selector": "#blocEntier",
+    "recommended_main_selector": "div.navbar-menu.relative.z-50.hidden"
+  },
+  "animevostfr": {
+    "title_selector": "h1.title",
+    "recommended_wait_selector": ".movies-list",
+    "recommended_main_selector": ".ml-item"
+  },
+  "otakufr": {
+    "title_selector": "h1.title",
+    "recommended_wait_selector": ".movies-list",
+    "recommended_main_selector": ".ml-item"
+  },
+  "vostfree": {
+    "title_selector": "h1.title",
+    "recommended_wait_selector": ".movies-list",
+    "recommended_main_selector": ".ml-item"
+  },
+  "www": {
+    "title_selector": "h1.title",
+    "recommended_wait_selector": ".movies-list",
+    "recommended_main_selector": ".ml-item"
+  },
+  "streamingdivx": {
+    "error": "Error analyzing page: HTTPSConnectionPool(host='streamingdivx.co', port=443): Max retries exceeded with url: /films/ (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x10659f390>: Failed to establish a new connection: [Errno 61] Connection refused'))",
+    "url": "https://streamingdivx.co/films/",
+    "element_type": "film"
+  },
+  "streamingcommunity": {
+    "title_selector": "h1.film-title",
+    "recommended_wait_selector": ".film-list",
+    "recommended_main_selector": ".film-item"
+  },
+  "filmapik": {
+    "title_selector": "h1.title",
+    "recommended_wait_selector": ".movies-list",
+    "recommended_main_selector": ".ml-item"
+  },
+  "bollyplay": {
+    "error": "Error analyzing page: 410 Client Error: Gone for url: http://ww12.bollyplay.net/movies/?usid=17&utid=38440811667",
+    "url": "https://bollyplay.net/movies/",
+    "element_type": "bollywood"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "total_duration": "74.78",
+  "total_sources": 1,
+  "total_errors": 0,
+  "total_items": 0,
+  "sources": [
+    {
+      "source": "bollyplay",
+      "count": 0,
+      "duration": "74.78",
+      "file": "/Users/floriace/FLO_DRAMA/FloDrama/cloudflare/scraping/extraction-massive/bollywood/bollyplay_20250512_091458.json/bollyplay_2025-05-12T07-16-13.840Z.json",
+      "is_mock": false,
+      "content_type": "bollywood"
+    }
+  ]
+}

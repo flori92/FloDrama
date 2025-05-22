@@ -1,0 +1,16 @@
+{
+  "total_duration": "362.53",
+  "total_sources": 1,
+  "total_errors": 0,
+  "total_items": 0,
+  "sources": [
+    {
+      "source": "voiranime",
+      "count": 0,
+      "duration": "362.53",
+      "file": "/Users/floriace/FLO_DRAMA/FloDrama/cloudflare/scraping/extraction-massive/animes/voiranime_20250512_090608.json/voiranime_2025-05-12T07-12-11.741Z.json",
+      "is_mock": false,
+      "content_type": "anime"
+    }
+  ]
+}

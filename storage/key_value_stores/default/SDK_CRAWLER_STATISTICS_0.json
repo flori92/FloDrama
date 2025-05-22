@@ -1,0 +1,52 @@
+{
+  "requestsFinished": 0,
+  "requestsFailed": 1,
+  "requestsRetries": 1,
+  "requestsFailedPerMinute": 1,
+  "requestsFinishedPerMinute": 0,
+  "requestMinDurationMillis": null,
+  "requestMaxDurationMillis": 0,
+  "requestTotalFailedDurationMillis": 7375,
+  "requestTotalFinishedDurationMillis": 0,
+  "crawlerStartedAt": "2025-05-10T07:19:22.623Z",
+  "crawlerFinishedAt": "2025-05-10T07:19:53.368Z",
+  "statsPersistedAt": "2025-05-10T07:19:53.368Z",
+  "crawlerRuntimeMillis": 31203,
+  "crawlerLastStartTimestamp": 1746861562165,
+  "requestRetryHistogram": [
+    null,
+    null,
+    null,
+    1
+  ],
+  "statsId": 0,
+  "requestAvgFailedDurationMillis": 7375,
+  "requestAvgFinishedDurationMillis": null,
+  "requestTotalDurationMillis": 7375,
+  "requestsTotal": 1,
+  "requestsWithStatusCode": {
+    "200": 4
+  },
+  "errors": {
+    "/Users/floriace/FLO_DRAMA/FloDrama/.github/scripts/crawlee-scraper.js:280:32": {
+      "missing error code": {
+        "Error": {
+          "Too many arguments. If you need to pass more than 1 argument to the function wrap them in an object.": {
+            "count": 1
+          }
+        }
+      }
+    }
+  },
+  "retryErrors": {
+    "/Users/floriace/FLO_DRAMA/FloDrama/.github/scripts/crawlee-scraper.js:280:32": {
+      "missing error code": {
+        "Error": {
+          "Too many arguments. If you need to pass more than 1 argument to the function wrap them in an object.": {
+            "count": 3
+          }
+        }
+      }
+    }
+  }
+}

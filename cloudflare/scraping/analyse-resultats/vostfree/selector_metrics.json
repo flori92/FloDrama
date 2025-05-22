@@ -1,0 +1,44 @@
+{
+  "#target": {
+    "count": 1,
+    "types": [
+      "category"
+    ],
+    "urls": []
+  },
+  "#sales-banner": {
+    "count": 1,
+    "types": [
+      "category"
+    ],
+    "urls": []
+  },
+  ".hide-sales-banner": {
+    "count": 1,
+    "types": [
+      "category"
+    ],
+    "urls": []
+  },
+  ".pk-page-ready": {
+    "count": 1,
+    "types": [
+      "category"
+    ],
+    "urls": []
+  },
+  ".top": {
+    "count": 1,
+    "types": [
+      "category"
+    ],
+    "urls": []
+  },
+  ".header2": {
+    "count": 1,
+    "types": [
+      "category"
+    ],
+    "urls": []
+  }
+}

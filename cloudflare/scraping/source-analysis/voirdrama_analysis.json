@@ -1,0 +1,40 @@
+{
+  "url": "https://voirdrama.org/dramas/",
+  "element_type": "drama",
+  "analysis_method": "domain-specific",
+  "content_area_selector": "div.site-content",
+  "drama_items": [
+    {
+      "selector": "div.wrap",
+      "has_image": true,
+      "has_link": true,
+      "text_sample": "Search"
+    },
+    {
+      "selector": "div.body-wrap",
+      "has_image": true,
+      "has_link": true,
+      "text_sample": "Search"
+    },
+    {
+      "selector": "div.c-header__top",
+      "has_image": true,
+      "has_link": true,
+      "text_sample": "Search"
+    },
+    {
+      "selector": "div.main-navigation.style-1",
+      "has_image": true,
+      "has_link": true,
+      "text_sample": "ACCUEIL\nLISTE\nNOUVEAU\nRECHERCHE AV\nVOIR"
+    },
+    {
+      "selector": "div.container",
+      "has_image": true,
+      "has_link": true,
+      "text_sample": "ACCUEIL\nLISTE\nNOUVEAU\nRECHERCHE AV\nVOIRA"
+    }
+  ],
+  "recommended_wait_selector": "div.site-content",
+  "recommended_main_selector": "div.wrap"
+}

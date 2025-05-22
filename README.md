@@ -41,13 +41,72 @@ FloDrama est une plateforme de streaming qui agrège et organise des contenus pr
 
 ## Changements récents
 
-### Migration vers Cloudflare (Mai 2025)
+### Optimisation de l'Infrastructure (Mai 2025)
 
+#### Nettoyage et Optimisation
+- Suppression de la base de données redondante `flodrama-database`
+- Optimisation des espaces de noms KV
+- Mise à jour des scripts de déploiement
+
+#### Sécurité
+- Renforcement des politiques CORS
+- Configuration des en-têtes de sécurité (CSP, HSTS, etc.)
+- Gestion des secrets via les variables d'environnement Cloudflare
+
+### Migration vers Cloudflare (Mai 2024)
 - Migration complète de l'infrastructure AWS/Supabase vers Cloudflare
 - Utilisation de Cloudflare D1 pour remplacer PostgreSQL
 - Remplacement du stockage S3 par Cloudflare R2
 - Migration des vidéos vers Cloudflare Stream
 - Refonte du système de scraping pour utiliser Cloudflare Workers
+
+## Sécurité
+
+### Gestion des Secrets
+Les secrets sensibles sont gérés via les variables d'environnement de Cloudflare Workers. Les secrets ne doivent jamais être commités dans le dépôt.
+
+### Authentification
+- JWT avec expiration courte
+- Refresh tokens avec rotation
+- Protection contre les attaques CSRF
+- Limitation du taux (rate limiting)
+
+### Sécurité des Données
+- Chiffrement des données sensibles au repos
+- Validation stricte des entrées utilisateur
+- Protection contre les injections SQL via D1
+- Journalisation sécurisée des erreurs
+
+## Déploiement
+
+### Prérequis
+- Node.js 18+
+- Wrangler CLI (`npm install -g wrangler`)
+- Compte Cloudflare avec les services activés
+
+### Variables d'Environnement Requises
+```
+# Configuration Google OAuth
+GOOGLE_CLIENT_ID=votre-client-id
+GOOGLE_CLIENT_SECRET=votre-client-secret
+
+# JWT
+JWT_SECRET=votre-secret-tres-securise
+
+# Configuration Cloudflare
+CLOUDFLARE_ACCOUNT_ID=votre-compte-id
+CLOUDFLARE_API_TOKEN=votre-token-api
+```
+
+### Déploiement du Frontend
+```bash
+cd New-FloDrama/frontend
+npm install
+npm run build
+npm run deploy
+```
+
+### Déploiement du Backend
 
 ## Développement local
 

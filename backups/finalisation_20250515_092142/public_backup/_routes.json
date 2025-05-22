@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "include": [
+    "/*"
+  ],
+  "exclude": [
+    "/fallback/*"
+  ],
+  "routes": [
+    {
+      "src": "/fallback/.*\\.json",
+      "dest": "/fallback/$1",
+      "headers": {
+        "Content-Type": "application/json",
+        "Cache-Control": "public, max-age=3600"
+      }
+    }
+  ]
+}

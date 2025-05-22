@@ -1,0 +1,273 @@
+openapi: 3.1.0
+
+info:
+  title: FloDrama API
+  description: |
+    API pour l'application de streaming FloDrama
+    
+    ## Authentification
+    L'API utilise JWT pour l'authentification. Inclure le token dans l'en-tête `Authorization: Bearer <token>`
+    
+    ## Sécurité
+    Toutes les réponses incluent des en-têtes de sécurité renforcés (CSP, HSTS, etc.)
+    
+    ## Environnements
+    - Production : https://flodrama-api.florifavi.workers.dev
+    - Développement : https://flodrama-api-dev.florifavi.workers.dev
+  version: 1.1.0
+  contact:
+    name: Support FloDrama
+    email: support@flodrama.com
+  license:
+    name: Propriétaire
+    url: https://flodrama.com/terms
+
+servers:
+  - url: https://flodrama-api.florifavi.workers.dev
+    description: Production API (Cloudflare Workers)
+  - url: http://localhost:8787
+    description: Développement local
+
+# Configuration de sécurité globale
+security:
+  - bearerAuth: []
+
+# Chemins d'API
+paths:
+  /auth/login:
+    post:
+      summary: Authentification utilisateur
+      tags: [Authentication]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Connexion réussie
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /videos:
+    get:
+      summary: Liste des vidéos
+      tags: [Videos]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+          description: Numéro de la page
+      responses:
+        '200':
+          description: Liste des vidéos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Video'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /videos/{videoId}:
+    get:
+      summary: Détails d'une vidéo
+      tags: [Videos]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: videoId
+          required: true
+          schema:
+            type: string
+          description: ID de la vidéo
+      responses:
+        '200':
+          description: Détails de la vidéo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoDetails'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+# Composants réutilisables
+components:
+  # Schémas de données
+  schemas:
+    # Schéma de base pour les erreurs
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+          example: 400
+        error:
+          type: string
+          example: "Requête invalide"
+        message:
+          type: string
+          example: "Des champs obligatoires sont manquants"
+        details:
+          type: object
+          additionalProperties: true
+    
+    # Authentification
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+          example: utilisateur@example.com
+        password:
+          type: string
+          format: password
+          example: monMotDePasse123!
+    
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JWT d'accès
+        user:
+          $ref: '#/components/schemas/User'
+    
+    # Utilisateur
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        username:
+          type: string
+        role:
+          type: string
+          enum: [user, admin]
+    
+    # Vidéos
+    Video:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        description:
+          type: string
+        thumbnailUrl:
+          type: string
+          format: uri
+        duration:
+          type: integer
+          description: Durée en secondes
+    
+    VideoDetails:
+      allOf:
+        - $ref: '#/components/schemas/Video'
+      properties:
+        streamUrl:
+          type: string
+          format: uri
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+  
+  # Schémas de sécurité
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT d'authentification obtenu via /auth/login
+  
+  # Réponses communes
+  responses:
+    BadRequestError:
+      description: Requête invalide
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: 400
+            error: "Requête invalide"
+            message: "Des champs obligatoires sont manquants"
+    
+    UnauthorizedError:
+      description: Non authentifié ou token invalide
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: 401
+            error: "Non autorisé"
+            message: "Authentification requise"
+    
+    ForbiddenError:
+      description: Accès refusé
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: 403
+            error: "Accès refusé"
+            message: "Vous n'avez pas les droits nécessaires"
+    
+    NotFoundError:
+      description: Ressource non trouvée
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: 404
+            error: "Non trouvé"
+            message: "La ressource demandée n'existe pas"
+    
+    ServerError:
+      description: Erreur serveur
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            status: 500
+            error: "Erreur interne du serveur"
+            message: "Une erreur inattendue s'est produite"

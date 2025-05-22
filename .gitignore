@@ -1,13 +1,9 @@
 # Fichiers générés par le scraping
-Backend/data/
-Backend/.env
-#Backend/reports/
 exported_data/
 
 # Données exportées pour le frontend
-# Note: On garde la structure mais pas les données
-Frontend/public/data/*.json
-Frontend/public/recherche/*.txt
+New-FloDrama/frontend/public/data/*.json
+New-FloDrama/frontend/public/recherche/*.txt
 
 # Environnement Python
 __pycache__/
@@ -16,6 +12,8 @@ __pycache__/
 *.so
 .Python
 env/
+venv/
+ENV/
 build/
 develop-eggs/
 dist/
@@ -30,6 +28,16 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+.python-version
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.pdm.toml
+.pdm-python
+.pdm-build/
+.pdm-python
+.pdm.toml
 
 # Environnement Node.js
 node_modules/
@@ -61,3 +69,44 @@ Backend/api/.env
 
 # Dossier de résultats de scraping
 scraping-results/
+
+# APIs de référence externes
+Apis/
+.env
+
+# Secrets and sensitive data
+*.env
+.env.local
+*.pem
+*.key
+*.crt
+secrets.*
+*_secrets.*
+*_secret.*
+*secret*
+*credentials*
+*password*
+*oauth*
+*client_*
+*_id
+*_secret
+*_token
+*_key
+*_keys
+*_cert
+*_certs
+*_pwd
+*_pass
+*_auth
+*_creds
+*_credential*
+*_confidential*
+*_private*
+*_sensitive*
+*_personal*
+
+# Dossier New-FloDrama (géré comme un sous-projet séparé)
+New-FloDrama/*
+!New-FloDrama/.gitignore
+!New-FloDrama/README.md
+!New-FloDrama/LICENSE

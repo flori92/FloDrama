@@ -1,17 +1,30 @@
 {
   "name": "flodrama-project",
   "version": "1.0.0",
+  "private": true,
   "description": "FloDrama - Plateforme de streaming de dramas, films et animés",
   "scripts": {
-    "start": "node cors-anywhere.js",
-    "install": "cd cors-proxy && npm install && cp cors-anywhere.js ../"
-  },
-  "dependencies": {
-    "axios": "^1.8.4",
-    "cors": "^2.8.5",
-    "express": "^4.21.2"
+    "start": "echo 'Veuillez utiliser les scripts dans le dossier New-FloDrama/frontend'",
+    "docs:serve": "npx serve docs -p 3001",
+    "docs:build": "echo 'La documentation est déjà construite dans le dossier docs/'",
+    "cleanup:databases": "node scripts/cleanup/merge-databases.js",
+    "cleanup:kv": "node scripts/cleanup/cleanup-kv.js",
+    "cleanup:all": "npm run cleanup:databases && npm run cleanup:kv",
+    "postinstall": "chmod +x scripts/cleanup/*.js"
   },
   "engines": {
     "node": ">=18.0.0"
+  },
+  "workspaces": [
+    "New-FloDrama/frontend"
+  ],
+  "devDependencies": {
+    "serve": "^14.2.0"
+  },
+  "dependencies": {
+    "axios": "^1.9.0",
+    "cheerio": "^1.0.0",
+    "fs-extra": "^11.3.0",
+    "playwright": "^1.52.0"
   }
 }

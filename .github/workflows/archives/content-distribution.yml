@@ -1,0 +1,68 @@
+name: Distribution de contenu FloDrama
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Exécution toutes les 6 heures
+  workflow_dispatch:  # Permet le déclenchement manuel
+
+permissions:
+  contents: write  # Permet d'écrire dans le dépôt (commit/push)
+
+jobs:
+  scrape-and-distribute:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Configuration de Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Installation des dépendances
+        run: |
+          npm install axios fs-extra dotenv
+
+      - name: Exécution du scraping via l'API Cloudflare
+        id: scraping
+        run: |
+          node .github/scripts/scrape-content.js
+        env:
+          SCRAPER_API_URL: "https://flodrama-scraper.florifavi.workers.dev"
+          MIN_ITEMS_PER_SOURCE: "100"
+          OUTPUT_DIR: "./Frontend/src/data/content"
+          SOURCES: "vostfree,dramacool,myasiantv,voirdrama,viki,wetv,iqiyi,kocowa,gogoanime,voiranime,nekosama,bollywoodmdb,zee5,hotstar,mydramalist"
+
+      - name: Génération des fichiers par catégorie
+        run: |
+          node .github/scripts/generate-category-files.js
+        env:
+          DATA_DIR: "./Frontend/src/data/content"
+          CATEGORIES: "dramas,animes,films,bollywood,trending,featured"
+          MIN_ITEMS_PER_CATEGORY: "100"
+
+      - name: Vérification des données générées
+        run: |
+          echo "Nombre total d'éléments scrapés: ${{ steps.scraping.outputs.total_items }}"
+          echo "Éléments par catégorie:"
+          echo "- Dramas: ${{ steps.scraping.outputs.dramas_count }}"
+          echo "- Animes: ${{ steps.scraping.outputs.animes_count }}"
+          echo "- Films: ${{ steps.scraping.outputs.films_count }}"
+          echo "- Bollywood: ${{ steps.scraping.outputs.bollywood_count }}"
+
+      - name: Sauvegarde des résultats comme artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: content-data
+          path: Frontend/src/data
+          retention-days: 7
+
+      - name: Commit des changements
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add Frontend/src/data
+          git diff --staged --quiet || git commit -m "🤖 MAJ: Mise à jour automatique des données de contenu (${GITHUB_RUN_ID})"
+          git push

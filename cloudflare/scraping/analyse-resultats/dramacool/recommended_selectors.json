@@ -1,0 +1,32 @@
+{
+  "category": [
+    ".menu-item",
+    ".menu-item-type-custom",
+    ".menu-item-object-custom"
+  ],
+  "drama_item": [
+    ".menu-item",
+    ".menu-item-type-custom",
+    ".menu-item-object-custom"
+  ],
+  "episode_list": [
+    ".list-episode-item",
+    ".show-all",
+    ".list-episode-item-2"
+  ],
+  "episode_item": [
+    ".title",
+    ".block",
+    ".block-tab"
+  ],
+  "video": [
+    ".tab",
+    "#block-tab-video",
+    ".tab-content-video"
+  ],
+  "title": [
+    ".title",
+    ".title",
+    ".content-right-title"
+  ]
+}

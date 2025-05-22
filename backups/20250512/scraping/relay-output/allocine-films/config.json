@@ -1,0 +1,13 @@
+{
+  "source": "allocine-films",
+  "type": "film",
+  "urls": [
+    "https://www.themoviedb.org/movie/popular"
+  ],
+  "selectors": {
+    "main": ".card",
+    "wait": ".page_wrapper"
+  },
+  "minItems": 5,
+  "timestamp": "2025-05-10T12:27:23.758Z"
+}

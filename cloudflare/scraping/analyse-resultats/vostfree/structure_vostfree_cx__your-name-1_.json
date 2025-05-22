@@ -1,0 +1,63 @@
+{
+  "url": "http://ww25.vostfree.cx/your-name-1/?subid1=20250512-1849-2610-9ba9-99c3ad809d24",
+  "title": "vostfree.cx",
+  "elements": {
+    "#target": {
+      "count": 1,
+      "tag": "div",
+      "text": "@media (max-width: 500px) {\n  .header2 {\n    displ",
+      "html": "<div id=\"target\" style=\"opacity: 0\" class=\"hide-sales-banner pk-page-ready\">\n    <div id=\"sales-banner\" class=\"top\">\n        <!-- new div + with JS -->\n<div class=\"header2\" style=\"max-height: 100%; di"
+    },
+    "#sales-banner": {
+      "count": 1,
+      "tag": "div",
+      "text": "@media (max-width: 500px) {\n  .header2 {\n    displ",
+      "html": "<div id=\"sales-banner\" class=\"top\">\n        <!-- new div + with JS -->\n<div class=\"header2\" style=\"max-height: 100%; display: flex; justify-content: center;align-items: center;width: 100%; height: 100"
+    },
+    "#buydomainlink": {
+      "count": 1,
+      "tag": "a",
+      "text": "",
+      "html": "<a href=\"https://www.mydomaincontact.com/index.php?domain_name=ww25.vostfree.cx\" id=\"buydomainlink\" rel=\"nofollow\">\n\t\t\t\t\t<img style=\"display: block; max-width: 100%; max-height: 100%;\" src=\" data:imag"
+    },
+    "#pk-status-message": {
+      "count": 1,
+      "tag": "div",
+      "text": "No Sponsors\n          ww25.vostfree.cx currently d",
+      "html": "<div id=\"pk-status-message\">\n          <h1 data-nosnippet=\"\">No Sponsors</h1>\n          <p data-nosnippet=\"\">ww25.vostfree.cx currently does not have any sponsors for you.</p></div>"
+    },
+    ".hide-sales-banner": {
+      "count": 1,
+      "tag": "div",
+      "text": "@media (max-width: 500px) {\n  .header2 {\n    displ",
+      "html": "<div id=\"target\" style=\"opacity: 0\" class=\"hide-sales-banner pk-page-ready\">\n    <div id=\"sales-banner\" class=\"top\">\n        <!-- new div + with JS -->\n<div class=\"header2\" style=\"max-height: 100%; di"
+    },
+    ".pk-page-ready": {
+      "count": 1,
+      "tag": "div",
+      "text": "@media (max-width: 500px) {\n  .header2 {\n    displ",
+      "html": "<div id=\"target\" style=\"opacity: 0\" class=\"hide-sales-banner pk-page-ready\">\n    <div id=\"sales-banner\" class=\"top\">\n        <!-- new div + with JS -->\n<div class=\"header2\" style=\"max-height: 100%; di"
+    },
+    ".top": {
+      "count": 1,
+      "tag": "div",
+      "text": "@media (max-width: 500px) {\n  .header2 {\n    displ",
+      "html": "<div id=\"sales-banner\" class=\"top\">\n        <!-- new div + with JS -->\n<div class=\"header2\" style=\"max-height: 100%; display: flex; justify-content: center;align-items: center;width: 100%; height: 100"
+    },
+    ".header2": {
+      "count": 1,
+      "tag": "div",
+      "text": "",
+      "html": "<div class=\"header2\" style=\"max-height: 100%; display: flex; justify-content: center;align-items: center;width: 100%; height: 100%;overflow: hidden;\">\n                <a href=\"https://seo.domains/?pbh"
+    }
+  },
+  "specialElements": {
+    "video": 0,
+    "iframe": 0,
+    ".jwplayer": 0,
+    ".plyr": 0,
+    ".video-js": 0,
+    "[data-player]": 0,
+    "[data-video]": 0
+  }
+}

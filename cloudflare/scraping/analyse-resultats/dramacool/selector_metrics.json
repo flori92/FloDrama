@@ -1,0 +1,598 @@
+{
+  "#main-menu": {
+    "count": 1,
+    "types": [
+      "category"
+    ],
+    "urls": []
+  },
+  "#menu-home": {
+    "count": 1,
+    "types": [
+      "category"
+    ],
+    "urls": []
+  },
+  "#menu-item-2500": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  "#menu-item-6685": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  "#menu-item-6676": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  "#menu-item-6696": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  "#menu-item-6679": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  "#menu-item-6688": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  "#menu-item-6720": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  "#menu-item-6725": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  "#menu-item-6715": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  "#menu-item-89253": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  "#menu-item-6694": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  "#menu-item-35945": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  "#menu-item-35946": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  "#menu-item-2506": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  "#menu-item-2504": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  "#menu-item-2507": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  "#block-tab-video": {
+    "count": 1,
+    "types": [
+      "video"
+    ],
+    "urls": []
+  },
+  "#reply-title": {
+    "count": 1,
+    "types": [
+      "title"
+    ],
+    "urls": []
+  },
+  "#comment_post_ID": {
+    "count": 1,
+    "types": [
+      "drama_item"
+    ],
+    "urls": []
+  },
+  "#menu-footer": {
+    "count": 1,
+    "types": [
+      "category"
+    ],
+    "urls": []
+  },
+  "#menu-item-78389": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  "#menu-item-78392": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu_m": {
+    "count": 2,
+    "types": [
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu_mobile": {
+    "count": 2,
+    "types": [
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu_top": {
+    "count": 2,
+    "types": [
+      "category"
+    ],
+    "urls": []
+  },
+  ".navbar": {
+    "count": 2,
+    "types": [
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-type-post_type": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-object-page": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-has-children": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-2500": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".sub-nav": {
+    "count": 2,
+    "types": [
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-type-custom": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-object-custom": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-6685": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-6676": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-6696": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-6679": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-6688": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-6720": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-6725": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-6715": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-89253": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-6694": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-35945": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-35946": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-2506": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-2504": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-2507": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".content": {
+    "count": 1,
+    "types": [
+      "episode_item"
+    ],
+    "urls": []
+  },
+  ".content-left": {
+    "count": 1,
+    "types": [
+      "episode_item"
+    ],
+    "urls": []
+  },
+  ".block": {
+    "count": 1,
+    "types": [
+      "episode_item"
+    ],
+    "urls": []
+  },
+  ".watch-drama": {
+    "count": 1,
+    "types": [
+      "episode_item"
+    ],
+    "urls": []
+  },
+  ".category": {
+    "count": 1,
+    "types": [
+      "category"
+    ],
+    "urls": []
+  },
+  ".block-tab": {
+    "count": 1,
+    "types": [
+      "episode_item"
+    ],
+    "urls": []
+  },
+  ".report2": {
+    "count": 1,
+    "types": [
+      "episode_item"
+    ],
+    "urls": []
+  },
+  ".tab-content-video": {
+    "count": 1,
+    "types": [
+      "video"
+    ],
+    "urls": []
+  },
+  ".tab-video-1": {
+    "count": 1,
+    "types": [
+      "video"
+    ],
+    "urls": []
+  },
+  ".watch_video": {
+    "count": 1,
+    "types": [
+      "video"
+    ],
+    "urls": []
+  },
+  ".watch-iframe": {
+    "count": 1,
+    "types": [
+      "video"
+    ],
+    "urls": []
+  },
+  ".direction": {
+    "count": 1,
+    "types": [
+      "episode_item"
+    ],
+    "urls": []
+  },
+  ".comment-reply-title": {
+    "count": 1,
+    "types": [
+      "title"
+    ],
+    "urls": []
+  },
+  ".comment-form-author": {
+    "count": 1,
+    "types": [
+      "title"
+    ],
+    "urls": []
+  },
+  ".comment-form-cookies-consent": {
+    "count": 1,
+    "types": [
+      "title"
+    ],
+    "urls": []
+  },
+  ".tab": {
+    "count": 1,
+    "types": [
+      "video"
+    ],
+    "urls": []
+  },
+  ".show-all": {
+    "count": 2,
+    "types": [
+      "episode_list",
+      "episode_item"
+    ],
+    "urls": []
+  },
+  ".list-episode-item-2": {
+    "count": 3,
+    "types": [
+      "drama_item",
+      "episode_list",
+      "episode_item"
+    ],
+    "urls": []
+  },
+  ".all-episode": {
+    "count": 1,
+    "types": [
+      "episode_item"
+    ],
+    "urls": []
+  },
+  ".title": {
+    "count": 3,
+    "types": [
+      "episode_item",
+      "title"
+    ],
+    "urls": []
+  },
+  ".list-right": {
+    "count": 2,
+    "types": [
+      "episode_item"
+    ],
+    "urls": []
+  },
+  ".right-tab-2": {
+    "count": 2,
+    "types": [
+      "episode_item"
+    ],
+    "urls": []
+  },
+  ".content-right-title": {
+    "count": 3,
+    "types": [
+      "episode_item",
+      "title"
+    ],
+    "urls": []
+  },
+  ".menu-item-78389": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-privacy-policy": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".menu-item-78392": {
+    "count": 2,
+    "types": [
+      "drama_item",
+      "category"
+    ],
+    "urls": []
+  },
+  ".list-episode-item": {
+    "count": 3,
+    "types": [
+      "drama_item",
+      "episode_list",
+      "episode_item"
+    ],
+    "urls": []
+  }
+}

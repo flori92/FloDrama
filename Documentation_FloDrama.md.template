@@ -1,0 +1,27 @@
+# Documentation FloDrama
+
+## Configuration des services
+
+### Google OAuth
+- **Client ID**: `<votre-client-id>`
+- **Client Secret**: `<votre-client-secret>`
+- **Redirect URI**: `https://votredomaine.com/oauth-callback`
+
+### Cloudflare
+- **Account ID**: `<votre-account-id>`
+- **Worker Name**: `<nom-du-worker>`
+
+## Instructions d'installation
+
+1. Copier les fichiers de template :
+   ```bash
+   cp scripts/configure_env_vars.sh.template scripts/configure_env_vars.sh
+   cp Documentation_FloDrama.md.template Documentation_FloDrama.md
+   ```
+
+2. Remplir les valeurs dans les fichiers copiés
+3. Ne jamais commiter les fichiers contenant des secrets !
+
+## Sécurité
+
+Toutes les informations sensibles doivent être stockées dans des variables d'environnement et ne jamais être incluses directement dans le code source.

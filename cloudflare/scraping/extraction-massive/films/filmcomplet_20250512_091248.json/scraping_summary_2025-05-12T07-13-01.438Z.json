@@ -1,0 +1,16 @@
+{
+  "total_duration": "12.61",
+  "total_sources": 1,
+  "total_errors": 0,
+  "total_items": 0,
+  "sources": [
+    {
+      "source": "filmcomplet",
+      "count": 0,
+      "duration": "12.61",
+      "file": "/Users/floriace/FLO_DRAMA/FloDrama/cloudflare/scraping/extraction-massive/films/filmcomplet_20250512_091248.json/filmcomplet_2025-05-12T07-13-01.437Z.json",
+      "is_mock": false,
+      "content_type": "film"
+    }
+  ]
+}

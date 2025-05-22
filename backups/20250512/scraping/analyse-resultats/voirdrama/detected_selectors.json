@@ -1,0 +1,1736 @@
+{
+  "category": [
+    {
+      "selector": "#wp-pagenavi-css",
+      "count": 1,
+      "tag": "link",
+      "sample_text": ""
+    },
+    {
+      "selector": "#menu-item-31",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": "#menu-item-32",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "LISTE"
+    },
+    {
+      "selector": "#menu-item-36483",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "NOUVEAU"
+    },
+    {
+      "selector": "#menu-item-27",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "RECHERCHE AV"
+    },
+    {
+      "selector": "#menu-item-30505",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "VOIRANIME"
+    },
+    {
+      "selector": "#menu-main-menu-1",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "ACCUEIL \nLISTE \nNOUVEAU \nRECHERCHE AV \nVOIRANIME"
+    },
+    {
+      "selector": "#nav-menu-item-31",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": "#nav-menu-item-32",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "LISTE"
+    },
+    {
+      "selector": "#nav-menu-item-36483",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "NOUVEAU"
+    },
+    {
+      "selector": "#nav-menu-item-27",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "RECHERCHE AV"
+    },
+    {
+      "selector": "#nav-menu-item-30505",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "VOIRANIME"
+    },
+    {
+      "selector": "#menu-item-2415",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Action"
+    },
+    {
+      "selector": "#menu-item-2416",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Affaires"
+    },
+    {
+      "selector": "#menu-item-2417",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Amiti\u00e9"
+    },
+    {
+      "selector": "#menu-item-2418",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Arts martiaux"
+    },
+    {
+      "selector": "#menu-item-2419",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Aventure"
+    },
+    {
+      "selector": "#menu-item-2420",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Com\u00e9die"
+    },
+    {
+      "selector": "#menu-item-49",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Plus\n\n\tContexte scolaire\n\tCrime\n\tCulinaire\n\tDocume"
+    },
+    {
+      "selector": "#menu-item-2421",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Contexte scolaire"
+    },
+    {
+      "selector": "#menu-item-2422",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Crime"
+    },
+    {
+      "selector": "#menu-item-2423",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Culinaire"
+    },
+    {
+      "selector": "#menu-item-2424",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Documentaire"
+    },
+    {
+      "selector": "#menu-item-2425",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drame"
+    },
+    {
+      "selector": "#menu-item-2426",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Famille"
+    },
+    {
+      "selector": "#menu-item-2427",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Fantastique"
+    },
+    {
+      "selector": "#menu-item-2428",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Guerre"
+    },
+    {
+      "selector": "#menu-item-2429",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Historique"
+    },
+    {
+      "selector": "#menu-item-2430",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Horreur"
+    },
+    {
+      "selector": "#menu-item-2431",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Jeunesse"
+    },
+    {
+      "selector": "#menu-item-2432",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Judiciaire"
+    },
+    {
+      "selector": "#menu-item-2433",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Mature"
+    },
+    {
+      "selector": "#menu-item-2434",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "M\u00e9dical"
+    },
+    {
+      "selector": "#menu-item-2435",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "M\u00e9lodrame"
+    },
+    {
+      "selector": "#menu-item-2436",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Militaire"
+    },
+    {
+      "selector": "#menu-item-2437",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Musique"
+    },
+    {
+      "selector": "#menu-item-2438",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Myst\u00e8re"
+    },
+    {
+      "selector": "#menu-item-2439",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Politique"
+    },
+    {
+      "selector": "#menu-item-2440",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Psychologique"
+    },
+    {
+      "selector": "#menu-item-2441",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Romance"
+    },
+    {
+      "selector": "#menu-item-2442",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "SF"
+    },
+    {
+      "selector": "#menu-item-2443",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Sitcom"
+    },
+    {
+      "selector": "#menu-item-2444",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Sport"
+    },
+    {
+      "selector": "#menu-item-2445",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Surnaturel"
+    },
+    {
+      "selector": "#menu-item-2446",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Thriller"
+    },
+    {
+      "selector": "#menu-item-2447",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Tokusatsu"
+    },
+    {
+      "selector": "#menu-item-2448",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Vie quotidienne"
+    },
+    {
+      "selector": "#menu-item-2449",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Wuxia"
+    },
+    {
+      "selector": "#manga-reading-nav-head",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Home                                    \n         "
+    },
+    {
+      "selector": "#manga-reading-nav-foot",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR"
+    },
+    {
+      "selector": "#menu-item-2254",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "CONTACT"
+    },
+    {
+      "selector": "#jquery-ui-menu-js",
+      "count": 1,
+      "tag": "script",
+      "sample_text": ""
+    },
+    {
+      "selector": "#wp-manga-js-extra",
+      "count": 1,
+      "tag": "script",
+      "sample_text": "/* <![CDATA[ */\nvar mangaNav = {\"mangaUrl\":\"https:"
+    },
+    {
+      "selector": ".keyboard-navigate",
+      "count": 1,
+      "tag": "body",
+      "sample_text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              "
+    },
+    {
+      "selector": ".header-style-1",
+      "count": 1,
+      "tag": "body",
+      "sample_text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              "
+    },
+    {
+      "selector": ".site-header",
+      "count": 1,
+      "tag": "header",
+      "sample_text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              "
+    },
+    {
+      "selector": ".c-header__top",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              "
+    },
+    {
+      "selector": ".search-main-menu",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              "
+    },
+    {
+      "selector": ".main-navigation",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "ACCUEIL\nLISTE\nNOUVEAU\nRECHERCHE AV\nVOIRANIME"
+    },
+    {
+      "selector": ".main-navigation_wrap",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "ACCUEIL\nLISTE\nNOUVEAU\nRECHERCHE AV\nVOIRANIME"
+    },
+    {
+      "selector": ".main-menu",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "ACCUEIL\nLISTE\nNOUVEAU\nRECHERCHE AV\nVOIRANIME"
+    },
+    {
+      "selector": ".nav",
+      "count": 4,
+      "tag": "ul",
+      "sample_text": "ACCUEIL\nLISTE\nNOUVEAU\nRECHERCHE AV\nVOIRANIME"
+    },
+    {
+      "selector": ".navbar-nav",
+      "count": 2,
+      "tag": "ul",
+      "sample_text": "ACCUEIL\nLISTE\nNOUVEAU\nRECHERCHE AV\nVOIRANIME"
+    },
+    {
+      "selector": ".main-navbar",
+      "count": 2,
+      "tag": "ul",
+      "sample_text": "ACCUEIL\nLISTE\nNOUVEAU\nRECHERCHE AV\nVOIRANIME"
+    },
+    {
+      "selector": ".menu-item",
+      "count": 47,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-type-post_type",
+      "count": 6,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-object-page",
+      "count": 6,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-home",
+      "count": 2,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-31",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-32",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "LISTE"
+    },
+    {
+      "selector": ".menu-item-36483",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "NOUVEAU"
+    },
+    {
+      "selector": ".menu-item-type-custom",
+      "count": 6,
+      "tag": "li",
+      "sample_text": "RECHERCHE AV"
+    },
+    {
+      "selector": ".menu-item-object-custom",
+      "count": 6,
+      "tag": "li",
+      "sample_text": "RECHERCHE AV"
+    },
+    {
+      "selector": ".menu-item-27",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "RECHERCHE AV"
+    },
+    {
+      "selector": ".menu-item-30505",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "VOIRANIME"
+    },
+    {
+      "selector": ".search-navigation",
+      "count": 1,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".search-navigation__wrap",
+      "count": 1,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".main-menu-search",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": ""
+    },
+    {
+      "selector": ".nav-menu",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": ""
+    },
+    {
+      "selector": ".menu-search",
+      "count": 1,
+      "tag": "li",
+      "sample_text": ""
+    },
+    {
+      "selector": ".open-search-main-menu",
+      "count": 1,
+      "tag": "a",
+      "sample_text": ""
+    },
+    {
+      "selector": ".c-togle__menu",
+      "count": 1,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".menu_icon__open",
+      "count": 1,
+      "tag": "button",
+      "sample_text": ""
+    },
+    {
+      "selector": ".mobile-menu",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Se connecter\n            \n\n            \n          "
+    },
+    {
+      "selector": ".menu-collapse",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Se connecter\n            \n\n            \n          "
+    },
+    {
+      "selector": ".close-nav",
+      "count": 1,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".menu_icon__close",
+      "count": 1,
+      "tag": "button",
+      "sample_text": ""
+    },
+    {
+      "selector": ".off-menu",
+      "count": 1,
+      "tag": "nav",
+      "sample_text": "ACCUEIL \nLISTE \nNOUVEAU \nRECHERCHE AV \nVOIRANIME"
+    },
+    {
+      "selector": ".main-menu-item",
+      "count": 5,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-depth-0",
+      "count": 5,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-link",
+      "count": 5,
+      "tag": "a",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".main-menu-link",
+      "count": 5,
+      "tag": "a",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".clone-header",
+      "count": 1,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".c-sub-header-nav",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Action\nAffaires\nAmiti\u00e9\nArts martiaux\nAventure\nCom\u00e9"
+    },
+    {
+      "selector": ".c-sub-nav_wrap",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Action\nAffaires\nAmiti\u00e9\nArts martiaux\nAventure\nCom\u00e9"
+    },
+    {
+      "selector": ".sub-nav_content",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Action\nAffaires\nAmiti\u00e9\nArts martiaux\nAventure\nCom\u00e9"
+    },
+    {
+      "selector": ".sub-nav_list",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "Action\nAffaires\nAmiti\u00e9\nArts martiaux\nAventure\nCom\u00e9"
+    },
+    {
+      "selector": ".second-menu",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "Action\nAffaires\nAmiti\u00e9\nArts martiaux\nAventure\nCom\u00e9"
+    },
+    {
+      "selector": ".menu-item-type-taxonomy",
+      "count": 35,
+      "tag": "li",
+      "sample_text": "Action"
+    },
+    {
+      "selector": ".menu-item-object-wp-manga-genre",
+      "count": 35,
+      "tag": "li",
+      "sample_text": "Action"
+    },
+    {
+      "selector": ".menu-item-2415",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Action"
+    },
+    {
+      "selector": ".menu-item-2416",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Affaires"
+    },
+    {
+      "selector": ".menu-item-2417",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Amiti\u00e9"
+    },
+    {
+      "selector": ".menu-item-2418",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Arts martiaux"
+    },
+    {
+      "selector": ".menu-item-2419",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Aventure"
+    },
+    {
+      "selector": ".current-menu-parent",
+      "count": 2,
+      "tag": "li",
+      "sample_text": "Com\u00e9die"
+    },
+    {
+      "selector": ".menu-item-2420",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Com\u00e9die"
+    },
+    {
+      "selector": ".menu-item-has-children",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Plus\n\n\tContexte scolaire\n\tCrime\n\tCulinaire\n\tDocume"
+    },
+    {
+      "selector": ".menu-item-49",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Plus\n\n\tContexte scolaire\n\tCrime\n\tCulinaire\n\tDocume"
+    },
+    {
+      "selector": ".sub-menu",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "Contexte scolaire\n\tCrime\n\tCulinaire\n\tDocumentaire\n"
+    },
+    {
+      "selector": ".menu-item-2421",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Contexte scolaire"
+    },
+    {
+      "selector": ".menu-item-2422",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Crime"
+    },
+    {
+      "selector": ".menu-item-2423",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Culinaire"
+    },
+    {
+      "selector": ".menu-item-2424",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Documentaire"
+    },
+    {
+      "selector": ".menu-item-2425",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drame"
+    },
+    {
+      "selector": ".menu-item-2426",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Famille"
+    },
+    {
+      "selector": ".menu-item-2427",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Fantastique"
+    },
+    {
+      "selector": ".menu-item-2428",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Guerre"
+    },
+    {
+      "selector": ".menu-item-2429",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Historique"
+    },
+    {
+      "selector": ".menu-item-2430",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Horreur"
+    },
+    {
+      "selector": ".menu-item-2431",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Jeunesse"
+    },
+    {
+      "selector": ".menu-item-2432",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Judiciaire"
+    },
+    {
+      "selector": ".menu-item-2433",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Mature"
+    },
+    {
+      "selector": ".menu-item-2434",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "M\u00e9dical"
+    },
+    {
+      "selector": ".menu-item-2435",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "M\u00e9lodrame"
+    },
+    {
+      "selector": ".menu-item-2436",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Militaire"
+    },
+    {
+      "selector": ".menu-item-2437",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Musique"
+    },
+    {
+      "selector": ".menu-item-2438",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Myst\u00e8re"
+    },
+    {
+      "selector": ".menu-item-2439",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Politique"
+    },
+    {
+      "selector": ".menu-item-2440",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Psychologique"
+    },
+    {
+      "selector": ".menu-item-2441",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Romance"
+    },
+    {
+      "selector": ".menu-item-2442",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "SF"
+    },
+    {
+      "selector": ".menu-item-2443",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Sitcom"
+    },
+    {
+      "selector": ".menu-item-2444",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Sport"
+    },
+    {
+      "selector": ".menu-item-2445",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Surnaturel"
+    },
+    {
+      "selector": ".menu-item-2446",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Thriller"
+    },
+    {
+      "selector": ".menu-item-2447",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Tokusatsu"
+    },
+    {
+      "selector": ".menu-item-2448",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Vie quotidienne"
+    },
+    {
+      "selector": ".menu-item-2449",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Wuxia"
+    },
+    {
+      "selector": ".entry-header",
+      "count": 3,
+      "tag": "div",
+      "sample_text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR"
+    },
+    {
+      "selector": ".wp-manga-nav",
+      "count": 3,
+      "tag": "div",
+      "sample_text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR"
+    },
+    {
+      "selector": ".nav-links",
+      "count": 3,
+      "tag": "div",
+      "sample_text": "Prev"
+    },
+    {
+      "selector": ".nav-previous",
+      "count": 3,
+      "tag": "div",
+      "sample_text": "Prev"
+    },
+    {
+      "selector": ".header",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Home                                    \n         "
+    },
+    {
+      "selector": ".entry-header_wrap",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Home                                    \n         "
+    },
+    {
+      "selector": ".nav-footer",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "CONTACT"
+    },
+    {
+      "selector": ".font-nav",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": "CONTACT"
+    },
+    {
+      "selector": ".menu-item-2254",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "CONTACT"
+    },
+    {
+      "selector": ".modal-header",
+      "count": 3,
+      "tag": "div",
+      "sample_text": "\u00d7"
+    }
+  ],
+  "drama_list": [],
+  "drama_item": [
+    {
+      "selector": "#menu-item-31",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": "#menu-item-32",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "LISTE"
+    },
+    {
+      "selector": "#menu-item-36483",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "NOUVEAU"
+    },
+    {
+      "selector": "#menu-item-27",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "RECHERCHE AV"
+    },
+    {
+      "selector": "#menu-item-30505",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "VOIRANIME"
+    },
+    {
+      "selector": "#nav-menu-item-31",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": "#nav-menu-item-32",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "LISTE"
+    },
+    {
+      "selector": "#nav-menu-item-36483",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "NOUVEAU"
+    },
+    {
+      "selector": "#nav-menu-item-27",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "RECHERCHE AV"
+    },
+    {
+      "selector": "#nav-menu-item-30505",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "VOIRANIME"
+    },
+    {
+      "selector": "#menu-item-2415",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Action"
+    },
+    {
+      "selector": "#menu-item-2416",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Affaires"
+    },
+    {
+      "selector": "#menu-item-2417",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Amiti\u00e9"
+    },
+    {
+      "selector": "#menu-item-2418",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Arts martiaux"
+    },
+    {
+      "selector": "#menu-item-2419",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Aventure"
+    },
+    {
+      "selector": "#menu-item-2420",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Com\u00e9die"
+    },
+    {
+      "selector": "#menu-item-49",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Plus\n\n\tContexte scolaire\n\tCrime\n\tCulinaire\n\tDocume"
+    },
+    {
+      "selector": "#menu-item-2421",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Contexte scolaire"
+    },
+    {
+      "selector": "#menu-item-2422",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Crime"
+    },
+    {
+      "selector": "#menu-item-2423",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Culinaire"
+    },
+    {
+      "selector": "#menu-item-2424",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Documentaire"
+    },
+    {
+      "selector": "#menu-item-2425",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drame"
+    },
+    {
+      "selector": "#menu-item-2426",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Famille"
+    },
+    {
+      "selector": "#menu-item-2427",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Fantastique"
+    },
+    {
+      "selector": "#menu-item-2428",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Guerre"
+    },
+    {
+      "selector": "#menu-item-2429",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Historique"
+    },
+    {
+      "selector": "#menu-item-2430",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Horreur"
+    },
+    {
+      "selector": "#menu-item-2431",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Jeunesse"
+    },
+    {
+      "selector": "#menu-item-2432",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Judiciaire"
+    },
+    {
+      "selector": "#menu-item-2433",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Mature"
+    },
+    {
+      "selector": "#menu-item-2434",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "M\u00e9dical"
+    },
+    {
+      "selector": "#menu-item-2435",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "M\u00e9lodrame"
+    },
+    {
+      "selector": "#menu-item-2436",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Militaire"
+    },
+    {
+      "selector": "#menu-item-2437",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Musique"
+    },
+    {
+      "selector": "#menu-item-2438",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Myst\u00e8re"
+    },
+    {
+      "selector": "#menu-item-2439",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Politique"
+    },
+    {
+      "selector": "#menu-item-2440",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Psychologique"
+    },
+    {
+      "selector": "#menu-item-2441",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Romance"
+    },
+    {
+      "selector": "#menu-item-2442",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "SF"
+    },
+    {
+      "selector": "#menu-item-2443",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Sitcom"
+    },
+    {
+      "selector": "#menu-item-2444",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Sport"
+    },
+    {
+      "selector": "#menu-item-2445",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Surnaturel"
+    },
+    {
+      "selector": "#menu-item-2446",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Thriller"
+    },
+    {
+      "selector": "#menu-item-2447",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Tokusatsu"
+    },
+    {
+      "selector": "#menu-item-2448",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Vie quotidienne"
+    },
+    {
+      "selector": "#menu-item-2449",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Wuxia"
+    },
+    {
+      "selector": "#menu-item-2254",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "CONTACT"
+    },
+    {
+      "selector": ".postid-71682",
+      "count": 1,
+      "tag": "body",
+      "sample_text": "Search\t\t\n\t\t\n\t\t\t\t\t\n\t\t\n\t\n\n\t\n    \n    \n              "
+    },
+    {
+      "selector": ".asp_item_overlay",
+      "count": 4,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".asp_item_inner",
+      "count": 4,
+      "tag": "div",
+      "sample_text": ""
+    },
+    {
+      "selector": ".menu-item",
+      "count": 47,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-type-post_type",
+      "count": 6,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-object-page",
+      "count": 6,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-home",
+      "count": 2,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-31",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-32",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "LISTE"
+    },
+    {
+      "selector": ".menu-item-36483",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "NOUVEAU"
+    },
+    {
+      "selector": ".menu-item-type-custom",
+      "count": 6,
+      "tag": "li",
+      "sample_text": "RECHERCHE AV"
+    },
+    {
+      "selector": ".menu-item-object-custom",
+      "count": 6,
+      "tag": "li",
+      "sample_text": "RECHERCHE AV"
+    },
+    {
+      "selector": ".menu-item-27",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "RECHERCHE AV"
+    },
+    {
+      "selector": ".menu-item-30505",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "VOIRANIME"
+    },
+    {
+      "selector": ".c-modal_item",
+      "count": 2,
+      "tag": "div",
+      "sample_text": "Se connecter\n            \n\n            \n          "
+    },
+    {
+      "selector": ".main-menu-item",
+      "count": 5,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-depth-0",
+      "count": 5,
+      "tag": "li",
+      "sample_text": "ACCUEIL"
+    },
+    {
+      "selector": ".menu-item-type-taxonomy",
+      "count": 35,
+      "tag": "li",
+      "sample_text": "Action"
+    },
+    {
+      "selector": ".menu-item-object-wp-manga-genre",
+      "count": 35,
+      "tag": "li",
+      "sample_text": "Action"
+    },
+    {
+      "selector": ".menu-item-2415",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Action"
+    },
+    {
+      "selector": ".menu-item-2416",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Affaires"
+    },
+    {
+      "selector": ".menu-item-2417",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Amiti\u00e9"
+    },
+    {
+      "selector": ".menu-item-2418",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Arts martiaux"
+    },
+    {
+      "selector": ".menu-item-2419",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Aventure"
+    },
+    {
+      "selector": ".menu-item-2420",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Com\u00e9die"
+    },
+    {
+      "selector": ".menu-item-has-children",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Plus\n\n\tContexte scolaire\n\tCrime\n\tCulinaire\n\tDocume"
+    },
+    {
+      "selector": ".menu-item-49",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Plus\n\n\tContexte scolaire\n\tCrime\n\tCulinaire\n\tDocume"
+    },
+    {
+      "selector": ".menu-item-2421",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Contexte scolaire"
+    },
+    {
+      "selector": ".menu-item-2422",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Crime"
+    },
+    {
+      "selector": ".menu-item-2423",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Culinaire"
+    },
+    {
+      "selector": ".menu-item-2424",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Documentaire"
+    },
+    {
+      "selector": ".menu-item-2425",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Drame"
+    },
+    {
+      "selector": ".menu-item-2426",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Famille"
+    },
+    {
+      "selector": ".menu-item-2427",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Fantastique"
+    },
+    {
+      "selector": ".menu-item-2428",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Guerre"
+    },
+    {
+      "selector": ".menu-item-2429",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Historique"
+    },
+    {
+      "selector": ".menu-item-2430",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Horreur"
+    },
+    {
+      "selector": ".menu-item-2431",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Jeunesse"
+    },
+    {
+      "selector": ".menu-item-2432",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Judiciaire"
+    },
+    {
+      "selector": ".menu-item-2433",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Mature"
+    },
+    {
+      "selector": ".menu-item-2434",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "M\u00e9dical"
+    },
+    {
+      "selector": ".menu-item-2435",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "M\u00e9lodrame"
+    },
+    {
+      "selector": ".menu-item-2436",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Militaire"
+    },
+    {
+      "selector": ".menu-item-2437",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Musique"
+    },
+    {
+      "selector": ".menu-item-2438",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Myst\u00e8re"
+    },
+    {
+      "selector": ".menu-item-2439",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Politique"
+    },
+    {
+      "selector": ".menu-item-2440",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Psychologique"
+    },
+    {
+      "selector": ".menu-item-2441",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Romance"
+    },
+    {
+      "selector": ".menu-item-2442",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "SF"
+    },
+    {
+      "selector": ".menu-item-2443",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Sitcom"
+    },
+    {
+      "selector": ".menu-item-2444",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Sport"
+    },
+    {
+      "selector": ".menu-item-2445",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Surnaturel"
+    },
+    {
+      "selector": ".menu-item-2446",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Thriller"
+    },
+    {
+      "selector": ".menu-item-2447",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Tokusatsu"
+    },
+    {
+      "selector": ".menu-item-2448",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Vie quotidienne"
+    },
+    {
+      "selector": ".menu-item-2449",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "Wuxia"
+    },
+    {
+      "selector": ".c-blog-post",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Home                                    \n         "
+    },
+    {
+      "selector": ".social_account__item",
+      "count": 1,
+      "tag": "ul",
+      "sample_text": ""
+    },
+    {
+      "selector": ".menu-item-2254",
+      "count": 1,
+      "tag": "li",
+      "sample_text": "CONTACT"
+    },
+    {
+      "selector": ".copyright",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Regarder gratuitement vos dramas en HD sur VOIRDRA"
+    }
+  ],
+  "episode_list": [],
+  "episode_item": [],
+  "player": [
+    {
+      "selector": "#manga-reading-nav-foot",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR"
+    },
+    {
+      "selector": ".entry-header",
+      "count": 3,
+      "tag": "div",
+      "sample_text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR"
+    },
+    {
+      "selector": ".wp-manga-nav",
+      "count": 3,
+      "tag": "div",
+      "sample_text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR"
+    },
+    {
+      "selector": ".select-view",
+      "count": 3,
+      "tag": "div",
+      "sample_text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR"
+    },
+    {
+      "selector": ".c-selectpicker",
+      "count": 9,
+      "tag": "div",
+      "sample_text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR"
+    },
+    {
+      "selector": ".selectpicker_version",
+      "count": 3,
+      "tag": "div",
+      "sample_text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR"
+    },
+    {
+      "selector": ".selectpicker",
+      "count": 6,
+      "tag": "select",
+      "sample_text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR"
+    },
+    {
+      "selector": ".host-select",
+      "count": 3,
+      "tag": "select",
+      "sample_text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR"
+    },
+    {
+      "selector": ".footer",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "\u2630 LECTEUR 6 VIDM\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\u2630 LECTEUR"
+    }
+  ],
+  "video": [
+    {
+      "selector": "#chapter-video-frame",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Valider"
+    },
+    {
+      "selector": "#chapter-video-captcha-validator",
+      "count": 1,
+      "tag": "form",
+      "sample_text": "Valider"
+    },
+    {
+      "selector": ".video-light",
+      "count": 3,
+      "tag": "a",
+      "sample_text": "Light off Light on"
+    },
+    {
+      "selector": ".chapter-type-video",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Home                                    \n         "
+    },
+    {
+      "selector": ".chapter-video-frame",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Valider"
+    },
+    {
+      "selector": ".chapter-video-content-validator",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "Valider"
+    }
+  ],
+  "metadata": [
+    {
+      "selector": "#loginform",
+      "count": 1,
+      "tag": "form",
+      "sample_text": "Email ou Nom d'utilisateur *                      "
+    }
+  ],
+  "title": [
+    {
+      "selector": "#madara-css-inline-css",
+      "count": 1,
+      "tag": "style",
+      "sample_text": ".c-blog__heading.style-2 i:after, .settings-page ."
+    },
+    {
+      "selector": "#set_title7_1",
+      "count": 1,
+      "tag": "input",
+      "sample_text": ""
+    },
+    {
+      "selector": "#set_title6_1",
+      "count": 1,
+      "tag": "input",
+      "sample_text": ""
+    },
+    {
+      "selector": "#reply-title",
+      "count": 1,
+      "tag": "h4",
+      "sample_text": "Laisser un commentaire Cancel reply"
+    },
+    {
+      "selector": "#set_title7_2",
+      "count": 1,
+      "tag": "input",
+      "sample_text": ""
+    },
+    {
+      "selector": "#set_title6_2",
+      "count": 1,
+      "tag": "input",
+      "sample_text": ""
+    },
+    {
+      "selector": "#resetform",
+      "count": 1,
+      "tag": "form",
+      "sample_text": "Username or Email Address"
+    },
+    {
+      "selector": ".c-blog__heading",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "DISCUSSION \n\n\t\t\t\t                    \n            "
+    },
+    {
+      "selector": ".font-heading",
+      "count": 1,
+      "tag": "div",
+      "sample_text": "DISCUSSION \n\n\t\t\t\t                    \n            "
+    },
+    {
+      "selector": ".comment-reply-title",
+      "count": 1,
+      "tag": "h4",
+      "sample_text": "Laisser un commentaire Cancel reply"
+    },
+    {
+      "selector": ".comments-title",
+      "count": 1,
+      "tag": "h4",
+      "sample_text": "2 Comments"
+    },
+    {
+      "selector": ".heading",
+      "count": 2,
+      "tag": "h6",
+      "sample_text": "Sdo.23"
+    },
+    {
+      "selector": ".reset",
+      "count": 1,
+      "tag": "p",
+      "sample_text": "Please enter your username or email address. You w"
+    }
+  ],
+  "image": [
+    {
+      "selector": "#imagesloaded-js",
+      "count": 1,
+      "tag": "script",
+      "sample_text": ""
+    }
+  ],
+  "trailer": []
+}

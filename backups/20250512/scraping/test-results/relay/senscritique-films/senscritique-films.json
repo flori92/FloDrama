@@ -1,0 +1,122 @@
+[
+  {
+    "id": "mock-senscritique-films-0",
+    "title": "Titre de test 1 pour senscritique-films",
+    "original_title": "Test Title 1 for senscritique-films",
+    "description": "Ceci est une description générée automatiquement pour le test 1 de la source senscritique-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=senscritique-films",
+    "rating": "0.0",
+    "year": 2023,
+    "source": "senscritique-films",
+    "type": "film",
+    "url": "https://example.com/senscritique-films/1"
+  },
+  {
+    "id": "mock-senscritique-films-1",
+    "title": "Titre de test 2 pour senscritique-films",
+    "original_title": "Test Title 2 for senscritique-films",
+    "description": "Ceci est une description générée automatiquement pour le test 2 de la source senscritique-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=senscritique-films",
+    "rating": "0.2",
+    "year": 2020,
+    "source": "senscritique-films",
+    "type": "film",
+    "url": "https://example.com/senscritique-films/2"
+  },
+  {
+    "id": "mock-senscritique-films-2",
+    "title": "Titre de test 3 pour senscritique-films",
+    "original_title": "Test Title 3 for senscritique-films",
+    "description": "Ceci est une description générée automatiquement pour le test 3 de la source senscritique-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=senscritique-films",
+    "rating": "0.6",
+    "year": 2023,
+    "source": "senscritique-films",
+    "type": "film",
+    "url": "https://example.com/senscritique-films/3"
+  },
+  {
+    "id": "mock-senscritique-films-3",
+    "title": "Titre de test 4 pour senscritique-films",
+    "original_title": "Test Title 4 for senscritique-films",
+    "description": "Ceci est une description générée automatiquement pour le test 4 de la source senscritique-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=senscritique-films",
+    "rating": "4.6",
+    "year": 2022,
+    "source": "senscritique-films",
+    "type": "film",
+    "url": "https://example.com/senscritique-films/4"
+  },
+  {
+    "id": "mock-senscritique-films-4",
+    "title": "Titre de test 5 pour senscritique-films",
+    "original_title": "Test Title 5 for senscritique-films",
+    "description": "Ceci est une description générée automatiquement pour le test 5 de la source senscritique-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=senscritique-films",
+    "rating": "3.8",
+    "year": 2024,
+    "source": "senscritique-films",
+    "type": "film",
+    "url": "https://example.com/senscritique-films/5"
+  },
+  {
+    "id": "mock-senscritique-films-5",
+    "title": "Titre de test 6 pour senscritique-films",
+    "original_title": "Test Title 6 for senscritique-films",
+    "description": "Ceci est une description générée automatiquement pour le test 6 de la source senscritique-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=senscritique-films",
+    "rating": "4.4",
+    "year": 2022,
+    "source": "senscritique-films",
+    "type": "film",
+    "url": "https://example.com/senscritique-films/6"
+  },
+  {
+    "id": "mock-senscritique-films-6",
+    "title": "Titre de test 7 pour senscritique-films",
+    "original_title": "Test Title 7 for senscritique-films",
+    "description": "Ceci est une description générée automatiquement pour le test 7 de la source senscritique-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=senscritique-films",
+    "rating": "0.8",
+    "year": 2023,
+    "source": "senscritique-films",
+    "type": "film",
+    "url": "https://example.com/senscritique-films/7"
+  },
+  {
+    "id": "mock-senscritique-films-7",
+    "title": "Titre de test 8 pour senscritique-films",
+    "original_title": "Test Title 8 for senscritique-films",
+    "description": "Ceci est une description générée automatiquement pour le test 8 de la source senscritique-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=senscritique-films",
+    "rating": "1.3",
+    "year": 2024,
+    "source": "senscritique-films",
+    "type": "film",
+    "url": "https://example.com/senscritique-films/8"
+  },
+  {
+    "id": "mock-senscritique-films-8",
+    "title": "Titre de test 9 pour senscritique-films",
+    "original_title": "Test Title 9 for senscritique-films",
+    "description": "Ceci est une description générée automatiquement pour le test 9 de la source senscritique-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=senscritique-films",
+    "rating": "4.2",
+    "year": 2022,
+    "source": "senscritique-films",
+    "type": "film",
+    "url": "https://example.com/senscritique-films/9"
+  },
+  {
+    "id": "mock-senscritique-films-9",
+    "title": "Titre de test 10 pour senscritique-films",
+    "original_title": "Test Title 10 for senscritique-films",
+    "description": "Ceci est une description générée automatiquement pour le test 10 de la source senscritique-films.",
+    "poster_url": "https://via.placeholder.com/300x450.png?text=senscritique-films",
+    "rating": "1.3",
+    "year": 2023,
+    "source": "senscritique-films",
+    "type": "film",
+    "url": "https://example.com/senscritique-films/10"
+  }
+]

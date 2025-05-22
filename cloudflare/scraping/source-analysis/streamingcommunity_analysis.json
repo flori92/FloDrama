@@ -1,0 +1,5 @@
+{
+  "title_selector": "h1.film-title",
+  "recommended_wait_selector": ".film-list",
+  "recommended_main_selector": ".film-item"
+}

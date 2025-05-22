@@ -1,0 +1,25 @@
+name = "flodrama-api-prod"
+main = "flodrama-content-api.js"
+compatibility_date = "2023-05-12"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+ENVIRONMENT = "production"
+
+[[kv_namespaces]]
+binding = "FLODRAMA_CACHE"
+id = "ada213d1add84b768c79060645a80c9e"
+
+[triggers]
+crons = ["0 */6 * * *"] # Exécution toutes les 6 heures pour rafraîchir le cache
+
+[build]
+command = "npm run build"
+
+[env.staging]
+name = "flodrama-content-api-staging"
+[env.staging.vars]
+ENVIRONMENT = "staging"
+[[env.staging.kv_namespaces]]
+binding = "FLODRAMA_CACHE"
+id = "a7a5b05861ef432a99d15e5938483fcf"
