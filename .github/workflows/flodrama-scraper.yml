@@ -33,6 +33,11 @@ on:
         description: 'Sources à scraper (séparées par des virgules, vide = toutes)'
         required: false
         type: string
+      recent_only:
+        description: 'Ne scraper que les contenus récents (année courante - 2 ans)'
+        required: false
+        default: true
+        type: boolean
   
   # Exécution planifiée (tous les jours à 2h du matin)
   schedule:
@@ -123,8 +128,63 @@ jobs:
             echo "Scraping de toutes les sources"
           fi
           
+          # Déterminer si on ne scrape que les contenus récents
+          RECENT_ONLY="${{ github.event.inputs.recent_only != 'false' }}"
+          if [ "$RECENT_ONLY" = "true" ]; then
+            # Calculer la plage d'années dynamique (année courante - 2 ans)
+            CURRENT_YEAR=$(date +"%Y")
+            MIN_YEAR=$((CURRENT_YEAR - 2))
+            echo "Filtrage activé: uniquement les contenus entre $MIN_YEAR et $CURRENT_YEAR"
+            YEARS_ARG="--years=$MIN_YEAR,$CURRENT_YEAR"
+          else
+            echo "Aucun filtrage par année: tous les contenus seront scrapés"
+            YEARS_ARG=""
+          fi
+          
           # Exécuter le script de scraping optimisé
-          node .github/scripts/stealth/scraper-optimise.js $SOURCES_ARG
+          node .github/scripts/stealth/scraper-optimise.js $SOURCES_ARG $YEARS_ARG
+          
+          # Si nous utilisons Cloudflare Workers pour le scraping, lancer également la version Cloudflare
+          if [ "$RECENT_ONLY" = "true" ]; then
+            echo "🔍 Lancement du scraping via Cloudflare Workers..."
+            # Mettre à jour les services Cloudflare avec la plage d'années dynamique
+            cd cloudflare/recommendations
+            
+            # Mettre à jour le service de recommandation pour qu'il utilise la plage d'années dynamique
+            sed -i "s/WHERE release_year BETWEEN [0-9]\{4\} AND [0-9]\{4\}/WHERE release_year BETWEEN $MIN_YEAR AND $CURRENT_YEAR/g" src/services/recommendation-service.js
+            
+            # Déployer les modifications
+            ./deploy.sh
+            
+            # Lancer le scraping pour chaque source via l'API Cloudflare
+            API_KEY=$(grep -o 'API Key: [a-f0-9]\{32\}' deploy.log | cut -d' ' -f3)
+            
+            if [ -n "$API_KEY" ]; then
+              echo "Lancement du scraping via l'API Cloudflare avec la clé: $API_KEY"
+              
+              # Liste des sources à scraper
+              if [ -n "${{ github.event.inputs.sources }}" ]; then
+                IFS=',' read -ra SOURCES <<< "${{ github.event.inputs.sources }}"
+              else
+                SOURCES=("kissasian" "dramacool" "viewasian" "voirdrama" "gogoanime" "nekosama" "voiranime" "vostfree" "streamingdivx" "filmcomplet" "bollyplay" "hindilinks4u")
+              fi
+              
+              for SOURCE in "${SOURCES[@]}"; do
+                echo "Scraping de la source: $SOURCE"
+                curl -X POST https://flodrama-recommendations-prod.florifavi.workers.dev/api/scrape \
+                  -H "X-API-Key: $API_KEY" \
+                  -H "Content-Type: application/json" \
+                  -d '{"source_id": "'$SOURCE'", "target_years": ['$MIN_YEAR', '$CURRENT_YEAR']}'
+                
+                # Attendre 5 secondes entre chaque source
+                sleep 5
+              done
+            else
+              echo "Impossible de récupérer la clé API, le scraping via Cloudflare n'a pas été lancé"
+            fi
+            
+            cd ../..
+          fi
           
           # Vérifier si des données ont été générées
           if [ -d "./cloudflare/scraping/output" ] && [ "$(find ./cloudflare/scraping/output -name '*.json' | wc -l)" -gt 0 ]; then
@@ -167,8 +227,45 @@ jobs:
           cd cloudflare/scraping
           wrangler d1 execute flodrama-content --file=./schema.sql
           
-          # Importer les données
-          node ./import-to-d1.js
+          # Déterminer si on ne distribue que les contenus récents
+          RECENT_ONLY="${{ github.event.inputs.recent_only != 'false' }}"
+          if [ "$RECENT_ONLY" = "true" ]; then
+            # Calculer la plage d'années dynamique (année courante - 2 ans)
+            CURRENT_YEAR=$(date +"%Y")
+            MIN_YEAR=$((CURRENT_YEAR - 2))
+            echo "Filtrage activé: uniquement les contenus entre $MIN_YEAR et $CURRENT_YEAR"
+            
+            # Supprimer les contenus anciens de la base de données
+            echo "Suppression des contenus antérieurs à $MIN_YEAR..."
+            wrangler d1 execute flodrama-content --command="DELETE FROM contents WHERE release_year < $MIN_YEAR"
+            
+            # Importer les données avec le filtre d'année
+            echo "Importation des données récentes uniquement..."
+            node ./import-to-d1.js --min-year=$MIN_YEAR
+          else
+            # Importer toutes les données sans filtre
+            echo "Importation de toutes les données sans filtre d'année..."
+            node ./import-to-d1.js
+          fi
+          
+          # Synchroniser avec la base de données de recommandation
+          echo "Synchronisation avec la base de données de recommandation..."
+          cd ../recommendations
+          
+          # Déployer les modifications si nécessaire
+          if [ "$RECENT_ONLY" = "true" ]; then
+            # Mettre à jour le service de recommandation pour qu'il utilise la plage d'années dynamique
+            CURRENT_YEAR=$(date +"%Y")
+            MIN_YEAR=$((CURRENT_YEAR - 2))
+            
+            # Vérifier si le service a déjà été mis à jour dans l'étape de scraping
+            if ! grep -q "WHERE release_year BETWEEN $MIN_YEAR AND $CURRENT_YEAR" src/services/recommendation-service.js; then
+              sed -i "s/WHERE release_year BETWEEN [0-9]\{4\} AND [0-9]\{4\}/WHERE release_year BETWEEN $MIN_YEAR AND $CURRENT_YEAR/g" src/services/recommendation-service.js
+              ./deploy.sh
+            fi
+          fi
+          
+          cd ../..
           
           echo "✅ Distribution terminée avec succès"
       

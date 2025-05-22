@@ -1,92 +1,51 @@
 /**
  * Configuration des sources pour l'extracteur de streaming
  * Ce fichier définit les paramètres optimisés pour chaque source
- * Dernière mise à jour : 2025-05-22
- * Sources actives : 
- * - Dramas asiatiques : dramacool, viewasian, kissasian, voirdrama
- * - Animes : gogoanime, nekosama, voiranime
- * - Films : vostfree, streamingdivx, filmcomplet
- * - Bollywood : bollyplay, hindilinks4u
+ * Dernière mise à jour : 2025-05-12
  */
 
 module.exports = {
   // Sites de dramas asiatiques
   'dramacool': {
     baseUrl: 'https://dramacool.com.tr',
-    alternativeDomains: ['dramacool9.io', 'dramacool.cr', 'dramacool.sr', 'dramacool.ps'],
+    alternativeDomains: ['dramacool9.io', 'dramacool.cr', 'dramacool.sr'],
     selectors: {
       iframeContainer: '.watch-drama .episode',
       videoContainer: 'iframe',
       videoSource: 'iframe[src*="embed"]',
       qualitySelector: '.Quality',
       waitSelector: '.list-episode-item',
-      itemSelector: '.list-drama-item',
-      title: 'h1.detail .name',
-      poster: '.img-responsive',
-      description: '.description',
-      episodes: '.list-episode-item',
-      episodeTitle: '.episode',
-      episodeUrl: 'a',
-      episodeNumber: '.episode',
-      pagination: '.pagination',
-      nextPage: '.next',
-      itemsList: '.list-movie .item',
-      itemTitle: '.title',
-      itemUrl: 'a',
-      itemImage: 'img',
-      itemYear: '.year',
-      itemRating: '.score'
+      itemSelector: '.list-drama-item'
     },
     headers: {
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
       'Referer': 'https://dramacool.com.tr/'
     },
-    testUrl: 'https://dramacool.com.tr/drama-detail/queen-of-tears',
+    testUrl: 'https://dramacool.com.tr/watch-my-lovable-girl-episode-1-online.html',
     requireCloudflareBypass: true,
     expiryHours: 12,
-    category: 'drama',
-    timeout: 60000,
-    retries: 3,
-    delay: 2000
+    category: 'drama'
   },
   
   'viewasian': {
-    baseUrl: 'https://viewasian.co',
-    alternativeDomains: ['viewasian.lol', 'viewasian.tv', 'viewasian.cc'],
+    baseUrl: 'https://viewasian.lol',
+    alternativeDomains: ['viewasian.tv', 'viewasian.cc'],
     selectors: {
       iframeContainer: '.video-content',
       videoContainer: '.play-video',
       videoSource: 'iframe',
       qualitySelector: '.vjs-resolution-button',
       waitSelector: '.video-content',
-      itemSelector: '.play-video',
-      title: '.info h1',
-      poster: '.info .poster img',
-      description: '.info .content',
-      episodes: '.episode-list a',
-      episodeTitle: '.title',
-      episodeUrl: 'a',
-      episodeNumber: '.episode',
-      pagination: '.pagination',
-      nextPage: '.next',
-      itemsList: '.list-movie .item',
-      itemTitle: '.title',
-      itemUrl: 'a',
-      itemImage: 'img',
-      itemYear: '.year',
-      itemRating: '.score'
+      itemSelector: '.play-video'
     },
     headers: {
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-      'Referer': 'https://viewasian.co/'
+      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
+      'Referer': 'https://viewasian.lol/'
     },
-    testUrl: 'https://viewasian.co/drama/queen-of-tears',
+    testUrl: 'https://viewasian.lol/watch/descendants-of-the-sun-episode-01.html',
     requireCloudflareBypass: true,
     expiryHours: 6,
-    category: 'drama',
-    timeout: 60000,
-    retries: 3,
-    delay: 2000
+    category: 'drama'
   },
   
   'kissasian': {
@@ -176,35 +135,14 @@ module.exports = {
   
   'voiranime': {
     baseUrl: 'https://voiranime.com',
-    alternativeDomains: ['v6.voiranime.com', 'voiranime.tv', 'voiranime.cc', 'voiranime.io'],
+    alternativeDomains: ['v6.voiranime.com', 'voiranime.tv', 'voiranime.cc'],
     selectors: {
       iframeContainer: '.video-player',
-      videoContainer: '.video-player-container iframe',
-      videoSource: 'iframe[src*="m3u8"]',
-      qualitySelector: '.quality-selector',
-      waitSelector: '.anime-detail',
-      itemSelector: '.anime-card',
-      title: '.anime-detail h1',
-      description: '.anime-detail .description',
-      poster: '.anime-poster img',
-      episodes: '.episode-list a',
-      nextPage: '.pagination .next',
-      itemsList: '.anime-list .anime-card',
-      itemTitle: '.anime-card-title',
-      itemUrl: 'a',
-      itemImage: 'img',
-      itemMeta: '.anime-card-meta',
-      itemYear: '.year',
-      itemType: '.type',
-      itemRating: '.rating',
-      itemStatus: '.status',
-      itemEpisodes: '.episodes',
-      itemGenres: '.genres',
       videoContainer: '.player-embed',
       videoSource: 'iframe',
       qualitySelector: '.jw-settings-menu',
-      waitSelector: '.movies-list, .anime-detail', // Sélecteurs d'attente alternatifs
-      itemSelector: '.ml-item, .anime-card' // Sélecteurs principaux alternatifs
+      waitSelector: '.movies-list', // Sélecteur d'attente générique basé sur l'analyse
+      itemSelector: '.ml-item' // Sélecteur principal générique basé sur l'analyse
     },
     headers: {
       'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
@@ -225,35 +163,17 @@ module.exports = {
       videoContainer: '#video_container',
       videoSource: 'iframe',
       qualitySelector: '.qualityx',
-      waitSelector: '.movies-list',
-      itemSelector: '.ml-item',
-      title: '.detail h1',
-      poster: '.img-responsive',
-      description: '.description',
-      episodes: '.list-episode-item',
-      episodeTitle: '.episode',
-      episodeUrl: 'a',
-      episodeNumber: '.episode',
-      pagination: '.pagination',
-      nextPage: '.next',
-      itemsList: '.list-movie .item',
-      itemTitle: '.title',
-      itemUrl: 'a',
-      itemImage: 'img',
-      itemYear: '.year',
-      itemRating: '.score'
+      waitSelector: '.movies-list', // Sélecteur d'attente découvert par l'analyse
+      itemSelector: '.ml-item' // Sélecteur principal découvert par l'analyse
     },
     headers: {
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
       'Referer': 'https://vostfree.cx/'
     },
     testUrl: 'https://vostfree.cx/your-name-1/',
     requireCloudflareBypass: true,
     expiryHours: 12,
-    category: 'film',
-    timeout: 60000,
-    retries: 3,
-    delay: 2000
+    category: 'film'
   },
   
   'streamingdivx': {
@@ -307,35 +227,17 @@ module.exports = {
       videoContainer: '.video-embed',
       videoSource: 'iframe',
       qualitySelector: '.quality-options',
-      waitSelector: '.movies-list',
-      itemSelector: '.ml-item',
-      title: '.detail h1',
-      poster: '.img-responsive',
-      description: '.description',
-      episodes: '.list-episode-item',
-      episodeTitle: '.episode',
-      episodeUrl: 'a',
-      episodeNumber: '.episode',
-      pagination: '.pagination',
-      nextPage: '.next',
-      itemsList: '.list-movie .item',
-      itemTitle: '.title',
-      itemUrl: 'a',
-      itemImage: 'img',
-      itemYear: '.year',
-      itemRating: '.score'
+      waitSelector: '.movies-list', // Sélecteur d'attente découvert par l'analyse
+      itemSelector: '.ml-item' // Sélecteur principal découvert par l'analyse
     },
     headers: {
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
       'Referer': 'https://bollyplay.app/'
     },
     testUrl: 'https://bollyplay.app/movies/pathaan-2023/',
     requireCloudflareBypass: true,
     expiryHours: 12,
-    category: 'bollywood',
-    timeout: 60000,
-    retries: 3,
-    delay: 2000
+    category: 'bollywood'
   },
   
   'hindilinks4u': {
@@ -346,34 +248,16 @@ module.exports = {
       videoContainer: '.video-embed',
       videoSource: 'iframe',
       qualitySelector: '.quality-selector',
-      waitSelector: '.film-list',
-      itemSelector: '.film-item',
-      title: '.detail h1',
-      poster: '.img-responsive',
-      description: '.description',
-      episodes: '.list-episode-item',
-      episodeTitle: '.episode',
-      episodeUrl: 'a',
-      episodeNumber: '.episode',
-      pagination: '.pagination',
-      nextPage: '.next',
-      itemsList: '.list-movie .item',
-      itemTitle: '.title',
-      itemUrl: 'a',
-      itemImage: 'img',
-      itemYear: '.year',
-      itemRating: '.score'
+      waitSelector: '.film-list', // Sélecteur d'attente générique basé sur l'analyse
+      itemSelector: '.film-item' // Sélecteur principal générique basé sur l'analyse
     },
     headers: {
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+      'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
       'Referer': 'https://hindilinks4u.skin/'
     },
     testUrl: 'https://hindilinks4u.skin/jawan-2023-hindi-movie/',
     requireCloudflareBypass: true,
     expiryHours: 12,
-    category: 'bollywood',
-    timeout: 60000,
-    retries: 3,
-    delay: 2000
+    category: 'bollywood'
   }
 };

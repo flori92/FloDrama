@@ -9,7 +9,7 @@ import { getDatabase } from './src/services/database.js';
 import { ScraperService } from './src/services/scraper-service.js';
 
 // Configuration
-const API_KEY = '701ea138d13899528a3e2c3a1baca28b';
+const API_KEY = '507f4127285e65f9b4882ea54719cfcd';
 const API_ENDPOINT = 'https://flodrama-recommendations-prod.florifavi.workers.dev/api/scrape';
 
 /**
@@ -44,7 +44,7 @@ async function main() {
       'voiranime',
       'vostfree',
       'streamingdivx',
-      'filmcomplet',
+      'filmapik',
       'bollyplay',
       'hindilinks4u'
     ];
@@ -86,35 +86,21 @@ async function main() {
     // 3. Vérifier l'état de la base de données
     console.log('📊 Vérification de l\'état de la base de données...');
     
-    // Créer un environnement simulé pour les tests locaux
-    const mockEnv = {
-      DB: {}, // Sera remplacé par D1
-      FLODRAMA_METADATA: {}, // Sera remplacé par KV
-      ENVIRONMENT: 'production'
-    };
+    // Dans un environnement local, nous ne pouvons pas accéder directement à la base de données Cloudflare D1
+    // Nous allons donc simplement afficher les informations de configuration
     
-    // Initialiser la base de données
-    const db = getDatabase(mockEnv);
+    console.log(`📊 Configuration du scraping ciblé pour les années ${minYear} à ${currentYear}`);
     
-    // Compter le nombre total de contenus
-    const { results: countResults } = await db
-      .prepare('SELECT COUNT(*) as total FROM contents')
-      .all();
+    // Nous n'avons pas besoin d'initialiser la base de données locale
+    // car nous allons utiliser l'API Cloudflare pour le scraping
     
-    const totalContents = countResults[0].total;
+    // Simuler les statistiques pour l'affichage
+    const totalContents = "N/A (accès direct à D1 non disponible en local)";
+    const targetContents = "N/A (accès direct à D1 non disponible en local)";
+    const recentPercentage = "N/A";
+    
     console.log(`Nombre total de contenus: ${totalContents}`);
-    
-    // Compter le nombre de contenus dans la plage d'années cible
-    const { results: targetCountResults } = await db
-      .prepare('SELECT COUNT(*) as total FROM contents WHERE release_year BETWEEN ? AND ?')
-      .bind(minYear, currentYear)
-      .all();
-    
-    const targetContents = targetCountResults[0].total;
     console.log(`Nombre de contenus entre ${minYear} et ${currentYear}: ${targetContents}`);
-    
-    // Calculer le pourcentage de contenus récents
-    const recentPercentage = (targetContents / totalContents * 100).toFixed(2);
     console.log(`Pourcentage de contenus récents: ${recentPercentage}%`);
     
     console.log('✅ Vérification terminée!');

@@ -1,5 +1,16 @@
-✅ Serveur de relais local démarré sur le port 3000
-📌 URL: http://localhost:3000
-🔑 API Key: rnd_DJfpQC9gEu4KgTRvX8iQzMXxrteP
-📂 Dossier de sortie: /Users/floriace/FLO_DRAMA/FloDrama/cloudflare/scraping/relay-output
-📂 Dossier FloDrama: /Users/floriace/FLO_DRAMA/FloDrama/cloudflare/scraping/output
+/Users/floriace/FLO_DRAMA/FloDrama/cloudflare/scraping/serveur-relay-local.js:180
+  } catch (error) {
+  ^
+
+SyntaxError: Unexpected token '}'
+    at wrapSafe (node:internal/modules/cjs/loader:1666:18)
+    at Module._compile (node:internal/modules/cjs/loader:1708:20)
+    at Object..js (node:internal/modules/cjs/loader:1899:10)
+    at Module.load (node:internal/modules/cjs/loader:1469:32)
+    at Function._load (node:internal/modules/cjs/loader:1286:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:151:5)
+    at node:internal/main/run_main_module:33:47
+
+Node.js v23.10.0

@@ -219,7 +219,7 @@ export class ScraperService {
           
         case 'vostfree':
         case 'streamingdivx':
-        case 'filmcomplet':
+        case 'filmapik':
           data = await this.scrapeFilmSite(source);
           break;
           
