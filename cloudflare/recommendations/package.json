@@ -1,0 +1,21 @@
+{
+  "name": "flodrama-recommendations",
+  "version": "1.0.0",
+  "description": "Système de recommandation pour FloDrama",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:prod": "wrangler deploy --env prod",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "FloDrama",
+  "license": "ISC",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0"
+  },
+  "devDependencies": {
+    "wrangler": "^3.22.0"
+  }
+}
