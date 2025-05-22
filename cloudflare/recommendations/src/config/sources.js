@@ -133,13 +133,13 @@ export const SOURCES = {
   // ===== ANIMES =====
   GOGOANIME: {
     id: 'gogoanime',
-    name: 'GogoAnime',
+    name: 'GoGoAnime',
     type: SOURCE_TYPES.ANIME,
-    baseUrl: 'https://gogoanime.cl',
-    alternativeDomains: ['gogoanime.tel', 'gogoanime.run', 'gogoanime.bid'],
+    baseUrl: 'https://gogoanime.by',
+    alternativeDomains: ['gogoanime.lu', 'gogoanime.la', 'gogoanime.sh'],
     requiresCloudflareBypass: true,
     expirationHours: 12,
-    testUrl: 'https://gogoanime.cl/attack-on-titan-episode-1',
+    testUrl: 'https://gogoanime.by/attack-on-titan-episode-1',
     selectors: {
       wait: '.anime_video_body',
       main: '.anime_muti_link',
@@ -222,6 +222,32 @@ export const SOURCES = {
   },
   
   // ===== FILMS =====
+  FILMAPIK: {
+    id: 'filmapik',
+    name: 'FilmApik',
+    type: SOURCE_TYPES.MOVIE,
+    baseUrl: 'https://filmapik.cyou',
+    alternativeDomains: ['filmapik.io', 'filmapik.net', 'filmapik.org'],
+    requiresCloudflareBypass: true,
+    expirationHours: 12,
+    testUrl: 'https://filmapik.cyou/movie/parasite-2019/',
+    selectors: {
+      wait: '.film-list',
+      main: '.film-detail',
+      title: '.name',
+      poster: '.film-poster img',
+      description: '.description',
+      pagination: '.pagination',
+      nextPage: '.next',
+      itemsList: '.film-list .flw-item',
+      itemTitle: '.film-name a',
+      itemUrl: 'a',
+      itemImage: '.film-poster-img',
+      itemYear: '.fdi-item',
+      itemRating: '.fdi-rating'
+    }
+  },
+  
   VOSTFREE: {
     id: 'vostfree',
     name: 'VostFree',
@@ -274,68 +300,18 @@ export const SOURCES = {
     }
   },
   
-  FILMCOMPLET: {
-    id: 'filmcomplet',
-    name: 'FilmComplet',
-    type: SOURCE_TYPES.MOVIE,
-    baseUrl: 'https://www.film-complet.cc',
-    alternativeDomains: ['film-complet.tv', 'films-complet.com', 'film-complet.co'],
-    requiresCloudflareBypass: true,
-    expirationHours: 12,
-    testUrl: 'https://www.film-complet.cc/film/parasite-2019/',
-    selectors: {
-      wait: '.movies-list',
-      main: '.ml-item',
-      title: '.entry-title',
-      poster: '.poster img',
-      description: '.entry-content',
-      pagination: '.pagination',
-      nextPage: '.next',
-      itemsList: '.movies-list .ml-item',
-      itemTitle: '.mli-info h2',
-      itemUrl: 'a',
-      itemImage: 'img',
-      itemYear: '.year',
-      itemRating: '.rating'
-    }
-  },
+  // Ancienne source 'filmcomplet' supprimée et remplacée par 'filmapik'
   
   // ===== BOLLYWOOD =====
-  BOLLYPLAY: {
-    id: 'bollyplay',
-    name: 'BollyPlay',
-    type: SOURCE_TYPES.BOLLYWOOD,
-    baseUrl: 'https://bollyplay.app',
-    alternativeDomains: ['bollyplay.tv', 'bollyplay.cc', 'bollyplay.film'],
-    requiresCloudflareBypass: true,
-    expirationHours: 12,
-    testUrl: 'https://bollyplay.app/movies/pathaan-2023/',
-    selectors: {
-      wait: '.movies-list',
-      main: '.ml-item',
-      title: '.entry-title',
-      poster: '.poster img',
-      description: '.entry-content',
-      pagination: '.pagination',
-      nextPage: '.next',
-      itemsList: '.movies-list .ml-item',
-      itemTitle: '.mli-info h2',
-      itemUrl: 'a',
-      itemImage: 'img',
-      itemYear: '.year',
-      itemRating: '.rating'
-    }
-  },
-  
   HINDILINKS4U: {
     id: 'hindilinks4u',
     name: 'HindiLinks4U',
     type: SOURCE_TYPES.BOLLYWOOD,
-    baseUrl: 'https://hindilinks4u.skin',
-    alternativeDomains: ['hindilinks4u.to', 'hindilinks4u.co', 'hindilinks4u.app'],
+    baseUrl: 'https://hindilinks4u.yoga',
+    alternativeDomains: ['hindilinks4u.to', 'hindilinks4u.yoga', 'hindilinks4u.app'],
     requiresCloudflareBypass: true,
     expirationHours: 12,
-    testUrl: 'https://hindilinks4u.skin/jawan-2023-hindi-movie/',
+    testUrl: 'https://hindilinks4u.yoga/jawan-2023-hindi-movie/',
     selectors: {
       wait: '.film-list',
       main: '.film-item',
