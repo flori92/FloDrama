@@ -188,7 +188,9 @@ export class RecommendationService {
       .select('id, type, source_id, metadata')
       .in('id', contentIds)
       .then(({ data }) => {
-        if (!data || data.length === 0) return;
+        if (!data || data.length === 0) {
+          return;
+        }
         
         // Compter les occurrences de chaque type et source
         const typeCounts = {};
@@ -270,7 +272,7 @@ export class RecommendationService {
       let sql = `
         SELECT id, title, description, poster_url, backdrop_url, release_year, rating, type, source_id, status, metadata
         FROM contents
-        WHERE 1=1
+        WHERE release_year BETWEEN 2023 AND 2025
       `;
       
       const params = [];
@@ -285,6 +287,12 @@ export class RecommendationService {
       if (excludeIds.length > 0) {
         sql += ` AND id NOT IN (${excludeIds.map(() => '?').join(',')})`;
         params.push(...excludeIds);
+      }
+      
+      // Filtrer par genres si spécifiés
+      if (genres.length > 0) {
+        sql += ` AND metadata LIKE '%"genres":%'`;
+        // Note: Nous utilisons une approche simplifiée pour filtrer les genres car les métadonnées sont stockées en JSON
       }
       
       // Trier par note et récence
@@ -359,8 +367,12 @@ export class RecommendationService {
     
     // Plus le contenu est récent, plus le score est élevé
     // Score maximum pour les contenus de l'année en cours
-    if (yearDiff <= 0) return 1;
-    if (yearDiff >= 10) return 0.1; // Score minimum pour les contenus de plus de 10 ans
+    if (yearDiff <= 0) {
+      return 1;
+    }
+    if (yearDiff >= 10) {
+      return 0.1; // Score minimum pour les contenus de plus de 10 ans
+    }
     
     return 1 - (yearDiff / 10);
   }
@@ -493,7 +505,7 @@ export class RecommendationService {
       let sql = `
         SELECT id, title, description, poster_url, backdrop_url, release_year, rating, type, source_id, status, metadata
         FROM contents
-        WHERE 1=1
+        WHERE release_year BETWEEN 2023 AND 2025
       `;
       
       const params = [];

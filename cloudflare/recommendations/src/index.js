@@ -147,12 +147,18 @@ export default {
       let userId = url.pathname.split('/').pop();
       
       if (userId === 'recommendations') {
-        // Récupérer l'ID utilisateur du corps de la requête ou des en-têtes
+        // Récupérer l'ID utilisateur de la query string, du corps de la requête ou des en-têtes
         if (request.method === 'POST') {
           const body = await request.json();
           userId = body.userId || body.user_id;
         } else {
-          userId = request.headers.get('x-user-id');
+          // Vérifier d'abord dans la query string
+          userId = url.searchParams.get('user_id') || url.searchParams.get('userId');
+          
+          // Si non trouvé, vérifier dans les en-têtes
+          if (!userId) {
+            userId = request.headers.get('x-user-id');
+          }
         }
       }
       

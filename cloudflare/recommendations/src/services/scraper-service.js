@@ -259,7 +259,8 @@ export class ScraperService {
       const dramaGenres = ['Romance', 'Comédie', 'Action', 'Historique', 'Fantastique', 'Médical', 'Thriller', 'Mystère'];
       const dramaOrigins = ['Corée du Sud', 'Japon', 'Chine', 'Taïwan', 'Thaïlande'];
       const dramaStatuses = ['completed', 'ongoing', 'upcoming'];
-      const dramaYears = Array.from({ length: 10 }, (_, i) => 2015 + i);
+      // Ne générer que des contenus entre 2023 et 2025
+      const dramaYears = [2023, 2024, 2025];
       
       for (let i = 1; i <= 1000; i++) {
         const origin = dramaOrigins[Math.floor(Math.random() * dramaOrigins.length)];
@@ -309,7 +310,8 @@ export class ScraperService {
       const animeGenres = ['Shonen', 'Shojo', 'Seinen', 'Action', 'Aventure', 'Fantasy', 'Sci-Fi', 'Slice of Life', 'Mecha'];
       const animeSeasons = ['Hiver', 'Printemps', 'Été', 'Automne'];
       const animeStatuses = ['completed', 'ongoing', 'upcoming'];
-      const animeYears = Array.from({ length: 10 }, (_, i) => 2015 + i);
+      // Ne générer que des contenus entre 2023 et 2025
+      const animeYears = [2023, 2024, 2025];
       
       for (let i = 1; i <= 1000; i++) {
         const season = animeSeasons[Math.floor(Math.random() * animeSeasons.length)];
@@ -359,7 +361,8 @@ export class ScraperService {
       const filmGenres = ['Action', 'Comédie', 'Drame', 'Horreur', 'Science-Fiction', 'Thriller', 'Romance', 'Aventure'];
       const filmDirectors = ['Martin Scorsese', 'Christopher Nolan', 'Steven Spielberg', 'Quentin Tarantino', 'Denis Villeneuve'];
       const filmStatuses = ['completed', 'upcoming'];
-      const filmYears = Array.from({ length: 10 }, (_, i) => 2015 + i);
+      // Ne générer que des contenus entre 2023 et 2025
+      const filmYears = [2023, 2024, 2025];
       
       for (let i = 1; i <= 1000; i++) {
         const director = filmDirectors[Math.floor(Math.random() * filmDirectors.length)];
@@ -409,7 +412,8 @@ export class ScraperService {
       const bollywoodGenres = ['Romance', 'Action', 'Comédie', 'Drame', 'Historique', 'Musical'];
       const bollywoodActors = ['Shah Rukh Khan', 'Aamir Khan', 'Salman Khan', 'Deepika Padukone', 'Priyanka Chopra'];
       const bollywoodStatuses = ['completed', 'upcoming'];
-      const bollywoodYears = Array.from({ length: 10 }, (_, i) => 2015 + i);
+      // Ne générer que des contenus entre 2023 et 2025
+      const bollywoodYears = [2023, 2024, 2025];
       
       for (let i = 1; i <= 1000; i++) {
         const actor = bollywoodActors[Math.floor(Math.random() * bollywoodActors.length)];
