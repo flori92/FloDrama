@@ -277,8 +277,15 @@ export default {
       // Exécuter le scraping
       let results;
       
+      // Vérifier si un paramètre max_sources est spécifié
+      const maxSources = body.max_sources || body.maxSources || 0;
+      
+      // Vérifier si des sources à ignorer sont spécifiées
+      const skipSourceIds = body.skip_sources || body.skipSources || [];
+      
       if (options.sourceId) {
         // Scraper une source spécifique
+        console.log(`Scraping de la source spécifique: ${options.sourceId}`);
         const source = { id: options.sourceId };
         const data = await scraper.scrapeSourceWithRetry(source);
         
@@ -290,8 +297,9 @@ export default {
           }
         };
       } else {
-        // Scraper toutes les sources
-        results = await scraper.scrapeAllSources();
+        // Scraper toutes les sources ou un nombre limité de sources
+        console.log(`Scraping de sources avec limite: ${maxSources || 'aucune'}, sources à ignorer: ${skipSourceIds.length || 0}`);
+        results = await scraper.scrapeAllSources(maxSources, skipSourceIds);
       }
       
       // Retourner les résultats

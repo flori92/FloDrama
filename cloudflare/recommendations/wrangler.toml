@@ -13,6 +13,17 @@ vars = { ENVIRONMENT = "development" }
 name = "flodrama-recommendations-prod"
 vars = { ENVIRONMENT = "production" }
 
+# Liaison avec la base de données D1 pour la production
+[[env.prod.d1_databases]]
+binding = "DB"
+database_name = "flodrama-db"
+database_id = "39a4a8fd-f1fd-49ab-abcc-290fd473a311"
+
+# Liaison avec le namespace KV pour la production
+[[env.prod.kv_namespaces]]
+binding = "FLODRAMA_METADATA"
+id = "7388919bd83241cfab509b44f819bb2f"
+
 # Planification des tâches
 [triggers]
 crons = ["0 0 * * *"] # Tous les jours à minuit
